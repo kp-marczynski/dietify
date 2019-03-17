@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
-import { VERSION } from 'app/app.constants';
-import { AccountService, LoginModalService, LoginService } from 'app/core';
-import { ProfileService } from 'app/layouts/profiles/profile.service';
+import {VERSION} from 'app/app.constants';
+import {AccountService, LoginModalService, LoginService} from 'app/core';
+import {ProfileService} from 'app/layouts/profiles/profile.service';
+import {JhiEventManager} from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-navbar',
@@ -18,16 +19,26 @@ export class NavbarComponent implements OnInit {
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    account: Account;
 
     constructor(
         private loginService: LoginService,
         private accountService: AccountService,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private eventManager: JhiEventManager
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
+    }
+
+    registerAuthenticationSuccess() {
+        this.eventManager.subscribe('authenticationSuccess', message => {
+            this.accountService.identity().then(account => {
+                this.account = account;
+            });
+        });
     }
 
     ngOnInit() {
@@ -35,6 +46,10 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+        this.accountService.identity().then(account => {
+            this.account = account;
+        });
+        this.registerAuthenticationSuccess();
     }
 
     collapseNavbar() {
@@ -61,5 +76,9 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.accountService.getImageUrl() : null;
+    }
+
+    getUrl() {
+        return decodeURI(this.router.url);
     }
 }
