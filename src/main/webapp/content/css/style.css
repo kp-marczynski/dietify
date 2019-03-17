@@ -31,15 +31,15 @@
     /*max-width: 50%;*/
 }
 
+.main-container {
+    padding-top: 55px;
+}
+
 @media (min-width: 1024px) {
     .navbar,
     .page-footer,
     .main-container {
-        padding-left: 270px;
-    }
-
-    .main-container {
-        padding-top: 50px;
+        padding-left: 285px;
     }
 }
 
