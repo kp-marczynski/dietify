@@ -79,7 +79,7 @@ Navbar
 }
 
 .list-group-item:hover, .sidebar-header .list-group-item:hover {
-    border-left: 5px solid forestgreen;
+    border-left: 5px solid #228B22;
 }
 
 .sidebar {

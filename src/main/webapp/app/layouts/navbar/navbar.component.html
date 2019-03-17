@@ -131,7 +131,7 @@
         <div [ngSwitch]="isAuthenticated()">
         <span *jhiHasAnyAuthority="'ROLE_ADMIN'" class="list-group" routerLinkActive="active" ngbDropdown
               [routerLinkActiveOptions]="{exact: true}">
-            <a class="list-group-item-heading" ngbDropdownToggle> <!--id="admin-menu"-->
+            <a class="list-group-item-heading" ngbDropdownToggle id="admin-menu-aside">
                     <span>
                         <fa-icon icon="user-plus"></fa-icon>
                         <span>Administration</span>
@@ -162,7 +162,7 @@
             </span>
         </span>
             <span routerLinkActive="active" class="list-group" ngbDropdown [routerLinkActiveOptions]="{exact: true}">
-            <a class="list-group-item-heading" ngbDropdownToggle> <!--id="account-menu" >-->
+            <a class="list-group-item-heading" ngbDropdownToggle id="account-menu-aside">
                   <span *ngIf="!getImageUrl()">
                     <span [ngSwitch]="isAuthenticated()">
                       <span *ngSwitchCase="false"><fa-icon icon="user"></fa-icon> Account</span>
@@ -177,33 +177,33 @@
             <span ngbDropdownMenu>
                 <span *ngSwitchCase="true">
                     <a class="list-group-item list-group-item-action waves-effect" routerLink="settings"
-                       routerLinkActive="active" (click)="collapseNavbar()">
+                       routerLinkActive="active" (click)="collapseNavbar()" id="settings-aside">
                         <fa-icon icon="wrench" fixedWidth="true"></fa-icon>
                         <span>Settings</span>
                     </a>
                 </span>
                 <span *ngSwitchCase="true">
                     <a class="list-group-item list-group-item-action waves-effect" routerLink="password"
-                       routerLinkActive="active" (click)="collapseNavbar()">
+                       routerLinkActive="active" (click)="collapseNavbar()" id="password-aside">
                         <fa-icon icon="clock" fixedWidth="true"></fa-icon>
                         <span>Password</span>
                     </a>
                 </span>
                 <span *ngSwitchCase="true">
-                    <a class="list-group-item list-group-item-action waves-effect" (click)="logout()"><!--id="logout">-->
+                    <a class="list-group-item list-group-item-action waves-effect" (click)="logout()" id="logout-aside">
                         <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
                         <span>Sign out</span>
                     </a>
                 </span>
                 <span *ngSwitchCase="false">
-                    <a class="list-group-item list-group-item-action waves-effect" (click)="login()"> <!--id="login">-->
+                    <a class="list-group-item list-group-item-action waves-effect" (click)="login()" id="login-aside">
                         <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
                         <span>Sign in</span>
                     </a>
                 </span>
                 <span *ngSwitchCase="false">
                     <a class="list-group-item list-group-item-action waves-effect" routerLink="register"
-                       routerLinkActive="active" (click)="collapseNavbar()">
+                       routerLinkActive="active" (click)="collapseNavbar()" id="register-aside">
                         <fa-icon icon="user-plus" fixedWidth="true"></fa-icon>
                         <span>Register</span>
                     </a>
