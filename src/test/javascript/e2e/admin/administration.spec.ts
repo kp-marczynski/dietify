@@ -1,6 +1,6 @@
-import { browser, element, by, ExpectedConditions as ec } from 'protractor';
+import {browser, element, by, ExpectedConditions as ec} from 'protractor';
 
-import { NavBarPage, SignInPage } from '../page-objects/jhi-page-objects';
+import {NavBarPage, SignInPage} from '../page-objects/jhi-page-objects';
 
 const expect = chai.expect;
 
@@ -21,7 +21,7 @@ describe('administration', () => {
     });
 
     it('should load user management', async () => {
-        await navBarPage.clickOnAdmin('user-management');
+        await navBarPage.clickOnUserManagement();
         const expect1 = 'Users';
         const value1 = await element(by.id('user-management-page-heading')).getText();
         expect(value1).to.eq(expect1);
