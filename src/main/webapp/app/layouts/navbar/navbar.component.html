@@ -123,11 +123,13 @@
 
 <aside class="sidebar-fixed position-fixed sidebar">
     <div class="sidebar-header">
-        <span class="logo-wrapper waves-effect">
+        <div class="logo-wrapper">
+            <span class="logo-wrapper waves-effect">
             <fa-icon icon="utensils" routerLink="/"></fa-icon>
             <!--<img src="/content/images/outline_watch.png" class="img-fluid" alt="">-->
-        </span>
-
+            </span>
+            <h3 class="header-logo">Dietify</h3>
+        </div>
         <div [ngSwitch]="isAuthenticated()">
         <span *jhiHasAnyAuthority="'ROLE_ADMIN'" class="list-group" routerLinkActive="active" ngbDropdown
               [routerLinkActiveOptions]="{exact: true}">

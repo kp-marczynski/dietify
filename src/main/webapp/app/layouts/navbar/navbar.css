@@ -130,3 +130,10 @@ Logo styles
 .navbar-brand.logo {
     padding: 5px 15px;
 }
+
+.header-logo {
+    font-family: Roboto, sans-serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5rem;
+}
