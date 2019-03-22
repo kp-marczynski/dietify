@@ -1,0 +1,156 @@
+/**
+ * Languages available for application
+ * @author Krzysztof Marczyński
+ */
+entity Language {
+	/** English name of language */
+	englishName String required minlength(1)
+}
+
+/**
+ * A food product. 
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+entity Product {
+	/** Specifying source if product is imported, prefarably url address if possible */
+	source String
+    /** Short description of Product */
+	description String required minlength(1)
+    /** Flag specifying if product is final or editable */
+	isFinal Boolean required
+    /** 
+    * Flag specifying if product is verified
+    * All products retrieved from external sources should be checked for eligibility to use & therfore intially this flag is set to false for these.
+    */
+	isVerified Boolean required
+}
+
+/**
+ * A subcategory of product. 
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+entity ProductSubcategory {
+	/** Short description of Subcategory */
+	description String required minlength(1)
+}
+
+/**
+ * A main category of product. 
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+entity ProductCategory {
+	/** Short description of Category in Polish */
+	descriptionPolish String required minlength(1) 
+    /** Short description of Category in English */
+	descriptionEnglish String required minlength(1) 
+}
+
+/**
+ * A household measures of product with weight in grams. 
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+entity HouseholdMeasure {
+    /** Short description of measure, e.g. "cup" or "tea spoon" */
+	description String required minlength(1)
+    /** Grams weight of 1 unit of specified measure */
+	gramsWeight Double required min(0)
+    /** 
+    * Flag specifying if measure is visible on presentation layer. 
+    * By default it is inittially set to false for data imported from external sources
+    */
+	isVisible Boolean required
+}
+
+/**
+ * A definitions of nutritions. 
+ * Data retrieved form USDA Standard Reference database. Data set is not planned to be expanded.
+ * @author Krzysztof Marczyński
+ */
+entity NutritionDefinition {
+	/** Short tagname of nutrient. */
+	tagname String required minlength(1) 
+    /** Short description of nutrient in Polish */
+	descriptionPolish String required minlength(1) 
+    /** Short description of nutrient in English */
+	descriptionEnglish String required minlength(1) 
+    /** 
+    * Unit used for nutrient measurment,
+    * e.g. "g", "kcal", "ml"
+    */
+	units String required minlength(1) 
+    /** Decimal places to which nutrient value should be rounded */
+	decimalPlaces Integer required min(0)
+}
+
+/**
+ * A value of nutrition definition for concrete Product. 
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+entity NutritionData {
+	/** Nutrition value in units specified in NutritionDefinition */
+	nutritionValue Double required min(0)
+}
+
+/**
+ * A tag specifying characteristic feature of object to which it is applied.
+ * @author Krzysztof Marczyński
+ */
+entity DietType {
+	/** Short description of Tag in Polish */
+	namePolish String required minlength(1)
+    /** Short description of Tag in Polish */
+    nameEnglish String required minlength(1)
+}
+
+relationship ManyToOne {
+	/** Language in which product is defined */
+	Product{language required}
+    	to Language
+        
+	/** Subcategory of the product */
+	Product{subcategory} 
+    	to ProductSubcategory
+
+  	/** Parent category of subcategory */
+	ProductSubcategory{category required} 
+    	to 
+    	/** Collection of child subcategories */
+    	ProductCategory{subcategories}
+      
+    /** Nutrition Definition for nutrition data */
+	NutritionData{nutritionDefinition(tagname) required} 
+    	to NutritionDefinition
+        
+    /** Product for which data is specifed */
+	NutritionData{product required} 
+    	to 
+        /** Collection of product's nutrition data */
+        Product{nutritionData}
+        
+    /** Product for which measure is specified */
+	HouseholdMeasure{product required} 
+    	to 
+        /** Collection of household measure defined for product */
+        Product{householdMeasures}
+        
+    /** Author of the product */
+    Product{author}
+    	to
+        User
+}
+
+relationship ManyToMany {
+	/** Specyigying for which diet types product is suitable */
+	Product{suitableDiets}
+    	to DietType
+    /** Specyigying for which diet types product is not suitable */
+    Product{unsuitableDiets}
+    	to DietType
+}
+paginate Product with pager
+service * with serviceImpl
