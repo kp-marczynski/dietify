@@ -1,0 +1,68 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="product">
+            <h2><span>Product</span> {{product.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Specifying source if product is imported, prefarably url address if possible">Source</span></dt>
+                <dd>
+                    <span>{{product.source}}</span>
+                </dd>
+                <dt><span ngbTooltip="Short description of Product">Description</span></dt>
+                <dd>
+                    <span>{{product.description}}</span>
+                </dd>
+                <dt><span ngbTooltip="Flag specifying if product is final or editable">Is Final</span></dt>
+                <dd>
+                    <span>{{product.isFinal}}</span>
+                </dd>
+                <dt><span ngbTooltip="Flag specifying if product is verified
+All products retrieved from external sources should be checked for eligibility to use &amp; therfore intially this flag is set to false for these.">Is Verified</span></dt>
+                <dd>
+                    <span>{{product.isVerified}}</span>
+                </dd>
+                <dt><span>Language</span></dt>
+                <dd>
+                    <div *ngIf="product.language">
+                        <a [routerLink]="['/language', product.language?.id, 'view']">{{product.language?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Subcategory</span></dt>
+                <dd>
+                    <div *ngIf="product.subcategory">
+                        <a [routerLink]="['/product-subcategory', product.subcategory?.id, 'view']">{{product.subcategory?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Author</span></dt>
+                <dd>
+                    {{product.author?.id}}
+                </dd>
+                <dt><span>Suitable Diets</span></dt>
+                <dd>
+                    <span *ngFor="let suitableDiets of product.suitableDiets; let last = last">
+                        <a [routerLink]="['/diet-type', suitableDiets?.id, 'view' ]">{{suitableDiets.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Unsuitable Diets</span></dt>
+                <dd>
+                    <span *ngFor="let unsuitableDiets of product.unsuitableDiets; let last = last">
+                        <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/product', product.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

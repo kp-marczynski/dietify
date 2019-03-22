@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="nutritionDefinition">
+            <h2><span>Nutrition Definition</span> {{nutritionDefinition.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Short tagname of nutrient.">Tagname</span></dt>
+                <dd>
+                    <span>{{nutritionDefinition.tagname}}</span>
+                </dd>
+                <dt><span ngbTooltip="Short description of nutrient in Polish">Description Polish</span></dt>
+                <dd>
+                    <span>{{nutritionDefinition.descriptionPolish}}</span>
+                </dd>
+                <dt><span ngbTooltip="Short description of nutrient in English">Description English</span></dt>
+                <dd>
+                    <span>{{nutritionDefinition.descriptionEnglish}}</span>
+                </dd>
+                <dt><span ngbTooltip="Unit used for nutrient measurment,
+e.g. &#34;g&#34;, &#34;kcal&#34;, &#34;ml&#34;">Units</span></dt>
+                <dd>
+                    <span>{{nutritionDefinition.units}}</span>
+                </dd>
+                <dt><span ngbTooltip="Decimal places to which nutrient value should be rounded">Decimal Places</span></dt>
+                <dd>
+                    <span>{{nutritionDefinition.decimalPlaces}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/nutrition-definition', nutritionDefinition.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

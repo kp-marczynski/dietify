@@ -51,7 +51,7 @@
     <changeSet id="201902130001" author="kmarczynski">
         <loadData file="config/liquibase/usda_sr_db/household_measure.csv" quotchar='"' separator=";" tableName="household_measure">
             <column header="product_id" name="product_id" type="numeric"/>
-            <column header="measure_description" name="description_english" type="string"/>
+            <column header="measure_description" name="description" type="string"/>
             <column header="grams_weight" name="grams_weight" type="numeric"/>
             <column header="is_visible" name="is_visible" type="boolean"/>
         </loadData>

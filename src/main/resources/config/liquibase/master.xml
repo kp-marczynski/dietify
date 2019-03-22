@@ -5,6 +5,21 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191159_added_entity_Language.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191200_added_entity_Product.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191201_added_entity_ProductSubcategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191202_added_entity_ProductCategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191203_added_entity_HouseholdMeasure.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191204_added_entity_NutritionDefinition.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191205_added_entity_NutritionData.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191206_added_entity_DietType.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="config/liquibase/changelog/20190322191200_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191201_added_entity_constraints_ProductSubcategory.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191203_added_entity_constraints_HouseholdMeasure.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190322191205_added_entity_constraints_NutritionData.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/201903222023_imported_languages.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190321225552_imported_usda_db.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

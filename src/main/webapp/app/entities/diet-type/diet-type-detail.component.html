@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="dietType">
+            <h2><span>Diet Type</span> {{dietType.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Short description of Tag in Polish">Name Polish</span></dt>
+                <dd>
+                    <span>{{dietType.namePolish}}</span>
+                </dd>
+                <dt><span ngbTooltip="Short description of Tag in Polish">Name English</span></dt>
+                <dd>
+                    <span>{{dietType.nameEnglish}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/diet-type', dietType.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

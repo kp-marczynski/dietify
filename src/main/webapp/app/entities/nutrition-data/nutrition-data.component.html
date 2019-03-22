@@ -1,0 +1,66 @@
+<div>
+    <h2 id="page-heading">
+        <span>Nutrition Data</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-nutrition-data" [routerLink]="['/nutrition-data/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Nutrition Data
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="nutritionData">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Nutrition Value</span></th>
+            <th><span>Nutrition Definition</span></th>
+            <th><span>Product</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let nutritionData of nutritionData ;trackBy: trackId">
+                <td><a [routerLink]="['/nutrition-data', nutritionData.id, 'view' ]">{{nutritionData.id}}</a></td>
+                <td>{{nutritionData.nutritionValue}}</td>
+                <td>
+                    <div *ngIf="nutritionData.nutritionDefinition">
+                        <a [routerLink]="['../nutrition-definition', nutritionData.nutritionDefinition?.id, 'view' ]" >{{nutritionData.nutritionDefinition?.tagname}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="nutritionData.product">
+                        <a [routerLink]="['../product', nutritionData.product?.id, 'view' ]" >{{nutritionData.product?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/nutrition-data', nutritionData.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/nutrition-data', nutritionData.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'nutrition-data', { outlets: { popup: nutritionData.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
