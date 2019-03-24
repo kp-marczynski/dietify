@@ -116,7 +116,7 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     save() {
-        this.product.nutritionData = this.product.nutritionData.filter(data => (data.nutritionValue && data.nutritionValue !== 0));
+        this.product.nutritionData = this.product.nutritionData.filter(data => (data.nutritionValue !== null));
         this.product.householdMeasures = this.product.householdMeasures.filter(measure => (measure.description || measure.gramsWeight));
         this.isSaving = true;
         if (this.product.id !== undefined) {

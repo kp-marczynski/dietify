@@ -21,16 +21,8 @@ import { RouterModule } from '@angular/router';
                 loadChildren: './product-category/product-category.module#DietifyProductCategoryModule'
             },
             {
-                path: 'household-measure',
-                loadChildren: './household-measure/household-measure.module#DietifyHouseholdMeasureModule'
-            },
-            {
                 path: 'nutrition-definition',
                 loadChildren: './nutrition-definition/nutrition-definition.module#DietifyNutritionDefinitionModule'
-            },
-            {
-                path: 'nutrition-data',
-                loadChildren: './nutrition-data/nutrition-data.module#DietifyNutritionDataModule'
             },
             {
                 path: 'diet-type',

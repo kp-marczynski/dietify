@@ -1,4 +1,4 @@
-package pl.marczynski.dietify.core.repository.timezone;
+package pl.marczynski.dietify.core.domain;
 
 import javax.persistence.*;
 import java.io.Serializable;

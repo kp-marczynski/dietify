@@ -56,15 +56,6 @@ All products retrieved from external sources should be checked for eligibility t
                         <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.nameEnglish}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
-                <dt><span>Household Measures</span></dt>
-                <dd>
-                    <table>
-                        <tr *ngFor="let householdMeasure of product.householdMeasures">
-                            <td>{{householdMeasure.description}}</td>
-                            <td>{{householdMeasure.gramsWeight}}g</td>
-                        </tr>
-                    </table>
-                </dd>
                 <dt><span>Nutritions</span></dt>
                 <dd>
                     <table>
@@ -73,11 +64,15 @@ All products retrieved from external sources should be checked for eligibility t
                             <td>{{nutritionData.nutritionValue}}</td>
                         </tr>
                     </table>
-                    <!--<div *ngFor="let nutritionData of product.nutritionData">-->
-                        <!--<div>-->
-                            <!--<a [routerLink]="['/nutrition-data', nutritionData?.id, 'view' ]">{{nutritionData.nutritionDefinition.descriptionEnglish}}: {{nutritionData.nutritionValue}}{{nutritionData.nutritionDefinition.units}}</a>-->
-                        <!--</div>-->
-                    <!--</div>-->
+                </dd>
+                <dt><span>Household Measures</span></dt>
+                <dd>
+                    <table>
+                        <tr *ngFor="let householdMeasure of product.householdMeasures">
+                            <td>{{householdMeasure.description}}</td>
+                            <td>{{householdMeasure.gramsWeight}}g</td>
+                        </tr>
+                    </table>
                 </dd>
             </dl>
 
