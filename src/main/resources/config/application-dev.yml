@@ -57,7 +57,7 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
     liquibase:
-        contexts: dev
+        contexts: dev, usda
     mail:
         host: localhost
         port: 25
