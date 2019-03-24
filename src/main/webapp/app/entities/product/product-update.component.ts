@@ -55,7 +55,7 @@ export class ProductUpdateComponent implements OnInit {
             if (!this.product.householdMeasures) {
                 this.product.householdMeasures = [];
             }
-            this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null, null));
+            this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null));
             this.nutritionDefinitionService
                 .query()
                 .pipe(
@@ -70,7 +70,7 @@ export class ProductUpdateComponent implements OnInit {
                         }
                         for (const nutritionDefinition of this.nutritionDefinitions) {
                             if (!this.product.nutritionData.find(data => (data.nutritionDefinition.tagname === nutritionDefinition.tagname))) {
-                                this.product.nutritionData.push(new NutritionData(null, null, nutritionDefinition, null));
+                                this.product.nutritionData.push(new NutritionData(null, null, nutritionDefinition));
                             }
                         }
                         this.product.nutritionData.sort((a, b) => (a.nutritionDefinition.tagname.localeCompare(b.nutritionDefinition.tagname)));
@@ -172,11 +172,11 @@ export class ProductUpdateComponent implements OnInit {
 
     createNewHouseholdMeasure(isLast: boolean) {
         if (isLast) {
-            this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null, null));
+            this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null));
         }
         if (this.product.householdMeasures.filter(measure => ((!measure.description || measure.description === '') && (!measure.gramsWeight || measure.gramsWeight === 0))).length > 1) {
             this.product.householdMeasures = this.product.householdMeasures.filter(measure => (measure.description || measure.gramsWeight));
-            this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null, null));
+            this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null));
         }
     }
 }

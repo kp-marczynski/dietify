@@ -33,7 +33,7 @@ export const nutritionDefinitionRoute: Routes = [
         path: '',
         component: NutritionDefinitionComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'NutritionDefinitions'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const nutritionDefinitionRoute: Routes = [
             nutritionDefinition: NutritionDefinitionResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'NutritionDefinitions'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const nutritionDefinitionRoute: Routes = [
             nutritionDefinition: NutritionDefinitionResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'NutritionDefinitions'
         },
         canActivate: [UserRouteAccessService]

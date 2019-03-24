@@ -1,11 +1,8 @@
-import { IProduct } from 'app/shared/model/product.model';
-
 export interface IHouseholdMeasure {
     id?: number;
     description?: string;
     gramsWeight?: number;
     isVisible?: boolean;
-    product?: IProduct;
 }
 
 export class HouseholdMeasure implements IHouseholdMeasure {
@@ -13,8 +10,7 @@ export class HouseholdMeasure implements IHouseholdMeasure {
         public id?: number,
         public description?: string,
         public gramsWeight?: number,
-        public isVisible?: boolean,
-        public product?: IProduct
+        public isVisible?: boolean
     ) {
         this.isVisible = this.isVisible || false;
     }

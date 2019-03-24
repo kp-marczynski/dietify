@@ -1,5 +1,7 @@
 package pl.marczynski.dietify.core.web.rest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import pl.marczynski.dietify.core.domain.Language;
+import pl.marczynski.dietify.core.security.AuthoritiesConstants;
 import pl.marczynski.dietify.core.service.LanguageService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
 import pl.marczynski.dietify.core.web.rest.util.HeaderUtil;
@@ -41,6 +43,7 @@ public class LanguageResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/languages")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Language> createLanguage(@Valid @RequestBody Language language) throws URISyntaxException {
         log.debug("REST request to save Language : {}", language);
         if (language.getId() != null) {
@@ -62,6 +65,7 @@ public class LanguageResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/languages")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Language> updateLanguage(@Valid @RequestBody Language language) throws URISyntaxException {
         log.debug("REST request to update Language : {}", language);
         if (language.getId() == null) {
@@ -104,6 +108,7 @@ public class LanguageResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/languages/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteLanguage(@PathVariable Long id) {
         log.debug("REST request to delete Language : {}", id);
         languageService.delete(id);
