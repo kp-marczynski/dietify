@@ -1,0 +1,104 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-nutrition-definition-heading">Create or edit a Nutrition Definition</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!nutritionDefinition.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="nutritionDefinition.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_tagname" ngbTooltip="Short tagname of nutrient.">Tagname</label>
+                    <input type="text" class="form-control" name="tagname" id="field_tagname"
+                        [(ngModel)]="nutritionDefinition.tagname" required minlength="1"/>
+                    <div [hidden]="!(editForm.controls.tagname?.dirty && editForm.controls.tagname?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.tagname?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.tagname?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_descriptionPolish" ngbTooltip="Short description of nutrient in Polish">Description Polish</label>
+                    <input type="text" class="form-control" name="descriptionPolish" id="field_descriptionPolish"
+                        [(ngModel)]="nutritionDefinition.descriptionPolish" required minlength="1"/>
+                    <div [hidden]="!(editForm.controls.descriptionPolish?.dirty && editForm.controls.descriptionPolish?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descriptionPolish?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descriptionPolish?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_descriptionEnglish" ngbTooltip="Short description of nutrient in English">Description English</label>
+                    <input type="text" class="form-control" name="descriptionEnglish" id="field_descriptionEnglish"
+                        [(ngModel)]="nutritionDefinition.descriptionEnglish" required minlength="1"/>
+                    <div [hidden]="!(editForm.controls.descriptionEnglish?.dirty && editForm.controls.descriptionEnglish?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descriptionEnglish?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.descriptionEnglish?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_units" ngbTooltip="Unit used for nutrient measurment,
+e.g. &#34;g&#34;, &#34;kcal&#34;, &#34;ml&#34;">Units</label>
+                    <input type="text" class="form-control" name="units" id="field_units"
+                        [(ngModel)]="nutritionDefinition.units" required minlength="1"/>
+                    <div [hidden]="!(editForm.controls.units?.dirty && editForm.controls.units?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.units?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.units?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_decimalPlaces" ngbTooltip="Decimal places to which nutrient value should be rounded">Decimal Places</label>
+                    <input type="number" class="form-control" name="decimalPlaces" id="field_decimalPlaces"
+                        [(ngModel)]="nutritionDefinition.decimalPlaces" required min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.decimalPlaces?.dirty && editForm.controls.decimalPlaces?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.decimalPlaces?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.decimalPlaces?.errors?.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.decimalPlaces?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.core.config.timezone;
 
 import pl.marczynski.dietify.core.DietifyApp;
-import pl.marczynski.dietify.core.repository.timezone.DateTimeWrapper;
-import pl.marczynski.dietify.core.repository.timezone.DateTimeWrapperRepository;
+import pl.marczynski.dietify.core.domain.DateTimeWrapper;
+import pl.marczynski.dietify.core.repository.DateTimeWrapperRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

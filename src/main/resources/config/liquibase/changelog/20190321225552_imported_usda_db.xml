@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Product.
+    -->
+    <changeSet id="201902130000" author="kmarczynski">
+        <loadData file="config/liquibase/usda_sr_db/product_category.csv" quotchar='"' separator=";" tableName="product_category">
+            <column header="category_id" name="id" type="numeric"/>
+            <column header="description_english" name="description_english" type="string"/>
+            <column header="description_polish" name="description_polish" type="string"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="201902130005" author="kmarczynski">
+        <loadData file="config/liquibase/usda_sr_db/product_subcategory.csv" quotchar='"' separator=";" tableName="product_subcategory">
+            <column header="subcategory_id" name="id" type="numeric"/>
+            <column header="category_id" name="category_id" type="numeric"/>
+            <column header="description_english" name="description" type="string"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="201902130003" author="kmarczynski">
+        <loadData file="config/liquibase/usda_sr_db/nutrition_definition.csv" quotchar='"' separator=";" tableName="nutrition_definition">
+            <column header="nutrition_def_id" name="id" type="numeric"/>
+            <column header="description_english" name="description_english" type="string"/>
+            <column header="description_polish" name="description_polish" type="string"/>
+            <column header="units" name="units" type="string"/>
+            <column header="tagname" name="tagname" type="string"/>
+            <column header="decimal_places" name="decimal_places" type="numeric"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="201902130004" author="kmarczynski">
+        <loadData file="config/liquibase/usda_sr_db/product.csv" quotchar='"' separator=";" tableName="product">
+            <column header="product_id" name="id" type="numeric"/>
+            <column header="subcategory_id" name="subcategory_id" type="numeric"/>
+            <column header="description" name="description" type="string"/>
+            <column header="source" name="source" type="string"/>
+            <column header="is_final" name="is_final" type="boolean"/>
+            <column header="is_verified" name="is_verified" type="boolean"/>
+            <column header="language_id" name="language_id" type="numeric"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="201902130002" author="kmarczynski">
+        <loadData file="config/liquibase/usda_sr_db/nutrition_data.csv" quotchar='"' separator=";" tableName="nutrition_data">
+            <column header="nutrition_def_id" name="nutrition_definition_id" type="numeric"/>
+            <column header="product_id" name="product_id" type="numeric"/>
+            <column header="nutrition_value" name="nutrition_value" type="numeric"/>
+        </loadData>
+    </changeSet>
+    <changeSet id="201902130001" author="kmarczynski">
+        <loadData file="config/liquibase/usda_sr_db/household_measure.csv" quotchar='"' separator=";" tableName="household_measure">
+            <column header="product_id" name="product_id" type="numeric"/>
+            <column header="measure_description" name="description" type="string"/>
+            <column header="grams_weight" name="grams_weight" type="numeric"/>
+            <column header="is_visible" name="is_visible" type="boolean"/>
+        </loadData>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Product.
+    -->
+    <changeSet id="201903232147" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/diet_types.csv"
+                  separator=";"
+                  tableName="diet_type"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Product.
+    -->
+    <changeSet id="20190322191200-1" author="jhipster">
+        <createTable tableName="product" remarks="A food product. Data initially retrieved form USDA Standard Reference database. @author Krzysztof Marczyński">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="source" type="varchar(255)" remarks="Specifying source if product is imported, prefarably url address if possible">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="description" type="varchar(255)" remarks="Short description of Product">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="is_final" type="boolean" remarks="Flag specifying if product is final or editable">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="is_verified" type="boolean" remarks="Flag specifying if product is verified All products retrieved from external sources should be checked for eligibility to use &amp; therfore intially this flag is set to false for these.">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="language_id" type="bigint">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="subcategory_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="author_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+        <createTable tableName="product_suitable_diets">
+            <column name="suitable_diets_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="product_id, suitable_diets_id" tableName="product_suitable_diets"/>
+        
+        <createTable tableName="product_unsuitable_diets">
+            <column name="unsuitable_diets_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="product_id, unsuitable_diets_id" tableName="product_unsuitable_diets"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>
