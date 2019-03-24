@@ -44,7 +44,10 @@ public class LoggingAspect {
      */
     @Pointcut("within(pl.marczynski.dietify.core.repository..*)"+
         " || within(pl.marczynski.dietify.core.service..*)"+
-        " || within(pl.marczynski.dietify.core.web.rest..*)")
+        " || within(pl.marczynski.dietify.core.web.rest..*)"+
+        " || within(pl.marczynski.dietify.products.repository..*)"+
+        " || within(pl.marczynski.dietify.products.service..*)"+
+        " || within(pl.marczynski.dietify.products.web.rest..*)")
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.
     }

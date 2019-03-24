@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.core;
 
+import org.springframework.context.annotation.ComponentScan;
 import pl.marczynski.dietify.core.config.ApplicationProperties;
 import pl.marczynski.dietify.core.config.DefaultProfileUtil;
 
@@ -21,6 +22,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @SpringBootApplication
+@ComponentScan(basePackages = "pl.marczynski.dietify")
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
 public class DietifyApp {
 
