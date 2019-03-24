@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.products.web.rest;
+import org.springframework.security.access.prepost.PreAuthorize;
+import pl.marczynski.dietify.core.security.AuthoritiesConstants;
 import pl.marczynski.dietify.products.domain.DietType;
 import pl.marczynski.dietify.products.service.DietTypeService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
@@ -41,6 +43,7 @@ public class DietTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/diet-types")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<DietType> createDietType(@Valid @RequestBody DietType dietType) throws URISyntaxException {
         log.debug("REST request to save DietType : {}", dietType);
         if (dietType.getId() != null) {
@@ -62,6 +65,7 @@ public class DietTypeResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/diet-types")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<DietType> updateDietType(@Valid @RequestBody DietType dietType) throws URISyntaxException {
         log.debug("REST request to update DietType : {}", dietType);
         if (dietType.getId() == null) {
@@ -104,6 +108,7 @@ public class DietTypeResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/diet-types/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteDietType(@PathVariable Long id) {
         log.debug("REST request to delete DietType : {}", id);
         dietTypeService.delete(id);

@@ -33,7 +33,7 @@ export const languageRoute: Routes = [
         path: '',
         component: LanguageComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Languages'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const languageRoute: Routes = [
             language: LanguageResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Languages'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const languageRoute: Routes = [
             language: LanguageResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Languages'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const languagePopupRoute: Routes = [
             language: LanguageResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'Languages'
         },
         canActivate: [UserRouteAccessService],

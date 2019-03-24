@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.products.web.rest;
+import org.springframework.security.access.prepost.PreAuthorize;
+import pl.marczynski.dietify.core.security.AuthoritiesConstants;
 import pl.marczynski.dietify.products.domain.NutritionDefinition;
 import pl.marczynski.dietify.products.service.NutritionDefinitionService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
@@ -41,6 +43,7 @@ public class NutritionDefinitionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/nutrition-definitions")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<NutritionDefinition> createNutritionDefinition(@Valid @RequestBody NutritionDefinition nutritionDefinition) throws URISyntaxException {
         log.debug("REST request to save NutritionDefinition : {}", nutritionDefinition);
         if (nutritionDefinition.getId() != null) {
@@ -62,6 +65,7 @@ public class NutritionDefinitionResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/nutrition-definitions")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<NutritionDefinition> updateNutritionDefinition(@Valid @RequestBody NutritionDefinition nutritionDefinition) throws URISyntaxException {
         log.debug("REST request to update NutritionDefinition : {}", nutritionDefinition);
         if (nutritionDefinition.getId() == null) {
@@ -104,6 +108,7 @@ public class NutritionDefinitionResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/nutrition-definitions/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteNutritionDefinition(@PathVariable Long id) {
         log.debug("REST request to delete NutritionDefinition : {}", id);
         nutritionDefinitionService.delete(id);

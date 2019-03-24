@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.products.web.rest;
+import org.springframework.security.access.prepost.PreAuthorize;
+import pl.marczynski.dietify.core.security.AuthoritiesConstants;
 import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.service.ProductCategoryService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
@@ -41,6 +43,7 @@ public class ProductCategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PostMapping("/product-categories")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<ProductCategory> createProductCategory(@Valid @RequestBody ProductCategory productCategory) throws URISyntaxException {
         log.debug("REST request to save ProductCategory : {}", productCategory);
         if (productCategory.getId() != null) {
@@ -62,6 +65,7 @@ public class ProductCategoryResource {
      * @throws URISyntaxException if the Location URI syntax is incorrect
      */
     @PutMapping("/product-categories")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<ProductCategory> updateProductCategory(@Valid @RequestBody ProductCategory productCategory) throws URISyntaxException {
         log.debug("REST request to update ProductCategory : {}", productCategory);
         if (productCategory.getId() == null) {
@@ -104,6 +108,7 @@ public class ProductCategoryResource {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/product-categories/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.ADMIN + "\")")
     public ResponseEntity<Void> deleteProductCategory(@PathVariable Long id) {
         log.debug("REST request to delete ProductCategory : {}", id);
         productCategoryService.delete(id);

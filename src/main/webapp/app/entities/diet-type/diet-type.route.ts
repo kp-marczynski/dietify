@@ -33,7 +33,7 @@ export const dietTypeRoute: Routes = [
         path: '',
         component: DietTypeComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'DietTypes'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const dietTypeRoute: Routes = [
             dietType: DietTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'DietTypes'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const dietTypeRoute: Routes = [
             dietType: DietTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'DietTypes'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const dietTypePopupRoute: Routes = [
             dietType: DietTypeResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'DietTypes'
         },
         canActivate: [UserRouteAccessService],

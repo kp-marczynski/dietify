@@ -33,7 +33,7 @@ export const productCategoryRoute: Routes = [
         path: '',
         component: ProductCategoryComponent,
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ProductCategories'
         },
         canActivate: [UserRouteAccessService]
@@ -57,7 +57,7 @@ export const productCategoryRoute: Routes = [
             productCategory: ProductCategoryResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ProductCategories'
         },
         canActivate: [UserRouteAccessService]
@@ -69,7 +69,7 @@ export const productCategoryRoute: Routes = [
             productCategory: ProductCategoryResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ProductCategories'
         },
         canActivate: [UserRouteAccessService]
@@ -84,7 +84,7 @@ export const productCategoryPopupRoute: Routes = [
             productCategory: ProductCategoryResolve
         },
         data: {
-            authorities: ['ROLE_USER'],
+            authorities: ['ROLE_ADMIN'],
             pageTitle: 'ProductCategories'
         },
         canActivate: [UserRouteAccessService],
