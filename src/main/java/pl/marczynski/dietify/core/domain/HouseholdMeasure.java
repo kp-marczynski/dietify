@@ -1,19 +1,20 @@
 package pl.marczynski.dietify.core.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A household measures of product with weight in grams.
  * Data initially retrieved form USDA Standard Reference database.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A household measures of product with weight in grams. Data initially retrieved form USDA Standard Reference database. @author Krzysztof Marczyński")
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class HouseholdMeasure implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -53,15 +54,6 @@ public class HouseholdMeasure implements Serializable {
     @ApiModelProperty(value = "Flag specifying if measure is visible on presentation layer. By default it is inittially set to false for data imported from external sources", required = true)
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
-
-    /**
-     * Product for which measure is specified
-     */
-    @ApiModelProperty(value = "Product for which measure is specified")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("householdMeasures")
-    private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -111,18 +103,6 @@ public class HouseholdMeasure implements Serializable {
         this.isVisible = isVisible;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public HouseholdMeasure product(Product product) {
-        this.product = product;
-        return this;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -20,6 +20,7 @@
     <include file="config/liquibase/changelog/20190322191205_added_entity_constraints_NutritionData.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/201903222023_imported_languages.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/201903232146_imported_diet_types.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190321225552_imported_usda_db.xml" relativeToChangelogFile="false"/>
 
 </databaseChangeLog>

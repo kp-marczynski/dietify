@@ -25,13 +25,19 @@ All products retrieved from external sources should be checked for eligibility t
                 <dt><span>Language</span></dt>
                 <dd>
                     <div *ngIf="product.language">
-                        <a [routerLink]="['/language', product.language?.id, 'view']">{{product.language?.id}}</a>
+                        <a [routerLink]="['/language', product.language?.id, 'view']">{{product.language?.englishName}}</a>
+                    </div>
+                </dd>
+                <dt><span>Category</span></dt>
+                <dd>
+                    <div *ngIf="product.subcategory?.category">
+                        <a [routerLink]="['/product-category', product.subcategory.category?.id, 'view']">{{product.subcategory.category?.descriptionEnglish}}</a>
                     </div>
                 </dd>
                 <dt><span>Subcategory</span></dt>
                 <dd>
                     <div *ngIf="product.subcategory">
-                        <a [routerLink]="['/product-subcategory', product.subcategory?.id, 'view']">{{product.subcategory?.id}}</a>
+                        <a [routerLink]="['/product-subcategory', product.subcategory?.id, 'view']">{{product.subcategory?.description}}</a>
                     </div>
                 </dd>
                 <dt><span>Author</span></dt>
@@ -41,14 +47,37 @@ All products retrieved from external sources should be checked for eligibility t
                 <dt><span>Suitable Diets</span></dt>
                 <dd>
                     <span *ngFor="let suitableDiets of product.suitableDiets; let last = last">
-                        <a [routerLink]="['/diet-type', suitableDiets?.id, 'view' ]">{{suitableDiets.id}}</a>{{last ? '' : ', '}}
+                        <a [routerLink]="['/diet-type', suitableDiets?.id, 'view' ]">{{suitableDiets.nameEnglish}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
                 <dt><span>Unsuitable Diets</span></dt>
                 <dd>
                     <span *ngFor="let unsuitableDiets of product.unsuitableDiets; let last = last">
-                        <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.id}}</a>{{last ? '' : ', '}}
+                        <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.nameEnglish}}</a>{{last ? '' : ', '}}
                     </span>
+                </dd>
+                <dt><span>Household Measures</span></dt>
+                <dd>
+                    <table>
+                        <tr *ngFor="let householdMeasure of product.householdMeasures">
+                            <td>{{householdMeasure.description}}</td>
+                            <td>{{householdMeasure.gramsWeight}}g</td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt><span>Nutritions</span></dt>
+                <dd>
+                    <table>
+                        <tr *ngFor="let nutritionData of product.nutritionData">
+                            <td>{{nutritionData.nutritionDefinition.descriptionEnglish}} [{{nutritionData.nutritionDefinition.units}}]:</td>
+                            <td>{{nutritionData.nutritionValue}}</td>
+                        </tr>
+                    </table>
+                    <!--<div *ngFor="let nutritionData of product.nutritionData">-->
+                        <!--<div>-->
+                            <!--<a [routerLink]="['/nutrition-data', nutritionData?.id, 'view' ]">{{nutritionData.nutritionDefinition.descriptionEnglish}}: {{nutritionData.nutritionValue}}{{nutritionData.nutritionDefinition.units}}</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
                 </dd>
             </dl>
 

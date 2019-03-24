@@ -1,22 +1,22 @@
 package pl.marczynski.dietify.core.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A food product.
  * Data initially retrieved form USDA Standard Reference database.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A food product. Data initially retrieved form USDA Standard Reference database. @author Krzysztof Marczyński")
@@ -25,7 +25,7 @@ import java.util.Objects;
 public class Product implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -94,8 +94,8 @@ public class Product implements Serializable {
     @ApiModelProperty(value = "Specyigying for which diet types product is suitable")
     @ManyToMany
     @JoinTable(name = "product_suitable_diets",
-               joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "suitable_diets_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "suitable_diets_id", referencedColumnName = "id"))
     private Set<DietType> suitableDiets = new HashSet<>();
 
     /**
@@ -104,22 +104,25 @@ public class Product implements Serializable {
     @ApiModelProperty(value = "Specyigying for which diet types product is not suitable")
     @ManyToMany
     @JoinTable(name = "product_unsuitable_diets",
-               joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "unsuitable_diets_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "unsuitable_diets_id", referencedColumnName = "id"))
     private Set<DietType> unsuitableDiets = new HashSet<>();
 
     /**
      * Collection of product's nutrition data
      */
     @ApiModelProperty(value = "Collection of product's nutrition data")
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "product_id", nullable = false)
     private Set<NutritionData> nutritionData = new HashSet<>();
     /**
      * Collection of household measure defined for product
      */
     @ApiModelProperty(value = "Collection of household measure defined for product")
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "product_id", nullable = false)
     private Set<HouseholdMeasure> householdMeasures = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -277,13 +280,11 @@ public class Product implements Serializable {
 
     public Product addNutritionData(NutritionData nutritionData) {
         this.nutritionData.add(nutritionData);
-        nutritionData.setProduct(this);
         return this;
     }
 
     public Product removeNutritionData(NutritionData nutritionData) {
         this.nutritionData.remove(nutritionData);
-        nutritionData.setProduct(null);
         return this;
     }
 
@@ -302,13 +303,11 @@ public class Product implements Serializable {
 
     public Product addHouseholdMeasures(HouseholdMeasure householdMeasure) {
         this.householdMeasures.add(householdMeasure);
-        householdMeasure.setProduct(this);
         return this;
     }
 
     public Product removeHouseholdMeasures(HouseholdMeasure householdMeasure) {
         this.householdMeasures.remove(householdMeasure);
-        householdMeasure.setProduct(null);
         return this;
     }
 

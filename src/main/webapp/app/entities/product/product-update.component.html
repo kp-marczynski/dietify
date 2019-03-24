@@ -57,7 +57,7 @@ All products retrieved from external sources should be checked for eligibility t
                     <label class="form-control-label" for="field_language">Language</label>
                     <select class="form-control" id="field_language" name="language" [(ngModel)]="product.language"  required>
                         <option *ngIf="!editForm.value.language" [ngValue]="null" selected></option>
-                        <option [ngValue]="languageOption.id === product.language?.id ? product.language : languageOption" *ngFor="let languageOption of languages; trackBy: trackLanguageById">{{languageOption.id}}</option>
+                        <option [ngValue]="languageOption.id === product.language?.id ? product.language : languageOption" *ngFor="let languageOption of languages; trackBy: trackLanguageById">{{languageOption.englishName}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.language?.dirty && editForm.controls.language?.invalid)">
@@ -70,27 +70,50 @@ All products retrieved from external sources should be checked for eligibility t
                     <label class="form-control-label" for="field_subcategory">Subcategory</label>
                     <select class="form-control" id="field_subcategory" name="subcategory" [(ngModel)]="product.subcategory" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="productSubcategoryOption.id === product.subcategory?.id ? product.subcategory : productSubcategoryOption" *ngFor="let productSubcategoryOption of productsubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.id}}</option>
+                        <option [ngValue]="productSubcategoryOption.id === product.subcategory?.id ? product.subcategory : productSubcategoryOption" *ngFor="let productSubcategoryOption of productSubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_author">Author</label>
                     <select class="form-control" id="field_author" name="author" [(ngModel)]="product.author" >
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === product.author?.id ? product.author : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                        <option [ngValue]="userOption.id === product.author?.id ? product.author : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_suitableDiets">Suitable Diets</label>
                     <select class="form-control" id="field_suitableDiets" multiple name="suitableDiets" [(ngModel)]="product.suitableDiets">
-                        <option [ngValue]="getSelected(product.suitableDiets, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.id}}</option>
+                        <option [ngValue]="getSelected(product.suitableDiets, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.nameEnglish}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Unsuitable Diets</label>
                     <select class="form-control" id="field_unsuitableDiets" multiple name="unsuitableDiets" [(ngModel)]="product.unsuitableDiets">
-                        <option [ngValue]="getSelected(product.unsuitableDiets, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.id}}</option>
+                        <option [ngValue]="getSelected(product.unsuitableDiets, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.nameEnglish}}</option>
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="field_unsuitableDiets">Nutritions</label>
+                    <table>
+                    <tr *ngFor="let nutritionData of product.nutritionData">
+                        <td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>
+                        <td><input type="text" [value]="nutritionData.nutritionValue" (input)="nutritionData.nutritionValue = $event.target.value"></td>
+                    </tr>
+                    </table>
+                </div>
+                <div class="form-group">
+                    <label for="field_unsuitableDiets">Household Measures</label>
+                    <div *ngFor="let householdMeasure of product.householdMeasures; let last = last">
+                        <input type="checkbox" [value]="householdMeasure.isVisible" (input)="householdMeasure.isVisible = $event.target.value" (click)="createNewHouseholdMeasure(last)" />
+                        <input type="text" [value]="householdMeasure.description" (input)="householdMeasure.description = $event.target.value" (keyup)="createNewHouseholdMeasure(last)" />
+                        <input type="text" [value]="householdMeasure.gramsWeight" (input)="householdMeasure.gramsWeight = $event.target.value" (keyup)="createNewHouseholdMeasure(last)"/>
+                    </div>
+                    <!--<table>-->
+                        <!--<tr *ngFor="let nutritionData of product.nutritionData">-->
+                            <!--<td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>-->
+                            <!--<td><input type="text" [value]="nutritionData.nutritionValue" (input)="nutritionData.nutritionValue = $event.target.value"></td>-->
+                        <!--</tr>-->
+                    <!--</table>-->
                 </div>
             </div>
             <div>

@@ -6,14 +6,15 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A value of nutrition definition for concrete Product.
  * Data initially retrieved form USDA Standard Reference database.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A value of nutrition definition for concrete Product. Data initially retrieved form USDA Standard Reference database. @author Krzysztof Marczyński")
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class NutritionData implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -44,15 +45,6 @@ public class NutritionData implements Serializable {
     @NotNull
     @JsonIgnoreProperties("nutritionData")
     private NutritionDefinition nutritionDefinition;
-
-    /**
-     * Product for which data is specifed
-     */
-    @ApiModelProperty(value = "Product for which data is specifed")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("nutritionData")
-    private Product product;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -89,18 +81,6 @@ public class NutritionData implements Serializable {
         this.nutritionDefinition = nutritionDefinition;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public NutritionData product(Product product) {
-        this.product = product;
-        return this;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
