@@ -48,6 +48,20 @@ To achieve this, first build a docker image of your app by running:
 Then run:
 
     docker-compose -f src/main/docker/app.yml up -d
+    
+## TODO
+- [x] framework mvc
+- [x] usage of orm
+- [ ] usage of cache (backend only)
+- [x] user authentication & authorization
+- [x] admin panel
+- [ ] integration with external service
+- [ ] unit tests
+- [ ] ajax elements
+- [ ] charts
+- [ ] connected selectboxes - choosing product category trigger retriving of proper subcategories 
+- [x] navbar options
+- [x] loader css
 
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
