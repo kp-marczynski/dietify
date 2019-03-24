@@ -49,14 +49,14 @@ export class NavBarPage {
     }
 
     async clickOnEntity(entityName: string) {
-        await element(by.css('[routerLink="' + entityName + '"]')).click();
+        await element(by.id(entityName)).click();
     }
 
     async clickOnAdmin(entityName: string) {
         await element(by.css('[routerLink="admin/' + entityName + '"]')).click();
     }
 
-    async clickOnUserManagement(){
+    async clickOnUserManagement() {
         await element(by.id('user-management-aside')).click();
     }
 
@@ -78,7 +78,7 @@ export class NavBarPage {
     }
 
     async goToEntity(entityName: string) {
-        await this.clickOnEntityMenu();
+        // await this.clickOnEntityMenu();
         await this.clickOnEntity(entityName);
     }
 

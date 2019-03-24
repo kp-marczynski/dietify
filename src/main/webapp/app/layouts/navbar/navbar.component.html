@@ -33,37 +33,43 @@
                 </a>
                 <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
                     <li>
-                        <a class="dropdown-item" routerLink="language" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="language" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Language</span>
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="product" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Product</span>
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="product-subcategory" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="product-subcategory" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Product Subcategory</span>
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="product-category" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="product-category" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Product Category</span>
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="nutrition-definition" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="nutrition-definition" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Nutrition Definition</span>
                         </a>
                     </li>
                     <li>
-                        <a class="dropdown-item" routerLink="diet-type" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                        <a class="dropdown-item" routerLink="diet-type" routerLinkActive="active"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                             <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                             <span>Diet Type</span>
                         </a>
@@ -162,7 +168,7 @@
         <div class="logo-wrapper">
             <span class="logo-wrapper waves-effect">
             <fa-icon icon="utensils" routerLink="/"></fa-icon>
-            <!--<img src="/content/images/outline_watch.png" class="img-fluid" alt="">-->
+                <!--<img src="/content/images/outline_watch.png" class="img-fluid" alt="">-->
             </span>
             <h3 class="header-logo">Dietify</h3>
         </div>
@@ -250,8 +256,9 @@
         </span>
         </div>
     </div>
-    <div class="list-group list-group-flush sidebar-body" [ngSwitch]="isAuthenticated()">
-        <span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">
+    <div class="sidebar-body">
+    <div class="list-group list-group-flush" [ngSwitch]="isAuthenticated()">
+        <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
             <a class="list-group-item list-group-item-action waves-effect" routerLink="/"
                (click)="collapseNavbar()">
                     <span>
@@ -259,43 +266,48 @@
                         <span>Home</span>
                     </span>
             </a>
-
             <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="product"
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="product" id="product"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="bars" fixedWidth="true"></fa-icon>
                     <span>Products</span>
                 </a>
             </span>
-            <span *jhiHasAnyAuthority="'ROLE_ADMIN'">
+        <!--</span>-->
+    </div>
+    <div class="list-group list-group-flush" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+        <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
+            <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="nutrition-definition"
-                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                   id="nutrition-definition"
+                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Nutrition Definitions</span>
                 </a>
             </span>
-            <span *jhiHasAnyAuthority="'ROLE_ADMIN'">
+            <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="product-category"
+                   id="product-category"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Product Categories</span>
                 </a>
             </span>
-             <span *jhiHasAnyAuthority="'ROLE_ADMIN'">
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="diet-type"
+             <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="diet-type" id="diet-type"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Diet Types</span>
                 </a>
             </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="recipes"
+             <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="language" id="language"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="heart" fixedWidth="true"></fa-icon>
-                    <span>Recipes</span>
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Languages</span>
                 </a>
             </span>
-        </span>
+        <!--</span>-->
     </div>
-
+    </div>
 </aside>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+import {Account} from 'app/core/user/account.model';
 
 import {VERSION} from 'app/app.constants';
 import {AccountService, LoginModalService, LoginService} from 'app/core';

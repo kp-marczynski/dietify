@@ -6,22 +6,25 @@
     <!--
         Added the constraints for entity Product.
     -->
-    <changeSet id="201902130000" author="kmarczynski">
-        <loadData file="config/liquibase/usda_sr_db/product_category.csv" quotchar='"' separator=";" tableName="product_category">
+    <changeSet id="201902130000" author="kmarczynski" context="usda">
+        <loadData file="config/liquibase/usda_sr_db/product_category.csv" quotchar='"' separator=";"
+                  tableName="product_category">
             <column header="category_id" name="id" type="numeric"/>
             <column header="description_english" name="description_english" type="string"/>
             <column header="description_polish" name="description_polish" type="string"/>
         </loadData>
     </changeSet>
-    <changeSet id="201902130005" author="kmarczynski">
-        <loadData file="config/liquibase/usda_sr_db/product_subcategory.csv" quotchar='"' separator=";" tableName="product_subcategory">
+    <changeSet id="201902130005" author="kmarczynski" context="usda">
+        <loadData file="config/liquibase/usda_sr_db/product_subcategory.csv" quotchar='"' separator=";"
+                  tableName="product_subcategory">
             <column header="subcategory_id" name="id" type="numeric"/>
             <column header="category_id" name="category_id" type="numeric"/>
             <column header="description_english" name="description" type="string"/>
         </loadData>
     </changeSet>
-    <changeSet id="201902130003" author="kmarczynski">
-        <loadData file="config/liquibase/usda_sr_db/nutrition_definition.csv" quotchar='"' separator=";" tableName="nutrition_definition">
+    <changeSet id="201902130003" author="kmarczynski" context="usda">
+        <loadData file="config/liquibase/usda_sr_db/nutrition_definition.csv" quotchar='"' separator=";"
+                  tableName="nutrition_definition">
             <column header="nutrition_def_id" name="id" type="numeric"/>
             <column header="description_english" name="description_english" type="string"/>
             <column header="description_polish" name="description_polish" type="string"/>
@@ -30,7 +33,7 @@
             <column header="decimal_places" name="decimal_places" type="numeric"/>
         </loadData>
     </changeSet>
-    <changeSet id="201902130004" author="kmarczynski">
+    <changeSet id="201902130004" author="kmarczynski" context="usda">
         <loadData file="config/liquibase/usda_sr_db/product.csv" quotchar='"' separator=";" tableName="product">
             <column header="product_id" name="id" type="numeric"/>
             <column header="subcategory_id" name="subcategory_id" type="numeric"/>
@@ -41,15 +44,17 @@
             <column header="language_id" name="language_id" type="numeric"/>
         </loadData>
     </changeSet>
-    <changeSet id="201902130002" author="kmarczynski">
-        <loadData file="config/liquibase/usda_sr_db/nutrition_data.csv" quotchar='"' separator=";" tableName="nutrition_data">
+    <changeSet id="201902130002" author="kmarczynski" context="usda">
+        <loadData file="config/liquibase/usda_sr_db/nutrition_data.csv" quotchar='"' separator=";"
+                  tableName="nutrition_data">
             <column header="nutrition_def_id" name="nutrition_definition_id" type="numeric"/>
             <column header="product_id" name="product_id" type="numeric"/>
             <column header="nutrition_value" name="nutrition_value" type="numeric"/>
         </loadData>
     </changeSet>
-    <changeSet id="201902130001" author="kmarczynski">
-        <loadData file="config/liquibase/usda_sr_db/household_measure.csv" quotchar='"' separator=";" tableName="household_measure">
+    <changeSet id="201902130001" author="kmarczynski" context="usda">
+        <loadData file="config/liquibase/usda_sr_db/household_measure.csv" quotchar='"' separator=";"
+                  tableName="household_measure">
             <column header="product_id" name="product_id" type="numeric"/>
             <column header="measure_description" name="description" type="string"/>
             <column header="grams_weight" name="grams_weight" type="numeric"/>
