@@ -215,7 +215,6 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     fetchSubcategories() {
-        console.log('fetch subcategories');
         document.getElementById('field_subcategory').removeAttribute('disabled');
         document.getElementById('new-subcategory').removeAttribute('disabled');
         this.productSubcategoryService
@@ -238,7 +237,6 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     selectedExistingSubcategory() {
-        console.log('selected exisitng');
         if (this.product.subcategory) {
             this.newSubcategory = '';
         }
