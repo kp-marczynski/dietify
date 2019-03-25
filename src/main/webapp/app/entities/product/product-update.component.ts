@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
 import {JhiAlertService} from 'ng-jhipster';
@@ -8,15 +8,17 @@ import {IProduct} from 'app/shared/model/product.model';
 import {ProductService} from './product.service';
 import {ILanguage} from 'app/shared/model/language.model';
 import {LanguageService} from 'app/entities/language';
-import {IProductSubcategory} from 'app/shared/model/product-subcategory.model';
+import {IProductSubcategory, ProductSubcategory} from 'app/shared/model/product-subcategory.model';
 import {ProductSubcategoryService} from 'app/entities/product-subcategory';
 import {IUser, UserService} from 'app/core';
 import {IDietType} from 'app/shared/model/diet-type.model';
 import {DietTypeService} from 'app/entities/diet-type';
 import {NutritionDefinitionService} from 'app/entities/nutrition-definition';
 import {INutritionDefinition} from 'app/shared/model/nutrition-definition.model';
-import {INutritionData, NutritionData} from 'app/shared/model/nutrition-data.model';
+import {NutritionData} from 'app/shared/model/nutrition-data.model';
 import {HouseholdMeasure} from 'app/shared/model/household-measure.model';
+import {IProductCategory} from 'app/shared/model/product-category.model';
+import {ProductCategoryService} from 'app/entities/product-category';
 
 @Component({
     selector: 'jhi-product-update',
@@ -30,7 +32,13 @@ export class ProductUpdateComponent implements OnInit {
 
     productSubcategories: IProductSubcategory[];
 
+    productCategories: IProductCategory[];
+
+    selectedCategory: IProductCategory;
+
     nutritionDefinitions: INutritionDefinition[];
+
+    newSubcategory = '';
 
     users: IUser[];
 
@@ -41,6 +49,7 @@ export class ProductUpdateComponent implements OnInit {
         protected productService: ProductService,
         protected languageService: LanguageService,
         protected productSubcategoryService: ProductSubcategoryService,
+        protected productCategoryService: ProductCategoryService,
         protected userService: UserService,
         protected dietTypeService: DietTypeService,
         protected activatedRoute: ActivatedRoute,
@@ -85,14 +94,14 @@ export class ProductUpdateComponent implements OnInit {
                 map((response: HttpResponse<ILanguage[]>) => response.body)
             )
             .subscribe((res: ILanguage[]) => (this.languages = res), (res: HttpErrorResponse) => this.onError(res.message));
-        this.productSubcategoryService
+        this.productCategoryService
             .query()
             .pipe(
-                filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+                filter((mayBeOk: HttpResponse<IProductCategory[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IProductCategory[]>) => response.body)
             )
             .subscribe(
-                (res: IProductSubcategory[]) => (this.productSubcategories = res),
+                (res: IProductCategory[]) => (this.productCategories = res),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
         this.userService
@@ -116,13 +125,27 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     save() {
+        this.isSaving = true;
         if (this.product.nutritionData) {
             this.product.nutritionData = this.product.nutritionData.filter(data => (data.nutritionValue !== null));
         }
         if (this.product.householdMeasures) {
             this.product.householdMeasures = this.product.householdMeasures.filter(measure => (measure.description || measure.gramsWeight));
         }
-        this.isSaving = true;
+        if (this.newSubcategory && this.newSubcategory !== '') {
+            this.productSubcategoryService.create(new ProductSubcategory(null, this.newSubcategory, this.selectedCategory)).subscribe(
+                (res: HttpResponse<IProductSubcategory>) => {
+                    this.product.subcategory = res.body;
+                    this.processSave();
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        } else {
+            this.processSave();
+        }
+    }
+
+    processSave() {
         if (this.product.id !== undefined) {
             this.subscribeToSaveResponse(this.productService.update(this.product));
         } else {
@@ -155,6 +178,10 @@ export class ProductUpdateComponent implements OnInit {
         return item.id;
     }
 
+    trackProductCategoryById(index: number, item: IProductCategory) {
+        return item.id;
+    }
+
     trackUserById(index: number, item: IUser) {
         return item.id;
     }
@@ -181,6 +208,35 @@ export class ProductUpdateComponent implements OnInit {
         if (this.product.householdMeasures.filter(measure => ((!measure.description || measure.description === '') && (!measure.gramsWeight || measure.gramsWeight === 0))).length > 1) {
             this.product.householdMeasures = this.product.householdMeasures.filter(measure => (measure.description || measure.gramsWeight));
             this.product.householdMeasures.push(new HouseholdMeasure(null, null, null, null));
+        }
+    }
+
+    fetchSubcategories() {
+        console.log('fetch subcategories');
+        document.getElementById('field_subcategory').removeAttribute('disabled');
+        document.getElementById('new-subcategory').removeAttribute('disabled');
+        this.productSubcategoryService
+            .query({
+                productCategoryId: this.selectedCategory.id
+            })
+            .pipe(
+                filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+            )
+            .subscribe(
+                (res: IProductSubcategory[]) => (this.productSubcategories = res),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    selectedNewSubcategory() {
+        this.product.subcategory = null;
+    }
+
+    selectedExistingSubcategory() {
+        console.log('selected exisitng');
+        if (this.product.subcategory) {
+            this.newSubcategory = '';
         }
     }
 }

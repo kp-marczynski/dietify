@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.service.impl;
 
+import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 import pl.marczynski.dietify.products.domain.ProductSubcategory;
 import pl.marczynski.dietify.products.repository.ProductSubcategoryRepository;
@@ -49,6 +50,12 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
     public List<ProductSubcategory> findAll() {
         log.debug("Request to get all ProductSubcategories");
         return productSubcategoryRepository.findAll();
+    }
+
+    @Override
+    public List<ProductSubcategory> findAllByCategory(Long productCategoryId) {
+        log.debug("Request to get all ProductSubcategories for category with id: " + productCategoryId);
+        return productSubcategoryRepository.findAllByCategory_Id(productCategoryId);
     }
 
 

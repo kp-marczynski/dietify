@@ -7,120 +7,151 @@
                 <div class="form-group" [hidden]="!product.id">
                     <label for="id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="product.id" readonly />
+                           [(ngModel)]="product.id" readonly/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_source" ngbTooltip="Specifying source if product is imported, prefarably url address if possible">Source</label>
+                    <label class="form-control-label" for="field_source"
+                           ngbTooltip="Specifying source if product is imported, prefarably url address if possible">Source</label>
                     <input type="text" class="form-control" name="source" id="field_source"
-                        [(ngModel)]="product.source" />
+                           [(ngModel)]="product.source"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_description" ngbTooltip="Short description of Product">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
-                        [(ngModel)]="product.description" required minlength="1"/>
+                           [(ngModel)]="product.description" required minlength="1"/>
                     <div [hidden]="!(editForm.controls.description?.dirty && editForm.controls.description?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.description?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.description?.errors?.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.description?.errors?.minlength">
-                        This field is required to be at least 1 characters.
+                               [hidden]="!editForm.controls.description?.errors?.minlength">
+                            This field is required to be at least 1 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_isFinal" ngbTooltip="Flag specifying if product is final or editable">Is Final</label>
+                    <label class="form-control-label" for="field_isFinal"
+                           ngbTooltip="Flag specifying if product is final or editable">Is Final</label>
                     <input type="checkbox" class="form-control" name="isFinal" id="field_isFinal"
-                        [(ngModel)]="product.isFinal" />
+                           [(ngModel)]="product.isFinal"/>
                     <div [hidden]="!(editForm.controls.isFinal?.dirty && editForm.controls.isFinal?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.isFinal?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.isFinal?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_isVerified" ngbTooltip="Flag specifying if product is verified
-All products retrieved from external sources should be checked for eligibility to use &amp; therfore intially this flag is set to false for these.">Is Verified</label>
+All products retrieved from external sources should be checked for eligibility to use &amp; therfore intially this flag is set to false for these.">Is
+                        Verified</label>
                     <input type="checkbox" class="form-control" name="isVerified" id="field_isVerified"
-                        [(ngModel)]="product.isVerified" />
+                           [(ngModel)]="product.isVerified"/>
                     <div [hidden]="!(editForm.controls.isVerified?.dirty && editForm.controls.isVerified?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.isVerified?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.isVerified?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_language">Language</label>
-                    <select class="form-control" id="field_language" name="language" [(ngModel)]="product.language"  required>
+                    <select class="form-control" id="field_language" name="language" [(ngModel)]="product.language"
+                            required>
                         <option *ngIf="!editForm.value.language" [ngValue]="null" selected></option>
-                        <option [ngValue]="languageOption.id === product.language?.id ? product.language : languageOption" *ngFor="let languageOption of languages; trackBy: trackLanguageById">{{languageOption.englishName}}</option>
+                        <option
+                            [ngValue]="languageOption.id === product.language?.id ? product.language : languageOption"
+                            *ngFor="let languageOption of languages; trackBy: trackLanguageById">{{languageOption.englishName}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.language?.dirty && editForm.controls.language?.invalid)">
                     <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.language?.errors?.required">
+                           [hidden]="!editForm.controls.language?.errors?.required">
                         This field is required.
                     </small>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_subcategory">Subcategory</label>
-                    <select class="form-control" id="field_subcategory" name="subcategory" [(ngModel)]="product.subcategory" >
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="productSubcategoryOption.id === product.subcategory?.id ? product.subcategory : productSubcategoryOption" *ngFor="let productSubcategoryOption of productSubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
+                    <label class="form-control-label" for="field_category">Category</label>
+                    <select class="form-control" id="field_category" name="category" [(ngModel)]="selectedCategory"
+                            (change)="fetchSubcategories()">
+                        <option
+                            [ngValue]="productCategoryOption.id === selectedCategory?.id ? selectedCategory : productCategoryOption"
+                            *ngFor="let productCategoryOption of productCategories; trackBy: trackProductCategoryById">{{productCategoryOption.descriptionEnglish}}</option>
                     </select>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" for="field_subcategory">Subcategory</label>
+                    <div class="row">
+                        <select class="form-control col-5" id="field_subcategory" name="subcategory"
+                                [(ngModel)]="product.subcategory" disabled (click)="selectedExistingSubcategory()">
+                            <option [ngValue]="null"></option>
+                            <option
+                                [ngValue]="productSubcategoryOption.id === product.subcategory?.id ? product.subcategory : productSubcategoryOption"
+                                *ngFor="let productSubcategoryOption of productSubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
+                        </select>
+                        <div class="col-2 text-center">-- SELECT OR NEW --</div>
+                        <input id="new-subcategory" type="text" class="form-control col-5"
+                               (keyup)="selectedNewSubcategory()" [value]="newSubcategory"
+                               (input)="newSubcategory = $event.target.value" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="form-control-label" for="field_author">Author</label>
-                    <select class="form-control" id="field_author" name="author" [(ngModel)]="product.author" >
+                    <select class="form-control" id="field_author" name="author" [(ngModel)]="product.author">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === product.author?.id ? product.author : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                        <option [ngValue]="userOption.id === product.author?.id ? product.author : userOption"
+                                *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_suitableDiets">Suitable Diets</label>
-                    <select class="form-control" id="field_suitableDiets" multiple name="suitableDiets" [(ngModel)]="product.suitableDiets">
-                        <option [ngValue]="getSelected(product.suitableDiets, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.nameEnglish}}</option>
+                    <select class="form-control" id="field_suitableDiets" multiple name="suitableDiets"
+                            [(ngModel)]="product.suitableDiets">
+                        <option [ngValue]="getSelected(product.suitableDiets, dietTypeOption)"
+                                *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.nameEnglish}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Unsuitable Diets</label>
-                    <select class="form-control" id="field_unsuitableDiets" multiple name="unsuitableDiets" [(ngModel)]="product.unsuitableDiets">
-                        <option [ngValue]="getSelected(product.unsuitableDiets, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.nameEnglish}}</option>
+                    <select class="form-control" id="field_unsuitableDiets" multiple name="unsuitableDiets"
+                            [(ngModel)]="product.unsuitableDiets">
+                        <option [ngValue]="getSelected(product.unsuitableDiets, dietTypeOption)"
+                                *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.nameEnglish}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Nutritions</label>
                     <table>
-                    <tr *ngFor="let nutritionData of product.nutritionData">
-                        <td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>
-                        <td><input type="text" [value]="nutritionData.nutritionValue" (input)="nutritionData.nutritionValue = $event.target.value"></td>
-                    </tr>
+                        <tr *ngFor="let nutritionData of product.nutritionData">
+                            <td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>
+                            <td><input type="text" [value]="nutritionData.nutritionValue"
+                                       (input)="nutritionData.nutritionValue = $event.target.value"></td>
+                        </tr>
                     </table>
                 </div>
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Household Measures</label>
                     <div *ngFor="let householdMeasure of product.householdMeasures; let last = last">
-                        <input type="checkbox" [value]="householdMeasure.isVisible" (input)="householdMeasure.isVisible = $event.target.value" (click)="createNewHouseholdMeasure(last)" />
-                        <input type="text" [value]="householdMeasure.description" (input)="householdMeasure.description = $event.target.value" (keyup)="createNewHouseholdMeasure(last)" />
-                        <input type="text" [value]="householdMeasure.gramsWeight" (input)="householdMeasure.gramsWeight = $event.target.value" (keyup)="createNewHouseholdMeasure(last)"/>
+                        <input type="checkbox" [value]="householdMeasure.isVisible"
+                               (input)="householdMeasure.isVisible = $event.target.value"
+                               (click)="createNewHouseholdMeasure(last)"/>
+                        <input type="text" [value]="householdMeasure.description"
+                               (input)="householdMeasure.description = $event.target.value"
+                               (keyup)="createNewHouseholdMeasure(last)"/>
+                        <input type="text" [value]="householdMeasure.gramsWeight"
+                               (input)="householdMeasure.gramsWeight = $event.target.value"
+                               (keyup)="createNewHouseholdMeasure(last)"/>
                     </div>
-                    <!--<table>-->
-                        <!--<tr *ngFor="let nutritionData of product.nutritionData">-->
-                            <!--<td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>-->
-                            <!--<td><input type="text" [value]="nutritionData.nutritionValue" (input)="nutritionData.nutritionValue = $event.target.value"></td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
                 </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                        class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>
