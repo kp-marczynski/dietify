@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
 import java.util.Optional;
 
@@ -23,9 +24,11 @@ public class ProductServiceImpl implements ProductService {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
+    private final ProductSubcategoryService productSubcategoryService;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductSubcategoryService productSubcategoryService) {
         this.productRepository = productRepository;
+        this.productSubcategoryService = productSubcategoryService;
     }
 
     /**
@@ -37,7 +40,9 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
-        return productRepository.save(product);
+        Product result = productRepository.saveAndFlush(product);
+        productSubcategoryService.removeOrphans();
+        return result;
     }
 
     /**
@@ -61,7 +66,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findAllWithEagerRelationships(Pageable pageable) {
         return productRepository.findAllWithEagerRelationships(pageable);
     }
-    
+
 
     /**
      * Get one product by id.
@@ -85,5 +90,6 @@ public class ProductServiceImpl implements ProductService {
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
+        productSubcategoryService.removeOrphans();
     }
 }

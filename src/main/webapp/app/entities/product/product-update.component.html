@@ -59,8 +59,8 @@ All products retrieved from external sources should be checked for eligibility t
                 <div class="form-group">
                     <label class="form-control-label" for="field_language">Language</label>
                     <select class="form-control" id="field_language" name="language" [(ngModel)]="product.language"
-                            required>
-                        <option *ngIf="!editForm.value.language" [ngValue]="null" selected></option>
+                            required (change)="fetchSubcategories()">
+                        <!--<option *ngIf="!editForm.value.language" [ngValue]="null" selected></option>-->
                         <option
                             [ngValue]="languageOption.id === product.language?.id ? product.language : languageOption"
                             *ngFor="let languageOption of languages; trackBy: trackLanguageById">{{languageOption.englishName}}</option>
@@ -75,7 +75,7 @@ All products retrieved from external sources should be checked for eligibility t
                 <div class="form-group">
                     <label class="form-control-label" for="field_category">Category</label>
                     <select class="form-control" id="field_category" name="category" [(ngModel)]="selectedCategory"
-                            (change)="fetchSubcategories()">
+                            (change)="fetchSubcategories()" required="">
                         <option
                             [ngValue]="productCategoryOption.id === selectedCategory?.id ? selectedCategory : productCategoryOption"
                             *ngFor="let productCategoryOption of productCategories; trackBy: trackProductCategoryById">{{productCategoryOption.descriptionEnglish}}</option>
@@ -85,7 +85,7 @@ All products retrieved from external sources should be checked for eligibility t
                     <label class="form-control-label" for="field_subcategory">Subcategory</label>
                     <div class="row">
                         <select class="form-control col-5" id="field_subcategory" name="subcategory"
-                                [(ngModel)]="product.subcategory" disabled (click)="selectedExistingSubcategory()">
+                                [(ngModel)]="product.subcategory" (click)="selectedExistingSubcategory()">
                             <option [ngValue]="null"></option>
                             <option
                                 [ngValue]="productSubcategoryOption.id === product.subcategory?.id ? product.subcategory : productSubcategoryOption"

@@ -81,11 +81,11 @@ public class ProductSubcategoryResource {
      * @return the ResponseEntity with status 200 (OK) and the list of productSubcategories in body
      */
     @GetMapping("/product-subcategories")
-    public List<ProductSubcategory> getAllProductSubcategories(@RequestParam(required = false) Long productCategoryId) {
+    public List<ProductSubcategory> getAllProductSubcategories(@RequestParam(required = false) Long productCategoryId, @RequestParam(required = false) Long languageId) {
         log.debug("REST request to get all ProductSubcategories");
-        if(productCategoryId != null){
-            return productSubcategoryService.findAllByCategory(productCategoryId);
-        }else{
+        if (productCategoryId != null && languageId != null) {
+            return productSubcategoryService.findAllByCategoryIdAndProductLanguage(productCategoryId, languageId);
+        } else {
             return productSubcategoryService.findAll();
         }
     }

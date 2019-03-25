@@ -53,9 +53,9 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
     }
 
     @Override
-    public List<ProductSubcategory> findAllByCategory(Long productCategoryId) {
+    public List<ProductSubcategory> findAllByCategoryIdAndProductLanguage(Long productCategoryId, Long languageId) {
         log.debug("Request to get all ProductSubcategories for category with id: " + productCategoryId);
-        return productSubcategoryRepository.findAllByCategory_Id(productCategoryId);
+        return productSubcategoryRepository.findAllByCategoryIdAndProductLanguage(productCategoryId, languageId);
     }
 
 
@@ -81,5 +81,11 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
     public void delete(Long id) {
         log.debug("Request to delete ProductSubcategory : {}", id);
         productSubcategoryRepository.deleteById(id);
+    }
+
+    @Override
+    public void removeOrphans() {
+        List<ProductSubcategory> allNotAssignedToProducts = productSubcategoryRepository.findAllNotAssignedToProducts();
+        productSubcategoryRepository.deleteAll(allNotAssignedToProducts);
     }
 }

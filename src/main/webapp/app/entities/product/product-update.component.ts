@@ -6,7 +6,7 @@ import {filter, map} from 'rxjs/operators';
 import {JhiAlertService} from 'ng-jhipster';
 import {IProduct} from 'app/shared/model/product.model';
 import {ProductService} from './product.service';
-import {ILanguage} from 'app/shared/model/language.model';
+import {ILanguage, Language} from 'app/shared/model/language.model';
 import {LanguageService} from 'app/entities/language';
 import {IProductSubcategory, ProductSubcategory} from 'app/shared/model/product-subcategory.model';
 import {ProductSubcategoryService} from 'app/entities/product-subcategory';
@@ -61,6 +61,9 @@ export class ProductUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({product}) => {
             this.product = product;
+            this.selectedCategory = this.product.subcategory.category;
+            this.fetchSubcategories();
+
             if (!this.product.householdMeasures) {
                 this.product.householdMeasures = [];
             }
@@ -217,7 +220,8 @@ export class ProductUpdateComponent implements OnInit {
         document.getElementById('new-subcategory').removeAttribute('disabled');
         this.productSubcategoryService
             .query({
-                productCategoryId: this.selectedCategory.id
+                productCategoryId: this.selectedCategory.id,
+                languageId: this.product.language.id
             })
             .pipe(
                 filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
