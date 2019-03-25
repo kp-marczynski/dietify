@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
+import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -25,10 +26,12 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
     private final CacheManager cacheManager;
+    private final ProductSubcategoryService productSubcategoryService;
 
-    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager) {
+    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager, ProductSubcategoryService productSubcategoryService) {
         this.productRepository = productRepository;
         this.cacheManager = cacheManager;
+        this.productSubcategoryService = productSubcategoryService;
     }
 
     /**
@@ -41,7 +44,9 @@ public class ProductServiceImpl implements ProductService {
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
         this.clearProductCaches(product);
-        return productRepository.save(product);
+        Product result = productRepository.saveAndFlush(product);
+        productSubcategoryService.removeOrphans();
+        return result;
     }
 
     /**
@@ -90,10 +95,11 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Request to delete Product : {}", id);
         this.clearProductCaches(id);
         productRepository.deleteById(id);
+        productSubcategoryService.removeOrphans();
     }
 
     private void clearProductCaches(Product product) {
-        if(product.getId() != null){
+        if (product.getId() != null) {
             clearProductCaches(product.getId());
         }
     }

@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.products.web.rest;
+
+import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.domain.ProductSubcategory;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
@@ -79,9 +81,13 @@ public class ProductSubcategoryResource {
      * @return the ResponseEntity with status 200 (OK) and the list of productSubcategories in body
      */
     @GetMapping("/product-subcategories")
-    public List<ProductSubcategory> getAllProductSubcategories() {
+    public List<ProductSubcategory> getAllProductSubcategories(@RequestParam(required = false) Long productCategoryId, @RequestParam(required = false) Long languageId) {
         log.debug("REST request to get all ProductSubcategories");
-        return productSubcategoryService.findAll();
+        if (productCategoryId != null && languageId != null) {
+            return productSubcategoryService.findAllByCategoryIdAndProductLanguage(productCategoryId, languageId);
+        } else {
+            return productSubcategoryService.findAll();
+        }
     }
 
     /**

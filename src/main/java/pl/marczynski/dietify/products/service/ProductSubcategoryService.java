@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.service;
 
+import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.domain.ProductSubcategory;
 
 import java.util.List;
@@ -25,6 +26,15 @@ public interface ProductSubcategoryService {
      */
     List<ProductSubcategory> findAll();
 
+    /**
+     * Get all the productSubcategories for selected ProductCategory
+     *
+     * @param productCategoryId id of selected category
+     * @param languageId id of product language
+     * @return the list of entities
+     */
+    List<ProductSubcategory> findAllByCategoryIdAndProductLanguage(Long productCategoryId, Long languageId);
+
 
     /**
      * Get the "id" productSubcategory.
@@ -40,4 +50,9 @@ public interface ProductSubcategoryService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Remove subcategories not assigned to any product
+     */
+    void removeOrphans();
 }
