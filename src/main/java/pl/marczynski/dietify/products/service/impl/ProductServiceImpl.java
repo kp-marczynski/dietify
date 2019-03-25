@@ -93,7 +93,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void clearProductCaches(Product product) {
-        clearProductCaches(product.getId());
+        if(product.getId() != null){
+            clearProductCaches(product.getId());
+        }
     }
 
     private void clearProductCaches(long productId) {
