@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.repository;
 
+import org.springframework.cache.annotation.Cacheable;
 import pl.marczynski.dietify.products.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,8 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
+    String PRODUCTS_EAGER_BY_ID_CACHE = "productsEagerById";
+
     @Query("select product from Product product where product.author.login = ?#{principal.username}")
     List<Product> findByAuthorIsCurrentUser();
 
@@ -27,6 +30,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select distinct product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets")
     List<Product> findAllWithEagerRelationships();
 
+    @Cacheable(cacheNames = PRODUCTS_EAGER_BY_ID_CACHE)
     @Query("select product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets left join fetch product.householdMeasures left join fetch product.nutritionData where product.id =:id")
     Optional<Product> findOneWithEagerRelationships(@Param("id") Long id);
 

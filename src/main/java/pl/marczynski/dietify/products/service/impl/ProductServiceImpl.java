@@ -1,16 +1,17 @@
 package pl.marczynski.dietify.products.service.impl;
 
-import pl.marczynski.dietify.products.service.ProductService;
-import pl.marczynski.dietify.products.domain.Product;
-import pl.marczynski.dietify.products.repository.ProductRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.products.domain.Product;
+import pl.marczynski.dietify.products.repository.ProductRepository;
+import pl.marczynski.dietify.products.service.ProductService;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,9 +24,11 @@ public class ProductServiceImpl implements ProductService {
     private final Logger log = LoggerFactory.getLogger(ProductServiceImpl.class);
 
     private final ProductRepository productRepository;
+    private final CacheManager cacheManager;
 
-    public ProductServiceImpl(ProductRepository productRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager) {
         this.productRepository = productRepository;
+        this.cacheManager = cacheManager;
     }
 
     /**
@@ -37,6 +40,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
+        this.clearProductCaches(product);
         return productRepository.save(product);
     }
 
@@ -61,7 +65,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findAllWithEagerRelationships(Pageable pageable) {
         return productRepository.findAllWithEagerRelationships(pageable);
     }
-    
+
 
     /**
      * Get one product by id.
@@ -84,6 +88,17 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Product : {}", id);
+        this.clearProductCaches(id);
         productRepository.deleteById(id);
+    }
+
+    private void clearProductCaches(Product product) {
+        if(product.getId() != null){
+            clearProductCaches(product.getId());
+        }
+    }
+
+    private void clearProductCaches(long productId) {
+        Objects.requireNonNull(cacheManager.getCache(ProductRepository.PRODUCTS_EAGER_BY_ID_CACHE)).evict(productId);
     }
 }

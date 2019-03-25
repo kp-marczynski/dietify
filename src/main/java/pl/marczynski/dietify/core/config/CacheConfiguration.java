@@ -10,6 +10,8 @@ import io.github.jhipster.config.JHipsterProperties;
 import org.springframework.boot.autoconfigure.cache.JCacheManagerCustomizer;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
+import pl.marczynski.dietify.core.repository.UserRepository;
+import pl.marczynski.dietify.products.repository.ProductRepository;
 
 @Configuration
 @EnableCaching
@@ -31,8 +33,9 @@ public class CacheConfiguration {
     @Bean
     public JCacheManagerCustomizer cacheManagerCustomizer() {
         return cm -> {
-            cm.createCache(pl.marczynski.dietify.core.repository.UserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
-            cm.createCache(pl.marczynski.dietify.core.repository.UserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
+            cm.createCache(UserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
+            cm.createCache(UserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
+            cm.createCache(ProductRepository.PRODUCTS_EAGER_BY_ID_CACHE, jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
