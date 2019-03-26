@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.service.impl;
 
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
@@ -16,7 +17,6 @@ import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
-import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -112,8 +112,15 @@ public class ProductServiceImpl implements ProductService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws NotFoundException {
         log.debug("Request to delete Product : {}", id);
+        Optional<Product> product = productRepository.findOneWithEagerRelationships(id);
+        if (!product.isPresent()) {
+            throw new NotFoundException("Product not found");
+        }
+        if (!hasRightsToPersistProduct(product.get())) {
+            throw new OperationNotAllowedForCurrentUserException();
+        }
         this.clearProductCaches(id);
         productRepository.deleteById(id);
         productSubcategoryService.removeOrphans();

@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
+import javassist.NotFoundException;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
@@ -119,7 +120,11 @@ public class ProductResource {
     @DeleteMapping("/products/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         log.debug("REST request to delete Product : {}", id);
-        productService.delete(id);
+        try {
+            productService.delete(id);
+        } catch (NotFoundException e) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idNotExist");
+        }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
     }
 }

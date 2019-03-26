@@ -1,15 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.web.rest.LanguageResourceIntTest;
-import pl.marczynski.dietify.core.web.rest.TestUtil;
-import pl.marczynski.dietify.products.domain.Product;
-import pl.marczynski.dietify.core.domain.Language;
-import pl.marczynski.dietify.products.repository.ProductRepository;
-import pl.marczynski.dietify.products.service.ProductService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,24 +11,34 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.products.web.rest.ProductResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.domain.Language;
+import pl.marczynski.dietify.core.domain.User;
+import pl.marczynski.dietify.core.repository.UserRepository;
+import pl.marczynski.dietify.core.web.rest.LanguageResourceIntTest;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.products.domain.Product;
+import pl.marczynski.dietify.products.repository.ProductRepository;
+import pl.marczynski.dietify.products.service.ProductService;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 
 /**
  * Test class for the ProductResource REST controller.
@@ -47,6 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
+@WithMockUser(username = "user", authorities = {"ROLE_USER"}, password = "user")
 public class ProductResourceIntTest {
 
     private static final String DEFAULT_SOURCE = "AAAAAAAAAA";
@@ -92,9 +93,15 @@ public class ProductResourceIntTest {
 
     private Product product;
 
+    @Mock
+    UserRepository userRepositoryMock;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+        Optional<User> user = userRepositoryMock.findOneByLogin("user");
+        when(userRepositoryMock.findCurrentUser()).thenReturn(user);
+
         final ProductResource productResource = new ProductResource(productService);
         this.restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -106,7 +113,7 @@ public class ProductResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -239,7 +246,7 @@ public class ProductResourceIntTest {
             .andExpect(jsonPath("$.[*].isFinal").value(hasItem(DEFAULT_IS_FINAL.booleanValue())))
             .andExpect(jsonPath("$.[*].isVerified").value(hasItem(DEFAULT_IS_VERIFIED.booleanValue())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllProductsWithEagerRelationshipsIsEnabled() throws Exception {
         ProductResource productResource = new ProductResource(productServiceMock);
@@ -252,7 +259,7 @@ public class ProductResourceIntTest {
             .setMessageConverters(jacksonMessageConverter).build();
 
         restProductMockMvc.perform(get("/api/products?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
         verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
@@ -260,17 +267,17 @@ public class ProductResourceIntTest {
     @SuppressWarnings({"unchecked"})
     public void getAllProductsWithEagerRelationshipsIsNotEnabled() throws Exception {
         ProductResource productResource = new ProductResource(productServiceMock);
-            when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
+        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
 
         restProductMockMvc.perform(get("/api/products?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
-            verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+        verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
