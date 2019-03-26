@@ -21,7 +21,7 @@
             <th jhiSortBy="isVerified"><span>Is Verified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="language.id"><span>Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="subcategory.id"><span>Subcategory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="author.id"><span>Author</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="author.login"><span>Author</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -34,16 +34,16 @@
                 <td>{{product.isVerified}}</td>
                 <td>
                     <div *ngIf="product.language">
-                        <a [routerLink]="['../language', product.language?.id, 'view' ]" >{{product.language?.id}}</a>
+                        <a [routerLink]="['../language', product.language?.id, 'view' ]" >{{product.language?.englishName}}</a>
                     </div>
                 </td>
                 <td>
                     <div *ngIf="product.subcategory">
-                        <a [routerLink]="['../product-subcategory', product.subcategory?.id, 'view' ]" >{{product.subcategory?.id}}</a>
+                        <a [routerLink]="['../product-subcategory', product.subcategory?.id, 'view' ]" >{{product.subcategory?.description}}</a>
                     </div>
                 </td>
                 <td>
-                    {{product.author?.id}}
+                    {{product.author?.login}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

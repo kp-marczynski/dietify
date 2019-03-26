@@ -6,11 +6,10 @@ import {filter, map} from 'rxjs/operators';
 import {JhiAlertService} from 'ng-jhipster';
 import {IProduct} from 'app/shared/model/product.model';
 import {ProductService} from './product.service';
-import {ILanguage, Language} from 'app/shared/model/language.model';
+import {ILanguage} from 'app/shared/model/language.model';
 import {LanguageService} from 'app/entities/language';
 import {IProductSubcategory, ProductSubcategory} from 'app/shared/model/product-subcategory.model';
 import {ProductSubcategoryService} from 'app/entities/product-subcategory';
-import {IUser, UserService} from 'app/core';
 import {IDietType} from 'app/shared/model/diet-type.model';
 import {DietTypeService} from 'app/entities/diet-type';
 import {NutritionDefinitionService} from 'app/entities/nutrition-definition';
@@ -40,8 +39,6 @@ export class ProductUpdateComponent implements OnInit {
 
     newSubcategory = '';
 
-    users: IUser[];
-
     diettypes: IDietType[];
 
     constructor(
@@ -50,7 +47,6 @@ export class ProductUpdateComponent implements OnInit {
         protected languageService: LanguageService,
         protected productSubcategoryService: ProductSubcategoryService,
         protected productCategoryService: ProductCategoryService,
-        protected userService: UserService,
         protected dietTypeService: DietTypeService,
         protected activatedRoute: ActivatedRoute,
         protected nutritionDefinitionService: NutritionDefinitionService
@@ -107,13 +103,6 @@ export class ProductUpdateComponent implements OnInit {
                 (res: IProductCategory[]) => (this.productCategories = res),
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
-        this.userService
-            .query()
-            .pipe(
-                filter((mayBeOk: HttpResponse<IUser[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IUser[]>) => response.body)
-            )
-            .subscribe((res: IUser[]) => (this.users = res), (res: HttpErrorResponse) => this.onError(res.message));
         this.dietTypeService
             .query()
             .pipe(
@@ -182,10 +171,6 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     trackProductCategoryById(index: number, item: IProductCategory) {
-        return item.id;
-    }
-
-    trackUserById(index: number, item: IUser) {
         return item.id;
     }
 

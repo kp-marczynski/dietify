@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.service;
 
+import javassist.NotFoundException;
 import pl.marczynski.dietify.products.domain.Product;
 
 import org.springframework.data.domain.Page;
@@ -48,5 +49,5 @@ public interface ProductService {
      *
      * @param id the id of the entity
      */
-    void delete(Long id);
+    void delete(Long id) throws NotFoundException;
 }

@@ -1,25 +1,34 @@
 package pl.marczynski.dietify.products.service.impl;
 
+import javassist.NotFoundException;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.domain.User;
+import pl.marczynski.dietify.core.repository.UserRepository;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.web.rest.ProductResourceIntTest;
 
 import javax.persistence.EntityManager;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.fail;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
+@WithMockUser(username = "user", authorities = {"ROLE_USER"}, password = "user")
 public class ProductServiceIntegrationTest {
 
     @Autowired
@@ -31,10 +40,15 @@ public class ProductServiceIntegrationTest {
     @Autowired
     private EntityManager em;
 
+    @Mock
+    private UserRepository userRepositoryMock;
+
     private Product product;
 
     @Before
     public void setup() {
+        Optional<User> user = userRepositoryMock.findOneByLogin("user");
+        when(userRepositoryMock.findCurrentUser()).thenReturn(user);
         this.product = productService.save(ProductResourceIntTest.createEntity(em));
     }
 
@@ -74,7 +88,11 @@ public class ProductServiceIntegrationTest {
         productService.findOne(this.product.getId());
 
         //when
-        productService.delete(this.product.getId());
+        try {
+            productService.delete(this.product.getId());
+        } catch (NotFoundException e) {
+            fail();
+        }
 
         //then
         assertThat(cacheManager.getCacheNames()).contains(ProductRepository.PRODUCTS_EAGER_BY_ID_CACHE);
