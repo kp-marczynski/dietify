@@ -2,11 +2,15 @@ package pl.marczynski.dietify.products.service.impl;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.core.domain.User;
+import pl.marczynski.dietify.core.service.UserService;
+import pl.marczynski.dietify.core.web.rest.errors.OperationNotAllowedForCurrentUserException;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
@@ -27,11 +31,13 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CacheManager cacheManager;
     private final ProductSubcategoryService productSubcategoryService;
+    private final UserService userService;
 
-    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager, ProductSubcategoryService productSubcategoryService) {
+    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager, ProductSubcategoryService productSubcategoryService, UserService userService) {
         this.productRepository = productRepository;
         this.cacheManager = cacheManager;
         this.productSubcategoryService = productSubcategoryService;
+        this.userService = userService;
     }
 
     /**
@@ -43,10 +49,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
+        if (!hasRightsToPersistProduct(product)) {
+            throw new OperationNotAllowedForCurrentUserException();
+        }
         this.clearProductCaches(product);
+        if (product.getAuthor() == null) {
+            product.setAuthor(userService.getCurrentUser().get());
+        }
         Product result = productRepository.saveAndFlush(product);
         productSubcategoryService.removeOrphans();
         return result;
+    }
+
+    private boolean hasRightsToPersistProduct(Product product) {
+        Optional<User> currentUser = userService.getCurrentUser();
+        if (!currentUser.isPresent()) {
+            return false;
+        } else if (product.getId() == null || product.getAuthor() == null) {
+            return true;
+        } else return product.getAuthor().equals(currentUser.get());
     }
 
     /**
@@ -105,6 +126,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void clearProductCaches(long productId) {
-        Objects.requireNonNull(cacheManager.getCache(ProductRepository.PRODUCTS_EAGER_BY_ID_CACHE)).evict(productId);
+        Cache cache = cacheManager.getCache(ProductRepository.PRODUCTS_EAGER_BY_ID_CACHE);
+        if (cache != null) {
+            cache.evict(productId);
+        }
     }
 }
