@@ -4,7 +4,7 @@ public class ProductInvalidException extends BadRequestAlertException {
 
     private static final long serialVersionUID = 1L;
 
-    public ProductInvalidException() {
-        super("Product did not pass validation!", "products", "productInvalid");
+    public ProductInvalidException(String validationProblem) {
+        super("Product did not pass validation! " + validationProblem, "products", "productInvalid");
     }
 }

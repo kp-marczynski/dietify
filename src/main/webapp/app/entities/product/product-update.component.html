@@ -131,26 +131,39 @@ All products retrieved from external sources should be checked for eligibility t
                     <table>
                         <tr *ngFor="let nutritionData of product.nutritionData; let index = index">
                             <td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>
-                            <td><input type="number" name="nutritionDataValue{{index}}"
-                                       [(ngModel)]="nutritionData.nutritionValue"></td>
+                            <td><input type="number" class="form-control" name="nutritionDataValue{{index}}"
+                                       [(ngModel)]="nutritionData.nutritionValue" jhiMin="0"
+                                       placeholder="Nutrition value">
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Household Measures</label>
-                    <div *ngFor="let householdMeasure of product.householdMeasures; let last = last; let index = index">
-                        <input type="checkbox" name="householdMeasureIsVisible{{index}}"
-                               [(ngModel)]="householdMeasure.isVisible"
-                               (click)="createNewHouseholdMeasure(last)"/>
-                        <input type="text" name="householdMeasureDescription{{index}}"
-                               [(ngModel)]="householdMeasure.description"
-                               (keyup)="createNewHouseholdMeasure(last)"
-                               [required]="householdMeasure.gramsWeight && !householdMeasure.description"/>
-                        <input type="number" name="householdMeasureGramsWeight{{index}}"
-                               [(ngModel)]="householdMeasure.gramsWeight"
-                               (keyup)="createNewHouseholdMeasure(last)"
-                               [required]="householdMeasure.description && !householdMeasure.gramsWeight"/>
-                    </div>
+                    <table>
+                        <tr
+                            *ngFor="let householdMeasure of product.householdMeasures; let last = last; let index = index">
+                            <td>
+                                <input type="checkbox" class="form-control" name="householdMeasureIsVisible{{index}}"
+                                       [(ngModel)]="householdMeasure.isVisible"
+                                       (click)="createNewHouseholdMeasure(last)"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="householdMeasureDescription{{index}}"
+                                       [(ngModel)]="householdMeasure.description"
+                                       (keyup)="createNewHouseholdMeasure(last)"
+                                       [required]="householdMeasure.gramsWeight && !householdMeasure.description"
+                                       placeholder="Description"/>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="householdMeasureGramsWeight{{index}}"
+                                       [(ngModel)]="householdMeasure.gramsWeight"
+                                       (keyup)="createNewHouseholdMeasure(last)"
+                                       [required]="householdMeasure.description && !householdMeasure.gramsWeight"
+                                       jhiMin="0.00001" placeholder="Grams weight"/>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div>

@@ -35,6 +35,10 @@
     padding-top: 55px;
 }
 
+.form-control {
+    min-width: 50px;
+}
+
 @media (min-width: 1024px) {
     .navbar,
     .page-footer,
