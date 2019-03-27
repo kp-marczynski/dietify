@@ -22,26 +22,23 @@ public class ProductCreator {
     public static final Long SECOND_ID = 2L;
 
     public static Product createEntity(EntityManager em) {
-        Product product = new Product()
-            .source(DEFAULT_SOURCE)
-            .description(DEFAULT_DESCRIPTION)
-            .isFinal(DEFAULT_IS_FINAL)
-            .isVerified(DEFAULT_IS_VERIFIED);
-        // Add required entity
         Language language = LanguageCreator.createEntity();
         em.persist(language);
+        ProductSubcategory productSubcategory = ProductSubcategoryCreator.createEntity(em);
+        em.persist(productSubcategory);
+
         em.flush();
-        product.setLanguage(language);
-        return product;
+        return createEntity(language, productSubcategory);
     }
 
-    public static Product createEntity(Language language) {
+    public static Product createEntity(Language language, ProductSubcategory productSubcategory) {
         Product product = new Product()
             .source(DEFAULT_SOURCE)
             .description(DEFAULT_DESCRIPTION)
             .isFinal(DEFAULT_IS_FINAL)
             .isVerified(DEFAULT_IS_VERIFIED);
         product.setLanguage(language);
+        product.setSubcategory(productSubcategory);
         return product;
     }
 }
