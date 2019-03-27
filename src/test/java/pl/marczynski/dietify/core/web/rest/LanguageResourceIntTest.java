@@ -1,12 +1,5 @@
 package pl.marczynski.dietify.core.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.domain.Language;
-import pl.marczynski.dietify.core.repository.LanguageRepository;
-import pl.marczynski.dietify.core.service.LanguageService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,16 +14,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.domain.Language;
+import pl.marczynski.dietify.core.domain.LanguageCreator;
+import pl.marczynski.dietify.core.repository.LanguageRepository;
+import pl.marczynski.dietify.core.service.LanguageService;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.domain.LanguageCreator.DEFAULT_ENGLISH_NAME;
+import static pl.marczynski.dietify.core.domain.LanguageCreator.UPDATED_ENGLISH_NAME;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 
 /**
  * Test class for the LanguageResource REST controller.
@@ -40,9 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class LanguageResourceIntTest {
-
-    private static final String DEFAULT_ENGLISH_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_ENGLISH_NAME = "BBBBBBBBBB";
 
     @Autowired
     private LanguageRepository languageRepository;
@@ -81,21 +78,10 @@ public class LanguageResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static Language createEntity(EntityManager em) {
-        Language language = new Language()
-            .englishName(DEFAULT_ENGLISH_NAME);
-        return language;
-    }
 
     @Before
     public void initTest() {
-        language = createEntity(em);
+        language = LanguageCreator.createEntity();
     }
 
     @Test
@@ -166,7 +152,7 @@ public class LanguageResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(language.getId().intValue())))
             .andExpect(jsonPath("$.[*].englishName").value(hasItem(DEFAULT_ENGLISH_NAME.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getLanguage() throws Exception {

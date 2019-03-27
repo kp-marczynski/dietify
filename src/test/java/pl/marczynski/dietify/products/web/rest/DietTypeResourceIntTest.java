@@ -1,13 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.web.rest.TestUtil;
-import pl.marczynski.dietify.products.domain.DietType;
-import pl.marczynski.dietify.products.repository.DietTypeRepository;
-import pl.marczynski.dietify.products.service.DietTypeService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,17 +14,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.products.web.rest.DietTypeResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.products.domain.DietType;
+import pl.marczynski.dietify.products.domain.DietTypeCreator;
+import pl.marczynski.dietify.products.repository.DietTypeRepository;
+import pl.marczynski.dietify.products.service.DietTypeService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.products.domain.DietTypeCreator.*;
 
 /**
  * Test class for the DietTypeResource REST controller.
@@ -42,12 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class DietTypeResourceIntTest {
-
-    private static final String DEFAULT_NAME_POLISH = "AAAAAAAAAA";
-    private static final String UPDATED_NAME_POLISH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_NAME_ENGLISH = "AAAAAAAAAA";
-    private static final String UPDATED_NAME_ENGLISH = "BBBBBBBBBB";
 
     @Autowired
     private DietTypeRepository dietTypeRepository;
@@ -86,22 +78,10 @@ public class DietTypeResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static DietType createEntity(EntityManager em) {
-        DietType dietType = new DietType()
-            .namePolish(DEFAULT_NAME_POLISH)
-            .nameEnglish(DEFAULT_NAME_ENGLISH);
-        return dietType;
-    }
 
     @Before
     public void initTest() {
-        dietType = createEntity(em);
+        dietType = DietTypeCreator.createEntity();
     }
 
     @Test
@@ -192,7 +172,7 @@ public class DietTypeResourceIntTest {
             .andExpect(jsonPath("$.[*].namePolish").value(hasItem(DEFAULT_NAME_POLISH.toString())))
             .andExpect(jsonPath("$.[*].nameEnglish").value(hasItem(DEFAULT_NAME_ENGLISH.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getDietType() throws Exception {

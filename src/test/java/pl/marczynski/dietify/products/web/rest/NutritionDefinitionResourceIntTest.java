@@ -1,13 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.web.rest.TestUtil;
-import pl.marczynski.dietify.products.domain.NutritionDefinition;
-import pl.marczynski.dietify.products.repository.NutritionDefinitionRepository;
-import pl.marczynski.dietify.products.service.NutritionDefinitionService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,17 +14,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.products.web.rest.NutritionDefinitionResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.products.domain.NutritionDefinition;
+import pl.marczynski.dietify.products.domain.NutritionDefinitionCreator;
+import pl.marczynski.dietify.products.repository.NutritionDefinitionRepository;
+import pl.marczynski.dietify.products.service.NutritionDefinitionService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.products.domain.NutritionDefinitionCreator.*;
 
 /**
  * Test class for the NutritionDefinitionResource REST controller.
@@ -42,21 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class NutritionDefinitionResourceIntTest {
-
-    private static final String DEFAULT_TAGNAME = "AAAAAAAAAA";
-    private static final String UPDATED_TAGNAME = "BBBBBBBBBB";
-
-    private static final String DEFAULT_DESCRIPTION_POLISH = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION_POLISH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_DESCRIPTION_ENGLISH = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION_ENGLISH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_UNITS = "AAAAAAAAAA";
-    private static final String UPDATED_UNITS = "BBBBBBBBBB";
-
-    private static final Integer DEFAULT_DECIMAL_PLACES = 0;
-    private static final Integer UPDATED_DECIMAL_PLACES = 1;
 
     @Autowired
     private NutritionDefinitionRepository nutritionDefinitionRepository;
@@ -95,25 +78,10 @@ public class NutritionDefinitionResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static NutritionDefinition createEntity(EntityManager em) {
-        NutritionDefinition nutritionDefinition = new NutritionDefinition()
-            .tagname(DEFAULT_TAGNAME)
-            .descriptionPolish(DEFAULT_DESCRIPTION_POLISH)
-            .descriptionEnglish(DEFAULT_DESCRIPTION_ENGLISH)
-            .units(DEFAULT_UNITS)
-            .decimalPlaces(DEFAULT_DECIMAL_PLACES);
-        return nutritionDefinition;
-    }
 
     @Before
     public void initTest() {
-        nutritionDefinition = createEntity(em);
+        nutritionDefinition = NutritionDefinitionCreator.createEntity();
     }
 
     @Test
@@ -264,7 +232,7 @@ public class NutritionDefinitionResourceIntTest {
             .andExpect(jsonPath("$.[*].units").value(hasItem(DEFAULT_UNITS.toString())))
             .andExpect(jsonPath("$.[*].decimalPlaces").value(hasItem(DEFAULT_DECIMAL_PLACES)));
     }
-    
+
     @Test
     @Transactional
     public void getNutritionDefinition() throws Exception {

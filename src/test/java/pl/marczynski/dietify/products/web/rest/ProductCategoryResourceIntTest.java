@@ -1,13 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.web.rest.TestUtil;
-import pl.marczynski.dietify.products.domain.ProductCategory;
-import pl.marczynski.dietify.products.repository.ProductCategoryRepository;
-import pl.marczynski.dietify.products.service.ProductCategoryService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -22,17 +14,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.products.web.rest.ProductCategoryResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.products.domain.ProductCategory;
+import pl.marczynski.dietify.products.domain.ProductCategoryCreator;
+import pl.marczynski.dietify.products.repository.ProductCategoryRepository;
+import pl.marczynski.dietify.products.service.ProductCategoryService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.products.domain.ProductCategoryCreator.*;
 
 /**
  * Test class for the ProductCategoryResource REST controller.
@@ -42,12 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class ProductCategoryResourceIntTest {
-
-    private static final String DEFAULT_DESCRIPTION_POLISH = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION_POLISH = "BBBBBBBBBB";
-
-    private static final String DEFAULT_DESCRIPTION_ENGLISH = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION_ENGLISH = "BBBBBBBBBB";
 
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
@@ -86,22 +78,10 @@ public class ProductCategoryResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static ProductCategory createEntity(EntityManager em) {
-        ProductCategory productCategory = new ProductCategory()
-            .descriptionPolish(DEFAULT_DESCRIPTION_POLISH)
-            .descriptionEnglish(DEFAULT_DESCRIPTION_ENGLISH);
-        return productCategory;
-    }
 
     @Before
     public void initTest() {
-        productCategory = createEntity(em);
+        productCategory = ProductCategoryCreator.createEntity();
     }
 
     @Test
@@ -192,7 +172,7 @@ public class ProductCategoryResourceIntTest {
             .andExpect(jsonPath("$.[*].descriptionPolish").value(hasItem(DEFAULT_DESCRIPTION_POLISH.toString())))
             .andExpect(jsonPath("$.[*].descriptionEnglish").value(hasItem(DEFAULT_DESCRIPTION_ENGLISH.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getProductCategory() throws Exception {

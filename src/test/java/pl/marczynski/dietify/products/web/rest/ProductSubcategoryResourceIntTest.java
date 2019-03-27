@@ -1,14 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.web.rest.TestUtil;
-import pl.marczynski.dietify.products.domain.ProductSubcategory;
-import pl.marczynski.dietify.products.domain.ProductCategory;
-import pl.marczynski.dietify.products.repository.ProductSubcategoryRepository;
-import pl.marczynski.dietify.products.service.ProductSubcategoryService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,16 +14,26 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.products.domain.ProductCategory;
+import pl.marczynski.dietify.products.domain.ProductCategoryCreator;
+import pl.marczynski.dietify.products.domain.ProductSubcategory;
+import pl.marczynski.dietify.products.domain.ProductSubcategoryCreator;
+import pl.marczynski.dietify.products.repository.ProductSubcategoryRepository;
+import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.products.domain.ProductSubcategoryCreator.DEFAULT_DESCRIPTION;
+import static pl.marczynski.dietify.products.domain.ProductSubcategoryCreator.UPDATED_DESCRIPTION;
 
 /**
  * Test class for the ProductSubcategoryResource REST controller.
@@ -42,9 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class ProductSubcategoryResourceIntTest {
-
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
 
     @Autowired
     private ProductSubcategoryRepository productSubcategoryRepository;
@@ -83,26 +81,12 @@ public class ProductSubcategoryResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static ProductSubcategory createEntity(EntityManager em) {
-        ProductSubcategory productSubcategory = new ProductSubcategory()
-            .description(DEFAULT_DESCRIPTION);
-        // Add required entity
-        ProductCategory productCategory = ProductCategoryResourceIntTest.createEntity(em);
-        em.persist(productCategory);
-        em.flush();
-        productSubcategory.setCategory(productCategory);
-        return productSubcategory;
-    }
-
     @Before
     public void initTest() {
-        productSubcategory = createEntity(em);
+        ProductCategory productCategory = ProductCategoryCreator.createEntity();
+        em.persist(productCategory);
+        em.flush();
+        productSubcategory = ProductSubcategoryCreator.createEntity(productCategory);
     }
 
     @Test
@@ -173,7 +157,7 @@ public class ProductSubcategoryResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(productSubcategory.getId().intValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getProductSubcategory() throws Exception {

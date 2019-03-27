@@ -15,9 +15,9 @@ import pl.marczynski.dietify.core.DietifyApp;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.repository.UserRepository;
 import pl.marczynski.dietify.products.domain.Product;
+import pl.marczynski.dietify.products.domain.ProductCreator;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
-import pl.marczynski.dietify.products.web.rest.ProductResourceIntTest;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
@@ -49,7 +49,7 @@ public class ProductServiceIntegrationTest {
     public void setup() {
         Optional<User> user = userRepositoryMock.findOneByLogin("user");
         when(userRepositoryMock.findCurrentUser()).thenReturn(user);
-        this.product = productService.save(ProductResourceIntTest.createEntity(em));
+        this.product = productService.save(ProductCreator.createEntity(em));
     }
 
     @Test

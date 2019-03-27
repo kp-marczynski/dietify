@@ -18,13 +18,12 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 import pl.marczynski.dietify.core.DietifyApp;
-import pl.marczynski.dietify.core.domain.Language;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.repository.UserRepository;
-import pl.marczynski.dietify.core.web.rest.LanguageResourceIntTest;
 import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 import pl.marczynski.dietify.products.domain.Product;
+import pl.marczynski.dietify.products.domain.ProductCreator;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
 
@@ -39,6 +38,7 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.products.domain.ProductCreator.*;
 
 /**
  * Test class for the ProductResource REST controller.
@@ -49,18 +49,6 @@ import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConve
 @SpringBootTest(classes = DietifyApp.class)
 @WithMockUser(username = "user", authorities = {"ROLE_USER"}, password = "user")
 public class ProductResourceIntTest {
-
-    private static final String DEFAULT_SOURCE = "AAAAAAAAAA";
-    private static final String UPDATED_SOURCE = "BBBBBBBBBB";
-
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
-
-    private static final Boolean DEFAULT_IS_FINAL = false;
-    private static final Boolean UPDATED_IS_FINAL = true;
-
-    private static final Boolean DEFAULT_IS_VERIFIED = false;
-    private static final Boolean UPDATED_IS_VERIFIED = true;
 
     @Autowired
     private ProductRepository productRepository;
@@ -111,29 +99,10 @@ public class ProductResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     * <p>
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static Product createEntity(EntityManager em) {
-        Product product = new Product()
-            .source(DEFAULT_SOURCE)
-            .description(DEFAULT_DESCRIPTION)
-            .isFinal(DEFAULT_IS_FINAL)
-            .isVerified(DEFAULT_IS_VERIFIED);
-        // Add required entity
-        Language language = LanguageResourceIntTest.createEntity(em);
-        em.persist(language);
-        em.flush();
-        product.setLanguage(language);
-        return product;
-    }
 
     @Before
     public void initTest() {
-        product = createEntity(em);
+        product = ProductCreator.createEntity(em);
     }
 
     @Test

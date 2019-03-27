@@ -9,29 +9,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.core.DietifyApp;
 import pl.marczynski.dietify.products.domain.*;
-import pl.marczynski.dietify.products.web.rest.DietTypeResourceIntTest;
-import pl.marczynski.dietify.products.web.rest.NutritionDefinitionResourceIntTest;
-import pl.marczynski.dietify.products.web.rest.ProductResourceIntTest;
 
 import javax.persistence.EntityManager;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static pl.marczynski.dietify.products.domain.HouseholdMeasureCreator.UPDATED_DESCRIPTION;
+import static pl.marczynski.dietify.products.domain.HouseholdMeasureCreator.UPDATED_GRAMS_WEIGHT;
+import static pl.marczynski.dietify.products.domain.NutritionDataCreator.UPDATED_NUTRITION_VALUE;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class ProductRepositoryTest {
-
-    private static final String DEFAULT_DESCRIPTION = "AAAAAAAAAA";
-    private static final String UPDATED_DESCRIPTION = "BBBBBBBBBB";
-
-    private static final Double DEFAULT_GRAMS_WEIGHT = 0D;
-    private static final Double UPDATED_GRAMS_WEIGHT = 1D;
-
-    private static final Boolean DEFAULT_IS_VISIBLE = false;
-    private static final Boolean UPDATED_IS_VISIBLE = true;
-
-    private static final Double DEFAULT_NUTRITION_VALUE = 0D;
-    private static final Double UPDATED_NUTRITION_VALUE = 1D;
 
     @Autowired
     private ProductRepository productRepository;
@@ -51,9 +39,9 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldAddHouseholdMeasureToProduct() {
         //given
-        Product product = productRepository.saveAndFlush(ProductResourceIntTest.createEntity(em));
+        Product product = productRepository.saveAndFlush(ProductCreator.createEntity(em));
         int numberOfMeasures = product.getHouseholdMeasures().size();
-        HouseholdMeasure houseHoldMeasure = createHouseHoldMeasure();
+        HouseholdMeasure houseHoldMeasure = HouseholdMeasureCreator.createHouseHoldMeasure();
         assertThat(numberOfMeasures).isEqualTo(0);
 
         //when
@@ -68,8 +56,8 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldUpdateHouseholdMeasureInProduct() {
         //given
-        HouseholdMeasure householdMeasure = createHouseHoldMeasure();
-        Product product = ProductResourceIntTest.createEntity(em);
+        HouseholdMeasure householdMeasure = HouseholdMeasureCreator.createHouseHoldMeasure();
+        Product product = ProductCreator.createEntity(em);
         product.addHouseholdMeasures(householdMeasure);
         product = productRepository.saveAndFlush(product);
         int numberOfMeasures = product.getHouseholdMeasures().size();
@@ -92,8 +80,8 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldRemoveHouseholdMeasureFromProduct() {
         //given
-        HouseholdMeasure houseHoldMeasure = createHouseHoldMeasure();
-        Product product = ProductResourceIntTest.createEntity(em);
+        HouseholdMeasure houseHoldMeasure = HouseholdMeasureCreator.createHouseHoldMeasure();
+        Product product = ProductCreator.createEntity(em);
         product.addHouseholdMeasures(houseHoldMeasure);
         product = productRepository.saveAndFlush(product);
         int numberOfMeasures = product.getHouseholdMeasures().size();
@@ -111,7 +99,7 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldAddNutritionDataToProduct() {
         //given
-        Product product = productRepository.saveAndFlush(ProductResourceIntTest.createEntity(em));
+        Product product = productRepository.saveAndFlush(ProductCreator.createEntity(em));
         int numberOfNutritions = product.getNutritionData().size();
         NutritionData nutritionData = createNutritionData();
         assertThat(numberOfNutritions).isEqualTo(0);
@@ -129,7 +117,7 @@ public class ProductRepositoryTest {
     public void shouldUpdateNutritionDataInProduct() {
         //given
         NutritionData nutritionData = createNutritionData();
-        Product product = ProductResourceIntTest.createEntity(em);
+        Product product = ProductCreator.createEntity(em);
         product.addNutritionData(nutritionData);
         product = productRepository.saveAndFlush(product);
         int numberOfNutritions = product.getNutritionData().size();
@@ -151,7 +139,7 @@ public class ProductRepositoryTest {
     public void shouldRemoveNutritionDataFromProduct() {
         //given
         NutritionData nutritionData = createNutritionData();
-        Product product = ProductResourceIntTest.createEntity(em);
+        Product product = ProductCreator.createEntity(em);
         product.addNutritionData(nutritionData);
         product = productRepository.saveAndFlush(product);
         int numberOfNutritions = product.getNutritionData().size();
@@ -169,7 +157,7 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldAddSuitableDietToProduct() {
         //given
-        Product product = productRepository.saveAndFlush(ProductResourceIntTest.createEntity(em));
+        Product product = productRepository.saveAndFlush(ProductCreator.createEntity(em));
         int numberOfDiets = product.getSuitableDiets().size();
         assertThat(numberOfDiets).isEqualTo(0);
 
@@ -186,7 +174,7 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldRemoveSuitableDietFromProduct() {
         //given
-        Product product = ProductResourceIntTest.createEntity(em);
+        Product product = ProductCreator.createEntity(em);
         product.addSuitableDiets(this.dietType);
         product = productRepository.saveAndFlush(product);
         assertThat(product.getSuitableDiets().size()).isEqualTo(1);
@@ -203,7 +191,7 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldAddUnsuitableDietToProduct() {
         //given
-        Product product = productRepository.saveAndFlush(ProductResourceIntTest.createEntity(em));
+        Product product = productRepository.saveAndFlush(ProductCreator.createEntity(em));
         int numberOfDiets = product.getUnsuitableDiets().size();
         assertThat(numberOfDiets).isEqualTo(0);
 
@@ -220,7 +208,7 @@ public class ProductRepositoryTest {
     @Transactional
     public void shouldRemoveUnsuitableDietFromProduct() {
         //given
-        Product product = ProductResourceIntTest.createEntity(em);
+        Product product = ProductCreator.createEntity(em);
         product.addUnsuitableDiets(this.dietType);
         product = productRepository.saveAndFlush(product);
         assertThat(product.getUnsuitableDiets().size()).isEqualTo(1);
@@ -233,26 +221,18 @@ public class ProductRepositoryTest {
         assertThat(result.getUnsuitableDiets()).hasSize(0);
     }
 
-    private HouseholdMeasure createHouseHoldMeasure() {
-        return new HouseholdMeasure()
-            .description(DEFAULT_DESCRIPTION)
-            .gramsWeight(DEFAULT_GRAMS_WEIGHT)
-            .isVisible(DEFAULT_IS_VISIBLE);
-    }
-
     private NutritionData createNutritionData() {
-        NutritionData nutritionData = new NutritionData()
-            .nutritionValue(DEFAULT_NUTRITION_VALUE);
-        // Add required entity
-        NutritionDefinition nutritionDefinition = NutritionDefinitionResourceIntTest.createEntity(em);
+
+        NutritionDefinition nutritionDefinition = NutritionDefinitionCreator.createEntity();
         em.persist(nutritionDefinition);
         em.flush();
+        NutritionData nutritionData = NutritionDataCreator.createNutritionData(nutritionDefinition);
         nutritionData.setNutritionDefinition(nutritionDefinition);
         return nutritionData;
     }
 
     private DietType createDietType() {
-        DietType dietType = DietTypeResourceIntTest.createEntity(em);
+        DietType dietType = DietTypeCreator.createEntity();
         em.persist(dietType);
         em.flush();
         return dietType;
