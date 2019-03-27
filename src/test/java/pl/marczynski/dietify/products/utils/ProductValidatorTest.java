@@ -12,8 +12,6 @@ import pl.marczynski.dietify.core.utils.ValidationResult;
 import pl.marczynski.dietify.products.domain.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ProductValidatorTest {
@@ -33,8 +31,6 @@ public class ProductValidatorTest {
         ProductCategory productCategory = ProductCategoryCreator.createEntity();
         ProductSubcategory productSubcategory = ProductSubcategoryCreator.createEntity(productCategory);
         product = ProductCreator.createEntity(language, productSubcategory);
-
-        when(nutritionDataValidator.validate(any())).thenReturn(new ValidationResult());
     }
 
     @Test
