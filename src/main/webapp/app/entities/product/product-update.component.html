@@ -9,16 +9,16 @@
                     <input type="text" class="form-control" id="id" name="id"
                            [(ngModel)]="product.id" readonly/>
                 </div>
-                <div class="form-group">
+                <div class="form-group" [hidden]="!product.source">
                     <label class="form-control-label" for="field_source"
                            ngbTooltip="Specifying source if product is imported, prefarably url address if possible">Source</label>
                     <input type="text" class="form-control" name="source" id="field_source"
-                           [(ngModel)]="product.source" disabled/>
+                           [(ngModel)]="product.source" readonly/>
                 </div>
-                <div class="form-group">
+                <div class="form-group" *ngIf="product.author">
                     <label class="form-control-label" for="field_author">Author</label>
-                    <input type="text" class="form-control" name="source" id="field_author"
-                           [(ngModel)]="product.author" disabled/>
+                    <input type="text" class="form-control" name="author" id="field_author"
+                           [(ngModel)]="product.author.login" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_description" ngbTooltip="Short description of Product">Description</label>
@@ -90,16 +90,24 @@ All products retrieved from external sources should be checked for eligibility t
                     <label class="form-control-label" for="field_subcategory">Subcategory</label>
                     <div class="row">
                         <select class="form-control col-5" id="field_subcategory" name="subcategory"
-                                [(ngModel)]="product.subcategory" (click)="selectedExistingSubcategory()">
+                                [(ngModel)]="product.subcategory" (click)="selectedExistingSubcategory()"
+                                [required]="!newSubcategory">
                             <option [ngValue]="null"></option>
                             <option
                                 [ngValue]="productSubcategoryOption.id === product.subcategory?.id ? product.subcategory : productSubcategoryOption"
                                 *ngFor="let productSubcategoryOption of productSubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
                         </select>
+                        <div
+                            [hidden]="!(editForm.controls.subcategory?.dirty && editForm.controls.subcategory?.invalid)">
+                            <small class="form-text text-danger"
+                                   [hidden]="!editForm.controls.isFinal?.errors?.required">
+                                This field is required.
+                            </small>
+                        </div>
                         <div class="col-2 text-center">-- SELECT OR NEW --</div>
-                        <input id="new-subcategory" type="text" class="form-control col-5"
-                               (keyup)="selectedNewSubcategory()" [value]="newSubcategory"
-                               (input)="newSubcategory = $event.target.value" disabled>
+                        <input id="new-subcategory" type="text" class="form-control col-5" name="newSubcategory"
+                               (keyup)="selectedNewSubcategory()" [(ngModel)]="newSubcategory"
+                               [required]="!product.subcategory" minlength="1">
                     </div>
                 </div>
                 <div class="form-group">
@@ -121,26 +129,41 @@ All products retrieved from external sources should be checked for eligibility t
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Nutritions</label>
                     <table>
-                        <tr *ngFor="let nutritionData of product.nutritionData">
+                        <tr *ngFor="let nutritionData of product.nutritionData; let index = index">
                             <td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>
-                            <td><input type="text" [value]="nutritionData.nutritionValue"
-                                       (input)="nutritionData.nutritionValue = $event.target.value"></td>
+                            <td><input type="number" class="form-control" name="nutritionDataValue{{index}}"
+                                       [(ngModel)]="nutritionData.nutritionValue" jhiMin="0"
+                                       placeholder="Nutrition value">
+                            </td>
                         </tr>
                     </table>
                 </div>
                 <div class="form-group">
                     <label for="field_unsuitableDiets">Household Measures</label>
-                    <div *ngFor="let householdMeasure of product.householdMeasures; let last = last">
-                        <input type="checkbox" [value]="householdMeasure.isVisible"
-                               (input)="householdMeasure.isVisible = $event.target.value"
-                               (click)="createNewHouseholdMeasure(last)"/>
-                        <input type="text" [value]="householdMeasure.description"
-                               (input)="householdMeasure.description = $event.target.value"
-                               (keyup)="createNewHouseholdMeasure(last)"/>
-                        <input type="text" [value]="householdMeasure.gramsWeight"
-                               (input)="householdMeasure.gramsWeight = $event.target.value"
-                               (keyup)="createNewHouseholdMeasure(last)"/>
-                    </div>
+                    <table>
+                        <tr
+                            *ngFor="let householdMeasure of product.householdMeasures; let last = last; let index = index">
+                            <td>
+                                <input type="checkbox" class="form-control" name="householdMeasureIsVisible{{index}}"
+                                       [(ngModel)]="householdMeasure.isVisible"
+                                       (click)="createNewHouseholdMeasure(last)"/>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control" name="householdMeasureDescription{{index}}"
+                                       [(ngModel)]="householdMeasure.description"
+                                       (keyup)="createNewHouseholdMeasure(last)"
+                                       [required]="householdMeasure.gramsWeight && !householdMeasure.description"
+                                       placeholder="Description"/>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control" name="householdMeasureGramsWeight{{index}}"
+                                       [(ngModel)]="householdMeasure.gramsWeight"
+                                       (keyup)="createNewHouseholdMeasure(last)"
+                                       [required]="householdMeasure.description && !householdMeasure.gramsWeight"
+                                       jhiMin="0.00001" placeholder="Grams weight"/>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
             <div>

@@ -57,8 +57,10 @@ export class ProductUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({product}) => {
             this.product = product;
-            this.selectedCategory = this.product.subcategory.category;
-            this.fetchSubcategories();
+            if (this.product.subcategory) {
+                this.selectedCategory = this.product.subcategory.category;
+                this.fetchSubcategories();
+            }
 
             if (!this.product.householdMeasures) {
                 this.product.householdMeasures = [];
@@ -200,21 +202,25 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     fetchSubcategories() {
-        document.getElementById('field_subcategory').removeAttribute('disabled');
-        document.getElementById('new-subcategory').removeAttribute('disabled');
-        this.productSubcategoryService
-            .query({
-                productCategoryId: this.selectedCategory.id,
-                languageId: this.product.language.id
-            })
-            .pipe(
-                filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
-                map((response: HttpResponse<IProductSubcategory[]>) => response.body)
-            )
-            .subscribe(
-                (res: IProductSubcategory[]) => (this.productSubcategories = res),
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        this.product.subcategory = null;
+        if (this.selectedCategory) {
+
+            document.getElementById('field_subcategory').removeAttribute('disabled');
+            document.getElementById('new-subcategory').removeAttribute('disabled');
+            this.productSubcategoryService
+                .query({
+                    productCategoryId: this.selectedCategory.id,
+                    languageId: this.product.language.id
+                })
+                .pipe(
+                    filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
+                    map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+                )
+                .subscribe(
+                    (res: IProductSubcategory[]) => (this.productSubcategories = res),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        }
     }
 
     selectedNewSubcategory() {

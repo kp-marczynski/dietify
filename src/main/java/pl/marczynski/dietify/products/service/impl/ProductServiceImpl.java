@@ -11,11 +11,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.service.UserService;
+import pl.marczynski.dietify.core.utils.ValidationResult;
 import pl.marczynski.dietify.core.web.rest.errors.OperationNotAllowedForCurrentUserException;
+import pl.marczynski.dietify.core.web.rest.errors.ProductInvalidException;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
+import pl.marczynski.dietify.products.utils.ProductValidator;
 
 import java.util.Optional;
 
@@ -32,12 +35,14 @@ public class ProductServiceImpl implements ProductService {
     private final CacheManager cacheManager;
     private final ProductSubcategoryService productSubcategoryService;
     private final UserService userService;
+    private final ProductValidator productValidator;
 
-    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager, ProductSubcategoryService productSubcategoryService, UserService userService) {
+    public ProductServiceImpl(ProductRepository productRepository, CacheManager cacheManager, ProductSubcategoryService productSubcategoryService, UserService userService, ProductValidator productValidator) {
         this.productRepository = productRepository;
         this.cacheManager = cacheManager;
         this.productSubcategoryService = productSubcategoryService;
         this.userService = userService;
+        this.productValidator = productValidator;
     }
 
     /**
@@ -51,6 +56,10 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Request to save Product : {}", product);
         if (!hasRightsToPersistProduct(product)) {
             throw new OperationNotAllowedForCurrentUserException();
+        }
+        ValidationResult validationResult = productValidator.validate(product);
+        if (!validationResult.hasValidationPassed()) {
+            throw new ProductInvalidException(validationResult.getValidationProblem());
         }
         this.clearProductCaches(product);
         if (product.getAuthor() == null) {

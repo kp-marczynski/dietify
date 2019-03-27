@@ -12,11 +12,14 @@ import org.springframework.cache.CacheManager;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.domain.UserCreator;
 import pl.marczynski.dietify.core.service.UserService;
+import pl.marczynski.dietify.core.utils.ValidationResult;
 import pl.marczynski.dietify.core.web.rest.errors.OperationNotAllowedForCurrentUserException;
+import pl.marczynski.dietify.core.web.rest.errors.ProductInvalidException;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.domain.ProductCreator;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
+import pl.marczynski.dietify.products.utils.ProductValidator;
 
 import javax.persistence.EntityManager;
 import java.util.Optional;
@@ -47,6 +50,9 @@ public class ProductServiceTest {
     @InjectMocks
     private ProductServiceImpl productService;
 
+    @Mock
+    private ProductValidator productValidator;
+
     private User user;
     private Product product;
 
@@ -59,6 +65,7 @@ public class ProductServiceTest {
         this.product.setAuthor(user);
         when(userService.getCurrentUser()).thenReturn(Optional.of(this.user));
         when(productRepository.findOneWithEagerRelationships(any())).thenReturn(Optional.of(this.product));
+        when(productValidator.validate(any())).thenReturn(new ValidationResult());
     }
 
     @Test
@@ -78,8 +85,6 @@ public class ProductServiceTest {
         this.product.setAuthor(anotherUser);
         //when
         productService.save(product);
-
-        //then exception expected
     }
 
     @Test
@@ -107,7 +112,15 @@ public class ProductServiceTest {
         } catch (NotFoundException e) {
             fail();
         }
+    }
 
-        //then exception expected
+    @Test(expected = ProductInvalidException.class)
+    public void whenProductValidationFailedThenExceptionIsThrown() {
+        //given
+        ValidationResult validationResult = new ValidationResult().validate(false, "Fail");
+        when(productValidator.validate(any())).thenReturn(validationResult);
+
+        //when
+        productService.save(this.product);
     }
 }
