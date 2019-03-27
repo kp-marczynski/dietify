@@ -12,12 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.service.UserService;
 import pl.marczynski.dietify.core.web.rest.errors.OperationNotAllowedForCurrentUserException;
+import pl.marczynski.dietify.core.web.rest.errors.ProductInvalidException;
+import pl.marczynski.dietify.products.domain.HouseholdMeasure;
+import pl.marczynski.dietify.products.domain.NutritionData;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Implementation for managing Product.
@@ -51,6 +55,9 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Request to save Product : {}", product);
         if (!hasRightsToPersistProduct(product)) {
             throw new OperationNotAllowedForCurrentUserException();
+        }
+        if (!isProductValid(product)) {
+            throw new ProductInvalidException();
         }
         this.clearProductCaches(product);
         if (product.getAuthor() == null) {
@@ -137,5 +144,21 @@ public class ProductServiceImpl implements ProductService {
         if (cache != null) {
             cache.evict(productId);
         }
+    }
+
+    private boolean isProductValid(Product product) {
+        return product.getLanguage() != null
+            && product.getDescription() != null
+            && product.getSubcategory() != null
+            && validateNutritionsData(product.getNutritionData())
+            && validateHouseholdMeasures(product.getHouseholdMeasures());
+    }
+
+    private boolean validateNutritionsData(Set<NutritionData> nutritionsData) {
+        return nutritionsData.stream().noneMatch(nutritionData -> nutritionData.getNutritionDefinition() == null || nutritionData.getNutritionValue() == null);
+    }
+
+    private boolean validateHouseholdMeasures(Set<HouseholdMeasure> householdMeasures) {
+        return householdMeasures.stream().noneMatch(householdMeasure -> householdMeasure.getGramsWeight() == null || householdMeasure.getDescription() == null);
     }
 }
