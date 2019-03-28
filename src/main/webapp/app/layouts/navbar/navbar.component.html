@@ -23,59 +23,42 @@
             <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
             <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
-                    <span>
-                        <fa-icon icon="th-list"></fa-icon>
-                        <span>
-                            Entities
-                        </span>
-                    </span>
+            <li>
+                <a class="dropdown-item" routerLink="product" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Product</span>
                 </a>
-                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
-                    <li>
-                        <a class="dropdown-item" routerLink="language" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Language</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="product" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Product</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="product-subcategory" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Product Subcategory</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="product-category" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Product Category</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="nutrition-definition" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Nutrition Definition</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" routerLink="diet-type" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Diet Type</span>
-                        </a>
-                    </li>
-                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-                </ul>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="language" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Language</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="product-category" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Product Category</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="nutrition-definition" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Nutrition Definition</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="diet-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Diet Type</span>
+                </a>
+            </li>
+            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             </li>
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -257,8 +240,8 @@
         </div>
     </div>
     <div class="sidebar-body">
-    <div class="list-group list-group-flush" [ngSwitch]="isAuthenticated()">
-        <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
+        <div class="list-group list-group-flush" [ngSwitch]="isAuthenticated()">
+            <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
             <a class="list-group-item list-group-item-action waves-effect" routerLink="/"
                (click)="collapseNavbar()">
                     <span>
@@ -273,10 +256,10 @@
                     <span>Products</span>
                 </a>
             </span>
-        <!--</span>-->
-    </div>
-    <div class="list-group list-group-flush" *jhiHasAnyAuthority="'ROLE_ADMIN'">
-        <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
+            <!--</span>-->
+        </div>
+        <div class="list-group list-group-flush" *jhiHasAnyAuthority="'ROLE_ADMIN'">
+            <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
             <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="nutrition-definition"
                    id="nutrition-definition"
@@ -293,21 +276,21 @@
                     <span>Product Categories</span>
                 </a>
             </span>
-             <span>
+            <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="diet-type" id="diet-type"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Diet Types</span>
                 </a>
             </span>
-             <span>
+            <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="language" id="language"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Languages</span>
                 </a>
             </span>
-        <!--</span>-->
-    </div>
+            <!--</span>-->
+        </div>
     </div>
 </aside>
