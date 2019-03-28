@@ -39,8 +39,8 @@
             <column header="subcategory_id" name="subcategory_id" type="numeric"/>
             <column header="description" name="description" type="string"/>
             <column header="source" name="source" type="string"/>
-            <column header="is_final" name="is_final" type="boolean"/>
-            <column header="is_verified" name="is_verified" type="boolean"/>
+            <column header="is_final" type="skip"/>
+            <column header="is_verified" type="skip"/>
             <column header="language_id" name="language_id" type="numeric"/>
         </loadData>
     </changeSet>

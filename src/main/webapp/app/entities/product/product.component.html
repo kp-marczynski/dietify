@@ -17,8 +17,6 @@
             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="source"><span>Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="description"><span>Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="isFinal"><span>Is Final</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="isVerified"><span>Is Verified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="language.id"><span>Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="subcategory.id"><span>Subcategory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="author.login"><span>Author</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -30,8 +28,6 @@
                 <td><a [routerLink]="['/product', product.id, 'view' ]">{{product.id}}</a></td>
                 <td>{{product.source}}</td>
                 <td>{{product.description}}</td>
-                <td>{{product.isFinal}}</td>
-                <td>{{product.isVerified}}</td>
                 <td>
                     <div *ngIf="product.language">
                         <a [routerLink]="['../language', product.language?.id, 'view' ]" >{{product.language?.englishName}}</a>

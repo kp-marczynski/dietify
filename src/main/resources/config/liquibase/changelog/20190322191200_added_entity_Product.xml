@@ -30,14 +30,6 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="is_final" type="boolean" remarks="Flag specifying if product is final or editable">
-                <constraints nullable="false" />
-            </column>
-
-            <column name="is_verified" type="boolean" remarks="Flag specifying if product is verified All products retrieved from external sources should be checked for eligibility to use &amp; therfore intially this flag is set to false for these.">
-                <constraints nullable="false" />
-            </column>
-
             <column name="language_id" type="bigint">
                 <constraints nullable="false" />
             </column>

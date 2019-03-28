@@ -9,8 +9,6 @@ export interface IProduct {
     id?: number;
     source?: string;
     description?: string;
-    isFinal?: boolean;
-    isVerified?: boolean;
     language?: ILanguage;
     subcategory?: IProductSubcategory;
     author?: IUser;
@@ -25,8 +23,6 @@ export class Product implements IProduct {
         public id?: number,
         public source?: string,
         public description?: string,
-        public isFinal?: boolean,
-        public isVerified?: boolean,
         public language?: ILanguage,
         public subcategory?: IProductSubcategory,
         public author?: IUser,
@@ -34,8 +30,5 @@ export class Product implements IProduct {
         public unsuitableDiets?: IDietType[],
         public nutritionData?: INutritionData[],
         public householdMeasures?: IHouseholdMeasure[]
-    ) {
-        this.isFinal = this.isFinal || false;
-        this.isVerified = this.isVerified || false;
-    }
+    ) {}
 }

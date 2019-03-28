@@ -36,32 +36,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_isFinal"
-                           ngbTooltip="Flag specifying if product is final or editable">Is Final</label>
-                    <input type="checkbox" class="form-control" name="isFinal" id="field_isFinal"
-                           [(ngModel)]="product.isFinal"/>
-                    <div [hidden]="!(editForm.controls.isFinal?.dirty && editForm.controls.isFinal?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.isFinal?.errors?.required">
-                            This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_isVerified" ngbTooltip="Flag specifying if product is verified
-All products retrieved from external sources should be checked for eligibility to use &amp; therfore intially this flag is set to false for these.">Is
-                        Verified</label>
-                    <input type="checkbox" class="form-control" name="isVerified" id="field_isVerified"
-                           [(ngModel)]="product.isVerified"/>
-                    <div [hidden]="!(editForm.controls.isVerified?.dirty && editForm.controls.isVerified?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.isVerified?.errors?.required">
-                            This field is required.
-                        </small>
-                    </div>
-                </div>
-
-                <div class="form-group">
                     <label class="form-control-label" for="field_language">Language</label>
                     <select class="form-control" id="field_language" name="language" [(ngModel)]="product.language"
                             required (change)="fetchSubcategories()">

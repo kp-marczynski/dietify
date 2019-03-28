@@ -122,8 +122,6 @@ public class ProductResourceIntTest {
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getSource()).isEqualTo(DEFAULT_SOURCE);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testProduct.isIsFinal()).isEqualTo(DEFAULT_IS_FINAL);
-        assertThat(testProduct.isIsVerified()).isEqualTo(DEFAULT_IS_VERIFIED);
     }
 
     @Test
@@ -151,42 +149,6 @@ public class ProductResourceIntTest {
         int databaseSizeBeforeTest = productRepository.findAll().size();
         // set the field null
         product.setDescription(null);
-
-        // Create the Product, which fails.
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(product)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkIsFinalIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setIsFinal(null);
-
-        // Create the Product, which fails.
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(product)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkIsVerifiedIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setIsVerified(null);
 
         // Create the Product, which fails.
 
@@ -288,9 +250,7 @@ public class ProductResourceIntTest {
         em.detach(updatedProduct);
         updatedProduct
             .source(UPDATED_SOURCE)
-            .description(UPDATED_DESCRIPTION)
-            .isFinal(UPDATED_IS_FINAL)
-            .isVerified(UPDATED_IS_VERIFIED);
+            .description(UPDATED_DESCRIPTION);
 
         restProductMockMvc.perform(put("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -303,8 +263,6 @@ public class ProductResourceIntTest {
         Product testProduct = productList.get(productList.size() - 1);
         assertThat(testProduct.getSource()).isEqualTo(UPDATED_SOURCE);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testProduct.isIsFinal()).isEqualTo(UPDATED_IS_FINAL);
-        assertThat(testProduct.isIsVerified()).isEqualTo(UPDATED_IS_VERIFIED);
     }
 
     @Test

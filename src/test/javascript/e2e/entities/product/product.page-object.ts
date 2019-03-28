@@ -28,8 +28,6 @@ export class ProductUpdatePage {
     cancelButton = element(by.id('cancel-save'));
     sourceInput = element(by.id('field_source'));
     descriptionInput = element(by.id('field_description'));
-    isFinalInput = element(by.id('field_isFinal'));
-    isVerifiedInput = element(by.id('field_isVerified'));
     languageSelect = element(by.id('field_language'));
     subcategorySelect = element(by.id('field_subcategory'));
     authorSelect = element(by.id('field_author'));
@@ -54,13 +52,6 @@ export class ProductUpdatePage {
 
     async getDescriptionInput() {
         return this.descriptionInput.getAttribute('value');
-    }
-
-    getIsFinalInput() {
-        return this.isFinalInput;
-    }
-    getIsVerifiedInput() {
-        return this.isVerifiedInput;
     }
 
     async languageSelectLastOption() {

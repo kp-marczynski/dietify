@@ -17,13 +17,6 @@ entity Product {
 	source String
     /** Short description of Product */
 	description String required minlength(1)
-    /** Flag specifying if product is final or editable */
-	isFinal Boolean required
-    /** 
-    * Flag specifying if product is verified
-    * All products retrieved from external sources should be checked for eligibility to use & therfore intially this flag is set to false for these.
-    */
-	isVerified Boolean required
 }
 
 /**

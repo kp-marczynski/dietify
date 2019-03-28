@@ -34,9 +34,7 @@ public class ProductCreator {
     public static Product createEntity(Language language, ProductSubcategory productSubcategory) {
         Product product = new Product()
             .source(DEFAULT_SOURCE)
-            .description(DEFAULT_DESCRIPTION)
-            .isFinal(DEFAULT_IS_FINAL)
-            .isVerified(DEFAULT_IS_VERIFIED);
+            .description(DEFAULT_DESCRIPTION);
         product.setLanguage(language);
         product.setSubcategory(productSubcategory);
         return product;

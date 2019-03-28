@@ -49,23 +49,6 @@ public class Product implements Serializable {
     private String description;
 
     /**
-     * Flag specifying if product is final or editable
-     */
-    @NotNull
-    @ApiModelProperty(value = "Flag specifying if product is final or editable", required = true)
-    @Column(name = "is_final", nullable = false)
-    private Boolean isFinal;
-
-    /**
-     * Flag specifying if product is verified
-     * All products retrieved from external sources should be checked for eligibility to use & therfore intially this flag is set to false for these.
-     */
-    @NotNull
-    @ApiModelProperty(value = "Flag specifying if product is verified All products retrieved from external sources should be checked for eligibility to use & therfore intially this flag is set to false for these.", required = true)
-    @Column(name = "is_verified", nullable = false)
-    private Boolean isVerified;
-
-    /**
      * Language in which product is defined
      */
     @ApiModelProperty(value = "Language in which product is defined")
@@ -159,32 +142,6 @@ public class Product implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Boolean isIsFinal() {
-        return isFinal;
-    }
-
-    public Product isFinal(Boolean isFinal) {
-        this.isFinal = isFinal;
-        return this;
-    }
-
-    public void setIsFinal(Boolean isFinal) {
-        this.isFinal = isFinal;
-    }
-
-    public Boolean isIsVerified() {
-        return isVerified;
-    }
-
-    public Product isVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
-        return this;
-    }
-
-    public void setIsVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
     }
 
     public Language getLanguage() {
@@ -345,8 +302,6 @@ public class Product implements Serializable {
             "id=" + getId() +
             ", source='" + getSource() + "'" +
             ", description='" + getDescription() + "'" +
-            ", isFinal='" + isIsFinal() + "'" +
-            ", isVerified='" + isIsVerified() + "'" +
             "}";
     }
 }
