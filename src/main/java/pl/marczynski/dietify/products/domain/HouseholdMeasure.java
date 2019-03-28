@@ -41,7 +41,7 @@ public class HouseholdMeasure implements Serializable {
      * Grams weight of 1 unit of specified measure
      */
     @NotNull
-    @DecimalMin(value = "0")
+    @DecimalMin(value = "0.00001")
     @ApiModelProperty(value = "Grams weight of 1 unit of specified measure", required = true)
     @Column(name = "grams_weight", nullable = false)
     private Double gramsWeight;

@@ -80,6 +80,7 @@ public class Product implements Serializable {
     @ApiModelProperty(value = "Subcategory of the product")
     @ManyToOne
     @JsonIgnoreProperties("products")
+    @NotNull
     private ProductSubcategory subcategory;
 
     /**
