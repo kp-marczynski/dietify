@@ -202,7 +202,9 @@ export class ProductUpdateComponent implements OnInit {
     }
 
     fetchSubcategories() {
-        this.product.subcategory = null;
+        if (this.product.subcategory && this.product.subcategory.category !== this.selectedCategory) {
+            this.product.subcategory = null;
+        }
         if (this.selectedCategory) {
 
             document.getElementById('field_subcategory').removeAttribute('disabled');
