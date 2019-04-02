@@ -3,6 +3,7 @@
 ## Prerequisites
 
 *  [Node.js][]
+*  [jdk8][]
 
 ## How to run?
 
@@ -52,14 +53,14 @@ Then run:
 ## TODO
 - [x] framework mvc
 - [x] usage of orm
-- [ ] usage of cache (backend only)
+- [x] usage of cache (backend only)
 - [x] user authentication & authorization
 - [x] admin panel
 - [ ] integration with external service
-- [ ] unit tests
-- [ ] ajax elements
+- [x] unit tests
+- [x] ajax elements
 - [ ] charts
-- [ ] connected selectboxes - choosing product category trigger retriving of proper subcategories 
+- [x] connected selectboxes - choosing product category trigger retriving of proper subcategories 
 - [x] navbar options
 - [x] loader css
 
@@ -73,3 +74,4 @@ Then run:
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: http://leafletjs.com/
 [definitelytyped]: http://definitelytyped.org/
+[jdk8]: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
