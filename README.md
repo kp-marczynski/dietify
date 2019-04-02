@@ -3,6 +3,7 @@
 ## Prerequisites
 
 *  [Node.js][]
+*  [jdk8][]
 
 ## How to run?
 
@@ -73,3 +74,4 @@ Then run:
 [protractor]: https://angular.github.io/protractor/
 [leaflet]: http://leafletjs.com/
 [definitelytyped]: http://definitelytyped.org/
+[jdk8]: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
