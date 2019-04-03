@@ -1,7 +1,8 @@
-package pl.marczynski.dietify.core.web.rest;
+package pl.marczynski.dietify.recipes.web.rest;
 
 import pl.marczynski.dietify.core.DietifyApp;
 
+import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.domain.RecipeSection;
 import pl.marczynski.dietify.recipes.repository.RecipeRepository;
@@ -25,7 +26,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.recipes.web.rest.RecipeResource;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;

@@ -1,7 +1,8 @@
-package pl.marczynski.dietify.core.web.rest;
+package pl.marczynski.dietify.recipes.web.rest;
 
 import pl.marczynski.dietify.core.DietifyApp;
 
+import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.recipes.domain.KitchenAppliance;
 import pl.marczynski.dietify.recipes.repository.KitchenApplianceRepository;
 import pl.marczynski.dietify.recipes.service.KitchenApplianceService;
