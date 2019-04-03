@@ -4,6 +4,7 @@ import pl.marczynski.dietify.core.DietifyApp;
 
 import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.recipes.domain.DishType;
+import pl.marczynski.dietify.recipes.domain.DishTypeCreator;
 import pl.marczynski.dietify.recipes.repository.DishTypeRepository;
 import pl.marczynski.dietify.recipes.service.DishTypeService;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
@@ -86,22 +87,9 @@ public class DishTypeResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static DishType createEntity(EntityManager em) {
-        DishType dishType = new DishType()
-            .descriptionPolish(DEFAULT_DESCRIPTION_POLISH)
-            .descriptionEnglish(DEFAULT_DESCRIPTION_ENGLISH);
-        return dishType;
-    }
-
     @Before
     public void initTest() {
-        dishType = createEntity(em);
+        dishType = DishTypeCreator.createEntity();
     }
 
     @Test
@@ -156,7 +144,7 @@ public class DishTypeResourceIntTest {
             .andExpect(jsonPath("$.[*].descriptionPolish").value(hasItem(DEFAULT_DESCRIPTION_POLISH.toString())))
             .andExpect(jsonPath("$.[*].descriptionEnglish").value(hasItem(DEFAULT_DESCRIPTION_ENGLISH.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getDishType() throws Exception {

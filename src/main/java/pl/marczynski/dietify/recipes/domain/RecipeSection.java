@@ -1,22 +1,21 @@
 package pl.marczynski.dietify.recipes.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A recipe section,
  * e.g. recipe for cheesecake might have 3 separate sections for dough, filling and topping.
  * First section might be unnamed.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A recipe section, e.g. recipe for cheesecake might have 3 separate sections for dough, filling and topping. First section might be unnamed. @author Krzysztof Marczyński")
@@ -25,7 +24,7 @@ import java.util.Objects;
 public class RecipeSection implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,26 +38,20 @@ public class RecipeSection implements Serializable {
     private String sectionName;
 
     /**
-     * Recipe to which recipe section is assigned
-     */
-    @ApiModelProperty(value = "Recipe to which recipe section is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("recipeSections")
-    private Recipe recipe;
-
-    /**
      * Collection of products portions
      */
     @ApiModelProperty(value = "Collection of products portions")
-    @OneToMany(mappedBy = "recipeSection")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_section_id", nullable = false)
     private Set<ProductPortion> productPortions = new HashSet<>();
     /**
      * Collection of preparation steps
      */
     @ApiModelProperty(value = "Collection of preparation steps")
-    @OneToMany(mappedBy = "recipeSection")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_sectio_id", nullable = false)
     private Set<PreparationStep> preparationSteps = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -81,19 +74,6 @@ public class RecipeSection implements Serializable {
         this.sectionName = sectionName;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public RecipeSection recipe(Recipe recipe) {
-        this.recipe = recipe;
-        return this;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
     public Set<ProductPortion> getProductPortions() {
         return productPortions;
     }
@@ -105,13 +85,11 @@ public class RecipeSection implements Serializable {
 
     public RecipeSection addProductPortions(ProductPortion productPortion) {
         this.productPortions.add(productPortion);
-        productPortion.setRecipeSection(this);
         return this;
     }
 
     public RecipeSection removeProductPortions(ProductPortion productPortion) {
         this.productPortions.remove(productPortion);
-        productPortion.setRecipeSection(null);
         return this;
     }
 
@@ -130,13 +108,11 @@ public class RecipeSection implements Serializable {
 
     public RecipeSection addPreparationSteps(PreparationStep preparationStep) {
         this.preparationSteps.add(preparationStep);
-        preparationStep.setRecipeSection(this);
         return this;
     }
 
     public RecipeSection removePreparationSteps(PreparationStep preparationStep) {
         this.preparationSteps.remove(preparationStep);
-        preparationStep.setRecipeSection(null);
         return this;
     }
 

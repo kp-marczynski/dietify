@@ -4,6 +4,7 @@ import pl.marczynski.dietify.core.DietifyApp;
 
 import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.recipes.domain.KitchenAppliance;
+import pl.marczynski.dietify.recipes.domain.KitchenApplianceCreator;
 import pl.marczynski.dietify.recipes.repository.KitchenApplianceRepository;
 import pl.marczynski.dietify.recipes.service.KitchenApplianceService;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
@@ -86,22 +87,9 @@ public class KitchenApplianceResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static KitchenAppliance createEntity(EntityManager em) {
-        KitchenAppliance kitchenAppliance = new KitchenAppliance()
-            .namePolish(DEFAULT_NAME_POLISH)
-            .nameEnglish(DEFAULT_NAME_ENGLISH);
-        return kitchenAppliance;
-    }
-
     @Before
     public void initTest() {
-        kitchenAppliance = createEntity(em);
+        kitchenAppliance = KitchenApplianceCreator.createEntity();
     }
 
     @Test

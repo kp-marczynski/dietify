@@ -6,16 +6,19 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Recipe.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A Recipe. @author Krzysztof Marczyński")
@@ -24,7 +27,7 @@ import java.util.Objects;
 public class Recipe implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -127,40 +130,44 @@ public class Recipe implements Serializable {
     @ApiModelProperty(value = "Collection of kitchen appliances needed for recipe preparation")
     @ManyToMany
     @JoinTable(name = "recipe_kitchen_appliances",
-               joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "kitchen_appliances_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "kitchen_appliances_id", referencedColumnName = "id"))
     private Set<KitchenAppliance> kitchenAppliances = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_dish_type",
-               joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "dish_type_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "dish_type_id", referencedColumnName = "id"))
     private Set<DishType> dishTypes = new HashSet<>();
 
     @ManyToMany
     @JoinTable(name = "recipe_meal_type",
-               joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
-               inverseJoinColumns = @JoinColumn(name = "meal_type_id", referencedColumnName = "id"))
+        joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "meal_type_id", referencedColumnName = "id"))
     private Set<MealType> mealTypes = new HashSet<>();
 
     /**
      * Collection of recipe sections
      */
     @ApiModelProperty(value = "Collection of recipe sections")
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id", nullable = false)
     private Set<RecipeSection> recipeSections = new HashSet<>();
     /**
      * Collection of tags specifying for which cases recipe might be used
      */
     @ApiModelProperty(value = "Collection of tags specifying for which cases recipe might be used")
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id", nullable = false)
     private Set<RecipeSuitableForDiet> suitableForDiets = new HashSet<>();
     /**
      * Collection of tags specifying for which cases recipe should not be used
      */
     @ApiModelProperty(value = "Collection of tags specifying for which cases recipe should not be used")
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id", nullable = false)
     private Set<RecipeUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -406,13 +413,11 @@ public class Recipe implements Serializable {
 
     public Recipe addRecipeSections(RecipeSection recipeSection) {
         this.recipeSections.add(recipeSection);
-        recipeSection.setRecipe(this);
         return this;
     }
 
     public Recipe removeRecipeSections(RecipeSection recipeSection) {
         this.recipeSections.remove(recipeSection);
-        recipeSection.setRecipe(null);
         return this;
     }
 
@@ -431,13 +436,11 @@ public class Recipe implements Serializable {
 
     public Recipe addSuitableForDiets(RecipeSuitableForDiet recipeSuitableForDiet) {
         this.suitableForDiets.add(recipeSuitableForDiet);
-        recipeSuitableForDiet.setRecipe(this);
         return this;
     }
 
     public Recipe removeSuitableForDiets(RecipeSuitableForDiet recipeSuitableForDiet) {
         this.suitableForDiets.remove(recipeSuitableForDiet);
-        recipeSuitableForDiet.setRecipe(null);
         return this;
     }
 
@@ -456,13 +459,11 @@ public class Recipe implements Serializable {
 
     public Recipe addUnsuitableForDiets(RecipeUnsuitableForDiet recipeUnsuitableForDiet) {
         this.unsuitableForDiets.add(recipeUnsuitableForDiet);
-        recipeUnsuitableForDiet.setRecipe(this);
         return this;
     }
 
     public Recipe removeUnsuitableForDiets(RecipeUnsuitableForDiet recipeUnsuitableForDiet) {
         this.unsuitableForDiets.remove(recipeUnsuitableForDiet);
-        recipeUnsuitableForDiet.setRecipe(null);
         return this;
     }
 
@@ -498,7 +499,6 @@ public class Recipe implements Serializable {
             ", name='" + getName() + "'" +
             ", preparationTimeMinutes=" + getPreparationTimeMinutes() +
             ", numberOfPortions=" + getNumberOfPortions() +
-            ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
             ", authorId=" + getAuthorId() +
             ", creationDate='" + getCreationDate() + "'" +

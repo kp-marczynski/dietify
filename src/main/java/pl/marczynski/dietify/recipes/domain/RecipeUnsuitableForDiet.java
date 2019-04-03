@@ -1,19 +1,18 @@
 package pl.marczynski.dietify.recipes.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A tag specifying cases in which Recipe should not be used,
  * e.g. vegetarian should mean it is bad for vegetarians.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A tag specifying cases in which Recipe should not be used, e.g. vegetarian should mean it is bad for vegetarians. @author Krzysztof Marczyński")
@@ -22,7 +21,7 @@ import java.util.Objects;
 public class RecipeUnsuitableForDiet implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -34,15 +33,6 @@ public class RecipeUnsuitableForDiet implements Serializable {
     @ApiModelProperty(value = "Id of applicaple Tag entity retrieved from products service", required = true)
     @Column(name = "diet_type_id", nullable = false)
     private Long dietTypeId;
-
-    /**
-     * Recipe to which tag is assigned
-     */
-    @ApiModelProperty(value = "Recipe to which tag is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("unsuitableForDiets")
-    private Recipe recipe;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -66,18 +56,6 @@ public class RecipeUnsuitableForDiet implements Serializable {
         this.dietTypeId = dietTypeId;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public RecipeUnsuitableForDiet recipe(Recipe recipe) {
-        this.recipe = recipe;
-        return this;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

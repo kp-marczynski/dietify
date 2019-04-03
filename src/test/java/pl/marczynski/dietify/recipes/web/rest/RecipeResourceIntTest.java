@@ -4,6 +4,7 @@ import pl.marczynski.dietify.core.DietifyApp;
 
 import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.recipes.domain.Recipe;
+import pl.marczynski.dietify.recipes.domain.RecipeCreator;
 import pl.marczynski.dietify.recipes.domain.RecipeSection;
 import pl.marczynski.dietify.recipes.repository.RecipeRepository;
 import pl.marczynski.dietify.recipes.service.RecipeService;
@@ -125,36 +126,11 @@ public class RecipeResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static Recipe createEntity(EntityManager em) {
-        Recipe recipe = new Recipe()
-            .name(DEFAULT_NAME)
-            .preparationTimeMinutes(DEFAULT_PREPARATION_TIME_MINUTES)
-            .numberOfPortions(DEFAULT_NUMBER_OF_PORTIONS)
-            .image(DEFAULT_IMAGE)
-            .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
-            .authorId(DEFAULT_AUTHOR_ID)
-            .creationDate(DEFAULT_CREATION_DATE)
-            .lastEditDate(DEFAULT_LAST_EDIT_DATE)
-            .isVisible(DEFAULT_IS_VISIBLE)
-            .isLocked(DEFAULT_IS_LOCKED)
-            .languageId(DEFAULT_LANGUAGE_ID);
-        // Add required entity
-        RecipeSection recipeSection = RecipeSectionResourceIntTest.createEntity(em);
-        em.persist(recipeSection);
-        em.flush();
-        recipe.getRecipeSections().add(recipeSection);
-        return recipe;
-    }
+
 
     @Before
     public void initTest() {
-        recipe = createEntity(em);
+        recipe = RecipeCreator.createEntity(em);
     }
 
     @Test

@@ -1,5 +1,5 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
 @NgModule({
     imports: [
@@ -43,26 +43,6 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'kitchen-appliance',
                 loadChildren: './kitchen-appliance/kitchen-appliance.module#DietifyKitchenApplianceModule'
-            },
-            {
-                path: 'recipe-section',
-                loadChildren: './recipe-section/recipe-section.module#DietifyRecipeSectionModule'
-            },
-            {
-                path: 'preparation-step',
-                loadChildren: './preparation-step/preparation-step.module#DietifyPreparationStepModule'
-            },
-            {
-                path: 'product-portion',
-                loadChildren: './product-portion/product-portion.module#DietifyProductPortionModule'
-            },
-            {
-                path: 'recipe-suitable-for-diet',
-                loadChildren: './recipe-suitable-for-diet/recipe-suitable-for-diet.module#DietifyRecipeSuitableForDietModule'
-            },
-            {
-                path: 'recipe-unsuitable-for-diet',
-                loadChildren: './recipe-unsuitable-for-diet/recipe-unsuitable-for-diet.module#DietifyRecipeUnsuitableForDietModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
@@ -72,4 +52,5 @@ import { RouterModule } from '@angular/router';
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DietifyEntityModule {}
+export class DietifyEntityModule {
+}

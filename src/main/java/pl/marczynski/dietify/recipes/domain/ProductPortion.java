@@ -1,18 +1,18 @@
 package pl.marczynski.dietify.recipes.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A Portion of product used in recipe.
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A Portion of product used in recipe. @author Krzysztof Marczyński")
@@ -21,7 +21,7 @@ import java.util.Objects;
 public class ProductPortion implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,15 +41,6 @@ public class ProductPortion implements Serializable {
 
     @Column(name = "household_measure_id")
     private Long householdMeasureId;
-
-    /**
-     * Recipe Section to which portion is assigned
-     */
-    @ApiModelProperty(value = "Recipe Section to which portion is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("productPortions")
-    private RecipeSection recipeSection;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -99,18 +90,6 @@ public class ProductPortion implements Serializable {
         this.householdMeasureId = householdMeasureId;
     }
 
-    public RecipeSection getRecipeSection() {
-        return recipeSection;
-    }
-
-    public ProductPortion recipeSection(RecipeSection recipeSection) {
-        this.recipeSection = recipeSection;
-        return this;
-    }
-
-    public void setRecipeSection(RecipeSection recipeSection) {
-        this.recipeSection = recipeSection;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

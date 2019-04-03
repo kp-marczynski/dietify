@@ -1,18 +1,19 @@
 package pl.marczynski.dietify.recipes.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
 /**
  * A preparation step in recipe
+ *
  * @author Krzysztof Marczyński
  */
 @ApiModel(description = "A preparation step in recipe @author Krzysztof Marczyński")
@@ -21,7 +22,7 @@ import java.util.Objects;
 public class PreparationStep implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -42,15 +43,6 @@ public class PreparationStep implements Serializable {
     @ApiModelProperty(value = "Short step description")
     @Column(name = "step_description")
     private String stepDescription;
-
-    /**
-     * Recipe Section to which preparation step is assigned
-     */
-    @ApiModelProperty(value = "Recipe Section to which preparation step is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("preparationSteps")
-    private RecipeSection recipeSection;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -87,18 +79,6 @@ public class PreparationStep implements Serializable {
         this.stepDescription = stepDescription;
     }
 
-    public RecipeSection getRecipeSection() {
-        return recipeSection;
-    }
-
-    public PreparationStep recipeSection(RecipeSection recipeSection) {
-        this.recipeSection = recipeSection;
-        return this;
-    }
-
-    public void setRecipeSection(RecipeSection recipeSection) {
-        this.recipeSection = recipeSection;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
