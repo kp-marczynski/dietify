@@ -59,61 +59,34 @@
                 </a>
             </li>
             <li>
-                        <a class="dropdown-item" routerLink="recipe" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Recipe</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="dish-type" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Dish Type</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="meal-type" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Meal Type</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="kitchen-appliance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Kitchen Appliance</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="recipe-section" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Recipe Section</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="preparation-step" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Preparation Step</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="product-portion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Product Portion</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="recipe-suitable-for-diet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Recipe Suitable For Diet</span>
-                        </a>
-                    </li>
-            <li>
-                        <a class="dropdown-item" routerLink="recipe-unsuitable-for-diet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Recipe Unsuitable For Diet</span>
-                        </a>
-                    </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                <a class="dropdown-item" routerLink="recipe" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Recipe</span>
+                </a>
             </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="dish-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Dish Type</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="meal-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Meal Type</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="kitchen-appliance" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Kitchen Appliance</span>
+                </a>
+            </li>
+            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
@@ -310,6 +283,13 @@
                     <span>Products</span>
                 </a>
             </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="recipe" routerLinkActive="active"
+                                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Recipes</span>
+                </a>
+            </span>
             <!--</span>-->
         </div>
         <div class="list-group list-group-flush" *jhiHasAnyAuthority="'ROLE_ADMIN'">
@@ -342,6 +322,27 @@
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Languages</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="dish-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Dish Type</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Meal Type</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="kitchen-appliance" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Kitchen Appliance</span>
                 </a>
             </span>
             <!--</span>-->
