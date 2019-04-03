@@ -1,0 +1,159 @@
+/**
+ * A Recipe.
+ * @author Krzysztof Marczyński
+ */
+entity Recipe {
+	/** Name of Recipe */
+	name String minlength(1)
+    /** Avarege time needed for overall recipe preparation, defined in minutes */
+	preparationTimeMinutes Integer required min(0)
+    /** Number of portions for which all quantities are specified */
+	numberOfPortions Double required min(0)
+    /** Optional image of recipe */
+	image ImageBlob
+    /** Id of recipe's author */
+	authorId Long required
+	/** Date of creation */
+	creationDate LocalDate required
+    /** Date of last edit */
+	lastEditDate LocalDate required
+    /** Flag specifying if recipe should be visible in list of author's recipes */
+	isVisible Boolean required
+    /** Flag specifying if recipe is enabled for edition */
+	isLocked Boolean required
+    /** language of the recipe */
+    languageId Long
+}
+
+/**
+ * A DishType. For example salat or soup
+ * @author Krzysztof Marczyński
+ */
+entity DishType {
+	descriptionPolish String minlength(1)
+    descriptionEnglish String minlength(1)
+}
+
+/**
+ * A MealType. For example breakfast or dinner
+ * @author Krzysztof Marczyński
+ */
+entity MealType {
+	namePolish String minlength(1)
+    nameEnglish String minlength(1)
+}
+/**
+ * Kitchen appliance definition
+ * @author Krzysztof Marczyński
+ */
+entity KitchenAppliance {
+	/** Polish name of kitchen appliance */
+	namePolish String minlength(1)
+    /** English name of kitchen appliance */
+    nameEnglish String minlength(1)
+}
+
+/**
+ * A recipe section,
+ * e.g. recipe for cheesecake might have 3 separate sections for dough, filling and topping.
+ * First section might be unnamed.
+ * @author Krzysztof Marczyński
+ */
+entity RecipeSection {
+	/** Name of recipe section */
+	sectionName String minlength(1)
+}
+
+/**
+ * A preparation step in recipe
+ * @author Krzysztof Marczyński
+ */
+entity PreparationStep {
+	/** Ordinal number of preparation step */
+	ordinalNumber Integer required min(1)
+  	/** Short step description */
+    stepDescription String minlength(1)
+}
+
+/**
+ * A Portion of product used in recipe.
+ * @author Krzysztof Marczyński
+ */
+entity ProductPortion {
+    /** 
+    * Amount of Product in household measure units 
+    * If household measure is null then amount is in grams.
+    */
+	amount Double required min(0)
+    productId Long
+    householdMeasureId Long
+}
+
+/**
+ * A tag specifying cases in which Recipe might be positivly used, 
+ * e.g. vegetarian should mean it is good for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+entity RecipeSuitableForDiet {
+	/** Id of applicaple Tag entity retrieved from products service */
+	dietTypeId Long required
+}
+
+/**
+ * A tag specifying cases in which Recipe should not be used, 
+ * e.g. vegetarian should mean it is bad for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+entity RecipeUnsuitableForDiet {
+	/** Id of applicaple Tag entity retrieved from products service */
+	dietTypeId Long required
+}
+
+relationship ManyToOne {
+	/** Recipe from which copy was created */
+	Recipe{sourceRecipe}
+    	to Recipe
+    
+	/** Recipe Section to which portion is assigned */
+	ProductPortion{recipeSection required} 
+    	to 
+        /** Collection of products portions */
+        RecipeSection{productPortions required}
+        
+    /** Recipe Section to which preparation step is assigned */
+	PreparationStep{recipeSection required} 
+    	to 
+        /** Collection of preparation steps */
+        RecipeSection{preparationSteps}
+    
+    /** Recipe to which recipe section is assigned */
+	RecipeSection{recipe required} 
+    	to
+        /** Collection of recipe sections */
+        Recipe{recipeSections required}
+    
+    /** Recipe to which tag is assigned */
+    RecipeSuitableForDiet{recipe required} 
+    	to 
+        /** Collection of tags specifying for which cases recipe might be used */
+        Recipe{suitableForDiets}
+        
+    /** Recipe to which tag is assigned */
+    RecipeUnsuitableForDiet{recipe required} 
+    	to 
+        /** Collection of tags specifying for which cases recipe should not be used */
+        Recipe{unsuitableForDiets}
+}
+
+relationship ManyToMany {
+	/** Collection of kitchen appliances needed for recipe preparation */
+	Recipe{kitchenAppliances} 
+    	to 
+        KitchenAppliance
+      
+    Recipe{dishType} to DishType
+    Recipe{mealType} to MealType
+}
+
+paginate Recipe with pager
+service * with serviceImpl

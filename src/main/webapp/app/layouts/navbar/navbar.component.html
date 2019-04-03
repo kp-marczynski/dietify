@@ -26,7 +26,7 @@
             <li>
                 <a class="dropdown-item" routerLink="product" routerLinkActive="active"
                    [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <fa-icon icon="barcode" fixedWidth="true"></fa-icon>
                     <span>Product</span>
                 </a>
             </li>
@@ -58,8 +58,35 @@
                     <span>Diet Type</span>
                 </a>
             </li>
-            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+            <li>
+                <a class="dropdown-item" routerLink="recipe" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="receipt" fixedWidth="true"></fa-icon>
+                    <span>Recipe</span>
+                </a>
             </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="dish-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Dish Type</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="meal-type" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Meal Type</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="kitchen-appliance" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Kitchen Appliance</span>
+                </a>
+            </li>
+            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
@@ -252,8 +279,15 @@
             <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="product" id="product"
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="bars" fixedWidth="true"></fa-icon>
+                    <fa-icon icon="barcode" fixedWidth="true"></fa-icon>
                     <span>Products</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="recipe" routerLinkActive="active" id="recipe"
+                                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="receipt" fixedWidth="true"></fa-icon>
+                    <span>Recipes</span>
                 </a>
             </span>
             <!--</span>-->
@@ -288,6 +322,27 @@
                    routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
                     <span>Languages</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="dish-type" routerLinkActive="active" id="dish-type"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Dish Type</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-type" routerLinkActive="active" id="meal-type"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Meal Type</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="kitchen-appliance" routerLinkActive="active" id="kitchen-appliance"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                    <span>Kitchen Appliance</span>
                 </a>
             </span>
             <!--</span>-->
