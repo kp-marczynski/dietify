@@ -18,7 +18,7 @@ describe('DishType e2e test', () => {
         navBarPage = new NavBarPage();
         signInPage = await navBarPage.getSignInPage();
         await signInPage.autoSignInUsing('admin', 'admin');
-        await browser.wait(ec.visibilityOf(navBarPage.entityMenu), 5000);
+        // await browser.wait(ec.visibilityOf(navBarPage.entityMenu), 5000);
     });
 
     it('should load DishTypes', async () => {
