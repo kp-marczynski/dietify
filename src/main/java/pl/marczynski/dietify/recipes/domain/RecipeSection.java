@@ -49,7 +49,7 @@ public class RecipeSection implements Serializable {
      */
     @ApiModelProperty(value = "Collection of preparation steps")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "recipe_sectio_id", nullable = false)
+    @JoinColumn(name = "recipe_section_id", nullable = false)
     private Set<PreparationStep> preparationSteps = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

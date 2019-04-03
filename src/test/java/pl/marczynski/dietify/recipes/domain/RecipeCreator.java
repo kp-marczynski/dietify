@@ -59,8 +59,6 @@ public class RecipeCreator {
 
     public static Recipe createEntity(EntityManager em) {
         RecipeSection recipeSection = RecipeSectionCreator.createEntity(em);
-        em.persist(recipeSection);
-        em.flush();
         return createEntity(recipeSection);
     }
 }

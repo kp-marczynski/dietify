@@ -18,9 +18,6 @@ public class RecipeSectionCreator {
     public static RecipeSection createEntity(EntityManager em) {
         ProductPortion productPortion = ProductPortionCreator.createEntity();
         PreparationStep preparationStep = PreparationStepCreator.createEntity();
-        em.persist(productPortion);
-        em.persist(preparationStep);
-        em.flush();
         return createEntity(productPortion, preparationStep);
     }
 }
