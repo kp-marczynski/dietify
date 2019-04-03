@@ -1,0 +1,46 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-meal-type-heading">Create or edit a Meal Type</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!mealType.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="mealType.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_namePolish">Name Polish</label>
+                    <input type="text" class="form-control" name="namePolish" id="field_namePolish"
+                        [(ngModel)]="mealType.namePolish" minlength="1"/>
+                    <div [hidden]="!(editForm.controls.namePolish?.dirty && editForm.controls.namePolish?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.namePolish?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_nameEnglish">Name English</label>
+                    <input type="text" class="form-control" name="nameEnglish" id="field_nameEnglish"
+                        [(ngModel)]="mealType.nameEnglish" minlength="1"/>
+                    <div [hidden]="!(editForm.controls.nameEnglish?.dirty && editForm.controls.nameEnglish?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.nameEnglish?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

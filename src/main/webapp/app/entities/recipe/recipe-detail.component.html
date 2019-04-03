@@ -1,0 +1,92 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recipe">
+            <h2><span>Recipe</span> {{recipe.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Name of Recipe">Name</span></dt>
+                <dd>
+                    <span>{{recipe.name}}</span>
+                </dd>
+                <dt><span ngbTooltip="Avarege time needed for overall recipe preparation, defined in minutes">Preparation Time Minutes</span></dt>
+                <dd>
+                    <span>{{recipe.preparationTimeMinutes}}</span>
+                </dd>
+                <dt><span ngbTooltip="Number of portions for which all quantities are specified">Number Of Portions</span></dt>
+                <dd>
+                    <span>{{recipe.numberOfPortions}}</span>
+                </dd>
+                <dt><span ngbTooltip="Optional image of recipe">Image</span></dt>
+                <dd>
+                    <div *ngIf="recipe.image">
+                        <a (click)="openFile(recipe.imageContentType, recipe.image)">
+                            <img [src]="'data:' + recipe.imageContentType + ';base64,' + recipe.image" style="max-width: 100%;" alt="recipe image"/>
+                        </a>
+                        {{recipe.imageContentType}}, {{byteSize(recipe.image)}}
+                    </div>
+                </dd>
+                <dt><span ngbTooltip="Id of recipe&#39;s author">Author Id</span></dt>
+                <dd>
+                    <span>{{recipe.authorId}}</span>
+                </dd>
+                <dt><span ngbTooltip="Date of creation">Creation Date</span></dt>
+                <dd>
+                    <span>{{recipe.creationDate}}</span>
+                </dd>
+                <dt><span ngbTooltip="Date of last edit">Last Edit Date</span></dt>
+                <dd>
+                    <span>{{recipe.lastEditDate}}</span>
+                </dd>
+                <dt><span ngbTooltip="Flag specifying if recipe should be visible in list of author&#39;s recipes">Is Visible</span></dt>
+                <dd>
+                    <span>{{recipe.isVisible}}</span>
+                </dd>
+                <dt><span ngbTooltip="Flag specifying if recipe is enabled for edition">Is Locked</span></dt>
+                <dd>
+                    <span>{{recipe.isLocked}}</span>
+                </dd>
+                <dt><span ngbTooltip="language of the recipe">Language Id</span></dt>
+                <dd>
+                    <span>{{recipe.languageId}}</span>
+                </dd>
+                <dt><span>Source Recipe</span></dt>
+                <dd>
+                    <div *ngIf="recipe.sourceRecipe">
+                        <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Kitchen Appliances</span></dt>
+                <dd>
+                    <span *ngFor="let kitchenAppliances of recipe.kitchenAppliances; let last = last">
+                        <a [routerLink]="['/kitchen-appliance', kitchenAppliances?.id, 'view' ]">{{kitchenAppliances.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Dish Type</span></dt>
+                <dd>
+                    <span *ngFor="let dishType of recipe.dishTypes; let last = last">
+                        <a [routerLink]="['/dish-type', dishType?.id, 'view' ]">{{dishType.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span>Meal Type</span></dt>
+                <dd>
+                    <span *ngFor="let mealType of recipe.mealTypes; let last = last">
+                        <a [routerLink]="['/meal-type', mealType?.id, 'view' ]">{{mealType.id}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recipe', recipe.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

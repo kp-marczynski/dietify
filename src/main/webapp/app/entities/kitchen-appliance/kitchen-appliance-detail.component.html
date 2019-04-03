@@ -1,0 +1,31 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="kitchenAppliance">
+            <h2><span>Kitchen Appliance</span> {{kitchenAppliance.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Polish name of kitchen appliance">Name Polish</span></dt>
+                <dd>
+                    <span>{{kitchenAppliance.namePolish}}</span>
+                </dd>
+                <dt><span ngbTooltip="English name of kitchen appliance">Name English</span></dt>
+                <dd>
+                    <span>{{kitchenAppliance.nameEnglish}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/kitchen-appliance', kitchenAppliance.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

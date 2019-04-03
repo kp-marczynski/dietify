@@ -1,0 +1,67 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-preparation-step-heading">Create or edit a Preparation Step</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!preparationStep.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="preparationStep.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ordinalNumber" ngbTooltip="Ordinal number of preparation step">Ordinal Number</label>
+                    <input type="number" class="form-control" name="ordinalNumber" id="field_ordinalNumber"
+                        [(ngModel)]="preparationStep.ordinalNumber" required min="1" jhiMin="1"/>
+                    <div [hidden]="!(editForm.controls.ordinalNumber?.dirty && editForm.controls.ordinalNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.ordinalNumber?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.ordinalNumber?.errors?.min">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.ordinalNumber?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_stepDescription" ngbTooltip="Short step description">Step Description</label>
+                    <input type="text" class="form-control" name="stepDescription" id="field_stepDescription"
+                        [(ngModel)]="preparationStep.stepDescription" minlength="1"/>
+                    <div [hidden]="!(editForm.controls.stepDescription?.dirty && editForm.controls.stepDescription?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.stepDescription?.errors?.minlength">
+                        This field is required to be at least 1 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_recipeSection">Recipe Section</label>
+                    <select class="form-control" id="field_recipeSection" name="recipeSection" [(ngModel)]="preparationStep.recipeSection"  required>
+                        <option *ngIf="!editForm.value.recipeSection" [ngValue]="null" selected></option>
+                        <option [ngValue]="recipeSectionOption.id === preparationStep.recipeSection?.id ? preparationStep.recipeSection : recipeSectionOption" *ngFor="let recipeSectionOption of recipesections; trackBy: trackRecipeSectionById">{{recipeSectionOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.recipeSection?.dirty && editForm.controls.recipeSection?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.recipeSection?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

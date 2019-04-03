@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <!--
+        Added the constraints for entity Recipe.
+    -->
+    <changeSet id="20190403080456-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="source_recipe_id"
+                                 baseTableName="recipe"
+                                 constraintName="fk_recipe_source_recipe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recipe"/>
+
+        <addForeignKeyConstraint baseColumnNames="recipe_id"
+                                 baseTableName="recipe_kitchen_appliances"
+                                 constraintName="fk_recipe_kitchen_appliances_recipe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recipe"/>
+        <addForeignKeyConstraint baseColumnNames="kitchen_appliances_id"
+                                 baseTableName="recipe_kitchen_appliances"
+                                 constraintName="fk_recipe_kitchen_appliances_kitchen_appliances_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="kitchen_appliance"/>
+        
+        <addForeignKeyConstraint baseColumnNames="recipe_id"
+                                 baseTableName="recipe_dish_type"
+                                 constraintName="fk_recipe_dish_type_recipe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recipe"/>
+        <addForeignKeyConstraint baseColumnNames="dish_type_id"
+                                 baseTableName="recipe_dish_type"
+                                 constraintName="fk_recipe_dish_type_dish_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="dish_type"/>
+        
+        <addForeignKeyConstraint baseColumnNames="recipe_id"
+                                 baseTableName="recipe_meal_type"
+                                 constraintName="fk_recipe_meal_type_recipe_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="recipe"/>
+        <addForeignKeyConstraint baseColumnNames="meal_type_id"
+                                 baseTableName="recipe_meal_type"
+                                 constraintName="fk_recipe_meal_type_meal_type_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="meal_type"/>
+        
+    </changeSet>
+</databaseChangeLog>
