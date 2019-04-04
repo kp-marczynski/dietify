@@ -12,6 +12,7 @@ import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 import pl.marczynski.dietify.core.repository.UserRepository;
 import pl.marczynski.dietify.products.repository.ProductRepository;
+import pl.marczynski.dietify.recipes.repository.RecipeRepository;
 
 @Configuration
 @EnableCaching
@@ -36,6 +37,7 @@ public class CacheConfiguration {
             cm.createCache(UserRepository.USERS_BY_LOGIN_CACHE, jcacheConfiguration);
             cm.createCache(UserRepository.USERS_BY_EMAIL_CACHE, jcacheConfiguration);
             cm.createCache(ProductRepository.PRODUCTS_EAGER_BY_ID_CACHE, jcacheConfiguration);
+            cm.createCache(RecipeRepository.RECIPES_EAGER_BY_ID_CACHE, jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

@@ -1,15 +1,16 @@
 package pl.marczynski.dietify.recipes.service.impl;
 
-import pl.marczynski.dietify.recipes.service.RecipeService;
-import pl.marczynski.dietify.recipes.domain.Recipe;
-import pl.marczynski.dietify.recipes.repository.RecipeRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.recipes.domain.Recipe;
+import pl.marczynski.dietify.recipes.repository.RecipeRepository;
+import pl.marczynski.dietify.recipes.service.RecipeService;
 
 import java.util.Optional;
 
@@ -22,9 +23,11 @@ public class RecipeServiceImpl implements RecipeService {
 
     private final Logger log = LoggerFactory.getLogger(RecipeServiceImpl.class);
 
+    private final CacheManager cacheManager;
     private final RecipeRepository recipeRepository;
 
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(CacheManager cacheManager, RecipeRepository recipeRepository) {
+        this.cacheManager = cacheManager;
         this.recipeRepository = recipeRepository;
     }
 
@@ -37,6 +40,7 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe save(Recipe recipe) {
         log.debug("Request to save Recipe : {}", recipe);
+        this.clearRecipeCaches(recipe);
         return recipeRepository.save(recipe);
     }
 
@@ -61,7 +65,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Page<Recipe> findAllWithEagerRelationships(Pageable pageable) {
         return recipeRepository.findAllWithEagerRelationships(pageable);
     }
-    
+
 
     /**
      * Get one recipe by id.
@@ -84,6 +88,20 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public void delete(Long id) {
         log.debug("Request to delete Recipe : {}", id);
+        this.clearRecipeCaches(id);
         recipeRepository.deleteById(id);
+    }
+
+    private void clearRecipeCaches(Recipe recipe) {
+        if (recipe.getId() != null) {
+            clearRecipeCaches(recipe.getId());
+        }
+    }
+
+    private void clearRecipeCaches(long productId) {
+        Cache cache = cacheManager.getCache(RecipeRepository.RECIPES_EAGER_BY_ID_CACHE);
+        if (cache != null) {
+            cache.evict(productId);
+        }
     }
 }

@@ -41,14 +41,14 @@ public class RecipeSection implements Serializable {
      * Collection of products portions
      */
     @ApiModelProperty(value = "Collection of products portions")
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "recipe_section_id", nullable = false)
     private Set<ProductPortion> productPortions = new HashSet<>();
     /**
      * Collection of preparation steps
      */
     @ApiModelProperty(value = "Collection of preparation steps")
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     @JoinColumn(name = "recipe_section_id", nullable = false)
     private Set<PreparationStep> preparationSteps = new HashSet<>();
 
