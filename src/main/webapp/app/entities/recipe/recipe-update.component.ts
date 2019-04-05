@@ -1,18 +1,20 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import * as moment from 'moment';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { IRecipe } from 'app/shared/model/recipe.model';
-import { RecipeService } from './recipe.service';
-import { IKitchenAppliance } from 'app/shared/model/kitchen-appliance.model';
-import { KitchenApplianceService } from 'app/entities/kitchen-appliance';
-import { IDishType } from 'app/shared/model/dish-type.model';
-import { DishTypeService } from 'app/entities/dish-type';
-import { IMealType } from 'app/shared/model/meal-type.model';
-import { MealTypeService } from 'app/entities/meal-type';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import {IRecipe} from 'app/shared/model/recipe.model';
+import {RecipeService} from './recipe.service';
+import {IKitchenAppliance} from 'app/shared/model/kitchen-appliance.model';
+import {KitchenApplianceService} from 'app/entities/kitchen-appliance';
+import {IDishType} from 'app/shared/model/dish-type.model';
+import {DishTypeService} from 'app/entities/dish-type';
+import {IMealType} from 'app/shared/model/meal-type.model';
+import {MealTypeService} from 'app/entities/meal-type';
+import {RecipeSection} from 'app/shared/model/recipe-section.model';
+import {ProductPortion} from 'app/shared/model/product-portion.model';
+import {PreparationStep} from 'app/shared/model/preparation-step.model';
 
 @Component({
     selector: 'jhi-recipe-update',
@@ -41,12 +43,35 @@ export class RecipeUpdateComponent implements OnInit {
         protected mealTypeService: MealTypeService,
         protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.isSaving = false;
-        this.activatedRoute.data.subscribe(({ recipe }) => {
+        this.activatedRoute.data.subscribe(({recipe}) => {
             this.recipe = recipe;
+            if (!this.recipe.recipeSections) {
+                this.recipe.recipeSections = [];
+            }
+            if (this.recipe.recipeSections.length === 0) {
+                this.recipe.recipeSections.push(new RecipeSection(null, null, null, null));
+            }
+            this.recipe.recipeSections.forEach(recipeSection => {
+                if (!recipeSection.productPortions) {
+                    recipeSection.productPortions = [];
+                }
+                if (recipeSection.productPortions.length === 0) {
+                    recipeSection.productPortions.push(new ProductPortion(null, null, null, null));
+                }
+                if (!recipeSection.preparationSteps) {
+                    recipeSection.preparationSteps = [];
+                }
+                if (recipeSection.preparationSteps.length === 0) {
+                    recipeSection.preparationSteps.push(new PreparationStep(null, null, null));
+                } else {
+                    recipeSection.preparationSteps.sort((a, b) => (a.ordinalNumber - b.ordinalNumber));
+                }
+            });
         });
         this.recipeService
             .query()
@@ -100,10 +125,19 @@ export class RecipeUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.updatePreparationStepsOrdinalNumbers();
         if (this.recipe.id !== undefined) {
             this.subscribeToSaveResponse(this.recipeService.update(this.recipe));
         } else {
             this.subscribeToSaveResponse(this.recipeService.create(this.recipe));
+        }
+    }
+
+    updatePreparationStepsOrdinalNumbers() {
+        for (const section of this.recipe.recipeSections) {
+            for (let i = 0; 1 < section.preparationSteps.length; i++) {
+                section.preparationSteps[i].ordinalNumber = i;
+            }
         }
     }
 
@@ -149,5 +183,25 @@ export class RecipeUpdateComponent implements OnInit {
             }
         }
         return option;
+    }
+
+    createNewPreparationStep(isLast: boolean) {
+        if (isLast) {
+            this.recipe.recipeSections[0].preparationSteps.push(new PreparationStep(null, null, null));
+        }
+        if (this.recipe.recipeSections[0].preparationSteps.filter(preparationStep => (!preparationStep.stepDescription || preparationStep.stepDescription === '')).length > 1) {
+            this.recipe.recipeSections[0].preparationSteps = this.recipe.recipeSections[0].preparationSteps.filter(preparationStep => (preparationStep.stepDescription && preparationStep.stepDescription !== ''));
+            this.recipe.recipeSections[0].preparationSteps.push(new PreparationStep(null, null, null));
+        }
+    }
+
+    createNewProductPortion(isLast: boolean) {
+        if (isLast) {
+            this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
+        }
+        if (this.recipe.recipeSections[0].productPortions.filter(productPortion => (!productPortion.productId)).length > 1) {
+            this.recipe.recipeSections[0].productPortions = this.recipe.recipeSections[0].productPortions.filter(productPortion => (productPortion.productId));
+            this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
+        }
     }
 }

@@ -101,7 +101,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="field_unsuitableDiets">Nutritions</label>
+                    <label>Nutritions</label>
                     <table>
                         <tr *ngFor="let nutritionData of product.nutritionData; let index = index">
                             <td>{{nutritionData.nutritionDefinition.descriptionEnglish}}</td>
@@ -113,7 +113,7 @@
                     </table>
                 </div>
                 <div class="form-group">
-                    <label for="field_unsuitableDiets">Household Measures</label>
+                    <label>Household Measures</label>
                     <table>
                         <tr
                             *ngFor="let householdMeasure of product.householdMeasures; let last = last; let index = index">

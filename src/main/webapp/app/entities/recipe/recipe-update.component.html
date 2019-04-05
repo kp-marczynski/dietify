@@ -7,186 +7,266 @@
                 <div class="form-group" [hidden]="!recipe.id">
                     <label for="id">ID</label>
                     <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="recipe.id" readonly />
+                           [(ngModel)]="recipe.id" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_name" ngbTooltip="Name of Recipe">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                        [(ngModel)]="recipe.name" minlength="1"/>
+                           [(ngModel)]="recipe.name" minlength="1"/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.name?.errors?.minlength">
-                        This field is required to be at least 1 characters.
+                               [hidden]="!editForm.controls.name?.errors?.minlength">
+                            This field is required to be at least 1 characters.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_preparationTimeMinutes" ngbTooltip="Avarege time needed for overall recipe preparation, defined in minutes">Preparation Time Minutes</label>
-                    <input type="number" class="form-control" name="preparationTimeMinutes" id="field_preparationTimeMinutes"
-                        [(ngModel)]="recipe.preparationTimeMinutes" required min="0" jhiMin="0"/>
-                    <div [hidden]="!(editForm.controls.preparationTimeMinutes?.dirty && editForm.controls.preparationTimeMinutes?.invalid)">
+                    <label class="form-control-label" for="field_preparationTimeMinutes"
+                           ngbTooltip="Avarege time needed for overall recipe preparation, defined in minutes">Preparation
+                        Time Minutes</label>
+                    <input type="number" class="form-control" name="preparationTimeMinutes"
+                           id="field_preparationTimeMinutes"
+                           [(ngModel)]="recipe.preparationTimeMinutes" required min="0" jhiMin="0"/>
+                    <div
+                        [hidden]="!(editForm.controls.preparationTimeMinutes?.dirty && editForm.controls.preparationTimeMinutes?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.preparationTimeMinutes?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.preparationTimeMinutes?.errors?.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.preparationTimeMinutes?.errors?.min">
+                               [hidden]="!editForm.controls.preparationTimeMinutes?.errors?.min">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.preparationTimeMinutes?.errors?.number">
+                               [hidden]="!editForm.controls.preparationTimeMinutes?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_numberOfPortions" ngbTooltip="Number of portions for which all quantities are specified">Number Of Portions</label>
+                    <label class="form-control-label" for="field_numberOfPortions"
+                           ngbTooltip="Number of portions for which all quantities are specified">Number Of
+                        Portions</label>
                     <input type="number" class="form-control" name="numberOfPortions" id="field_numberOfPortions"
-                        [(ngModel)]="recipe.numberOfPortions" required min="0" jhiMin="0"/>
-                    <div [hidden]="!(editForm.controls.numberOfPortions?.dirty && editForm.controls.numberOfPortions?.invalid)">
+                           [(ngModel)]="recipe.numberOfPortions" required min="0" jhiMin="0"/>
+                    <div
+                        [hidden]="!(editForm.controls.numberOfPortions?.dirty && editForm.controls.numberOfPortions?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.numberOfPortions?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.numberOfPortions?.errors?.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.numberOfPortions?.errors?.min">
+                               [hidden]="!editForm.controls.numberOfPortions?.errors?.min">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.numberOfPortions?.errors?.number">
+                               [hidden]="!editForm.controls.numberOfPortions?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_image" ngbTooltip="Optional image of recipe">Image</label>
+                    <label class="form-control-label" for="field_image"
+                           ngbTooltip="Optional image of recipe">Image</label>
                     <div>
-                        <img [src]="'data:' + recipe.imageContentType + ';base64,' + recipe.image" style="max-height: 100px;" *ngIf="recipe.image" alt="recipe image"/>
+                        <img [src]="'data:' + recipe.imageContentType + ';base64,' + recipe.image"
+                             style="max-height: 100px;" *ngIf="recipe.image" alt="recipe image"/>
                         <div *ngIf="recipe.image" class="form-text text-danger clearfix">
                             <span class="pull-left">{{recipe.imageContentType}}, {{byteSize(recipe.image)}}</span>
-                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')"
+                                    class="btn btn-secondary btn-xs pull-right">
                                 <fa-icon [icon]="'times'"></fa-icon>
                             </button>
                         </div>
-                        <input type="file" id="file_image" (change)="setFileData($event, recipe, 'image', true)" accept="image/*"/>
+                        <input type="file" id="file_image" (change)="setFileData($event, recipe, 'image', true)"
+                               accept="image/*"/>
                     </div>
                     <input type="hidden" class="form-control" name="image" id="field_image"
-                        [(ngModel)]="recipe.image" />
+                           [(ngModel)]="recipe.image"/>
                     <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType"
-                        [(ngModel)]="recipe.imageContentType" />
+                           [(ngModel)]="recipe.imageContentType"/>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_authorId" ngbTooltip="Id of recipe&#39;s author">Author Id</label>
+                    <label class="form-control-label" for="field_authorId" ngbTooltip="Id of recipe&#39;s author">Author
+                        Id</label>
                     <input type="number" class="form-control" name="authorId" id="field_authorId"
-                        [(ngModel)]="recipe.authorId" required/>
+                           [(ngModel)]="recipe.authorId" required/>
                     <div [hidden]="!(editForm.controls.authorId?.dirty && editForm.controls.authorId?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.authorId?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.authorId?.errors?.required">
+                            This field is required.
                         </small>
                         <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.authorId?.errors?.number">
+                               [hidden]="!editForm.controls.authorId?.errors?.number">
                             This field should be a number.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_creationDate" ngbTooltip="Date of creation">Creation Date</label>
+                    <label class="form-control-label" for="field_creationDate" ngbTooltip="Date of creation">Creation
+                        Date</label>
                     <div class="input-group">
-                        <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" [(ngModel)]="recipe.creationDate"
-                        required/>
+                        <input id="field_creationDate" type="text" class="form-control" name="creationDate"
+                               ngbDatepicker #creationDateDp="ngbDatepicker" [(ngModel)]="recipe.creationDate"
+                               required/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon
+                                [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                     </div>
                     <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.creationDate?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.creationDate?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_lastEditDate" ngbTooltip="Date of last edit">Last Edit Date</label>
+                    <label class="form-control-label" for="field_lastEditDate" ngbTooltip="Date of last edit">Last Edit
+                        Date</label>
                     <div class="input-group">
-                        <input id="field_lastEditDate" type="text" class="form-control" name="lastEditDate" ngbDatepicker  #lastEditDateDp="ngbDatepicker" [(ngModel)]="recipe.lastEditDate"
-                        required/>
+                        <input id="field_lastEditDate" type="text" class="form-control" name="lastEditDate"
+                               ngbDatepicker #lastEditDateDp="ngbDatepicker" [(ngModel)]="recipe.lastEditDate"
+                               required/>
                         <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="lastEditDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                            <button type="button" class="btn btn-secondary" (click)="lastEditDateDp.toggle()"><fa-icon
+                                [icon]="'calendar-alt'"></fa-icon></button>
                         </span>
                     </div>
                     <div [hidden]="!(editForm.controls.lastEditDate?.dirty && editForm.controls.lastEditDate?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.lastEditDate?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.lastEditDate?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_isVisible" ngbTooltip="Flag specifying if recipe should be visible in list of author&#39;s recipes">Is Visible</label>
+                    <label class="form-control-label" for="field_isVisible"
+                           ngbTooltip="Flag specifying if recipe should be visible in list of author&#39;s recipes">Is
+                        Visible</label>
                     <input type="checkbox" class="form-control" name="isVisible" id="field_isVisible"
-                        [(ngModel)]="recipe.isVisible" />
+                           [(ngModel)]="recipe.isVisible"/>
                     <div [hidden]="!(editForm.controls.isVisible?.dirty && editForm.controls.isVisible?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.isVisible?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.isVisible?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_isLocked" ngbTooltip="Flag specifying if recipe is enabled for edition">Is Locked</label>
+                    <label class="form-control-label" for="field_isLocked"
+                           ngbTooltip="Flag specifying if recipe is enabled for edition">Is Locked</label>
                     <input type="checkbox" class="form-control" name="isLocked" id="field_isLocked"
-                        [(ngModel)]="recipe.isLocked" />
+                           [(ngModel)]="recipe.isLocked"/>
                     <div [hidden]="!(editForm.controls.isLocked?.dirty && editForm.controls.isLocked?.invalid)">
                         <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.isLocked?.errors?.required">
-                        This field is required.
+                               [hidden]="!editForm.controls.isLocked?.errors?.required">
+                            This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_languageId" ngbTooltip="language of the recipe">Language Id</label>
+                    <label class="form-control-label" for="field_languageId" ngbTooltip="language of the recipe">Language
+                        Id</label>
                     <input type="number" class="form-control" name="languageId" id="field_languageId"
-                        [(ngModel)]="recipe.languageId" />
+                           [(ngModel)]="recipe.languageId"/>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_sourceRecipe">Source Recipe</label>
-                    <select class="form-control" id="field_sourceRecipe" name="sourceRecipe" [(ngModel)]="recipe.sourceRecipe" >
+                    <select class="form-control" id="field_sourceRecipe" name="sourceRecipe"
+                            [(ngModel)]="recipe.sourceRecipe">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="recipeOption.id === recipe.sourceRecipe?.id ? recipe.sourceRecipe : recipeOption" *ngFor="let recipeOption of recipes; trackBy: trackRecipeById">{{recipeOption.id}}</option>
+                        <option
+                            [ngValue]="recipeOption.id === recipe.sourceRecipe?.id ? recipe.sourceRecipe : recipeOption"
+                            *ngFor="let recipeOption of recipes; trackBy: trackRecipeById">{{recipeOption.id}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_kitchenAppliances">Kitchen Appliances</label>
-                    <select class="form-control" id="field_kitchenAppliances" multiple name="kitchenAppliances" [(ngModel)]="recipe.kitchenAppliances">
-                        <option [ngValue]="getSelected(recipe.kitchenAppliances, kitchenApplianceOption)" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{kitchenApplianceOption.id}}</option>
+                    <select class="form-control" id="field_kitchenAppliances" multiple name="kitchenAppliances"
+                            [(ngModel)]="recipe.kitchenAppliances">
+                        <option [ngValue]="getSelected(recipe.kitchenAppliances, kitchenApplianceOption)"
+                                *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{kitchenApplianceOption.nameEnglish}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_dishType">Dish Type</label>
-                    <select class="form-control" id="field_dishType" multiple name="dishType" [(ngModel)]="recipe.dishTypes">
-                        <option [ngValue]="getSelected(recipe.dishTypes, dishTypeOption)" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{dishTypeOption.id}}</option>
+                    <select class="form-control" id="field_dishType" multiple name="dishType"
+                            [(ngModel)]="recipe.dishTypes">
+                        <option [ngValue]="getSelected(recipe.dishTypes, dishTypeOption)"
+                                *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{dishTypeOption.descriptionEnglish}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="field_mealType">Meal Type</label>
-                    <select class="form-control" id="field_mealType" multiple name="mealType" [(ngModel)]="recipe.mealTypes">
-                        <option [ngValue]="getSelected(recipe.mealTypes, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{mealTypeOption.id}}</option>
+                    <select class="form-control" id="field_mealType" multiple name="mealType"
+                            [(ngModel)]="recipe.mealTypes">
+                        <option [ngValue]="getSelected(recipe.mealTypes, mealTypeOption)"
+                                *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{mealTypeOption.nameEnglish}}</option>
                     </select>
                 </div>
                 <div [hidden]="!(editForm.controls.recipeSections?.dirty && editForm.controls.recipeSections?.invalid)">
                     <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.recipeSections?.errors?.required">
+                           [hidden]="!editForm.controls.recipeSections?.errors?.required">
                         This field is required.
                     </small>
                 </div>
+                <h1>Recipe sections</h1>
+                <div *ngFor="let recipeSection of recipe.recipeSections; let sectionIndex = index">
+                    <h2>{{recipeSection.sectionName}}</h2>
+                    <div class="form-group">
+                        <label>Ingredients</label>
+                        <table>
+                            <tr *ngFor="let productPortion of recipeSection.productPortions; let last = last; let portionIndex = index">
+
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="section{{sectionIndex}}portion{{portionIndex}}productId"
+                                           [(ngModel)]="productPortion.productId"
+                                           (keyup)="createNewProductPortion(last)"
+                                           [required]="productPortion.productId"
+                                           placeholder="ProductId"/>
+                                </td>
+                                <td>
+                                    <input type="text" class="form-control"
+                                           name="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                           [(ngModel)]="productPortion.householdMeasureId"
+                                           (keyup)="createNewProductPortion(last)"
+                                           [required]="productPortion.productId"
+                                           placeholder="MeasureId"/>
+                                </td>
+                                <td>
+                                    <input type="number" class="form-control"
+                                           name="section{{sectionIndex}}portion{{portionIndex}}amount"
+                                           [(ngModel)]="productPortion.amount"
+                                           (keyup)="createNewProductPortion(last)"
+                                           [required]="productPortion.productId"
+                                           jhiMin="0.00001" placeholder="Amount"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="form-group">
+                        <label>Preparation Steps</label>
+                        <div
+                            *ngFor="let preparationStep of recipeSection.preparationSteps; let last = last; let preparationIndex = index">
+                            <input type="text" class="form-control"
+                                   name="section{{sectionIndex}}preparationStep{{preparationIndex}}stepDescription"
+                                   [(ngModel)]="preparationStep.stepDescription"
+                                   (keyup)="createNewPreparationStep(last)"
+                                   [required]="preparationStep.stepDescription"
+                                   placeholder="Step description..."/>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                        class="btn btn-primary">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>
