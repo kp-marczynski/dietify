@@ -1,12 +1,13 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import {ComponentFixture, TestBed, fakeAsync, tick} from '@angular/core/testing';
+import {HttpResponse} from '@angular/common/http';
+import {Observable, of} from 'rxjs';
 
-import { DietifyTestModule } from '../../../test.module';
-import { RecipeUpdateComponent } from 'app/entities/recipe/recipe-update.component';
-import { RecipeService } from 'app/entities/recipe/recipe.service';
-import { Recipe } from 'app/shared/model/recipe.model';
+import {DietifyTestModule} from '../../../test.module';
+import {RecipeUpdateComponent} from 'app/entities/recipe/recipe-update.component';
+import {RecipeService} from 'app/entities/recipe/recipe.service';
+import {Recipe} from 'app/shared/model/recipe.model';
+import {RecipeSection} from 'app/shared/model/recipe-section.model';
 
 describe('Component Tests', () => {
     describe('Recipe Management Update Component', () => {
@@ -33,7 +34,9 @@ describe('Component Tests', () => {
                 fakeAsync(() => {
                     // GIVEN
                     const entity = new Recipe(123);
-                    spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
+                    entity.recipeSections = [];
+                    entity.recipeSections.push(new RecipeSection(null, null, [], []));
+                    spyOn(service, 'update').and.returnValue(of(new HttpResponse({body: entity})));
                     comp.recipe = entity;
                     // WHEN
                     comp.save();
@@ -50,7 +53,9 @@ describe('Component Tests', () => {
                 fakeAsync(() => {
                     // GIVEN
                     const entity = new Recipe();
-                    spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+                    entity.recipeSections = [];
+                    entity.recipeSections.push(new RecipeSection(null, null, [], []));
+                    spyOn(service, 'create').and.returnValue(of(new HttpResponse({body: entity})));
                     comp.recipe = entity;
                     // WHEN
                     comp.save();
