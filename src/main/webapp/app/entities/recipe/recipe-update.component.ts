@@ -125,6 +125,7 @@ export class RecipeUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.removeEmpty();
         this.updatePreparationStepsOrdinalNumbers();
         if (this.recipe.id !== undefined) {
             this.subscribeToSaveResponse(this.recipeService.update(this.recipe));
@@ -133,10 +134,17 @@ export class RecipeUpdateComponent implements OnInit {
         }
     }
 
+    removeEmpty() {
+        for (const section of this.recipe.recipeSections) {
+            section.preparationSteps = section.preparationSteps.filter(preparationStep => (preparationStep.stepDescription && preparationStep.stepDescription !== ''));
+            section.productPortions = section.productPortions.filter(productPortion => (productPortion.productId));
+        }
+    }
+
     updatePreparationStepsOrdinalNumbers() {
         for (const section of this.recipe.recipeSections) {
-            for (let i = 0; 1 < section.preparationSteps.length; i++) {
-                section.preparationSteps[i].ordinalNumber = i;
+            for (let i = 0; i < section.preparationSteps.length; i++) {
+                section.preparationSteps[i].ordinalNumber = i + 1;
             }
         }
     }
