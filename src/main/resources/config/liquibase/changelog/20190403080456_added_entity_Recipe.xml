@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity Recipe.
+    -->
+    <changeSet id="20190403080456-1" author="jhipster">
+        <createTable tableName="recipe" remarks="A Recipe. @author Krzysztof Marczyński">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)" remarks="Name of Recipe">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="preparation_time_minutes" type="integer" remarks="Avarege time needed for overall recipe preparation, defined in minutes">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="number_of_portions" type="double" remarks="Number of portions for which all quantities are specified">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="image" type="longblob" remarks="Optional image of recipe">
+                <constraints nullable="true" />
+            </column>
+            <column name="image_content_type" type="varchar(255)">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="author_id" type="bigint" remarks="Id of recipe&apos;s author">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="creation_date" type="date" remarks="Date of creation">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="last_edit_date" type="date" remarks="Date of last edit">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="is_visible" type="boolean" remarks="Flag specifying if recipe should be visible in list of author&apos;s recipes">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="is_locked" type="boolean" remarks="Flag specifying if recipe is enabled for edition">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="language_id" type="bigint" remarks="language of the recipe">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="source_recipe_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+        <createTable tableName="recipe_kitchen_appliances">
+            <column name="kitchen_appliances_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipe_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="recipe_id, kitchen_appliances_id" tableName="recipe_kitchen_appliances"/>
+        
+        <createTable tableName="recipe_dish_type">
+            <column name="dish_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipe_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="recipe_id, dish_type_id" tableName="recipe_dish_type"/>
+        
+        <createTable tableName="recipe_meal_type">
+            <column name="meal_type_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="recipe_id" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey columnNames="recipe_id, meal_type_id" tableName="recipe_meal_type"/>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

@@ -13,14 +13,29 @@
     <include file="config/liquibase/changelog/20190322191204_added_entity_NutritionDefinition.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322191205_added_entity_NutritionData.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322191206_added_entity_DietType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080456_added_entity_Recipe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080457_added_entity_DishType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080458_added_entity_MealType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080459_added_entity_KitchenAppliance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080500_added_entity_RecipeSection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080501_added_entity_PreparationStep.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080502_added_entity_ProductPortion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080503_added_entity_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080504_added_entity_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190322191200_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322191201_added_entity_constraints_ProductSubcategory.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322191203_added_entity_constraints_HouseholdMeasure.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322191205_added_entity_constraints_NutritionData.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080456_added_entity_constraints_Recipe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080500_added_entity_constraints_RecipeSection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080501_added_entity_constraints_PreparationStep.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080502_added_entity_constraints_ProductPortion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080503_added_entity_constraints_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190403080504_added_entity_constraints_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/201903222023_imported_languages.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/201903232146_imported_diet_types.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190321225552_imported_usda_db.xml" relativeToChangelogFile="false"/>
-
+    <include file="config/liquibase/changelog/201904031116_imported_recipes_constants.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

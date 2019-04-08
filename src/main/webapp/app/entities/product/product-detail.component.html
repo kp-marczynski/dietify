@@ -49,6 +49,9 @@
                 </dd>
                 <dt><span>Nutritions</span></dt>
                 <dd>
+                    <div>
+                        <canvas id="canvas">{{ chart }}</canvas>
+                    </div>
                     <table>
                         <tr *ngFor="let nutritionData of product.nutritionData">
                             <td>{{nutritionData.nutritionDefinition.descriptionEnglish}} [{{nutritionData.nutritionDefinition.units}}]:</td>

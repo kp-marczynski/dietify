@@ -2,8 +2,8 @@
 
 ## Prerequisites
 
-*  [Node.js][]
-*  [jdk8][]
+-   [Node.js][]
+-   [jdk8][]
 
 ## How to run?
 
@@ -11,6 +11,7 @@
     frontend: npm start
 
 ## Building for production
+
     ./mvnw -Pprod clean package
 
 This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
@@ -21,6 +22,7 @@ To ensure everything worked, run:
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
 ## Backend tests
+
     ./mvnw clean test
 
 ### Client tests
@@ -49,20 +51,21 @@ To achieve this, first build a docker image of your app by running:
 Then run:
 
     docker-compose -f src/main/docker/app.yml up -d
-    
+
 ## TODO
-- [x] framework mvc
-- [x] usage of orm
-- [x] usage of cache (backend only)
-- [x] user authentication & authorization
-- [x] admin panel
-- [ ] integration with external service
-- [x] unit tests
-- [x] ajax elements
-- [ ] charts
-- [x] connected selectboxes - choosing product category trigger retriving of proper subcategories 
-- [x] navbar options
-- [x] loader css
+
+-   [x] framework mvc
+-   [x] usage of orm
+-   [x] usage of cache (backend only)
+-   [x] user authentication & authorization
+-   [x] admin panel
+-   [ ] integration with external service
+-   [x] unit tests
+-   [x] ajax elements
+-   [x] charts
+-   [x] connected selectboxes - choosing product category trigger retriving of proper subcategories
+-   [x] navbar options
+-   [x] loader css
 
 [node.js]: https://nodejs.org/
 [yarn]: https://yarnpkg.org/
