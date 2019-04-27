@@ -34,4 +34,5 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets left join fetch product.householdMeasures left join fetch product.nutritionData where product.id =:id")
     Optional<Product> findOneWithEagerRelationships(@Param("id") Long id);
 
+    Page<Product> findByDescriptionContainingIgnoreCase(String searchPhrase, Pageable pageable);
 }

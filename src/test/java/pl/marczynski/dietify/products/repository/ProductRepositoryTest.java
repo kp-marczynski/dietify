@@ -5,12 +5,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.core.DietifyApp;
 import pl.marczynski.dietify.products.domain.*;
 
 import javax.persistence.EntityManager;
+
+import java.util.Arrays;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.marczynski.dietify.products.domain.HouseholdMeasureCreator.UPDATED_DESCRIPTION;
@@ -219,6 +223,51 @@ public class ProductRepositoryTest {
 
         //then
         assertThat(result.getUnsuitableDiets()).hasSize(0);
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindProductBySearchPhrase() {
+        //given
+        String searchPhrase = "aa";
+        Product product1 = ProductCreator.createEntity(em);
+        product1.description(searchPhrase);
+
+        Product product2 = ProductCreator.createEntity(em);
+        product2.description("bbbb");
+
+        Product product3 = ProductCreator.createEntity(em);
+        product3.description("b" + searchPhrase + "c");
+
+        product1 = productRepository.saveAndFlush(product1);
+        product2 = productRepository.saveAndFlush(product2);
+        product3 = productRepository.saveAndFlush(product3);
+
+        //when
+        Page<Product> result = productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, PageRequest.of(0, 10));
+
+        //then
+        assertThat(result.getTotalElements()).isEqualTo(2);
+        assertThat(result.getContent()).containsAll(Arrays.asList(product1, product3));
+        assertThat(result.getContent()).doesNotContain(product2);
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindProductBySearchPhraseIgnoreingCase() {
+        //given
+        String searchPhrase = "aa";
+        Product product1 = ProductCreator.createEntity(em);
+        product1.description(searchPhrase.toUpperCase());
+
+        product1 = productRepository.saveAndFlush(product1);
+
+        //when
+        Page<Product> result = productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, PageRequest.of(0, 10));
+
+        //then
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(result.getContent()).contains(product1);
     }
 
     private NutritionData createNutritionData() {

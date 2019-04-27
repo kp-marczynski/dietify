@@ -135,6 +135,11 @@ public class ProductServiceImpl implements ProductService {
         productSubcategoryService.removeOrphans();
     }
 
+    @Override
+    public Page<Product> findByDescriptionContaining(String searchPhrase, Pageable pageable) {
+        return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, pageable);
+    }
+
     private void clearProductCaches(Product product) {
         if (product.getId() != null) {
             clearProductCaches(product.getId());
