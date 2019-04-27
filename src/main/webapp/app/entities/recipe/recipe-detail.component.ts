@@ -3,10 +3,10 @@ import {ActivatedRoute} from '@angular/router';
 import {JhiDataUtils} from 'ng-jhipster';
 
 import {IRecipe} from 'app/shared/model/recipe.model';
-import {IProduct} from "app/shared/model/product.model";
-import {ProductService} from "app/entities/product";
-import {HttpResponse} from "@angular/common/http";
-import {IHouseholdMeasure} from "app/shared/model/household-measure.model";
+import {IProduct} from 'app/shared/model/product.model';
+import {ProductService} from 'app/entities/product';
+import {HttpResponse} from '@angular/common/http';
+import {IHouseholdMeasure} from 'app/shared/model/household-measure.model';
 
 @Component({
     selector: 'jhi-recipe-detail',
@@ -47,11 +47,11 @@ export class RecipeDetailComponent implements OnInit {
     }
 
     getProductById(productId: number): IProduct {
-        return this.products.find(product => product.id == productId);
+        return this.products.find(product => product.id === productId);
     }
 
     getMeasureById(productId: number, householdMeasureId: number): IHouseholdMeasure {
-        return this.getProductById(productId).householdMeasures.find(measure => measure.id == householdMeasureId);
+        return this.getProductById(productId).householdMeasures.find(measure => measure.id === householdMeasureId);
     }
 
     calcNutrition(nutritionTagname: string) {
@@ -61,7 +61,7 @@ export class RecipeDetailComponent implements OnInit {
                 const product = this.getProductById(portion.productId);
                 const measure = this.getMeasureById(portion.productId, portion.householdMeasureId);
 
-                result += product.nutritionData.find(data => data.nutritionDefinition.tagname == nutritionTagname).nutritionValue * measure.gramsWeight;
+                result += product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname).nutritionValue * measure.gramsWeight;
             }
         }
         return result;
