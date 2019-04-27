@@ -156,7 +156,7 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     search() {
-        this.page = 0;
+        this.page = 1;
         this.transition();
     }
 }
