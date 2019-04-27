@@ -61,6 +61,27 @@
                         <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.id}}</a>
                     </div>
                 </dd>
+                <dt><span>Nutrition Summary</span></dt>
+                <dd *ngIf="productCount == products.length && products.length > 0">
+                    <table>
+                        <tr>
+                            <th>Energy</th>
+                            <td>{{calcNutrition('ENERC_KCAL')}}</td>
+                        </tr>
+                        <tr>
+                            <th>Carbohydrates</th>
+                            <td>{{calcNutrition('CHOCDF')}}</td>
+                        </tr>
+                        <tr>
+                            <th>Protein</th>
+                            <td>{{calcNutrition('PROCNT')}}</td>
+                        </tr>
+                        <tr>
+                            <th>Fat</th>
+                            <td>{{calcNutrition('FAT')}}</td>
+                        </tr>
+                    </table>
+                </dd>
                 <dt><span>Kitchen Appliances</span></dt>
                 <dd>
                     <span *ngFor="let kitchenAppliances of recipe.kitchenAppliances; let last = last">
@@ -85,8 +106,8 @@
                     <span>Ingredients</span>
                     <table>
                         <tr *ngFor="let productPortion of recipeSection.productPortions">
-                            <td>{{productPortion.productId}}</td>
-                            <td>{{productPortion.householdMeasureId}}</td>
+                            <td>{{getProductById(productPortion.productId)}}</td>
+                            <td>{{getMeasureById(productPortion.productId, productPortion.householdMeasureId)}}</td>
                             <td>{{productPortion.amount}}</td>
                         </tr>
                     </table>
