@@ -49,4 +49,13 @@ public interface RecipeService {
      * @param id the id of the entity
      */
     void delete(Long id);
+
+    /**
+     * Get recipes with name containing search phrase
+     *
+     * @param searchPhrase phrase to search for in recipe name
+     * @return the list of entities
+     */
+
+    Page<Recipe> findByNameContaining(String searchPhrase, Pageable pageable);
 }

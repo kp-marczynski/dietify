@@ -92,6 +92,11 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.deleteById(id);
     }
 
+    @Override
+    public Page<Recipe> findByNameContaining(String searchPhrase, Pageable pageable) {
+        return this.recipeRepository.findByNameContainingIgnoreCase(searchPhrase, pageable);
+    }
+
     private void clearRecipeCaches(Recipe recipe) {
         if (recipe.getId() != null) {
             clearRecipeCaches(recipe.getId());

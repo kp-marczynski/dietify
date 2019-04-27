@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.recipes.web.rest;
+
 import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.service.RecipeService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
@@ -80,15 +81,19 @@ public class RecipeResource {
     /**
      * GET  /recipes : get all the recipes.
      *
-     * @param pageable the pagination information
+     * @param pageable  the pagination information
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of recipes in body
      */
     @GetMapping("/recipes")
-    public ResponseEntity<List<Recipe>> getAllRecipes(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Recipe>> getAllRecipes(Pageable pageable,
+                                                      @RequestParam(required = false, defaultValue = "false") boolean eagerload,
+                                                      @RequestParam(required = false) String searchPhrase) {
         log.debug("REST request to get a page of Recipes");
         Page<Recipe> page;
-        if (eagerload) {
+        if (searchPhrase != null && !searchPhrase.trim().equals("")) {
+            page = recipeService.findByNameContaining(searchPhrase, pageable);
+        } else if (eagerload) {
             page = recipeService.findAllWithEagerRelationships(pageable);
         } else {
             page = recipeService.findAll(pageable);
