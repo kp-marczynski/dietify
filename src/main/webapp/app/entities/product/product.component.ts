@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IProduct } from 'app/shared/model/product.model';
-import { AccountService } from 'app/core';
+import {IProduct} from 'app/shared/model/product.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductService } from './product.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {ProductService} from './product.service';
 
 @Component({
     selector: 'jhi-product',
@@ -30,6 +29,8 @@ export class ProductComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
+    searchPhrase = '';
+
     constructor(
         protected productService: ProductService,
         protected parseLinks: JhiParseLinks,
@@ -49,16 +50,30 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.productService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
-            .subscribe(
-                (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        if (this.searchPhrase.trim() === '') {
+            this.productService
+                .query({
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                })
+                .subscribe(
+                    (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        } else {
+            this.productService
+                .query({
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort(),
+                    searchPhrase: this.searchPhrase
+                })
+                .subscribe(
+                    (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        }
     }
 
     loadPage(page: number) {
@@ -69,13 +84,24 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/product'], {
-            queryParams: {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        });
+        if (this.searchPhrase.trim() === '') {
+            this.router.navigate(['/product'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
+        } else {
+            this.router.navigate(['/product'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+                    searchPhrase: this.searchPhrase
+                }
+            });
+        }
         this.loadAll();
     }
 
@@ -127,5 +153,10 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    search() {
+        this.page = 0;
+        this.transition();
     }
 }

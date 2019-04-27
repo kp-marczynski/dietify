@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.products.web.rest;
+
 import javassist.NotFoundException;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.service.ProductService;
@@ -81,15 +82,17 @@ public class ProductResource {
     /**
      * GET  /products : get all the products.
      *
-     * @param pageable the pagination information
+     * @param pageable  the pagination information
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many)
      * @return the ResponseEntity with status 200 (OK) and the list of products in body
      */
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable, @RequestParam(required = false, defaultValue = "false") boolean eagerload, @RequestParam(required = false) String searchPhrase) {
         log.debug("REST request to get a page of Products");
         Page<Product> page;
-        if (eagerload) {
+        if (searchPhrase != null && !searchPhrase.trim().equals("")) {
+            page = productService.findByDescriptionContaining(searchPhrase, pageable);
+        } else if (eagerload) {
             page = productService.findAllWithEagerRelationships(pageable);
         } else {
             page = productService.findAll(pageable);
