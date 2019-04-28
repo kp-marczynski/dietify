@@ -35,4 +35,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Optional<Product> findOneWithEagerRelationships(@Param("id") Long id);
 
     Page<Product> findByDescriptionContainingIgnoreCase(String searchPhrase, Pageable pageable);
+
+    Page<Product> findByDescriptionContainingIgnoreCaseAndLanguageId(String searchPhrase, Long languageId, Pageable pageable);
+
+    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguageId(String searchPhrase, Long categoryId, Long languageId, Pageable pageable);
+
+    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryId(String searchPhrase, Long subcategoryId, Pageable pageable);
 }
