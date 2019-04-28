@@ -29,7 +29,7 @@ export class RecipeComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
-    searchPhrase: string;
+    searchPhrase = '';
 
     constructor(
         protected recipeService: RecipeService,
