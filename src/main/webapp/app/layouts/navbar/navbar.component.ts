@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit {
 
     getUrl() {
         let url = decodeURI(this.router.url);
-        let querySeparatorIndex = url.indexOf('?');
+        const querySeparatorIndex = url.indexOf('?');
         if (querySeparatorIndex && querySeparatorIndex > 0) {
             url = url.substring(0, querySeparatorIndex);
         }
