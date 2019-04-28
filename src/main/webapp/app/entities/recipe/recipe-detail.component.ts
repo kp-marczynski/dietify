@@ -59,9 +59,13 @@ export class RecipeDetailComponent implements OnInit {
         for (const section of this.recipe.recipeSections) {
             for (const portion of section.productPortions) {
                 const product = this.getProductById(portion.productId);
-                const measure = this.getMeasureById(portion.productId, portion.householdMeasureId);
-
-                result += product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname).nutritionValue * measure.gramsWeight;
+                const nutritionValue = product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname).nutritionValue;
+                if (portion.householdMeasureId) {
+                    const measure = this.getMeasureById(portion.productId, portion.householdMeasureId);
+                    result += nutritionValue * portion.amount * measure.gramsWeight;
+                } else {
+                    result += nutritionValue * portion.amount;
+                }
             }
         }
         return result;
