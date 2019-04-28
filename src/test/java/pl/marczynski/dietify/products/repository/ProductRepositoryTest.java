@@ -15,6 +15,7 @@ import pl.marczynski.dietify.products.domain.*;
 import javax.persistence.EntityManager;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static pl.marczynski.dietify.products.domain.HouseholdMeasureCreator.UPDATED_DESCRIPTION;
@@ -254,7 +255,7 @@ public class ProductRepositoryTest {
 
     @Test
     @Transactional
-    public void shouldFindProductBySearchPhraseIgnoreingCase() {
+    public void shouldFindProductBySearchPhraseIgnoringCase() {
         //given
         String searchPhrase = "aa";
         Product product1 = ProductCreator.createEntity(em);

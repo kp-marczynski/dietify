@@ -36,7 +36,7 @@ public interface ProductService {
      * @return the list of entities
      */
     Page<Product> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" product.
      *
@@ -58,5 +58,5 @@ public interface ProductService {
      * @param searchPhrase phrase to search for in product description
      * @return the list of entities
      */
-    Page<Product> findByDescriptionContaining(String searchPhrase, Pageable pageable);
+    Page<Product> findBySearchAndFilters(String searchPhrase, Long languageId, Long categoryId, Long subcategoryId, Pageable pageable);
 }
