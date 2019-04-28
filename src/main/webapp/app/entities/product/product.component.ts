@@ -103,7 +103,7 @@ export class ProductComponent implements OnInit, OnDestroy {
                 search: this.searchPhrase.trim(),
                 categoryId: this.selectedCategory ? this.selectedCategory.id : '',
                 subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
-                languageId: this.selectedLanguage? this.selectedLanguage.id : ''
+                languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
             })
             .subscribe(
                 (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
@@ -127,7 +127,7 @@ export class ProductComponent implements OnInit, OnDestroy {
                 search: this.searchPhrase.trim(),
                 categoryId: this.selectedCategory ? this.selectedCategory.id : '',
                 subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
-                languageId: this.selectedLanguage? this.selectedLanguage.id : ''
+                languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
             }
         });
         this.loadAll();
