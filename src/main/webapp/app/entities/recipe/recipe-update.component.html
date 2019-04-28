@@ -12,7 +12,7 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_name" ngbTooltip="Name of Recipe">Name</label>
                     <input type="text" class="form-control" name="name" id="field_name"
-                           [(ngModel)]="recipe.name" minlength="1"/>
+                           [(ngModel)]="recipe.name" minlength="1" required/>
                     <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
                         <small class="form-text text-danger"
                                [hidden]="!editForm.controls.name?.errors?.minlength">
@@ -108,17 +108,7 @@
                     <div class="input-group">
                         <input id="field_creationDate" type="text" class="form-control" name="creationDate"
                                ngbDatepicker #creationDateDp="ngbDatepicker" [(ngModel)]="recipe.creationDate"
-                               required/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon
-                                [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.creationDate?.errors?.required">
-                            This field is required.
-                        </small>
+                               readonly/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -127,17 +117,7 @@
                     <div class="input-group">
                         <input id="field_lastEditDate" type="text" class="form-control" name="lastEditDate"
                                ngbDatepicker #lastEditDateDp="ngbDatepicker" [(ngModel)]="recipe.lastEditDate"
-                               required/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="lastEditDateDp.toggle()"><fa-icon
-                                [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div [hidden]="!(editForm.controls.lastEditDate?.dirty && editForm.controls.lastEditDate?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.lastEditDate?.errors?.required">
-                            This field is required.
-                        </small>
+                               readonly/>
                     </div>
                 </div>
                 <div class="form-group">
@@ -168,19 +148,19 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_languageId" ngbTooltip="language of the recipe">Language
                         Id</label>
-                    <input type="number" class="form-control" name="languageId" id="field_languageId"
-                           [(ngModel)]="recipe.languageId"/>
+                    <select class="form-control" name="languageId" id="field_languageId"
+                            [(ngModel)]="recipe.languageId">
+                        <option [ngValue]="null"></option>
+                        <option
+                            [ngValue]="language.id === recipe.languageId ? recipe.languageId : language.id"
+                            *ngFor="let language of languages; trackBy: trackRecipeById">{{language.englishName}}</option>
+                    </select>
                 </div>
 
                 <div class="form-group">
                     <label class="form-control-label" for="field_sourceRecipe">Source Recipe</label>
-                    <select class="form-control" id="field_sourceRecipe" name="sourceRecipe"
-                            [(ngModel)]="recipe.sourceRecipe">
-                        <option [ngValue]="null"></option>
-                        <option
-                            [ngValue]="recipeOption.id === recipe.sourceRecipe?.id ? recipe.sourceRecipe : recipeOption"
-                            *ngFor="let recipeOption of recipes; trackBy: trackRecipeById">{{recipeOption.id}}</option>
-                    </select>
+                    <input type="text" class="form-control" id="field_sourceRecipe" name="sourceRecipe"
+                           [(ngModel)]="recipe.sourceRecipe" readonly/>
                 </div>
                 <div class="form-group">
                     <label for="field_kitchenAppliances">Kitchen Appliances</label>
@@ -218,23 +198,43 @@
                     <div class="form-group">
                         <label>Ingredients</label>
                         <table>
-                            <tr *ngFor="let productPortion of recipeSection.productPortions; let last = last; let portionIndex = index">
+                            <tr *ngFor="let productPortion of recipeSection.productPortions; let last = last; let portionIndex = index; trackBy:customTrackBy">
 
                                 <td>
                                     <input type="text" class="form-control"
                                            name="section{{sectionIndex}}portion{{portionIndex}}productId"
                                            [(ngModel)]="productPortion.productId"
                                            (keyup)="createNewProductPortion(last)"
+                                           (blur)="findProduct(productPortion)"
                                            [required]="productPortion.productId"
                                            placeholder="ProductId"/>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control"
-                                           name="section{{sectionIndex}}portion{{portionIndex}}measureId"
-                                           [(ngModel)]="productPortion.householdMeasureId"
-                                           (keyup)="createNewProductPortion(last)"
-                                           [required]="productPortion.productId"
-                                           placeholder="MeasureId"/>
+                                    <input *ngIf="productPortion.product" type="text" readonly class="form-control"
+                                           name="section{{sectionIndex}}portion{{portionIndex}}product"
+                                           [(ngModel)]="productPortion.product.description" placeholder="Product"
+                                           [required]="productPortion.productId"/>
+                                    <input *ngIf="!productPortion.product" type="text" readonly class="form-control"
+                                           name="section{{sectionIndex}}portion{{portionIndex}}productHidden"
+                                           [(ngModel)]="productPortion.product" placeholder="Can't find product for id"
+                                           [required]="productPortion.productId"/>
+                                </td>
+                                <td>
+                                    <select class="form-control" *ngIf="productPortion.product"
+                                            name="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                            id="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                            [(ngModel)]="productPortion.householdMeasureId">
+                                        <option [ngValue]="null"></option>
+                                        <option
+                                            [ngValue]="measure.id === productPortion.householdMeasureId ? productPortion.householdMeasureId : measure.id"
+                                            *ngFor="let measure of productPortion.product.householdMeasures; trackBy: trackRecipeById">{{measure.description}}</option>
+                                    </select>
+                                    <select class="form-control" *ngIf="!productPortion.product"
+                                            name="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"
+                                            id="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"
+                                            [(ngModel)]="productPortion.householdMeasureId">
+                                        <option [ngValue]="null"></option>
+                                    </select>
                                 </td>
                                 <td>
                                     <input type="number" class="form-control"
@@ -250,12 +250,12 @@
                     <div class="form-group">
                         <label>Preparation Steps</label>
                         <div
-                            *ngFor="let preparationStep of recipeSection.preparationSteps; let last = last; let preparationIndex = index">
+                            *ngFor="let preparationStep of recipeSection.preparationSteps; let last = last; let preparationIndex = index; trackBy:customTrackBy">
                             <input type="text" class="form-control"
                                    name="section{{sectionIndex}}preparationStep{{preparationIndex}}stepDescription"
+                                   id="section{{sectionIndex}}preparationStep{{preparationIndex}}stepDescription"
                                    [(ngModel)]="preparationStep.stepDescription"
                                    (keyup)="createNewPreparationStep(last)"
-                                   [required]="preparationStep.stepDescription"
                                    placeholder="Step description..."/>
                         </div>
                     </div>

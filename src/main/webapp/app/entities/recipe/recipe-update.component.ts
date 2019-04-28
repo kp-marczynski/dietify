@@ -13,8 +13,12 @@ import {DishTypeService} from 'app/entities/dish-type';
 import {IMealType} from 'app/shared/model/meal-type.model';
 import {MealTypeService} from 'app/entities/meal-type';
 import {RecipeSection} from 'app/shared/model/recipe-section.model';
-import {ProductPortion} from 'app/shared/model/product-portion.model';
+import {IProductPortion, ProductPortion} from 'app/shared/model/product-portion.model';
 import {PreparationStep} from 'app/shared/model/preparation-step.model';
+import {ProductService} from 'app/entities/product';
+import {IProduct} from 'app/shared/model/product.model';
+import {ILanguage} from 'app/shared/model/language.model';
+import {LanguageService} from 'app/entities/language';
 
 @Component({
     selector: 'jhi-recipe-update',
@@ -34,6 +38,8 @@ export class RecipeUpdateComponent implements OnInit {
     creationDateDp: any;
     lastEditDateDp: any;
 
+    languages: ILanguage[] = [];
+
     constructor(
         protected dataUtils: JhiDataUtils,
         protected jhiAlertService: JhiAlertService,
@@ -42,12 +48,26 @@ export class RecipeUpdateComponent implements OnInit {
         protected dishTypeService: DishTypeService,
         protected mealTypeService: MealTypeService,
         protected elementRef: ElementRef,
-        protected activatedRoute: ActivatedRoute
+        protected activatedRoute: ActivatedRoute,
+        protected productService: ProductService,
+        protected languageService: LanguageService
     ) {
     }
 
     ngOnInit() {
         this.isSaving = false;
+        this.languageService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ILanguage[]>) => res.ok),
+                map((res: HttpResponse<ILanguage[]>) => res.body)
+            )
+            .subscribe(
+                (res: ILanguage[]) => {
+                    this.languages = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
         this.activatedRoute.data.subscribe(({recipe}) => {
             this.recipe = recipe;
             if (!this.recipe.recipeSections) {
@@ -197,9 +217,11 @@ export class RecipeUpdateComponent implements OnInit {
         if (isLast) {
             this.recipe.recipeSections[0].preparationSteps.push(new PreparationStep(null, null, null));
         }
-        if (this.recipe.recipeSections[0].preparationSteps.filter(preparationStep => (!preparationStep.stepDescription || preparationStep.stepDescription === '')).length > 1) {
-            this.recipe.recipeSections[0].preparationSteps = this.recipe.recipeSections[0].preparationSteps.filter(preparationStep => (preparationStep.stepDescription && preparationStep.stepDescription !== ''));
+        // console.log(this.recipe.recipeSections[0].preparationSteps);
+        if (this.recipe.recipeSections[0].preparationSteps.filter(preparationStep => (!preparationStep.stepDescription || preparationStep.stepDescription.trim() === '')).length > 1) {
+            this.recipe.recipeSections[0].preparationSteps = this.recipe.recipeSections[0].preparationSteps.filter(preparationStep => (preparationStep.stepDescription && preparationStep.stepDescription.trim() !== ''));
             this.recipe.recipeSections[0].preparationSteps.push(new PreparationStep(null, null, null));
+            console.log(this.recipe.recipeSections[0].preparationSteps);
         }
     }
 
@@ -211,5 +233,13 @@ export class RecipeUpdateComponent implements OnInit {
             this.recipe.recipeSections[0].productPortions = this.recipe.recipeSections[0].productPortions.filter(productPortion => (productPortion.productId));
             this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
         }
+    }
+
+    customTrackBy(index: number, obj: any): any {
+        return index;
+    }
+
+    findProduct(productPortion: IProductPortion) {
+        return this.productService.find(productPortion.productId).subscribe((res: HttpResponse<IProduct>) => productPortion.product = res.body, (res: HttpErrorResponse) => productPortion.product = null);
     }
 }
