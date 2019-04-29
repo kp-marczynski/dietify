@@ -1,14 +1,10 @@
 <div class="card jh-card">
     <div class="col-8">
         <div *ngIf="recipe">
-            <h2><span>Recipe</span> {{recipe.id}}</h2>
+            <h2>{{recipe.name}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span ngbTooltip="Name of Recipe">Name</span></dt>
-                <dd>
-                    <span>{{recipe.name}}</span>
-                </dd>
                 <dt><span ngbTooltip="Avarege time needed for overall recipe preparation, defined in minutes">Preparation Time Minutes</span>
                 </dt>
                 <dd>
@@ -36,11 +32,11 @@
                 </dd>
                 <dt><span ngbTooltip="Date of creation">Creation Date</span></dt>
                 <dd>
-                    <span>{{recipe.creationDate}}</span>
+                    <span>{{recipe.creationDate | date:'medium'}}</span>
                 </dd>
                 <dt><span ngbTooltip="Date of last edit">Last Edit Date</span></dt>
                 <dd>
-                    <span>{{recipe.lastEditDate}}</span>
+                    <span>{{recipe.lastEditDate | date:'medium'}}</span>
                 </dd>
                 <dt><span ngbTooltip="Flag specifying if recipe should be visible in list of author&#39;s recipes">Is Visible</span>
                 </dt>
@@ -106,9 +102,9 @@
                     <span>Ingredients</span>
                     <table>
                         <tr *ngFor="let productPortion of recipeSection.productPortions">
-                            <td>{{getProductById(productPortion.productId)}}</td>
-                            <td>{{getMeasureById(productPortion.productId, productPortion.householdMeasureId)}}</td>
-                            <td>{{productPortion.amount}}</td>
+                            <td>{{getProductById(productPortion.productId).description}}</td>
+                            <td>: {{productPortion.amount}}</td>
+                            <td> {{getMeasureDisplayDescription(productPortion.productId, productPortion.householdMeasureId)}}</td>
                         </tr>
                     </table>
 
