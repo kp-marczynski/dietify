@@ -8,10 +8,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.core.domain.User;
+import pl.marczynski.dietify.core.service.UserService;
+import pl.marczynski.dietify.core.web.rest.errors.OperationNotAllowedForCurrentUserException;
 import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.repository.RecipeRepository;
 import pl.marczynski.dietify.recipes.service.RecipeService;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 /**
@@ -25,10 +29,12 @@ public class RecipeServiceImpl implements RecipeService {
 
     private final CacheManager cacheManager;
     private final RecipeRepository recipeRepository;
+    private final UserService userService;
 
-    public RecipeServiceImpl(CacheManager cacheManager, RecipeRepository recipeRepository) {
+    public RecipeServiceImpl(CacheManager cacheManager, RecipeRepository recipeRepository, UserService userService) {
         this.cacheManager = cacheManager;
         this.recipeRepository = recipeRepository;
+        this.userService = userService;
     }
 
     /**
@@ -40,8 +46,25 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe save(Recipe recipe) {
         log.debug("Request to save Recipe : {}", recipe);
+        if (!hasRightsToPersistRecipe(recipe)) {
+            throw new OperationNotAllowedForCurrentUserException();
+        }
         this.clearRecipeCaches(recipe);
+        if (recipe.getAuthorId() == null) {
+            recipe.setAuthorId(userService.getCurrentUser().get().getId());
+            recipe.creationDate(LocalDate.now());
+        }
+        recipe.lastEditDate(LocalDate.now());
         return recipeRepository.save(recipe);
+    }
+
+    private boolean hasRightsToPersistRecipe(Recipe recipe) {
+        Optional<User> currentUser = userService.getCurrentUser();
+        if (!currentUser.isPresent()) {
+            return false;
+        } else if (recipe.getId() == null || recipe.getAuthorId() == null) {
+            return true;
+        } else return recipe.getAuthorId().equals(currentUser.get().getId());
     }
 
     /**

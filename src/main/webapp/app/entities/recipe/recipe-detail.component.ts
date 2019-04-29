@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {JhiDataUtils} from 'ng-jhipster';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { JhiDataUtils } from 'ng-jhipster';
 
-import {IRecipe} from 'app/shared/model/recipe.model';
-import {IProduct} from 'app/shared/model/product.model';
-import {ProductService} from 'app/entities/product';
-import {HttpResponse} from '@angular/common/http';
-import {IHouseholdMeasure} from 'app/shared/model/household-measure.model';
+import { IRecipe } from 'app/shared/model/recipe.model';
+import { IProduct } from 'app/shared/model/product.model';
+import { ProductService } from 'app/entities/product';
+import { HttpResponse } from '@angular/common/http';
+import { IHouseholdMeasure } from 'app/shared/model/household-measure.model';
 
 @Component({
     selector: 'jhi-recipe-detail',
@@ -18,11 +18,10 @@ export class RecipeDetailComponent implements OnInit {
     products: IProduct[] = [];
     productCount = 0;
 
-    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, protected productService: ProductService) {
-    }
+    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, protected productService: ProductService) {}
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({recipe}) => {
+        this.activatedRoute.data.subscribe(({ recipe }) => {
             this.recipe = recipe;
 
             for (const section of this.recipe.recipeSections) {
@@ -59,7 +58,8 @@ export class RecipeDetailComponent implements OnInit {
         for (const section of this.recipe.recipeSections) {
             for (const portion of section.productPortions) {
                 const product = this.getProductById(portion.productId);
-                const nutritionValue = product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname).nutritionValue;
+                const nutritionValue = product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname)
+                    .nutritionValue;
                 if (portion.householdMeasureId) {
                     const measure = this.getMeasureById(portion.productId, portion.householdMeasureId);
                     result += nutritionValue * portion.amount * measure.gramsWeight;
@@ -68,6 +68,15 @@ export class RecipeDetailComponent implements OnInit {
                 }
             }
         }
-        return result;
+        return result.toFixed(2);
+    }
+
+    getMeasureDisplayDescription(productId: number, householdMeasureId: number): string {
+        const measure = this.getMeasureById(productId, householdMeasureId);
+        if (measure) {
+            return measure.description;
+        } else {
+            return 'g';
+        }
     }
 }

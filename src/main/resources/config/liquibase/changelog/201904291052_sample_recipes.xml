@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="201904291052-1" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/recipe.csv"
+                  separator=","
+                  tableName="recipe"/>
+    </changeSet>
+    <changeSet id="201904291052-2" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/recipe_section.csv"
+                  separator=","
+                  tableName="recipe_section"/>
+    </changeSet>
+    <changeSet id="201904291052-3" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/preparation_step.csv"
+                  separator=","
+                  tableName="preparation_step"/>
+    </changeSet>
+    <changeSet id="201904291052-4" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/product_portion.csv"
+                  separator=","
+                  tableName="product_portion"/>
+    </changeSet>
+    <changeSet id="201904291052-5" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/recipe_dish_type.csv"
+                  separator=","
+                  tableName="recipe_dish_type"/>
+    </changeSet>
+    <changeSet id="201904291052-6" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/recipe_kitchen_appliances.csv"
+                  separator=","
+                  tableName="recipe_kitchen_appliances"/>
+    </changeSet>
+    <changeSet id="201904291052-7" author="kmarczynski">
+        <loadData encoding="UTF-8"
+                  file="config/liquibase/sample_recipes/recipe_meal_type.csv"
+                  separator=","
+                  tableName="recipe_meal_type"/>
+    </changeSet>
+
+</databaseChangeLog>

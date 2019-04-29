@@ -28,6 +28,7 @@
             <label for="category-select">Category:</label>
             <select class="form-control" id="category-select" name="category-select" [(ngModel)]="selectedCategory"
                     (change)="fetchSubcategories(); search()">
+                <option [ngValue]="null"></option>
                 <option
                     [ngValue]="productCategoryOption.id === selectedCategory?.id ? selectedCategory : productCategoryOption"
                     *ngFor="let productCategoryOption of productCategories; trackBy: customTrackBy">{{productCategoryOption.descriptionEnglish}}</option>

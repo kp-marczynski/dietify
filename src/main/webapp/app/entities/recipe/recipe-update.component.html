@@ -90,17 +90,12 @@
                     <label class="form-control-label" for="field_authorId" ngbTooltip="Id of recipe&#39;s author">Author
                         Id</label>
                     <input type="number" class="form-control" name="authorId" id="field_authorId"
-                           [(ngModel)]="recipe.authorId" required/>
-                    <div [hidden]="!(editForm.controls.authorId?.dirty && editForm.controls.authorId?.invalid)">
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.authorId?.errors?.required">
-                            This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                               [hidden]="!editForm.controls.authorId?.errors?.number">
-                            This field should be a number.
-                        </small>
-                    </div>
+                           [(ngModel)]="recipe.authorId" readonly/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_sourceRecipe">Source Recipe</label>
+                    <input type="text" class="form-control" id="field_sourceRecipe" name="sourceRecipe"
+                           [(ngModel)]="recipe.sourceRecipe" readonly/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" for="field_creationDate" ngbTooltip="Date of creation">Creation
@@ -155,12 +150,6 @@
                             [ngValue]="language.id === recipe.languageId ? recipe.languageId : language.id"
                             *ngFor="let language of languages; trackBy: trackRecipeById">{{language.englishName}}</option>
                     </select>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" for="field_sourceRecipe">Source Recipe</label>
-                    <input type="text" class="form-control" id="field_sourceRecipe" name="sourceRecipe"
-                           [(ngModel)]="recipe.sourceRecipe" readonly/>
                 </div>
                 <div class="form-group">
                     <label for="field_kitchenAppliances">Kitchen Appliances</label>
