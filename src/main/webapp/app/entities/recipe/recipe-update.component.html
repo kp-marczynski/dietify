@@ -141,11 +141,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_languageId" ngbTooltip="language of the recipe">Language
-                        Id</label>
+                    <label class="form-control-label" for="field_languageId" ngbTooltip="language of the recipe">Language</label>
                     <select class="form-control" name="languageId" id="field_languageId"
                             [(ngModel)]="recipe.languageId">
-                        <option [ngValue]="null"></option>
                         <option
                             [ngValue]="language.id === recipe.languageId ? recipe.languageId : language.id"
                             *ngFor="let language of languages; trackBy: trackRecipeById">{{language.englishName}}</option>

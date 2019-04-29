@@ -65,6 +65,7 @@ export class RecipeUpdateComponent implements OnInit {
             .subscribe(
                 (res: ILanguage[]) => {
                     this.languages = res;
+                    this.recipe.languageId = this.languages[0].id;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)
             );
