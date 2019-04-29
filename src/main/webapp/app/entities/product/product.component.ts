@@ -1,15 +1,21 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IProduct } from 'app/shared/model/product.model';
-import { AccountService } from 'app/core';
+import {IProduct} from 'app/shared/model/product.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductService } from './product.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {ProductService} from './product.service';
+import {IProductCategory} from 'app/shared/model/product-category.model';
+import {IProductSubcategory} from 'app/shared/model/product-subcategory.model';
+import {filter, map} from 'rxjs/operators';
+import {ProductCategoryService} from 'app/entities/product-category';
+import {ProductSubcategoryService} from 'app/entities/product-subcategory';
+import {ILanguage} from 'app/shared/model/language.model';
+import {LanguageService} from 'app/entities/language';
 
 @Component({
     selector: 'jhi-product',
@@ -30,6 +36,16 @@ export class ProductComponent implements OnInit, OnDestroy {
     previousPage: any;
     reverse: any;
 
+    selectedCategory: IProductCategory;
+    selectedSubcategory: IProductSubcategory;
+    selectedLanguage: ILanguage;
+
+    productSubcategories: IProductSubcategory[];
+    productCategories: IProductCategory[];
+    languages: ILanguage[];
+
+    searchPhrase = '';
+
     constructor(
         protected productService: ProductService,
         protected parseLinks: JhiParseLinks,
@@ -37,7 +53,10 @@ export class ProductComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected productCategoryService: ProductCategoryService,
+        protected productSubcategoryService: ProductSubcategoryService,
+        protected languageService: LanguageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -46,6 +65,33 @@ export class ProductComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.productCategoryService
+            .query()
+            .pipe(
+                filter((mayBeOk: HttpResponse<IProductCategory[]>) => mayBeOk.ok),
+                map((response: HttpResponse<IProductCategory[]>) => response.body)
+            )
+            .subscribe(
+                (res: IProductCategory[]) => (this.productCategories = res),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+        this.languageService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ILanguage[]>) => res.ok),
+                map((res: HttpResponse<ILanguage[]>) => res.body)
+            )
+            .subscribe(
+                (res: ILanguage[]) => {
+                    this.languages = res;
+                    this.selectedLanguage = this.languages.find(lang => lang.englishName === 'ENGLISH');
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    customTrackBy(index: number, obj: any): any {
+        return index;
     }
 
     loadAll() {
@@ -53,7 +99,11 @@ export class ProductComponent implements OnInit, OnDestroy {
             .query({
                 page: this.page - 1,
                 size: this.itemsPerPage,
-                sort: this.sort()
+                sort: this.sort(),
+                search: this.searchPhrase.trim(),
+                categoryId: this.selectedCategory ? this.selectedCategory.id : '',
+                subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
+                languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
             })
             .subscribe(
                 (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
@@ -73,7 +123,11 @@ export class ProductComponent implements OnInit, OnDestroy {
             queryParams: {
                 page: this.page,
                 size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+                search: this.searchPhrase.trim(),
+                categoryId: this.selectedCategory ? this.selectedCategory.id : '',
+                subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
+                languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
             }
         });
         this.loadAll();
@@ -127,5 +181,30 @@ export class ProductComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    search() {
+        this.page = 1;
+        this.transition();
+    }
+
+    fetchSubcategories() {
+        console.log('fetch');
+        this.selectedSubcategory = null;
+        if (this.selectedCategory) {
+            this.productSubcategoryService
+                .query({
+                    productCategoryId: this.selectedCategory.id,
+                    languageId: this.selectedLanguage.id
+                })
+                .pipe(
+                    filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
+                    map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+                )
+                .subscribe(
+                    (res: IProductSubcategory[]) => (this.productSubcategories = res),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        }
     }
 }

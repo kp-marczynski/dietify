@@ -1,15 +1,5 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.core.web.rest.TestUtil;
-import pl.marczynski.dietify.recipes.domain.Recipe;
-import pl.marczynski.dietify.recipes.domain.RecipeCreator;
-import pl.marczynski.dietify.recipes.domain.RecipeSection;
-import pl.marczynski.dietify.recipes.repository.RecipeRepository;
-import pl.marczynski.dietify.recipes.service.RecipeService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,12 +11,22 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.web.PageableHandlerMethodArgumentResolver;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.domain.User;
+import pl.marczynski.dietify.core.repository.UserRepository;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.recipes.domain.Recipe;
+import pl.marczynski.dietify.recipes.domain.RecipeCreator;
+import pl.marczynski.dietify.recipes.repository.RecipeRepository;
+import pl.marczynski.dietify.recipes.service.RecipeService;
 
 import javax.persistence.EntityManager;
 import java.time.LocalDate;
@@ -34,13 +34,12 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 
 /**
  * Test class for the RecipeResource REST controller.
@@ -49,6 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
+@WithMockUser(username = "user", authorities = {"ROLE_USER"}, password = "user")
 public class RecipeResourceIntTest {
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
@@ -64,9 +64,6 @@ public class RecipeResourceIntTest {
     private static final byte[] UPDATED_IMAGE = TestUtil.createByteArray(1, "1");
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
-
-    private static final Long DEFAULT_AUTHOR_ID = 1L;
-    private static final Long UPDATED_AUTHOR_ID = 2L;
 
     private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
@@ -110,13 +107,20 @@ public class RecipeResourceIntTest {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private MockMvc restRecipeMockMvc;
 
     private Recipe recipe;
 
+    private User currentUser;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
+
+        currentUser = userRepository.findCurrentUser().get();
         final RecipeResource recipeResource = new RecipeResource(recipeService);
         this.restRecipeMockMvc = MockMvcBuilders.standaloneSetup(recipeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -125,7 +129,6 @@ public class RecipeResourceIntTest {
             .setMessageConverters(jacksonMessageConverter)
             .setValidator(validator).build();
     }
-
 
 
     @Before
@@ -153,9 +156,7 @@ public class RecipeResourceIntTest {
         assertThat(testRecipe.getNumberOfPortions()).isEqualTo(DEFAULT_NUMBER_OF_PORTIONS);
         assertThat(testRecipe.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testRecipe.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
-        assertThat(testRecipe.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
-        assertThat(testRecipe.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
-        assertThat(testRecipe.getLastEditDate()).isEqualTo(DEFAULT_LAST_EDIT_DATE);
+        assertThat(testRecipe.getAuthorId()).isEqualTo(currentUser.getId());
         assertThat(testRecipe.isIsVisible()).isEqualTo(DEFAULT_IS_VISIBLE);
         assertThat(testRecipe.isIsLocked()).isEqualTo(DEFAULT_IS_LOCKED);
         assertThat(testRecipe.getLanguageId()).isEqualTo(DEFAULT_LANGUAGE_ID);
@@ -218,60 +219,6 @@ public class RecipeResourceIntTest {
 
     @Test
     @Transactional
-    public void checkAuthorIdIsRequired() throws Exception {
-        int databaseSizeBeforeTest = recipeRepository.findAll().size();
-        // set the field null
-        recipe.setAuthorId(null);
-
-        // Create the Recipe, which fails.
-
-        restRecipeMockMvc.perform(post("/api/recipes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipe)))
-            .andExpect(status().isBadRequest());
-
-        List<Recipe> recipeList = recipeRepository.findAll();
-        assertThat(recipeList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCreationDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = recipeRepository.findAll().size();
-        // set the field null
-        recipe.setCreationDate(null);
-
-        // Create the Recipe, which fails.
-
-        restRecipeMockMvc.perform(post("/api/recipes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipe)))
-            .andExpect(status().isBadRequest());
-
-        List<Recipe> recipeList = recipeRepository.findAll();
-        assertThat(recipeList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkLastEditDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = recipeRepository.findAll().size();
-        // set the field null
-        recipe.setLastEditDate(null);
-
-        // Create the Recipe, which fails.
-
-        restRecipeMockMvc.perform(post("/api/recipes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipe)))
-            .andExpect(status().isBadRequest());
-
-        List<Recipe> recipeList = recipeRepository.findAll();
-        assertThat(recipeList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkIsVisibleIsRequired() throws Exception {
         int databaseSizeBeforeTest = recipeRepository.findAll().size();
         // set the field null
@@ -310,7 +257,7 @@ public class RecipeResourceIntTest {
     @Transactional
     public void getAllRecipes() throws Exception {
         // Initialize the database
-        recipeRepository.saveAndFlush(recipe);
+        recipeService.save(recipe);
 
         // Get all the recipeList
         restRecipeMockMvc.perform(get("/api/recipes?sort=id,desc"))
@@ -322,14 +269,12 @@ public class RecipeResourceIntTest {
             .andExpect(jsonPath("$.[*].numberOfPortions").value(hasItem(DEFAULT_NUMBER_OF_PORTIONS.doubleValue())))
             .andExpect(jsonPath("$.[*].imageContentType").value(hasItem(DEFAULT_IMAGE_CONTENT_TYPE)))
             .andExpect(jsonPath("$.[*].image").value(hasItem(Base64Utils.encodeToString(DEFAULT_IMAGE))))
-            .andExpect(jsonPath("$.[*].authorId").value(hasItem(DEFAULT_AUTHOR_ID.intValue())))
-            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())))
-            .andExpect(jsonPath("$.[*].lastEditDate").value(hasItem(DEFAULT_LAST_EDIT_DATE.toString())))
+            .andExpect(jsonPath("$.[*].authorId").value(hasItem(currentUser.getId().intValue())))
             .andExpect(jsonPath("$.[*].isVisible").value(hasItem(DEFAULT_IS_VISIBLE.booleanValue())))
             .andExpect(jsonPath("$.[*].isLocked").value(hasItem(DEFAULT_IS_LOCKED.booleanValue())))
             .andExpect(jsonPath("$.[*].languageId").value(hasItem(DEFAULT_LANGUAGE_ID.intValue())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllRecipesWithEagerRelationshipsIsEnabled() throws Exception {
         RecipeResource recipeResource = new RecipeResource(recipeServiceMock);
@@ -342,7 +287,7 @@ public class RecipeResourceIntTest {
             .setMessageConverters(jacksonMessageConverter).build();
 
         restRecipeMockMvc.perform(get("/api/recipes?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
         verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
@@ -350,24 +295,24 @@ public class RecipeResourceIntTest {
     @SuppressWarnings({"unchecked"})
     public void getAllRecipesWithEagerRelationshipsIsNotEnabled() throws Exception {
         RecipeResource recipeResource = new RecipeResource(recipeServiceMock);
-            when(recipeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
-            MockMvc restRecipeMockMvc = MockMvcBuilders.standaloneSetup(recipeResource)
+        when(recipeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        MockMvc restRecipeMockMvc = MockMvcBuilders.standaloneSetup(recipeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter).build();
 
         restRecipeMockMvc.perform(get("/api/recipes?eagerload=true"))
-        .andExpect(status().isOk());
+            .andExpect(status().isOk());
 
-            verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any());
+        verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any());
     }
 
     @Test
     @Transactional
     public void getRecipe() throws Exception {
         // Initialize the database
-        recipeRepository.saveAndFlush(recipe);
+        recipeService.save(recipe);
 
         // Get the recipe
         restRecipeMockMvc.perform(get("/api/recipes/{id}", recipe.getId()))
@@ -379,9 +324,7 @@ public class RecipeResourceIntTest {
             .andExpect(jsonPath("$.numberOfPortions").value(DEFAULT_NUMBER_OF_PORTIONS.doubleValue()))
             .andExpect(jsonPath("$.imageContentType").value(DEFAULT_IMAGE_CONTENT_TYPE))
             .andExpect(jsonPath("$.image").value(Base64Utils.encodeToString(DEFAULT_IMAGE)))
-            .andExpect(jsonPath("$.authorId").value(DEFAULT_AUTHOR_ID.intValue()))
-            .andExpect(jsonPath("$.creationDate").value(DEFAULT_CREATION_DATE.toString()))
-            .andExpect(jsonPath("$.lastEditDate").value(DEFAULT_LAST_EDIT_DATE.toString()))
+            .andExpect(jsonPath("$.authorId").value(currentUser.getId()))
             .andExpect(jsonPath("$.isVisible").value(DEFAULT_IS_VISIBLE.booleanValue()))
             .andExpect(jsonPath("$.isLocked").value(DEFAULT_IS_LOCKED.booleanValue()))
             .andExpect(jsonPath("$.languageId").value(DEFAULT_LANGUAGE_ID.intValue()));
@@ -413,7 +356,7 @@ public class RecipeResourceIntTest {
             .numberOfPortions(UPDATED_NUMBER_OF_PORTIONS)
             .image(UPDATED_IMAGE)
             .imageContentType(UPDATED_IMAGE_CONTENT_TYPE)
-            .authorId(UPDATED_AUTHOR_ID)
+            .authorId(currentUser.getId())
             .creationDate(UPDATED_CREATION_DATE)
             .lastEditDate(UPDATED_LAST_EDIT_DATE)
             .isVisible(UPDATED_IS_VISIBLE)
@@ -434,7 +377,7 @@ public class RecipeResourceIntTest {
         assertThat(testRecipe.getNumberOfPortions()).isEqualTo(UPDATED_NUMBER_OF_PORTIONS);
         assertThat(testRecipe.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testRecipe.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
-        assertThat(testRecipe.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
+        assertThat(testRecipe.getAuthorId()).isEqualTo(currentUser.getId());
         assertThat(testRecipe.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
         assertThat(testRecipe.getLastEditDate()).isEqualTo(UPDATED_LAST_EDIT_DATE);
         assertThat(testRecipe.isIsVisible()).isEqualTo(UPDATED_IS_VISIBLE);

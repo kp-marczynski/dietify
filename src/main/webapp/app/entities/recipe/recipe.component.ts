@@ -1,15 +1,14 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import { IRecipe } from 'app/shared/model/recipe.model';
-import { AccountService } from 'app/core';
+import {IRecipe} from 'app/shared/model/recipe.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { RecipeService } from './recipe.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {RecipeService} from './recipe.service';
 
 @Component({
     selector: 'jhi-recipe',
@@ -29,6 +28,8 @@ export class RecipeComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+
+    searchPhrase = '';
 
     constructor(
         protected recipeService: RecipeService,
@@ -50,16 +51,30 @@ export class RecipeComponent implements OnInit, OnDestroy {
     }
 
     loadAll() {
-        this.recipeService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
-            .subscribe(
-                (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
-                (res: HttpErrorResponse) => this.onError(res.message)
-            );
+        if (this.searchPhrase.trim() === '') {
+            this.recipeService
+                .query({
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                })
+                .subscribe(
+                    (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        } else {
+            this.recipeService
+                .query({
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort(),
+                    searchPhrase: this.searchPhrase
+                })
+                .subscribe(
+                    (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
+                    (res: HttpErrorResponse) => this.onError(res.message)
+                );
+        }
     }
 
     loadPage(page: number) {
@@ -70,13 +85,24 @@ export class RecipeComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/recipe'], {
-            queryParams: {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        });
+        if (this.searchPhrase.trim() === '') {
+            this.router.navigate(['/recipe'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            });
+        } else {
+            this.router.navigate(['/recipe'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+                    searchPhrase: this.searchPhrase
+                }
+            });
+        }
         this.loadAll();
     }
 
@@ -136,5 +162,10 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    search() {
+        this.page = 1;
+        this.transition();
     }
 }

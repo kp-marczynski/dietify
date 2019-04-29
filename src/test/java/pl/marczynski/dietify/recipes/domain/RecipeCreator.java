@@ -21,9 +21,6 @@ public class RecipeCreator {
     private static final String DEFAULT_IMAGE_CONTENT_TYPE = "image/jpg";
     private static final String UPDATED_IMAGE_CONTENT_TYPE = "image/png";
 
-    private static final Long DEFAULT_AUTHOR_ID = 1L;
-    private static final Long UPDATED_AUTHOR_ID = 2L;
-
     private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
 
@@ -46,7 +43,6 @@ public class RecipeCreator {
             .numberOfPortions(DEFAULT_NUMBER_OF_PORTIONS)
             .image(DEFAULT_IMAGE)
             .imageContentType(DEFAULT_IMAGE_CONTENT_TYPE)
-            .authorId(DEFAULT_AUTHOR_ID)
             .creationDate(DEFAULT_CREATION_DATE)
             .lastEditDate(DEFAULT_LAST_EDIT_DATE)
             .isVisible(DEFAULT_IS_VISIBLE)

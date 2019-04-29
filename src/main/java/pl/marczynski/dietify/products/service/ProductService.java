@@ -6,6 +6,7 @@ import pl.marczynski.dietify.products.domain.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -35,7 +36,7 @@ public interface ProductService {
      * @return the list of entities
      */
     Page<Product> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" product.
      *
@@ -50,4 +51,12 @@ public interface ProductService {
      * @param id the id of the entity
      */
     void delete(Long id) throws NotFoundException;
+
+    /**
+     * Get products with description containg search phrase
+     *
+     * @param searchPhrase phrase to search for in product description
+     * @return the list of entities
+     */
+    Page<Product> findBySearchAndFilters(String searchPhrase, Long languageId, Long categoryId, Long subcategoryId, Pageable pageable);
 }

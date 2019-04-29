@@ -1,9 +1,9 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.domain.Recipe;
-
+import javassist.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pl.marczynski.dietify.recipes.domain.Recipe;
 
 import java.util.Optional;
 
@@ -34,7 +34,7 @@ public interface RecipeService {
      * @return the list of entities
      */
     Page<Recipe> findAllWithEagerRelationships(Pageable pageable);
-    
+
     /**
      * Get the "id" recipe.
      *
@@ -48,5 +48,14 @@ public interface RecipeService {
      *
      * @param id the id of the entity
      */
-    void delete(Long id);
+    void delete(Long id) throws NotFoundException;
+
+    /**
+     * Get recipes with name containing search phrase
+     *
+     * @param searchPhrase phrase to search for in recipe name
+     * @return the list of entities
+     */
+
+    Page<Recipe> findByNameContaining(String searchPhrase, Pageable pageable);
 }

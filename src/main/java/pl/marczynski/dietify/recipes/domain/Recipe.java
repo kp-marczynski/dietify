@@ -72,7 +72,6 @@ public class Recipe implements Serializable {
     /**
      * Id of recipe's author
      */
-    @NotNull
     @ApiModelProperty(value = "Id of recipe's author", required = true)
     @Column(name = "author_id", nullable = false)
     private Long authorId;
@@ -80,7 +79,6 @@ public class Recipe implements Serializable {
     /**
      * Date of creation
      */
-    @NotNull
     @ApiModelProperty(value = "Date of creation", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
@@ -88,7 +86,6 @@ public class Recipe implements Serializable {
     /**
      * Date of last edit
      */
-    @NotNull
     @ApiModelProperty(value = "Date of last edit", required = true)
     @Column(name = "last_edit_date", nullable = false)
     private LocalDate lastEditDate;

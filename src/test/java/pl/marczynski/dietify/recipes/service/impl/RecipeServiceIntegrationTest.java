@@ -7,6 +7,8 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,9 +21,11 @@ import pl.marczynski.dietify.recipes.repository.RecipeRepository;
 import pl.marczynski.dietify.recipes.service.RecipeService;
 
 import javax.persistence.EntityManager;
+import java.util.Arrays;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -38,21 +42,22 @@ public class RecipeServiceIntegrationTest {
     @Autowired
     private EntityManager em;
 
-    @Mock
-    private UserRepository userRepositoryMock;
+    @Autowired
+    private UserRepository userRepository;
 
     private Recipe recipe;
 
     @Before
     public void setup() {
-        Optional<User> user = userRepositoryMock.findOneByLogin("user");
-        when(userRepositoryMock.findCurrentUser()).thenReturn(user);
-        this.recipe = recipeService.save(RecipeCreator.createEntity(em));
+        Optional<User> user = userRepository.findCurrentUser();
+        this.recipe = RecipeCreator.createEntity(em);
     }
 
     @Test
     @Transactional
     public void shouldStoreRecipeInCacheAfterGetEagerById() {
+        //giveb
+        recipeService.save(this.recipe);
         //when
         recipeService.findOne(this.recipe.getId());
 
@@ -83,14 +88,63 @@ public class RecipeServiceIntegrationTest {
     @Transactional
     public void shouldRemoveRecipeFromCacheWhenDeletingRecipe() {
         //given
+        recipeService.save(recipe);
         recipeService.findOne(this.recipe.getId());
 
         //when
-        recipeService.delete(this.recipe.getId());
+        try {
+            recipeService.delete(this.recipe.getId());
+        } catch (Exception e) {
+            fail("Exception was thrown");
+        }
 
         //then
         assertThat(cacheManager.getCacheNames()).contains(RecipeRepository.RECIPES_EAGER_BY_ID_CACHE);
         assertThat(cacheManager.getCache(RecipeRepository.RECIPES_EAGER_BY_ID_CACHE).get(this.recipe.getId())).isNull();
     }
 
+    @Test
+    @Transactional
+    public void shouldFindRecipeBySearchPhrase() {
+        //given
+        String searchPhrase = "aa";
+        Recipe recipe1 = RecipeCreator.createEntity(em);
+        recipe1.name(searchPhrase);
+
+        Recipe recipe2 = RecipeCreator.createEntity(em);
+        recipe2.name("bbbb");
+
+        Recipe recipe3 = RecipeCreator.createEntity(em);
+        recipe3.name("b" + searchPhrase + "c");
+
+        recipe1 = recipeService.save(recipe1);
+        recipe2 = recipeService.save(recipe2);
+        recipe3 = recipeService.save(recipe3);
+
+        //when
+        Page<Recipe> result = recipeService.findByNameContaining(searchPhrase, PageRequest.of(0, 10));
+
+        //then
+        assertThat(result.getTotalElements()).isEqualTo(2);
+        assertThat(result.getContent()).containsAll(Arrays.asList(recipe1, recipe3));
+        assertThat(result.getContent()).doesNotContain(recipe2);
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindRecipeBySearchPhraseIgnoreingCase() {
+        //given
+        String searchPhrase = "aa";
+        Recipe recipe1 = RecipeCreator.createEntity(em);
+        recipe1.name(searchPhrase.toUpperCase());
+
+        recipe1 = recipeService.save(recipe1);
+
+        //when
+        Page<Recipe> result = recipeService.findByNameContaining(searchPhrase, PageRequest.of(0, 10));
+
+        //then
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(result.getContent()).contains(recipe1);
+    }
 }

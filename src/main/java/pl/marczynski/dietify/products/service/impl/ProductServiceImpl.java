@@ -20,6 +20,7 @@ import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 import pl.marczynski.dietify.products.utils.ProductValidator;
 
+import java.util.Collections;
 import java.util.Optional;
 
 /**
@@ -133,6 +134,19 @@ public class ProductServiceImpl implements ProductService {
         this.clearProductCaches(id);
         productRepository.deleteById(id);
         productSubcategoryService.removeOrphans();
+    }
+
+    @Override
+    public Page<Product> findBySearchAndFilters(String searchPhrase, Long languageId, Long categoryId, Long subcategoryId, Pageable pageable) {
+        if (subcategoryId != null) {
+            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryId(searchPhrase, subcategoryId, pageable);
+        } else if (categoryId != null) {
+            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguageId(searchPhrase, categoryId, languageId, pageable);
+        } else if (languageId != null) {
+            return productRepository.findByDescriptionContainingIgnoreCaseAndLanguageId(searchPhrase, languageId, pageable);
+        } else {
+            return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, pageable);
+        }
     }
 
     private void clearProductCaches(Product product) {

@@ -1,4 +1,4 @@
-<div>
+<div class="card jh-card">
     <h2 id="page-heading">
         <span>Recipes</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-recipe" [routerLink]="['/recipe/new']">
@@ -7,6 +7,8 @@
             Create new Recipe
             </span>
         </button>
+        <input type="text" class="form-control" placeholder="Search..." (keyup.enter)="search()" id="search" name="search"
+               [(ngModel)]="searchPhrase"/>
     </h2>
     <jhi-alert></jhi-alert>
     <br/>
