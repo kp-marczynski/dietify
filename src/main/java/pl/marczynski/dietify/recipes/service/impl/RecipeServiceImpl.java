@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.recipes.service.impl;
 
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.cache.Cache;
@@ -55,7 +56,7 @@ public class RecipeServiceImpl implements RecipeService {
             recipe.creationDate(LocalDate.now());
         }
         recipe.lastEditDate(LocalDate.now());
-        return recipeRepository.save(recipe);
+        return recipeRepository.saveAndFlush(recipe);
     }
 
     private boolean hasRightsToPersistRecipe(Recipe recipe) {
@@ -109,8 +110,15 @@ public class RecipeServiceImpl implements RecipeService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws NotFoundException {
         log.debug("Request to delete Recipe : {}", id);
+        Optional<Recipe> recipe = recipeRepository.findOneWithEagerRelationships(id);
+        if (!recipe.isPresent()) {
+            throw new NotFoundException("Recipe not found");
+        }
+        if (!hasRightsToPersistRecipe(recipe.get())) {
+            throw new OperationNotAllowedForCurrentUserException();
+        }
         this.clearRecipeCaches(id);
         recipeRepository.deleteById(id);
     }

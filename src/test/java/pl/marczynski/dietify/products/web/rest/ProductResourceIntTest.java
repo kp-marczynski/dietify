@@ -84,10 +84,13 @@ public class ProductResourceIntTest {
     @Mock
     UserRepository userRepositoryMock;
 
+    @Autowired
+    UserRepository userRepository;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        Optional<User> user = userRepositoryMock.findOneByLogin("user");
+        Optional<User> user = userRepository.findCurrentUser();
         when(userRepositoryMock.findCurrentUser()).thenReturn(user);
 
         final ProductResource productResource = new ProductResource(productService);

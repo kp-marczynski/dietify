@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
@@ -41,11 +42,14 @@ public class RecipeServiceIntegrationTest {
     @Mock
     private UserRepository userRepositoryMock;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private Recipe recipe;
 
     @Before
     public void setup() {
-        Optional<User> user = userRepositoryMock.findOneByLogin("user");
+        Optional<User> user = userRepository.findCurrentUser();
         when(userRepositoryMock.findCurrentUser()).thenReturn(user);
         this.recipe = recipeService.save(RecipeCreator.createEntity(em));
     }
@@ -86,7 +90,11 @@ public class RecipeServiceIntegrationTest {
         recipeService.findOne(this.recipe.getId());
 
         //when
-        recipeService.delete(this.recipe.getId());
+        try {
+            recipeService.delete(this.recipe.getId());
+        } catch (Exception e) {
+            fail("Exception was thrown");
+        }
 
         //then
         assertThat(cacheManager.getCacheNames()).contains(RecipeRepository.RECIPES_EAGER_BY_ID_CACHE);
