@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
@@ -21,7 +21,8 @@ import {LanguageService} from 'app/entities/language';
     selector: 'jhi-product',
     templateUrl: './product.component.html'
 })
-export class ProductComponent implements OnInit, OnDestroy {
+export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
+    standaloneView: boolean;
     currentAccount: any;
     products: IProduct[];
     error: any;
@@ -60,11 +61,21 @@ export class ProductComponent implements OnInit, OnDestroy {
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
+            if (data.pagingParams) {
+                this.standaloneView = true;
+                this.page = data.pagingParams.page;
+                this.previousPage = data.pagingParams.page;
+                this.reverse = data.pagingParams.ascending;
+                this.predicate = data.pagingParams.predicate;
+            } else {
+                this.standaloneView = false;
+                this.page = 1;
+                this.previousPage = 1;
+                this.reverse = true;
+                this.predicate = 'id';
+            }
         });
+
         this.productCategoryService
             .query()
             .pipe(
@@ -119,29 +130,33 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        this.router.navigate(['/product'], {
-            queryParams: {
-                page: this.page,
-                size: this.itemsPerPage,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
-                search: this.searchPhrase.trim(),
-                categoryId: this.selectedCategory ? this.selectedCategory.id : '',
-                subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
-                languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
-            }
-        });
+        if (this.standaloneView) {
+            this.router.navigate(['/product'], {
+                queryParams: {
+                    page: this.page,
+                    size: this.itemsPerPage,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
+                    search: this.searchPhrase.trim(),
+                    categoryId: this.selectedCategory ? this.selectedCategory.id : '',
+                    subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
+                    languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
+                }
+            });
+        }
         this.loadAll();
     }
 
     clear() {
         this.page = 0;
-        this.router.navigate([
-            '/product',
-            {
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
+        if (this.standaloneView) {
+            this.router.navigate([
+                '/product',
+                {
+                    page: this.page,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            ]);
+        }
         this.loadAll();
     }
 
@@ -205,6 +220,12 @@ export class ProductComponent implements OnInit, OnDestroy {
                     (res: IProductSubcategory[]) => (this.productSubcategories = res),
                     (res: HttpErrorResponse) => this.onError(res.message)
                 );
+        }
+    }
+
+    ngAfterViewInit(): void {
+        if (!this.standaloneView) {
+            document.getElementById('product-list-wrapper').style.padding = '2rem';
         }
     }
 }

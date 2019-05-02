@@ -183,7 +183,7 @@
                 <div *ngFor="let recipeSection of recipe.recipeSections; let sectionIndex = index">
                     <h2>{{recipeSection.sectionName}}</h2>
                     <div class="form-group">
-                        <label>Ingredients</label>
+                        <label (click)="openModal()">Ingredients</label>
                         <table>
                             <tr *ngFor="let productPortion of recipeSection.productPortions; let last = last; let portionIndex = index; trackBy:customTrackBy">
 

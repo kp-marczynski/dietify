@@ -15,10 +15,11 @@ import {MealTypeService} from 'app/entities/meal-type';
 import {RecipeSection} from 'app/shared/model/recipe-section.model';
 import {IProductPortion, ProductPortion} from 'app/shared/model/product-portion.model';
 import {PreparationStep} from 'app/shared/model/preparation-step.model';
-import {ProductService} from 'app/entities/product';
+import {ProductComponent, ProductService} from 'app/entities/product';
 import {IProduct} from 'app/shared/model/product.model';
 import {ILanguage} from 'app/shared/model/language.model';
 import {LanguageService} from 'app/entities/language';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-recipe-update',
@@ -50,7 +51,8 @@ export class RecipeUpdateComponent implements OnInit {
         protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute,
         protected productService: ProductService,
-        protected languageService: LanguageService
+        protected languageService: LanguageService,
+        protected modalService: NgbModal
     ) {
     }
 
@@ -242,5 +244,9 @@ export class RecipeUpdateComponent implements OnInit {
 
     findProduct(productPortion: IProductPortion) {
         return this.productService.find(productPortion.productId).subscribe((res: HttpResponse<IProduct>) => productPortion.product = res.body, (res: HttpErrorResponse) => productPortion.product = null);
+    }
+
+    openModal() {
+        const modalRef = this.modalService.open(ProductComponent, {windowClass: 'custom-modal'});
     }
 }
