@@ -195,4 +195,8 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
     passBack(recipe: Recipe): void {
         this.passEntry.emit(recipe);
     }
+
+    customTrackBy(index: number, obj: any): any {
+        return index;
+    }
 }
