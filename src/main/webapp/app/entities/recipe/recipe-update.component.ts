@@ -12,13 +12,14 @@ import {IDishType} from 'app/shared/model/dish-type.model';
 import {DishTypeService} from 'app/entities/dish-type';
 import {IMealType} from 'app/shared/model/meal-type.model';
 import {MealTypeService} from 'app/entities/meal-type';
-import {RecipeSection} from 'app/shared/model/recipe-section.model';
+import {IRecipeSection, RecipeSection} from 'app/shared/model/recipe-section.model';
 import {IProductPortion, ProductPortion} from 'app/shared/model/product-portion.model';
 import {PreparationStep} from 'app/shared/model/preparation-step.model';
-import {ProductService} from 'app/entities/product';
-import {IProduct} from 'app/shared/model/product.model';
+import {ProductComponent, ProductService} from 'app/entities/product';
+import {IProduct, Product} from 'app/shared/model/product.model';
 import {ILanguage} from 'app/shared/model/language.model';
 import {LanguageService} from 'app/entities/language';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'jhi-recipe-update',
@@ -50,7 +51,8 @@ export class RecipeUpdateComponent implements OnInit {
         protected elementRef: ElementRef,
         protected activatedRoute: ActivatedRoute,
         protected productService: ProductService,
-        protected languageService: LanguageService
+        protected languageService: LanguageService,
+        protected modalService: NgbModal
     ) {
     }
 
@@ -81,17 +83,17 @@ export class RecipeUpdateComponent implements OnInit {
                 if (!recipeSection.productPortions) {
                     recipeSection.productPortions = [];
                 }
-                if (recipeSection.productPortions.length === 0) {
-                    recipeSection.productPortions.push(new ProductPortion(null, null, null, null));
+
+                for (const productPortion of recipeSection.productPortions) {
+                    this.findProduct(productPortion);
                 }
+
                 if (!recipeSection.preparationSteps) {
                     recipeSection.preparationSteps = [];
                 }
-                if (recipeSection.preparationSteps.length === 0) {
-                    recipeSection.preparationSteps.push(new PreparationStep(null, null, null));
-                } else {
-                    recipeSection.preparationSteps.sort((a, b) => (a.ordinalNumber - b.ordinalNumber));
-                }
+
+                recipeSection.preparationSteps.sort((a, b) => (a.ordinalNumber - b.ordinalNumber));
+                recipeSection.preparationSteps.push(new PreparationStep(null, null, null));
             });
         });
         this.recipeService
@@ -226,21 +228,41 @@ export class RecipeUpdateComponent implements OnInit {
         }
     }
 
-    createNewProductPortion(isLast: boolean) {
-        if (isLast) {
-            this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
-        }
-        if (this.recipe.recipeSections[0].productPortions.filter(productPortion => (!productPortion.productId)).length > 1) {
-            this.recipe.recipeSections[0].productPortions = this.recipe.recipeSections[0].productPortions.filter(productPortion => (productPortion.productId));
-            this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
-        }
-    }
+    // createNewProductPortion(isLast: boolean): void {
+    //     if (isLast) {
+    //         this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
+    //     }
+    //     if (this.recipe.recipeSections[0].productPortions.filter(productPortion => (!productPortion.productId)).length > 1) {
+    //         this.recipe.recipeSections[0].productPortions = this.recipe.recipeSections[0].productPortions.filter(productPortion => (productPortion.productId));
+    //         this.recipe.recipeSections[0].productPortions.push(new ProductPortion(null, null, null, null));
+    //     }
+    // }
 
     customTrackBy(index: number, obj: any): any {
         return index;
     }
 
-    findProduct(productPortion: IProductPortion) {
-        return this.productService.find(productPortion.productId).subscribe((res: HttpResponse<IProduct>) => productPortion.product = res.body, (res: HttpErrorResponse) => productPortion.product = null);
+    findProduct(productPortion: IProductPortion): void {
+        this.productService.find(productPortion.productId).subscribe(
+            (res: HttpResponse<IProduct>) => productPortion.product = res.body,
+            (res: HttpErrorResponse) => productPortion.product = null
+        );
+    }
+
+    addIngredient(recipeSection: IRecipeSection) {
+        const modalRef = this.modalService.open(ProductComponent, {windowClass: 'custom-modal'});
+
+        modalRef.componentInstance.passEntry.subscribe((receivedEntry: Product) => {
+            modalRef.close();
+
+            const productPortion = new ProductPortion(null, null, receivedEntry.id, null);
+            recipeSection.productPortions.push(productPortion);
+            this.findProduct(productPortion);
+        });
+    }
+
+    removeIngredientFromSection(recipeSection: IRecipeSection, productPortion: IProductPortion): void {
+        recipeSection.productPortions = recipeSection.productPortions.filter(portion => portion !== productPortion);
+        console.log(recipeSection.productPortions);
     }
 }
