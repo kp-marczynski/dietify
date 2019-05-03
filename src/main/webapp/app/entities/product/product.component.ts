@@ -1,10 +1,10 @@
-import {AfterViewInit, Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {JhiAlertService, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import {IProduct} from 'app/shared/model/product.model';
+import {IProduct, Product} from 'app/shared/model/product.model';
 import {AccountService} from 'app/core';
 
 import {ITEMS_PER_PAGE} from 'app/shared';
@@ -22,6 +22,8 @@ import {LanguageService} from 'app/entities/language';
     templateUrl: './product.component.html'
 })
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
+    @Output() passEntry: EventEmitter<Product> = new EventEmitter();
+
     standaloneView: boolean;
     currentAccount: any;
     products: IProduct[];
@@ -227,5 +229,9 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
         if (!this.standaloneView) {
             document.getElementById('product-list-wrapper').style.padding = '2rem';
         }
+    }
+
+    passBack(product: Product): void {
+        this.passEntry.emit(product);
     }
 }
