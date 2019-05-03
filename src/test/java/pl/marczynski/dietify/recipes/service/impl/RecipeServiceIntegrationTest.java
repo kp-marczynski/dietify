@@ -3,7 +3,6 @@ package pl.marczynski.dietify.recipes.service.impl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.cache.CacheManager;
@@ -26,7 +25,6 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
-import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
@@ -122,7 +120,7 @@ public class RecipeServiceIntegrationTest {
         recipe3 = recipeService.save(recipe3);
 
         //when
-        Page<Recipe> result = recipeService.findByNameContaining(searchPhrase, PageRequest.of(0, 10));
+        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(2);
@@ -141,7 +139,7 @@ public class RecipeServiceIntegrationTest {
         recipe1 = recipeService.save(recipe1);
 
         //when
-        Page<Recipe> result = recipeService.findByNameContaining(searchPhrase, PageRequest.of(0, 10));
+        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(1);

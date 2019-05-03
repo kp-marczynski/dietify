@@ -39,4 +39,6 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Optional<Recipe> findOneWithEagerRelationships(@Param("id") Long id);
 
     Page<Recipe> findByNameContainingIgnoreCase(String searchPhrase, Pageable pageable);
+
+    Page<Recipe> findByNameContainingIgnoreCaseAndLanguageId(String searchPhrase, Long languageId, Pageable pageable);
 }

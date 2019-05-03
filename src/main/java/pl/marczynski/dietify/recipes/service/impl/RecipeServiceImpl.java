@@ -124,8 +124,12 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Page<Recipe> findByNameContaining(String searchPhrase, Pageable pageable) {
-        return this.recipeRepository.findByNameContainingIgnoreCase(searchPhrase, pageable);
+    public Page<Recipe> findBySearchAndFilters(String searchPhrase, Long languageId, Pageable pageable) {
+        if (languageId != null) {
+            return this.recipeRepository.findByNameContainingIgnoreCaseAndLanguageId(searchPhrase, languageId, pageable);
+        } else {
+            return this.recipeRepository.findByNameContainingIgnoreCase(searchPhrase, pageable);
+        }
     }
 
     private void clearRecipeCaches(Recipe recipe) {
