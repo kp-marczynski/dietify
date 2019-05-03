@@ -110,8 +110,8 @@
 
                     <span>Preparation steps</span>
 
-                    <div *ngFor="let preparationStep of recipeSection.preparationSteps">
-                        <span>{{preparationStep.stepDescription}}</span>
+                    <div *ngFor="let preparationStep of recipeSection.preparationSteps; let preparationIndex = index;">
+                        <span>{{preparationIndex + 1 + ') ' + preparationStep.stepDescription}}</span>
                     </div>
 
                 </dd>
