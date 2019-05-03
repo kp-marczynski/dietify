@@ -218,7 +218,6 @@
                                     <input type="number" class="form-control"
                                            name="section{{sectionIndex}}portion{{portionIndex}}amount"
                                            [(ngModel)]="productPortion.amount"
-                                           (keyup)="createNewProductPortion(last)"
                                            [required]="productPortion.productId"
                                            jhiMin="0.00001" placeholder="Amount"/>
                                 </td>
