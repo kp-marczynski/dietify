@@ -284,66 +284,96 @@
                 </a>
             </span>
             <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="recipe" routerLinkActive="active" id="recipe"
-                                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="recipe"
+                   routerLinkActive="active" id="recipe"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="receipt" fixedWidth="true"></fa-icon>
                     <span>Recipes</span>
                 </a>
             </span>
             <!--</span>-->
         </div>
+        <span>
+            <a class="list-group-item list-group-item-action waves-effect" routerLink="language" id="language"
+               routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span>Languages</span>
+            </a>
+        </span>
         <div class="list-group list-group-flush" *jhiHasAnyAuthority="'ROLE_ADMIN'">
             <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="nutrition-definition"
-                   id="nutrition-definition"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Nutrition Definitions</span>
+            <span class="list-group ngb-dropdown" routerLinkActive="active" ngbDropdown
+                  [routerLinkActiveOptions]="{exact: true}">
+                <a class="list-group-item-heading" ngbDropdownToggle id="products-admin-menu-aside">
+                    <span>
+                        <fa-icon icon="asterisk"></fa-icon>
+                        <span>Products Admin</span>
+                    </span>
                 </a>
+                <span ngbDropdownMenu>
+                    <span>
+                        <a class="list-group-item list-group-item-action waves-effect" routerLink="nutrition-definition"
+                           id="nutrition-definition"
+                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                           (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span>Nutrition Definitions</span>
+                        </a>
+                    </span>
+                    <span>
+                        <a class="list-group-item list-group-item-action waves-effect" routerLink="product-category"
+                           id="product-category"
+                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                           (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span>Product Categories</span>
+                        </a>
+                    </span>
+                    <span>
+                        <a class="list-group-item list-group-item-action waves-effect" routerLink="diet-type"
+                           id="diet-type"
+                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
+                           (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span>Diet Types</span>
+                        </a>
+                    </span>
+                </span>
             </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="product-category"
-                   id="product-category"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Product Categories</span>
+            <span class="list-group ngb-dropdown" routerLinkActive="active" ngbDropdown
+                  [routerLinkActiveOptions]="{exact: true}">
+                <a class="list-group-item-heading" ngbDropdownToggle id="recipes-admin-menu-aside">
+                    <span>
+                        <fa-icon icon="asterisk"></fa-icon>
+                        <span>Recipes Admin</span>
+                    </span>
                 </a>
-            </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="diet-type" id="diet-type"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Diet Types</span>
-                </a>
-            </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="language" id="language"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Languages</span>
-                </a>
-            </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="dish-type" routerLinkActive="active" id="dish-type"
-                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Dish Type</span>
-                </a>
-            </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-type" routerLinkActive="active" id="meal-type"
-                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Meal Type</span>
-                </a>
-            </span>
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="kitchen-appliance" routerLinkActive="active" id="kitchen-appliance"
-                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Kitchen Appliance</span>
-                </a>
+                <span ngbDropdownMenu>
+                    <span>
+                        <a class="list-group-item list-group-item-action waves-effect" routerLink="dish-type"
+                           routerLinkActive="active" id="dish-type"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span>Dish Type</span>
+                        </a>
+                    </span>
+                    <span>
+                        <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-type"
+                           routerLinkActive="active" id="meal-type"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span>Meal Type</span>
+                        </a>
+                    </span>
+                    <span>
+                        <a class="list-group-item list-group-item-action waves-effect" routerLink="kitchen-appliance"
+                           routerLinkActive="active" id="kitchen-appliance"
+                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span>Kitchen Appliance</span>
+                        </a>
+                    </span>
+                </span>
             </span>
             <!--</span>-->
         </div>
