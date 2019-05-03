@@ -120,7 +120,7 @@ public class RecipeServiceIntegrationTest {
         recipe3 = recipeService.save(recipe3);
 
         //when
-        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, PageRequest.of(0, 10));
+        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, null, PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(2);
@@ -139,7 +139,7 @@ public class RecipeServiceIntegrationTest {
         recipe1 = recipeService.save(recipe1);
 
         //when
-        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, PageRequest.of(0, 10));
+        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, null, PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(1);
