@@ -1,20 +1,26 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {JhiAlertService, JhiDataUtils, JhiEventManager, JhiParseLinks} from 'ng-jhipster';
 
-import {IRecipe} from 'app/shared/model/recipe.model';
+import {IRecipe, Recipe} from 'app/shared/model/recipe.model';
 import {AccountService} from 'app/core';
 
 import {ITEMS_PER_PAGE} from 'app/shared';
 import {RecipeService} from './recipe.service';
+import {ILanguage} from 'app/shared/model/language.model';
+import {filter, map} from 'rxjs/operators';
+import {LanguageService} from 'app/entities/language';
 
 @Component({
     selector: 'jhi-recipe',
     templateUrl: './recipe.component.html'
 })
-export class RecipeComponent implements OnInit, OnDestroy {
+export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
+    @Output() passEntry: EventEmitter<Recipe> = new EventEmitter();
+    standaloneView: boolean;
+
     currentAccount: any;
     recipes: IRecipe[];
     error: any;
@@ -31,6 +37,10 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
     searchPhrase = '';
 
+    selectedLanguage: ILanguage;
+
+    languages: ILanguage[];
+
     constructor(
         protected recipeService: RecipeService,
         protected parseLinks: JhiParseLinks,
@@ -39,42 +49,54 @@ export class RecipeComponent implements OnInit, OnDestroy {
         protected activatedRoute: ActivatedRoute,
         protected dataUtils: JhiDataUtils,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected languageService: LanguageService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
-            this.page = data.pagingParams.page;
-            this.previousPage = data.pagingParams.page;
-            this.reverse = data.pagingParams.ascending;
-            this.predicate = data.pagingParams.predicate;
+            if (data.pagingParams) {
+                this.standaloneView = true;
+                this.page = data.pagingParams.page;
+                this.previousPage = data.pagingParams.page;
+                this.reverse = data.pagingParams.ascending;
+                this.predicate = data.pagingParams.predicate;
+            } else {
+                this.standaloneView = false;
+                this.page = 1;
+                this.previousPage = 1;
+                this.reverse = true;
+                this.predicate = 'id';
+            }
         });
+
+        this.languageService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ILanguage[]>) => res.ok),
+                map((res: HttpResponse<ILanguage[]>) => res.body)
+            )
+            .subscribe(
+                (res: ILanguage[]) => {
+                    this.languages = res;
+                    this.selectedLanguage = this.languages.find(lang => lang.englishName === 'ENGLISH');
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     loadAll() {
-        if (this.searchPhrase.trim() === '') {
-            this.recipeService
-                .query({
-                    page: this.page - 1,
-                    size: this.itemsPerPage,
-                    sort: this.sort()
-                })
-                .subscribe(
-                    (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-        } else {
-            this.recipeService
-                .query({
-                    page: this.page - 1,
-                    size: this.itemsPerPage,
-                    sort: this.sort(),
-                    searchPhrase: this.searchPhrase
-                })
-                .subscribe(
-                    (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
-                    (res: HttpErrorResponse) => this.onError(res.message)
-                );
-        }
+        this.recipeService
+            .query({
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort(),
+                searchPhrase: this.searchPhrase.trim(),
+                languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
+            })
+            .subscribe(
+                (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     loadPage(page: number) {
@@ -85,21 +107,14 @@ export class RecipeComponent implements OnInit, OnDestroy {
     }
 
     transition() {
-        if (this.searchPhrase.trim() === '') {
-            this.router.navigate(['/recipe'], {
-                queryParams: {
-                    page: this.page,
-                    size: this.itemsPerPage,
-                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-                }
-            });
-        } else {
+        if (this.standaloneView) {
             this.router.navigate(['/recipe'], {
                 queryParams: {
                     page: this.page,
                     size: this.itemsPerPage,
                     sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
-                    searchPhrase: this.searchPhrase
+                    searchPhrase: this.searchPhrase.trim(),
+                    languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
                 }
             });
         }
@@ -108,13 +123,15 @@ export class RecipeComponent implements OnInit, OnDestroy {
 
     clear() {
         this.page = 0;
-        this.router.navigate([
-            '/recipe',
-            {
-                page: this.page,
-                sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
-        ]);
+        if (this.standaloneView) {
+            this.router.navigate([
+                '/recipe',
+                {
+                    page: this.page,
+                    sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+                }
+            ]);
+        }
         this.loadAll();
     }
 
@@ -167,5 +184,15 @@ export class RecipeComponent implements OnInit, OnDestroy {
     search() {
         this.page = 1;
         this.transition();
+    }
+
+    ngAfterViewInit(): void {
+        if (!this.standaloneView) {
+            document.getElementById('product-list-wrapper').style.padding = '2rem';
+        }
+    }
+
+    passBack(recipe: Recipe): void {
+        this.passEntry.emit(recipe);
     }
 }

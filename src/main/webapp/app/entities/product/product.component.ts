@@ -23,8 +23,8 @@ import {LanguageService} from 'app/entities/language';
 })
 export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     @Output() passEntry: EventEmitter<Product> = new EventEmitter();
-
     standaloneView: boolean;
+
     currentAccount: any;
     products: IProduct[];
     error: any;
