@@ -50,7 +50,10 @@ public class LoggingAspect {
         " || within(pl.marczynski.dietify.products.web.rest..*)"+
         " || within(pl.marczynski.dietify.recipes.repository..*)"+
         " || within(pl.marczynski.dietify.recipes.service..*)"+
-        " || within(pl.marczynski.dietify.recipes.web.rest..*)"
+        " || within(pl.marczynski.dietify.recipes.web.rest..*)"+
+        " || within(pl.marczynski.dietify.mealplans.repository..*)"+
+        " || within(pl.marczynski.dietify.mealplans.service..*)"+
+        " || within(pl.marczynski.dietify.mealplans.web.rest..*)"
     )
     public void applicationPackagePointcut() {
         // Method is empty as this is just a Pointcut, the implementations are in the advices.

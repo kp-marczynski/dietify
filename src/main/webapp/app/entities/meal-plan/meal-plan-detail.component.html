@@ -1,0 +1,74 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <div *ngIf="mealPlan">
+            <h2><span>Meal Plan</span> {{mealPlan.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Id of author of the plan">Author Id</span></dt>
+                <dd>
+                    <span>{{mealPlan.authorId}}</span>
+                </dd>
+                <dt><span ngbTooltip="Creation date of the plan">Creation Date</span></dt>
+                <dd>
+                    <span>{{mealPlan.creationDate}}</span>
+                </dd>
+                <dt><span ngbTooltip="Plan name">Name</span></dt>
+                <dd>
+                    <span>{{mealPlan.name}}</span>
+                </dd>
+                <dt><span ngbTooltip="Flag specifying if meal plan is visible in author&#39;s list of meal plans">Is Visible</span></dt>
+                <dd>
+                    <span>{{mealPlan.isVisible}}</span>
+                </dd>
+                <dt><span ngbTooltip="Flag specifying if meal plan is editable">Is Locked</span></dt>
+                <dd>
+                    <span>{{mealPlan.isLocked}}</span>
+                </dd>
+                <dt><span ngbTooltip="Language of meal plan">Language Id</span></dt>
+                <dd>
+                    <span>{{mealPlan.languageId}}</span>
+                </dd>
+                <dt><span ngbTooltip="Number of days in plan">Number Of Days</span></dt>
+                <dd>
+                    <span>{{mealPlan.numberOfDays}}</span>
+                </dd>
+                <dt><span ngbTooltip="Number of meals per day">Number Of Meals Per Day</span></dt>
+                <dd>
+                    <span>{{mealPlan.numberOfMealsPerDay}}</span>
+                </dd>
+                <dt><span ngbTooltip="Amount of total energy per day in kcal">Total Daily Energy Kcal</span></dt>
+                <dd>
+                    <span>{{mealPlan.totalDailyEnergyKcal}}</span>
+                </dd>
+                <dt><span ngbTooltip="Percent of proteins in total daily energy.
+Sum of percents of protein, fat and carbohydrates must not be larger than 100">Percent Of Protein</span></dt>
+                <dd>
+                    <span>{{mealPlan.percentOfProtein}}</span>
+                </dd>
+                <dt><span ngbTooltip="Percent of fats in total daily energy.
+Sum of percents of protein, fat and carbohydrates must not be larger than 100">Percent Of Fat</span></dt>
+                <dd>
+                    <span>{{mealPlan.percentOfFat}}</span>
+                </dd>
+                <dt><span ngbTooltip="Percent of carbohydrates in total daily energy.
+Sum of percents of protein, fat and carbohydrates must not be larger than 100">Percent Of Carbohydrates</span></dt>
+                <dd>
+                    <span>{{mealPlan.percentOfCarbohydrates}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

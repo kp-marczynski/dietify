@@ -1,0 +1,33 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <div *ngIf="mealPlanUnsuitableForDiet">
+            <h2><span>Meal Plan Unsuitable For Diet</span> {{mealPlanUnsuitableForDiet.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Id of applicaple Tag entity retrieved from products service">Diet Type Id</span></dt>
+                <dd>
+                    <span>{{mealPlanUnsuitableForDiet.dietTypeId}}</span>
+                </dd>
+                <dt><span>Meal Plan</span></dt>
+                <dd>
+                    <div *ngIf="mealPlanUnsuitableForDiet.mealPlan">
+                        <a [routerLink]="['/meal-plan', mealPlanUnsuitableForDiet.mealPlan?.id, 'view']">{{mealPlanUnsuitableForDiet.mealPlan?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-plan-unsuitable-for-diet', mealPlanUnsuitableForDiet.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
