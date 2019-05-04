@@ -72,7 +72,7 @@ Navbar
     color: lightgray;
 }
 
-.sidebar-header .list-group-item, .ngb-dropdown .list-group-item {
+.sidebar-header .list-group-item, .ngb-dropdown span .list-group-item {
     background-color: white;
     border-bottom: none;
     color: #424242;
