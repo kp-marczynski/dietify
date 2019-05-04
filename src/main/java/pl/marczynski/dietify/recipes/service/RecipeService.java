@@ -57,5 +57,5 @@ public interface RecipeService {
      * @return the list of entities
      */
 
-    Page<Recipe> findByNameContaining(String searchPhrase, Pageable pageable);
+    Page<Recipe> findBySearchAndFilters(String searchPhrase, Long languageId, Pageable pageable);
 }

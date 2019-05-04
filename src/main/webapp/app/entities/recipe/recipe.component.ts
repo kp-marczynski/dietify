@@ -90,7 +90,7 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
                 page: this.page - 1,
                 size: this.itemsPerPage,
                 sort: this.sort(),
-                searchPhrase: this.searchPhrase.trim(),
+                search: this.searchPhrase.trim(),
                 languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
             })
             .subscribe(
@@ -113,7 +113,7 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
                     page: this.page,
                     size: this.itemsPerPage,
                     sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc'),
-                    searchPhrase: this.searchPhrase.trim(),
+                    search: this.searchPhrase.trim(),
                     languageId: this.selectedLanguage ? this.selectedLanguage.id : ''
                 }
             });
