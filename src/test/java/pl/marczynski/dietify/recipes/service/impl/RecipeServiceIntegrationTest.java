@@ -43,10 +43,14 @@ public class RecipeServiceIntegrationTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RecipeRepository recipeRepository;
+
     private Recipe recipe;
 
     @Before
     public void setup() {
+        recipeRepository.deleteAll();
         Optional<User> user = userRepository.findCurrentUser();
         this.recipe = RecipeCreator.createEntity(em);
     }
@@ -54,7 +58,7 @@ public class RecipeServiceIntegrationTest {
     @Test
     @Transactional
     public void shouldStoreRecipeInCacheAfterGetEagerById() {
-        //giveb
+        //given
         recipeService.save(this.recipe);
         //when
         recipeService.findOne(this.recipe.getId());
@@ -140,6 +144,50 @@ public class RecipeServiceIntegrationTest {
 
         //when
         Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, null, PageRequest.of(0, 10));
+
+        //then
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(result.getContent()).contains(recipe1);
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindRecipeByLanguage() {
+        //given
+
+        Recipe recipe1 = RecipeCreator.createEntity(em);
+        recipe1 = recipeService.save(recipe1);
+
+        //when
+        Page<Recipe> result = recipeService.findBySearchAndFilters("", recipe1.getLanguageId(), PageRequest.of(0, 10));
+
+        //then
+        assertThat(result.getTotalElements()).isEqualTo(1);
+        assertThat(result.getContent()).contains(recipe1);
+    }
+
+    @Test
+    @Transactional
+    public void shouldFindRecipeByLanguageAndSearchPhrase() {
+        //given
+        String searchPhrase = "aa";
+
+        Recipe recipe1 = RecipeCreator.createEntity(em);
+        recipe1.name(searchPhrase.toUpperCase());
+
+        Recipe recipe2 = RecipeCreator.createEntity(em);
+        recipe2.name("bbbb");
+
+        Recipe recipe3 = RecipeCreator.createEntity(em);
+        recipe3.name(searchPhrase.toUpperCase());
+        recipe3.languageId(recipe1.getLanguageId() + 1);
+
+        recipe1 = recipeService.save(recipe1);
+        recipe2 = recipeService.save(recipe2);
+        recipe3 = recipeService.save(recipe3);
+
+        //when
+        Page<Recipe> result = recipeService.findBySearchAndFilters(searchPhrase, recipe1.getLanguageId(), PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(1);
