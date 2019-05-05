@@ -96,14 +96,24 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
                    title="{{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}"
                    *ngFor="let recipe of meal.mealRecipes"
-                   routerLink="/recipe/{{recipe.recipeId}}/view">{{recipe.amount}}x g: {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}</a>
+                   routerLink="/recipe/{{recipe.recipeId}}/view">
+                    <span
+                        class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{recipe.amount}}
+                        x g</span>
+                    {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}
+                </a>
                 <h5 class="row align-items-center" *ngIf="meal.mealProducts && meal.mealProducts.length > 0">
                     <span class="col-1">Products</span>
                 </h5>
                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
                    title="{{product.product ? product.product.description : product.productId}}"
                    *ngFor="let product of meal.mealProducts"
-                   routerLink="/product/{{product.productId}}/view">{{product.amount}}x {{product.householdMeasureDescription}}: {{product.product ? product.product.description : product.productId}}</a>
+                   routerLink="/product/{{product.productId}}/view">
+                    <span
+                        class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{product.amount}}
+                        x {{product.householdMeasureDescription ? product.householdMeasureDescription : 'g'}}</span>
+                    {{product.product ? product.product.description : product.productId}}
+                </a>
             </div>
         </div>
         <div class="w-100"></div>
