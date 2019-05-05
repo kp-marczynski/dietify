@@ -11,11 +11,13 @@ import {
     mealPlanRoute,
     mealPlanPopupRoute
 } from './';
+import {ProductComponent} from 'app/entities/product';
+import {DietifyProductListModule} from 'app/entities/product/product-list.module';
 
 const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
 
 @NgModule({
-    imports: [DietifySharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [DietifySharedModule, RouterModule.forChild(ENTITY_STATES), DietifyProductListModule],
     declarations: [
         MealPlanComponent,
         MealPlanDetailComponent,
@@ -23,7 +25,7 @@ const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
         MealPlanDeleteDialogComponent,
         MealPlanDeletePopupComponent
     ],
-    entryComponents: [MealPlanComponent, MealPlanUpdateComponent, MealPlanDeleteDialogComponent, MealPlanDeletePopupComponent],
+    entryComponents: [MealPlanComponent, MealPlanUpdateComponent, MealPlanDeleteDialogComponent, MealPlanDeletePopupComponent, ProductComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class DietifyMealPlanModule {}
