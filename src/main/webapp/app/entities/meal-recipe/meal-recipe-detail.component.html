@@ -13,12 +13,6 @@
                 <dd>
                     <span>{{mealRecipe.amount}}</span>
                 </dd>
-                <dt><span>Meal</span></dt>
-                <dd>
-                    <div *ngIf="mealRecipe.meal">
-                        <a [routerLink]="['/meal', mealRecipe.meal?.id, 'view']">{{mealRecipe.meal?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

@@ -19,7 +19,6 @@
             <th><span>Meal Type Id</span></th>
             <th><span>Time Of Meal</span></th>
             <th><span>Percent Of Energy</span></th>
-            <th><span>Meal Plan</span></th>
             <th></th>
             </tr>
             </thead>
@@ -30,11 +29,6 @@
                 <td>{{mealDefinition.mealTypeId}}</td>
                 <td>{{mealDefinition.timeOfMeal}}</td>
                 <td>{{mealDefinition.percentOfEnergy}}</td>
-                <td>
-                    <div *ngIf="mealDefinition.mealPlan">
-                        <a [routerLink]="['../meal-plan', mealDefinition.mealPlan?.id, 'view' ]" >{{mealDefinition.mealPlan?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

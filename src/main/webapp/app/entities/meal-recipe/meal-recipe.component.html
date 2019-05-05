@@ -17,7 +17,6 @@
             <th><span>ID</span></th>
             <th><span>Recipe Id</span></th>
             <th><span>Amount</span></th>
-            <th><span>Meal</span></th>
             <th></th>
             </tr>
             </thead>
@@ -26,11 +25,6 @@
                 <td><a [routerLink]="['/meal-recipe', mealRecipe.id, 'view' ]">{{mealRecipe.id}}</a></td>
                 <td>{{mealRecipe.recipeId}}</td>
                 <td>{{mealRecipe.amount}}</td>
-                <td>
-                    <div *ngIf="mealRecipe.meal">
-                        <a [routerLink]="['../meal', mealRecipe.meal?.id, 'view' ]" >{{mealRecipe.meal?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
