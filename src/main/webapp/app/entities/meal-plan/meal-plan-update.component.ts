@@ -1,19 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import * as moment from 'moment';
 import {IMealPlan} from 'app/shared/model/meal-plan.model';
 import {MealPlanService} from './meal-plan.service';
 import {IMealPlanDay, MealPlanDay} from 'app/shared/model/meal-plan-day.model';
 import {IMeal, Meal} from 'app/shared/model/meal.model';
-import {IRecipeSection} from 'app/shared/model/recipe-section.model';
 import {ProductComponent, ProductService} from 'app/entities/product';
 import {IProduct, Product} from 'app/shared/model/product.model';
-import {IProductPortion, ProductPortion} from 'app/shared/model/product-portion.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {IMealProduct, MealProduct} from 'app/shared/model/meal-product.model';
+import {RecipeComponent, RecipeService} from 'app/entities/recipe';
+import {IRecipe, Recipe} from 'app/shared/model/recipe.model';
+import {IMealRecipe, MealRecipe} from 'app/shared/model/meal-recipe.model';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -28,7 +27,8 @@ export class MealPlanUpdateComponent implements OnInit {
         protected mealPlanService: MealPlanService,
         protected activatedRoute: ActivatedRoute,
         protected modalService: NgbModal,
-        protected productService: ProductService
+        protected productService: ProductService,
+        protected recipeService: RecipeService
     ) {
     }
 
@@ -36,6 +36,7 @@ export class MealPlanUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({mealPlan}) => {
             this.mealPlan = mealPlan;
+            this.numberOfDaysChanged();
         });
     }
 
@@ -131,7 +132,35 @@ export class MealPlanUpdateComponent implements OnInit {
         );
     }
 
+    removeIngredientFromMeal(meal: IMeal, mealProduct: IMealProduct): void {
+        meal.mealProducts = meal.mealProducts.filter(portion => portion !== mealProduct);
+        console.log(meal.mealProducts);
+    }
+
     customTrackBy(index: number, obj: any): any {
         return index;
+    }
+
+    addRecipe(meal: IMeal) {
+        const modalRef = this.modalService.open(RecipeComponent, {windowClass: 'custom-modal'});
+
+        modalRef.componentInstance.passEntry.subscribe((receivedEntry: Recipe) => {
+            modalRef.close();
+
+            const mealRecipe = new MealRecipe(null, receivedEntry.id, null);
+            meal.mealRecipes.push(mealRecipe);
+            this.findRecipe(mealRecipe);
+        });
+    }
+
+    findRecipe(mealRecipe: IMealRecipe): void {
+        this.recipeService.find(mealRecipe.recipeId).subscribe(
+            (res: HttpResponse<IRecipe>) => mealRecipe.recipe = res.body,
+            (res: HttpErrorResponse) => mealRecipe.recipe = null
+        );
+    }
+
+    removeRecipeFromMeal(meal: IMeal, mealRecipe: IMealRecipe) {
+        meal.mealRecipes = meal.mealRecipes.filter(portion => portion !== mealRecipe);
     }
 }
