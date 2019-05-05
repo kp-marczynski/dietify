@@ -92,7 +92,7 @@ public class RecipeResource {
                                                       @RequestParam(required = false) Long languageId) {
         log.debug("REST request to get a page of Recipes");
         Page<Recipe> page;
-        if (search != null && !search.trim().equals("")) {
+        if (search != null) {
             page = recipeService.findBySearchAndFilters(search, languageId, pageable);
         } else if (eagerload) {
             page = recipeService.findAllWithEagerRelationships(pageable);
