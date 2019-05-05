@@ -2,13 +2,14 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
 import {IMealPlan} from 'app/shared/model/meal-plan.model';
-import {IMealProduct} from 'app/shared/model/meal-product.model';
+import {IMealProduct, MealProduct} from 'app/shared/model/meal-product.model';
 import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import {IProduct} from 'app/shared/model/product.model';
 import {IMealRecipe} from 'app/shared/model/meal-recipe.model';
 import {IRecipe} from 'app/shared/model/recipe.model';
 import {ProductService} from 'app/entities/product';
 import {RecipeService} from 'app/entities/recipe';
+import {IHouseholdMeasure} from 'app/shared/model/household-measure.model';
 
 @Component({
     selector: 'jhi-meal-plan-detail',
@@ -54,7 +55,10 @@ export class MealPlanDetailComponent implements OnInit {
 
     findProduct(mealProduct: IMealProduct): void {
         this.productService.find(mealProduct.productId).subscribe(
-            (res: HttpResponse<IProduct>) => mealProduct.product = res.body,
+            (res: HttpResponse<IProduct>) => {
+                mealProduct.product = res.body;
+                mealProduct.householdMeasureDescription = mealProduct.product.householdMeasures.find(measure => measure.id === mealProduct.householdMeasureId).description;
+            },
             (res: HttpErrorResponse) => mealProduct.product = null
         );
     }
