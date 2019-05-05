@@ -9,12 +9,6 @@
                 <dd>
                     <span>{{meal.ordinalNumber}}</span>
                 </dd>
-                <dt><span>Day</span></dt>
-                <dd>
-                    <div *ngIf="meal.day">
-                        <a [routerLink]="['/meal-plan-day', meal.day?.id, 'view']">{{meal.day?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

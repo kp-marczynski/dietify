@@ -18,12 +18,6 @@ If household measure is null then amount is in grams.">Amount</span></dt>
                 <dd>
                     <span>{{mealProduct.amount}}</span>
                 </dd>
-                <dt><span>Meal</span></dt>
-                <dd>
-                    <div *ngIf="mealProduct.meal">
-                        <a [routerLink]="['/meal', mealProduct.meal?.id, 'view']">{{mealProduct.meal?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

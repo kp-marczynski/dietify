@@ -22,12 +22,6 @@ Sum of all values for one MealPlanProperty must be equal 100.">Percent Of Energy
                 <dd>
                     <span>{{mealDefinition.percentOfEnergy}}</span>
                 </dd>
-                <dt><span>Meal Plan</span></dt>
-                <dd>
-                    <div *ngIf="mealDefinition.mealPlan">
-                        <a [routerLink]="['/meal-plan', mealDefinition.mealPlan?.id, 'view']">{{mealDefinition.mealPlan?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

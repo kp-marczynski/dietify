@@ -16,7 +16,6 @@
             <tr>
             <th><span>ID</span></th>
             <th><span>Ordinal Number</span></th>
-            <th><span>Day</span></th>
             <th></th>
             </tr>
             </thead>
@@ -24,11 +23,6 @@
             <tr *ngFor="let meal of meals ;trackBy: trackId">
                 <td><a [routerLink]="['/meal', meal.id, 'view' ]">{{meal.id}}</a></td>
                 <td>{{meal.ordinalNumber}}</td>
-                <td>
-                    <div *ngIf="meal.day">
-                        <a [routerLink]="['../meal-plan-day', meal.day?.id, 'view' ]" >{{meal.day?.id}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"

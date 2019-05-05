@@ -28,27 +28,6 @@
                         </small>
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" for="field_mealPlan">Meal Plan</label>
-                    <select class="form-control" id="field_mealPlan" name="mealPlan" [(ngModel)]="mealPlanDay.mealPlan"  required>
-                        <option *ngIf="!editForm.value.mealPlan" [ngValue]="null" selected></option>
-                        <option [ngValue]="mealPlanOption.id === mealPlanDay.mealPlan?.id ? mealPlanDay.mealPlan : mealPlanOption" *ngFor="let mealPlanOption of mealplans; trackBy: trackMealPlanById">{{mealPlanOption.id}}</option>
-                    </select>
-                </div>
-                <div [hidden]="!(editForm.controls.mealPlan?.dirty && editForm.controls.mealPlan?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.mealPlan?.errors?.required">
-                        This field is required.
-                    </small>
-                </div>
-                <div [hidden]="!(editForm.controls.meals?.dirty && editForm.controls.meals?.invalid)">
-                    <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.meals?.errors?.required">
-                        This field is required.
-                    </small>
-                </div>
-            </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>

@@ -9,12 +9,6 @@
                 <dd>
                     <span>{{mealPlanUnsuitableForDiet.dietTypeId}}</span>
                 </dd>
-                <dt><span>Meal Plan</span></dt>
-                <dd>
-                    <div *ngIf="mealPlanUnsuitableForDiet.mealPlan">
-                        <a [routerLink]="['/meal-plan', mealPlanUnsuitableForDiet.mealPlan?.id, 'view']">{{mealPlanUnsuitableForDiet.mealPlan?.id}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"
