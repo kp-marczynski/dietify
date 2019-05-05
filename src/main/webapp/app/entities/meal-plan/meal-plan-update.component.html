@@ -91,7 +91,7 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_numberOfDays" ngbTooltip="Number of days in plan">Number Of Days</label>
                     <input type="number" class="form-control" name="numberOfDays" id="field_numberOfDays"
-                        [(ngModel)]="mealPlan.numberOfDays" required min="1" jhiMin="1"/>
+                        [(ngModel)]="mealPlan.numberOfDays" required min="1" jhiMin="1" (change)="numberOfDaysChanged()" />
                     <div [hidden]="!(editForm.controls.numberOfDays?.dirty && editForm.controls.numberOfDays?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.numberOfDays?.errors?.required">
@@ -110,7 +110,7 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_numberOfMealsPerDay" ngbTooltip="Number of meals per day">Number Of Meals Per Day</label>
                     <input type="number" class="form-control" name="numberOfMealsPerDay" id="field_numberOfMealsPerDay"
-                        [(ngModel)]="mealPlan.numberOfMealsPerDay" required min="1" jhiMin="1"/>
+                        [(ngModel)]="mealPlan.numberOfMealsPerDay" required min="1" jhiMin="1" (change)="numberOfMealsPerDayChanged()" />
                     <div [hidden]="!(editForm.controls.numberOfMealsPerDay?.dirty && editForm.controls.numberOfMealsPerDay?.invalid)">
                         <small class="form-text text-danger"
                         [hidden]="!editForm.controls.numberOfMealsPerDay?.errors?.required">
@@ -217,7 +217,6 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                         </small>
                     </div>
                 </div>
-
                 <div [hidden]="!(editForm.controls.days?.dirty && editForm.controls.days?.invalid)">
                     <small class="form-text text-danger"
                         [hidden]="!editForm.controls.days?.errors?.required">
@@ -240,5 +239,67 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+<div *ngIf="mealPlan.numberOfDays && mealPlan.days && mealPlan.days.length === mealPlan.numberOfDays">
+    <h2 class="text-center">Days</h2>
+    <div *ngFor="let day of mealPlan.days; let dayIndex = index;">
+        <h2 class="text-center">{{day.ordinalNumber}}</h2>
+        <div *ngIf="mealPlan.numberOfMealsPerDay && day.meals && day.meals.length === mealPlan.numberOfMealsPerDay">
+            <div *ngFor="let meal of day.meals; let mealIndex = index;" class="jh-card card">
+                <h2>Meal {{meal.ordinalNumber}}</h2>
+                <h3>Products</h3>
+                <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(meal)">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span class="d-none d-md-inline">Add</span>
+                </button>
+                    <table>
+                        <tr *ngFor="let mealProduct of meal.mealProducts; let last = last; let portionIndex = index; trackBy: customTrackBy">
+                            <td>
+                                <span *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
+                                <input *ngIf="!mealProduct.product" type="text" readonly class="form-control"
+                                       name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}productHidden"
+                                       [(ngModel)]="mealProduct.product" placeholder="Can't find product for id"
+                                       [required]="mealProduct.productId"/>
+                            </td>
+                            <td>
+                                <select class="form-control" *ngIf="mealProduct.product"
+                                        name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureId"
+                                        id="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureId"
+                                        [(ngModel)]="mealProduct.householdMeasureId">
+                                    <option [ngValue]="null"></option>
+                                    <option
+                                        [ngValue]="measure.id === mealProduct.householdMeasureId ? mealProduct.householdMeasureId : measure.id"
+                                        *ngFor="let measure of mealProduct.product.householdMeasures; trackBy: customTrackBy">{{measure.description}}</option>
+                                </select>
+                                <select class="form-control" *ngIf="!mealProduct.product"
+                                        name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureIdEmpty"
+                                        id="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureIdEmpty"
+                                        [(ngModel)]="mealProduct.householdMeasureId">
+                                    <option [ngValue]="null"></option>
+                                </select>
+                            </td>
+                            <td>
+                                <input type="number" class="form-control"
+                                       name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}amount"
+                                       [(ngModel)]="mealProduct.amount"
+                                       [required]="mealProduct.productId"
+                                       jhiMin="0.00001" placeholder="Amount"/>
+                            </td>
+                            <!--<td>-->
+                                <!--<button type="button" class="btn btn-danger btn-sm"-->
+                                        <!--(click)="removeIngredientFromSection(recipeSection, productPortion)">-->
+                                    <!--<fa-icon [icon]="'times'"></fa-icon>-->
+                                <!--</button>-->
+                            <!--</td>-->
+                        </tr>
+                    </table>
+                <h3>Recipes</h3>
+                <div *ngFor="let recipe of meal.mealRecipes">
+                    {{recipe.recipeId}}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
