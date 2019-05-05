@@ -17,7 +17,8 @@
                 <dd>
                     <span>{{mealPlan.name}}</span>
                 </dd>
-                <dt><span ngbTooltip="Flag specifying if meal plan is visible in author&#39;s list of meal plans">Is Visible</span></dt>
+                <dt><span ngbTooltip="Flag specifying if meal plan is visible in author&#39;s list of meal plans">Is Visible</span>
+                </dt>
                 <dd>
                     <span>{{mealPlan.isVisible}}</span>
                 </dd>
@@ -70,5 +71,38 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
         </div>
+    </div>
+</div>
+<div class="jh-card card">
+    <div class="container-fluid">
+        <header>
+            <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
+                <h5 class="col-sm p-1 text-center"></h5>
+                <h5 class="col-sm p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
+                    Meal {{meal.ordinalNumber}}</h5>
+            </div>
+        </header>
+        <div class="row border border-right-0 border-bottom-0" *ngFor="let day of mealPlan.days">
+            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-dark-app text-white">
+                <h5 class="col-sm p-1 text-center">Day {{day.ordinalNumber}}</h5>
+            </div>
+            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate " *ngFor="let meal of day.meals">
+                <h5 class="row align-items-center" *ngIf="meal.mealRecipes && meal.mealRecipes.length > 0">
+                    <span class="col-1">Recipes</span>
+                </h5>
+                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-info text-white"
+                   title="{{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}"
+                   *ngFor="let recipe of meal.mealRecipes"
+                   routerLink="/recipe/{{recipe.recipeId}}/view">{{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}</a>
+                <h5 class="row align-items-center" *ngIf="meal.mealProducts && meal.mealProducts.length > 0">
+                    <span class="col-1">Products</span>
+                </h5>
+                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-truncate small bg-info text-white"
+                   title="{{product.product ? product.product.description : product.productId}}"
+                   *ngFor="let product of meal.mealProducts"
+                   routerLink="/product/{{product.productId}}/view">{{product.product ? product.product.description : product.productId}}</a>
+            </div>
+        </div>
+        <div class="w-100"></div>
     </div>
 </div>

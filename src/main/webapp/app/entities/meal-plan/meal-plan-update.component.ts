@@ -13,6 +13,7 @@ import {IMealProduct, MealProduct} from 'app/shared/model/meal-product.model';
 import {RecipeComponent, RecipeService} from 'app/entities/recipe';
 import {IRecipe, Recipe} from 'app/shared/model/recipe.model';
 import {IMealRecipe, MealRecipe} from 'app/shared/model/meal-recipe.model';
+import {IMealDefinition, MealDefinition} from 'app/shared/model/meal-definition.model';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -108,6 +109,20 @@ export class MealPlanUpdateComponent implements OnInit {
                             }
                             day.meals = temp;
                         }
+                    }
+                    if (!this.mealPlan.mealDefinitions) {
+                        this.mealPlan.mealDefinitions = [];
+                    }
+                    if (this.mealPlan.mealDefinitions.length !== this.mealPlan.numberOfMealsPerDay) {
+                        const temp: IMealDefinition[] = [];
+                        for (let i = 0; i < this.mealPlan.numberOfMealsPerDay; ++i) {
+                            if (i < this.mealPlan.mealDefinitions.length) {
+                                temp.push(this.mealPlan.mealDefinitions[i]);
+                            } else {
+                                temp.push(new MealDefinition(null, i + 1, 1, '12:00', 10));
+                            }
+                        }
+                        this.mealPlan.mealDefinitions = temp;
                     }
                 }
             }
