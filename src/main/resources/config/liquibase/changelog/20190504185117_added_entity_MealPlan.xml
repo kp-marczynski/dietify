@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity MealPlan.
+    -->
+    <changeSet id="20190504185117-1" author="jhipster">
+        <createTable tableName="meal_plan" remarks="A Meal plan. @author Krzysztof Marczyński">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="author_id" type="bigint" remarks="Id of author of the plan">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="creation_date" type="date" remarks="Creation date of the plan">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="name" type="varchar(255)" remarks="Plan name">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="is_visible" type="boolean" remarks="Flag specifying if meal plan is visible in author&apos;s list of meal plans">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="is_locked" type="boolean" remarks="Flag specifying if meal plan is editable">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="language_id" type="bigint" remarks="Language of meal plan">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="number_of_days" type="integer" remarks="Number of days in plan">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="number_of_meals_per_day" type="integer" remarks="Number of meals per day">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="total_daily_energy_kcal" type="integer" remarks="Amount of total energy per day in kcal">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="percent_of_protein" type="integer" remarks="Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="percent_of_fat" type="integer" remarks="Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="percent_of_carbohydrates" type="integer" remarks="Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100">
+                <constraints nullable="false" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

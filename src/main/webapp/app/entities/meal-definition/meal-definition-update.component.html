@@ -1,0 +1,110 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-meal-definition-heading">Create or edit a Meal Definition</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!mealDefinition.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="mealDefinition.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_ordinalNumber" ngbTooltip="Daily ordinal number of meal">Ordinal Number</label>
+                    <input type="number" class="form-control" name="ordinalNumber" id="field_ordinalNumber"
+                        [(ngModel)]="mealDefinition.ordinalNumber" required min="1" jhiMin="1"/>
+                    <div [hidden]="!(editForm.controls.ordinalNumber?.dirty && editForm.controls.ordinalNumber?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.ordinalNumber?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.ordinalNumber?.errors?.min">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.ordinalNumber?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mealTypeId" ngbTooltip="Id of meal type retrieved from recipes service">Meal Type Id</label>
+                    <input type="number" class="form-control" name="mealTypeId" id="field_mealTypeId"
+                        [(ngModel)]="mealDefinition.mealTypeId" required/>
+                    <div [hidden]="!(editForm.controls.mealTypeId?.dirty && editForm.controls.mealTypeId?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mealTypeId?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.mealTypeId?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_timeOfMeal" ngbTooltip="Usual time of meal in 24h format: HH:mm">Time Of Meal</label>
+                    <input type="text" class="form-control" name="timeOfMeal" id="field_timeOfMeal"
+                        [(ngModel)]="mealDefinition.timeOfMeal" required pattern="\d{2}:\d{2}"/>
+                    <div [hidden]="!(editForm.controls.timeOfMeal?.dirty && editForm.controls.timeOfMeal?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.timeOfMeal?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.timeOfMeal?.errors?.pattern">
+                            This field should follow pattern for "Time Of Meal".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_percentOfEnergy" ngbTooltip="Part of daily total energy expressed in percent.
+Sum of all values for one MealPlanProperty must be equal 100.">Percent Of Energy</label>
+                    <input type="number" class="form-control" name="percentOfEnergy" id="field_percentOfEnergy"
+                        [(ngModel)]="mealDefinition.percentOfEnergy" required min="0" jhiMin="0" max="100" jhiMax="100"/>
+                    <div [hidden]="!(editForm.controls.percentOfEnergy?.dirty && editForm.controls.percentOfEnergy?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.percentOfEnergy?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfEnergy?.errors?.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfEnergy?.errors?.max">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfEnergy?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mealPlan">Meal Plan</label>
+                    <select class="form-control" id="field_mealPlan" name="mealPlan" [(ngModel)]="mealDefinition.mealPlan"  required>
+                        <option *ngIf="!editForm.value.mealPlan" [ngValue]="null" selected></option>
+                        <option [ngValue]="mealPlanOption.id === mealDefinition.mealPlan?.id ? mealDefinition.mealPlan : mealPlanOption" *ngFor="let mealPlanOption of mealplans; trackBy: trackMealPlanById">{{mealPlanOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.mealPlan?.dirty && editForm.controls.mealPlan?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.mealPlan?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

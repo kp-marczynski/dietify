@@ -1,0 +1,170 @@
+/**
+ * A Meal plan.
+ * @author Krzysztof Marczyński
+ */
+entity MealPlan {
+	/** Id of author of the plan */
+	authorId Long required
+    /** Creation date of the plan */
+	creationDate LocalDate required
+    /** Plan name */
+    name String minlength(1)
+    /** Flag specifying if meal plan is visible in author's list of meal plans */
+	isVisible Boolean required
+    /** Flag specifying if meal plan is editable */
+	isLocked Boolean required
+    /** Language of meal plan */
+    languageId Long required
+    
+    /** Number of days in plan */
+	numberOfDays Integer required min(1)
+    /** Number of meals per day */
+    numberOfMealsPerDay Integer required min(1)
+    /** Amount of total energy per day in kcal */
+    totalDailyEnergyKcal Integer required min(1)
+    /** 
+    * Percent of proteins in total daily energy.
+    * Sum of percents of protein, fat and carbohydrates must not be larger than 100
+    */
+    percentOfProtein Integer required min(0) max(100)
+    /** 
+    * Percent of fats in total daily energy.
+    * Sum of percents of protein, fat and carbohydrates must not be larger than 100
+    */
+    percentOfFat Integer required min(0) max(100)
+    /** 
+    * Percent of carbohydrates in total daily energy.
+    * Sum of percents of protein, fat and carbohydrates must not be larger than 100
+    */
+    percentOfCarbohydrates Integer required min(0) max(100)
+}
+
+/**
+ * A Meal Definition used for specifying basic properties of each daily meal
+ * @author Krzysztof Marczyński
+ */
+entity MealDefinition {
+	/** Daily ordinal number of meal */
+    ordinalNumber Integer required min(1)
+    /** Id of meal type retrieved from recipes service */
+	mealTypeId Long required
+    /** Usual time of meal in 24h format: HH:mm */
+    timeOfMeal String required pattern(/\d{2}:\d{2}/)
+    /** 
+    * Part of daily total energy expressed in percent. 
+    * Sum of all values for one MealPlanProperty must be equal 100.
+    */
+    percentOfEnergy Integer required min(0) max(100)
+}
+
+/**
+ * A Day.
+ * @author Krzysztof Marczyński
+ */
+entity MealPlanDay {
+	/** Ordinal number of day */
+	ordinalNumber Integer required min(1)
+}
+
+/**
+ * A Meal.
+ * @author Krzysztof Marczyński
+ */
+entity Meal {
+	/** Ordinal number of meal */
+	ordinalNumber Integer required min(1)
+}
+
+/**
+ * A Recipe assigned to a meal
+ * @author Krzysztof Marczyński
+ */
+entity MealRecipe {
+	/** Id of recipe retrieved from recipes service */
+	recipeId Long required
+    /** Amount of Recipe in grams */
+	amount Integer required min(0)
+}
+
+/**
+ * A Product assigned to a meal
+ * @author Krzysztof Marczyński
+ */
+entity MealProduct {
+	/** Id of product retrieved from Products service */
+	productId Long required
+    /** Id of household measure retrieved from Products service */
+	householdMeasureId Long
+    /** 
+    * Amount of Product in household measure units 
+    * If household measure is null then amount is in grams.
+    */
+	amount Double required min(0)
+}
+
+/**
+ * A tag specifying cases in which MealPlan might be positivly used, 
+ * e.g. vegetarian should mean it is good for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+entity MealPlanSuitableForDiet {
+	/** Id of applicaple Tag entity retrieved from products service */
+	dietTypeId Long required
+}
+
+/**
+ * A tag specifying cases in which MealPlan should not be used, 
+ * e.g. vegetarian should mean it is bad for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+entity MealPlanUnsuitableForDiet {
+	/** Id of applicaple Tag entity retrieved from products service */
+	dietTypeId Long required
+}
+
+relationship ManyToOne {
+	/** Day of meal */
+	Meal{day required} 
+    	to 
+        /** Meals in day */
+        MealPlanDay{meals required}
+        
+    /** MealPlan to which day is assigned */    
+	MealPlanDay{mealPlan required} 
+    	to 
+        /** Planned days */
+        MealPlan{days required}
+        
+    /** Property section to which meal definition is assigned */    
+    MealDefinition{mealPlan required} 
+    	to 
+        /** Definitions of daily meals */
+        MealPlan{mealDefinitions required}
+        
+    /** Meal to which recipe is assigned */
+    MealRecipe{meal required} 
+    	to 
+        /** Collection of recipes in meal */
+        Meal{mealRecipes}
+        
+    /** Meal to which product is assigned */
+    MealProduct{meal required} 
+    	to 
+        /** Collection of products in meal */
+        Meal{mealProducts}
+        
+    /** Recipe to which tag is assigned */
+    MealPlanSuitableForDiet{mealPlan required} 
+    	to 
+        /** Collection of tags specifying for which cases recipe might be used */
+        MealPlan{tagsGoodFor}
+        
+    /** Recipe to which tag is assigned */
+    MealPlanUnsuitableForDiet{mealPlan required} 
+    	to 
+        /** Collection of tags specifying for which cases recipe should not be used */
+        MealPlan{tagsBadFor}
+}
+
+paginate MealPlan with pager
+service * with serviceImpl

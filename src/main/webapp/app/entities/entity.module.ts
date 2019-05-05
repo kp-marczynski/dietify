@@ -1,5 +1,5 @@
-import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
-import {RouterModule} from '@angular/router';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
     imports: [
@@ -43,6 +43,38 @@ import {RouterModule} from '@angular/router';
             {
                 path: 'kitchen-appliance',
                 loadChildren: './kitchen-appliance/kitchen-appliance.module#DietifyKitchenApplianceModule'
+            },
+            {
+                path: 'meal-plan',
+                loadChildren: './meal-plan/meal-plan.module#DietifyMealPlanModule'
+            },
+            {
+                path: 'meal-definition',
+                loadChildren: './meal-definition/meal-definition.module#DietifyMealDefinitionModule'
+            },
+            {
+                path: 'meal-plan-day',
+                loadChildren: './meal-plan-day/meal-plan-day.module#DietifyMealPlanDayModule'
+            },
+            {
+                path: 'meal',
+                loadChildren: './meal/meal.module#DietifyMealModule'
+            },
+            {
+                path: 'meal-recipe',
+                loadChildren: './meal-recipe/meal-recipe.module#DietifyMealRecipeModule'
+            },
+            {
+                path: 'meal-product',
+                loadChildren: './meal-product/meal-product.module#DietifyMealProductModule'
+            },
+            {
+                path: 'meal-plan-suitable-for-diet',
+                loadChildren: './meal-plan-suitable-for-diet/meal-plan-suitable-for-diet.module#DietifyMealPlanSuitableForDietModule'
+            },
+            {
+                path: 'meal-plan-unsuitable-for-diet',
+                loadChildren: './meal-plan-unsuitable-for-diet/meal-plan-unsuitable-for-diet.module#DietifyMealPlanUnsuitableForDietModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
@@ -52,5 +84,4 @@ import {RouterModule} from '@angular/router';
     providers: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DietifyEntityModule {
-}
+export class DietifyEntityModule {}
