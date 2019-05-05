@@ -1,0 +1,27 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <div *ngIf="mealPlanSuitableForDiet">
+            <h2><span>Meal Plan Suitable For Diet</span> {{mealPlanSuitableForDiet.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Id of applicaple Tag entity retrieved from products service">Diet Type Id</span></dt>
+                <dd>
+                    <span>{{mealPlanSuitableForDiet.dietTypeId}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-plan-suitable-for-diet', mealPlanSuitableForDiet.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="card jh-card">
+    <h2 id="page-heading">
+        <span>Meal Plan Suitable For Diets</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-meal-plan-suitable-for-diet" [routerLink]="['/meal-plan-suitable-for-diet/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Meal Plan Suitable For Diet
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="mealPlanSuitableForDiets">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Diet Type Id</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mealPlanSuitableForDiet of mealPlanSuitableForDiets ;trackBy: trackId">
+                <td><a [routerLink]="['/meal-plan-suitable-for-diet', mealPlanSuitableForDiet.id, 'view' ]">{{mealPlanSuitableForDiet.id}}</a></td>
+                <td>{{mealPlanSuitableForDiet.dietTypeId}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/meal-plan-suitable-for-diet', mealPlanSuitableForDiet.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/meal-plan-suitable-for-diet', mealPlanSuitableForDiet.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'meal-plan-suitable-for-diet', { outlets: { popup: mealPlanSuitableForDiet.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

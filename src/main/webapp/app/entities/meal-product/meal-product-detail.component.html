@@ -1,0 +1,36 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <div *ngIf="mealProduct">
+            <h2><span>Meal Product</span> {{mealProduct.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Id of product retrieved from Products service">Product Id</span></dt>
+                <dd>
+                    <span>{{mealProduct.productId}}</span>
+                </dd>
+                <dt><span ngbTooltip="Id of household measure retrieved from Products service">Household Measure Id</span></dt>
+                <dd>
+                    <span>{{mealProduct.householdMeasureId}}</span>
+                </dd>
+                <dt><span ngbTooltip="Amount of Product in household measure units
+If household measure is null then amount is in grams.">Amount</span></dt>
+                <dd>
+                    <span>{{mealProduct.amount}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-product', mealProduct.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

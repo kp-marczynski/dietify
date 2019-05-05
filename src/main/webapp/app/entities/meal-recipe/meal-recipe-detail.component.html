@@ -1,0 +1,31 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <div *ngIf="mealRecipe">
+            <h2><span>Meal Recipe</span> {{mealRecipe.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Id of recipe retrieved from recipes service">Recipe Id</span></dt>
+                <dd>
+                    <span>{{mealRecipe.recipeId}}</span>
+                </dd>
+                <dt><span ngbTooltip="Amount of Recipe in grams">Amount</span></dt>
+                <dd>
+                    <span>{{mealRecipe.amount}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-recipe', mealRecipe.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

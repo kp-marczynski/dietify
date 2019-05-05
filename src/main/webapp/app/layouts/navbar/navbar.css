@@ -17,7 +17,7 @@ Navbar
 .jh-navbar .dropdown-item.active,
 .jh-navbar .dropdown-item.active:focus,
 .jh-navbar .dropdown-item.active:hover {
-    background-color: #353d47;
+    /*background-color: #353d47;*/
 }
 
 .jh-navbar .dropdown-toggle::after {
@@ -72,7 +72,7 @@ Navbar
     color: lightgray;
 }
 
-.sidebar-header .list-group-item {
+.sidebar-header .list-group-item, .ngb-dropdown span .list-group-item {
     background-color: white;
     border-bottom: none;
     color: #424242;

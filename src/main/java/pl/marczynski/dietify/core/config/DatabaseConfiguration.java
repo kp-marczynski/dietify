@@ -18,8 +18,14 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import java.sql.SQLException;
 
 @Configuration
-@EnableJpaRepositories({"pl.marczynski.dietify.core.repository", "pl.marczynski.dietify.products.repository", "pl.marczynski.dietify.recipes.repository"})
-@EntityScan({"pl.marczynski.dietify.core.domain", "pl.marczynski.dietify.products.domain", "pl.marczynski.dietify.recipes.domain"})
+@EnableJpaRepositories({"pl.marczynski.dietify.core.repository",
+    "pl.marczynski.dietify.products.repository",
+    "pl.marczynski.dietify.recipes.repository",
+    "pl.marczynski.dietify.mealplans.repository"})
+@EntityScan({"pl.marczynski.dietify.core.domain",
+    "pl.marczynski.dietify.products.domain",
+    "pl.marczynski.dietify.recipes.domain",
+    "pl.marczynski.dietify.mealplans.domain"})
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DatabaseConfiguration {

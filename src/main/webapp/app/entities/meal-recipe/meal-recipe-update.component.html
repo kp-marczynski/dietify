@@ -1,0 +1,57 @@
+<div class="card jh-card">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-meal-recipe-heading">Create or edit a Meal Recipe</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!mealRecipe.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="mealRecipe.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_recipeId" ngbTooltip="Id of recipe retrieved from recipes service">Recipe Id</label>
+                    <input type="number" class="form-control" name="recipeId" id="field_recipeId"
+                        [(ngModel)]="mealRecipe.recipeId" required/>
+                    <div [hidden]="!(editForm.controls.recipeId?.dirty && editForm.controls.recipeId?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.recipeId?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.recipeId?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_amount" ngbTooltip="Amount of Recipe in grams">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                        [(ngModel)]="mealRecipe.amount" required min="0" jhiMin="0"/>
+                    <div [hidden]="!(editForm.controls.amount?.dirty && editForm.controls.amount?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.amount?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.amount?.errors?.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.amount?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,23 +1,23 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { DietifySharedModule } from 'app/shared';
+import {DietifySharedModule} from 'app/shared';
 import {
     ProductComponent,
-    ProductDetailComponent,
-    ProductUpdateComponent,
-    ProductDeletePopupComponent,
     ProductDeleteDialogComponent,
+    ProductDeletePopupComponent,
+    ProductDetailComponent,
+    productPopupRoute,
     productRoute,
-    productPopupRoute
+    ProductUpdateComponent
 } from './';
+import {DietifyProductListModule} from 'app/entities/product/product-list.module';
 
 const ENTITY_STATES = [...productRoute, ...productPopupRoute];
 
 @NgModule({
-    imports: [DietifySharedModule, RouterModule.forChild(ENTITY_STATES)],
+    imports: [DietifySharedModule, RouterModule.forChild(ENTITY_STATES), DietifyProductListModule],
     declarations: [
-        ProductComponent,
         ProductDetailComponent,
         ProductUpdateComponent,
         ProductDeleteDialogComponent,
@@ -26,4 +26,5 @@ const ENTITY_STATES = [...productRoute, ...productPopupRoute];
     entryComponents: [ProductComponent, ProductUpdateComponent, ProductDeleteDialogComponent, ProductDeletePopupComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DietifyProductModule {}
+export class DietifyProductModule {
+}

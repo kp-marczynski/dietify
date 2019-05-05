@@ -88,11 +88,12 @@ public class RecipeResource {
     @GetMapping("/recipes")
     public ResponseEntity<List<Recipe>> getAllRecipes(Pageable pageable,
                                                       @RequestParam(required = false, defaultValue = "false") boolean eagerload,
-                                                      @RequestParam(required = false) String searchPhrase) {
+                                                      @RequestParam(required = false) String search,
+                                                      @RequestParam(required = false) Long languageId) {
         log.debug("REST request to get a page of Recipes");
         Page<Recipe> page;
-        if (searchPhrase != null && !searchPhrase.trim().equals("")) {
-            page = recipeService.findByNameContaining(searchPhrase, pageable);
+        if (search != null) {
+            page = recipeService.findBySearchAndFilters(search, languageId, pageable);
         } else if (eagerload) {
             page = recipeService.findAllWithEagerRelationships(pageable);
         } else {
