@@ -36,6 +36,7 @@ export class MealPlanUpdateComponent implements OnInit {
         this.isSaving = false;
         this.activatedRoute.data.subscribe(({mealPlan}) => {
             this.mealPlan = mealPlan;
+            this.findProductsAndRecipes();
             this.numberOfDaysChanged();
         });
     }
@@ -123,6 +124,27 @@ export class MealPlanUpdateComponent implements OnInit {
             meal.mealProducts.push(mealProduct);
             this.findProduct(mealProduct);
         });
+    }
+
+    findProductsAndRecipes(): void {
+        if (this.mealPlan.days) {
+            for (const day of this.mealPlan.days) {
+                if (day.meals) {
+                    for (const meal of day.meals) {
+                        if (meal.mealProducts) {
+                            for (const product of meal.mealProducts) {
+                                this.findProduct(product);
+                            }
+                        }
+                        if (meal.mealRecipes) {
+                            for (const recipe of meal.mealRecipes) {
+                                this.findRecipe(recipe);
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 
     findProduct(mealProduct: IMealProduct): void {

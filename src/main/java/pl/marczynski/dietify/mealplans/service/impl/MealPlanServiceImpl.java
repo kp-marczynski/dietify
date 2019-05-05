@@ -64,7 +64,7 @@ public class MealPlanServiceImpl implements MealPlanService {
     @Transactional(readOnly = true)
     public Optional<MealPlan> findOne(Long id) {
         log.debug("Request to get MealPlan : {}", id);
-        return mealPlanRepository.findById(id);
+        return mealPlanRepository.findOneWithEagerRelationships(id);
     }
 
     /**
