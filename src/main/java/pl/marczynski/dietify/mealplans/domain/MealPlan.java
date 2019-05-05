@@ -140,25 +140,29 @@ public class MealPlan implements Serializable {
      * Planned days
      */
     @ApiModelProperty(value = "Planned days")
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     private Set<MealPlanDay> days = new HashSet<>();
     /**
      * Definitions of daily meals
      */
     @ApiModelProperty(value = "Definitions of daily meals")
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     private Set<MealDefinition> mealDefinitions = new HashSet<>();
     /**
      * Collection of tags specifying for which cases recipe might be used
      */
     @ApiModelProperty(value = "Collection of tags specifying for which cases recipe might be used")
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     private Set<MealPlanSuitableForDiet> tagsGoodFors = new HashSet<>();
     /**
      * Collection of tags specifying for which cases recipe should not be used
      */
     @ApiModelProperty(value = "Collection of tags specifying for which cases recipe should not be used")
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     private Set<MealPlanUnsuitableForDiet> tagsBadFors = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -336,13 +340,11 @@ public class MealPlan implements Serializable {
 
     public MealPlan addDays(MealPlanDay mealPlanDay) {
         this.days.add(mealPlanDay);
-        mealPlanDay.setMealPlan(this);
         return this;
     }
 
     public MealPlan removeDays(MealPlanDay mealPlanDay) {
         this.days.remove(mealPlanDay);
-        mealPlanDay.setMealPlan(null);
         return this;
     }
 
@@ -361,13 +363,11 @@ public class MealPlan implements Serializable {
 
     public MealPlan addMealDefinitions(MealDefinition mealDefinition) {
         this.mealDefinitions.add(mealDefinition);
-        mealDefinition.setMealPlan(this);
         return this;
     }
 
     public MealPlan removeMealDefinitions(MealDefinition mealDefinition) {
         this.mealDefinitions.remove(mealDefinition);
-        mealDefinition.setMealPlan(null);
         return this;
     }
 
@@ -386,13 +386,11 @@ public class MealPlan implements Serializable {
 
     public MealPlan addTagsGoodFor(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
         this.tagsGoodFors.add(mealPlanSuitableForDiet);
-        mealPlanSuitableForDiet.setMealPlan(this);
         return this;
     }
 
     public MealPlan removeTagsGoodFor(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
         this.tagsGoodFors.remove(mealPlanSuitableForDiet);
-        mealPlanSuitableForDiet.setMealPlan(null);
         return this;
     }
 
@@ -411,13 +409,11 @@ public class MealPlan implements Serializable {
 
     public MealPlan addTagsBadFor(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
         this.tagsBadFors.add(mealPlanUnsuitableForDiet);
-        mealPlanUnsuitableForDiet.setMealPlan(this);
         return this;
     }
 
     public MealPlan removeTagsBadFor(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
         this.tagsBadFors.remove(mealPlanUnsuitableForDiet);
-        mealPlanUnsuitableForDiet.setMealPlan(null);
         return this;
     }
 

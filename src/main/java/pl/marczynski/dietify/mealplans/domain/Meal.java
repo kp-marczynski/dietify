@@ -38,25 +38,18 @@ public class Meal implements Serializable {
     private Integer ordinalNumber;
 
     /**
-     * Day of meal
-     */
-    @ApiModelProperty(value = "Day of meal")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("meals")
-    private MealPlanDay day;
-
-    /**
      * Collection of recipes in meal
      */
     @ApiModelProperty(value = "Collection of recipes in meal")
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_id", nullable = false)
     private Set<MealRecipe> mealRecipes = new HashSet<>();
     /**
      * Collection of products in meal
      */
     @ApiModelProperty(value = "Collection of products in meal")
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_id", nullable = false)
     private Set<MealProduct> mealProducts = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -80,19 +73,6 @@ public class Meal implements Serializable {
         this.ordinalNumber = ordinalNumber;
     }
 
-    public MealPlanDay getDay() {
-        return day;
-    }
-
-    public Meal day(MealPlanDay mealPlanDay) {
-        this.day = mealPlanDay;
-        return this;
-    }
-
-    public void setDay(MealPlanDay mealPlanDay) {
-        this.day = mealPlanDay;
-    }
-
     public Set<MealRecipe> getMealRecipes() {
         return mealRecipes;
     }
@@ -104,13 +84,11 @@ public class Meal implements Serializable {
 
     public Meal addMealRecipes(MealRecipe mealRecipe) {
         this.mealRecipes.add(mealRecipe);
-        mealRecipe.setMeal(this);
         return this;
     }
 
     public Meal removeMealRecipes(MealRecipe mealRecipe) {
         this.mealRecipes.remove(mealRecipe);
-        mealRecipe.setMeal(null);
         return this;
     }
 
@@ -129,13 +107,11 @@ public class Meal implements Serializable {
 
     public Meal addMealProducts(MealProduct mealProduct) {
         this.mealProducts.add(mealProduct);
-        mealProduct.setMeal(this);
         return this;
     }
 
     public Meal removeMealProducts(MealProduct mealProduct) {
         this.mealProducts.remove(mealProduct);
-        mealProduct.setMeal(null);
         return this;
     }
 

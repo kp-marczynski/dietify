@@ -1,12 +1,4 @@
-package pl.marczynski.dietify.core.web.rest;
-
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.mealplans.domain.MealRecipe;
-import pl.marczynski.dietify.mealplans.domain.Meal;
-import pl.marczynski.dietify.mealplans.repository.MealRecipeRepository;
-import pl.marczynski.dietify.mealplans.service.MealRecipeService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+package pl.marczynski.dietify.mealplans.web.rest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,17 +14,26 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.mealplans.web.rest.MealRecipeResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
+import pl.marczynski.dietify.mealplans.domain.MealPlanCreator;
+import pl.marczynski.dietify.mealplans.domain.MealRecipe;
+import pl.marczynski.dietify.mealplans.domain.MealRecipeCreator;
+import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
+import pl.marczynski.dietify.mealplans.repository.MealRecipeRepository;
+import pl.marczynski.dietify.mealplans.service.MealRecipeService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.mealplans.domain.MealRecipeCreator.*;
 
 /**
  * Test class for the MealRecipeResource REST controller.
@@ -42,12 +43,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class MealRecipeResourceIntTest {
-
-    private static final Long DEFAULT_RECIPE_ID = 1L;
-    private static final Long UPDATED_RECIPE_ID = 2L;
-
-    private static final Integer DEFAULT_AMOUNT = 0;
-    private static final Integer UPDATED_AMOUNT = 1;
 
     @Autowired
     private MealRecipeRepository mealRecipeRepository;
@@ -70,6 +65,11 @@ public class MealRecipeResourceIntTest {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private MealPlanRepository mealPlanRepository;
+
+    private MealPlan mealPlan;
+
     private MockMvc restMealRecipeMockMvc;
 
     private MealRecipe mealRecipe;
@@ -86,47 +86,12 @@ public class MealRecipeResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static MealRecipe createEntity(EntityManager em) {
-        MealRecipe mealRecipe = new MealRecipe()
-            .recipeId(DEFAULT_RECIPE_ID)
-            .amount(DEFAULT_AMOUNT);
-        // Add required entity
-        Meal meal = MealResourceIntTest.createEntity(em);
-        em.persist(meal);
-        em.flush();
-        mealRecipe.setMeal(meal);
-        return mealRecipe;
-    }
-
     @Before
     public void initTest() {
-        mealRecipe = createEntity(em);
+        mealPlan = MealPlanCreator.createEntity();
+        mealRecipe = mealPlan.getDays().iterator().next().getMeals().iterator().next().getMealRecipes().iterator().next();
     }
 
-    @Test
-    @Transactional
-    public void createMealRecipe() throws Exception {
-        int databaseSizeBeforeCreate = mealRecipeRepository.findAll().size();
-
-        // Create the MealRecipe
-        restMealRecipeMockMvc.perform(post("/api/meal-recipes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipe)))
-            .andExpect(status().isCreated());
-
-        // Validate the MealRecipe in the database
-        List<MealRecipe> mealRecipeList = mealRecipeRepository.findAll();
-        assertThat(mealRecipeList).hasSize(databaseSizeBeforeCreate + 1);
-        MealRecipe testMealRecipe = mealRecipeList.get(mealRecipeList.size() - 1);
-        assertThat(testMealRecipe.getRecipeId()).isEqualTo(DEFAULT_RECIPE_ID);
-        assertThat(testMealRecipe.getAmount()).isEqualTo(DEFAULT_AMOUNT);
-    }
 
     @Test
     @Transactional
@@ -187,7 +152,7 @@ public class MealRecipeResourceIntTest {
     @Transactional
     public void getAllMealRecipes() throws Exception {
         // Initialize the database
-        mealRecipeRepository.saveAndFlush(mealRecipe);
+        mealPlanRepository.saveAndFlush(mealPlan);
 
         // Get all the mealRecipeList
         restMealRecipeMockMvc.perform(get("/api/meal-recipes?sort=id,desc"))
@@ -197,12 +162,12 @@ public class MealRecipeResourceIntTest {
             .andExpect(jsonPath("$.[*].recipeId").value(hasItem(DEFAULT_RECIPE_ID.intValue())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT)));
     }
-    
+
     @Test
     @Transactional
     public void getMealRecipe() throws Exception {
         // Initialize the database
-        mealRecipeRepository.saveAndFlush(mealRecipe);
+        mealPlanRepository.saveAndFlush(mealPlan);
 
         // Get the mealRecipe
         restMealRecipeMockMvc.perform(get("/api/meal-recipes/{id}", mealRecipe.getId()))
@@ -223,35 +188,6 @@ public class MealRecipeResourceIntTest {
 
     @Test
     @Transactional
-    public void updateMealRecipe() throws Exception {
-        // Initialize the database
-        mealRecipeService.save(mealRecipe);
-
-        int databaseSizeBeforeUpdate = mealRecipeRepository.findAll().size();
-
-        // Update the mealRecipe
-        MealRecipe updatedMealRecipe = mealRecipeRepository.findById(mealRecipe.getId()).get();
-        // Disconnect from session so that the updates on updatedMealRecipe are not directly saved in db
-        em.detach(updatedMealRecipe);
-        updatedMealRecipe
-            .recipeId(UPDATED_RECIPE_ID)
-            .amount(UPDATED_AMOUNT);
-
-        restMealRecipeMockMvc.perform(put("/api/meal-recipes")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(updatedMealRecipe)))
-            .andExpect(status().isOk());
-
-        // Validate the MealRecipe in the database
-        List<MealRecipe> mealRecipeList = mealRecipeRepository.findAll();
-        assertThat(mealRecipeList).hasSize(databaseSizeBeforeUpdate);
-        MealRecipe testMealRecipe = mealRecipeList.get(mealRecipeList.size() - 1);
-        assertThat(testMealRecipe.getRecipeId()).isEqualTo(UPDATED_RECIPE_ID);
-        assertThat(testMealRecipe.getAmount()).isEqualTo(UPDATED_AMOUNT);
-    }
-
-    @Test
-    @Transactional
     public void updateNonExistingMealRecipe() throws Exception {
         int databaseSizeBeforeUpdate = mealRecipeRepository.findAll().size();
 
@@ -268,23 +204,6 @@ public class MealRecipeResourceIntTest {
         assertThat(mealRecipeList).hasSize(databaseSizeBeforeUpdate);
     }
 
-    @Test
-    @Transactional
-    public void deleteMealRecipe() throws Exception {
-        // Initialize the database
-        mealRecipeService.save(mealRecipe);
-
-        int databaseSizeBeforeDelete = mealRecipeRepository.findAll().size();
-
-        // Delete the mealRecipe
-        restMealRecipeMockMvc.perform(delete("/api/meal-recipes/{id}", mealRecipe.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
-            .andExpect(status().isOk());
-
-        // Validate the database is empty
-        List<MealRecipe> mealRecipeList = mealRecipeRepository.findAll();
-        assertThat(mealRecipeList).hasSize(databaseSizeBeforeDelete - 1);
-    }
 
     @Test
     @Transactional

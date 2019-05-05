@@ -1,13 +1,4 @@
-package pl.marczynski.dietify.core.web.rest;
-
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.mealplans.domain.MealPlanDay;
-import pl.marczynski.dietify.mealplans.domain.MealPlan;
-import pl.marczynski.dietify.mealplans.domain.Meal;
-import pl.marczynski.dietify.mealplans.repository.MealPlanDayRepository;
-import pl.marczynski.dietify.mealplans.service.MealPlanDayService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+package pl.marczynski.dietify.mealplans.web.rest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,17 +14,24 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.mealplans.web.rest.MealPlanDayResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.mealplans.domain.MealPlanDay;
+import pl.marczynski.dietify.mealplans.domain.MealPlanDayCreator;
+import pl.marczynski.dietify.mealplans.repository.MealPlanDayRepository;
+import pl.marczynski.dietify.mealplans.service.MealPlanDayService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.mealplans.domain.MealPlanDayCreator.DEFAULT_ORDINAL_NUMBER;
+import static pl.marczynski.dietify.mealplans.domain.MealPlanDayCreator.UPDATED_ORDINAL_NUMBER;
 
 /**
  * Test class for the MealPlanDayResource REST controller.
@@ -43,9 +41,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class MealPlanDayResourceIntTest {
-
-    private static final Integer DEFAULT_ORDINAL_NUMBER = 1;
-    private static final Integer UPDATED_ORDINAL_NUMBER = 2;
 
     @Autowired
     private MealPlanDayRepository mealPlanDayRepository;
@@ -84,31 +79,9 @@ public class MealPlanDayResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static MealPlanDay createEntity(EntityManager em) {
-        MealPlanDay mealPlanDay = new MealPlanDay()
-            .ordinalNumber(DEFAULT_ORDINAL_NUMBER);
-        // Add required entity
-        MealPlan mealPlan = MealPlanResourceIntTest.createEntity(em);
-        em.persist(mealPlan);
-        em.flush();
-        mealPlanDay.setMealPlan(mealPlan);
-        // Add required entity
-        Meal meal = MealResourceIntTest.createEntity(em);
-        em.persist(meal);
-        em.flush();
-        mealPlanDay.getMeals().add(meal);
-        return mealPlanDay;
-    }
-
     @Before
     public void initTest() {
-        mealPlanDay = createEntity(em);
+        mealPlanDay = MealPlanDayCreator.createEntity();
     }
 
     @Test
@@ -179,7 +152,7 @@ public class MealPlanDayResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(mealPlanDay.getId().intValue())))
             .andExpect(jsonPath("$.[*].ordinalNumber").value(hasItem(DEFAULT_ORDINAL_NUMBER)));
     }
-    
+
     @Test
     @Transactional
     public void getMealPlanDay() throws Exception {

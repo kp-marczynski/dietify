@@ -38,19 +38,11 @@ public class MealPlanDay implements Serializable {
     private Integer ordinalNumber;
 
     /**
-     * MealPlan to which day is assigned
-     */
-    @ApiModelProperty(value = "MealPlan to which day is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("days")
-    private MealPlan mealPlan;
-
-    /**
      * Meals in day
      */
     @ApiModelProperty(value = "Meals in day")
-    @OneToMany(mappedBy = "day")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "day_id", nullable = false)
     private Set<Meal> meals = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -74,19 +66,6 @@ public class MealPlanDay implements Serializable {
         this.ordinalNumber = ordinalNumber;
     }
 
-    public MealPlan getMealPlan() {
-        return mealPlan;
-    }
-
-    public MealPlanDay mealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-        return this;
-    }
-
-    public void setMealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-    }
-
     public Set<Meal> getMeals() {
         return meals;
     }
@@ -98,13 +77,11 @@ public class MealPlanDay implements Serializable {
 
     public MealPlanDay addMeals(Meal meal) {
         this.meals.add(meal);
-        meal.setDay(this);
         return this;
     }
 
     public MealPlanDay removeMeals(Meal meal) {
         this.meals.remove(meal);
-        meal.setDay(null);
         return this;
     }
 

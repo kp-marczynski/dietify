@@ -1,12 +1,4 @@
-package pl.marczynski.dietify.core.web.rest;
-
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.mealplans.domain.MealProduct;
-import pl.marczynski.dietify.mealplans.domain.Meal;
-import pl.marczynski.dietify.mealplans.repository.MealProductRepository;
-import pl.marczynski.dietify.mealplans.service.MealProductService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+package pl.marczynski.dietify.mealplans.web.rest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,17 +14,25 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.mealplans.web.rest.MealProductResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
+import pl.marczynski.dietify.mealplans.domain.MealPlanCreator;
+import pl.marczynski.dietify.mealplans.domain.MealProduct;
+import pl.marczynski.dietify.mealplans.domain.MealProductCreator;
+import pl.marczynski.dietify.mealplans.repository.MealProductRepository;
+import pl.marczynski.dietify.mealplans.service.MealProductService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.mealplans.domain.MealProductCreator.*;
 
 /**
  * Test class for the MealProductResource REST controller.
@@ -42,15 +42,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class MealProductResourceIntTest {
-
-    private static final Long DEFAULT_PRODUCT_ID = 1L;
-    private static final Long UPDATED_PRODUCT_ID = 2L;
-
-    private static final Long DEFAULT_HOUSEHOLD_MEASURE_ID = 1L;
-    private static final Long UPDATED_HOUSEHOLD_MEASURE_ID = 2L;
-
-    private static final Double DEFAULT_AMOUNT = 0D;
-    private static final Double UPDATED_AMOUNT = 1D;
 
     @Autowired
     private MealProductRepository mealProductRepository;
@@ -89,48 +80,9 @@ public class MealProductResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static MealProduct createEntity(EntityManager em) {
-        MealProduct mealProduct = new MealProduct()
-            .productId(DEFAULT_PRODUCT_ID)
-            .householdMeasureId(DEFAULT_HOUSEHOLD_MEASURE_ID)
-            .amount(DEFAULT_AMOUNT);
-        // Add required entity
-        Meal meal = MealResourceIntTest.createEntity(em);
-        em.persist(meal);
-        em.flush();
-        mealProduct.setMeal(meal);
-        return mealProduct;
-    }
-
     @Before
     public void initTest() {
-        mealProduct = createEntity(em);
-    }
-
-    @Test
-    @Transactional
-    public void createMealProduct() throws Exception {
-        int databaseSizeBeforeCreate = mealProductRepository.findAll().size();
-
-        // Create the MealProduct
-        restMealProductMockMvc.perform(post("/api/meal-products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealProduct)))
-            .andExpect(status().isCreated());
-
-        // Validate the MealProduct in the database
-        List<MealProduct> mealProductList = mealProductRepository.findAll();
-        assertThat(mealProductList).hasSize(databaseSizeBeforeCreate + 1);
-        MealProduct testMealProduct = mealProductList.get(mealProductList.size() - 1);
-        assertThat(testMealProduct.getProductId()).isEqualTo(DEFAULT_PRODUCT_ID);
-        assertThat(testMealProduct.getHouseholdMeasureId()).isEqualTo(DEFAULT_HOUSEHOLD_MEASURE_ID);
-        assertThat(testMealProduct.getAmount()).isEqualTo(DEFAULT_AMOUNT);
+        mealProduct = MealProductCreator.createEntity();
     }
 
     @Test
@@ -203,7 +155,7 @@ public class MealProductResourceIntTest {
             .andExpect(jsonPath("$.[*].householdMeasureId").value(hasItem(DEFAULT_HOUSEHOLD_MEASURE_ID.intValue())))
             .andExpect(jsonPath("$.[*].amount").value(hasItem(DEFAULT_AMOUNT.doubleValue())));
     }
-    
+
     @Test
     @Transactional
     public void getMealProduct() throws Exception {

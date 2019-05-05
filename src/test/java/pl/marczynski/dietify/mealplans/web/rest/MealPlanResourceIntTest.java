@@ -1,13 +1,4 @@
-package pl.marczynski.dietify.core.web.rest;
-
-import pl.marczynski.dietify.core.DietifyApp;
-
-import pl.marczynski.dietify.mealplans.domain.MealPlan;
-import pl.marczynski.dietify.mealplans.domain.MealPlanDay;
-import pl.marczynski.dietify.mealplans.domain.MealDefinition;
-import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
-import pl.marczynski.dietify.mealplans.service.MealPlanService;
-import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+package pl.marczynski.dietify.mealplans.web.rest;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,19 +14,23 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
-import pl.marczynski.dietify.mealplans.web.rest.MealPlanResource;
+import pl.marczynski.dietify.core.DietifyApp;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
+import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
+import pl.marczynski.dietify.mealplans.domain.MealPlanCreator;
+import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
+import pl.marczynski.dietify.mealplans.service.MealPlanService;
 
 import javax.persistence.EntityManager;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.List;
 
-
-import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static pl.marczynski.dietify.core.web.rest.TestUtil.createFormattingConversionService;
+import static pl.marczynski.dietify.mealplans.domain.MealPlanCreator.*;
 
 /**
  * Test class for the MealPlanResource REST controller.
@@ -45,42 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
 public class MealPlanResourceIntTest {
-
-    private static final Long DEFAULT_AUTHOR_ID = 1L;
-    private static final Long UPDATED_AUTHOR_ID = 2L;
-
-    private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
-
-    private static final String DEFAULT_NAME = "AAAAAAAAAA";
-    private static final String UPDATED_NAME = "BBBBBBBBBB";
-
-    private static final Boolean DEFAULT_IS_VISIBLE = false;
-    private static final Boolean UPDATED_IS_VISIBLE = true;
-
-    private static final Boolean DEFAULT_IS_LOCKED = false;
-    private static final Boolean UPDATED_IS_LOCKED = true;
-
-    private static final Long DEFAULT_LANGUAGE_ID = 1L;
-    private static final Long UPDATED_LANGUAGE_ID = 2L;
-
-    private static final Integer DEFAULT_NUMBER_OF_DAYS = 1;
-    private static final Integer UPDATED_NUMBER_OF_DAYS = 2;
-
-    private static final Integer DEFAULT_NUMBER_OF_MEALS_PER_DAY = 1;
-    private static final Integer UPDATED_NUMBER_OF_MEALS_PER_DAY = 2;
-
-    private static final Integer DEFAULT_TOTAL_DAILY_ENERGY_KCAL = 1;
-    private static final Integer UPDATED_TOTAL_DAILY_ENERGY_KCAL = 2;
-
-    private static final Integer DEFAULT_PERCENT_OF_PROTEIN = 0;
-    private static final Integer UPDATED_PERCENT_OF_PROTEIN = 1;
-
-    private static final Integer DEFAULT_PERCENT_OF_FAT = 0;
-    private static final Integer UPDATED_PERCENT_OF_FAT = 1;
-
-    private static final Integer DEFAULT_PERCENT_OF_CARBOHYDRATES = 0;
-    private static final Integer UPDATED_PERCENT_OF_CARBOHYDRATES = 1;
 
     @Autowired
     private MealPlanRepository mealPlanRepository;
@@ -119,42 +78,10 @@ public class MealPlanResourceIntTest {
             .setValidator(validator).build();
     }
 
-    /**
-     * Create an entity for this test.
-     *
-     * This is a static method, as tests for other entities might also need it,
-     * if they test an entity which requires the current entity.
-     */
-    public static MealPlan createEntity(EntityManager em) {
-        MealPlan mealPlan = new MealPlan()
-            .authorId(DEFAULT_AUTHOR_ID)
-            .creationDate(DEFAULT_CREATION_DATE)
-            .name(DEFAULT_NAME)
-            .isVisible(DEFAULT_IS_VISIBLE)
-            .isLocked(DEFAULT_IS_LOCKED)
-            .languageId(DEFAULT_LANGUAGE_ID)
-            .numberOfDays(DEFAULT_NUMBER_OF_DAYS)
-            .numberOfMealsPerDay(DEFAULT_NUMBER_OF_MEALS_PER_DAY)
-            .totalDailyEnergyKcal(DEFAULT_TOTAL_DAILY_ENERGY_KCAL)
-            .percentOfProtein(DEFAULT_PERCENT_OF_PROTEIN)
-            .percentOfFat(DEFAULT_PERCENT_OF_FAT)
-            .percentOfCarbohydrates(DEFAULT_PERCENT_OF_CARBOHYDRATES);
-        // Add required entity
-        MealPlanDay mealPlanDay = MealPlanDayResourceIntTest.createEntity(em);
-        em.persist(mealPlanDay);
-        em.flush();
-        mealPlan.getDays().add(mealPlanDay);
-        // Add required entity
-        MealDefinition mealDefinition = MealDefinitionResourceIntTest.createEntity(em);
-        em.persist(mealDefinition);
-        em.flush();
-        mealPlan.getMealDefinitions().add(mealDefinition);
-        return mealPlan;
-    }
 
     @Before
     public void initTest() {
-        mealPlan = createEntity(em);
+        mealPlan = MealPlanCreator.createEntity();
     }
 
     @Test
@@ -427,7 +354,7 @@ public class MealPlanResourceIntTest {
             .andExpect(jsonPath("$.[*].percentOfFat").value(hasItem(DEFAULT_PERCENT_OF_FAT)))
             .andExpect(jsonPath("$.[*].percentOfCarbohydrates").value(hasItem(DEFAULT_PERCENT_OF_CARBOHYDRATES)));
     }
-    
+
     @Test
     @Transactional
     public void getMealPlan() throws Exception {

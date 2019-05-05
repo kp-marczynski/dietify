@@ -35,15 +35,6 @@ public class MealPlanUnsuitableForDiet implements Serializable {
     @Column(name = "diet_type_id", nullable = false)
     private Long dietTypeId;
 
-    /**
-     * Recipe to which tag is assigned
-     */
-    @ApiModelProperty(value = "Recipe to which tag is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("tagsBadFors")
-    private MealPlan mealPlan;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -66,18 +57,6 @@ public class MealPlanUnsuitableForDiet implements Serializable {
         this.dietTypeId = dietTypeId;
     }
 
-    public MealPlan getMealPlan() {
-        return mealPlan;
-    }
-
-    public MealPlanUnsuitableForDiet mealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-        return this;
-    }
-
-    public void setMealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

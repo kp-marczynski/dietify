@@ -43,15 +43,6 @@ public class MealRecipe implements Serializable {
     @Column(name = "amount", nullable = false)
     private Integer amount;
 
-    /**
-     * Meal to which recipe is assigned
-     */
-    @ApiModelProperty(value = "Meal to which recipe is assigned")
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("mealRecipes")
-    private Meal meal;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -87,18 +78,6 @@ public class MealRecipe implements Serializable {
         this.amount = amount;
     }
 
-    public Meal getMeal() {
-        return meal;
-    }
-
-    public MealRecipe meal(Meal meal) {
-        this.meal = meal;
-        return this;
-    }
-
-    public void setMeal(Meal meal) {
-        this.meal = meal;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
