@@ -19,6 +19,8 @@ import { DietifyEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
+import {ChatboxModule} from "app/chatbox/chatbox.module";
+import {ChatboxComponent} from "app/chatbox/chatbox.component";
 
 @NgModule({
     imports: [
@@ -35,7 +37,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
         DietifyAccountModule,
         // jhipster-needle-angular-add-module JHipster will add new module here
         DietifyEntityModule,
-        DietifyAppRoutingModule
+        DietifyAppRoutingModule,
+        ChatboxModule
     ],
     declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, FooterComponent],
     providers: [
@@ -55,7 +58,8 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
             multi: true
         }
     ],
-    bootstrap: [JhiMainComponent]
+    bootstrap: [JhiMainComponent],
+    entryComponents: [ChatboxComponent]
 })
 export class DietifyAppModule {
     constructor(private dpConfig: NgbDatepickerConfig) {

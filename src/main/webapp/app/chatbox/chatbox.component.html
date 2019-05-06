@@ -1,0 +1,33 @@
+<div class="chatbox-holder">
+    <div class="chatbox" id="chatbox" [ngClass]="{'chatbox-min':isMinimized,'chatbox-hidden':isClosed}">
+        <div class="chatbox-top">
+            <div class="chatbox-avatar">
+                <img src="{{messages[0].userType}}"/>
+            </div>
+            <div class="chat-partner-name">
+                <a class="minus">Babs</a>
+            </div>
+            <div class="chatbox-icons">
+                <button type="button" class="fa fa-minus minus" (click)="isMinimized = !isMinimized"></button>
+                <button type="button" class="fa fa-times close" (click)="isClosed = !isClosed"></button>
+            </div>
+        </div>
+
+        <div class="chat-messages" #chatmessages id="chatmessages">
+
+            <div class="message-box-holder" *ngFor="let message of messages; let index = index;" id="message{{index}}">
+                <div [className]="isBot(message.userType)?'message-box message-partner':'message-box'">
+                    {{message.content}}
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-holder">
+            <input type="text" class="chat-input" [(ngModel)]="newMessage.content" (keyup.enter)="sendMessage()"/>
+            <div class="chatbox-icons">
+                <button type="button" class="fa fa-microphone" (click)="speechRecognition()"></button>
+            </div>
+            <button type="submit" class="message-send" id="message-send" (click)="sendMessage()">Send</button>
+        </div>
+    </div>
+</div>

@@ -15,6 +15,15 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
     ) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if(request.url === 'https://api.dialogflow.com/v1/query?v=20150910'){
+            request = request.clone({
+                setHeaders: {
+                    'Authorization': `Bearer a35db4039bef48ad991151f05c28819e`,
+                },
+            });
+
+            return next.handle(request);
+        }
         return next.handle(request).pipe(
             tap(
                 (event: HttpEvent<any>) => {},
