@@ -1,23 +1,22 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterModule} from '@angular/router';
 
-import { DietifySharedModule } from 'app/shared';
+import {DietifySharedModule} from 'app/shared';
 import {
-    MealComponent,
     MealDetailComponent,
     MealUpdateComponent,
-    MealDeletePopupComponent,
-    MealDeleteDialogComponent,
-    mealRoute,
-    mealPopupRoute
 } from './';
-
-const ENTITY_STATES = [...mealRoute, ...mealPopupRoute];
+import {DietifyRecipeListModule} from 'app/entities/recipe/recipe-list.module';
+import {DietifyProductListModule} from 'app/entities/product/product-list.module';
+import {RecipeComponent} from 'app/entities/recipe';
+import {ProductComponent} from 'app/entities/product';
 
 @NgModule({
-    imports: [DietifySharedModule, RouterModule.forChild(ENTITY_STATES)],
-    declarations: [MealComponent, MealDetailComponent, MealUpdateComponent, MealDeleteDialogComponent, MealDeletePopupComponent],
-    entryComponents: [MealComponent, MealUpdateComponent, MealDeleteDialogComponent, MealDeletePopupComponent],
+    imports: [DietifySharedModule, RouterModule, DietifyRecipeListModule, DietifyProductListModule],
+    declarations: [MealDetailComponent, MealUpdateComponent],
+    entryComponents: [MealUpdateComponent, RecipeComponent, ProductComponent],
+    exports: [MealUpdateComponent, MealDetailComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DietifyMealModule {}
+export class DietifyMealModule {
+}

@@ -6,14 +6,15 @@ import {IMealPlan} from 'app/shared/model/meal-plan.model';
 import {MealPlanService} from './meal-plan.service';
 import {IMealPlanDay, MealPlanDay} from 'app/shared/model/meal-plan-day.model';
 import {IMeal, Meal} from 'app/shared/model/meal.model';
-import {ProductComponent, ProductService} from 'app/entities/product';
-import {IProduct, Product} from 'app/shared/model/product.model';
+import {ProductService} from 'app/entities/product';
+import {IProduct} from 'app/shared/model/product.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {IMealProduct, MealProduct} from 'app/shared/model/meal-product.model';
-import {RecipeComponent, RecipeService} from 'app/entities/recipe';
-import {IRecipe, Recipe} from 'app/shared/model/recipe.model';
-import {IMealRecipe, MealRecipe} from 'app/shared/model/meal-recipe.model';
+import {IMealProduct} from 'app/shared/model/meal-product.model';
+import {RecipeService} from 'app/entities/recipe';
+import {IRecipe} from 'app/shared/model/recipe.model';
+import {IMealRecipe} from 'app/shared/model/meal-recipe.model';
 import {IMealDefinition, MealDefinition} from 'app/shared/model/meal-definition.model';
+import {MealUpdateComponent} from 'app/entities/meal';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -129,15 +130,15 @@ export class MealPlanUpdateComponent implements OnInit {
         }
     }
 
-    addIngredient(meal: IMeal) {
-        const modalRef = this.modalService.open(ProductComponent, {windowClass: 'custom-modal'});
+    editMeal(meal: IMeal) {
+        const modalRef = this.modalService.open(MealUpdateComponent, {windowClass: 'custom-modal'});
 
-        modalRef.componentInstance.passEntry.subscribe((receivedEntry: Product) => {
+        modalRef.componentInstance.meal = meal;
+        modalRef.componentInstance.passEntry.subscribe((receivedEntry: Meal) => {
             modalRef.close();
 
-            const mealProduct = new MealProduct(null, receivedEntry.id, null, null);
-            meal.mealProducts.push(mealProduct);
-            this.findProduct(mealProduct);
+            meal.mealRecipes = receivedEntry.mealRecipes;
+            meal.mealProducts = receivedEntry.mealProducts;
         });
     }
 
@@ -169,35 +170,10 @@ export class MealPlanUpdateComponent implements OnInit {
         );
     }
 
-    removeIngredientFromMeal(meal: IMeal, mealProduct: IMealProduct): void {
-        meal.mealProducts = meal.mealProducts.filter(portion => portion !== mealProduct);
-        console.log(meal.mealProducts);
-    }
-
-    customTrackBy(index: number, obj: any): any {
-        return index;
-    }
-
-    addRecipe(meal: IMeal) {
-        const modalRef = this.modalService.open(RecipeComponent, {windowClass: 'custom-modal'});
-
-        modalRef.componentInstance.passEntry.subscribe((receivedEntry: Recipe) => {
-            modalRef.close();
-
-            const mealRecipe = new MealRecipe(null, receivedEntry.id, null);
-            meal.mealRecipes.push(mealRecipe);
-            this.findRecipe(mealRecipe);
-        });
-    }
-
     findRecipe(mealRecipe: IMealRecipe): void {
         this.recipeService.find(mealRecipe.recipeId).subscribe(
             (res: HttpResponse<IRecipe>) => mealRecipe.recipe = res.body,
             (res: HttpErrorResponse) => mealRecipe.recipe = null
         );
-    }
-
-    removeRecipeFromMeal(meal: IMeal, mealRecipe: IMealRecipe) {
-        meal.mealRecipes = meal.mealRecipes.filter(portion => portion !== mealRecipe);
     }
 }
