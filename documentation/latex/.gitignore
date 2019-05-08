@@ -8,3 +8,4 @@ _minted-praca/
 *.out
 *.synctex(busy)
 *.toc
+*.gz
