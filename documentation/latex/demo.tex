@@ -75,4 +75,59 @@ int main()
 \end{listing}
 
 W moim kodzie \ref{listing:moj} zrobiłem coś wspaniałego. \lipsum[4]
+
+\begin{table}[h]
+	\begin{tabularx}{\textwidth}{|>{\setlength\hsize{1.4\hsize}\setlength\linewidth{\hsize}}X|>{\setlength\hsize{.9\hsize}\setlength\linewidth{\hsize}}X|>{\setlength\hsize{.7\hsize}\setlength\linewidth{\hsize}}X|}
+		\hline
+		\multicolumn{3}{|c|}{Classification of the criticel point $(0,0)$ of $x'=Ax,|\mathbf{A}|\not=0$.}\\
+		\hline
+		Types & Type of Critical Point & Stability \\
+		\hline
+		1. Real unequal eigenvalues of same sign
+		\begin{itemize}
+			\item $\lambda_1 > \lambda_2 > 0$
+			\item $\lambda_1 < \lambda_2 < 0$
+		\end{itemize} &
+		\vphantom{1. Real unequal eigenvalues of same sign}
+		\begin{itemize}
+			\item Improper Node/Node
+			\item Improper Node/Node
+		\end{itemize} &
+		\vphantom{1. Real unequal eigenvalues of same sign}
+		\begin{itemize}
+			\item Unstable
+			\item Asym. Stable
+		\end{itemize}\\
+		\hline
+		2. Real unequal eigenvalues of opposite sign
+		\begin{itemize}
+			\item $\lambda_2 < 0 >\lambda_1$
+		\end{itemize} &
+		\vphantom{2. Real unequal eigenvalues of opposite sign}
+		\begin{itemize}
+			\item Saddle Point
+		\end{itemize} &
+		\vphantom{2. Real unequal eigenvalues of opposite sign}
+		\begin{itemize}
+			\item Unstable
+		\end{itemize}\\
+		\hline
+		3. Equal eigenvalues \newline Subtype 1: Two Independent vectors
+		\begin{itemize}
+			\item $\lambda_1 = \lambda_2 > 0$
+			\item $\lambda_1 = \lambda_2 < 0$
+		\end{itemize} &
+		\vphantom{3. Equal eigenvalues} \vphantom{ Subtype 1: Two Independent vectors}
+		\begin{itemize}
+			\item Proper Node
+			\item Proper Node
+		\end{itemize} &
+		\vphantom{3. Equal eigenvalues} \vphantom{ Subtype 1: Two Independent vectors}
+		\begin{itemize}
+			\item Unstable
+			\item Asym. Stable
+		\end{itemize}\\
+		\hline
+	\end{tabularx}
+\end{table}
 \thispagestyle{normal}
