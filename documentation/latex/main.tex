@@ -1,0 +1,57 @@
+\documentclass{dyplom}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+%%
+\usepackage{lipsum}
+\usepackage{todonotes}
+
+% Dane o pracy
+\author{Krzysztof Marczyński}
+\title{Projekt~i~implementacja systemu~do~zarządzania dietą w~oparciu~o~architekturę~mikroserwisów}
+\titlen{Design~and~implementation of~diet~management~system based~on~microservice~architecture}
+\promotor{dr inż. Michał Szczepanik}
+%\konsultant{dr hab. inż. Kazimerz Kabacki}
+\wydzial{Wydział Informatyki i Zarządzania}
+\kierunek{Informatyka}
+\krotkiestreszczenie{W pracy przedstawiono projekt aplikacji służącej do ukladania diet.}
+\slowakluczowe{dieta, jadłospisy, aplikacja webowa, mikroserwisy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+\maketitle
+\pagenumbering{gobble}
+\input{streszczenie}
+\cleardoublepage
+
+\tableofcontents
+\cleardoublepage
+
+\pagenumbering{arabic}
+\input{wstep}
+
+\input{ch1}
+\input{ch2}
+\input{ch3}
+\input{ch4}
+\input{ch5}
+\input{ch6}
+
+\input{instrukcja}
+\input{demo}
+
+\input{zakonczenie}
+
+% W pracy pojawią się tylko prace naprawdę cytowane.
+% \nocite{*}
+
+\bibliography{literatura}
+\bibliographystyle{dyplom}
+
+\listoffigures
+\listoftables
+\listof{listing}{Spis kodów źródłowych}
+
+\input{dodatki}
+
+\end{document}
