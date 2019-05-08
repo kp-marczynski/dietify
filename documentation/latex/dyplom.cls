@@ -846,4 +846,9 @@ fontsize=\small,
 \setlength{\skip\footins}{1cm}
 
 \RequirePackage{tabularx}
+\renewcommand{\labelitemi}{$\bullet$}
+\renewcommand{\labelitemii}{$\circ$}
+\renewcommand{\labelitemiii}{$\circ$}
+\renewcommand{\labelitemiv}{$\circ$}
+
 \endinput % dla porządku
