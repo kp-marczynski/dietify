@@ -800,7 +800,8 @@ Do celów archiwalnych pracę dyplomową zakwalifikowano do:*
 \renewcommand{\appendixname}{Dodatek}
 
 % pakiet do składu listingów w razie potrzeby można odblokować możliwość numerowania linii lub zmienić wielkość czcionki w listingu
-\RequirePackage{minted}
+% na windowsie trzeba zainstalować: pip install pygments a następnie kompilacje uruchamiać z opcją: --shell-escape
+\RequirePackage[cache=false]{minted}
 \setminted{breaklines,
 frame=lines,
 framesep=5mm,
@@ -844,4 +845,5 @@ fontsize=\small,
 
 \setlength{\skip\footins}{1cm}
 
+\RequirePackage{tabularx}
 \endinput % dla porządku
