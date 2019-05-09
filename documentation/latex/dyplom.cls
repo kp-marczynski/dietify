@@ -838,17 +838,23 @@ fontsize=\small,
 \setlength{\parindent}{7mm} % wcięcie w pierwszym wierszu akapitu
 \widowpenalty=1000 % żeby nagłówki nie zostawały na dole strony
 \clubpenalty=1000
-% \hyphenpenalty=10000
+\hyphenpenalty=5000
 
 \textfloatsep=10pt % odstęp pommiędzy rysunkiem, tabelą, listingiem a tekstem
 \renewcommand{\baselinestretch}{1} % interlinia 1
 
 \setlength{\skip\footins}{1cm}
 
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt, partopsep=0pt}
+
 \RequirePackage{tabularx}
+
 \renewcommand{\labelitemi}{$\bullet$}
 \renewcommand{\labelitemii}{$\circ$}
 \renewcommand{\labelitemiii}{$\circ$}
 \renewcommand{\labelitemiv}{$\circ$}
 
+\renewcommand{\arraystretch}{2}
+	
 \endinput % dla porządku
