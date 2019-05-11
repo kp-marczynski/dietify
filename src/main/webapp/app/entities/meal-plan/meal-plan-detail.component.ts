@@ -12,6 +12,7 @@ import {RecipeService} from 'app/entities/recipe';
 import {IMeal, Meal} from 'app/shared/model/meal.model';
 import {MealDetailComponent, MealUpdateComponent} from 'app/entities/meal';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MealPlanTab} from 'app/shared/model/enum/meal-plan-tab.enum';
 
 @Component({
     selector: 'jhi-meal-plan-detail',
@@ -19,6 +20,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class MealPlanDetailComponent implements OnInit {
     mealPlan: IMealPlan;
+    currentTab: MealPlanTab = MealPlanTab.SETTINGS;
 
     constructor(
         protected activatedRoute: ActivatedRoute,
@@ -83,5 +85,9 @@ export class MealPlanDetailComponent implements OnInit {
         modalRef.componentInstance.passEntry.subscribe((receivedEntry: Meal) => {
             modalRef.close();
         });
+    }
+
+    getTabs() {
+        return Object.values(MealPlanTab);
     }
 }

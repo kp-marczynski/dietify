@@ -1,7 +1,12 @@
 <div class="card jh-card">
-    <div class="col-8">
+    <h2 id="jhi-meal-plan-heading">Create or edit a Meal Plan</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let tab of getTabs()">
+            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="currentTab=tab">{{tab}}</a>
+        </li>
+    </ul>
+    <div class="col-8" *ngIf="currentTab=='SETTINGS'">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-meal-plan-heading">Create or edit a Meal Plan</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!mealPlan.id">
@@ -251,21 +256,10 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     </small>
                 </div>
             </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                        class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-                </button>
-            </div>
         </form>
     </div>
-</div>
 
-<div class="jh-card card">
-    <div class="container-fluid">
+    <div class="container-fluid" *ngIf="currentTab == 'MEAL PLAN GRID'">
         <header>
             <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
                 <h5 class="col-sm p-1 text-center"></h5>
@@ -315,4 +309,22 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
         </div>
         <div class="w-100"></div>
     </div>
+    <div>
+        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+        <button type="button" id="next-tab" class="btn btn-info" (click)="currentTab = 'MEAL PLAN GRID'"
+                *ngIf="currentTab == 'SETTINGS'">
+            <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span>Next</span>
+        </button>
+        <button type="button" id="previous-tab" class="btn btn-info" (click)="currentTab = 'SETTINGS'"
+                *ngIf="currentTab == 'MEAL PLAN GRID'">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Previous</span>
+        </button>
+        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                class="btn btn-primary">
+            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+    </div>
 </div>
+

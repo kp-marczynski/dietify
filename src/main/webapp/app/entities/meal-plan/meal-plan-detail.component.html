@@ -1,8 +1,11 @@
 <div class="card jh-card">
-    <div class="col-8">
-        <div *ngIf="mealPlan">
-            <h2><span>Meal Plan</span> {{mealPlan.id}}</h2>
-            <hr>
+    <h2><span>Meal Plan</span> {{mealPlan.id}}</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let tab of getTabs()">
+            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="currentTab=tab">{{tab}}</a>
+        </li>
+    </ul>
+        <div *ngIf="mealPlan && currentTab=='SETTINGS'">
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
                 <dt><span ngbTooltip="Id of author of the plan">Author Id</span></dt>
@@ -71,10 +74,7 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
         </div>
-    </div>
-</div>
-<div class="jh-card card">
-    <div class="container-fluid">
+    <div class="container-fluid"  *ngIf="currentTab=='MEAL PLAN GRID'">
         <header>
             <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
                 <h5 class="col-sm p-1 text-center"></h5>
@@ -125,3 +125,4 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
         <div class="w-100"></div>
     </div>
 </div>
+

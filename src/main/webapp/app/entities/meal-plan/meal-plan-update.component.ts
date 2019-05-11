@@ -15,6 +15,7 @@ import {IRecipe} from 'app/shared/model/recipe.model';
 import {IMealRecipe} from 'app/shared/model/meal-recipe.model';
 import {IMealDefinition, MealDefinition} from 'app/shared/model/meal-definition.model';
 import {MealUpdateComponent} from 'app/entities/meal';
+import {MealPlanTab} from 'app/shared/model/enum/meal-plan-tab.enum';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -24,6 +25,7 @@ export class MealPlanUpdateComponent implements OnInit {
     mealPlan: IMealPlan;
     isSaving: boolean;
     creationDateDp: any;
+    currentTab: MealPlanTab = MealPlanTab.SETTINGS;
 
     constructor(
         protected mealPlanService: MealPlanService,
@@ -175,5 +177,9 @@ export class MealPlanUpdateComponent implements OnInit {
             (res: HttpResponse<IRecipe>) => mealRecipe.recipe = res.body,
             (res: HttpErrorResponse) => mealRecipe.recipe = null
         );
+    }
+
+    getTabs() {
+        return Object.values(MealPlanTab);
     }
 }
