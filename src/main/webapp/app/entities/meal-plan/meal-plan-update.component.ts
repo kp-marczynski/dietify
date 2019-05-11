@@ -16,6 +16,11 @@ import {IMealRecipe} from 'app/shared/model/meal-recipe.model';
 import {IMealDefinition, MealDefinition} from 'app/shared/model/meal-definition.model';
 import {MealUpdateComponent} from 'app/entities/meal';
 import {MealPlanTab} from 'app/shared/model/enum/meal-plan-tab.enum';
+import {MealTypeService} from 'app/entities/meal-type';
+import {MealType} from 'app/shared/model/meal-type.model';
+import {filter, map} from 'rxjs/operators';
+import {ILanguage} from 'app/shared/model/language.model';
+import {JhiAlertService} from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -27,12 +32,16 @@ export class MealPlanUpdateComponent implements OnInit {
     creationDateDp: any;
     currentTab: MealPlanTab = MealPlanTab.SETTINGS;
 
+    mealTypes: MealType[] = [];
+
     constructor(
         protected mealPlanService: MealPlanService,
         protected activatedRoute: ActivatedRoute,
         protected modalService: NgbModal,
         protected productService: ProductService,
-        protected recipeService: RecipeService
+        protected recipeService: RecipeService,
+        protected mealTypeService: MealTypeService,
+        protected jhiAlertService: JhiAlertService
     ) {
     }
 
@@ -43,10 +52,30 @@ export class MealPlanUpdateComponent implements OnInit {
             this.findProductsAndRecipes();
             this.numberOfDaysChanged();
         });
+        this.mealTypeService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ILanguage[]>) => res.ok),
+                map((res: HttpResponse<ILanguage[]>) => res.body)
+            )
+            .subscribe(
+                (res: ILanguage[]) => {
+                    this.mealTypes = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    customTrackBy(index: number, obj: any): any {
+        return index;
     }
 
     previousState() {
         window.history.back();
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 
     save() {
@@ -93,6 +122,21 @@ export class MealPlanUpdateComponent implements OnInit {
 
     numberOfMealsPerDayChanged() {
         if (this.mealPlan.numberOfMealsPerDay && this.mealPlan.numberOfMealsPerDay > 0) {
+            if (!this.mealPlan.mealDefinitions) {
+                this.mealPlan.mealDefinitions = [];
+            }
+            if (this.mealPlan.mealDefinitions.length !== this.mealPlan.numberOfMealsPerDay) {
+                const temp: IMealDefinition[] = [];
+                for (let i = 0; i < this.mealPlan.numberOfMealsPerDay; ++i) {
+                    if (i < this.mealPlan.mealDefinitions.length) {
+                        temp.push(this.mealPlan.mealDefinitions[i]);
+                    } else {
+                        temp.push(new MealDefinition(null, i + 1, null, null, null));
+                    }
+                }
+                this.mealPlan.mealDefinitions = temp;
+            }
+
             if (this.mealPlan.numberOfDays) {
                 if (!this.mealPlan.days || this.mealPlan.days.length !== this.mealPlan.numberOfDays) {
                     this.numberOfDaysChanged();
@@ -112,20 +156,6 @@ export class MealPlanUpdateComponent implements OnInit {
                             }
                             day.meals = temp;
                         }
-                    }
-                    if (!this.mealPlan.mealDefinitions) {
-                        this.mealPlan.mealDefinitions = [];
-                    }
-                    if (this.mealPlan.mealDefinitions.length !== this.mealPlan.numberOfMealsPerDay) {
-                        const temp: IMealDefinition[] = [];
-                        for (let i = 0; i < this.mealPlan.numberOfMealsPerDay; ++i) {
-                            if (i < this.mealPlan.mealDefinitions.length) {
-                                temp.push(this.mealPlan.mealDefinitions[i]);
-                            } else {
-                                temp.push(new MealDefinition(null, i + 1, 1, '12:00', 10));
-                            }
-                        }
-                        this.mealPlan.mealDefinitions = temp;
                     }
                 }
             }
@@ -181,5 +211,9 @@ export class MealPlanUpdateComponent implements OnInit {
 
     getTabs() {
         return Object.values(MealPlanTab);
+    }
+
+    changeCurrentTab(tabName: string) {
+        this.currentTab = MealPlanTab[tabName];
     }
 }

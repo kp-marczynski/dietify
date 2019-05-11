@@ -1,3 +1,3 @@
 export enum MealPlanTab {
-    SETTINGS = 'SETTINGS', CALENDAR = 'MEAL PLAN GRID'
+    SETTINGS = 'SETTINGS', CALENDAR = 'CALENDAR'
 }
