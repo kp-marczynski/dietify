@@ -89,9 +89,9 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate " *ngFor="let meal of day.meals">
                 <button type="button"
                         (click)="viewMeal(meal)"
-                        class="btn btn-primary btn-sm">
-                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                    <span class="d-none d-md-inline">Edit</span>
+                        class="btn btn-info btn-sm">
+                    <fa-icon [icon]="'eye'"></fa-icon>
+                    <span class="d-none d-md-inline">View</span>
                 </button>
                 <h5 class="row align-items-center">
                     <small class="col d-sm-none text-center text-muted">Meal {{meal.ordinalNumber}}</small>
