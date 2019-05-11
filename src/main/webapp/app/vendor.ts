@@ -4,7 +4,7 @@ import '../content/css/vendor.css';
 
 // Imports all fontawesome core and solid icons
 
-import { library } from '@fortawesome/fontawesome-svg-core';
+import {library} from '@fortawesome/fontawesome-svg-core';
 import {
     faUser,
     faSort,
@@ -42,7 +42,10 @@ import {
     faHome,
     faUtensils,
     faBarcode,
-    faReceipt
+    faReceipt,
+    faMinus,
+    faMicrophone,
+    faRobot
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -83,4 +86,7 @@ library.add(faAsterisk);
 library.add(faUtensils);
 library.add(faBarcode);
 library.add(faReceipt);
+library.add(faMinus);
+library.add(faMicrophone);
+library.add(faRobot);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

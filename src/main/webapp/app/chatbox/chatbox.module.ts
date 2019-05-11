@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {DialogflowService} from 'app/chatbox/dialogflow.service';
 import {BrowserModule} from '@angular/platform-browser';
 import {HttpClientModule} from '@angular/common/http';
+import {DietifySharedModule} from 'app/shared';
 
 @NgModule({
     declarations: [
@@ -12,7 +13,8 @@ import {HttpClientModule} from '@angular/common/http';
     imports: [
         BrowserModule,
         FormsModule,
-        HttpClientModule
+        HttpClientModule,
+        DietifySharedModule
     ],
     providers: [DialogflowService],
     exports: [

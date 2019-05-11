@@ -8,7 +8,7 @@ import {AppWindow} from 'app/chatbox/model/app-window';
 const {webkitSpeechRecognition}: AppWindow = <AppWindow>window;
 
 @Component({
-    selector: 'app-chatbox',
+    selector: 'jhi-app-chatbox',
     templateUrl: 'chatbox.component.html',
     styleUrls: ['chatbox.component.css']
 })
@@ -16,15 +16,15 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
 
     public newMessage: ChatMessage;
     public messages: ChatMessage[];
-    private isMinimized: boolean = false;
-    private isClosed: boolean = false;
+    private isMinimized = false;
+    private isClosed = false;
 
     @ViewChild('chatmessages', {read: ElementRef}) chatList: ElementRef;
 
     constructor(private dialogFlowService: DialogflowService) {
         this.newMessage = new ChatMessage('', UserType.USER);
         this.messages = [
-            new ChatMessage('Welcome to chatbot universe', UserType.BOT, new Date())
+            new ChatMessage('Welcome to Dietify! How may I assist you today?', UserType.BOT, new Date())
         ];
     }
 
@@ -68,7 +68,7 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
     }
 
     isBot(userType: UserType) {
-        return userType == UserType.BOT;
+        return userType === UserType.BOT;
     }
 
     speechSynthesis(message: string) {
@@ -80,17 +80,17 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
     }
 
     speechRecognition() {
-        let recognition = new webkitSpeechRecognition();
+        const recognition = new webkitSpeechRecognition();
         recognition.continuous = false;
         recognition.lang = 'en-US';
         recognition.interimResults = true;
-        recognition.onerror = function (event) {
+        recognition.onerror = event => {
             console.log('error!');
         };
 
         recognition.start();
         console.log('started recognition');
-        recognition.onresult = (event) => {
+        recognition.onresult = event => {
             let interimTranscript = '';
             let finalTranscript = '';
 
@@ -114,7 +114,7 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
         if (el.fireEvent) {
             el.fireEvent('on' + etype);
         } else {
-            var evObj = document.createEvent('Events');
+            const evObj = document.createEvent('Events');
             evObj.initEvent(etype, true, false);
             el.dispatchEvent(evObj);
         }

@@ -2,14 +2,15 @@
     <div class="chatbox" id="chatbox" [ngClass]="{'chatbox-min':isMinimized,'chatbox-hidden':isClosed}">
         <div class="chatbox-top">
             <div class="chatbox-avatar">
-                <img src="{{messages[0].userType}}"/>
+                <!--<img src="{{messages[0].userType}}"/>-->
+                <fa-icon [icon]="'robot'"></fa-icon>
             </div>
             <div class="chat-partner-name">
-                <a class="minus">Babs</a>
+                <a class="minus">Chatbot</a>
             </div>
             <div class="chatbox-icons">
-                <button type="button" class="fa fa-minus minus" (click)="isMinimized = !isMinimized"></button>
-                <button type="button" class="fa fa-times close" (click)="isClosed = !isClosed"></button>
+                <button type="button" class="fa fa-minus minus btn btn-danger btn-sm" (click)="isMinimized = !isMinimized"><fa-icon [icon]="'minus'"></fa-icon></button>
+                <!--<button type="button" class="fa fa-times close" (click)="isClosed = !isClosed"><fa-icon [icon]="'times'"></fa-icon></button>-->
             </div>
         </div>
 
@@ -25,7 +26,8 @@
         <div class="chat-input-holder">
             <input type="text" class="chat-input" [(ngModel)]="newMessage.content" (keyup.enter)="sendMessage()"/>
             <div class="chatbox-icons">
-                <button type="button" class="fa fa-microphone" (click)="speechRecognition()"></button>
+                <button type="button" class="fa fa-microphone" (click)="speechRecognition()"><fa-icon [icon]="'microphone'"></fa-icon></button>
+
             </div>
             <button type="submit" class="message-send" id="message-send" (click)="sendMessage()">Send</button>
         </div>

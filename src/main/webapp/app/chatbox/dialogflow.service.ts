@@ -10,8 +10,8 @@ import {Observable} from 'rxjs';
 @Injectable()
 export class DialogflowService {
 
-    private baseURL: string = 'https://api.dialogflow.com/v1/query?v=20150910';
-    private token: string = 'a35db4039bef48ad991151f05c28819e';
+    private baseURL = 'https://api.dialogflow.com/v1/query?v=20150910';
+    // private token: string = 'd2fec3415734470cb989611596f25fcd';
 
     constructor(private http: HttpClient) {
     }

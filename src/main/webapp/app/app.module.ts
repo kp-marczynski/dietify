@@ -19,8 +19,8 @@ import { DietifyEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ErrorComponent } from './layouts';
-import {ChatboxModule} from "app/chatbox/chatbox.module";
-import {ChatboxComponent} from "app/chatbox/chatbox.component";
+import {ChatboxModule} from 'app/chatbox/chatbox.module';
+import {ChatboxComponent} from 'app/chatbox/chatbox.component';
 
 @NgModule({
     imports: [
