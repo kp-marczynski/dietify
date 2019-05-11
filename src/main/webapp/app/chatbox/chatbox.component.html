@@ -1,23 +1,24 @@
 <div class="chatbox-holder">
+    <div class="chatbox-avatar" (click)="isMinimized = !isMinimized" [ngClass]="{'chatbox-min':isMinimized,'chatbox-hidden':isClosed}">
+        <!--<img src="{{messages[0].userType}}"/>-->
+        <fa-icon [icon]="'robot'"></fa-icon>
+    </div>
     <div class="chatbox" id="chatbox" [ngClass]="{'chatbox-min':isMinimized,'chatbox-hidden':isClosed}">
-        <div class="chatbox-top">
-            <div class="chatbox-avatar">
-                <!--<img src="{{messages[0].userType}}"/>-->
-                <fa-icon [icon]="'robot'"></fa-icon>
-            </div>
+
+        <div class="chatbox-top" (click)="isMinimized = !isMinimized">
             <div class="chat-partner-name">
                 <a class="minus">Chatbot</a>
             </div>
-            <div class="chatbox-icons">
-                <button type="button" class="fa fa-minus minus btn btn-danger btn-sm" (click)="isMinimized = !isMinimized"><fa-icon [icon]="'minus'"></fa-icon></button>
-                <!--<button type="button" class="fa fa-times close" (click)="isClosed = !isClosed"><fa-icon [icon]="'times'"></fa-icon></button>-->
-            </div>
+            <!--<div class="chatbox-icons">-->
+                <!--<button type="button" class="fa fa-minus minus btn btn-danger btn-sm" (click)="isMinimized = !isMinimized"><fa-icon [icon]="'minus'"></fa-icon></button>-->
+                <!--&lt;!&ndash;<button type="button" class="fa fa-times close" (click)="isClosed = !isClosed"><fa-icon [icon]="'times'"></fa-icon></button>&ndash;&gt;-->
+            <!--</div>-->
         </div>
 
         <div class="chat-messages" #chatmessages id="chatmessages">
 
             <div class="message-box-holder" *ngFor="let message of messages; let index = index;" id="message{{index}}">
-                <div [className]="isBot(message.userType)?'message-box message-partner':'message-box'">
+                <div [className]="isBot(message.userType)?'message-box message-partner bg-secondary text-white':'message-box bg-primary text-white'" class="info">
                     {{message.content}}
                 </div>
             </div>
@@ -25,11 +26,8 @@
 
         <div class="chat-input-holder">
             <input type="text" class="chat-input" [(ngModel)]="newMessage.content" (keyup.enter)="sendMessage()"/>
-            <div class="chatbox-icons">
-                <button type="button" class="fa fa-microphone" (click)="speechRecognition()"><fa-icon [icon]="'microphone'"></fa-icon></button>
-
-            </div>
-            <button type="submit" class="message-send" id="message-send" (click)="sendMessage()">Send</button>
+            <button type="button" class="fa btn btn-danger btn-sm" (click)="speechRecognition()"><fa-icon [icon]="'microphone'"></fa-icon></button>
+            <button type="submit" class="fa btn btn-primary btn-sm" id="message-send" (click)="sendMessage()"><fa-icon [icon]="'chevron-circle-right'"></fa-icon></button>
         </div>
     </div>
 </div>

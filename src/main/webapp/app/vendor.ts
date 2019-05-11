@@ -45,7 +45,8 @@ import {
     faReceipt,
     faMinus,
     faMicrophone,
-    faRobot
+    faRobot,
+    faChevronCircleRight
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
@@ -89,4 +90,5 @@ library.add(faReceipt);
 library.add(faMinus);
 library.add(faMicrophone);
 library.add(faRobot);
+library.add(faChevronCircleRight);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

@@ -16,7 +16,7 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
 
     public newMessage: ChatMessage;
     public messages: ChatMessage[];
-    private isMinimized = false;
+    private isMinimized = true;
     private isClosed = false;
 
     @ViewChild('chatmessages', {read: ElementRef}) chatList: ElementRef;
@@ -45,11 +45,13 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
             this.dialogFlowService.getResponse(this.newMessage).subscribe((res: BasicDialogflowResponse) => {
                 console.log(res);
                 for (const message of res.result.fulfillment.messages) {
-                    this.messages.push(
-                        new ChatMessage(message.speech, UserType.BOT, res.timestamp)
-                    );
-                    this.eventFire(document.getElementById('message-send'), 'click');
-                    this.speechSynthesis(message.speech);
+                    if (message.speech) {
+                        this.messages.push(
+                            new ChatMessage(message.speech, UserType.BOT, res.timestamp)
+                        );
+                        this.eventFire(document.getElementById('message-send'), 'click');
+                        this.speechSynthesis(message.speech);
+                    }
                 }
             });
 
