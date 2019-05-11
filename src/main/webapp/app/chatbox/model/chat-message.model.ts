@@ -1,4 +1,4 @@
-import {UserType} from "app/chatbox/model/user-type.enum";
+import {UserType} from 'app/chatbox/model/user-type.enum';
 
 export class ChatMessage {
     content: string;
