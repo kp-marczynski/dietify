@@ -1,24 +1,35 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { IMeal } from 'app/shared/model/meal.model';
+import {IMeal} from 'app/shared/model/meal.model';
+import {IProduct} from 'app/shared/model/product.model';
+import {IHouseholdMeasure} from 'app/shared/model/household-measure.model';
 
 @Component({
     selector: 'jhi-meal-detail',
     templateUrl: './meal-detail.component.html'
 })
-export class MealDetailComponent implements OnInit {
-    meal: IMeal;
+export class MealDetailComponent {
+    @Input() meal: IMeal;
+    @Output() passEntry: EventEmitter<IMeal> = new EventEmitter();
 
-    constructor(protected activatedRoute: ActivatedRoute) {}
-
-    ngOnInit() {
-        this.activatedRoute.data.subscribe(({ meal }) => {
-            this.meal = meal;
-        });
+    constructor(protected activatedRoute: ActivatedRoute) {
     }
 
-    previousState() {
-        window.history.back();
+    getMeasureById(product: IProduct, householdMeasureId: number): IHouseholdMeasure {
+        return product.householdMeasures.find(measure => measure.id === householdMeasureId);
+    }
+
+    getMeasureDisplayDescription(product: IProduct, householdMeasureId: number): string {
+        const measure = this.getMeasureById(product, householdMeasureId);
+        if (measure) {
+            return measure.description;
+        } else {
+            return 'g';
+        }
+    }
+
+    passBack(meal: IMeal): void {
+        this.passEntry.emit(meal);
     }
 }

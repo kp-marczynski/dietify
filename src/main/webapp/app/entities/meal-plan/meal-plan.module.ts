@@ -1,20 +1,18 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 
 import {DietifySharedModule} from 'app/shared';
 import {
     MealPlanComponent,
-    MealPlanDetailComponent,
-    MealPlanUpdateComponent,
-    MealPlanDeletePopupComponent,
     MealPlanDeleteDialogComponent,
+    MealPlanDeletePopupComponent,
+    MealPlanDetailComponent,
+    mealPlanPopupRoute,
     mealPlanRoute,
-    mealPlanPopupRoute
+    MealPlanUpdateComponent
 } from './';
-import {ProductComponent} from 'app/entities/product';
-import {DietifyProductListModule} from 'app/entities/product/product-list.module';
-import {DietifyRecipeListModule} from 'app/entities/recipe/recipe-list.module';
-import {RecipeComponent} from 'app/entities/recipe';
+import {MealDetailComponent, MealUpdateComponent} from 'app/entities/meal';
+import {DietifyMealModule} from 'app/entities/meal/meal.module';
 
 const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
 
@@ -22,8 +20,8 @@ const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
     imports: [
         DietifySharedModule,
         RouterModule.forChild(ENTITY_STATES),
-        DietifyProductListModule,
-        DietifyRecipeListModule],
+        DietifyMealModule
+    ],
     declarations: [
         MealPlanComponent,
         MealPlanDetailComponent,
@@ -36,8 +34,8 @@ const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
         MealPlanUpdateComponent,
         MealPlanDeleteDialogComponent,
         MealPlanDeletePopupComponent,
-        ProductComponent,
-        RecipeComponent
+        MealUpdateComponent,
+        MealDetailComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -1,41 +1,85 @@
 <div class="card jh-card">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-meal-heading">Create or edit a Meal</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!meal.id">
-                    <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id"
-                        [(ngModel)]="meal.id" readonly />
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" for="field_ordinalNumber" ngbTooltip="Ordinal number of meal">Ordinal Number</label>
-                    <input type="number" class="form-control" name="ordinalNumber" id="field_ordinalNumber"
-                        [(ngModel)]="meal.ordinalNumber" required min="1" jhiMin="1"/>
-                    <div [hidden]="!(editForm.controls.ordinalNumber?.dirty && editForm.controls.ordinalNumber?.invalid)">
-                        <small class="form-text text-danger"
-                        [hidden]="!editForm.controls.ordinalNumber?.errors?.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.ordinalNumber?.errors?.min">
-                            This field should be at least 1.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.controls.ordinalNumber?.errors?.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+    <h2>Meal {{meal.ordinalNumber}}
+        <button type="button" id="save-entity" class="btn btn-danger" (click)="passBack(meal)">
+            <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span>Close</span>
+        </button>
+    </h2>
+
+    <h3>Products</h3>
+    <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(meal)">
+        <fa-icon [icon]="'plus'"></fa-icon>
+        <span class="d-none d-md-inline">Add</span>
+    </button>
+    <table>
+        <tr *ngFor="let mealProduct of meal.mealProducts; let last = last; let portionIndex = index; trackBy: customTrackBy">
+            <td>
+                            <span
+                                *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
+                <input *ngIf="!mealProduct.product" type="text" readonly class="form-control"
+                       name="portion{{portionIndex}}productHidden"
+                       [(ngModel)]="mealProduct.product" placeholder="Can't find product for id"
+                       [required]="mealProduct.productId"/>
+            </td>
+            <td>
+                <select class="form-control" *ngIf="mealProduct.product"
+                        name="portion{{portionIndex}}measureId"
+                        id="portion{{portionIndex}}measureId"
+                        [(ngModel)]="mealProduct.householdMeasureId">
+                    <option [ngValue]="null"></option>
+                    <option
+                        [ngValue]="measure.id === mealProduct.householdMeasureId ? mealProduct.householdMeasureId : measure.id"
+                        *ngFor="let measure of mealProduct.product.householdMeasures; trackBy: customTrackBy">{{measure.description}}</option>
+                </select>
+                <select class="form-control" *ngIf="!mealProduct.product"
+                        name="portion{{portionIndex}}measureIdEmpty"
+                        id="portion{{portionIndex}}measureIdEmpty"
+                        [(ngModel)]="mealProduct.householdMeasureId">
+                    <option [ngValue]="null"></option>
+                </select>
+            </td>
+            <td>
+                <input type="number" class="form-control"
+                       name="portion{{portionIndex}}amount"
+                       [(ngModel)]="mealProduct.amount"
+                       [required]="mealProduct.productId"
+                       jhiMin="0.00001" placeholder="Amount"/>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm"
+                        (click)="removeIngredientFromMeal(meal, mealProduct)">
+                    <fa-icon [icon]="'times'"></fa-icon>
                 </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </td>
+        </tr>
+    </table>
+    <h3>Recipes</h3>
+    <button type="button" class="btn btn-info btn-sm" (click)="addRecipe(meal)">
+        <fa-icon [icon]="'plus'"></fa-icon>
+        <span class="d-none d-md-inline">Add</span>
+    </button>
+    <table>
+        <tr *ngFor="let mealRecipe of meal.mealRecipes; let last = last; let portionIndex = index; trackBy: customTrackBy">
+            <td>
+                            <span
+                                *ngIf="mealRecipe.recipe">{{mealRecipe.recipe ? mealRecipe.recipe.name : "Can't find recipe for id"}}</span>
+                <input *ngIf="!mealRecipe.recipe" type="text" readonly class="form-control"
+                       name="recipePortion{{portionIndex}}productHidden"
+                       [(ngModel)]="mealRecipe.recipe" placeholder="Can't find product for id"
+                       [required]="mealRecipe.recipeId"/>
+            </td>
+            <td>
+                <input type="number" class="form-control"
+                       name="recipePortion{{portionIndex}}amount"
+                       [(ngModel)]="mealRecipe.amount"
+                       [required]="mealRecipe.recipeId"
+                       jhiMin="0.00001" placeholder="Amount"/>
+            </td>
+            <td>
+                <button type="button" class="btn btn-danger btn-sm"
+                        (click)="removeRecipeFromMeal(meal, mealRecipe)">
+                    <fa-icon [icon]="'times'"></fa-icon>
                 </button>
-            </div>
-        </form>
-    </div>
+            </td>
+        </tr>
+    </table>
 </div>
