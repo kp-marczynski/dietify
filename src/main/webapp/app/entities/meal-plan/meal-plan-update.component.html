@@ -5,8 +5,9 @@
             <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="changeCurrentTab(tab)">{{tab}}</a>
         </li>
     </ul>
-    <div class="col-8" *ngIf="currentTab=='SETTINGS'">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <div class="col-8" *ngIf="currentTab=='SETTINGS'">
+
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!mealPlan.id">
@@ -280,75 +281,76 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     </tr>
                 </table>
             </div>
-        </form>
-    </div>
+        </div>
 
-    <div class="container-fluid" *ngIf="currentTab == 'CALENDAR'">
-        <header>
-            <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
-                <h5 class="col-sm p-1 text-center"></h5>
-                <h5 class="col-sm p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
-                    Meal {{meal.ordinalNumber}}</h5>
-            </div>
-        </header>
-        <div class="row border border-right-0 border-bottom-0" *ngFor="let day of mealPlan.days">
-            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-dark-app text-white">
-                <h5 class="col-sm p-1 text-center">Day {{day.ordinalNumber}}</h5>
-            </div>
-            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate " *ngFor="let meal of day.meals">
-                <button type="button"
-                        (click)="editMeal(meal)"
-                        class="btn btn-primary btn-sm">
-                    <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                    <span class="d-none d-md-inline">Edit</span>
-                </button>
-                <h5 class="row align-items-center">
-                    <small class="col d-sm-none text-center text-muted">Meal {{meal.ordinalNumber}}</small>
-                </h5>
-                <h5 class="row align-items-center" *ngIf="meal.mealRecipes && meal.mealRecipes.length > 0">
-                    <span class="col-1">Recipes</span>
-                </h5>
-                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
-                   title="{{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}"
-                   *ngFor="let recipe of meal.mealRecipes"
-                   routerLink="/recipe/{{recipe.recipeId}}/view">
+        <div class="container-fluid" *ngIf="currentTab == 'CALENDAR'">
+            <header>
+                <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
+                    <h5 class="col-sm p-1 text-center"></h5>
+                    <h5 class="col-sm p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
+                        Meal {{meal.ordinalNumber}}</h5>
+                </div>
+            </header>
+            <div class="row border border-right-0 border-bottom-0" *ngFor="let day of mealPlan.days">
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-dark-app text-white">
+                    <h5 class="col-sm p-1 text-center">Day {{day.ordinalNumber}}</h5>
+                </div>
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate "
+                     *ngFor="let meal of day.meals">
+                    <button type="button"
+                            (click)="editMeal(meal)"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                        <span class="d-none d-md-inline">Edit</span>
+                    </button>
+                    <h5 class="row align-items-center">
+                        <small class="col d-sm-none text-center text-muted">Meal {{meal.ordinalNumber}}</small>
+                    </h5>
+                    <h5 class="row align-items-center" *ngIf="meal.mealRecipes && meal.mealRecipes.length > 0">
+                        <span class="col-1">Recipes</span>
+                    </h5>
+                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
+                       title="{{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}"
+                       *ngFor="let recipe of meal.mealRecipes"
+                       routerLink="/recipe/{{recipe.recipeId}}/view">
                     <span
                         class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{recipe.amount}}
                         x g</span>
-                    {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}
-                </a>
-                <h5 class="row align-items-center" *ngIf="meal.mealProducts && meal.mealProducts.length > 0">
-                    <span class="col-1">Products</span>
-                </h5>
-                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
-                   title="{{product.product ? product.product.description : product.productId}}"
-                   *ngFor="let product of meal.mealProducts"
-                   routerLink="/product/{{product.productId}}/view">
+                        {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}
+                    </a>
+                    <h5 class="row align-items-center" *ngIf="meal.mealProducts && meal.mealProducts.length > 0">
+                        <span class="col-1">Products</span>
+                    </h5>
+                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
+                       title="{{product.product ? product.product.description : product.productId}}"
+                       *ngFor="let product of meal.mealProducts"
+                       routerLink="/product/{{product.productId}}/view">
                     <span
                         class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{product.amount}}
                         x {{product.householdMeasureDescription ? product.householdMeasureDescription : 'g'}}</span>
-                    {{product.product ? product.product.description : product.productId}}
-                </a>
+                        {{product.product ? product.product.description : product.productId}}
+                    </a>
+                </div>
             </div>
+            <div class="w-100"></div>
         </div>
-        <div class="w-100"></div>
-    </div>
-    <div>
-        <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
-        </button>
-        <button type="button" id="next-tab" class="btn btn-info" (click)="changeCurrentTab('CALENDAR')"
-                *ngIf="currentTab == 'SETTINGS'">
-            <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span>Next</span>
-        </button>
-        <button type="button" id="previous-tab" class="btn btn-info" (click)="changeCurrentTab('SETTINGS')"
-                *ngIf="currentTab == 'CALENDAR'">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Previous</span>
-        </button>
-        <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                class="btn btn-primary">
-            <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-        </button>
-    </div>
+        <div>
+            <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+            </button>
+            <button type="button" id="next-tab" class="btn btn-info" (click)="changeCurrentTab('CALENDAR')"
+                    *ngIf="currentTab == 'SETTINGS'">
+                <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span>Next</span>
+            </button>
+            <button type="button" id="previous-tab" class="btn btn-info" (click)="changeCurrentTab('SETTINGS')"
+                    *ngIf="currentTab == 'CALENDAR'">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Previous</span>
+            </button>
+            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </button>
+        </div>
+    </form>
 </div>
 
