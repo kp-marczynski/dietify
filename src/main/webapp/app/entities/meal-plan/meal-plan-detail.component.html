@@ -2,7 +2,7 @@
     <h2><span>Meal Plan</span> {{mealPlan.id}}</h2>
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let tab of getTabs()">
-            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="currentTab=tab">{{tab}}</a>
+            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="changeCurrentTab(tab)">{{tab}}</a>
         </li>
     </ul>
         <div *ngIf="mealPlan && currentTab=='SETTINGS'">
@@ -74,7 +74,7 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
             </button>
         </div>
-    <div class="container-fluid"  *ngIf="currentTab=='MEAL PLAN GRID'">
+    <div class="container-fluid"  *ngIf="currentTab=='CALENDAR'">
         <header>
             <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
                 <h5 class="col-sm p-1 text-center"></h5>

@@ -90,4 +90,8 @@ export class MealPlanDetailComponent implements OnInit {
     getTabs() {
         return Object.values(MealPlanTab);
     }
+
+    changeCurrentTab(tabName: string) {
+        this.currentTab = MealPlanTab[tabName];
+    }
 }

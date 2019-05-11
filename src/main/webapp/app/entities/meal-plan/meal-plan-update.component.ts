@@ -93,6 +93,21 @@ export class MealPlanUpdateComponent implements OnInit {
 
     numberOfMealsPerDayChanged() {
         if (this.mealPlan.numberOfMealsPerDay && this.mealPlan.numberOfMealsPerDay > 0) {
+            if (!this.mealPlan.mealDefinitions) {
+                this.mealPlan.mealDefinitions = [];
+            }
+            if (this.mealPlan.mealDefinitions.length !== this.mealPlan.numberOfMealsPerDay) {
+                const temp: IMealDefinition[] = [];
+                for (let i = 0; i < this.mealPlan.numberOfMealsPerDay; ++i) {
+                    if (i < this.mealPlan.mealDefinitions.length) {
+                        temp.push(this.mealPlan.mealDefinitions[i]);
+                    } else {
+                        temp.push(new MealDefinition(null, i + 1, null, null, null));
+                    }
+                }
+                this.mealPlan.mealDefinitions = temp;
+            }
+
             if (this.mealPlan.numberOfDays) {
                 if (!this.mealPlan.days || this.mealPlan.days.length !== this.mealPlan.numberOfDays) {
                     this.numberOfDaysChanged();
@@ -112,20 +127,6 @@ export class MealPlanUpdateComponent implements OnInit {
                             }
                             day.meals = temp;
                         }
-                    }
-                    if (!this.mealPlan.mealDefinitions) {
-                        this.mealPlan.mealDefinitions = [];
-                    }
-                    if (this.mealPlan.mealDefinitions.length !== this.mealPlan.numberOfMealsPerDay) {
-                        const temp: IMealDefinition[] = [];
-                        for (let i = 0; i < this.mealPlan.numberOfMealsPerDay; ++i) {
-                            if (i < this.mealPlan.mealDefinitions.length) {
-                                temp.push(this.mealPlan.mealDefinitions[i]);
-                            } else {
-                                temp.push(new MealDefinition(null, i + 1, 1, '12:00', 10));
-                            }
-                        }
-                        this.mealPlan.mealDefinitions = temp;
                     }
                 }
             }
@@ -181,5 +182,9 @@ export class MealPlanUpdateComponent implements OnInit {
 
     getTabs() {
         return Object.values(MealPlanTab);
+    }
+
+    changeCurrentTab(tabName: string) {
+        this.currentTab = MealPlanTab[tabName];
     }
 }

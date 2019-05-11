@@ -2,7 +2,7 @@
     <h2 id="jhi-meal-plan-heading">Create or edit a Meal Plan</h2>
     <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let tab of getTabs()">
-            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="currentTab=tab">{{tab}}</a>
+            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="changeCurrentTab(tab)">{{tab}}</a>
         </li>
     </ul>
     <div class="col-8" *ngIf="currentTab=='SETTINGS'">
@@ -256,10 +256,34 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     </small>
                 </div>
             </div>
+            <div class="form-group">
+                <label>Meals Definitions</label>
+                <table>
+                    <tr *ngFor="let mealDefinition of mealPlan.mealDefinitions; let last = last; let index = index">
+                        <td>{{mealDefinition.ordinalNumber}}</td>
+                        <td>
+                            <input type="text" class="form-control" name="mealType{{index}}"
+                                   [(ngModel)]="mealDefinition.mealTypeId" required
+                                   placeholder="Meal type"/>
+                        </td>
+                        <td>
+                            <input type="time" class="form-control" name="timeOfMeal{{index}}"
+                                   [(ngModel)]="mealDefinition.timeOfMeal"
+                                   required placeholder="Time of meal"/>
+                        </td>
+                        <td>
+                            <input type="number" class="form-control" name="householdMeasureGramsWeight{{index}}"
+                                   [(ngModel)]="mealDefinition.percentOfEnergy"
+                                   required
+                                   jhiMin="0" jhiMax="100" placeholder="Percent of daily energy"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </form>
     </div>
 
-    <div class="container-fluid" *ngIf="currentTab == 'MEAL PLAN GRID'">
+    <div class="container-fluid" *ngIf="currentTab == 'CALENDAR'">
         <header>
             <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
                 <h5 class="col-sm p-1 text-center"></h5>
@@ -313,12 +337,12 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
         <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
             <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
         </button>
-        <button type="button" id="next-tab" class="btn btn-info" (click)="currentTab = 'MEAL PLAN GRID'"
+        <button type="button" id="next-tab" class="btn btn-info" (click)="changeCurrentTab('CALENDAR')"
                 *ngIf="currentTab == 'SETTINGS'">
             <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span>Next</span>
         </button>
-        <button type="button" id="previous-tab" class="btn btn-info" (click)="currentTab = 'SETTINGS'"
-                *ngIf="currentTab == 'MEAL PLAN GRID'">
+        <button type="button" id="previous-tab" class="btn btn-info" (click)="changeCurrentTab('SETTINGS')"
+                *ngIf="currentTab == 'CALENDAR'">
             <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Previous</span>
         </button>
         <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
