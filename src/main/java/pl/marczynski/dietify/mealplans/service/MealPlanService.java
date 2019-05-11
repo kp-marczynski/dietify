@@ -1,9 +1,9 @@
 package pl.marczynski.dietify.mealplans.service;
 
-import pl.marczynski.dietify.mealplans.domain.MealPlan;
-
+import javassist.NotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
 
 import java.util.Optional;
 
@@ -42,5 +42,5 @@ public interface MealPlanService {
      *
      * @param id the id of the entity
      */
-    void delete(Long id);
+    void delete(Long id) throws NotFoundException;
 }
