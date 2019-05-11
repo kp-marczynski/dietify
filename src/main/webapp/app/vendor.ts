@@ -3,6 +3,8 @@
 import '../content/css/vendor.css';
 import {library} from '@fortawesome/fontawesome-svg-core';
 import {
+    faArrowCircleDown,
+    faArrowCircleUp,
     faArrowLeft,
     faArrowRight,
     faAsterisk,
@@ -12,6 +14,7 @@ import {
     faBell,
     faBook,
     faCalendarAlt,
+    faCheckCircle,
     faClock,
     faCloud,
     faEye,
@@ -40,7 +43,7 @@ import {
     faUser,
     faUserPlus,
     faUtensils,
-    faWrench,
+    faWrench
 } from '@fortawesome/free-solid-svg-icons';
 
 // Imports all fontawesome core and solid icons
@@ -56,6 +59,9 @@ library.add(faBan);
 library.add(faTimes);
 library.add(faArrowLeft);
 library.add(faArrowRight);
+library.add(faArrowCircleUp);
+library.add(faArrowCircleDown);
+library.add(faCheckCircle);
 library.add(faSave);
 library.add(faPlus);
 library.add(faPencilAlt);
