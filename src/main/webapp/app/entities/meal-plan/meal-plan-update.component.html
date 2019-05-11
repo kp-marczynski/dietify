@@ -263,17 +263,21 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     <tr *ngFor="let mealDefinition of mealPlan.mealDefinitions; let last = last; let index = index">
                         <td>{{mealDefinition.ordinalNumber}}</td>
                         <td>
-                            <input type="text" class="form-control" name="mealType{{index}}"
-                                   [(ngModel)]="mealDefinition.mealTypeId" required
-                                   placeholder="Meal type"/>
+                            <select class="form-control" name="mealType{{index}}" id="mealType{{index}}"
+                                    [(ngModel)]="mealDefinition.mealTypeId" required>
+                                <option id="mealType{{index}}option{{mealType.id}}"
+                                        [ngValue]="mealType.id === mealDefinition.mealTypeId ? mealDefinition.mealTypeId : mealType.id"
+                                        *ngFor="let mealType of mealTypes; trackBy: customTrackBy">{{mealType.nameEnglish}}</option>
+                            </select>
                         </td>
                         <td>
-                            <input type="time" class="form-control" name="timeOfMeal{{index}}"
+                            <input type="time" class="form-control" name="timeOfMeal{{index}}" id="timeOfMeal{{index}}"
                                    [(ngModel)]="mealDefinition.timeOfMeal"
                                    required placeholder="Time of meal"/>
                         </td>
                         <td>
-                            <input type="number" class="form-control" name="householdMeasureGramsWeight{{index}}"
+                            <input type="number" class="form-control" name="percentEnergy{{index}}"
+                                   id="percentEnergy{{index}}"
                                    [(ngModel)]="mealDefinition.percentOfEnergy"
                                    required
                                    jhiMin="0" jhiMax="100" placeholder="Percent of daily energy"/>

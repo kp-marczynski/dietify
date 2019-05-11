@@ -16,6 +16,11 @@ import {IMealRecipe} from 'app/shared/model/meal-recipe.model';
 import {IMealDefinition, MealDefinition} from 'app/shared/model/meal-definition.model';
 import {MealUpdateComponent} from 'app/entities/meal';
 import {MealPlanTab} from 'app/shared/model/enum/meal-plan-tab.enum';
+import {MealTypeService} from 'app/entities/meal-type';
+import {MealType} from 'app/shared/model/meal-type.model';
+import {filter, map} from 'rxjs/operators';
+import {ILanguage} from 'app/shared/model/language.model';
+import {JhiAlertService} from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -27,12 +32,16 @@ export class MealPlanUpdateComponent implements OnInit {
     creationDateDp: any;
     currentTab: MealPlanTab = MealPlanTab.SETTINGS;
 
+    mealTypes: MealType[] = [];
+
     constructor(
         protected mealPlanService: MealPlanService,
         protected activatedRoute: ActivatedRoute,
         protected modalService: NgbModal,
         protected productService: ProductService,
-        protected recipeService: RecipeService
+        protected recipeService: RecipeService,
+        protected mealTypeService: MealTypeService,
+        protected jhiAlertService: JhiAlertService
     ) {
     }
 
@@ -43,10 +52,30 @@ export class MealPlanUpdateComponent implements OnInit {
             this.findProductsAndRecipes();
             this.numberOfDaysChanged();
         });
+        this.mealTypeService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<ILanguage[]>) => res.ok),
+                map((res: HttpResponse<ILanguage[]>) => res.body)
+            )
+            .subscribe(
+                (res: ILanguage[]) => {
+                    this.mealTypes = res;
+                },
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
+    }
+
+    customTrackBy(index: number, obj: any): any {
+        return index;
     }
 
     previousState() {
         window.history.back();
+    }
+
+    protected onError(errorMessage: string) {
+        this.jhiAlertService.error(errorMessage, null, null);
     }
 
     save() {
