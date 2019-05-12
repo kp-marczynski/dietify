@@ -293,7 +293,7 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     <h5 class="col-sm p-1 text-center"></h5>
                     <h5 class="col-sm p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
                         Meal {{meal.ordinalNumber}}</h5>
-                    <h5 class="col-sm p-1 text-center"></h5>
+                    <h5 class="col-sm p-1 text-center">Summary</h5>
                 </div>
             </header>
             <div class="row border border-right-0 border-bottom-0" *ngFor="let day of mealPlan.days">
@@ -336,7 +336,7 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                         {{product.product ? product.product.description : product.productId}}
                     </a>
                 </div>
-                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate ">
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate">
                     <div>
                         <h5>Energy</h5>
                         <div class="btn btn-success">

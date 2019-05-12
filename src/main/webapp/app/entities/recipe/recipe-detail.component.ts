@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils } from 'ng-jhipster';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {JhiDataUtils} from 'ng-jhipster';
 
-import { IRecipe } from 'app/shared/model/recipe.model';
-import { IProduct } from 'app/shared/model/product.model';
-import { ProductService } from 'app/entities/product';
-import { HttpResponse } from '@angular/common/http';
-import { IHouseholdMeasure } from 'app/shared/model/household-measure.model';
+import {IRecipe} from 'app/shared/model/recipe.model';
+import {IProduct} from 'app/shared/model/product.model';
+import {ProductService} from 'app/entities/product';
+import {HttpResponse} from '@angular/common/http';
+import {IHouseholdMeasure} from 'app/shared/model/household-measure.model';
+import {IBasicNutritionResponse} from 'app/shared/model/basic-nutrition-response.model';
+import {BasicNutritionRequest} from 'app/shared/model/basic-nutrition-request.model';
 
 @Component({
     selector: 'jhi-recipe-detail',
@@ -18,18 +20,24 @@ export class RecipeDetailComponent implements OnInit {
     products: IProduct[] = [];
     productCount = 0;
 
-    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, protected productService: ProductService) {}
+    basicNutrition: IBasicNutritionResponse;
+
+    constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, protected productService: ProductService) {
+    }
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ recipe }) => {
+        this.activatedRoute.data.subscribe(({recipe}) => {
             this.recipe = recipe;
-
+            const nutritionRequests = [];
             for (const section of this.recipe.recipeSections) {
                 this.productCount += section.productPortions.length;
                 for (const portion of section.productPortions) {
+                    nutritionRequests.push(new BasicNutritionRequest(portion.productId, portion.amount, portion.householdMeasureId));
                     this.productService.find(portion.productId).subscribe((res: HttpResponse<IProduct>) => this.products.push(res.body));
                 }
             }
+            this.productService.getBasicNutrtions(nutritionRequests)
+                .subscribe((res: HttpResponse<IBasicNutritionResponse>) => this.basicNutrition = res.body);
         });
     }
 
@@ -53,23 +61,23 @@ export class RecipeDetailComponent implements OnInit {
         return this.getProductById(productId).householdMeasures.find(measure => measure.id === householdMeasureId);
     }
 
-    calcNutrition(nutritionTagname: string) {
-        let result = 0;
-        for (const section of this.recipe.recipeSections) {
-            for (const portion of section.productPortions) {
-                const product = this.getProductById(portion.productId);
-                const nutritionValue = product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname)
-                    .nutritionValue;
-                if (portion.householdMeasureId) {
-                    const measure = this.getMeasureById(portion.productId, portion.householdMeasureId);
-                    result += nutritionValue * portion.amount * measure.gramsWeight;
-                } else {
-                    result += nutritionValue * portion.amount;
-                }
-            }
-        }
-        return result.toFixed(2);
-    }
+    // calcNutrition(nutritionTagname: string) {
+    //     let result = 0;
+    //     for (const section of this.recipe.recipeSections) {
+    //         for (const portion of section.productPortions) {
+    //             const product = this.getProductById(portion.productId);
+    //             const nutritionValue = product.nutritionData.find(data => data.nutritionDefinition.tagname === nutritionTagname)
+    //                 .nutritionValue;
+    //             if (portion.householdMeasureId) {
+    //                 const measure = this.getMeasureById(portion.productId, portion.householdMeasureId);
+    //                 result += nutritionValue * portion.amount * measure.gramsWeight;
+    //             } else {
+    //                 result += nutritionValue * portion.amount;
+    //             }
+    //         }
+    //     }
+    //     return result.toFixed(2);
+    // }
 
     getMeasureDisplayDescription(productId: number, householdMeasureId: number): string {
         const measure = this.getMeasureById(productId, householdMeasureId);

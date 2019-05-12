@@ -5,81 +5,83 @@
             <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="changeCurrentTab(tab)">{{tab}}</a>
         </li>
     </ul>
-        <div *ngIf="mealPlan && currentTab=='SETTINGS'">
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span ngbTooltip="Id of author of the plan">Author Id</span></dt>
-                <dd>
-                    <span>{{mealPlan.authorId}}</span>
-                </dd>
-                <dt><span ngbTooltip="Creation date of the plan">Creation Date</span></dt>
-                <dd>
-                    <span>{{mealPlan.creationDate}}</span>
-                </dd>
-                <dt><span ngbTooltip="Plan name">Name</span></dt>
-                <dd>
-                    <span>{{mealPlan.name}}</span>
-                </dd>
-                <dt><span ngbTooltip="Flag specifying if meal plan is visible in author&#39;s list of meal plans">Is Visible</span>
-                </dt>
-                <dd>
-                    <span>{{mealPlan.isVisible}}</span>
-                </dd>
-                <dt><span ngbTooltip="Flag specifying if meal plan is editable">Is Locked</span></dt>
-                <dd>
-                    <span>{{mealPlan.isLocked}}</span>
-                </dd>
-                <dt><span ngbTooltip="Language of meal plan">Language Id</span></dt>
-                <dd>
-                    <span>{{mealPlan.languageId}}</span>
-                </dd>
-                <dt><span ngbTooltip="Number of days in plan">Number Of Days</span></dt>
-                <dd>
-                    <span>{{mealPlan.numberOfDays}}</span>
-                </dd>
-                <dt><span ngbTooltip="Number of meals per day">Number Of Meals Per Day</span></dt>
-                <dd>
-                    <span>{{mealPlan.numberOfMealsPerDay}}</span>
-                </dd>
-                <dt><span ngbTooltip="Amount of total energy per day in kcal">Total Daily Energy Kcal</span></dt>
-                <dd>
-                    <span>{{mealPlan.totalDailyEnergyKcal}}</span>
-                </dd>
-                <dt><span ngbTooltip="Percent of proteins in total daily energy.
+    <div *ngIf="mealPlan && currentTab=='SETTINGS'">
+        <jhi-alert-error></jhi-alert-error>
+        <dl class="row-md jh-entity-details">
+            <dt><span ngbTooltip="Id of author of the plan">Author Id</span></dt>
+            <dd>
+                <span>{{mealPlan.authorId}}</span>
+            </dd>
+            <dt><span ngbTooltip="Creation date of the plan">Creation Date</span></dt>
+            <dd>
+                <span>{{mealPlan.creationDate}}</span>
+            </dd>
+            <dt><span ngbTooltip="Plan name">Name</span></dt>
+            <dd>
+                <span>{{mealPlan.name}}</span>
+            </dd>
+            <dt><span
+                ngbTooltip="Flag specifying if meal plan is visible in author&#39;s list of meal plans">Is Visible</span>
+            </dt>
+            <dd>
+                <span>{{mealPlan.isVisible}}</span>
+            </dd>
+            <dt><span ngbTooltip="Flag specifying if meal plan is editable">Is Locked</span></dt>
+            <dd>
+                <span>{{mealPlan.isLocked}}</span>
+            </dd>
+            <dt><span ngbTooltip="Language of meal plan">Language Id</span></dt>
+            <dd>
+                <span>{{mealPlan.languageId}}</span>
+            </dd>
+            <dt><span ngbTooltip="Number of days in plan">Number Of Days</span></dt>
+            <dd>
+                <span>{{mealPlan.numberOfDays}}</span>
+            </dd>
+            <dt><span ngbTooltip="Number of meals per day">Number Of Meals Per Day</span></dt>
+            <dd>
+                <span>{{mealPlan.numberOfMealsPerDay}}</span>
+            </dd>
+            <dt><span ngbTooltip="Amount of total energy per day in kcal">Total Daily Energy Kcal</span></dt>
+            <dd>
+                <span>{{mealPlan.totalDailyEnergyKcal}}</span>
+            </dd>
+            <dt><span ngbTooltip="Percent of proteins in total daily energy.
 Sum of percents of protein, fat and carbohydrates must not be larger than 100">Percent Of Protein</span></dt>
-                <dd>
-                    <span>{{mealPlan.percentOfProtein}}</span>
-                </dd>
-                <dt><span ngbTooltip="Percent of fats in total daily energy.
+            <dd>
+                <span>{{mealPlan.percentOfProtein}}</span>
+            </dd>
+            <dt><span ngbTooltip="Percent of fats in total daily energy.
 Sum of percents of protein, fat and carbohydrates must not be larger than 100">Percent Of Fat</span></dt>
-                <dd>
-                    <span>{{mealPlan.percentOfFat}}</span>
-                </dd>
-                <dt><span ngbTooltip="Percent of carbohydrates in total daily energy.
+            <dd>
+                <span>{{mealPlan.percentOfFat}}</span>
+            </dd>
+            <dt><span ngbTooltip="Percent of carbohydrates in total daily energy.
 Sum of percents of protein, fat and carbohydrates must not be larger than 100">Percent Of Carbohydrates</span></dt>
-                <dd>
-                    <span>{{mealPlan.percentOfCarbohydrates}}</span>
-                </dd>
-            </dl>
+            <dd>
+                <span>{{mealPlan.percentOfCarbohydrates}}</span>
+            </dd>
+        </dl>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
-            </button>
+        <button type="submit"
+                (click)="previousState()"
+                class="btn btn-info">
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+        </button>
 
-            <button type="button"
-                    [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
-            </button>
-        </div>
-    <div class="container-fluid"  *ngIf="currentTab=='CALENDAR'">
+        <button type="button"
+                [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
+                class="btn btn-primary">
+            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+        </button>
+    </div>
+    <div class="container-fluid" *ngIf="currentTab=='CALENDAR'">
         <header>
             <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
                 <h5 class="col-sm p-1 text-center"></h5>
                 <h5 class="col-sm p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
                     Meal {{meal.ordinalNumber}}</h5>
+                <h5 class="col-sm p-1 text-center">Summary</h5>
             </div>
         </header>
         <div class="row border border-right-0 border-bottom-0" *ngFor="let day of mealPlan.days">
@@ -120,6 +122,52 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                         x {{product.householdMeasureDescription ? product.householdMeasureDescription : 'g'}}</span>
                     {{product.product ? product.product.description : product.productId}}
                 </a>
+            </div>
+            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate"
+                 *ngFor="let nutritionData of [getNutritionData(day)]">
+                <div>
+                    <h5>Energy</h5>
+                    <div class="btn btn-sm {{getSummaryButtonClass(nutritionData.energy,getExpectedDailyEnergy())}}">
+                        <fa-icon icon="{{getSummaryIcon(nutritionData.energy,getExpectedDailyEnergy())}}"></fa-icon>&nbsp;
+                        <span>{{calcPercent(nutritionData.energy, getExpectedDailyEnergy())}}%</span><br/>
+                        <span>
+                            {{nutritionData.energy}}/{{getExpectedDailyEnergy()}}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <h5>Carbohydrates</h5>
+                    <div
+                        class="btn btn-sm {{getSummaryButtonClass(nutritionData.carbohydrates,getExpectedDailyCarbohydrates())}}">
+                        <fa-icon
+                            icon="{{getSummaryIcon(nutritionData.carbohydrates,getExpectedDailyCarbohydrates())}}"></fa-icon>&nbsp;
+                        <span>{{calcPercent(nutritionData.carbohydrates, getExpectedDailyCarbohydrates())}}%</span><br/>
+                        <span>
+                            {{nutritionData.carbohydrates}}
+                            /{{getExpectedDailyCarbohydrates()}}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <h5>Fat</h5>
+                    <div class="btn btn-sm {{getSummaryButtonClass(nutritionData.fat,getExpectedDailyFat())}}">
+                        <fa-icon icon="{{getSummaryIcon(nutritionData.fat,getExpectedDailyFat())}}"></fa-icon>&nbsp;
+                        <span>{{calcPercent(nutritionData.fat, getExpectedDailyFat())}}%</span><br/>
+                        <span>
+                            {{nutritionData.fat}}/{{getExpectedDailyFat()}}
+                        </span>
+                    </div>
+                </div>
+                <div>
+                    <h5>Protein</h5>
+                    <div class="btn btn-sm {{getSummaryButtonClass(nutritionData.protein,getExpectedDailyProtein())}}">
+                        <fa-icon icon="{{getSummaryIcon(nutritionData.protein,getExpectedDailyProtein())}}"></fa-icon>&nbsp;
+                        <span>{{calcPercent(nutritionData.protein, getExpectedDailyProtein())}}%</span><br/>
+                        <span>
+                            {{nutritionData.protein}}/{{getExpectedDailyProtein()}}
+                        </span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="w-100"></div>
