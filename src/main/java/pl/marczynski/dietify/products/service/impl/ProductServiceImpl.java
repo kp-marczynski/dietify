@@ -170,7 +170,7 @@ public class ProductServiceImpl implements ProductService {
                     .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("PROCNT"))
                     .findFirst().orElse(new NutritionData()).getNutritionValue();
                 Double fat = product.get().getNutritionData().stream()
-                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("Fat"))
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("FAT"))
                     .findFirst().orElse(new NutritionData()).getNutritionValue();
                 Double weight = nutritionRequest.getAmount().doubleValue();
                 if (nutritionRequest.getHouseholdMeasureId() != null) {
