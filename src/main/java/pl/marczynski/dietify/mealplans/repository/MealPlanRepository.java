@@ -1,9 +1,11 @@
 package pl.marczynski.dietify.mealplans.repository;
 
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import pl.marczynski.dietify.mealplans.domain.MealPlan;
-import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
 
 import java.util.Optional;
 
@@ -14,6 +16,9 @@ import java.util.Optional;
 @SuppressWarnings("unused")
 @Repository
 public interface MealPlanRepository extends JpaRepository<MealPlan, Long> {
+    String MEALPLAN_EAGER_BY_ID_CACHE = "mealplanEagerById";
+
+    @Cacheable(cacheNames = MEALPLAN_EAGER_BY_ID_CACHE)
     @Query("select mealPlan from MealPlan mealPlan " +
         "left join fetch mealPlan.mealDefinitions " +
         "left join fetch mealPlan.tagsGoodFors " +

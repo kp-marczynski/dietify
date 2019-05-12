@@ -1,7 +1,13 @@
 <div class="card jh-card">
-    <div class="col-8">
-        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
-            <h2 id="jhi-meal-plan-heading">Create or edit a Meal Plan</h2>
+    <h2 id="jhi-meal-plan-heading">Create or edit a Meal Plan</h2>
+    <ul class="nav nav-tabs">
+        <li class="nav-item" *ngFor="let tab of getTabs()">
+            <a class="nav-link" [ngClass]="{'active': tab == currentTab}" (click)="changeCurrentTab(tab)">{{tab}}</a>
+        </li>
+    </ul>
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+        <div class="col-8" *ngIf="currentTab=='SETTINGS'">
+
             <div>
                 <jhi-alert-error></jhi-alert-error>
                 <div class="form-group" [hidden]="!mealPlan.id">
@@ -251,104 +257,121 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     </small>
                 </div>
             </div>
-            <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
-                </button>
-                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
-                        class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
-                </button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div *ngIf="mealPlan.numberOfDays && mealPlan.days && mealPlan.days.length === mealPlan.numberOfDays">
-    <h2 class="text-center">Days</h2>
-    <div *ngFor="let day of mealPlan.days; let dayIndex = index;">
-        <h2 class="text-center">{{day.ordinalNumber}}</h2>
-        <div *ngIf="mealPlan.numberOfMealsPerDay && day.meals && day.meals.length === mealPlan.numberOfMealsPerDay">
-            <div *ngFor="let meal of day.meals; let mealIndex = index;" class="jh-card card">
-                <h2>Meal {{meal.ordinalNumber}}</h2>
-                <h3>Products</h3>
-                <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(meal)">
-                    <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="d-none d-md-inline">Add</span>
-                </button>
+            <div class="form-group">
+                <label>Meals Definitions</label>
                 <table>
-                    <tr *ngFor="let mealProduct of meal.mealProducts; let last = last; let portionIndex = index; trackBy: customTrackBy">
+                    <tr *ngFor="let mealDefinition of mealPlan.mealDefinitions; let last = last; let index = index">
+                        <td>{{mealDefinition.ordinalNumber}}</td>
                         <td>
-                            <span
-                                *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
-                            <input *ngIf="!mealProduct.product" type="text" readonly class="form-control"
-                                   name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}productHidden"
-                                   [(ngModel)]="mealProduct.product" placeholder="Can't find product for id"
-                                   [required]="mealProduct.productId"/>
-                        </td>
-                        <td>
-                            <select class="form-control" *ngIf="mealProduct.product"
-                                    name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureId"
-                                    id="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureId"
-                                    [(ngModel)]="mealProduct.householdMeasureId">
-                                <option [ngValue]="null"></option>
-                                <option
-                                    [ngValue]="measure.id === mealProduct.householdMeasureId ? mealProduct.householdMeasureId : measure.id"
-                                    *ngFor="let measure of mealProduct.product.householdMeasures; trackBy: customTrackBy">{{measure.description}}</option>
-                            </select>
-                            <select class="form-control" *ngIf="!mealProduct.product"
-                                    name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureIdEmpty"
-                                    id="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}measureIdEmpty"
-                                    [(ngModel)]="mealProduct.householdMeasureId">
-                                <option [ngValue]="null"></option>
+                            <select class="form-control" name="mealType{{index}}" id="mealType{{index}}"
+                                    [(ngModel)]="mealDefinition.mealTypeId" required>
+                                <option id="mealType{{index}}option{{mealType.id}}"
+                                        [ngValue]="mealType.id === mealDefinition.mealTypeId ? mealDefinition.mealTypeId : mealType.id"
+                                        *ngFor="let mealType of mealTypes; trackBy: customTrackBy">{{mealType.nameEnglish}}</option>
                             </select>
                         </td>
                         <td>
-                            <input type="number" class="form-control"
-                                   name="day{{dayIndex}}meal{{mealIndex}}portion{{portionIndex}}amount"
-                                   [(ngModel)]="mealProduct.amount"
-                                   [required]="mealProduct.productId"
-                                   jhiMin="0.00001" placeholder="Amount"/>
+                            <input type="time" class="form-control" name="timeOfMeal{{index}}" id="timeOfMeal{{index}}"
+                                   [(ngModel)]="mealDefinition.timeOfMeal"
+                                   required placeholder="Time of meal"/>
                         </td>
                         <td>
-                            <button type="button" class="btn btn-danger btn-sm"
-                                    (click)="removeIngredientFromMeal(meal, mealProduct)">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </table>
-                <h3>Recipes</h3>
-                <button type="button" class="btn btn-info btn-sm" (click)="addRecipe(meal)">
-                    <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="d-none d-md-inline">Add</span>
-                </button>
-                <table>
-                    <tr *ngFor="let mealRecipe of meal.mealRecipes; let last = last; let portionIndex = index; trackBy: customTrackBy">
-                        <td>
-                            <span
-                                *ngIf="mealRecipe.recipe">{{mealRecipe.recipe ? mealRecipe.recipe.name : "Can't find recipe for id"}}</span>
-                            <input *ngIf="!mealRecipe.recipe" type="text" readonly class="form-control"
-                                   name="day{{dayIndex}}meal{{mealIndex}}recipePortion{{portionIndex}}productHidden"
-                                   [(ngModel)]="mealRecipe.recipe" placeholder="Can't find product for id"
-                                   [required]="mealRecipe.recipeId"/>
-                        </td>
-                        <td>
-                            <input type="number" class="form-control"
-                                   name="day{{dayIndex}}meal{{mealIndex}}recipePortion{{portionIndex}}amount"
-                                   [(ngModel)]="mealRecipe.amount"
-                                   [required]="mealRecipe.recipeId"
-                                   jhiMin="0.00001" placeholder="Amount"/>
-                        </td>
-                        <td>
-                            <button type="button" class="btn btn-danger btn-sm"
-                                    (click)="removeRecipeFromMeal(meal, mealRecipe)">
-                                <fa-icon [icon]="'times'"></fa-icon>
-                            </button>
+                            <input type="number" class="form-control" name="percentEnergy{{index}}"
+                                   id="percentEnergy{{index}}"
+                                   [(ngModel)]="mealDefinition.percentOfEnergy"
+                                   required
+                                   jhiMin="0" jhiMax="100" placeholder="Percent of daily energy"/>
                         </td>
                     </tr>
                 </table>
             </div>
         </div>
-    </div>
+
+        <div class="container-fluid" *ngIf="currentTab == 'CALENDAR'">
+            <header>
+                <div class="row d-none d-sm-flex p-1 bg-dark-app text-white">
+                    <h5 class="col-sm p-1 text-center"></h5>
+                    <h5 class="col-sm p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
+                        Meal {{meal.ordinalNumber}}</h5>
+                    <h5 class="col-sm p-1 text-center">Summary</h5>
+                </div>
+            </header>
+            <div class="row border border-right-0 border-bottom-0"
+                 *ngFor="let day of mealPlan.days; trackBy: customTrackBy; let index = index">
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-dark-app text-white">
+                    <h5 class="col-sm p-1 text-center">Day {{day.ordinalNumber}}</h5>
+                </div>
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate "
+                     *ngFor="let meal of day.meals">
+                    <button type="button"
+                            (click)="editMeal(meal)"
+                            class="btn btn-primary btn-sm">
+                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                        <span class="d-none d-md-inline">Edit</span>
+                    </button>
+                    <h5 class="row align-items-center">
+                        <small class="col d-sm-none text-center text-muted">Meal {{meal.ordinalNumber}}</small>
+                    </h5>
+                    <h5 class="row align-items-center" *ngIf="meal.mealRecipes && meal.mealRecipes.length > 0">
+                        <span class="col-1">Recipes</span>
+                    </h5>
+                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
+                       title="{{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}"
+                       *ngFor="let recipe of meal.mealRecipes"
+                       routerLink="/recipe/{{recipe.recipeId}}/view">
+                    <span
+                        class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{recipe.amount}}
+                        x g</span>
+                        {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}
+                    </a>
+                    <h5 class="row align-items-center" *ngIf="meal.mealProducts && meal.mealProducts.length > 0">
+                        <span class="col-1">Products</span>
+                    </h5>
+                    <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
+                       title="{{product.product ? product.product.description : product.productId}}"
+                       *ngFor="let product of meal.mealProducts"
+                       routerLink="/product/{{product.productId}}/view">
+                    <span
+                        class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{product.amount}}
+                        x {{product.householdMeasureDescription ? product.householdMeasureDescription : 'g'}}</span>
+                        {{product.product ? product.product.description : product.productId}}
+                    </a>
+                </div>
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate" *ngIf="day.nutritionData">
+                    <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
+                        <h5>{{nutritionKey}}</h5>
+                        <div
+                            class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">
+                            <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;
+                            <span>
+                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%
+                            </span><br/>
+                            <span>
+                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}
+                        </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="w-100"></div>
+        </div>
+        <div>
+            <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+            </button>
+            <button type="button" id="next-tab" class="btn btn-info" (click)="changeCurrentTab('CALENDAR')"
+                    *ngIf="currentTab == 'SETTINGS'">
+                <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span>Next</span>
+            </button>
+            <button type="button" id="previous-tab" class="btn btn-info" (click)="changeCurrentTab('SETTINGS')"
+                    *ngIf="currentTab == 'CALENDAR'">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Previous</span>
+            </button>
+            <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+            </button>
+        </div>
+    </form>
 </div>
+

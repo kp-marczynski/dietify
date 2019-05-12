@@ -1,15 +1,17 @@
 package pl.marczynski.dietify.mealplans.service.impl;
 
-import pl.marczynski.dietify.mealplans.service.MealPlanService;
-import pl.marczynski.dietify.mealplans.domain.MealPlan;
-import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
+import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
+import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
+import pl.marczynski.dietify.mealplans.service.MealPlanService;
 
 import java.util.Optional;
 
@@ -24,8 +26,11 @@ public class MealPlanServiceImpl implements MealPlanService {
 
     private final MealPlanRepository mealPlanRepository;
 
-    public MealPlanServiceImpl(MealPlanRepository mealPlanRepository) {
+    private final CacheManager cacheManager;
+
+    public MealPlanServiceImpl(MealPlanRepository mealPlanRepository, CacheManager cacheManager) {
         this.mealPlanRepository = mealPlanRepository;
+        this.cacheManager = cacheManager;
     }
 
     /**
@@ -37,6 +42,7 @@ public class MealPlanServiceImpl implements MealPlanService {
     @Override
     public MealPlan save(MealPlan mealPlan) {
         log.debug("Request to save MealPlan : {}", mealPlan);
+        clearProductCaches(mealPlan);
         return mealPlanRepository.save(mealPlan);
     }
 
@@ -73,8 +79,26 @@ public class MealPlanServiceImpl implements MealPlanService {
      * @param id the id of the entity
      */
     @Override
-    public void delete(Long id) {
+    public void delete(Long id) throws NotFoundException {
         log.debug("Request to delete MealPlan : {}", id);
+        Optional<MealPlan> mealPlan = mealPlanRepository.findOneWithEagerRelationships(id);
+        if (!mealPlan.isPresent()) {
+            throw new NotFoundException("Meal plan not found");
+        }
+        this.clearProductCaches(id);
         mealPlanRepository.deleteById(id);
+    }
+
+    private void clearProductCaches(MealPlan mealPlan) {
+        if (mealPlan.getId() != null) {
+            clearProductCaches(mealPlan.getId());
+        }
+    }
+
+    private void clearProductCaches(long mealPlanId) {
+        Cache cache = cacheManager.getCache(MealPlanRepository.MEALPLAN_EAGER_BY_ID_CACHE);
+        if (cache != null) {
+            cache.evict(mealPlanId);
+        }
     }
 }
