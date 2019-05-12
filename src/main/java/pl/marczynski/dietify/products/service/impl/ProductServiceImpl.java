@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.core.domain.BasicNutritionType;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.service.UserService;
 import pl.marczynski.dietify.core.utils.ValidationResult;
@@ -161,18 +162,21 @@ public class ProductServiceImpl implements ProductService {
             Optional<Product> product = productRepository.findOneWithEagerRelationships(nutritionRequest.getProductId());
             if (product.isPresent()) {
                 Double enerc_kcal = product.get().getNutritionData().stream()
-                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("ENERC_KCAL"))
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.ENERGY.getTagname()))
                     .findFirst().orElse(new NutritionData()).getNutritionValue();
                 Double carbohydrates = product.get().getNutritionData().stream()
-                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("CHOCDF"))
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.CARBOHYDRATES.getTagname()))
                     .findFirst().orElse(new NutritionData()).getNutritionValue();
                 Double protein = product.get().getNutritionData().stream()
-                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("PROCNT"))
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.PROTEIN.getTagname()))
                     .findFirst().orElse(new NutritionData()).getNutritionValue();
                 Double fat = product.get().getNutritionData().stream()
-                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals("FAT"))
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.FAT.getTagname()))
                     .findFirst().orElse(new NutritionData()).getNutritionValue();
                 Double weight = nutritionRequest.getAmount().doubleValue();
+                if (enerc_kcal == null || carbohydrates == null || fat == null || protein == null) {
+                    return Optional.empty();
+                }
                 if (nutritionRequest.getHouseholdMeasureId() != null) {
                     Double gramsWeight = product.get().getHouseholdMeasures().stream().filter(measure -> measure.getId().equals(nutritionRequest.getHouseholdMeasureId())).findFirst().orElse(new HouseholdMeasure()).getGramsWeight();
                     if (gramsWeight != null) {
