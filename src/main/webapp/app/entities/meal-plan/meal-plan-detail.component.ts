@@ -153,7 +153,7 @@ export class MealPlanDetailComponent implements OnInit {
     }
 
     getSummaryIcon(currentValue: number, desiredValue: number): string {
-        let percent = this.calcPercent(currentValue, desiredValue);
+        const percent = this.calcPercent(currentValue, desiredValue);
         if (Math.abs(percent) <= 3) {
             return 'check-circle';
         } else if (percent > 3) {
@@ -164,7 +164,7 @@ export class MealPlanDetailComponent implements OnInit {
     }
 
     getSummaryButtonClass(currentValue: number, desiredValue: number): string {
-        let percent = this.calcPercent(currentValue, desiredValue);
+        const percent = this.calcPercent(currentValue, desiredValue);
         if (Math.abs(percent) <= 3) {
             return 'btn-success';
         } else if (Math.abs(percent) <= 6) {
