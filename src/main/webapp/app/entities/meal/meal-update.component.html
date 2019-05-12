@@ -1,84 +1,123 @@
-<div class="card jh-card">
-    <h2>Meal {{meal.ordinalNumber}}
-        <button type="button" id="save-entity" class="btn btn-danger" (click)="passBack(meal)">
-            <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span>Close</span>
-        </button>
-    </h2>
+<div class="row">
+    <div class="col-md-9">
+        <div class="card jh-card">
+            <h2>Meal {{meal.ordinalNumber}}
+                <button type="button" id="save-entity" class="btn btn-danger" (click)="passBack(meal)">
+                    <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span>Close</span>
+                </button>
+            </h2>
 
-    <h3>Products</h3>
-    <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(meal)">
-        <fa-icon [icon]="'plus'"></fa-icon>
-        <span class="d-none d-md-inline">Add</span>
-    </button>
-    <table>
-        <tr *ngFor="let mealProduct of meal.mealProducts; let last = last; let portionIndex = index; trackBy: customTrackBy">
-            <td>
-                <span *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
-                <input *ngIf="!mealProduct.product" type="text" readonly class="form-control"
-                       name="portion{{portionIndex}}productHidden"
-                       [(ngModel)]="mealProduct.product" placeholder="Can't find product for id"
-                       [required]="mealProduct.productId"/>
-            </td>
-            <td>
-                <select class="form-control" *ngIf="mealProduct.product"
-                        name="portion{{portionIndex}}measureId"
-                        id="portion{{portionIndex}}measureId"
-                        [(ngModel)]="mealProduct.householdMeasureId">
-                    <option [ngValue]="null"></option>
-                    <option
-                        [ngValue]="measure.id === mealProduct.householdMeasureId ? mealProduct.householdMeasureId : measure.id"
-                        *ngFor="let measure of mealProduct.product.householdMeasures; trackBy: customTrackBy">{{measure.description}}</option>
-                </select>
-                <select class="form-control" *ngIf="!mealProduct.product"
-                        name="portion{{portionIndex}}measureIdEmpty"
-                        id="portion{{portionIndex}}measureIdEmpty"
-                        [(ngModel)]="mealProduct.householdMeasureId">
-                    <option [ngValue]="null"></option>
-                </select>
-            </td>
-            <td>
-                <input type="number" class="form-control"
-                       name="portion{{portionIndex}}amount"
-                       [(ngModel)]="mealProduct.amount"
-                       [required]="mealProduct.productId"
-                       jhiMin="0.00001" placeholder="Amount" (change)="emitMealChangedEvent()"/>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm"
-                        (click)="removeIngredientFromMeal(meal, mealProduct)">
-                    <fa-icon [icon]="'times'"></fa-icon>
-                </button>
-            </td>
-        </tr>
-    </table>
-    <h3>Recipes</h3>
-    <button type="button" class="btn btn-info btn-sm" (click)="addRecipe(meal)">
-        <fa-icon [icon]="'plus'"></fa-icon>
-        <span class="d-none d-md-inline">Add</span>
-    </button>
-    <table>
-        <tr *ngFor="let mealRecipe of meal.mealRecipes; let last = last; let portionIndex = index; trackBy: customTrackBy">
-            <td>
-                            <span
-                                *ngIf="mealRecipe.recipe">{{mealRecipe.recipe ? mealRecipe.recipe.name : "Can't find recipe for id"}}</span>
-                <input *ngIf="!mealRecipe.recipe" type="text" readonly class="form-control"
-                       name="recipePortion{{portionIndex}}productHidden"
-                       [(ngModel)]="mealRecipe.recipe" placeholder="Can't find product for id"
-                       [required]="mealRecipe.recipeId"/>
-            </td>
-            <td>
-                <input type="number" class="form-control"
-                       name="recipePortion{{portionIndex}}amount"
-                       [(ngModel)]="mealRecipe.amount"
-                       [required]="mealRecipe.recipeId"
-                       jhiMin="0.00001" placeholder="Amount"/>
-            </td>
-            <td>
-                <button type="button" class="btn btn-danger btn-sm"
-                        (click)="removeRecipeFromMeal(meal, mealRecipe)">
-                    <fa-icon [icon]="'times'"></fa-icon>
-                </button>
-            </td>
-        </tr>
-    </table>
+            <h3>Products</h3>
+            <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(meal)">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="d-none d-md-inline">Add</span>
+            </button>
+            <table>
+                <tr *ngFor="let mealProduct of meal.mealProducts; let last = last; let portionIndex = index; trackBy: customTrackBy">
+                    <td>
+                        <span
+                            *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
+                        <input *ngIf="!mealProduct.product" type="text" readonly class="form-control"
+                               name="portion{{portionIndex}}productHidden"
+                               [(ngModel)]="mealProduct.product" placeholder="Can't find product for id"
+                               [required]="mealProduct.productId" (change)="emitMealChangedEvent()"/>
+                    </td>
+                    <td>
+                        <select class="form-control" *ngIf="mealProduct.product"
+                                name="portion{{portionIndex}}measureId"
+                                id="portion{{portionIndex}}measureId"
+                                [(ngModel)]="mealProduct.householdMeasureId" (change)="emitMealChangedEvent()">
+                            <option [ngValue]="null"></option>
+                            <option
+                                [ngValue]="measure.id === mealProduct.householdMeasureId ? mealProduct.householdMeasureId : measure.id"
+                                *ngFor="let measure of mealProduct.product.householdMeasures; trackBy: customTrackBy">{{measure.description}}</option>
+                        </select>
+                        <select class="form-control" *ngIf="!mealProduct.product"
+                                name="portion{{portionIndex}}measureIdEmpty"
+                                id="portion{{portionIndex}}measureIdEmpty"
+                                [(ngModel)]="mealProduct.householdMeasureId">
+                            <option [ngValue]="null"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control"
+                               name="portion{{portionIndex}}amount"
+                               [(ngModel)]="mealProduct.amount"
+                               [required]="mealProduct.productId"
+                               jhiMin="0.00001" placeholder="Amount" (change)="emitMealChangedEvent()"/>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm"
+                                (click)="removeIngredientFromMeal(meal, mealProduct)">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+            <h3>Recipes</h3>
+            <button type="button" class="btn btn-info btn-sm" (click)="addRecipe(meal)">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="d-none d-md-inline">Add</span>
+            </button>
+            <table>
+                <tr *ngFor="let mealRecipe of meal.mealRecipes; let last = last; let portionIndex = index; trackBy: customTrackBy">
+                    <td>
+                        <span *ngIf="mealRecipe.recipe">
+                            {{mealRecipe.recipe ? mealRecipe.recipe.name : "Can't find recipe for id"}}
+                        </span>
+                        <input *ngIf="!mealRecipe.recipe" type="text" readonly class="form-control"
+                               name="recipePortion{{portionIndex}}productHidden"
+                               [(ngModel)]="mealRecipe.recipe" placeholder="Can't find product for id"
+                               [required]="mealRecipe.recipeId" (change)="emitMealChangedEvent()"/>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control"
+                               name="recipePortion{{portionIndex}}amount"
+                               [(ngModel)]="mealRecipe.amount"
+                               [required]="mealRecipe.recipeId"
+                               jhiMin="0.00001" placeholder="Amount" (change)="emitMealChangedEvent()"/>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-danger btn-sm"
+                                (click)="removeRecipeFromMeal(meal, mealRecipe)">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card jh-card">
+            <table *ngIf="meal.nutritionData">
+                <tr>
+                    <td>Energy {{meal.nutritionData.energy}}</td>
+                    <td>
+                        <div class="btn btn-sm {{getSummaryButtonClass(meal.nutritionData,'Energy')}}">
+                            <fa-icon icon="{{getSummaryIcon(meal.nutritionData,'Energy')}}"></fa-icon>&nbsp;
+                            <span>
+                                {{calcPercent(getNutritionValue(meal.nutritionData, 'Energy'), expectedEnergy)}}%
+                            </span><br/>
+                            <span>
+                                {{getNutritionValue(meal.nutritionData, 'Energy')}}/{{expectedEnergy}}
+                            </span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Carbohydrates:</td>
+                    <td>{{meal.nutritionData.carbohydrates}}</td>
+                </tr>
+                <tr>
+                    <td>Fat:</td>
+                    <td>{{meal.nutritionData.fat}}</td>
+                </tr>
+                <tr>
+                    <td>Protein:</td>
+                    <td>{{meal.nutritionData.protein}}</td>
+                </tr>
+
+            </table>
+        </div>
+    </div>
 </div>

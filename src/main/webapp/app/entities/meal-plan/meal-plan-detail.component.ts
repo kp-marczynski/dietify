@@ -110,6 +110,8 @@ export class MealPlanDetailComponent implements OnInit {
         const modalRef = this.modalService.open(MealDetailComponent, {windowClass: 'custom-modal'});
 
         modalRef.componentInstance.meal = meal;
+        modalRef.componentInstance.expectedEnergy = this.mealPlan.mealDefinitions[meal.ordinalNumber - 1].percentOfEnergy * this.getExpectedDailyEnergy();
+
         modalRef.componentInstance.passEntry.subscribe((receivedEntry: Meal) => {
             modalRef.close();
         });
@@ -132,19 +134,27 @@ export class MealPlanDetailComponent implements OnInit {
     getNutritionData(day: IMealPlanDay): IBasicNutritionResponse {
         const result = new BasicNutritionResponse(0, 0, 0, 0, 0);
         for (const meal of day.meals) {
-            for (const mealProduct of meal.mealProducts) {
-                if (mealProduct.basicNutritionData) {
-                    result.addNutritions(mealProduct.basicNutritionData);
-                }
-            }
-            for (const mealRecipe of meal.mealRecipes) {
-                if (mealRecipe.basicNutritionData) {
-                    result.addNutritions(mealRecipe.basicNutritionData);
-                }
-            }
+            result.addNutritions(this.getNutritionDataForMeal(meal));
         }
         result.floor();
         day.nutritionData = result;
+        return result;
+    }
+
+    getNutritionDataForMeal(meal: IMeal) {
+        const result = new BasicNutritionResponse(0, 0, 0, 0, 0);
+        for (const mealProduct of meal.mealProducts) {
+            if (mealProduct.basicNutritionData) {
+                result.addNutritions(mealProduct.basicNutritionData);
+            }
+        }
+        for (const mealRecipe of meal.mealRecipes) {
+            if (mealRecipe.basicNutritionData) {
+                result.addNutritions(mealRecipe.basicNutritionData);
+            }
+        }
+        result.floor();
+        meal.nutritionData = result;
         return result;
     }
 
