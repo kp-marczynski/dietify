@@ -296,7 +296,8 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     <h5 class="col-sm p-1 text-center">Summary</h5>
                 </div>
             </header>
-            <div class="row border border-right-0 border-bottom-0" *ngFor="let day of mealPlan.days">
+            <div class="row border border-right-0 border-bottom-0"
+                 *ngFor="let day of mealPlan.days; trackBy: customTrackBy; let index = index">
                 <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-dark-app text-white">
                     <h5 class="col-sm p-1 text-center">Day {{day.ordinalNumber}}</h5>
                 </div>
@@ -336,27 +337,18 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                         {{product.product ? product.product.description : product.productId}}
                     </a>
                 </div>
-                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate">
-                    <div>
-                        <h5>Energy</h5>
-                        <div class="btn btn-success">
-                            <fa-icon [icon]="'check-circle'"></fa-icon>&nbsp;<span>18%</span>
-                        </div>                    </div>
-                    <div>
-                        <h5>Carbohydrates</h5>
-                        <div class="btn btn-danger">
-                            <fa-icon [icon]="'arrow-circle-down'"></fa-icon>&nbsp;<span>18%</span>
-                        </div>                    </div>
-                    <div>
-                        <h5>Fat</h5>
-                        <div class="btn btn-warning">
-                            <fa-icon [icon]="'arrow-circle-down'"></fa-icon>&nbsp;<span>18%</span>
-                        </div>
-                    </div>
-                    <div>
-                        <h5>Protein</h5>
-                        <div class="btn btn-danger">
-                            <fa-icon [icon]="'arrow-circle-up'"></fa-icon>&nbsp;<span>18%</span>
+                <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate" *ngIf="day.nutritionData">
+                    <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
+                        <h5>{{nutritionKey}}</h5>
+                        <div
+                            class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">
+                            <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;
+                            <span>
+                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%
+                            </span><br/>
+                            <span>
+                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}
+                        </span>
                         </div>
                     </div>
                 </div>

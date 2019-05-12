@@ -16,6 +16,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 export class MealUpdateComponent {
     @Input() meal: IMeal;
     @Output() passEntry: EventEmitter<IMeal> = new EventEmitter();
+    @Output() mealChanged: EventEmitter<IMeal> = new EventEmitter();
 
     constructor(
         protected modalService: NgbModal,
@@ -53,7 +54,6 @@ export class MealUpdateComponent {
 
     removeIngredientFromMeal(meal: IMeal, mealProduct: IMealProduct): void {
         meal.mealProducts = meal.mealProducts.filter(portion => portion !== mealProduct);
-        console.log(meal.mealProducts);
     }
 
     addRecipe(meal: IMeal) {
@@ -77,5 +77,9 @@ export class MealUpdateComponent {
 
     removeRecipeFromMeal(meal: IMeal, mealRecipe: IMealRecipe) {
         meal.mealRecipes = meal.mealRecipes.filter(portion => portion !== mealRecipe);
+    }
+
+    emitMealChangedEvent() {
+        this.mealChanged.emit(this.meal);
     }
 }

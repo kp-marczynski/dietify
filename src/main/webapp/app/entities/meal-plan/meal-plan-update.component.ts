@@ -21,6 +21,10 @@ import {MealType} from 'app/shared/model/meal-type.model';
 import {filter, map} from 'rxjs/operators';
 import {ILanguage} from 'app/shared/model/language.model';
 import {JhiAlertService} from 'ng-jhipster';
+import {BasicNutritionResponse, IBasicNutritionResponse} from 'app/shared/model/basic-nutrition-response.model';
+import {CaloriesConverterService} from 'app/entities/meal-plan/calories-converter.service';
+import {BasicNutritionRequest, IBasicNutritionRequest} from 'app/shared/model/basic-nutrition-request.model';
+import {BasicNutritionType} from 'app/shared/model/enum/basic-nutritions.enum';
 
 @Component({
     selector: 'jhi-meal-plan-update',
@@ -41,7 +45,8 @@ export class MealPlanUpdateComponent implements OnInit {
         protected productService: ProductService,
         protected recipeService: RecipeService,
         protected mealTypeService: MealTypeService,
-        protected jhiAlertService: JhiAlertService
+        protected jhiAlertService: JhiAlertService,
+        protected caloriesConverter: CaloriesConverterService
     ) {
     }
 
@@ -67,7 +72,7 @@ export class MealPlanUpdateComponent implements OnInit {
     }
 
     customTrackBy(index: number, obj: any): any {
-        return index;
+        return obj;
     }
 
     previousState() {
@@ -171,7 +176,26 @@ export class MealPlanUpdateComponent implements OnInit {
 
             meal.mealRecipes = receivedEntry.mealRecipes;
             meal.mealProducts = receivedEntry.mealProducts;
+            this.findMealProductsAndRecipes(meal);
         });
+
+        modalRef.result.then(
+            () => this.findMealProductsAndRecipes(meal),
+            () => this.findMealProductsAndRecipes(meal)
+        );
+    }
+
+    findMealProductsAndRecipes(meal: IMeal) {
+        if (meal.mealProducts) {
+            for (const product of meal.mealProducts) {
+                this.findProduct(product);
+            }
+        }
+        if (meal.mealRecipes) {
+            for (const recipe of meal.mealRecipes) {
+                this.findRecipe(recipe);
+            }
+        }
     }
 
     findProductsAndRecipes(): void {
@@ -179,16 +203,7 @@ export class MealPlanUpdateComponent implements OnInit {
             for (const day of this.mealPlan.days) {
                 if (day.meals) {
                     for (const meal of day.meals) {
-                        if (meal.mealProducts) {
-                            for (const product of meal.mealProducts) {
-                                this.findProduct(product);
-                            }
-                        }
-                        if (meal.mealRecipes) {
-                            for (const recipe of meal.mealRecipes) {
-                                this.findRecipe(recipe);
-                            }
-                        }
+                        this.findMealProductsAndRecipes(meal);
                     }
                 }
             }
@@ -200,13 +215,41 @@ export class MealPlanUpdateComponent implements OnInit {
             (res: HttpResponse<IProduct>) => mealProduct.product = res.body,
             (res: HttpErrorResponse) => mealProduct.product = null
         );
+        this.productService.getBasicNutrtions([new BasicNutritionRequest(mealProduct.productId, mealProduct.amount, mealProduct.householdMeasureId)])
+            .subscribe((res: HttpResponse<IBasicNutritionResponse>) => {
+                mealProduct.basicNutritionData = res.body;
+                this.updateDays();
+            });
     }
 
     findRecipe(mealRecipe: IMealRecipe): void {
         this.recipeService.find(mealRecipe.recipeId).subscribe(
-            (res: HttpResponse<IRecipe>) => mealRecipe.recipe = res.body,
+            (res: HttpResponse<IRecipe>) => {
+                mealRecipe.recipe = res.body;
+                const request: IBasicNutritionRequest[] = [];
+                for (const section of mealRecipe.recipe.recipeSections) {
+                    for (const portion of section.productPortions) {
+                        request.push(new BasicNutritionRequest(portion.productId, portion.amount, portion.householdMeasureId));
+                    }
+                }
+                this.productService.getBasicNutrtions(request)
+                    .subscribe((res2: HttpResponse<IBasicNutritionResponse>) => {
+                        mealRecipe.basicNutritionData = new BasicNutritionResponse(0, 0, 0, 0, 0);
+                        mealRecipe.basicNutritionData.addNutritions(res2.body);
+
+                        mealRecipe.basicNutritionData.scaleForWeight(mealRecipe.amount);
+                        this.updateDays();
+                    });
+            },
             (res: HttpErrorResponse) => mealRecipe.recipe = null
         );
+
+    }
+
+    updateDays(): void {
+        for (const day of this.mealPlan.days) {
+            this.getNutritionData(day);
+        }
     }
 
     getTabs() {
@@ -215,5 +258,96 @@ export class MealPlanUpdateComponent implements OnInit {
 
     changeCurrentTab(tabName: string) {
         this.currentTab = MealPlanTab[tabName];
+    }
+
+    getNutritionData(day: IMealPlanDay): IBasicNutritionResponse {
+        const result = new BasicNutritionResponse(0, 0, 0, 0, 0);
+        for (const meal of day.meals) {
+            for (const mealProduct of meal.mealProducts) {
+                if (mealProduct.basicNutritionData) {
+                    result.addNutritions(mealProduct.basicNutritionData);
+                }
+            }
+            for (const mealRecipe of meal.mealRecipes) {
+                if (mealRecipe.basicNutritionData) {
+                    result.addNutritions(mealRecipe.basicNutritionData);
+                }
+            }
+        }
+        result.floor();
+        day.nutritionData = result;
+        return result;
+    }
+
+    getExpectedDailyCarbohydrates(): number {
+        return Math.floor(this.caloriesConverter.calcCarbohydrateGrams(this.mealPlan.percentOfCarbohydrates * this.mealPlan.totalDailyEnergyKcal / 100));
+    }
+
+    getExpectedDailyEnergy(): number {
+        return Math.floor(this.mealPlan.totalDailyEnergyKcal);
+    }
+
+    getExpectedDailyFat(): number {
+        return Math.floor(this.caloriesConverter.calcFatGrams(this.mealPlan.percentOfFat * this.mealPlan.totalDailyEnergyKcal / 100));
+    }
+
+    getExpectedDailyProtein(): number {
+        return Math.floor(this.caloriesConverter.calcProteinGrams(this.mealPlan.percentOfProtein * this.mealPlan.totalDailyEnergyKcal / 100));
+    }
+
+    getDailyValue(nutritionKey: string) {
+        switch (BasicNutritionType[nutritionKey]) {
+            case BasicNutritionType.Energy:
+                return this.getExpectedDailyEnergy();
+            case BasicNutritionType.Carbohydrates:
+                return this.getExpectedDailyCarbohydrates();
+            case BasicNutritionType.Fat:
+                return this.getExpectedDailyFat();
+            case BasicNutritionType.Protein:
+                return this.getExpectedDailyProtein();
+        }
+    }
+
+    calcPercent(currentValue: number, desiredValue: number): number {
+        return Math.floor(((currentValue / desiredValue) - 1) * 100);
+    }
+
+    getSummaryIcon(nutritionData: IBasicNutritionResponse, nutritionKey: string): string {
+        const percent = this.calcPercent(this.getNutritionValue(nutritionData, nutritionKey), this.getDailyValue(nutritionKey));
+        if (Math.abs(percent) <= 3) {
+            return 'check-circle';
+        } else if (percent > 3) {
+            return 'arrow-circle-up';
+        } else {
+            return 'arrow-circle-down';
+        }
+    }
+
+    getSummaryButtonClass(nutritionData: IBasicNutritionResponse, nutritionKey: string): string {
+        const percent = this.calcPercent(this.getNutritionValue(nutritionData, nutritionKey), this.getDailyValue(nutritionKey));
+        if (Math.abs(percent) <= 3) {
+            return 'btn-success';
+        } else if (Math.abs(percent) <= 6) {
+            return 'btn-warning';
+        } else {
+            return 'btn-danger';
+        }
+    }
+
+    getNutritionValue(nutritionData: IBasicNutritionResponse, nutritionKey: string) {
+        switch (BasicNutritionType[nutritionKey]) {
+            case BasicNutritionType.Energy:
+                return nutritionData.energy;
+            case BasicNutritionType.Carbohydrates:
+                return nutritionData.carbohydrates;
+            case BasicNutritionType.Fat:
+                return nutritionData.fat;
+            case BasicNutritionType.Protein:
+                return nutritionData.protein;
+        }
+    }
+
+    getBasicNutritionsKeys(): string[] {
+        return Object.keys(BasicNutritionType);
     }
 }

@@ -123,48 +123,17 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                     {{product.product ? product.product.description : product.productId}}
                 </a>
             </div>
-            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate"
-                 *ngFor="let nutritionData of [getNutritionData(day)]">
-                <div>
-                    <h5>Energy</h5>
-                    <div class="btn btn-sm {{getSummaryButtonClass(nutritionData.energy,getExpectedDailyEnergy())}}">
-                        <fa-icon icon="{{getSummaryIcon(nutritionData.energy,getExpectedDailyEnergy())}}"></fa-icon>&nbsp;
-                        <span>{{calcPercent(nutritionData.energy, getExpectedDailyEnergy())}}%</span><br/>
-                        <span>
-                            {{nutritionData.energy}}/{{getExpectedDailyEnergy()}}
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <h5>Carbohydrates</h5>
+            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate" *ngIf="day.nutritionData">
+                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
+                    <h5>{{nutritionKey}}</h5>
                     <div
-                        class="btn btn-sm {{getSummaryButtonClass(nutritionData.carbohydrates,getExpectedDailyCarbohydrates())}}">
-                        <fa-icon
-                            icon="{{getSummaryIcon(nutritionData.carbohydrates,getExpectedDailyCarbohydrates())}}"></fa-icon>&nbsp;
-                        <span>{{calcPercent(nutritionData.carbohydrates, getExpectedDailyCarbohydrates())}}%</span><br/>
+                        class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">
+                        <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;
                         <span>
-                            {{nutritionData.carbohydrates}}
-                            /{{getExpectedDailyCarbohydrates()}}
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <h5>Fat</h5>
-                    <div class="btn btn-sm {{getSummaryButtonClass(nutritionData.fat,getExpectedDailyFat())}}">
-                        <fa-icon icon="{{getSummaryIcon(nutritionData.fat,getExpectedDailyFat())}}"></fa-icon>&nbsp;
-                        <span>{{calcPercent(nutritionData.fat, getExpectedDailyFat())}}%</span><br/>
+                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%
+                            </span><br/>
                         <span>
-                            {{nutritionData.fat}}/{{getExpectedDailyFat()}}
-                        </span>
-                    </div>
-                </div>
-                <div>
-                    <h5>Protein</h5>
-                    <div class="btn btn-sm {{getSummaryButtonClass(nutritionData.protein,getExpectedDailyProtein())}}">
-                        <fa-icon icon="{{getSummaryIcon(nutritionData.protein,getExpectedDailyProtein())}}"></fa-icon>&nbsp;
-                        <span>{{calcPercent(nutritionData.protein, getExpectedDailyProtein())}}%</span><br/>
-                        <span>
-                            {{nutritionData.protein}}/{{getExpectedDailyProtein()}}
+                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}
                         </span>
                     </div>
                 </div>
