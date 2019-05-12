@@ -8,6 +8,8 @@ import {RecipeComponent, RecipeService} from 'app/entities/recipe';
 import {IRecipe, Recipe} from 'app/shared/model/recipe.model';
 import {IMealRecipe, MealRecipe} from 'app/shared/model/meal-recipe.model';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {IBasicNutritionResponse} from 'app/shared/model/basic-nutrition-response.model';
+import {BasicNutritionType} from 'app/shared/model/enum/basic-nutritions.enum';
 
 @Component({
     selector: 'jhi-meal-update',
@@ -15,6 +17,8 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 })
 export class MealUpdateComponent {
     @Input() meal: IMeal;
+    @Input() expectedEnergy: number;
+
     @Output() passEntry: EventEmitter<IMeal> = new EventEmitter();
     @Output() mealChanged: EventEmitter<IMeal> = new EventEmitter();
 
@@ -47,13 +51,17 @@ export class MealUpdateComponent {
 
     findProduct(mealProduct: IMealProduct): void {
         this.productService.find(mealProduct.productId).subscribe(
-            (res: HttpResponse<IProduct>) => mealProduct.product = res.body,
+            (res: HttpResponse<IProduct>) => {
+                mealProduct.product = res.body;
+                this.emitMealChangedEvent();
+            },
             (res: HttpErrorResponse) => mealProduct.product = null
         );
     }
 
     removeIngredientFromMeal(meal: IMeal, mealProduct: IMealProduct): void {
         meal.mealProducts = meal.mealProducts.filter(portion => portion !== mealProduct);
+        this.emitMealChangedEvent();
     }
 
     addRecipe(meal: IMeal) {
@@ -81,5 +89,44 @@ export class MealUpdateComponent {
 
     emitMealChangedEvent() {
         this.mealChanged.emit(this.meal);
+    }
+
+    calcPercent(currentValue: number, desiredValue: number): number {
+        return Math.floor(((currentValue / desiredValue) - 1) * 100);
+    }
+
+    getSummaryIcon(nutritionData: IBasicNutritionResponse, nutritionKey: string): string {
+        const percent = this.calcPercent(this.getNutritionValue(nutritionData, nutritionKey), this.expectedEnergy);
+        if (Math.abs(percent) <= 3) {
+            return 'check-circle';
+        } else if (percent > 3) {
+            return 'arrow-circle-up';
+        } else {
+            return 'arrow-circle-down';
+        }
+    }
+
+    getSummaryButtonClass(nutritionData: IBasicNutritionResponse, nutritionKey: string): string {
+        const percent = this.calcPercent(this.getNutritionValue(nutritionData, nutritionKey), this.expectedEnergy);
+        if (Math.abs(percent) <= 3) {
+            return 'btn-success';
+        } else if (Math.abs(percent) <= 6) {
+            return 'btn-warning';
+        } else {
+            return 'btn-danger';
+        }
+    }
+
+    getNutritionValue(nutritionData: IBasicNutritionResponse, nutritionKey: string) {
+        switch (BasicNutritionType[nutritionKey]) {
+            case BasicNutritionType.Energy:
+                return nutritionData.energy;
+            case BasicNutritionType.Carbohydrates:
+                return nutritionData.carbohydrates;
+            case BasicNutritionType.Fat:
+                return nutritionData.fat;
+            case BasicNutritionType.Protein:
+                return nutritionData.protein;
+        }
     }
 }
