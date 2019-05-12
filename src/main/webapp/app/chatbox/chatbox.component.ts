@@ -16,8 +16,8 @@ export class ChatboxComponent implements AfterViewChecked, OnInit {
 
     public newMessage: ChatMessage;
     public messages: ChatMessage[];
-    private isMinimized = true;
-    private isClosed = false;
+    public isMinimized = true;
+    public isClosed = false;
 
     @ViewChild('chatmessages', {read: ElementRef}) chatList: ElementRef;
 
