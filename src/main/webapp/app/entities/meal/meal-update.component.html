@@ -13,8 +13,7 @@
     <table>
         <tr *ngFor="let mealProduct of meal.mealProducts; let last = last; let portionIndex = index; trackBy: customTrackBy">
             <td>
-                            <span
-                                *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
+                <span *ngIf="mealProduct.product">{{mealProduct.product ? mealProduct.product.description : "Can't find product for id"}}</span>
                 <input *ngIf="!mealProduct.product" type="text" readonly class="form-control"
                        name="portion{{portionIndex}}productHidden"
                        [(ngModel)]="mealProduct.product" placeholder="Can't find product for id"
@@ -42,7 +41,7 @@
                        name="portion{{portionIndex}}amount"
                        [(ngModel)]="mealProduct.amount"
                        [required]="mealProduct.productId"
-                       jhiMin="0.00001" placeholder="Amount"/>
+                       jhiMin="0.00001" placeholder="Amount" (change)="emitMealChangedEvent()"/>
             </td>
             <td>
                 <button type="button" class="btn btn-danger btn-sm"

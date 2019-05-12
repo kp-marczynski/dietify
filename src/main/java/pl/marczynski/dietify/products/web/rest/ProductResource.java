@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.marczynski.dietify.products.service.dto.BasicNutritionRequestDTO;
+import pl.marczynski.dietify.products.service.dto.BasicNutritionResponseDTO;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -135,5 +137,11 @@ public class ProductResource {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idNotExist");
         }
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+    }
+
+    @PostMapping("/products/basic-nutritions")
+    public ResponseEntity<BasicNutritionResponseDTO> getProductBasicNutritions(@RequestBody List<BasicNutritionRequestDTO> nutritionRequest) {
+        Optional<BasicNutritionResponseDTO> nutritions = productService.getProductBasicNutritions(nutritionRequest);
+        return ResponseUtil.wrapOrNotFound(nutritions);
     }
 }
