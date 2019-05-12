@@ -9,18 +9,23 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.core.domain.BasicNutritionType;
 import pl.marczynski.dietify.core.domain.User;
 import pl.marczynski.dietify.core.service.UserService;
 import pl.marczynski.dietify.core.utils.ValidationResult;
 import pl.marczynski.dietify.core.web.rest.errors.OperationNotAllowedForCurrentUserException;
 import pl.marczynski.dietify.core.web.rest.errors.ProductInvalidException;
+import pl.marczynski.dietify.products.domain.HouseholdMeasure;
+import pl.marczynski.dietify.products.domain.NutritionData;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
+import pl.marczynski.dietify.products.service.dto.BasicNutritionRequestDTO;
+import pl.marczynski.dietify.products.service.dto.BasicNutritionResponseDTO;
 import pl.marczynski.dietify.products.utils.ProductValidator;
 
-import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -147,6 +152,52 @@ public class ProductServiceImpl implements ProductService {
         } else {
             return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, pageable);
         }
+    }
+
+    @Override
+    public Optional<BasicNutritionResponseDTO> getProductBasicNutritions(List<BasicNutritionRequestDTO> nutritionRequestDTOs) {
+        BasicNutritionResponseDTO nutritionResponse = new BasicNutritionResponseDTO();
+
+        for (BasicNutritionRequestDTO nutritionRequest : nutritionRequestDTOs) {
+            Optional<Product> product = productRepository.findOneWithEagerRelationships(nutritionRequest.getProductId());
+            if (product.isPresent()) {
+                Double enerc_kcal = product.get().getNutritionData().stream()
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.ENERGY.getTagname()))
+                    .findFirst().orElse(new NutritionData()).getNutritionValue();
+                Double carbohydrates = product.get().getNutritionData().stream()
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.CARBOHYDRATES.getTagname()))
+                    .findFirst().orElse(new NutritionData()).getNutritionValue();
+                Double protein = product.get().getNutritionData().stream()
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.PROTEIN.getTagname()))
+                    .findFirst().orElse(new NutritionData()).getNutritionValue();
+                Double fat = product.get().getNutritionData().stream()
+                    .filter(nutritionData -> nutritionData.getNutritionDefinition().getTagname().equals(BasicNutritionType.FAT.getTagname()))
+                    .findFirst().orElse(new NutritionData()).getNutritionValue();
+                Double weight = nutritionRequest.getAmount().doubleValue();
+                if (enerc_kcal == null || carbohydrates == null || fat == null || protein == null) {
+                    return Optional.empty();
+                }
+                if (nutritionRequest.getHouseholdMeasureId() != null) {
+                    Double gramsWeight = product.get().getHouseholdMeasures().stream().filter(measure -> measure.getId().equals(nutritionRequest.getHouseholdMeasureId())).findFirst().orElse(new HouseholdMeasure()).getGramsWeight();
+                    if (gramsWeight != null) {
+                        weight *= gramsWeight;
+                        enerc_kcal *= gramsWeight;
+                        carbohydrates *= gramsWeight;
+                        protein *= gramsWeight;
+                        fat *= gramsWeight;
+                    }
+                }
+                nutritionResponse.addWeight(weight);
+                nutritionResponse.addEnergy(enerc_kcal * nutritionRequest.getAmount() / 100);
+                nutritionResponse.addCarbohydrates(carbohydrates * nutritionRequest.getAmount() / 100);
+                nutritionResponse.addProtein(protein * nutritionRequest.getAmount() / 100);
+                nutritionResponse.addFat(fat * nutritionRequest.getAmount() / 100);
+            } else {
+                return Optional.empty();
+            }
+        }
+        System.out.println(nutritionResponse);
+        return Optional.of(nutritionResponse);
     }
 
     private void clearProductCaches(Product product) {

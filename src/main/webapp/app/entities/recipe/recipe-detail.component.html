@@ -58,28 +58,28 @@
                     </div>
                 </dd>
                 <dt><span>Nutrition Summary</span></dt>
-                <dd *ngIf="productCount == products.length && products.length > 0">
+                <dd *ngIf="basicNutrition">
                     <table>
                         <tr>
                             <th>Energy</th>
-                            <td>{{calcNutrition('ENERC_KCAL')}}</td>
+                            <td>{{basicNutrition.energy | number: '1.0-2'}} kcal</td>
                         </tr>
                         <tr>
                             <th>Carbohydrates</th>
-                            <td>{{calcNutrition('CHOCDF')}}</td>
+                            <td>{{basicNutrition.carbohydrates | number: '1.0-2'}} g</td>
                         </tr>
                         <tr>
                             <th>Protein</th>
-                            <td>{{calcNutrition('PROCNT')}}</td>
+                            <td>{{basicNutrition.protein | number: '1.0-2'}} g</td>
                         </tr>
                         <tr>
                             <th>Fat</th>
-                            <td>{{calcNutrition('FAT')}}</td>
+                            <td>{{basicNutrition.fat | number: '1.0-2'}} g</td>
                         </tr>
                     </table>
                 </dd>
                 <dt><span>Kitchen Appliances</span></dt>
-                <dd>
+                <dd *ngIf="productCount == products.length && products.length > 0">
                     <span *ngFor="let kitchenAppliances of recipe.kitchenAppliances; let last = last">
                         <a [routerLink]="['/kitchen-appliance', kitchenAppliances?.id, 'view' ]">{{kitchenAppliances.nameEnglish}}</a>{{last ? '' : ', '}}
                     </span>
@@ -97,23 +97,25 @@
                     </span>
                 </dd>
                 <dt><span>Recipes Sections</span></dt>
-                <dd *ngFor="let recipeSection of recipe.recipeSections">
-                    <span>{{recipeSection.sectionName}}</span>
-                    <span>Ingredients</span>
-                    <table>
-                        <tr *ngFor="let productPortion of recipeSection.productPortions">
-                            <td>{{getProductById(productPortion.productId).description}}</td>
-                            <td>: {{productPortion.amount}}</td>
-                            <td> {{getMeasureDisplayDescription(productPortion.productId, productPortion.householdMeasureId)}}</td>
-                        </tr>
-                    </table>
+                <dd *ngIf="productCount == products.length && products.length > 0">
+                    <div *ngFor="let recipeSection of recipe.recipeSections">
+                        <span>{{recipeSection.sectionName}}</span>
+                        <span>Ingredients</span>
+                        <table>
+                            <tr *ngFor="let productPortion of recipeSection.productPortions">
+                                <td>{{getProductById(productPortion.productId).description}}</td>
+                                <td>: {{productPortion.amount}}</td>
+                                <td> {{getMeasureDisplayDescription(productPortion.productId, productPortion.householdMeasureId)}}</td>
+                            </tr>
+                        </table>
 
-                    <span>Preparation steps</span>
+                        <span>Preparation steps</span>
 
-                    <div *ngFor="let preparationStep of recipeSection.preparationSteps; let preparationIndex = index;">
-                        <span>{{preparationIndex + 1 + ') ' + preparationStep.stepDescription}}</span>
+                        <div
+                            *ngFor="let preparationStep of recipeSection.preparationSteps; let preparationIndex = index;">
+                            <span>{{preparationIndex + 1 + ') ' + preparationStep.stepDescription}}</span>
+                        </div>
                     </div>
-
                 </dd>
             </dl>
 

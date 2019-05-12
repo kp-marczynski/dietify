@@ -1,0 +1,11 @@
+_minted-main/
+*.aux
+*.bbl
+*.blg
+*.lof
+*.lop
+*.lot
+*.out
+*.synctex(busy)
+*.toc
+*.gz

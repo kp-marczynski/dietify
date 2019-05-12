@@ -1,0 +1,57 @@
+\chapter{Wymagania projektowe}
+\section{Sformułowanie problemu}
+\section{Pozycjonowanie produktu}
+\section{Opis udziałowców i użytkowników}
+\subsection{Podsumowanie udziałowców}
+\subsection{Podsumowanie użytkowników}
+
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Użytkownicy (opr.wł)\label{tabela:uzytkownicy}}
+        \begin{tabular}{|p{.2\textwidth}|p{.25\textwidth}|p{.45\textwidth}|}
+
+            \hline
+            Nazwa & Opis & Odpowiedzialności\\
+
+            \hline
+            Administrator &
+            Osoba zarządzająca działaniem aplikacji &
+            \begin{itemize}
+                \item Przydzielanie i odbieranie użytkownikom uprawnień
+            \end{itemize} \\
+            \hline
+            Dietetyk &
+            Specjalista w dziedzinie dietetyki &
+            \begin{itemize}
+                \item Używa założonego konta
+                \item Wprowadza, edytuje i usuwa produkty, przepisy i jadłospisy
+            \end{itemize} \\
+            \hline
+            Pacjent &
+            Klient dietetyka &
+            \begin{itemize}
+                \item Otrzymuje (mailowo) ułożony jadłospis
+            \end{itemize} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
+
+\section{Słownik}
+\begin{itemize}
+    \item Administrator – użytkownik posiadający uprawnienia do zarządzania uprawnieniami użytkowników
+    \item Dietetyk – specjalista w dziedzinie dietetyki
+    \item Jadłospis – plan posiłków zdefiniowany na określoną liczbę dni z uwzględnieniem określonych wymagań
+    \item Karta pacjenta – karta przedstawiająca przebieg współpracy dietetyka z pacjentem
+    \item Miara domowa – definicja pospolitej miary, takiej jak np. łyżeczka w gramach
+    \item Pacjent – klient dietetyka
+    \item Pomiary ciała – pomiary ciała pacjenta przeprowadzane przez dietetyka
+    \item Posiłek – posiłek jest przydzielany do jadłospisu; zawiera produkty i przepisy
+    \item Produkt – produkt spożywczy, dla którego specyfikowane są wartości odżywcze i miary domowe
+    \item Przepis – opis składników i kroków przygotowania dania
+    \item Sekcja przepisu – semantyczny podział przepisu, np. sernik może mieć sekcje związane z przygotowaniem ciasta, nadzienia i polewy
+    \item Wartość odżywcza – ilość elementu takiego jak np. węglowodanów albo białka w 100g produktu
+    \item Wizyta – konkretna wizyta pacjenta
+    \item Wywiad żywieniowy – wywiad przeprowadzany z pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
+\end{itemize}
+\thispagestyle{normal}

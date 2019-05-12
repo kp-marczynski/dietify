@@ -5,6 +5,8 @@ import pl.marczynski.dietify.products.domain.Product;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pl.marczynski.dietify.products.service.dto.BasicNutritionRequestDTO;
+import pl.marczynski.dietify.products.service.dto.BasicNutritionResponseDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -59,4 +61,6 @@ public interface ProductService {
      * @return the list of entities
      */
     Page<Product> findBySearchAndFilters(String searchPhrase, Long languageId, Long categoryId, Long subcategoryId, Pageable pageable);
+
+    Optional<BasicNutritionResponseDTO> getProductBasicNutritions(List<BasicNutritionRequestDTO> nutritionRequestDTOs);
 }

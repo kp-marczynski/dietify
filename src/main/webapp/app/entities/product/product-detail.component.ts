@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
-import { IProduct } from 'app/shared/model/product.model';
-import { Chart } from 'chart.js';
+import {IProduct} from 'app/shared/model/product.model';
+import {Chart} from 'chart.js';
+import {BasicNutritionType} from 'app/shared/model/enum/basic-nutritions.enum';
 
 @Component({
     selector: 'jhi-product-detail',
@@ -12,10 +13,11 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     product: IProduct;
     chart: Chart = null;
 
-    constructor(protected activatedRoute: ActivatedRoute) {}
+    constructor(protected activatedRoute: ActivatedRoute) {
+    }
 
     ngOnInit() {
-        this.activatedRoute.data.subscribe(({ product }) => {
+        this.activatedRoute.data.subscribe(({product}) => {
             this.product = product;
         });
     }
@@ -31,9 +33,9 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
     loadChart() {
         const result = this.product.nutritionData.filter(
             data =>
-                data.nutritionDefinition.tagname === 'FAT' ||
-                data.nutritionDefinition.tagname === 'CHOCDF' ||
-                data.nutritionDefinition.tagname === 'PROCNT'
+                data.nutritionDefinition.tagname === BasicNutritionType.Fat.toString() ||
+                data.nutritionDefinition.tagname === BasicNutritionType.Carbohydrates.toString() ||
+                data.nutritionDefinition.tagname === BasicNutritionType.Protein.toString()
         );
         let otherNutritions = 100;
         for (const nutritionData of result) {
