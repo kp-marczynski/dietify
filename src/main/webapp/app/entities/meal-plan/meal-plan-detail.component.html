@@ -74,6 +74,11 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                 class="btn btn-primary">
             <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
         </button>
+        <button type="button"
+                (click)="sendMealPlan()"
+                class="btn btn-primary">
+            <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span> Send</span>
+        </button>
     </div>
     <div class="container-fluid" *ngIf="currentTab=='CALENDAR'">
         <header>
@@ -119,7 +124,7 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                    routerLink="/product/{{product.productId}}/view">
                     <span
                         class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{product.amount}}
-                        x {{product.householdMeasureDescription ? product.householdMeasureDescription : 'g'}}</span>
+                        x {{product.householdMeasureDescription}}</span>
                     {{product.product ? product.product.description : product.productId}}
                 </a>
             </div>

@@ -1,13 +1,6 @@
 package pl.marczynski.dietify.core.service;
 
-import pl.marczynski.dietify.core.domain.User;
-
 import io.github.jhipster.config.JHipsterProperties;
-
-import java.nio.charset.StandardCharsets;
-import java.util.Locale;
-import javax.mail.internet.MimeMessage;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.MessageSource;
@@ -17,6 +10,11 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring5.SpringTemplateEngine;
+import pl.marczynski.dietify.core.domain.User;
+
+import javax.mail.internet.MimeMessage;
+import java.nio.charset.StandardCharsets;
+import java.util.Locale;
 
 /**
  * Service for sending emails.
@@ -41,7 +39,7 @@ public class MailService {
     private final SpringTemplateEngine templateEngine;
 
     public MailService(JHipsterProperties jHipsterProperties, JavaMailSender javaMailSender,
-            MessageSource messageSource, SpringTemplateEngine templateEngine) {
+                       MessageSource messageSource, SpringTemplateEngine templateEngine) {
 
         this.jHipsterProperties = jHipsterProperties;
         this.javaMailSender = javaMailSender;
@@ -78,11 +76,15 @@ public class MailService {
         Locale locale = Locale.forLanguageTag(user.getLangKey());
         Context context = new Context(locale);
         context.setVariable(USER, user);
+        sendEmailFromTemplate(user.getEmail(), templateName, titleKey, context, locale);
+    }
+
+    @Async
+    public void sendEmailFromTemplate(String recipientEmail, String templateName, String titleKey, Context context, Locale locale) {
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
-        sendEmail(user.getEmail(), subject, content, false, true);
-
+        sendEmail(recipientEmail, subject, content, false, true);
     }
 
     @Async

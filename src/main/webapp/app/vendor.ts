@@ -26,6 +26,7 @@ import {
     faList,
     faMicrophone,
     faMinus,
+    faPaperPlane,
     faPencilAlt,
     faPlus,
     faReceipt,
@@ -98,4 +99,5 @@ library.add(faMinus);
 library.add(faMicrophone);
 library.add(faRobot);
 library.add(faChevronCircleRight);
+library.add(faPaperPlane);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here
