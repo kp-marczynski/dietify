@@ -5,7 +5,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.service.dto.MailableMealPlanDto;
+import pl.marczynski.dietify.mealplans.service.dto.ShoplistDto;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -46,4 +48,6 @@ public interface MealPlanService {
     void delete(Long id) throws NotFoundException;
 
     void send(MailableMealPlanDto mailableMealPlan);
+
+    void sendShoplist(ShoplistDto shoplist);
 }

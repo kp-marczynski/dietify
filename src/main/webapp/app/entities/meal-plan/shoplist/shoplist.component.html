@@ -1,3 +1,23 @@
 <ul>
     <li *ngFor="let item of shoplistItems">{{item.amount}}g x {{item.productName}}</li>
 </ul>
+<form name="editForm" role="form" novalidate (ngSubmit)="send()" #editForm="ngForm">
+    <jhi-alert-error></jhi-alert-error>
+    <div class="form-group">
+        <label class="form-control-label" for="field_recipient" ngbTooltip="Id of author of the plan">
+            Recipient email
+        </label>
+        <input type="email" class="form-control" name="recipient" id="field_recipient"
+               [(ngModel)]="recipient" required/>
+        <div [hidden]="!(editForm.controls.recipient?.dirty && editForm.controls.recipient?.invalid)">
+            <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.recipient?.errors?.required">
+                This field is required.
+            </small>
+        </div>
+    </div>
+    <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSending"
+            class="btn btn-primary">
+        <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span>Send</span>
+    </button>
+</form>

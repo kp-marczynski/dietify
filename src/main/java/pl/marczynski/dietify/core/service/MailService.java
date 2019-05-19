@@ -30,6 +30,8 @@ public class MailService {
 
     private static final String BASE_URL = "baseUrl";
 
+    private final String RECIPIENT_EMAIL = "recipientEmail";
+
     private final JHipsterProperties jHipsterProperties;
 
     private final JavaMailSender javaMailSender;
@@ -84,6 +86,7 @@ public class MailService {
         context.setVariable(BASE_URL, jHipsterProperties.getMail().getBaseUrl());
         String content = templateEngine.process(templateName, context);
         String subject = messageSource.getMessage(titleKey, null, locale);
+        context.setVariable(RECIPIENT_EMAIL, recipientEmail);
         sendEmail(recipientEmail, subject, content, false, true);
     }
 

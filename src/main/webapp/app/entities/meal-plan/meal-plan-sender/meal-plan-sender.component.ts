@@ -28,6 +28,7 @@ export class MealPlanSenderComponent implements OnInit {
     }
 
     send() {
+        this.isSending = true;
         const mailableMealPlan = new MailableMealPlan();
         mailableMealPlan.recipientEmail = this.recipient;
         mailableMealPlan.days = [];
