@@ -63,7 +63,7 @@ export class ShoplistComponent implements OnInit {
         shoplistItem.amount = Math.ceil(shoplistItem.amount);
     }
 
-    private send() {
+    send() {
         this.isSending = true;
         this.mealPlanService.sendShoplist(new Shoplist(this.shoplistItems, this.recipient)).subscribe();
         this.passEntry.emit(true);
