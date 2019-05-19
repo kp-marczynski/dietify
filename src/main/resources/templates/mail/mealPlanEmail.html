@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.mealplan.title}">JHipster creation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}"/>
+</head>
+<body>
+<p th:text="#{email.activation.greeting(${mailableMealPlan.recipientEmail})}">
+    Dear
+</p>
+<p th:text="#{email.creation.text1}">
+    Your JHipster account has been created, please click on the URL below to access it:
+</p>
+<th:block th:each="day : ${mailableMealPlan.days}">
+    <h2 th:text="${'Day ' + day.ordinalNumber}"></h2>
+    <th:block th:each="meal : ${day.meals}">
+        <h3 th:text="${'Meal ' + meal.ordinalNumber}"></h3>
+        <h4>Products</h4>
+        <table>
+            <th:block th:each="product : ${meal.products}">
+                <tr>
+                    <td th:text="${product.name}"></td>
+                    :
+                    <td th:text="${product.amount}"></td>
+                    <td th:text="${product.measureDescription}"></td>
+                </tr>
+            </th:block>
+        </table>
+        <h4>Recipes</h4>
+        <table>
+            <th:block th:each="recipe : ${meal.recipes}">
+                <tr>
+                    <td th:text="${recipe.name}"></td>
+                    :
+                    <td th:text="${recipe.amount}"></td>
+                    <td th:text="${recipe.measureDescription}"></td>
+                </tr>
+            </th:block>
+        </table>
+    </th:block>
+</th:block>
+</body>
+</html>

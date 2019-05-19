@@ -18,6 +18,7 @@ import {BasicNutritionResponse, IBasicNutritionResponse} from 'app/shared/model/
 import {IMealPlanDay} from 'app/shared/model/meal-plan-day.model';
 import {CaloriesConverterService} from 'app/entities/meal-plan/calories-converter.service';
 import {BasicNutritionType} from 'app/shared/model/enum/basic-nutritions.enum';
+import {MealPlanSenderComponent} from 'app/entities/meal-plan/meal-plan-sender/meal-plan-sender.component';
 
 @Component({
     selector: 'jhi-meal-plan-detail',
@@ -72,7 +73,7 @@ export class MealPlanDetailComponent implements OnInit {
             (res: HttpResponse<IProduct>) => {
                 mealProduct.product = res.body;
                 const prod = mealProduct.product.householdMeasures.find(measure => measure.id === mealProduct.householdMeasureId);
-                mealProduct.householdMeasureDescription = prod ? prod.description : '';
+                mealProduct.householdMeasureDescription = prod ? prod.description : 'g';
             },
             (res: HttpErrorResponse) => mealProduct.product = null
         );
@@ -228,5 +229,15 @@ export class MealPlanDetailComponent implements OnInit {
 
     getBasicNutritionsKeys(): string[] {
         return Object.keys(BasicNutritionType);
+    }
+
+    sendMealPlan() {
+        const modalRef = this.modalService.open(MealPlanSenderComponent, {windowClass: 'custom-modal'});
+
+        modalRef.componentInstance.mealPlan = this.mealPlan;
+
+        modalRef.componentInstance.passEntry.subscribe(() => {
+            modalRef.close();
+        });
     }
 }

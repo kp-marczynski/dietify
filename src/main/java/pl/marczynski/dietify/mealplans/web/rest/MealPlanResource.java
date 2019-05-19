@@ -1,5 +1,7 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jhipster.web.util.ResponseUtil;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
@@ -9,11 +11,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pl.marczynski.dietify.core.service.MailService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
 import pl.marczynski.dietify.core.web.rest.util.HeaderUtil;
 import pl.marczynski.dietify.core.web.rest.util.PaginationUtil;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.service.MealPlanService;
+import pl.marczynski.dietify.mealplans.service.dto.MailableMealPlanDto;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -55,6 +59,14 @@ public class MealPlanResource {
         return ResponseEntity.created(new URI("/api/meal-plans/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/meal-plans/send")
+    public ResponseEntity<Void> sendMealPlan(@RequestBody MailableMealPlanDto mailableMealPlan) throws URISyntaxException, JsonProcessingException {
+        log.debug("REST request to send MailableMealPlan : {}", mailableMealPlan);
+
+        mealPlanService.send(mailableMealPlan);
+        return ResponseEntity.ok().build();
     }
 
     /**

@@ -23,6 +23,7 @@ import {
     faHeart,
     faHome,
     faList,
+    faPaperPlane,
     faPencilAlt,
     faPlus,
     faReceipt,
@@ -90,4 +91,5 @@ library.add(faAsterisk);
 library.add(faUtensils);
 library.add(faBarcode);
 library.add(faReceipt);
+library.add(faPaperPlane);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here

@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.mealplans.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,10 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.context.Context;
+import pl.marczynski.dietify.core.service.MailService;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
 import pl.marczynski.dietify.mealplans.service.MealPlanService;
+import pl.marczynski.dietify.mealplans.service.dto.MailableMealPlanDto;
 
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -27,10 +32,14 @@ public class MealPlanServiceImpl implements MealPlanService {
     private final MealPlanRepository mealPlanRepository;
 
     private final CacheManager cacheManager;
+    private final MailService mailService;
 
-    public MealPlanServiceImpl(MealPlanRepository mealPlanRepository, CacheManager cacheManager) {
+    private final String MAILABLE_MEAL_PLAN = "mailableMealPlan";
+
+    public MealPlanServiceImpl(MealPlanRepository mealPlanRepository, CacheManager cacheManager, MailService mailService) {
         this.mealPlanRepository = mealPlanRepository;
         this.cacheManager = cacheManager;
+        this.mailService = mailService;
     }
 
     /**
@@ -87,6 +96,14 @@ public class MealPlanServiceImpl implements MealPlanService {
         }
         this.clearProductCaches(id);
         mealPlanRepository.deleteById(id);
+    }
+
+    @Override
+    public void send(MailableMealPlanDto mailableMealPlan) {
+        Locale locale = Locale.forLanguageTag("pl_PL");
+        Context context = new Context(locale);
+        context.setVariable(MAILABLE_MEAL_PLAN, mailableMealPlan);
+        mailService.sendEmailFromTemplate(mailableMealPlan.recipientEmail, "mail/mealPlanEmail", "email.mealplan.title", context, locale);
     }
 
     private void clearProductCaches(MealPlan mealPlan) {
