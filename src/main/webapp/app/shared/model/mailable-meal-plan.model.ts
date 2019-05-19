@@ -31,7 +31,6 @@ export class MailableProduct {
     public measureDescription: string;
     public amount: number;
 
-
     constructor(name: string, measureDescription: string, amount: number) {
         this.name = name;
         this.measureDescription = measureDescription;

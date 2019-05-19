@@ -16,6 +16,7 @@ import {
     faCalendarAlt,
     faCheckCircle,
     faChevronCircleRight,
+    faClipboardList,
     faClock,
     faCloud,
     faEye,
@@ -100,4 +101,5 @@ library.add(faMicrophone);
 library.add(faRobot);
 library.add(faChevronCircleRight);
 library.add(faPaperPlane);
+library.add(faClipboardList);
 // jhipster-needle-add-element-to-vendor - JHipster will add new menu items here
