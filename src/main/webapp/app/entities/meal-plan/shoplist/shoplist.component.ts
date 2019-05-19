@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {IMealPlan} from 'app/shared/model/meal-plan.model';
-import {ShoplistItem} from 'app/shared/model/shoplist-item.model';
+import {Shoplist, ShoplistItem} from 'app/shared/model/shoplist-item.model';
 import {ProductService} from 'app/entities/product';
 import {IProduct} from 'app/shared/model/product.model';
 import {HttpResponse} from '@angular/common/http';
+import {MealPlanService} from 'app/entities/meal-plan';
 
 @Component({
     selector: 'jhi-shoplist',
@@ -16,8 +17,10 @@ export class ShoplistComponent implements OnInit {
 
     mealPlan: IMealPlan;
     shoplistItems: ShoplistItem[] = [];
+    recipient: string;
+    isSending: boolean;
 
-    constructor(private productService: ProductService) {
+    constructor(private productService: ProductService, private mealPlanService: MealPlanService) {
     }
 
     ngOnInit() {
@@ -58,5 +61,11 @@ export class ShoplistComponent implements OnInit {
             this.shoplistItems.push(shoplistItem);
         }
         shoplistItem.amount = Math.ceil(shoplistItem.amount);
+    }
+
+    private send() {
+        this.isSending = true;
+        this.mealPlanService.sendShoplist(new Shoplist(this.shoplistItems, this.recipient)).subscribe();
+        this.passEntry.emit(true);
     }
 }

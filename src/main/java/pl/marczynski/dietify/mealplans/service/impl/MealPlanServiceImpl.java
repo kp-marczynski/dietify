@@ -1,6 +1,5 @@
 package pl.marczynski.dietify.mealplans.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +15,7 @@ import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
 import pl.marczynski.dietify.mealplans.service.MealPlanService;
 import pl.marczynski.dietify.mealplans.service.dto.MailableMealPlanDto;
+import pl.marczynski.dietify.mealplans.service.dto.ShoplistDto;
 
 import java.util.Locale;
 import java.util.Optional;
@@ -35,6 +35,7 @@ public class MealPlanServiceImpl implements MealPlanService {
     private final MailService mailService;
 
     private final String MAILABLE_MEAL_PLAN = "mailableMealPlan";
+    private final String SHOPLIST = "shoplist";
 
     public MealPlanServiceImpl(MealPlanRepository mealPlanRepository, CacheManager cacheManager, MailService mailService) {
         this.mealPlanRepository = mealPlanRepository;
@@ -104,6 +105,14 @@ public class MealPlanServiceImpl implements MealPlanService {
         Context context = new Context(locale);
         context.setVariable(MAILABLE_MEAL_PLAN, mailableMealPlan);
         mailService.sendEmailFromTemplate(mailableMealPlan.recipientEmail, "mail/mealPlanEmail", "email.mealplan.title", context, locale);
+    }
+
+    @Override
+    public void sendShoplist(ShoplistDto shoplist) {
+        Locale locale = Locale.forLanguageTag("pl_PL");
+        Context context = new Context(locale);
+        context.setVariable(SHOPLIST, shoplist);
+        mailService.sendEmailFromTemplate(shoplist.recipientEmail, "mail/shoplistEmail", "email.shoplist.title", context, locale);
     }
 
     private void clearProductCaches(MealPlan mealPlan) {
