@@ -8,7 +8,7 @@ import {map} from 'rxjs/operators';
 import {SERVER_API_URL} from 'app/app.constants';
 import {createRequestOption} from 'app/shared';
 import {IMealPlan} from 'app/shared/model/meal-plan.model';
-import {MailableMealPlan} from "app/shared/model/mailable-meal-plan.model";
+import {MailableMealPlan} from 'app/shared/model/mailable-meal-plan.model';
 
 type EntityResponseType = HttpResponse<IMealPlan>;
 type EntityArrayResponseType = HttpResponse<IMealPlan[]>;
@@ -22,7 +22,7 @@ export class MealPlanService {
 
     sendMail(mealPlan: MailableMealPlan) {
         return this.http
-            .post<boolean>(this.resourceUrl+'/send', mealPlan, {observe: 'response'});
+            .post<boolean>(this.resourceUrl + '/send', mealPlan, {observe: 'response'});
     }
 
     create(mealPlan: IMealPlan): Observable<EntityResponseType> {

@@ -30,8 +30,7 @@ export class MailableProduct {
     public name: string;
     public measureDescription: string;
     public amount: number;
-
-
+    
     constructor(name: string, measureDescription: string, amount: number) {
         this.name = name;
         this.measureDescription = measureDescription;
