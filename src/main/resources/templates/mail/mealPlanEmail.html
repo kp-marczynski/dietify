@@ -6,11 +6,11 @@
     <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}"/>
 </head>
 <body>
-<p th:text="#{email.activation.greeting(${mailableMealPlan.recipientEmail})}">
+<p th:text="#{email.mealplan.greeting(${mailableMealPlan.recipientEmail})}">
     Dear
 </p>
-<p th:text="#{email.creation.text1}">
-    Your JHipster account has been created, please click on the URL below to access it:
+<p th:text="#{email.mealplan.text1}">
+    Your meal plan:
 </p>
 <th:block th:each="day : ${mailableMealPlan.days}">
     <h2 th:text="${'Day ' + day.ordinalNumber}"></h2>
