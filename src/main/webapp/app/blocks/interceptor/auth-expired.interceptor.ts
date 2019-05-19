@@ -1,10 +1,10 @@
-import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
-import { AuthServerProvider } from 'app/core/auth/auth-session.service';
-import { LoginModalService } from 'app/core/login/login-modal.service';
-import { StateStorageService } from 'app/core/auth/state-storage.service';
+import {Injectable} from '@angular/core';
+import {HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {AuthServerProvider} from 'app/core/auth/auth-session.service';
+import {LoginModalService} from 'app/core/login/login-modal.service';
+import {StateStorageService} from 'app/core/auth/state-storage.service';
 
 @Injectable()
 export class AuthExpiredInterceptor implements HttpInterceptor {
@@ -12,12 +12,23 @@ export class AuthExpiredInterceptor implements HttpInterceptor {
         private loginModalService: LoginModalService,
         private authServerProvider: AuthServerProvider,
         private stateStorageService: StateStorageService
-    ) {}
+    ) {
+    }
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (request.url === 'https://api.dialogflow.com/v1/query?v=20150910') {
+            request = request.clone({
+                setHeaders: {
+                    'Authorization': `Bearer d2fec3415734470cb989611596f25fcd`,
+                },
+            });
+
+            return next.handle(request);
+        }
         return next.handle(request).pipe(
             tap(
-                (event: HttpEvent<any>) => {},
+                (event: HttpEvent<any>) => {
+                },
                 (err: any) => {
                     if (err instanceof HttpErrorResponse) {
                         if (err.status === 401 && err.url && !err.url.includes('/api/account')) {

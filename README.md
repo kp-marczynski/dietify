@@ -59,7 +59,7 @@ Then run:
 -   [x] usage of cache (backend only)
 -   [x] user authentication & authorization
 -   [x] admin panel
--   [ ] integration with external service
+-   [x] integration with external service
 -   [x] unit tests
 -   [x] ajax elements
 -   [x] charts

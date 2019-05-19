@@ -61,18 +61,45 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
             <dd>
                 <span>{{mealPlan.percentOfCarbohydrates}}</span>
             </dd>
+            <dt>Meals Definitions</dt>
+            <dd>
+                <table>
+                    <tr>
+                        <th>Meal number</th>
+                        <th>Meal type</th>
+                        <th>Time of meal</th>
+                        <th>% of energy</th>
+                    </tr>
+                    <tr *ngFor="let mealDefinition of mealPlan.mealDefinitions">
+                        <td>{{mealDefinition.ordinalNumber}}</td>
+                        <td>{{getMealTypeById(mealDefinition.mealTypeId).nameEnglish}}</td>
+                        <td>{{mealDefinition.timeOfMeal}}</td>
+                        <td>{{mealDefinition.percentOfEnergy}}</td>
+                    </tr>
+                </table>
+            </dd>
         </dl>
 
         <button type="submit"
                 (click)="previousState()"
                 class="btn btn-info">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Back</span>
         </button>
 
         <button type="button"
                 [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
                 class="btn btn-primary">
-            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+        <button type="button"
+                (click)="sendMealPlan()"
+                class="btn btn-primary">
+            <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span>Send</span>
+        </button>
+        <button type="button"
+                (click)="showShoplist()"
+                class="btn btn-primary">
+            <fa-icon [icon]="'clipboard-list'"></fa-icon>&nbsp;<span>Shoplist</span>
         </button>
     </div>
     <div class="container-fluid" *ngIf="currentTab=='CALENDAR'">
@@ -119,7 +146,7 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                    routerLink="/product/{{product.productId}}/view">
                     <span
                         class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">{{product.amount}}
-                        x {{product.householdMeasureDescription ? product.householdMeasureDescription : 'g'}}</span>
+                        x {{product.householdMeasureDescription}}</span>
                     {{product.product ? product.product.description : product.productId}}
                 </a>
             </div>
@@ -130,7 +157,8 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
                         class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">
                         <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;
                         <span>
-                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%
+                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}
+                            %
                             </span><br/>
                         <span>
                             {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}

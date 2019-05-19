@@ -17,7 +17,7 @@ import {IMealDefinition, MealDefinition} from 'app/shared/model/meal-definition.
 import {MealUpdateComponent} from 'app/entities/meal';
 import {MealPlanTab} from 'app/shared/model/enum/meal-plan-tab.enum';
 import {MealTypeService} from 'app/entities/meal-type';
-import {MealType} from 'app/shared/model/meal-type.model';
+import {IMealType, MealType} from 'app/shared/model/meal-type.model';
 import {filter, map} from 'rxjs/operators';
 import {ILanguage} from 'app/shared/model/language.model';
 import {JhiAlertService} from 'ng-jhipster';
@@ -60,11 +60,11 @@ export class MealPlanUpdateComponent implements OnInit {
         this.mealTypeService
             .query()
             .pipe(
-                filter((res: HttpResponse<ILanguage[]>) => res.ok),
-                map((res: HttpResponse<ILanguage[]>) => res.body)
+                filter((res: HttpResponse<IMealType[]>) => res.ok),
+                map((res: HttpResponse<IMealType[]>) => res.body)
             )
             .subscribe(
-                (res: ILanguage[]) => {
+                (res: IMealType[]) => {
                     this.mealTypes = res;
                 },
                 (res: HttpErrorResponse) => this.onError(res.message)

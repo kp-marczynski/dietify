@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.github.jhipster.web.util.ResponseUtil;
 import javassist.NotFoundException;
 import org.slf4j.Logger;
@@ -14,6 +15,8 @@ import pl.marczynski.dietify.core.web.rest.util.HeaderUtil;
 import pl.marczynski.dietify.core.web.rest.util.PaginationUtil;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.service.MealPlanService;
+import pl.marczynski.dietify.mealplans.service.dto.MailableMealPlanDto;
+import pl.marczynski.dietify.mealplans.service.dto.ShoplistDto;
 
 import javax.validation.Valid;
 import java.net.URI;
@@ -55,6 +58,22 @@ public class MealPlanResource {
         return ResponseEntity.created(new URI("/api/meal-plans/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
             .body(result);
+    }
+
+    @PostMapping("/meal-plans/send")
+    public ResponseEntity<Void> sendMealPlan(@RequestBody MailableMealPlanDto mailableMealPlan) throws URISyntaxException, JsonProcessingException {
+        log.debug("REST request to send MailableMealPlan : {}", mailableMealPlan);
+
+        mealPlanService.send(mailableMealPlan);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/meal-plans/send-shoplist")
+    public ResponseEntity<Void> sendShoplist(@RequestBody ShoplistDto shoplistDto) throws URISyntaxException, JsonProcessingException {
+        log.debug("REST request to send shoplist : {}", shoplistDto);
+
+        mealPlanService.sendShoplist(shoplistDto);
+        return ResponseEntity.ok().build();
     }
 
     /**

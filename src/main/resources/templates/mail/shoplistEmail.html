@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{email.shoplist.title}">JHipster creation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="shortcut icon" th:href="@{|${baseUrl}/favicon.ico|}"/>
+</head>
+<body>
+<p th:text="#{email.shoplist.greeting(${shoplist.recipientEmail})}">
+    Dear
+</p>
+<p th:text="#{email.shoplist.text1}">
+    Your shoplist:
+</p>
+<ul>
+    <th:block th:each="item : ${shoplist.shoplistItems}">
+        <li th:text="${item.amount + 'g x ' + item.productName}"></li>
+    </th:block>
+</ul>
+</body>
+</html>

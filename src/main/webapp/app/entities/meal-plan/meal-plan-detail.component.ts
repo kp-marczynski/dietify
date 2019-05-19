@@ -18,6 +18,11 @@ import {BasicNutritionResponse, IBasicNutritionResponse} from 'app/shared/model/
 import {IMealPlanDay} from 'app/shared/model/meal-plan-day.model';
 import {CaloriesConverterService} from 'app/entities/meal-plan/calories-converter.service';
 import {BasicNutritionType} from 'app/shared/model/enum/basic-nutritions.enum';
+import {MealPlanSenderComponent} from 'app/entities/meal-plan/meal-plan-sender/meal-plan-sender.component';
+import {IMealType, MealType} from 'app/shared/model/meal-type.model';
+import {filter, map} from 'rxjs/operators';
+import {MealTypeService} from 'app/entities/meal-type';
+import {ShoplistComponent} from 'app/entities/meal-plan/shoplist/shoplist.component';
 
 @Component({
     selector: 'jhi-meal-plan-detail',
@@ -27,12 +32,15 @@ export class MealPlanDetailComponent implements OnInit {
     mealPlan: IMealPlan;
     currentTab: MealPlanTab = MealPlanTab.SETTINGS;
 
+    mealTypes: MealType[] = [];
+
     constructor(
         protected activatedRoute: ActivatedRoute,
         protected productService: ProductService,
         protected recipeService: RecipeService,
         protected modalService: NgbModal,
-        protected caloriesConverter: CaloriesConverterService) {
+        protected caloriesConverter: CaloriesConverterService,
+        protected mealTypeService: MealTypeService) {
     }
 
     ngOnInit() {
@@ -40,6 +48,26 @@ export class MealPlanDetailComponent implements OnInit {
             this.mealPlan = mealPlan;
             this.findProductsAndRecipes();
         });
+        this.mealTypeService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IMealType[]>) => res.ok),
+                map((res: HttpResponse<IMealType[]>) => res.body)
+            )
+            .subscribe(
+                (res: IMealType[]) => {
+                    this.mealTypes = res;
+                }
+            );
+    }
+
+    getMealTypeById(mealTypeId: number): IMealType {
+        const foundMealType = this.mealTypes.find(mealType => mealType.id === mealTypeId);
+        if (foundMealType) {
+            return foundMealType;
+        } else {
+            return new MealType();
+        }
     }
 
     previousState() {
@@ -72,7 +100,7 @@ export class MealPlanDetailComponent implements OnInit {
             (res: HttpResponse<IProduct>) => {
                 mealProduct.product = res.body;
                 const prod = mealProduct.product.householdMeasures.find(measure => measure.id === mealProduct.householdMeasureId);
-                mealProduct.householdMeasureDescription = prod ? prod.description : '';
+                mealProduct.householdMeasureDescription = prod ? prod.description : 'g';
             },
             (res: HttpErrorResponse) => mealProduct.product = null
         );
@@ -228,5 +256,25 @@ export class MealPlanDetailComponent implements OnInit {
 
     getBasicNutritionsKeys(): string[] {
         return Object.keys(BasicNutritionType);
+    }
+
+    sendMealPlan() {
+        const modalRef = this.modalService.open(MealPlanSenderComponent, {windowClass: 'custom-modal'});
+
+        modalRef.componentInstance.mealPlan = this.mealPlan;
+
+        modalRef.componentInstance.passEntry.subscribe(() => {
+            modalRef.close();
+        });
+    }
+
+    showShoplist() {
+        const modalRef = this.modalService.open(ShoplistComponent, {windowClass: 'custom-modal'});
+
+        modalRef.componentInstance.createShoplistForMealPlan(this.mealPlan);
+
+        modalRef.componentInstance.passEntry.subscribe(() => {
+            modalRef.close();
+        });
     }
 }
