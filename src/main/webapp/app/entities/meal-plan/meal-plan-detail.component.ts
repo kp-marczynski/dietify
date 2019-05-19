@@ -19,6 +19,9 @@ import {IMealPlanDay} from 'app/shared/model/meal-plan-day.model';
 import {CaloriesConverterService} from 'app/entities/meal-plan/calories-converter.service';
 import {BasicNutritionType} from 'app/shared/model/enum/basic-nutritions.enum';
 import {MealPlanSenderComponent} from 'app/entities/meal-plan/meal-plan-sender/meal-plan-sender.component';
+import {IMealType, MealType} from 'app/shared/model/meal-type.model';
+import {filter, map} from 'rxjs/operators';
+import {MealTypeService} from 'app/entities/meal-type';
 
 @Component({
     selector: 'jhi-meal-plan-detail',
@@ -28,12 +31,15 @@ export class MealPlanDetailComponent implements OnInit {
     mealPlan: IMealPlan;
     currentTab: MealPlanTab = MealPlanTab.SETTINGS;
 
+    mealTypes: MealType[] = [];
+
     constructor(
         protected activatedRoute: ActivatedRoute,
         protected productService: ProductService,
         protected recipeService: RecipeService,
         protected modalService: NgbModal,
-        protected caloriesConverter: CaloriesConverterService) {
+        protected caloriesConverter: CaloriesConverterService,
+        protected mealTypeService: MealTypeService) {
     }
 
     ngOnInit() {
@@ -41,6 +47,21 @@ export class MealPlanDetailComponent implements OnInit {
             this.mealPlan = mealPlan;
             this.findProductsAndRecipes();
         });
+        this.mealTypeService
+            .query()
+            .pipe(
+                filter((res: HttpResponse<IMealType[]>) => res.ok),
+                map((res: HttpResponse<IMealType[]>) => res.body)
+            )
+            .subscribe(
+                (res: IMealType[]) => {
+                    this.mealTypes = res;
+                }
+            );
+    }
+
+    getMealTypeById(mealTypeId: number): IMealType {
+        return this.mealTypes.find(mealType => mealType.id === mealTypeId);
     }
 
     previousState() {

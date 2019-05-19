@@ -32,9 +32,9 @@ export class MealPlanSenderComponent implements OnInit {
         mailableMealPlan.recipientEmail = this.recipient;
         mailableMealPlan.days = [];
         for (const day of this.mealPlan.days) {
-            let mailableDay = new MailableDay(day.ordinalNumber);
+            const mailableDay = new MailableDay(day.ordinalNumber);
             for (const meal of day.meals) {
-                let mailableMeal = new MailableMeal(meal.ordinalNumber);
+                const mailableMeal = new MailableMeal(meal.ordinalNumber);
                 for (const product of meal.mealProducts) {
                     mailableMeal.products.push(new MailableProduct(product.product.description, product.householdMeasureDescription, product.amount));
                 }
