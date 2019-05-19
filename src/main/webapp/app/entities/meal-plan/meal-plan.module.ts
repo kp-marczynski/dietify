@@ -14,6 +14,7 @@ import {
 import {MealDetailComponent, MealUpdateComponent} from 'app/entities/meal';
 import {DietifyMealModule} from 'app/entities/meal/meal.module';
 import {MealPlanSenderComponent} from './meal-plan-sender/meal-plan-sender.component';
+import { ShoplistComponent } from './shoplist/shoplist.component';
 
 const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
 
@@ -29,7 +30,8 @@ const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
         MealPlanUpdateComponent,
         MealPlanDeleteDialogComponent,
         MealPlanDeletePopupComponent,
-        MealPlanSenderComponent
+        MealPlanSenderComponent,
+        ShoplistComponent
     ],
     entryComponents: [
         MealPlanComponent,
@@ -38,7 +40,8 @@ const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
         MealPlanDeletePopupComponent,
         MealUpdateComponent,
         MealDetailComponent,
-        MealPlanSenderComponent
+        MealPlanSenderComponent,
+        ShoplistComponent
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

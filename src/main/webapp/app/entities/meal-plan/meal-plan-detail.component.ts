@@ -22,6 +22,7 @@ import {MealPlanSenderComponent} from 'app/entities/meal-plan/meal-plan-sender/m
 import {IMealType, MealType} from 'app/shared/model/meal-type.model';
 import {filter, map} from 'rxjs/operators';
 import {MealTypeService} from 'app/entities/meal-type';
+import {ShoplistComponent} from 'app/entities/meal-plan/shoplist/shoplist.component';
 
 @Component({
     selector: 'jhi-meal-plan-detail',
@@ -61,7 +62,12 @@ export class MealPlanDetailComponent implements OnInit {
     }
 
     getMealTypeById(mealTypeId: number): IMealType {
-        return this.mealTypes.find(mealType => mealType.id === mealTypeId);
+        const foundMealType = this.mealTypes.find(mealType => mealType.id === mealTypeId);
+        if (foundMealType) {
+            return foundMealType;
+        } else {
+            return new MealType();
+        }
     }
 
     previousState() {
@@ -256,6 +262,16 @@ export class MealPlanDetailComponent implements OnInit {
         const modalRef = this.modalService.open(MealPlanSenderComponent, {windowClass: 'custom-modal'});
 
         modalRef.componentInstance.mealPlan = this.mealPlan;
+
+        modalRef.componentInstance.passEntry.subscribe(() => {
+            modalRef.close();
+        });
+    }
+
+    showShoplist() {
+        const modalRef = this.modalService.open(ShoplistComponent, {windowClass: 'custom-modal'});
+
+        modalRef.componentInstance.createShoplistForMealPlan(this.mealPlan);
 
         modalRef.componentInstance.passEntry.subscribe(() => {
             modalRef.close();

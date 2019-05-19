@@ -83,18 +83,23 @@ Sum of percents of protein, fat and carbohydrates must not be larger than 100">P
         <button type="submit"
                 (click)="previousState()"
                 class="btn btn-info">
-            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Back</span>
         </button>
 
         <button type="button"
                 [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
                 class="btn btn-primary">
-            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span>Edit</span>
         </button>
         <button type="button"
                 (click)="sendMealPlan()"
                 class="btn btn-primary">
-            <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span> Send</span>
+            <fa-icon [icon]="'paper-plane'"></fa-icon>&nbsp;<span>Send</span>
+        </button>
+        <button type="button"
+                (click)="showShoplist()"
+                class="btn btn-primary">
+            <fa-icon [icon]="'clipboard-list'"></fa-icon>&nbsp;<span>Shoplist</span>
         </button>
     </div>
     <div class="container-fluid" *ngIf="currentTab=='CALENDAR'">
