@@ -49,13 +49,15 @@ import {
     faUser,
     faUserPlus,
     faUtensils,
-    faWrench
+    faWrench,
+    faUsers
 } from '@fortawesome/free-solid-svg-icons';
 
 // Imports all fontawesome core and solid icons
 
 // Adds the SVG icon to the library so you can use it in your page
 library.add(faUser);
+library.add(faUsers);
 library.add(faSort);
 library.add(faSortUp);
 library.add(faSortDown);

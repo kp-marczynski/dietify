@@ -93,6 +93,14 @@
                     <span>Meal Plan</span>
                 </a>
             </li>
+            <li>
+                <a class="dropdown-item" routerLink="patient-card" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="users" fixedWidth="true"></fa-icon>
+                    <span>Patients</span>
+                </a>
+            </li>
+
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
                 routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
@@ -299,10 +307,19 @@
                 </a>
             </span>
             <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-plan" routerLinkActive="active"
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-plan"
+                   routerLinkActive="active"
                    [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
                     <fa-icon icon="calendar-alt" fixedWidth="true"></fa-icon>
                     <span>Meal Plan</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="patient-card"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="users" fixedWidth="true"></fa-icon>
+                    <span>Patients</span>
                 </a>
             </span>
             <!--</span>-->

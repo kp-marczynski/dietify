@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-patient-card-heading">Create or edit a Patient Card</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!patientCard.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="patientCard.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_creationDate">Creation Date</label>
+                    <div class="input-group">
+                        <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" [(ngModel)]="patientCard.creationDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.creationDate?.dirty && editForm.controls.creationDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.creationDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_patient">Patient</label>
+                    <select class="form-control" id="field_patient" name="patient" [(ngModel)]="patientCard.patient"  required>
+                        <option *ngIf="!editForm.value.patient" [ngValue]="null" selected></option>
+                        <option [ngValue]="patientOption.id === patientCard.patient?.id ? patientCard.patient : patientOption" *ngFor="let patientOption of patients; trackBy: trackPatientById">{{patientOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.patient?.dirty && editForm.controls.patient?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.patient?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dietetician">Dietetician</label>
+                    <select class="form-control" id="field_dietetician" name="dietetician" [(ngModel)]="patientCard.dietetician"  required>
+                        <option *ngIf="!editForm.value.dietetician" [ngValue]="null" selected></option>
+                        <option [ngValue]="dieteticianOption.id === patientCard.dietetician?.id ? patientCard.dietetician : dieteticianOption" *ngFor="let dieteticianOption of dieteticians; trackBy: trackDieteticianById">{{dieteticianOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.dietetician?.dirty && editForm.controls.dietetician?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dietetician?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

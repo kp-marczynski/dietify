@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    
+    <property name="now" value="now()" dbms="mysql"/>
+    <property name="autoIncrement" value="true"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql"/>
+
+    <!--
+        Added the entity BodyMeasurment.
+    -->
+    <changeSet id="20190523193742-1" author="jhipster">
+        <createTable tableName="body_measurment" remarks="A body measurment @author Krzysztof Marczyński">
+            <column name="id" type="bigint" autoIncrement="${autoIncrement}">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="completion_date" type="date" remarks="Date of measurment completion">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="height" type="integer" remarks="Patient&apos;s height Alongside with weight it is used to calculate BMI factor">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="weight" type="integer" remarks="Patient&apos;s weight Alongside with height it is used to calculate BMI factor">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="waist" type="double" remarks="Patient&apos;s waist measure">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="percent_of_fat_tissue" type="double" remarks="Percent of fat tissue in patient&apos;s body Norm for women: 16-20 Norm for men: 15-18">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="percent_of_water" type="double" remarks="Percent of water in patient&apos;s body Norm for women: 45-60 Norm for men: 50-65">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="muscle_mass" type="double" remarks="Mass of patient&apos;s muscle tissue in kilograms">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="physical_mark" type="double" remarks="Physical mark Norm: 5">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="calcium_in_bones" type="double" remarks="Level of calcium in patient&apos;s bones in kilograms Norm: ~2.4kg">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="basic_metabolism" type="integer" remarks="Basic metabolism in kcal">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="metabolic_age" type="double" remarks="Metabolic age in years">
+                <constraints nullable="true" />
+            </column>
+
+            <column name="visceral_fat_level" type="double" remarks="Level of visceral fat Norm: 1-12">
+                <constraints nullable="true" />
+            </column>
+
+            <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
+        </createTable>
+        
+    </changeSet>
+    <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here, do not remove-->
+</databaseChangeLog>

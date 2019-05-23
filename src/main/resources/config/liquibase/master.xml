@@ -30,6 +30,11 @@
     <include file="config/liquibase/changelog/20190504185122_added_entity_MealProduct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190504185123_added_entity_MealPlanSuitableForDiet.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190504185124_added_entity_MealPlanUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193738_added_entity_Dietetician.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193739_added_entity_Patient.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193740_added_entity_PatientCard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193741_added_entity_Appointment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193742_added_entity_BodyMeasurment.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20190322191200_added_entity_constraints_Product.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190322191201_added_entity_constraints_ProductSubcategory.xml" relativeToChangelogFile="false"/>
@@ -48,6 +53,8 @@
     <include file="config/liquibase/changelog/20190504185122_added_entity_constraints_MealProduct.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190504185123_added_entity_constraints_MealPlanSuitableForDiet.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190504185124_added_entity_constraints_MealPlanUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193740_added_entity_constraints_PatientCard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190523193741_added_entity_constraints_Appointment.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     <include file="config/liquibase/changelog/201903222023_imported_languages.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/201903232146_imported_diet_types.xml" relativeToChangelogFile="false"/>

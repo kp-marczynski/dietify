@@ -47,6 +47,26 @@ import { RouterModule } from '@angular/router';
             {
                 path: 'meal-plan',
                 loadChildren: './meal-plan/meal-plan.module#DietifyMealPlanModule'
+            },
+            {
+                path: 'dietetician',
+                loadChildren: './dietetician/dietetician.module#DietifyDieteticianModule'
+            },
+            {
+                path: 'patient',
+                loadChildren: './patient/patient.module#DietifyPatientModule'
+            },
+            {
+                path: 'patient-card',
+                loadChildren: './patient-card/patient-card.module#DietifyPatientCardModule'
+            },
+            {
+                path: 'appointment',
+                loadChildren: './appointment/appointment.module#DietifyAppointmentModule'
+            },
+            {
+                path: 'body-measurment',
+                loadChildren: './body-measurment/body-measurment.module#DietifyBodyMeasurmentModule'
             }
             /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
         ])
