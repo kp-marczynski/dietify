@@ -1,11 +1,12 @@
 package pl.marczynski.dietify.core.web.rest;
 
+import pl.marczynski.dietify.appointments.web.rest.AppointmentResource;
 import pl.marczynski.dietify.core.DietifyApp;
 
-import pl.marczynski.dietify.core.domain.Appointment;
-import pl.marczynski.dietify.core.domain.PatientCard;
-import pl.marczynski.dietify.core.repository.AppointmentRepository;
-import pl.marczynski.dietify.core.service.AppointmentService;
+import pl.marczynski.dietify.appointments.domain.Appointment;
+import pl.marczynski.dietify.appointments.domain.PatientCard;
+import pl.marczynski.dietify.appointments.repository.AppointmentRepository;
+import pl.marczynski.dietify.appointments.service.AppointmentService;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -21,7 +22,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
@@ -36,7 +36,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import pl.marczynski.dietify.core.domain.enumeration.AppointmentState;
+import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
 /**
  * Test class for the AppointmentResource REST controller.
  *

@@ -1,12 +1,13 @@
 package pl.marczynski.dietify.core.web.rest;
 
+import pl.marczynski.dietify.appointments.web.rest.PatientCardResource;
 import pl.marczynski.dietify.core.DietifyApp;
 
-import pl.marczynski.dietify.core.domain.PatientCard;
-import pl.marczynski.dietify.core.domain.Patient;
-import pl.marczynski.dietify.core.domain.Dietetician;
-import pl.marczynski.dietify.core.repository.PatientCardRepository;
-import pl.marczynski.dietify.core.service.PatientCardService;
+import pl.marczynski.dietify.appointments.domain.PatientCard;
+import pl.marczynski.dietify.appointments.domain.Patient;
+import pl.marczynski.dietify.appointments.domain.Dietetician;
+import pl.marczynski.dietify.appointments.repository.PatientCardRepository;
+import pl.marczynski.dietify.appointments.service.PatientCardService;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

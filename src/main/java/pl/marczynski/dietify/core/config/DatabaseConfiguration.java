@@ -21,11 +21,13 @@ import java.sql.SQLException;
 @EnableJpaRepositories({"pl.marczynski.dietify.core.repository",
     "pl.marczynski.dietify.products.repository",
     "pl.marczynski.dietify.recipes.repository",
-    "pl.marczynski.dietify.mealplans.repository"})
+    "pl.marczynski.dietify.mealplans.repository",
+    "pl.marczynski.dietify.appointments.repository"})
 @EntityScan({"pl.marczynski.dietify.core.domain",
     "pl.marczynski.dietify.products.domain",
     "pl.marczynski.dietify.recipes.domain",
-    "pl.marczynski.dietify.mealplans.domain"})
+    "pl.marczynski.dietify.mealplans.domain",
+    "pl.marczynski.dietify.appointments.domain"})
 @EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 @EnableTransactionManagement
 public class DatabaseConfiguration {

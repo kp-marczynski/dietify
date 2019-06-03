@@ -1,4 +1,4 @@
-package pl.marczynski.dietify.core.domain.enumeration;
+package pl.marczynski.dietify.appointments.domain.enumeration;
 
 /**
  * The AppointmentState enumeration.

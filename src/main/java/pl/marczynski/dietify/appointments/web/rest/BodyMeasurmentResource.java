@@ -1,6 +1,6 @@
-package pl.marczynski.dietify.core.web.rest;
-import pl.marczynski.dietify.core.domain.BodyMeasurment;
-import pl.marczynski.dietify.core.service.BodyMeasurmentService;
+package pl.marczynski.dietify.appointments.web.rest;
+import pl.marczynski.dietify.appointments.domain.BodyMeasurment;
+import pl.marczynski.dietify.appointments.service.BodyMeasurmentService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
 import pl.marczynski.dietify.core.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;

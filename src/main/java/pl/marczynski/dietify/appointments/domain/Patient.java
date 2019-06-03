@@ -1,7 +1,6 @@
-package pl.marczynski.dietify.core.domain;
+package pl.marczynski.dietify.appointments.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
@@ -14,7 +13,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Objects;
 
-import pl.marczynski.dietify.core.domain.enumeration.Gender;
+import pl.marczynski.dietify.appointments.domain.enumeration.Gender;
 
 /**
  * A user with patient role

@@ -1,8 +1,8 @@
-package pl.marczynski.dietify.core.service.impl;
+package pl.marczynski.dietify.appointments.service.impl;
 
-import pl.marczynski.dietify.core.service.AppointmentService;
-import pl.marczynski.dietify.core.domain.Appointment;
-import pl.marczynski.dietify.core.repository.AppointmentRepository;
+import pl.marczynski.dietify.appointments.service.AppointmentService;
+import pl.marczynski.dietify.appointments.domain.Appointment;
+import pl.marczynski.dietify.appointments.repository.AppointmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

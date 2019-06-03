@@ -1,6 +1,6 @@
-package pl.marczynski.dietify.core.web.rest;
-import pl.marczynski.dietify.core.domain.Appointment;
-import pl.marczynski.dietify.core.service.AppointmentService;
+package pl.marczynski.dietify.appointments.web.rest;
+import pl.marczynski.dietify.appointments.domain.Appointment;
+import pl.marczynski.dietify.appointments.service.AppointmentService;
 import pl.marczynski.dietify.core.web.rest.errors.BadRequestAlertException;
 import pl.marczynski.dietify.core.web.rest.util.HeaderUtil;
 import pl.marczynski.dietify.core.web.rest.util.PaginationUtil;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

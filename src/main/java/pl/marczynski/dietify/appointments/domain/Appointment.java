@@ -1,4 +1,4 @@
-package pl.marczynski.dietify.core.domain;
+package pl.marczynski.dietify.appointments.domain;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -12,7 +12,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-import pl.marczynski.dietify.core.domain.enumeration.AppointmentState;
+import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
 
 /**
  * An appointment

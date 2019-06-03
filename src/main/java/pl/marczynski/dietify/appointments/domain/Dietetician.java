@@ -1,7 +1,6 @@
-package pl.marczynski.dietify.core.domain;
+package pl.marczynski.dietify.appointments.domain;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

@@ -1,10 +1,11 @@
 package pl.marczynski.dietify.core.web.rest;
 
+import pl.marczynski.dietify.appointments.web.rest.PatientResource;
 import pl.marczynski.dietify.core.DietifyApp;
 
-import pl.marczynski.dietify.core.domain.Patient;
-import pl.marczynski.dietify.core.repository.PatientRepository;
-import pl.marczynski.dietify.core.service.PatientService;
+import pl.marczynski.dietify.appointments.domain.Patient;
+import pl.marczynski.dietify.appointments.repository.PatientRepository;
+import pl.marczynski.dietify.appointments.service.PatientService;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -34,7 +35,7 @@ import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import pl.marczynski.dietify.core.domain.enumeration.Gender;
+import pl.marczynski.dietify.appointments.domain.enumeration.Gender;
 /**
  * Test class for the PatientResource REST controller.
  *

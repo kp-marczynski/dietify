@@ -1,10 +1,11 @@
 package pl.marczynski.dietify.core.web.rest;
 
+import pl.marczynski.dietify.appointments.web.rest.BodyMeasurmentResource;
 import pl.marczynski.dietify.core.DietifyApp;
 
-import pl.marczynski.dietify.core.domain.BodyMeasurment;
-import pl.marczynski.dietify.core.repository.BodyMeasurmentRepository;
-import pl.marczynski.dietify.core.service.BodyMeasurmentService;
+import pl.marczynski.dietify.appointments.domain.BodyMeasurment;
+import pl.marczynski.dietify.appointments.repository.BodyMeasurmentRepository;
+import pl.marczynski.dietify.appointments.service.BodyMeasurmentService;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package pl.marczynski.dietify.core.domain;
+package pl.marczynski.dietify.appointments.domain;
 
 
 import io.swagger.annotations.ApiModel;

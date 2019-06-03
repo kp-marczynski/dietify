@@ -1,6 +1,6 @@
-package pl.marczynski.dietify.core.service;
+package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.core.domain.Patient;
+import pl.marczynski.dietify.appointments.domain.Patient;
 
 import java.util.List;
 import java.util.Optional;

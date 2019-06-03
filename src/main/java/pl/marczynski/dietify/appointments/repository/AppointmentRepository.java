@@ -1,6 +1,6 @@
-package pl.marczynski.dietify.core.repository;
+package pl.marczynski.dietify.appointments.repository;
 
-import pl.marczynski.dietify.core.domain.Appointment;
+import pl.marczynski.dietify.appointments.domain.Appointment;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
 

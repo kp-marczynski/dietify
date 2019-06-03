@@ -1,6 +1,6 @@
-package pl.marczynski.dietify.core.service;
+package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.core.domain.PatientCard;
+import pl.marczynski.dietify.appointments.domain.PatientCard;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

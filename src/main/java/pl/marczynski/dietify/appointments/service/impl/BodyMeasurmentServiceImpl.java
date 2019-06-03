@@ -1,8 +1,8 @@
-package pl.marczynski.dietify.core.service.impl;
+package pl.marczynski.dietify.appointments.service.impl;
 
-import pl.marczynski.dietify.core.service.BodyMeasurmentService;
-import pl.marczynski.dietify.core.domain.BodyMeasurment;
-import pl.marczynski.dietify.core.repository.BodyMeasurmentRepository;
+import pl.marczynski.dietify.appointments.service.BodyMeasurmentService;
+import pl.marczynski.dietify.appointments.domain.BodyMeasurment;
+import pl.marczynski.dietify.appointments.repository.BodyMeasurmentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

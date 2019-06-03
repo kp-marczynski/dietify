@@ -1,6 +1,6 @@
-package pl.marczynski.dietify.core.service;
+package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.core.domain.BodyMeasurment;
+import pl.marczynski.dietify.appointments.domain.BodyMeasurment;
 
 import java.util.List;
 import java.util.Optional;
