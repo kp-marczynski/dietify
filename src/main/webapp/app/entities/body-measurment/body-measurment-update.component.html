@@ -1,0 +1,162 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-body-measurment-heading">Create or edit a Body Measurment</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!bodyMeasurment.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="bodyMeasurment.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_completionDate" ngbTooltip="Date of measurment completion">Completion Date</label>
+                    <div class="input-group">
+                        <input id="field_completionDate" type="text" class="form-control" name="completionDate" ngbDatepicker  #completionDateDp="ngbDatepicker" [(ngModel)]="bodyMeasurment.completionDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="completionDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.completionDate?.dirty && editForm.controls.completionDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.completionDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_height" ngbTooltip="Patient&#39;s height
+Alongside with weight it is used to calculate BMI factor">Height</label>
+                    <input type="number" class="form-control" name="height" id="field_height"
+                        [(ngModel)]="bodyMeasurment.height" required/>
+                    <div [hidden]="!(editForm.controls.height?.dirty && editForm.controls.height?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.height?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.height?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_weight" ngbTooltip="Patient&#39;s weight
+Alongside with height it is used to calculate BMI factor">Weight</label>
+                    <input type="number" class="form-control" name="weight" id="field_weight"
+                        [(ngModel)]="bodyMeasurment.weight" required/>
+                    <div [hidden]="!(editForm.controls.weight?.dirty && editForm.controls.weight?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.weight?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.weight?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_waist" ngbTooltip="Patient&#39;s waist measure">Waist</label>
+                    <input type="number" class="form-control" name="waist" id="field_waist"
+                        [(ngModel)]="bodyMeasurment.waist" required/>
+                    <div [hidden]="!(editForm.controls.waist?.dirty && editForm.controls.waist?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.waist?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.waist?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_percentOfFatTissue" ngbTooltip="Percent of fat tissue in patient&#39;s body
+Norm for women: 16-20
+Norm for men: 15-18">Percent Of Fat Tissue</label>
+                    <input type="number" class="form-control" name="percentOfFatTissue" id="field_percentOfFatTissue"
+                        [(ngModel)]="bodyMeasurment.percentOfFatTissue" min="0" jhiMin="0" max="100" jhiMax="100"/>
+                    <div [hidden]="!(editForm.controls.percentOfFatTissue?.dirty && editForm.controls.percentOfFatTissue?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfFatTissue?.errors?.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfFatTissue?.errors?.max">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfFatTissue?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_percentOfWater" ngbTooltip="Percent of water in patient&#39;s body
+Norm for women: 45-60
+Norm for men: 50-65">Percent Of Water</label>
+                    <input type="number" class="form-control" name="percentOfWater" id="field_percentOfWater"
+                        [(ngModel)]="bodyMeasurment.percentOfWater" min="0" jhiMin="0" max="100" jhiMax="100"/>
+                    <div [hidden]="!(editForm.controls.percentOfWater?.dirty && editForm.controls.percentOfWater?.invalid)">
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfWater?.errors?.min">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfWater?.errors?.max">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.percentOfWater?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_muscleMass" ngbTooltip="Mass of patient&#39;s muscle tissue in kilograms">Muscle Mass</label>
+                    <input type="number" class="form-control" name="muscleMass" id="field_muscleMass"
+                        [(ngModel)]="bodyMeasurment.muscleMass" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_physicalMark" ngbTooltip="Physical mark
+Norm: 5">Physical Mark</label>
+                    <input type="number" class="form-control" name="physicalMark" id="field_physicalMark"
+                        [(ngModel)]="bodyMeasurment.physicalMark" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_calciumInBones" ngbTooltip="Level of calcium in patient&#39;s bones in kilograms
+Norm: ~2.4kg">Calcium In Bones</label>
+                    <input type="number" class="form-control" name="calciumInBones" id="field_calciumInBones"
+                        [(ngModel)]="bodyMeasurment.calciumInBones" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_basicMetabolism" ngbTooltip="Basic metabolism in kcal">Basic Metabolism</label>
+                    <input type="number" class="form-control" name="basicMetabolism" id="field_basicMetabolism"
+                        [(ngModel)]="bodyMeasurment.basicMetabolism" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_metabolicAge" ngbTooltip="Metabolic age in years">Metabolic Age</label>
+                    <input type="number" class="form-control" name="metabolicAge" id="field_metabolicAge"
+                        [(ngModel)]="bodyMeasurment.metabolicAge" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_visceralFatLevel" ngbTooltip="Level of visceral fat
+Norm: 1-12">Visceral Fat Level</label>
+                    <input type="number" class="form-control" name="visceralFatLevel" id="field_visceralFatLevel"
+                        [(ngModel)]="bodyMeasurment.visceralFatLevel" />
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

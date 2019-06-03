@@ -1,0 +1,80 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="bodyMeasurment">
+            <h2><span>Body Measurment</span> {{bodyMeasurment.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Date of measurment completion">Completion Date</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.completionDate}}</span>
+                </dd>
+                <dt><span ngbTooltip="Patient&#39;s height
+Alongside with weight it is used to calculate BMI factor">Height</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.height}}</span>
+                </dd>
+                <dt><span ngbTooltip="Patient&#39;s weight
+Alongside with height it is used to calculate BMI factor">Weight</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.weight}}</span>
+                </dd>
+                <dt><span ngbTooltip="Patient&#39;s waist measure">Waist</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.waist}}</span>
+                </dd>
+                <dt><span ngbTooltip="Percent of fat tissue in patient&#39;s body
+Norm for women: 16-20
+Norm for men: 15-18">Percent Of Fat Tissue</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.percentOfFatTissue}}</span>
+                </dd>
+                <dt><span ngbTooltip="Percent of water in patient&#39;s body
+Norm for women: 45-60
+Norm for men: 50-65">Percent Of Water</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.percentOfWater}}</span>
+                </dd>
+                <dt><span ngbTooltip="Mass of patient&#39;s muscle tissue in kilograms">Muscle Mass</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.muscleMass}}</span>
+                </dd>
+                <dt><span ngbTooltip="Physical mark
+Norm: 5">Physical Mark</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.physicalMark}}</span>
+                </dd>
+                <dt><span ngbTooltip="Level of calcium in patient&#39;s bones in kilograms
+Norm: ~2.4kg">Calcium In Bones</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.calciumInBones}}</span>
+                </dd>
+                <dt><span ngbTooltip="Basic metabolism in kcal">Basic Metabolism</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.basicMetabolism}}</span>
+                </dd>
+                <dt><span ngbTooltip="Metabolic age in years">Metabolic Age</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.metabolicAge}}</span>
+                </dd>
+                <dt><span ngbTooltip="Level of visceral fat
+Norm: 1-12">Visceral Fat Level</span></dt>
+                <dd>
+                    <span>{{bodyMeasurment.visceralFatLevel}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/body-measurment', bodyMeasurment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
