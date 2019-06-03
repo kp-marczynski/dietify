@@ -1,0 +1,78 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-appointment-heading">Create or edit a Appointment</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!appointment.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="appointment.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_appointmentDate" ngbTooltip="Date of the appointment">Appointment Date</label>
+                    <div class="input-group">
+                        <input id="field_appointmentDate" type="text" class="form-control" name="appointmentDate" ngbDatepicker  #appointmentDateDp="ngbDatepicker" [(ngModel)]="appointment.appointmentDate"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="appointmentDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.appointmentDate?.dirty && editForm.controls.appointmentDate?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.appointmentDate?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_appointmentState" ngbTooltip="Current appointment state">Appointment State</label>
+                    <select class="form-control" name="appointmentState" [(ngModel)]="appointment.appointmentState" id="field_appointmentState" >
+                        <option value="PLANNED">PLANNED</option>
+                        <option value="CANCELED">CANCELED</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_mealPlanId" ngbTooltip="Meal plan designed for patient">Meal Plan Id</label>
+                    <input type="number" class="form-control" name="mealPlanId" id="field_mealPlanId"
+                        [(ngModel)]="appointment.mealPlanId" />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_generalAdvice" ngbTooltip="General advice after appointment">General Advice</label>
+                    <textarea class="form-control" name="generalAdvice" id="field_generalAdvice"
+                        [(ngModel)]="appointment.generalAdvice" ></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_bodyMeasurment">Body Measurment</label>
+                    <select class="form-control" id="field_bodyMeasurment" name="bodyMeasurment" [(ngModel)]="appointment.bodyMeasurment">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="bodyMeasurmentOption.id === appointment.bodyMeasurment?.id ? appointment.bodyMeasurment : bodyMeasurmentOption" *ngFor="let bodyMeasurmentOption of bodymeasurments; trackBy: trackBodyMeasurmentById">{{bodyMeasurmentOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_patientCard">Patient Card</label>
+                    <select class="form-control" id="field_patientCard" name="patientCard" [(ngModel)]="appointment.patientCard"  required>
+                        <option *ngIf="!editForm.value.patientCard" [ngValue]="null" selected></option>
+                        <option [ngValue]="patientCardOption.id === appointment.patientCard?.id ? appointment.patientCard : patientCardOption" *ngFor="let patientCardOption of patientcards; trackBy: trackPatientCardById">{{patientCardOption.id}}</option>
+                    </select>
+                </div>
+                <div [hidden]="!(editForm.controls.patientCard?.dirty && editForm.controls.patientCard?.invalid)">
+                    <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.patientCard?.errors?.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

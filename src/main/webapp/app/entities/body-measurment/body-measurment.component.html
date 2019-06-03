@@ -1,0 +1,76 @@
+<div>
+    <h2 id="page-heading">
+        <span>Body Measurments</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-body-measurment" [routerLink]="['/body-measurment/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Body Measurment
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="bodyMeasurments">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span>ID</span></th>
+            <th><span>Completion Date</span></th>
+            <th><span>Height</span></th>
+            <th><span>Weight</span></th>
+            <th><span>Waist</span></th>
+            <th><span>Percent Of Fat Tissue</span></th>
+            <th><span>Percent Of Water</span></th>
+            <th><span>Muscle Mass</span></th>
+            <th><span>Physical Mark</span></th>
+            <th><span>Calcium In Bones</span></th>
+            <th><span>Basic Metabolism</span></th>
+            <th><span>Metabolic Age</span></th>
+            <th><span>Visceral Fat Level</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let bodyMeasurment of bodyMeasurments ;trackBy: trackId">
+                <td><a [routerLink]="['/body-measurment', bodyMeasurment.id, 'view' ]">{{bodyMeasurment.id}}</a></td>
+                <td>{{bodyMeasurment.completionDate | date:'mediumDate'}}</td>
+                <td>{{bodyMeasurment.height}}</td>
+                <td>{{bodyMeasurment.weight}}</td>
+                <td>{{bodyMeasurment.waist}}</td>
+                <td>{{bodyMeasurment.percentOfFatTissue}}</td>
+                <td>{{bodyMeasurment.percentOfWater}}</td>
+                <td>{{bodyMeasurment.muscleMass}}</td>
+                <td>{{bodyMeasurment.physicalMark}}</td>
+                <td>{{bodyMeasurment.calciumInBones}}</td>
+                <td>{{bodyMeasurment.basicMetabolism}}</td>
+                <td>{{bodyMeasurment.metabolicAge}}</td>
+                <td>{{bodyMeasurment.visceralFatLevel}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/body-measurment', bodyMeasurment.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/body-measurment', bodyMeasurment.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'body-measurment', { outlets: { popup: bodyMeasurment.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
