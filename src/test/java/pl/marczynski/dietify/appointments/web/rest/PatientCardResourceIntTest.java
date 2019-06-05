@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import org.springframework.security.test.context.support.WithMockUser;
 import pl.marczynski.dietify.core.DietifyApp;
 
 import pl.marczynski.dietify.appointments.domain.PatientCard;
@@ -45,6 +46,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
+@WithMockUser(username = "user", authorities = {"ROLE_USER"}, password = "user")
 public class PatientCardResourceIntTest {
 
     private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
