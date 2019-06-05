@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.core.service.UserService;
 
 import java.util.Optional;
 
@@ -24,8 +25,11 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
 
-    public AppointmentServiceImpl(AppointmentRepository appointmentRepository) {
+    private final UserService userService;
+
+    public AppointmentServiceImpl(AppointmentRepository appointmentRepository, UserService userService) {
         this.appointmentRepository = appointmentRepository;
+        this.userService = userService;
     }
 
     /**
@@ -50,7 +54,8 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional(readOnly = true)
     public Page<Appointment> findAll(Pageable pageable) {
         log.debug("Request to get all Appointments");
-        return appointmentRepository.findAll(pageable);
+        Long currentUserId = userService.getCurrentUser().get().getId();
+        return appointmentRepository.findAllByPatientCardDieteticianUserId(currentUserId, pageable);
     }
 
 

@@ -1,5 +1,7 @@
 package pl.marczynski.dietify.appointments.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -11,5 +13,5 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
-
+    Page<Appointment> findAllByPatientCardDieteticianUserId(Long dieteticianId, Pageable pageable);
 }

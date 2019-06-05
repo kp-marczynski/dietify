@@ -1,15 +1,16 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 
 import { IPatientCard } from 'app/shared/model/patient-card.model';
 import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { PatientCardService } from './patient-card.service';
+import { Appointment, AppointmentState, IAppointment } from 'app/shared/model/appointment.model';
+import { AppointmentService } from 'app/entities/appointment';
 
 @Component({
     selector: 'jhi-patient-card',
@@ -24,6 +25,9 @@ export class PatientCardComponent implements OnInit, OnDestroy {
     routeData: any;
     links: any;
     totalItems: any;
+    appointmentsLinks: any;
+    totalAppointmentsItems: any;
+    appointments: IAppointment[];
     itemsPerPage: any;
     page: any;
     predicate: any;
@@ -38,7 +42,8 @@ export class PatientCardComponent implements OnInit, OnDestroy {
         protected accountService: AccountService,
         protected activatedRoute: ActivatedRoute,
         protected router: Router,
-        protected eventManager: JhiEventManager
+        protected eventManager: JhiEventManager,
+        protected appointmentService: AppointmentService
     ) {
         this.itemsPerPage = ITEMS_PER_PAGE;
         this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -47,6 +52,16 @@ export class PatientCardComponent implements OnInit, OnDestroy {
             this.reverse = data.pagingParams.ascending;
             this.predicate = data.pagingParams.predicate;
         });
+        this.appointmentService
+            .query({
+                page: this.page - 1,
+                size: this.itemsPerPage,
+                sort: this.sort()
+            })
+            .subscribe(
+                (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+                (res: HttpErrorResponse) => this.onError(res.message)
+            );
     }
 
     loadAll() {
@@ -132,5 +147,15 @@ export class PatientCardComponent implements OnInit, OnDestroy {
 
     search() {
         //    todo
+    }
+
+    protected paginateAppointments(data: IAppointment[], headers: HttpHeaders) {
+        this.appointmentsLinks = this.parseLinks.parse(headers.get('link'));
+        this.totalAppointmentsItems = parseInt(headers.get('X-Total-Count'), 10);
+        this.appointments = data;
+    }
+
+    getAwaitingConsultations(): Appointment[] {
+        return this.appointments.filter(appointment => appointment.appointmentState === AppointmentState.PLANNED);
     }
 }
