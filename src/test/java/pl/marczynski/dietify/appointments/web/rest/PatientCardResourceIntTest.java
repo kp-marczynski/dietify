@@ -1,6 +1,5 @@
-package pl.marczynski.dietify.core.web.rest;
+package pl.marczynski.dietify.appointments.web.rest;
 
-import pl.marczynski.dietify.appointments.web.rest.PatientCardResource;
 import pl.marczynski.dietify.core.DietifyApp;
 
 import pl.marczynski.dietify.appointments.domain.PatientCard;
@@ -8,6 +7,8 @@ import pl.marczynski.dietify.appointments.domain.Patient;
 import pl.marczynski.dietify.appointments.domain.Dietetician;
 import pl.marczynski.dietify.appointments.repository.PatientCardRepository;
 import pl.marczynski.dietify.appointments.service.PatientCardService;
+import pl.marczynski.dietify.core.service.UserService;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -70,6 +71,9 @@ public class PatientCardResourceIntTest {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private UserService userService;
+    
     private MockMvc restPatientCardMockMvc;
 
     private PatientCard patientCard;
@@ -88,7 +92,7 @@ public class PatientCardResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -111,6 +115,7 @@ public class PatientCardResourceIntTest {
     @Before
     public void initTest() {
         patientCard = createEntity(em);
+        patientCard.getDietetician().setUserId(userService.getCurrentUser().get().getId());
     }
 
     @Test
@@ -181,7 +186,7 @@ public class PatientCardResourceIntTest {
             .andExpect(jsonPath("$.[*].id").value(hasItem(patientCard.getId().intValue())))
             .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getPatientCard() throws Exception {

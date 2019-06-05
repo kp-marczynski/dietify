@@ -1,4 +1,4 @@
-package pl.marczynski.dietify.core.web.rest;
+package pl.marczynski.dietify.appointments.web.rest;
 
 import pl.marczynski.dietify.appointments.web.rest.PatientResource;
 import pl.marczynski.dietify.core.DietifyApp;
@@ -6,6 +6,7 @@ import pl.marczynski.dietify.core.DietifyApp;
 import pl.marczynski.dietify.appointments.domain.Patient;
 import pl.marczynski.dietify.appointments.repository.PatientRepository;
 import pl.marczynski.dietify.appointments.service.PatientService;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
