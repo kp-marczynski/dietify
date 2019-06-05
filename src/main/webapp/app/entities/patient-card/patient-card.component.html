@@ -70,52 +70,17 @@
                             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="appointmentDate"><span>Appointment Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="appointmentState"><span>Appointment State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="mealPlanId"><span>Meal Plan Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="generalAdvice"><span>General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="bodyMeasurment.id"><span>Body Measurment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="patientCard.id"><span>Patient Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let appointment of appointments ;trackBy: trackId">
-                            <td><a [routerLink]="['/appointment', appointment.id, 'view' ]">{{appointment.id}}</a></td>
+                        <tr *ngFor="let appointment of appointments ;trackBy: trackId" [routerLink]="['/appointment', appointment.id, 'view' ]">
+                            <td>{{appointment.id}}</td>
                             <td>{{appointment.appointmentDate | date:'mediumDate'}}</td>
                             <td>{{appointment.appointmentState}}</td>
-                            <td>{{appointment.mealPlanId}}</td>
-                            <td>{{appointment.generalAdvice}}</td>
-                            <td>
-                                <div *ngIf="appointment.bodyMeasurment">
-                                    <a [routerLink]="['../body-measurment', appointment.bodyMeasurment?.id, 'view' ]" >{{appointment.bodyMeasurment?.id}}</a>
-                                </div>
-                            </td>
                             <td>
                                 <div *ngIf="appointment.patientCard">
                                     <a [routerLink]="['../patient-card', appointment.patientCard?.id, 'view' ]" >{{appointment.patientCard?.id}}</a>
-                                </div>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group flex-btn-group-container">
-                                    <button type="submit"
-                                            [routerLink]="['/appointment', appointment.id, 'view' ]"
-                                            class="btn btn-info btn-sm">
-                                        <fa-icon [icon]="'eye'"></fa-icon>
-                                        <span class="d-none d-md-inline">View</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/appointment', appointment.id, 'edit']"
-                                            class="btn btn-primary btn-sm">
-                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                        <span class="d-none d-md-inline">Edit</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/', 'appointment', { outlets: { popup: appointment.id + '/delete'} }]"
-                                            replaceUrl="true"
-                                            queryParamsHandling="merge"
-                                            class="btn btn-danger btn-sm">
-                                        <fa-icon [icon]="'times'"></fa-icon>
-                                        <span class="d-none d-md-inline">Delete</span>
-                                    </button>
                                 </div>
                             </td>
                         </tr>
@@ -147,52 +112,18 @@
                             <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="appointmentDate"><span>Appointment Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="appointmentState"><span>Appointment State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="mealPlanId"><span>Meal Plan Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="generalAdvice"><span>General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="bodyMeasurment.id"><span>Body Measurment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="patientCard.id"><span>Patient Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let appointment of getAwaitingConsultations() ;trackBy: trackId">
-                            <td><a [routerLink]="['/appointment', appointment.id, 'view' ]">{{appointment.id}}</a></td>
+                        <tr *ngFor="let appointment of getAwaitingConsultations() ;trackBy: trackId"
+                            [routerLink]="['/appointment', appointment.id, 'view' ]">
+                            <td>{{appointment.id}}</td>
                             <td>{{appointment.appointmentDate | date:'mediumDate'}}</td>
                             <td>{{appointment.appointmentState}}</td>
-                            <td>{{appointment.mealPlanId}}</td>
-                            <td>{{appointment.generalAdvice}}</td>
-                            <td>
-                                <div *ngIf="appointment.bodyMeasurment">
-                                    <a [routerLink]="['../body-measurment', appointment.bodyMeasurment?.id, 'view' ]" >{{appointment.bodyMeasurment?.id}}</a>
-                                </div>
-                            </td>
                             <td>
                                 <div *ngIf="appointment.patientCard">
                                     <a [routerLink]="['../patient-card', appointment.patientCard?.id, 'view' ]" >{{appointment.patientCard?.id}}</a>
-                                </div>
-                            </td>
-                            <td class="text-right">
-                                <div class="btn-group flex-btn-group-container">
-                                    <button type="submit"
-                                            [routerLink]="['/appointment', appointment.id, 'view' ]"
-                                            class="btn btn-info btn-sm">
-                                        <fa-icon [icon]="'eye'"></fa-icon>
-                                        <span class="d-none d-md-inline">View</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/appointment', appointment.id, 'edit']"
-                                            class="btn btn-primary btn-sm">
-                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                        <span class="d-none d-md-inline">Edit</span>
-                                    </button>
-                                    <button type="submit"
-                                            [routerLink]="['/', 'appointment', { outlets: { popup: appointment.id + '/delete'} }]"
-                                            replaceUrl="true"
-                                            queryParamsHandling="merge"
-                                            class="btn btn-danger btn-sm">
-                                        <fa-icon [icon]="'times'"></fa-icon>
-                                        <span class="d-none d-md-inline">Delete</span>
-                                    </button>
                                 </div>
                             </td>
                         </tr>
