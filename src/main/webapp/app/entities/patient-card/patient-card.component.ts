@@ -29,6 +29,7 @@ export class PatientCardComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    searchPhrase: string;
 
     constructor(
         protected patientCardService: PatientCardService,
@@ -127,5 +128,9 @@ export class PatientCardComponent implements OnInit, OnDestroy {
 
     protected onError(errorMessage: string) {
         this.jhiAlertService.error(errorMessage, null, null);
+    }
+
+    search() {
+        //    todo
     }
 }
