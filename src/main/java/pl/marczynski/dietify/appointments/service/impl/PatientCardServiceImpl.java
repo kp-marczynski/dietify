@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.core.service.UserService;
 
 import java.util.Optional;
 
@@ -24,8 +25,11 @@ public class PatientCardServiceImpl implements PatientCardService {
 
     private final PatientCardRepository patientCardRepository;
 
-    public PatientCardServiceImpl(PatientCardRepository patientCardRepository) {
+    private final UserService userService;
+
+    public PatientCardServiceImpl(PatientCardRepository patientCardRepository, UserService userService) {
         this.patientCardRepository = patientCardRepository;
+        this.userService = userService;
     }
 
     /**
@@ -50,7 +54,8 @@ public class PatientCardServiceImpl implements PatientCardService {
     @Transactional(readOnly = true)
     public Page<PatientCard> findAll(Pageable pageable) {
         log.debug("Request to get all PatientCards");
-        return patientCardRepository.findAll(pageable);
+        Long currentUserId = userService.getCurrentUser().get().getId();
+        return patientCardRepository.findAllByDieteticianUserId(currentUserId, pageable);
     }
 
 

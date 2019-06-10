@@ -1,12 +1,15 @@
-package pl.marczynski.dietify.core.web.rest;
+package pl.marczynski.dietify.appointments.web.rest;
 
-import pl.marczynski.dietify.appointments.web.rest.AppointmentResource;
+import org.springframework.security.test.context.support.WithMockUser;
+import pl.marczynski.dietify.appointments.domain.Dietetician;
 import pl.marczynski.dietify.core.DietifyApp;
 
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.repository.AppointmentRepository;
 import pl.marczynski.dietify.appointments.service.AppointmentService;
+import pl.marczynski.dietify.core.service.UserService;
+import pl.marczynski.dietify.core.web.rest.TestUtil;
 import pl.marczynski.dietify.core.web.rest.errors.ExceptionTranslator;
 
 import org.junit.Before;
@@ -37,6 +40,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
+
 /**
  * Test class for the AppointmentResource REST controller.
  *
@@ -44,6 +48,7 @@ import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DietifyApp.class)
+@WithMockUser(username = "user", authorities = {"ROLE_USER"}, password = "user")
 public class AppointmentResourceIntTest {
 
     private static final LocalDate DEFAULT_APPOINTMENT_DATE = LocalDate.ofEpochDay(0L);
@@ -79,6 +84,9 @@ public class AppointmentResourceIntTest {
     @Autowired
     private Validator validator;
 
+    @Autowired
+    private UserService userService;
+
     private MockMvc restAppointmentMockMvc;
 
     private Appointment appointment;
@@ -97,7 +105,7 @@ public class AppointmentResourceIntTest {
 
     /**
      * Create an entity for this test.
-     *
+     * <p>
      * This is a static method, as tests for other entities might also need it,
      * if they test an entity which requires the current entity.
      */
@@ -118,6 +126,7 @@ public class AppointmentResourceIntTest {
     @Before
     public void initTest() {
         appointment = createEntity(em);
+        appointment.getPatientCard().getDietetician().setUserId(userService.getCurrentUser().get().getId());
     }
 
     @Test
@@ -194,7 +203,7 @@ public class AppointmentResourceIntTest {
             .andExpect(jsonPath("$.[*].mealPlanId").value(hasItem(DEFAULT_MEAL_PLAN_ID.intValue())))
             .andExpect(jsonPath("$.[*].generalAdvice").value(hasItem(DEFAULT_GENERAL_ADVICE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getAppointment() throws Exception {
