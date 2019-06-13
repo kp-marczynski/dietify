@@ -47,7 +47,8 @@ Navbar
 }
 
 @media screen and (min-width: 1024px) {
-    .jh-navbar-toggler, .jh-navbar-responsive {
+    .jh-navbar-toggler,
+    .jh-navbar-responsive {
         display: none;
     }
 }
@@ -63,7 +64,8 @@ Navbar
     vertical-align: middle;
 }
 
-.sidebar-body, .list-group-item {
+.sidebar-body,
+.list-group-item {
     background-color: #37474f;
     color: lightgray;
 }
@@ -72,16 +74,19 @@ Navbar
     color: lightgray;
 }
 
-.sidebar-header .list-group-item, .ngb-dropdown span .list-group-item {
+.sidebar-header .list-group-item,
+.ngb-dropdown span .list-group-item {
     background-color: white;
     border-bottom: none;
     color: #424242;
 }
 
-.list-group-item:hover, .sidebar-header .list-group-item:hover, .list-group-item.active {
+.list-group-item:hover,
+.sidebar-header .list-group-item:hover,
+.list-group-item.active {
     border: none;
-    border-left: 5px solid #228B22;
-    box-shadow: 0 0 5px 2px rgba(0,0,0,0.2);
+    border-left: 5px solid #228b22;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.2);
 }
 
 .sidebar {
@@ -101,6 +106,10 @@ Navbar
     padding-bottom: 0;
 }
 
+.sidebar-footer {
+    position: absolute;
+    bottom: 0;
+}
 .dropdown {
     margin: 0;
 }
@@ -108,7 +117,6 @@ Navbar
 aside {
     top: 0;
 }
-
 
 .logo-wrapper fa-icon {
     font-size: 3.5rem;
