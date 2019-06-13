@@ -1,12 +1,12 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {Account} from 'app/core/user/account.model';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { Account } from 'app/core/user/account.model';
 
-import {VERSION} from 'app/app.constants';
-import {AccountService, LoginModalService, LoginService} from 'app/core';
-import {ProfileService} from 'app/layouts/profiles/profile.service';
-import {JhiEventManager} from 'ng-jhipster';
+import { VERSION } from 'app/app.constants';
+import { AccountService, LoginModalService, LoginService } from 'app/core';
+import { ProfileService } from 'app/layouts/profiles/profile.service';
+import { JhiEventManager } from 'ng-jhipster';
 
 @Component({
     selector: 'jhi-navbar',
@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
     modalRef: NgbModalRef;
     version: string;
     account: Account;
+    currentYear: any;
 
     constructor(
         private loginService: LoginService,
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit {
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
+        this.currentYear = new Date().getFullYear();
     }
 
     registerAuthenticationSuccess() {
