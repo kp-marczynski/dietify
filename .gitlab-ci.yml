@@ -79,3 +79,14 @@ maven-package:
 #        - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $REGISTRY_URL
 #        - docker build -f src/main/docker/Dockerfile -t $IMAGE_TAG src/main/docker
 #        - docker push $IMAGE_TAG
+
+deploy-to-production:
+    stage: deploy
+    script:
+        - sh mvnw com.heroku.sdk:heroku-maven-plugin:2.0.5:deploy -DskipTests -Pprod -Dheroku.buildpacks=heroku/jvm -Dheroku.appName=kpmarczynski-dietify -Dmaven.repo.local=$MAVEN_USER_HOME
+    environment:
+        name: production
+    only:
+        refs:
+            - master
+#    when: manual
