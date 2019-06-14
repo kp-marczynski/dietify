@@ -233,11 +233,8 @@
             <span routerLinkActive="active" class="list-group" ngbDropdown [routerLinkActiveOptions]="{exact: true}">
             <a class="list-group-item-heading" ngbDropdownToggle id="account-menu-aside">
                   <span *ngIf="!getImageUrl()">
-                    <span [ngSwitch]="isAuthenticated()">
-                      <span *ngSwitchCase="false"><fa-icon icon="user"></fa-icon> Account</span>
-                        <span *ngSwitchCase="true"><span
-                            *ngIf="account">{{account.login}}<br><span>{{account.email}}</span></span></span>
-                    </span>
+                      <span><fa-icon icon="user"></fa-icon> Account </span>
+                      <span *ngIf="isAuthenticated()">{{account.login}}</span>
                   </span>
                 <span *ngIf="getImageUrl()">
                       <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
