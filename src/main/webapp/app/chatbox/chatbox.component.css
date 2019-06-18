@@ -12,7 +12,7 @@
     height: 25rem;
     margin: 0 2rem 0 0;
     position: relative;
-    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
     display: flex;
     flex-flow: column;
     background: white;
@@ -40,33 +40,34 @@ button {
     font-size: 1rem;
 }
 
-.chat-partner-name, .chat-group-name {
+.chat-partner-name,
+.chat-group-name {
     flex: 1;
     padding: 0 0 0 95px;
     font-weight: bold;
 }
 
 .chatbox-avatar {
-    width: 75px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     overflow: hidden;
     border-radius: 50%;
-    box-shadow: 0 0 5px 0 rgba(0, 0, 0, .2);
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
     position: absolute;
     bottom: 356px;
     left: 6px;
     background-color: white;
-    padding-left: 0.75rem;
+    padding-left: 0.65rem;
     padding-top: 0.5rem;
     z-index: 1000;
 }
 
 .chatbox-avatar fa-icon {
-    font-size: 2.5rem;
+    font-size: 1.5rem;
 }
 
 .chat-messages {
-    border-top: 1px solid rgba(0, 0, 0, .05);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
     padding: 10px;
     overflow: auto;
 
@@ -103,8 +104,8 @@ button {
 
 .chat-input-holder {
     display: flex;
-    border-top: 1px solid rgba(0, 0, 0, .2);
-    background: rgba(0, 0, 0, .05);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.05);
     width: 100%;
 }
 
@@ -114,15 +115,20 @@ button {
     /*height: 40px;*/
     flex: 1;
     border: none;
-    background: rgba(0, 0, 0, .05);
-    border-bottom: 1px solid rgba(0, 0, 0, .05);
+    background: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.chat-input:focus, .message-send:focus, button:focus {
+.chat-input:focus,
+.message-send:focus,
+button:focus {
     outline: none;
 }
 
-.message-send:focus, button:focus, .message-send:hover, button:hover {
+.message-send:focus,
+button:focus,
+.message-send:hover,
+button:hover {
     cursor: pointer;
 }
 
@@ -133,12 +139,12 @@ button {
     border: none;
 }
 
-
 /*.chatbox-min .chat-messages, .chatbox-min .chat-input-holder, .chatbox-min .chatbox-top {*/
-    /*display: none;*/
+/*display: none;*/
 /*}*/
 
-.chatbox-min .chat-partner-name, .chatbox-min .chat-group-name {
+.chatbox-min .chat-partner-name,
+.chatbox-min .chat-group-name {
     padding: 0 0 0 75px;
 }
 
@@ -156,5 +162,5 @@ button {
 
 .chatbox-min.chatbox-avatar {
     bottom: 20px;
-    left: 250px
+    left: 275px;
 }
