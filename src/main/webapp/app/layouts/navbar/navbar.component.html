@@ -100,40 +100,16 @@
                     <span>Patients</span>
                 </a>
             </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="admin"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="user-shield" fixedWidth="true"></fa-icon>
+                    <span>Admin</span>
+                </a>
+            </li>
 
             <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer"
-                routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
-                    <span>
-                        <fa-icon icon="user-plus"></fa-icon>
-                        <span>Administration</span>
-                    </span>
-                </a>
-                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="admin-menu">
-                    <li>
-                        <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active"
-                           (click)="collapseNavbar()">
-                            <fa-icon icon="user" fixedWidth="true"></fa-icon>
-                            <span>User management</span>
-                        </a>
-                    </li>
-                    <li *ngIf="swaggerEnabled">
-                        <a class="dropdown-item" routerLink="admin/docs" routerLinkActive="active"
-                           (click)="collapseNavbar()">
-                            <fa-icon icon="book" fixedWidth="true"></fa-icon>
-                            <span>API</span>
-                        </a>
-                    </li>
-                    <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
-                    <li *ngIf="!inProduction">
-                        <a class="dropdown-item" href='./h2-console' target="_tab" (click)="collapseNavbar()">
-                            <fa-icon icon="hdd" fixedWidth="true"></fa-icon>
-                            <span>Database</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
             <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
                 <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
@@ -198,43 +174,11 @@
             <h3 class="header-logo">Dietify</h3>
         </div>
         <div [ngSwitch]="isAuthenticated()">
-        <span *jhiHasAnyAuthority="'ROLE_ADMIN'" class="list-group" routerLinkActive="active" ngbDropdown
-              [routerLinkActiveOptions]="{exact: true}">
-            <a class="list-group-item-heading" ngbDropdownToggle id="admin-menu-aside">
-                    <span>
-                        <fa-icon icon="user-plus"></fa-icon>
-                        <span>Administration</span>
-                    </span>
-            </a>
-            <span ngbDropdownMenu>
-                <span>
-                    <a class="list-group-item list-group-item-action waves-effect" routerLink="admin/user-management"
-                       routerLinkActive="active" (click)="collapseNavbar()" id="user-management-aside">
-                        <fa-icon icon="user" fixedWidth="true"></fa-icon>
-                        <span>User management</span>
-                    </a>
-                </span>
-                <span *ngIf="swaggerEnabled">
-                    <a class="list-group-item list-group-item-action waves-effect" routerLink="admin/docs"
-                       routerLinkActive="active" (click)="collapseNavbar()">
-                        <fa-icon icon="book" fixedWidth="true"></fa-icon>
-                        <span>API</span>
-                    </a>
-                </span>
-                <span *ngIf="!inProduction">
-                    <a class="list-group-item list-group-item-action waves-effect" href='./h2-console' target="_tab"
-                       (click)="collapseNavbar()">
-                        <fa-icon icon="hdd" fixedWidth="true"></fa-icon>
-                        <span>Database</span>
-                    </a>
-                </span>
-            </span>
-        </span>
-            <span routerLinkActive="active" class="list-group" ngbDropdown [routerLinkActiveOptions]="{exact: true}">
+        <span routerLinkActive="active" class="list-group" ngbDropdown [routerLinkActiveOptions]="{exact: true}">
             <a class="list-group-item-heading" ngbDropdownToggle id="account-menu-aside">
                   <span *ngIf="!getImageUrl()">
                       <span><fa-icon icon="user"></fa-icon> Account </span>
-                      <span *ngIf="isAuthenticated()">{{account.login}}</span>
+                      <span *ngIf="isAuthenticated()">{{account?.login}}</span>
                   </span>
                 <span *ngIf="getImageUrl()">
                       <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
@@ -281,8 +225,7 @@
     <div class="sidebar-body">
         <div class="list-group list-group-flush" [ngSwitch]="isAuthenticated()">
             <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
-            <a class="list-group-item list-group-item-action waves-effect" routerLink="/"
-               (click)="collapseNavbar()">
+            <a class="list-group-item list-group-item-action waves-effect" routerLink="/">
                     <span>
                         <fa-icon icon="home"></fa-icon>
                         <span>Home</span>
@@ -290,7 +233,7 @@
             </a>
             <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="product" id="product"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
                     <fa-icon icon="barcode" fixedWidth="true"></fa-icon>
                     <span>Products</span>
                 </a>
@@ -298,7 +241,7 @@
             <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="recipe"
                    routerLinkActive="active" id="recipe"
-                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                   [routerLinkActiveOptions]="{ exact: true }">
                     <fa-icon icon="receipt" fixedWidth="true"></fa-icon>
                     <span>Recipes</span>
                 </a>
@@ -306,7 +249,7 @@
             <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-plan"
                    routerLinkActive="active"
-                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                   [routerLinkActiveOptions]="{ exact: true }">
                     <fa-icon icon="calendar-alt" fixedWidth="true"></fa-icon>
                     <span>Meal Plan</span>
                 </a>
@@ -314,95 +257,18 @@
             <span>
                 <a class="list-group-item list-group-item-action waves-effect" routerLink="patient-card"
                    routerLinkActive="active"
-                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                   [routerLinkActiveOptions]="{ exact: true }">
                     <fa-icon icon="users" fixedWidth="true"></fa-icon>
                     <span>Patients</span>
                 </a>
             </span>
-            <!--</span>-->
-        </div>
-
-        <div class="list-group list-group-flush" *jhiHasAnyAuthority="'ROLE_ADMIN'">
-            <span>
-                <a class="list-group-item list-group-item-action waves-effect" routerLink="language" id="language"
-                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                    <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                    <span>Languages</span>
+            <span *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="admin"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                    <fa-icon icon="user-shield" fixedWidth="true"></fa-icon>
+                    <span>Admin</span>
                 </a>
-            </span>
-            <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
-            <span class="list-group ngb-dropdown" routerLinkActive="active" ngbDropdown
-                  [routerLinkActiveOptions]="{exact: true}">
-                <a class="list-group-item-heading list-group-item" ngbDropdownToggle id="products-admin-menu-aside">
-                    <span>
-                        <fa-icon icon="asterisk"></fa-icon>
-                        <span>Products Admin</span>
-                    </span>
-                </a>
-                <span ngbDropdownMenu>
-                    <span>
-                        <a class="list-group-item list-group-item-action waves-effect" routerLink="nutrition-definition"
-                           id="nutrition-definition"
-                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-                           (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Nutrition Definitions</span>
-                        </a>
-                    </span>
-                    <span>
-                        <a class="list-group-item list-group-item-action waves-effect" routerLink="product-category"
-                           id="product-category"
-                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-                           (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Product Categories</span>
-                        </a>
-                    </span>
-                    <span>
-                        <a class="list-group-item list-group-item-action waves-effect" routerLink="diet-type"
-                           id="diet-type"
-                           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"
-                           (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Diet Types</span>
-                        </a>
-                    </span>
-                </span>
-            </span>
-            <span class="list-group ngb-dropdown" routerLinkActive="active" ngbDropdown
-                  [routerLinkActiveOptions]="{exact: true}">
-                <a class="list-group-item-heading list-group-item" ngbDropdownToggle id="recipes-admin-menu-aside">
-                    <span>
-                        <fa-icon icon="asterisk"></fa-icon>
-                        <span>Recipes Admin</span>
-                    </span>
-                </a>
-                <span ngbDropdownMenu>
-                    <span>
-                        <a class="list-group-item list-group-item-action waves-effect" routerLink="dish-type"
-                           routerLinkActive="active" id="dish-type"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Dish Type</span>
-                        </a>
-                    </span>
-                    <span>
-                        <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-type"
-                           routerLinkActive="active" id="meal-type"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Meal Type</span>
-                        </a>
-                    </span>
-                    <span>
-                        <a class="list-group-item list-group-item-action waves-effect" routerLink="kitchen-appliance"
-                           routerLinkActive="active" id="kitchen-appliance"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
-                            <span>Kitchen Appliance</span>
-                        </a>
-                    </span>
-                </span>
             </span>
             <!--</span>-->
         </div>

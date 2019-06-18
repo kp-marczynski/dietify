@@ -1,6 +1,6 @@
-import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
-import {RouterModule} from '@angular/router';
-import {DietifySharedModule} from 'app/shared';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { DietifySharedModule } from 'app/shared';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 import {
@@ -11,6 +11,7 @@ import {
     UserMgmtDeleteDialogComponent,
     JhiDocsComponent
 } from './';
+import { AdminNavComponent } from './admin-nav/admin-nav.component';
 
 @NgModule({
     imports: [
@@ -23,10 +24,10 @@ import {
         UserMgmtDetailComponent,
         UserMgmtUpdateComponent,
         UserMgmtDeleteDialogComponent,
-        JhiDocsComponent
+        JhiDocsComponent,
+        AdminNavComponent
     ],
     entryComponents: [UserMgmtDeleteDialogComponent],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class DietifyAdminModule {
-}
+export class DietifyAdminModule {}

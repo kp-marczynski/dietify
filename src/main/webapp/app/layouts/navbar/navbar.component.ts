@@ -15,9 +15,9 @@ import { JhiEventManager } from 'ng-jhipster';
 })
 export class NavbarComponent implements OnInit {
     inProduction: boolean;
+    swaggerEnabled: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
-    swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
     account: Account;
