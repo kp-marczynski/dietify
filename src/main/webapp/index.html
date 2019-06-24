@@ -112,11 +112,12 @@
             fileref.setAttribute("rel", "stylesheet");
             fileref.setAttribute("type", "text/css");
             fileref.setAttribute("href", filename);
-            document.getElementsByTagName("head")[0].appendChild(fileref);
+            var firstLink = document.getElementsByTagName("link")[0];
+            firstLink.parentNode.insertBefore(fileref, firstLink);
         }
 
-        loadCssFile("https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css");
         loadCssFile("https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css");
+        loadCssFile("https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css");
     </script>
 </body>
 </html>
