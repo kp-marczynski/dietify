@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="productPortion">
+            <h2><span jhiTranslate="gatewayApp.recipesProductPortion.detail.title">Product Portion</span> {{productPortion.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.recipesProductPortion.amount" [ngbTooltip]="'gatewayApp.recipesProductPortion.help.amount' | translate">Amount</span></dt>
+                <dd>
+                    <span>{{productPortion.amount}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesProductPortion.productId" [ngbTooltip]="'gatewayApp.recipesProductPortion.help.productId' | translate">Product Id</span></dt>
+                <dd>
+                    <span>{{productPortion.productId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesProductPortion.householdMeasureId" [ngbTooltip]="'gatewayApp.recipesProductPortion.help.householdMeasureId' | translate">Household Measure Id</span></dt>
+                <dd>
+                    <span>{{productPortion.householdMeasureId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesProductPortion.recipeSection">Recipe Section</span></dt>
+                <dd>
+                    <div *ngIf="productPortion.recipeSectionId">
+                        <a [routerLink]="['/recipe-section', productPortion.recipeSectionId, 'view']">{{productPortion.recipeSectionSectionName}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/product-portion', productPortion.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+{
+  "gatewayApp": {
+    "recipesProductPortion": {
+      "home": {
+        "title": "Product Portions",
+        "createLabel": "Create a new Product Portion",
+        "createOrEditLabel": "Create or edit a Product Portion",
+        "search": "Search for Product Portion",
+        "notFound": "No Product Portion found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Product Portion {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Portion"
+      },
+      "amount": "Amount",
+      "productId": "Product Id",
+      "householdMeasureId": "Household Measure Id",
+      "recipeSection": "Recipe Section",
+      "help": {
+        "amount": "Amount of product in household measure units. If household measure is null then amount is in grams",
+        "productId": "Id of Product entity retrieved form products service",
+        "householdMeasureId": "Id of HouseholdMeasure entity retrieved from products service"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesProductPortion": {
+      "created": "A new Product Portion is created with identifier {{ param }}",
+      "updated": "A Product Portion is updated with identifier {{ param }}",
+      "deleted": "A Product Portion is deleted with identifier {{ param }}"
+    }
+  }
+}

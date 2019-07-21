@@ -1,0 +1,250 @@
+
+// <<START recipes.jh>>
+application {
+	config {
+        baseName recipes
+        packageName pl.marczynski.dietify.recipes
+        
+        applicationType microservice
+        serverPort 8082
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        testFrameworks [gatling, cucumber]
+    }
+    entities Recipe, MealType, MealTypeTranslation, DishType, DishTypeTranslation, KitchenAppliance, KitchenApplianceTranslation, RecipeSuitableForDiet, RecipeUnsuitableForDiet, RecipeSection, ProductPortion, PreparationStep, RecipeBasicNutritionData
+}
+
+/**
+ * A recipe
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(recipes)
+entity Recipe {
+	/** Name of recipe in language of recipe*/
+	name String required minlength(1) maxlength(255)
+    /** Average time needed for overall recipe preparation, defined in minutes */
+	preparationTimeMinutes Integer required min(0)
+    /** Number of portions for which all quantities are specified */
+	numberOfPortions Double required min(0)
+    /** Optional image of recipe */
+	image ImageBlob maxbytes(5000000)
+    /** Id of recipe's author. Id of User entity retrieved from gateway service */
+	authorId Long required
+	/** Date of creation */
+	creationDate LocalDate required
+    /** Date of last edit */
+	lastEditDate LocalDate required
+    /** Flag specifying if recipe should be visible in list of author's recipes */
+	isVisible Boolean required
+    /** Language tag of a recipe as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+    /** Total weight in grams of meal prepared from recipe */
+    totalGramsWeight Double required min(0)
+}
+
+/**
+ * Basic nutrition data
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeBasicNutritionData {
+    /** Energy in kcal per 100 gram of recipe meal calculated from products added to recipe */
+    energy Integer required min(0)
+    /** Protein in grams per 100 gram of recipe meal calculated from products added to recipe */
+    protein Integer required min(0)
+    /** Fat in grams per 100 gram of recipe meal calculated from products added to recipe */
+    fat Integer required min(0)
+    /** Carbohydrates in grams per 100 gram of recipe meal calculated from products added to recipe */
+    carbohydrates Integer required min(0)
+}
+
+/**
+ * A dish type
+ * e.g. salad or soup
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity DishType {
+    /** English description of dish type */
+    description String required minlength(1) maxlength(255)
+}
+
+/**
+ * Dish type translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity DishTypeTranslation (dish_type_trns) {
+	/** Translated name of dish type */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A meal type
+ * e.g. breakfast or dinner
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity MealType {
+    /** English name of meal type */
+    name String required minlength(1) maxlength(255)
+}
+
+/**
+ * Meal type translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity MealTypeTranslation (meal_type_trns) {
+	/** Translated name of meal type */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * Kitchen appliance definition
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity KitchenAppliance {
+    /** English name of kitchen appliance */
+    name String required minlength(1) maxlength(255)
+}
+
+/**
+ * Kitchen appliance translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity KitchenApplianceTranslation (kitch_appl_trns) {
+	/** Translated name of kitchen appliance */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A recipe section
+ * e.g. recipe for cheesecake might have 3 separate sections for dough, filling and topping.
+ * First section might be unnamed.
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeSection {
+	/** Name of recipe section in language of a recipe*/
+	sectionName String minlength(1) maxlength(255)
+}
+
+/**
+ * A preparation step in recipe
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity PreparationStep {
+	/** Ordinal number of preparation step */
+	ordinalNumber Integer required min(1)
+  	/** Preferably short step description */
+    stepDescription TextBlob
+}
+
+/**
+ * A portion of product used in recipe
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity ProductPortion {
+    /** Amount of product in household measure units. If household measure is null then amount is in grams */
+	amount Double required min(0)
+    /** Id of Product entity retrieved form products service */
+    productId Long required
+    /** Id of HouseholdMeasure entity retrieved from products service */
+    householdMeasureId Long
+}
+
+/**
+ * A tag specifying cases in which recipe might be positively used
+ * e.g. vegetarian should mean it is good for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeSuitableForDiet {
+	/** Id of applicable DietType entity retrieved from products service */
+	dietTypeId Long required
+}
+
+/**
+ * A tag specifying cases in which recipe should not be used, 
+ * e.g. vegetarian should mean it is bad for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeUnsuitableForDiet {
+	/** Id of applicable DietType entity retrieved from products service */
+	dietTypeId Long required
+}
+
+relationship OneToOne {
+	RecipeBasicNutritionData{recipe(name) required}
+    	to Recipe{basicNutritionData required}
+}
+
+relationship ManyToOne {
+	Recipe{sourceRecipe(name)}
+    	to Recipe
+    
+	ProductPortion{recipeSection(sectionName) required} 
+    	to RecipeSection{productPortions}
+        
+	PreparationStep{recipeSection(sectionName) required} 
+    	to RecipeSection{preparationSteps}
+    
+	RecipeSection{recipe(name) required} 
+    	to Recipe{recipeSections(sectionName)}
+    
+    RecipeSuitableForDiet{recipe(name) required} 
+    	to Recipe{suitableForDiets}
+        
+    RecipeUnsuitableForDiet{recipe(name) required} 
+    	to Recipe{unsuitableForDiets}
+    
+    KitchenApplianceTranslation{kitchenAppliance(name) required}
+    	to KitchenAppliance{translations}
+        
+    MealTypeTranslation{mealType(name) required}
+    	to MealType{translations}
+    
+    DishTypeTranslation{dishType(description) required}
+    	to DishType{translations}
+}
+
+relationship ManyToMany {
+	Recipe{kitchenAppliances(name)} 
+    	to KitchenAppliance
+    
+    Recipe{dishTypes(description)} 
+    	to DishType
+   
+    Recipe{mealTypes(name)} 
+    	to MealType
+}
+
+search Recipe with elasticsearch
+// <<END recipes.jh>>

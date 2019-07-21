@@ -1,0 +1,109 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-meal-definition-heading" jhiTranslate="gatewayApp.mealplansMealDefinition.home.createOrEditLabel">Create or edit a Meal Definition</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealDefinition.ordinalNumber" for="field_ordinalNumber" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.ordinalNumber' | translate">Ordinal Number</label>
+                    <input type="number" class="form-control" name="ordinalNumber" id="field_ordinalNumber"
+                           formControlName="ordinalNumber"/>
+                    <div *ngIf="editForm.get('ordinalNumber').invalid && (editForm.get('ordinalNumber').dirty || editForm.get('ordinalNumber').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ordinalNumber').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ordinalNumber').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 1 }">
+                            This field should be at least 1.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('ordinalNumber')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealDefinition.mealTypeId" for="field_mealTypeId" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.mealTypeId' | translate">Meal Type Id</label>
+                    <input type="number" class="form-control" name="mealTypeId" id="field_mealTypeId"
+                           formControlName="mealTypeId"/>
+                    <div *ngIf="editForm.get('mealTypeId').invalid && (editForm.get('mealTypeId').dirty || editForm.get('mealTypeId').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mealTypeId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('mealTypeId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealDefinition.timeOfMeal" for="field_timeOfMeal" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.timeOfMeal' | translate">Time Of Meal</label>
+                    <input type="text" class="form-control" name="timeOfMeal" id="field_timeOfMeal"
+                           formControlName="timeOfMeal"/>
+                    <div *ngIf="editForm.get('timeOfMeal').invalid && (editForm.get('timeOfMeal').dirty || editForm.get('timeOfMeal').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('timeOfMeal').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('timeOfMeal').errors.pattern" jhiTranslate="entity.validation.pattern" [translateValues]="{ pattern: 'Time Of Meal' }">
+                            This field should follow pattern for "Time Of Meal".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealDefinition.percentOfEnergy" for="field_percentOfEnergy" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.percentOfEnergy' | translate">Percent Of Energy</label>
+                    <input type="number" class="form-control" name="percentOfEnergy" id="field_percentOfEnergy"
+                           formControlName="percentOfEnergy"/>
+                    <div *ngIf="editForm.get('percentOfEnergy').invalid && (editForm.get('percentOfEnergy').dirty || editForm.get('percentOfEnergy').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfEnergy').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfEnergy').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfEnergy').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('percentOfEnergy')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealDefinition.mealPlan" for="field_mealPlan">Meal Plan</label>
+                    <select class="form-control" id="field_mealPlan" name="mealPlan" formControlName="mealPlanId">
+                        <option *ngIf="!editForm.get('mealPlanId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="mealPlanOption.id" *ngFor="let mealPlanOption of mealplans; trackBy: trackMealPlanById">{{mealPlanOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('mealPlanId').invalid && (editForm.get('mealPlanId').dirty || editForm.get('mealPlanId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('mealPlanId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

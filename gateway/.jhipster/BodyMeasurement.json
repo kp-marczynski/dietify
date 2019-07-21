@@ -1,0 +1,113 @@
+{
+    "name": "BodyMeasurement",
+    "fields": [
+        {
+            "fieldName": "completionDate",
+            "javadoc": "Date of measurement completion",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "height",
+            "javadoc": "Patient's height. Alongside with weight it is used to calculate BMI factor",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "weight",
+            "javadoc": "Patient's weight. Alongside with height it is used to calculate BMI factor",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "waist",
+            "javadoc": "Patient's waist measure",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "percentOfFatTissue",
+            "javadoc": "Percent of fat tissue in patient's body. Norm for women: 16-20. Norm for men: 15-18",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 100
+        },
+        {
+            "fieldName": "percentOfWater",
+            "javadoc": "Percent of water in patient's body. Norm for women: 45-60. Norm for men: 50-65",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 100
+        },
+        {
+            "fieldName": "muscleMass",
+            "javadoc": "Mass of patient's muscle tissue in kilograms",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "physicalMark",
+            "javadoc": "Physical mark. Norm: 5",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "calciumInBones",
+            "javadoc": "Level of calcium in patient's bones in kilograms. Norm: ~2.4kg",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "basicMetabolism",
+            "javadoc": "Basic metabolism in kcal",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "metabolicAge",
+            "javadoc": "Metabolic age in years",
+            "fieldType": "Double"
+        },
+        {
+            "fieldName": "visceralFatLevel",
+            "javadoc": "Level of visceral fat. Norm: 1-12",
+            "fieldType": "Double"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "appointment",
+            "otherEntityRelationshipName": "bodyMeasurement",
+            "relationshipValidateRules": "required",
+            "relationshipName": "appointment",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190721154711",
+    "entityTableName": "body_measurement",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

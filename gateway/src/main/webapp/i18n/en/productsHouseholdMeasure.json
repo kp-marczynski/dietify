@@ -1,0 +1,35 @@
+{
+  "gatewayApp": {
+    "productsHouseholdMeasure": {
+      "home": {
+        "title": "Household Measures",
+        "createLabel": "Create a new Household Measure",
+        "createOrEditLabel": "Create or edit a Household Measure",
+        "search": "Search for Household Measure",
+        "notFound": "No Household Measure found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Household Measure {{ id }}?"
+      },
+      "detail": {
+        "title": "Household Measure"
+      },
+      "description": "Description",
+      "gramsWeight": "Grams Weight",
+      "isVisible": "Is Visible",
+      "product": "Product",
+      "help": {
+        "description": "Short description of measure in language of a product, e.g. &#34;cup&#34; or &#34;tea spoon&#34;",
+        "gramsWeight": "Grams weight of 1 unit of specified measure",
+        "isVisible": "Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources"
+      }
+    }
+  },
+  "productsApp": {
+    "productsHouseholdMeasure": {
+      "created": "A new Household Measure is created with identifier {{ param }}",
+      "updated": "A Household Measure is updated with identifier {{ param }}",
+      "deleted": "A Household Measure is deleted with identifier {{ param }}"
+    }
+  }
+}

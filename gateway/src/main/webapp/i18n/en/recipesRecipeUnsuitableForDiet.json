@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "recipesRecipeUnsuitableForDiet": {
+      "home": {
+        "title": "Recipe Unsuitable For Diets",
+        "createLabel": "Create a new Recipe Unsuitable For Diet",
+        "createOrEditLabel": "Create or edit a Recipe Unsuitable For Diet",
+        "search": "Search for Recipe Unsuitable For Diet",
+        "notFound": "No Recipe Unsuitable For Diet found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Recipe Unsuitable For Diet {{ id }}?"
+      },
+      "detail": {
+        "title": "Recipe Unsuitable For Diet"
+      },
+      "dietTypeId": "Diet Type Id",
+      "recipe": "Recipe",
+      "help": {
+        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesRecipeUnsuitableForDiet": {
+      "created": "A new Recipe Unsuitable For Diet is created with identifier {{ param }}",
+      "updated": "A Recipe Unsuitable For Diet is updated with identifier {{ param }}",
+      "deleted": "A Recipe Unsuitable For Diet is deleted with identifier {{ param }}"
+    }
+  }
+}

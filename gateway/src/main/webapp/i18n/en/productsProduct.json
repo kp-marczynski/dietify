@@ -1,0 +1,46 @@
+{
+  "gatewayApp": {
+    "productsProduct": {
+      "home": {
+        "title": "Products",
+        "createLabel": "Create a new Product",
+        "createOrEditLabel": "Create or edit a Product",
+        "search": "Search for Product",
+        "notFound": "No Product found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Product"
+      },
+      "source": "Source",
+      "authorId": "Author Id",
+      "description": "Description",
+      "isFinal": "Is Final",
+      "isVerified": "Is Verified",
+      "language": "Language",
+      "subcategory": "Subcategory",
+      "suitableDiets": "Suitable Diets",
+      "unsuitableDiets": "Unsuitable Diets",
+      "basicNutritionData": "Basic Nutrition Data",
+      "nutritionData": "Nutrition Data",
+      "householdMeasures": "Household Measures",
+      "help": {
+        "source": "Specifying source if product is imported, preferably url address if possible",
+        "authorId": "Author of product if product created or edited manually. Id of User entity retrieved from gateway service",
+        "description": "Short description of Product in a language of a product",
+        "isFinal": "Flag specifying if product is final or editable",
+        "isVerified": "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.",
+        "language": "Language tag of a product as ISO_639-1 code"
+      }
+    }
+  },
+  "productsApp": {
+    "productsProduct": {
+      "created": "A new Product is created with identifier {{ param }}",
+      "updated": "A Product is updated with identifier {{ param }}",
+      "deleted": "A Product is deleted with identifier {{ param }}"
+    }
+  }
+}

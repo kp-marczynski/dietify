@@ -1,0 +1,51 @@
+{
+    "name": "RecipeSection",
+    "fields": [
+        {
+            "fieldName": "sectionName",
+            "javadoc": "Name of recipe section in language of a recipe",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "recipe",
+            "otherEntityRelationshipName": "recipeSections",
+            "relationshipValidateRules": "required",
+            "relationshipName": "recipe",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "productPortion",
+            "otherEntityRelationshipName": "recipeSection",
+            "relationshipName": "productPortions"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "preparationStep",
+            "otherEntityRelationshipName": "recipeSection",
+            "relationshipName": "preparationSteps"
+        }
+    ],
+    "changelogDate": "20190721154656",
+    "entityTableName": "recipe_section",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

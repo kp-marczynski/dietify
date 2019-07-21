@@ -1,0 +1,36 @@
+{
+    "name": "AssignedMealPlan",
+    "fields": [
+        {
+            "fieldName": "mealPlanId",
+            "javadoc": "Id of assigned MealPlan entity retrieved from mealplans service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "appointment",
+            "otherEntityRelationshipName": "mealPlans",
+            "relationshipValidateRules": "required",
+            "relationshipName": "appointment",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190721154716",
+    "entityTableName": "assigned_meal_plan",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

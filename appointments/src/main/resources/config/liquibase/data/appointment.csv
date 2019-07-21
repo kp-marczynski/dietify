@@ -1,0 +1,11 @@
+id;appointment_date;appointment_state;meal_plan_id;general_advice;patient_card_id
+1;2019-07-21T11:23:06;PLANNED;43194;../data/blob/hipster.txt;1
+2;2019-07-21T08:47:50;COMPLETED;29214;../data/blob/hipster.txt;10
+3;2019-07-21T06:59:39;CANCELED;78517;../data/blob/hipster.txt;7
+4;2019-07-21T10:59:40;COMPLETED;4645;../data/blob/hipster.txt;9
+5;2019-07-21T01:12:21;CANCELED;80839;../data/blob/hipster.txt;4
+6;2019-07-21T08:28:34;COMPLETED;68423;../data/blob/hipster.txt;3
+7;2019-07-21T05:13:23;CANCELED;90932;../data/blob/hipster.txt;4
+8;2019-07-21T09:34:34;CANCELED;31171;../data/blob/hipster.txt;5
+9;2019-07-21T03:18:19;COMPLETED;18485;../data/blob/hipster.txt;1
+10;2019-07-20T16:31:01;PLANNED;59789;../data/blob/hipster.txt;8

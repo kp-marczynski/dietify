@@ -1,0 +1,25 @@
+{
+  "generator-jhipster": {
+    "deploymentType": "kubernetes",
+    "gatewayType": "zuul",
+    "monitoring": "elk",
+    "directoryPath": "../",
+    "appsFolders": [
+      "gateway",
+      "products",
+      "recipes",
+      "mealplans",
+      "appointments"
+    ],
+    "clusteredDbApps": [],
+    "consoleOptions": [],
+    "serviceDiscoveryType": "eureka",
+    "dockerRepositoryName": "dietify",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "dietify",
+    "kubernetesServiceType": "LoadBalancer",
+    "ingressDomain": "",
+    "istio": false,
+    "jwtSecretKey": "OGIxMGU2ODVlZjQzODZjMjc4MDg2ZTdmOTUyODY0ZjYzZWUwMmJjNTA1OWU0ZjA5ODM2MGU1MzEwOTNkOTcxYTQ1Nzg4OTNlMTViMTY1M2NiNWRlOWU1Zjk1Mjg1YTk3NDM2YQ=="
+  }
+}

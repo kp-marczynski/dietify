@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "recipesPreparationStep": {
+      "home": {
+        "title": "Preparation Step",
+        "createLabel": "Dodaj Preparation Step",
+        "createOrEditLabel": "Dodaj lub edytuj: Preparation Step",
+        "search": "Szukaj Preparation Step",
+        "notFound": "No Preparation Step found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Preparation Step {{ id }}?"
+      },
+      "detail": {
+        "title": "Preparation Step"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "stepDescription": "Step Description",
+      "recipeSection": "Recipe Section",
+      "help": {
+        "ordinalNumber": "Ordinal number of preparation step",
+        "stepDescription": "Preferably short step description"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesPreparationStep": {
+      "created": "Utworzono nowy obiekt typu Preparation Step z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Preparation Step z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Preparation Step z identyfikatorem {{ param }}"
+    }
+  }
+}

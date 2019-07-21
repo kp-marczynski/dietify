@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-meal-recipe-heading" jhiTranslate="gatewayApp.mealplansMealRecipe.home.createOrEditLabel">Create or edit a Meal Recipe</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealRecipe.recipeId" for="field_recipeId" [ngbTooltip]="'gatewayApp.mealplansMealRecipe.help.recipeId' | translate">Recipe Id</label>
+                    <input type="number" class="form-control" name="recipeId" id="field_recipeId"
+                           formControlName="recipeId"/>
+                    <div *ngIf="editForm.get('recipeId').invalid && (editForm.get('recipeId').dirty || editForm.get('recipeId').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('recipeId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('recipeId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealRecipe.amount" for="field_amount" [ngbTooltip]="'gatewayApp.mealplansMealRecipe.help.amount' | translate">Amount</label>
+                    <input type="number" class="form-control" name="amount" id="field_amount"
+                           formControlName="amount"/>
+                    <div *ngIf="editForm.get('amount').invalid && (editForm.get('amount').dirty || editForm.get('amount').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('amount').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('amount').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('amount')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealRecipe.meal" for="field_meal">Meal</label>
+                    <select class="form-control" id="field_meal" name="meal" formControlName="mealId">
+                        <option *ngIf="!editForm.get('mealId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="mealOption.id" *ngFor="let mealOption of meals; trackBy: trackMealById">{{mealOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('mealId').invalid && (editForm.get('mealId').dirty || editForm.get('mealId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('mealId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

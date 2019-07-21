@@ -1,0 +1,38 @@
+{
+    "name": "MealType",
+    "fields": [
+        {
+            "fieldName": "name",
+            "javadoc": "English name of meal type",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealTypeTranslation",
+            "otherEntityRelationshipName": "mealType",
+            "relationshipName": "translations"
+        }
+    ],
+    "changelogDate": "20190721154652",
+    "entityTableName": "meal_type",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

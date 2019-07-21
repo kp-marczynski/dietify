@@ -1,0 +1,132 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-nutritional-interview-heading" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.createOrEditLabel">Create or edit a Nutritional Interview</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.completionDate" for="field_completionDate" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.completionDate' | translate">Completion Date</label>
+                    <div class="input-group">
+                        <input id="field_completionDate" type="text" class="form-control" name="completionDate" ngbDatepicker  #completionDateDp="ngbDatepicker" formControlName="completionDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="completionDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('completionDate').invalid && (editForm.get('completionDate').dirty || editForm.get('completionDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('completionDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.targetWeight" for="field_targetWeight" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.targetWeight' | translate">Target Weight</label>
+                    <input type="number" class="form-control" name="targetWeight" id="field_targetWeight"
+                           formControlName="targetWeight"/>
+                    <div *ngIf="editForm.get('targetWeight').invalid && (editForm.get('targetWeight').dirty || editForm.get('targetWeight').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('targetWeight').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('targetWeight')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.advicePurpose" for="field_advicePurpose" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.advicePurpose' | translate">Advice Purpose</label>
+                    <textarea class="form-control" name="advicePurpose" id="field_advicePurpose"
+                              formControlName="advicePurpose"></textarea>
+                    <div *ngIf="editForm.get('advicePurpose').invalid && (editForm.get('advicePurpose').dirty || editForm.get('advicePurpose').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('advicePurpose').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.physicalActivity" for="field_physicalActivity" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.physicalActivity' | translate">Physical Activity</label>
+                    <select class="form-control" name="physicalActivity" formControlName="physicalActivity" id="field_physicalActivity">
+                        <option value="EXTREMELY_INACTIVE">{{'gatewayApp.PhysicalActivity.EXTREMELY_INACTIVE' | translate}}</option>
+                        <option value="SEDENTARY">{{'gatewayApp.PhysicalActivity.SEDENTARY' | translate}}</option>
+                        <option value="MODERATELY_ACTIVE">{{'gatewayApp.PhysicalActivity.MODERATELY_ACTIVE' | translate}}</option>
+                        <option value="VIGOROUSLY_ACTIVE">{{'gatewayApp.PhysicalActivity.VIGOROUSLY_ACTIVE' | translate}}</option>
+                        <option value="EXTREMELY_ACTIVE">{{'gatewayApp.PhysicalActivity.EXTREMELY_ACTIVE' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('physicalActivity').invalid && (editForm.get('physicalActivity').dirty || editForm.get('physicalActivity').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('physicalActivity').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.diseases" for="field_diseases" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.diseases' | translate">Diseases</label>
+                    <textarea class="form-control" name="diseases" id="field_diseases"
+                              formControlName="diseases"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.medicines" for="field_medicines" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.medicines' | translate">Medicines</label>
+                    <textarea class="form-control" name="medicines" id="field_medicines"
+                              formControlName="medicines"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.jobType" for="field_jobType" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.jobType' | translate">Job Type</label>
+                    <select class="form-control" name="jobType" formControlName="jobType" id="field_jobType">
+                        <option value="SITTING">{{'gatewayApp.JobType.SITTING' | translate}}</option>
+                        <option value="STANDING">{{'gatewayApp.JobType.STANDING' | translate}}</option>
+                        <option value="MIXED">{{'gatewayApp.JobType.MIXED' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.likedProducts" for="field_likedProducts" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.likedProducts' | translate">Liked Products</label>
+                    <textarea class="form-control" name="likedProducts" id="field_likedProducts"
+                              formControlName="likedProducts"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.dislikedProducts" for="field_dislikedProducts" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.dislikedProducts' | translate">Disliked Products</label>
+                    <textarea class="form-control" name="dislikedProducts" id="field_dislikedProducts"
+                              formControlName="dislikedProducts"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodAllergies" for="field_foodAllergies" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.foodAllergies' | translate">Food Allergies</label>
+                    <textarea class="form-control" name="foodAllergies" id="field_foodAllergies"
+                              formControlName="foodAllergies"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodIntolerances" for="field_foodIntolerances" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.foodIntolerances' | translate">Food Intolerances</label>
+                    <textarea class="form-control" name="foodIntolerances" id="field_foodIntolerances"
+                              formControlName="foodIntolerances"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.appointment" for="field_appointment">Appointment</label>
+                    <select class="form-control" id="field_appointment" name="appointment" formControlName="appointmentId">
+                        <option *ngIf="!editForm.get('appointmentId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appointmentOption.id" *ngFor="let appointmentOption of appointments; trackBy: trackAppointmentById">{{appointmentOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appointmentId').invalid && (editForm.get('appointmentId').dirty || editForm.get('appointmentId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appointmentId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

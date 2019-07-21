@@ -1,0 +1,73 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="nutritionalInterview">
+            <h2><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.detail.title">Nutritional Interview</span> {{nutritionalInterview.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.completionDate" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.completionDate' | translate">Completion Date</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.completionDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.targetWeight" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.targetWeight' | translate">Target Weight</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.targetWeight}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.advicePurpose" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.advicePurpose' | translate">Advice Purpose</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.advicePurpose}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.physicalActivity" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.physicalActivity' | translate">Physical Activity</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.PhysicalActivity.' + nutritionalInterview.physicalActivity}}">{{nutritionalInterview.physicalActivity}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.diseases" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.diseases' | translate">Diseases</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.diseases}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.medicines" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.medicines' | translate">Medicines</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.medicines}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.jobType" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.jobType' | translate">Job Type</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.JobType.' + nutritionalInterview.jobType}}">{{nutritionalInterview.jobType}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.likedProducts" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.likedProducts' | translate">Liked Products</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.likedProducts}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.dislikedProducts" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.dislikedProducts' | translate">Disliked Products</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.dislikedProducts}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodAllergies" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.foodAllergies' | translate">Food Allergies</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.foodAllergies}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodIntolerances" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.foodIntolerances' | translate">Food Intolerances</span></dt>
+                <dd>
+                    <span>{{nutritionalInterview.foodIntolerances}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.appointment">Appointment</span></dt>
+                <dd>
+                    <div *ngIf="nutritionalInterview.appointmentId">
+                        <a [routerLink]="['/appointment', nutritionalInterview.appointmentId, 'view']">{{nutritionalInterview.appointmentId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/nutritional-interview', nutritionalInterview.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

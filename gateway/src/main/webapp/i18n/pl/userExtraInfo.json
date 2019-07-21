@@ -1,0 +1,41 @@
+{
+  "gatewayApp": {
+    "userExtraInfo": {
+      "home": {
+        "title": "User Extra Info",
+        "createLabel": "Dodaj User Extra Info",
+        "createOrEditLabel": "Dodaj lub edytuj: User Extra Info",
+        "search": "Szukaj User Extra Info",
+        "notFound": "No User Extra Info found"
+      },
+      "created": "Utworzono nowy obiekt typu User Extra Info z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu User Extra Info z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu User Extra Info z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć User Extra Info {{ id }}?"
+      },
+      "detail": {
+        "title": "User Extra Info"
+      },
+      "gender": "Gender",
+      "dateOfBirth": "Date Of Birth",
+      "phoneNumber": "Phone Number",
+      "streetAddress": "Street Address",
+      "postalCode": "Postal Code",
+      "city": "City",
+      "country": "Country",
+      "personalDescription": "Personal Description",
+      "user": "User",
+      "help": {
+        "gender": "Gender",
+        "dateOfBirth": "Date of birth",
+        "phoneNumber": "Phone number. Preferably in format (+00) 000-000-000",
+        "streetAddress": "Street address with house/apartment number",
+        "postalCode": "Postal or zip code",
+        "city": "City",
+        "country": "Country",
+        "personalDescription": "Short personal description"
+      }
+    }
+  }
+}

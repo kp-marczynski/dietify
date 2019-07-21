@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: appointments
+  namespace: dietify
+  labels:
+    app: appointments
+spec:
+  selector:
+    app: appointments
+  ports:
+    - name: http
+      port: 8084

@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="assignedMealPlan">
+            <h2><span jhiTranslate="gatewayApp.appointmentsAssignedMealPlan.detail.title">Assigned Meal Plan</span> {{assignedMealPlan.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsAssignedMealPlan.mealPlanId" [ngbTooltip]="'gatewayApp.appointmentsAssignedMealPlan.help.mealPlanId' | translate">Meal Plan Id</span></dt>
+                <dd>
+                    <span>{{assignedMealPlan.mealPlanId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAssignedMealPlan.appointment">Appointment</span></dt>
+                <dd>
+                    <div *ngIf="assignedMealPlan.appointmentId">
+                        <a [routerLink]="['/appointment', assignedMealPlan.appointmentId, 'view']">{{assignedMealPlan.appointmentId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/assigned-meal-plan', assignedMealPlan.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

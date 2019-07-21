@@ -1,0 +1,59 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="userExtraInfo">
+            <h2><span jhiTranslate="gatewayApp.userExtraInfo.detail.title">User Extra Info</span> {{userExtraInfo.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.gender" [ngbTooltip]="'gatewayApp.userExtraInfo.help.gender' | translate">Gender</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.Gender.' + userExtraInfo.gender}}">{{userExtraInfo.gender}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.dateOfBirth" [ngbTooltip]="'gatewayApp.userExtraInfo.help.dateOfBirth' | translate">Date Of Birth</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.dateOfBirth}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.phoneNumber" [ngbTooltip]="'gatewayApp.userExtraInfo.help.phoneNumber' | translate">Phone Number</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.phoneNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.streetAddress" [ngbTooltip]="'gatewayApp.userExtraInfo.help.streetAddress' | translate">Street Address</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.streetAddress}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.postalCode" [ngbTooltip]="'gatewayApp.userExtraInfo.help.postalCode' | translate">Postal Code</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.postalCode}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.city" [ngbTooltip]="'gatewayApp.userExtraInfo.help.city' | translate">City</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.city}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.country" [ngbTooltip]="'gatewayApp.userExtraInfo.help.country' | translate">Country</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.country}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.personalDescription" [ngbTooltip]="'gatewayApp.userExtraInfo.help.personalDescription' | translate">Personal Description</span></dt>
+                <dd>
+                    <span>{{userExtraInfo.personalDescription}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.userExtraInfo.user">User</span></dt>
+                <dd>
+                    {{userExtraInfo.userLogin}}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/user-extra-info', userExtraInfo.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

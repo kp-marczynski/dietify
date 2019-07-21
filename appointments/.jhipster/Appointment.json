@@ -1,0 +1,76 @@
+{
+    "name": "Appointment",
+    "fields": [
+        {
+            "fieldName": "appointmentDate",
+            "javadoc": "Date and time of the appointment",
+            "fieldType": "Instant",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "appointmentState",
+            "javadoc": "Current appointment state",
+            "fieldType": "AppointmentState",
+            "fieldValues": "PLANNED,CANCELED,COMPLETED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mealPlanId",
+            "javadoc": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "generalAdvice",
+            "javadoc": "General advice after appointment",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "patientCard",
+            "otherEntityRelationshipName": "appointments",
+            "relationshipValidateRules": "required",
+            "relationshipName": "patientCard",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "bodyMeasurement",
+            "otherEntityRelationshipName": "appointment",
+            "relationshipName": "bodyMeasurement",
+            "ownerSide": false
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "nutritionalInterview",
+            "otherEntityRelationshipName": "appointment",
+            "relationshipName": "nutritionalInterview",
+            "ownerSide": false
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "assignedMealPlan",
+            "otherEntityRelationshipName": "appointment",
+            "relationshipName": "mealPlans"
+        }
+    ],
+    "changelogDate": "20190721154710",
+    "entityTableName": "appointment",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

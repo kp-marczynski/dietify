@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="dishTypeTranslation">
+            <h2><span jhiTranslate="gatewayApp.recipesDishTypeTranslation.detail.title">Dish Type Translation</span> {{dishTypeTranslation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.recipesDishTypeTranslation.translation" [ngbTooltip]="'gatewayApp.recipesDishTypeTranslation.help.translation' | translate">Translation</span></dt>
+                <dd>
+                    <span>{{dishTypeTranslation.translation}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesDishTypeTranslation.language" [ngbTooltip]="'gatewayApp.recipesDishTypeTranslation.help.language' | translate">Language</span></dt>
+                <dd>
+                    <span>{{dishTypeTranslation.language}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesDishTypeTranslation.dishType">Dish Type</span></dt>
+                <dd>
+                    <div *ngIf="dishTypeTranslation.dishTypeId">
+                        <a [routerLink]="['/dish-type', dishTypeTranslation.dishTypeId, 'view']">{{dishTypeTranslation.dishTypeDescription}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/dish-type-translation', dishTypeTranslation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,117 @@
+{
+    "name": "NutritionalInterview",
+    "fields": [
+        {
+            "fieldName": "completionDate",
+            "javadoc": "Date of interview completion",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "targetWeight",
+            "javadoc": "Patient's target weight in kilograms",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "advicePurpose",
+            "javadoc": "Advice purpose summarising what patient wish to accomplish with diet",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "physicalActivity",
+            "javadoc": "Patient's usual daily activity level",
+            "fieldType": "PhysicalActivity",
+            "fieldValues": "EXTREMELY_INACTIVE,SEDENTARY,MODERATELY_ACTIVE,VIGOROUSLY_ACTIVE,EXTREMELY_ACTIVE",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "diseases",
+            "javadoc": "Patient's diseases",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "medicines",
+            "javadoc": "Patient's medicines",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "jobType",
+            "javadoc": "Patient's job type",
+            "fieldType": "JobType",
+            "fieldValues": "SITTING,STANDING,MIXED"
+        },
+        {
+            "fieldName": "likedProducts",
+            "javadoc": "Food products that patient likes",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "dislikedProducts",
+            "javadoc": "Food products that patient dislikes",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "foodAllergies",
+            "javadoc": "Food products that patient is allergic to",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        },
+        {
+            "fieldName": "foodIntolerances",
+            "javadoc": "Patient's food intolerances",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "appointment",
+            "otherEntityRelationshipName": "nutritionalInterview",
+            "relationshipValidateRules": "required",
+            "relationshipName": "appointment",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "ownedKitchenAppliance",
+            "otherEntityRelationshipName": "nutritionalInterview",
+            "relationshipName": "ownedKitchenAppliances"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "customNutritionalInterviewQuestion",
+            "otherEntityRelationshipName": "nutritionalInterview",
+            "relationshipName": "customQuestions"
+        }
+    ],
+    "changelogDate": "20190721154712",
+    "entityTableName": "nutritional_interview",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

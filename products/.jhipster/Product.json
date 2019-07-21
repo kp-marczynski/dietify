@@ -1,0 +1,121 @@
+{
+    "name": "Product",
+    "fields": [
+        {
+            "fieldName": "source",
+            "javadoc": "Specifying source if product is imported, preferably url address if possible",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "authorId",
+            "javadoc": "Author of product if product created or edited manually. Id of User entity retrieved from gateway service",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "description",
+            "javadoc": "Short description of Product in a language of a product",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "isFinal",
+            "javadoc": "Flag specifying if product is final or editable",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "isVerified",
+            "javadoc": "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language tag of a product as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "productSubcategory",
+            "otherEntityRelationshipName": "product",
+            "relationshipValidateRules": "required",
+            "relationshipName": "subcategory",
+            "otherEntityField": "description"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "dietType",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "suitableDiets",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "dietType",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "unsuitableDiets",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "productBasicNutritionData",
+            "otherEntityRelationshipName": "product",
+            "relationshipValidateRules": "required",
+            "relationshipName": "basicNutritionData",
+            "ownerSide": false
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "nutritionData",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "nutritionData"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "householdMeasure",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "householdMeasures"
+        }
+    ],
+    "changelogDate": "20190721154637",
+    "entityTableName": "product",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products",
+    "searchEngine": "elasticsearch"
+}

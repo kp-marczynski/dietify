@@ -1,0 +1,44 @@
+{
+    "name": "ProductCategory",
+    "fields": [
+        {
+            "fieldName": "description",
+            "javadoc": "Short description of category in English",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "productSubcategory",
+            "otherEntityRelationshipName": "category",
+            "relationshipName": "subcategories"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "productCategoryTranslation",
+            "otherEntityRelationshipName": "productCategory",
+            "relationshipName": "translations"
+        }
+    ],
+    "changelogDate": "20190721154640",
+    "entityTableName": "product_category",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

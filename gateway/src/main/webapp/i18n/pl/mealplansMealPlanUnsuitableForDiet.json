@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "mealplansMealPlanUnsuitableForDiet": {
+      "home": {
+        "title": "Meal Plan Unsuitable For Diet",
+        "createLabel": "Dodaj Meal Plan Unsuitable For Diet",
+        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan Unsuitable For Diet",
+        "search": "Szukaj Meal Plan Unsuitable For Diet",
+        "notFound": "No Meal Plan Unsuitable For Diet found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Meal Plan Unsuitable For Diet {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Plan Unsuitable For Diet"
+      },
+      "dietTypeId": "Diet Type Id",
+      "mealPlan": "Meal Plan",
+      "help": {
+        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealPlanUnsuitableForDiet": {
+      "created": "Utworzono nowy obiekt typu Meal Plan Unsuitable For Diet z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Meal Plan Unsuitable For Diet z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Meal Plan Unsuitable For Diet z identyfikatorem {{ param }}"
+    }
+  }
+}

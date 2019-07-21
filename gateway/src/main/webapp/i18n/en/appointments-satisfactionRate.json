@@ -1,0 +1,12 @@
+{
+  "gatewayApp": {
+    "SatisfactionRate": {
+      "null": "",
+      "VERY_DISSATISFIED": "VERY_DISSATISFIED",
+      "DISSATISFIED": "DISSATISFIED",
+      "NEUTRAL": "NEUTRAL",
+      "SATISFIED": "SATISFIED",
+      "VERY_SATISFIED": "VERY_SATISFIED"
+    }
+  }
+}

@@ -1,0 +1,166 @@
+{
+    "name": "MealPlan",
+    "fields": [
+        {
+            "fieldName": "authorId",
+            "javadoc": "Id of author of the plan",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creationDate",
+            "javadoc": "Creation date of the plan",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "name",
+            "javadoc": "Plan name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "isVisible",
+            "javadoc": "Flag specifying if meal plan is visible in author's list of meal plans",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "isLocked",
+            "javadoc": "Flag specifying if meal plan is editable",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language tag of a meal plan as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        },
+        {
+            "fieldName": "numberOfDays",
+            "javadoc": "Number of days in plan",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "numberOfMealsPerDay",
+            "javadoc": "Number of meals per day",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "totalDailyEnergy",
+            "javadoc": "Amount of total energy per day in kcal",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "percentOfProtein",
+            "javadoc": "Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 100
+        },
+        {
+            "fieldName": "percentOfFat",
+            "javadoc": "Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 100
+        },
+        {
+            "fieldName": "percentOfCarbohydrates",
+            "javadoc": "Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 100
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealPlanDay",
+            "otherEntityRelationshipName": "mealPlan",
+            "relationshipName": "days"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealDefinition",
+            "otherEntityRelationshipName": "mealPlan",
+            "relationshipName": "mealDefinitions"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealPlanSuitableForDiet",
+            "otherEntityRelationshipName": "mealPlan",
+            "relationshipName": "tagsGoodFor"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealPlanUnsuitableForDiet",
+            "otherEntityRelationshipName": "mealPlan",
+            "relationshipName": "tagsBadFor"
+        }
+    ],
+    "changelogDate": "20190721154701",
+    "entityTableName": "meal_plan",
+    "dto": "mapstruct",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "mealplans"
+    ],
+    "microserviceName": "mealplans",
+    "searchEngine": "elasticsearch"
+}

@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "productsDietType": {
+      "home": {
+        "title": "Diet Types",
+        "createLabel": "Create a new Diet Type",
+        "createOrEditLabel": "Create or edit a Diet Type",
+        "search": "Search for Diet Type",
+        "notFound": "No Diet Type found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Diet Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Diet Type"
+      },
+      "name": "Name",
+      "translations": "Translations",
+      "help": {
+        "name": "Short description of diet type in English"
+      }
+    }
+  },
+  "productsApp": {
+    "productsDietType": {
+      "created": "A new Diet Type is created with identifier {{ param }}",
+      "updated": "A Diet Type is updated with identifier {{ param }}",
+      "deleted": "A Diet Type is deleted with identifier {{ param }}"
+    }
+  }
+}

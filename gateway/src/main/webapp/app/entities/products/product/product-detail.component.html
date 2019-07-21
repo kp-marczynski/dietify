@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="product">
+            <h2><span jhiTranslate="gatewayApp.productsProduct.detail.title">Product</span> {{product.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.productsProduct.source" [ngbTooltip]="'gatewayApp.productsProduct.help.source' | translate">Source</span></dt>
+                <dd>
+                    <span>{{product.source}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.authorId" [ngbTooltip]="'gatewayApp.productsProduct.help.authorId' | translate">Author Id</span></dt>
+                <dd>
+                    <span>{{product.authorId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.description" [ngbTooltip]="'gatewayApp.productsProduct.help.description' | translate">Description</span></dt>
+                <dd>
+                    <span>{{product.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.isFinal" [ngbTooltip]="'gatewayApp.productsProduct.help.isFinal' | translate">Is Final</span></dt>
+                <dd>
+                    <span>{{product.isFinal}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.isVerified" [ngbTooltip]="'gatewayApp.productsProduct.help.isVerified' | translate">Is Verified</span></dt>
+                <dd>
+                    <span>{{product.isVerified}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.language" [ngbTooltip]="'gatewayApp.productsProduct.help.language' | translate">Language</span></dt>
+                <dd>
+                    <span>{{product.language}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span></dt>
+                <dd>
+                    <div *ngIf="product.subcategoryId">
+                        <a [routerLink]="['/product-subcategory', product.subcategoryId, 'view']">{{product.subcategoryDescription}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.suitableDiets">Suitable Diets</span></dt>
+                <dd>
+                    <span *ngFor="let suitableDiets of product.suitableDiets; let last = last">
+                        <a [routerLink]="['/diet-type', suitableDiets?.id, 'view' ]">{{suitableDiets.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.unsuitableDiets">Unsuitable Diets</span></dt>
+                <dd>
+                    <span *ngFor="let unsuitableDiets of product.unsuitableDiets; let last = last">
+                        <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/product', product.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

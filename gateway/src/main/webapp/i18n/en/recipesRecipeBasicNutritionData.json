@@ -1,0 +1,37 @@
+{
+  "gatewayApp": {
+    "recipesRecipeBasicNutritionData": {
+      "home": {
+        "title": "Recipe Basic Nutrition Data",
+        "createLabel": "Create a new Recipe Basic Nutrition Data",
+        "createOrEditLabel": "Create or edit a Recipe Basic Nutrition Data",
+        "search": "Search for Recipe Basic Nutrition Data",
+        "notFound": "No Recipe Basic Nutrition Data found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Recipe Basic Nutrition Data {{ id }}?"
+      },
+      "detail": {
+        "title": "Recipe Basic Nutrition Data"
+      },
+      "energy": "Energy",
+      "protein": "Protein",
+      "fat": "Fat",
+      "carbohydrates": "Carbohydrates",
+      "recipe": "Recipe",
+      "help": {
+        "energy": "Energy in kcal per 100 gram of recipe meal calculated from products added to recipe",
+        "protein": "Protein in grams per 100 gram of recipe meal calculated from products added to recipe",
+        "fat": "Fat in grams per 100 gram of recipe meal calculated from products added to recipe",
+        "carbohydrates": "Carbohydrates in grams per 100 gram of recipe meal calculated from products added to recipe"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesRecipeBasicNutritionData": {
+      "created": "A new Recipe Basic Nutrition Data is created with identifier {{ param }}",
+      "updated": "A Recipe Basic Nutrition Data is updated with identifier {{ param }}",
+      "deleted": "A Recipe Basic Nutrition Data is deleted with identifier {{ param }}"
+    }
+  }
+}

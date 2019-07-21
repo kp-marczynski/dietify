@@ -1,0 +1,47 @@
+{
+  "gatewayApp": {
+    "appointmentsAppointmentEvaluation": {
+      "home": {
+        "title": "Appointment Evaluation",
+        "createLabel": "Dodaj Appointment Evaluation",
+        "createOrEditLabel": "Dodaj lub edytuj: Appointment Evaluation",
+        "search": "Szukaj Appointment Evaluation",
+        "notFound": "No Appointment Evaluation found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Appointment Evaluation {{ id }}?"
+      },
+      "detail": {
+        "title": "Appointment Evaluation"
+      },
+      "overallSatisfaction": "Overall Satisfaction",
+      "dietitianServiceSatisfaction": "Dietitian Service Satisfaction",
+      "mealPlanOverallSatisfaction": "Meal Plan Overall Satisfaction",
+      "mealCostSatisfaction": "Meal Cost Satisfaction",
+      "mealPreparationTimeSatisfaction": "Meal Preparation Time Satisfaction",
+      "mealComplexityLevelSatisfaction": "Meal Complexity Level Satisfaction",
+      "mealTastefulnessSatisfaction": "Meal Tastefulness Satisfaction",
+      "dietaryResultSatisfaction": "Dietary Result Satisfaction",
+      "comment": "Comment",
+      "appointment": "Appointment",
+      "help": {
+        "overallSatisfaction": "Overall visit satisfaction",
+        "dietitianServiceSatisfaction": "Dietitian service satisfaction",
+        "mealPlanOverallSatisfaction": "Overall meal plan satisfaction",
+        "mealCostSatisfaction": "Meals cost satisfaction",
+        "mealPreparationTimeSatisfaction": "Meals preparation time satisfaction",
+        "mealComplexityLevelSatisfaction": "Meal complexity level satisfaction",
+        "mealTastefulnessSatisfaction": "Meal tastefulness satisfaction",
+        "dietaryResultSatisfaction": "Dietary result satisfaction",
+        "comment": "Optional comment to visit"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsAppointmentEvaluation": {
+      "created": "Utworzono nowy obiekt typu Appointment Evaluation z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Appointment Evaluation z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Appointment Evaluation z identyfikatorem {{ param }}"
+    }
+  }
+}

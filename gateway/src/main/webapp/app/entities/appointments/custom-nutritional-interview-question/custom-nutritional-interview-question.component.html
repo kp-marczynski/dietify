@@ -1,0 +1,82 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.home.title">Custom Nutritional Interview Questions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-custom-nutritional-interview-question" [routerLink]="['/custom-nutritional-interview-question/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.home.createLabel">
+            Create new Custom Nutritional Interview Question
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.appointmentsCustomNutritionalInterviewQuestion.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="customNutritionalInterviewQuestions?.length === 0">
+        <span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.home.notFound">No customNutritionalInterviewQuestions found</span>
+    </div>
+    <div class="table-responsive" *ngIf="customNutritionalInterviewQuestions?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.ordinalNumber">Ordinal Number</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.question">Question</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.answer">Answer</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.nutritionalInterview">Nutritional Interview</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let customNutritionalInterviewQuestion of customNutritionalInterviewQuestions ;trackBy: trackId">
+                <td><a [routerLink]="['/custom-nutritional-interview-question', customNutritionalInterviewQuestion.id, 'view' ]">{{customNutritionalInterviewQuestion.id}}</a></td>
+                <td>{{customNutritionalInterviewQuestion.ordinalNumber}}</td>
+                <td>{{customNutritionalInterviewQuestion.question}}</td>
+                <td>{{customNutritionalInterviewQuestion.answer}}</td>
+                <td>
+                    <div *ngIf="customNutritionalInterviewQuestion.nutritionalInterviewId">
+                        <a [routerLink]="['../nutritional-interview', customNutritionalInterviewQuestion.nutritionalInterviewId , 'view' ]" >{{customNutritionalInterviewQuestion.nutritionalInterviewId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/custom-nutritional-interview-question', customNutritionalInterviewQuestion.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/custom-nutritional-interview-question', customNutritionalInterviewQuestion.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'custom-nutritional-interview-question', { outlets: { popup: customNutritionalInterviewQuestion.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="customNutritionalInterviewQuestion">
+            <h2><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.detail.title">Custom Nutritional Interview Question</span> {{customNutritionalInterviewQuestion.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.ordinalNumber" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestion.help.ordinalNumber' | translate">Ordinal Number</span></dt>
+                <dd>
+                    <span>{{customNutritionalInterviewQuestion.ordinalNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.question" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestion.help.question' | translate">Question</span></dt>
+                <dd>
+                    <span>{{customNutritionalInterviewQuestion.question}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.answer" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestion.help.answer' | translate">Answer</span></dt>
+                <dd>
+                    <span>{{customNutritionalInterviewQuestion.answer}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.nutritionalInterview">Nutritional Interview</span></dt>
+                <dd>
+                    <div *ngIf="customNutritionalInterviewQuestion.nutritionalInterviewId">
+                        <a [routerLink]="['/nutritional-interview', customNutritionalInterviewQuestion.nutritionalInterviewId, 'view']">{{customNutritionalInterviewQuestion.nutritionalInterviewId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/custom-nutritional-interview-question', customNutritionalInterviewQuestion.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

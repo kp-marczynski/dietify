@@ -1,0 +1,56 @@
+{
+  "gatewayApp": {
+    "recipesRecipe": {
+      "home": {
+        "title": "Recipes",
+        "createLabel": "Create a new Recipe",
+        "createOrEditLabel": "Create or edit a Recipe",
+        "search": "Search for Recipe",
+        "notFound": "No Recipe found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Recipe {{ id }}?"
+      },
+      "detail": {
+        "title": "Recipe"
+      },
+      "name": "Name",
+      "preparationTimeMinutes": "Preparation Time Minutes",
+      "numberOfPortions": "Number Of Portions",
+      "image": "Image",
+      "authorId": "Author Id",
+      "creationDate": "Creation Date",
+      "lastEditDate": "Last Edit Date",
+      "isVisible": "Is Visible",
+      "language": "Language",
+      "totalGramsWeight": "Total Grams Weight",
+      "sourceRecipe": "Source Recipe",
+      "kitchenAppliances": "Kitchen Appliances",
+      "dishTypes": "Dish Types",
+      "mealTypes": "Meal Types",
+      "basicNutritionData": "Basic Nutrition Data",
+      "recipeSections": "Recipe Sections",
+      "suitableForDiets": "Suitable For Diets",
+      "unsuitableForDiets": "Unsuitable For Diets",
+      "help": {
+        "name": "Name of recipe in language of recipe",
+        "preparationTimeMinutes": "Average time needed for overall recipe preparation, defined in minutes",
+        "numberOfPortions": "Number of portions for which all quantities are specified",
+        "image": "Optional image of recipe",
+        "authorId": "Id of recipe&#39;s author. Id of User entity retrieved from gateway service",
+        "creationDate": "Date of creation",
+        "lastEditDate": "Date of last edit",
+        "isVisible": "Flag specifying if recipe should be visible in list of author&#39;s recipes",
+        "language": "Language tag of a recipe as ISO_639-1 code",
+        "totalGramsWeight": "Total weight in grams of meal prepared from recipe"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesRecipe": {
+      "created": "A new Recipe is created with identifier {{ param }}",
+      "updated": "A Recipe is updated with identifier {{ param }}",
+      "deleted": "A Recipe is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "recipesDishType": {
+      "home": {
+        "title": "Dish Types",
+        "createLabel": "Create a new Dish Type",
+        "createOrEditLabel": "Create or edit a Dish Type",
+        "search": "Search for Dish Type",
+        "notFound": "No Dish Type found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Dish Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Dish Type"
+      },
+      "description": "Description",
+      "translations": "Translations",
+      "help": {
+        "description": "English description of dish type"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesDishType": {
+      "created": "A new Dish Type is created with identifier {{ param }}",
+      "updated": "A Dish Type is updated with identifier {{ param }}",
+      "deleted": "A Dish Type is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="meal">
+            <h2><span jhiTranslate="gatewayApp.mealplansMeal.detail.title">Meal</span> {{meal.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.mealplansMeal.ordinalNumber" [ngbTooltip]="'gatewayApp.mealplansMeal.help.ordinalNumber' | translate">Ordinal Number</span></dt>
+                <dd>
+                    <span>{{meal.ordinalNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMeal.mealPlanDay">Meal Plan Day</span></dt>
+                <dd>
+                    <div *ngIf="meal.mealPlanDayId">
+                        <a [routerLink]="['/meal-plan-day', meal.mealPlanDayId, 'view']">{{meal.mealPlanDayId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal', meal.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

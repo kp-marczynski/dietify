@@ -1,0 +1,220 @@
+
+// <<START products.jh>>
+application {
+	config {
+        baseName products
+        packageName pl.marczynski.dietify.products
+        
+        applicationType microservice
+        serverPort 8081
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        testFrameworks [gatling, cucumber]
+    }
+    entities Product, ProductSubcategory, ProductCategory, ProductCategoryTranslation, NutritionData, NutritionDefinition, NutritionDefinitionTranslation, HouseholdMeasure, DietType, DietTypeTranslation, ProductBasicNutritionData
+}
+
+/**
+ * A food product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(products)
+entity Product {
+	/** Specifying source if product is imported, preferably url address if possible */
+	source String minlength(1) maxlength(255)
+    /** Author of product if product created or edited manually. Id of User entity retrieved from gateway service */
+    authorId Long
+    /** Short description of Product in a language of a product*/
+	description String required minlength(1) maxlength(255)
+    /** Flag specifying if product is final or editable */
+	isFinal Boolean required
+    /** Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these. */
+	isVerified Boolean required
+    /** Language tag of a product as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * Basic nutrition data
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductBasicNutritionData {
+    /** Energy in kcal per 100 gram of product */
+    energy Integer required min(0)
+    /** Protein in grams per 100 gram of product */
+    protein Integer required min(0)
+    /** Fat in grams per 100 gram of product */
+    fat Integer required min(0)
+    /** Carbohydrates in grams per 100 gram of product */
+    carbohydrates Integer required min(0)
+}
+
+/**
+ * A subcategory of product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductSubcategory {
+	/** Short description of subcategory in language of a product */
+	description String required minlength(1) maxlength(255)
+}
+
+/**
+ * A main category of product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductCategory {
+    /** Short description of category in English */
+	description String required minlength(1) maxlength(255)
+}
+
+/**
+ * Product category translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductCategoryTranslation (product_category_trns) {
+	/** Translated name of product category */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A household measures of product with weight in grams
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity HouseholdMeasure {
+    /** Short description of measure in language of a product, e.g. "cup" or "tea spoon" */
+	description String required minlength(1) maxlength(255)
+    /** Grams weight of 1 unit of specified measure */
+	gramsWeight Double required min(0)
+    /** Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources */
+	isVisible Boolean required
+}
+
+/**
+ * A definition of nutrition
+ * Data retrieved form USDA Standard Reference database. Data set is not planned to be expanded.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity NutritionDefinition {
+	/** Short tag name of nutrient */
+	tag String required minlength(1) maxlength(20)
+    /** Short description of nutrient in English */
+	description String required minlength(1) maxlength(255)
+    /** Unit used for nutrient measurement, e.g. "g", "kcal", "ml" */
+	units String required minlength(1) maxlength(10)
+    /** Decimal places to which nutrient value should be rounded */
+	decimalPlaces Integer required min(0)
+}
+
+/**
+ * Nutrition definition translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity NutritionDefinitionTranslation (nutr_def_trns) {
+	/** Translated description of nutrition definition*/
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A value of nutrition definition for concrete Product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity NutritionData {
+	/** Nutrition value in units specified in NutritionDefinition */
+	nutritionValue Double required min(0)
+}
+
+/**
+ * A tag specifying characteristic feature of object to which it is applied
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity DietType {
+    /** Short description of diet type in English */
+    name String required minlength(1) maxlength(255)
+}
+
+/**
+ * Diet type translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity DietTypeTranslation (diet_type_trns) {
+	/** Translated name of diet type */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+relationship OneToOne {
+	ProductBasicNutritionData{product(description) required}
+    	to Product{basicNutritionData required}
+}
+
+relationship ManyToOne {
+	Product{subcategory(description) required} 
+    	to ProductSubcategory
+
+	NutritionData{nutritionDefinition(tag) required} 
+    	to NutritionDefinition
+        
+	ProductSubcategory{category(description) required} 
+    	to ProductCategory{subcategories(description)}
+        
+	NutritionData{product(description) required} 
+    	to Product{nutritionData(nutritionValue)}
+        
+	HouseholdMeasure{product(description) required} 
+    	to Product{householdMeasures(description)}
+    
+    ProductCategoryTranslation{productCategory(description) required}
+    	to ProductCategory{translations}
+    
+    DietTypeTranslation{dietType(name) required}
+    	to DietType{translations}
+        
+    NutritionDefinitionTranslation{nutritionDefinitions(tag) required}
+    	to NutritionDefinition{translations}
+}
+
+relationship ManyToMany {
+	Product{suitableDiets(name)}
+    	to DietType
+    
+    Product{unsuitableDiets(name)}
+    	to DietType
+}
+
+search Product with elasticsearch
+// <<END products.jh>>

@@ -1,0 +1,77 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-appointment-heading" jhiTranslate="gatewayApp.appointmentsAppointment.home.createOrEditLabel">Create or edit a Appointment</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate" for="field_appointmentDate" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentDate' | translate">Appointment Date</label>
+                    <div class="d-flex">
+                        <input id="field_appointmentDate" type="datetime-local" class="form-control" name="appointmentDate" formControlName="appointmentDate" placeholder="YYYY-MM-DD HH:mm"/>
+                    </div>
+                    <div *ngIf="editForm.get('appointmentDate').invalid && (editForm.get('appointmentDate').dirty || editForm.get('appointmentDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('appointmentDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('appointmentDate').errors?.ZonedDateTimelocal" jhiTranslate="entity.validation.ZonedDateTimelocal">
+                            This field should be a date and time.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState" for="field_appointmentState" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentState' | translate">Appointment State</label>
+                    <select class="form-control" name="appointmentState" formControlName="appointmentState" id="field_appointmentState">
+                        <option value="PLANNED">{{'gatewayApp.AppointmentState.PLANNED' | translate}}</option>
+                        <option value="CANCELED">{{'gatewayApp.AppointmentState.CANCELED' | translate}}</option>
+                        <option value="COMPLETED">{{'gatewayApp.AppointmentState.COMPLETED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('appointmentState').invalid && (editForm.get('appointmentState').dirty || editForm.get('appointmentState').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('appointmentState').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId" for="field_mealPlanId" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.mealPlanId' | translate">Meal Plan Id</label>
+                    <input type="number" class="form-control" name="mealPlanId" id="field_mealPlanId"
+                           formControlName="mealPlanId"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" for="field_generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</label>
+                    <textarea class="form-control" name="generalAdvice" id="field_generalAdvice"
+                              formControlName="generalAdvice"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.patientCard" for="field_patientCard">Patient Card</label>
+                    <select class="form-control" id="field_patientCard" name="patientCard" formControlName="patientCardId">
+                        <option *ngIf="!editForm.get('patientCardId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="patientCardOption.id" *ngFor="let patientCardOption of patientcards; trackBy: trackPatientCardById">{{patientCardOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('patientCardId').invalid && (editForm.get('patientCardId').dirty || editForm.get('patientCardId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('patientCardId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

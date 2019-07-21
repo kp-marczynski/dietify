@@ -1,0 +1,113 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-recipe-basic-nutrition-data-heading" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.home.createOrEditLabel">Create or edit a Recipe Basic Nutrition Data</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.energy" for="field_energy" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.energy' | translate">Energy</label>
+                    <input type="number" class="form-control" name="energy" id="field_energy"
+                           formControlName="energy"/>
+                    <div *ngIf="editForm.get('energy').invalid && (editForm.get('energy').dirty || editForm.get('energy').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('energy').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('energy').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('energy')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.protein" for="field_protein" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.protein' | translate">Protein</label>
+                    <input type="number" class="form-control" name="protein" id="field_protein"
+                           formControlName="protein"/>
+                    <div *ngIf="editForm.get('protein').invalid && (editForm.get('protein').dirty || editForm.get('protein').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('protein').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('protein').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('protein')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.fat" for="field_fat" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.fat' | translate">Fat</label>
+                    <input type="number" class="form-control" name="fat" id="field_fat"
+                           formControlName="fat"/>
+                    <div *ngIf="editForm.get('fat').invalid && (editForm.get('fat').dirty || editForm.get('fat').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fat').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('fat').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('fat')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.carbohydrates" for="field_carbohydrates" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.carbohydrates' | translate">Carbohydrates</label>
+                    <input type="number" class="form-control" name="carbohydrates" id="field_carbohydrates"
+                           formControlName="carbohydrates"/>
+                    <div *ngIf="editForm.get('carbohydrates').invalid && (editForm.get('carbohydrates').dirty || editForm.get('carbohydrates').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('carbohydrates').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('carbohydrates').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('carbohydrates')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.recipe" for="field_recipe">Recipe</label>
+                    <select class="form-control" id="field_recipe" name="recipe" formControlName="recipeId">
+                        <option *ngIf="!editForm.get('recipeId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="recipeOption.id" *ngFor="let recipeOption of recipes; trackBy: trackRecipeById">{{recipeOption.name}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('recipeId').invalid && (editForm.get('recipeId').dirty || editForm.get('recipeId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('recipeId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

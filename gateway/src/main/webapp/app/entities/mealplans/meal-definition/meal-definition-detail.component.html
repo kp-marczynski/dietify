@@ -1,0 +1,45 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="mealDefinition">
+            <h2><span jhiTranslate="gatewayApp.mealplansMealDefinition.detail.title">Meal Definition</span> {{mealDefinition.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.mealplansMealDefinition.ordinalNumber" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.ordinalNumber' | translate">Ordinal Number</span></dt>
+                <dd>
+                    <span>{{mealDefinition.ordinalNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealDefinition.mealTypeId" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.mealTypeId' | translate">Meal Type Id</span></dt>
+                <dd>
+                    <span>{{mealDefinition.mealTypeId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealDefinition.timeOfMeal" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.timeOfMeal' | translate">Time Of Meal</span></dt>
+                <dd>
+                    <span>{{mealDefinition.timeOfMeal}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealDefinition.percentOfEnergy" [ngbTooltip]="'gatewayApp.mealplansMealDefinition.help.percentOfEnergy' | translate">Percent Of Energy</span></dt>
+                <dd>
+                    <span>{{mealDefinition.percentOfEnergy}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealDefinition.mealPlan">Meal Plan</span></dt>
+                <dd>
+                    <div *ngIf="mealDefinition.mealPlanId">
+                        <a [routerLink]="['/meal-plan', mealDefinition.mealPlanId, 'view']">{{mealDefinition.mealPlanId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-definition', mealDefinition.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

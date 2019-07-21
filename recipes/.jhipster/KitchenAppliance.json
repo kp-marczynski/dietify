@@ -1,0 +1,38 @@
+{
+    "name": "KitchenAppliance",
+    "fields": [
+        {
+            "fieldName": "name",
+            "javadoc": "English name of kitchen appliance",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "kitchenApplianceTranslation",
+            "otherEntityRelationshipName": "kitchenAppliance",
+            "relationshipName": "translations"
+        }
+    ],
+    "changelogDate": "20190721154654",
+    "entityTableName": "kitchen_appliance",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

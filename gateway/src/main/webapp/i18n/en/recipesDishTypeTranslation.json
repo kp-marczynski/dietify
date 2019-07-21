@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "recipesDishTypeTranslation": {
+      "home": {
+        "title": "Dish Type Translations",
+        "createLabel": "Create a new Dish Type Translation",
+        "createOrEditLabel": "Create or edit a Dish Type Translation",
+        "search": "Search for Dish Type Translation",
+        "notFound": "No Dish Type Translation found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Dish Type Translation {{ id }}?"
+      },
+      "detail": {
+        "title": "Dish Type Translation"
+      },
+      "translation": "Translation",
+      "language": "Language",
+      "dishType": "Dish Type",
+      "help": {
+        "translation": "Translated name of dish type",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesDishTypeTranslation": {
+      "created": "A new Dish Type Translation is created with identifier {{ param }}",
+      "updated": "A Dish Type Translation is updated with identifier {{ param }}",
+      "deleted": "A Dish Type Translation is deleted with identifier {{ param }}"
+    }
+  }
+}

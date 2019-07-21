@@ -1,0 +1,35 @@
+{
+  "gatewayApp": {
+    "mealplansMealProduct": {
+      "home": {
+        "title": "Meal Products",
+        "createLabel": "Create a new Meal Product",
+        "createOrEditLabel": "Create or edit a Meal Product",
+        "search": "Search for Meal Product",
+        "notFound": "No Meal Product found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Product"
+      },
+      "productId": "Product Id",
+      "householdMeasureId": "Household Measure Id",
+      "amount": "Amount",
+      "meal": "Meal",
+      "help": {
+        "productId": "Id of Product entity retrieved from Products service",
+        "householdMeasureId": "Id of HouseholdMeasure entity retrieved from Products service",
+        "amount": "Amount of Product in household measure units. If household measure is null then amount is in grams."
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealProduct": {
+      "created": "A new Meal Product is created with identifier {{ param }}",
+      "updated": "A Meal Product is updated with identifier {{ param }}",
+      "deleted": "A Meal Product is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="customNutritionalInterviewQuestionTemplate">
+            <h2><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.detail.title">Custom Nutritional Interview Question Template</span> {{customNutritionalInterviewQuestionTemplate.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.ownerId" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.help.ownerId' | translate">Owner Id</span></dt>
+                <dd>
+                    <span>{{customNutritionalInterviewQuestionTemplate.ownerId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.question" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.help.question' | translate">Question</span></dt>
+                <dd>
+                    <span>{{customNutritionalInterviewQuestionTemplate.question}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.language" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.help.language' | translate">Language</span></dt>
+                <dd>
+                    <span>{{customNutritionalInterviewQuestionTemplate.language}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/custom-nutritional-interview-question-template', customNutritionalInterviewQuestionTemplate.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

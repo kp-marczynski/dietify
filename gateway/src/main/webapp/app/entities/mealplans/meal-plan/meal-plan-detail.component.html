@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="mealPlan">
+            <h2><span jhiTranslate="gatewayApp.mealplansMealPlan.detail.title">Meal Plan</span> {{mealPlan.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.authorId" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.authorId' | translate">Author Id</span></dt>
+                <dd>
+                    <span>{{mealPlan.authorId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.creationDate" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationDate' | translate">Creation Date</span></dt>
+                <dd>
+                    <span>{{mealPlan.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.name" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.name' | translate">Name</span></dt>
+                <dd>
+                    <span>{{mealPlan.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isVisible" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isVisible' | translate">Is Visible</span></dt>
+                <dd>
+                    <span>{{mealPlan.isVisible}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isLocked" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isLocked' | translate">Is Locked</span></dt>
+                <dd>
+                    <span>{{mealPlan.isLocked}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.language" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.language' | translate">Language</span></dt>
+                <dd>
+                    <span>{{mealPlan.language}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfDays" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfDays' | translate">Number Of Days</span></dt>
+                <dd>
+                    <span>{{mealPlan.numberOfDays}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfMealsPerDay" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfMealsPerDay' | translate">Number Of Meals Per Day</span></dt>
+                <dd>
+                    <span>{{mealPlan.numberOfMealsPerDay}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.totalDailyEnergy" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.totalDailyEnergy' | translate">Total Daily Energy</span></dt>
+                <dd>
+                    <span>{{mealPlan.totalDailyEnergy}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfProtein" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfProtein' | translate">Percent Of Protein</span></dt>
+                <dd>
+                    <span>{{mealPlan.percentOfProtein}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfFat" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfFat' | translate">Percent Of Fat</span></dt>
+                <dd>
+                    <span>{{mealPlan.percentOfFat}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfCarbohydrates" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfCarbohydrates' | translate">Percent Of Carbohydrates</span></dt>
+                <dd>
+                    <span>{{mealPlan.percentOfCarbohydrates}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

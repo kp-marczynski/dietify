@@ -1,0 +1,52 @@
+{
+    "name": "NutritionDefinitionTranslation",
+    "fields": [
+        {
+            "fieldName": "translation",
+            "javadoc": "Translated description of nutrition definition",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language of translation as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "nutritionDefinition",
+            "otherEntityRelationshipName": "translations",
+            "relationshipValidateRules": "required",
+            "relationshipName": "nutritionDefinitions",
+            "otherEntityField": "tag"
+        }
+    ],
+    "changelogDate": "20190721154644",
+    "entityTableName": "nutr_def_trns",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

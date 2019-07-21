@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "productsDietTypeTranslation": {
+      "home": {
+        "title": "Diet Type Translations",
+        "createLabel": "Create a new Diet Type Translation",
+        "createOrEditLabel": "Create or edit a Diet Type Translation",
+        "search": "Search for Diet Type Translation",
+        "notFound": "No Diet Type Translation found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Diet Type Translation {{ id }}?"
+      },
+      "detail": {
+        "title": "Diet Type Translation"
+      },
+      "translation": "Translation",
+      "language": "Language",
+      "dietType": "Diet Type",
+      "help": {
+        "translation": "Translated name of diet type",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "productsApp": {
+    "productsDietTypeTranslation": {
+      "created": "A new Diet Type Translation is created with identifier {{ param }}",
+      "updated": "A Diet Type Translation is updated with identifier {{ param }}",
+      "deleted": "A Diet Type Translation is deleted with identifier {{ param }}"
+    }
+  }
+}

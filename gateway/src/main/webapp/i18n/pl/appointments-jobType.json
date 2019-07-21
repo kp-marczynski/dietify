@@ -1,0 +1,10 @@
+{
+  "gatewayApp": {
+    "JobType": {
+      "null": "",
+      "SITTING": "SITTING",
+      "STANDING": "STANDING",
+      "MIXED": "MIXED"
+    }
+  }
+}

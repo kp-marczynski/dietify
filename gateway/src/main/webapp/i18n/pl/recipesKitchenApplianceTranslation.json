@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "recipesKitchenApplianceTranslation": {
+      "home": {
+        "title": "Kitchen Appliance Translation",
+        "createLabel": "Dodaj Kitchen Appliance Translation",
+        "createOrEditLabel": "Dodaj lub edytuj: Kitchen Appliance Translation",
+        "search": "Szukaj Kitchen Appliance Translation",
+        "notFound": "No Kitchen Appliance Translation found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Kitchen Appliance Translation {{ id }}?"
+      },
+      "detail": {
+        "title": "Kitchen Appliance Translation"
+      },
+      "translation": "Translation",
+      "language": "Language",
+      "kitchenAppliance": "Kitchen Appliance",
+      "help": {
+        "translation": "Translated name of kitchen appliance",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesKitchenApplianceTranslation": {
+      "created": "Utworzono nowy obiekt typu Kitchen Appliance Translation z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Kitchen Appliance Translation z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Kitchen Appliance Translation z identyfikatorem {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "appointmentsOwnedKitchenAppliance": {
+      "home": {
+        "title": "Owned Kitchen Appliances",
+        "createLabel": "Create a new Owned Kitchen Appliance",
+        "createOrEditLabel": "Create or edit a Owned Kitchen Appliance",
+        "search": "Search for Owned Kitchen Appliance",
+        "notFound": "No Owned Kitchen Appliance found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Owned Kitchen Appliance {{ id }}?"
+      },
+      "detail": {
+        "title": "Owned Kitchen Appliance"
+      },
+      "kitchenApplianceId": "Kitchen Appliance Id",
+      "nutritionalInterview": "Nutritional Interview",
+      "help": {
+        "kitchenApplianceId": "Id of KitchenAppliance entity retrieved from recipes service"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsOwnedKitchenAppliance": {
+      "created": "A new Owned Kitchen Appliance is created with identifier {{ param }}",
+      "updated": "A Owned Kitchen Appliance is updated with identifier {{ param }}",
+      "deleted": "A Owned Kitchen Appliance is deleted with identifier {{ param }}"
+    }
+  }
+}

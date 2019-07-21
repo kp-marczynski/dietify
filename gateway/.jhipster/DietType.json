@@ -1,0 +1,38 @@
+{
+    "name": "DietType",
+    "fields": [
+        {
+            "fieldName": "name",
+            "javadoc": "Short description of diet type in English",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "dietTypeTranslation",
+            "otherEntityRelationshipName": "dietType",
+            "relationshipName": "translations"
+        }
+    ],
+    "changelogDate": "20190721154646",
+    "entityTableName": "diet_type",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

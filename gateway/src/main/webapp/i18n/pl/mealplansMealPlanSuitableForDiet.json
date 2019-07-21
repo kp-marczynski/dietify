@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "mealplansMealPlanSuitableForDiet": {
+      "home": {
+        "title": "Meal Plan Suitable For Diet",
+        "createLabel": "Dodaj Meal Plan Suitable For Diet",
+        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan Suitable For Diet",
+        "search": "Szukaj Meal Plan Suitable For Diet",
+        "notFound": "No Meal Plan Suitable For Diet found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Meal Plan Suitable For Diet {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Plan Suitable For Diet"
+      },
+      "dietTypeId": "Diet Type Id",
+      "mealPlan": "Meal Plan",
+      "help": {
+        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealPlanSuitableForDiet": {
+      "created": "Utworzono nowy obiekt typu Meal Plan Suitable For Diet z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Meal Plan Suitable For Diet z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Meal Plan Suitable For Diet z identyfikatorem {{ param }}"
+    }
+  }
+}

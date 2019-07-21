@@ -1,0 +1,46 @@
+{
+    "name": "MealRecipe",
+    "fields": [
+        {
+            "fieldName": "recipeId",
+            "javadoc": "Id of Recipe entity retrieved from recipes service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "amount",
+            "javadoc": "Amount of recipe in grams",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "meal",
+            "otherEntityRelationshipName": "mealRecipes",
+            "relationshipValidateRules": "required",
+            "relationshipName": "meal",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190721154705",
+    "entityTableName": "meal_recipe",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "mealplans"
+    ],
+    "microserviceName": "mealplans"
+}

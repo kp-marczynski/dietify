@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="mealPlanUnsuitableForDiet">
+            <h2><span jhiTranslate="gatewayApp.mealplansMealPlanUnsuitableForDiet.detail.title">Meal Plan Unsuitable For Diet</span> {{mealPlanUnsuitableForDiet.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlanUnsuitableForDiet.dietTypeId" [ngbTooltip]="'gatewayApp.mealplansMealPlanUnsuitableForDiet.help.dietTypeId' | translate">Diet Type Id</span></dt>
+                <dd>
+                    <span>{{mealPlanUnsuitableForDiet.dietTypeId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.mealplansMealPlanUnsuitableForDiet.mealPlan">Meal Plan</span></dt>
+                <dd>
+                    <div *ngIf="mealPlanUnsuitableForDiet.mealPlanId">
+                        <a [routerLink]="['/meal-plan', mealPlanUnsuitableForDiet.mealPlanId, 'view']">{{mealPlanUnsuitableForDiet.mealPlanId}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-plan-unsuitable-for-diet', mealPlanUnsuitableForDiet.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,37 @@
+{
+    "name": "LandingPageCard",
+    "fields": [
+        {
+            "fieldName": "ordinalNumber",
+            "javadoc": "Number for specifying order in which content should appear on landing page",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "htmlContent",
+            "javadoc": "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190721154636",
+    "javadoc": "Landing page information\n@author Krzysztof Marczyński",
+    "entityTableName": "landing_page_card",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway"
+    ]
+}

@@ -1,0 +1,36 @@
+{
+    "name": "RecipeSuitableForDiet",
+    "fields": [
+        {
+            "fieldName": "dietTypeId",
+            "javadoc": "Id of applicable DietType entity retrieved from products service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "recipe",
+            "otherEntityRelationshipName": "suitableForDiets",
+            "relationshipValidateRules": "required",
+            "relationshipName": "recipe",
+            "otherEntityField": "name"
+        }
+    ],
+    "changelogDate": "20190721154659",
+    "entityTableName": "recipe_suitable_for_diet",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

@@ -1,0 +1,58 @@
+{
+    "name": "HouseholdMeasure",
+    "fields": [
+        {
+            "fieldName": "description",
+            "javadoc": "Short description of measure in language of a product, e.g. \"cup\" or \"tea spoon\"",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "gramsWeight",
+            "javadoc": "Grams weight of 1 unit of specified measure",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "isVisible",
+            "javadoc": "Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "product",
+            "otherEntityRelationshipName": "householdMeasures",
+            "relationshipValidateRules": "required",
+            "relationshipName": "product",
+            "otherEntityField": "description"
+        }
+    ],
+    "changelogDate": "20190721154642",
+    "entityTableName": "household_measure",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

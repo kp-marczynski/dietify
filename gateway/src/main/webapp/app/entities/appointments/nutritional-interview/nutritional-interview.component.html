@@ -1,0 +1,98 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.title">Nutritional Interviews</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-nutritional-interview" [routerLink]="['/nutritional-interview/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.createLabel">
+            Create new Nutritional Interview
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.appointmentsNutritionalInterview.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="nutritionalInterviews?.length === 0">
+        <span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.notFound">No nutritionalInterviews found</span>
+    </div>
+    <div class="table-responsive" *ngIf="nutritionalInterviews?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.completionDate">Completion Date</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.targetWeight">Target Weight</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.advicePurpose">Advice Purpose</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.physicalActivity">Physical Activity</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.diseases">Diseases</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.medicines">Medicines</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.jobType">Job Type</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.likedProducts">Liked Products</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.dislikedProducts">Disliked Products</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodAllergies">Food Allergies</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodIntolerances">Food Intolerances</span></th>
+            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.appointment">Appointment</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let nutritionalInterview of nutritionalInterviews ;trackBy: trackId">
+                <td><a [routerLink]="['/nutritional-interview', nutritionalInterview.id, 'view' ]">{{nutritionalInterview.id}}</a></td>
+                <td>{{nutritionalInterview.completionDate | date:'mediumDate'}}</td>
+                <td>{{nutritionalInterview.targetWeight}}</td>
+                <td>{{nutritionalInterview.advicePurpose}}</td>
+                <td jhiTranslate="{{'gatewayApp.PhysicalActivity.' + nutritionalInterview.physicalActivity}}">{{nutritionalInterview.physicalActivity}}</td>
+                <td>{{nutritionalInterview.diseases}}</td>
+                <td>{{nutritionalInterview.medicines}}</td>
+                <td jhiTranslate="{{'gatewayApp.JobType.' + nutritionalInterview.jobType}}">{{nutritionalInterview.jobType}}</td>
+                <td>{{nutritionalInterview.likedProducts}}</td>
+                <td>{{nutritionalInterview.dislikedProducts}}</td>
+                <td>{{nutritionalInterview.foodAllergies}}</td>
+                <td>{{nutritionalInterview.foodIntolerances}}</td>
+                <td>
+                    <div *ngIf="nutritionalInterview.appointmentId">
+                        <a [routerLink]="['../appointment', nutritionalInterview.appointmentId , 'view' ]" >{{nutritionalInterview.appointmentId}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/nutritional-interview', nutritionalInterview.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/nutritional-interview', nutritionalInterview.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'nutritional-interview', { outlets: { popup: nutritionalInterview.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

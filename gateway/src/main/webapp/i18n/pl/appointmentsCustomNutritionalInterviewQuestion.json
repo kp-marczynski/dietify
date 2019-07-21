@@ -1,0 +1,35 @@
+{
+  "gatewayApp": {
+    "appointmentsCustomNutritionalInterviewQuestion": {
+      "home": {
+        "title": "Custom Nutritional Interview Question",
+        "createLabel": "Dodaj Custom Nutritional Interview Question",
+        "createOrEditLabel": "Dodaj lub edytuj: Custom Nutritional Interview Question",
+        "search": "Szukaj Custom Nutritional Interview Question",
+        "notFound": "No Custom Nutritional Interview Question found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Custom Nutritional Interview Question {{ id }}?"
+      },
+      "detail": {
+        "title": "Custom Nutritional Interview Question"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "question": "Question",
+      "answer": "Answer",
+      "nutritionalInterview": "Nutritional Interview",
+      "help": {
+        "ordinalNumber": "Ordinal number of custom question",
+        "question": "Custom question extending Nutritional Interview",
+        "answer": "Answer for question"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsCustomNutritionalInterviewQuestion": {
+      "created": "Utworzono nowy obiekt typu Custom Nutritional Interview Question z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Custom Nutritional Interview Question z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Custom Nutritional Interview Question z identyfikatorem {{ param }}"
+    }
+  }
+}

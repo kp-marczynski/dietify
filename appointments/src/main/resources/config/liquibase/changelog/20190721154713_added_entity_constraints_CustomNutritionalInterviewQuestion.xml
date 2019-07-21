@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+    <!--
+        Added the constraints for entity CustomNutritionalInterviewQuestion.
+    -->
+    <changeSet id="20190721154713-2" author="jhipster">
+        
+        <addForeignKeyConstraint baseColumnNames="nutritional_interview_id"
+                                 baseTableName="cust_nutr_intr_quest"
+                                 constraintName="fk_cust_nutr_intr_quest_nutritional_interview_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="nutritional_interview"/>
+
+    </changeSet>
+</databaseChangeLog>

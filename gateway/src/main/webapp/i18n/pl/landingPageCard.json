@@ -1,0 +1,28 @@
+{
+  "gatewayApp": {
+    "landingPageCard": {
+      "home": {
+        "title": "Landing Page Card",
+        "createLabel": "Dodaj Landing Page Card",
+        "createOrEditLabel": "Dodaj lub edytuj: Landing Page Card",
+        "search": "Szukaj Landing Page Card",
+        "notFound": "No Landing Page Card found"
+      },
+      "created": "Utworzono nowy obiekt typu Landing Page Card z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Landing Page Card z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Landing Page Card z identyfikatorem {{ param }}",
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Landing Page Card {{ id }}?"
+      },
+      "detail": {
+        "title": "Landing Page Card"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "htmlContent": "Html Content",
+      "help": {
+        "ordinalNumber": "Number for specifying order in which content should appear on landing page",
+        "htmlContent": "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content"
+      }
+    }
+  }
+}

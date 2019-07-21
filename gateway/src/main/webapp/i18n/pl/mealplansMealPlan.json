@@ -1,0 +1,56 @@
+{
+  "gatewayApp": {
+    "mealplansMealPlan": {
+      "home": {
+        "title": "Meal Plan",
+        "createLabel": "Dodaj Meal Plan",
+        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan",
+        "search": "Szukaj Meal Plan",
+        "notFound": "No Meal Plan found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Meal Plan {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Plan"
+      },
+      "authorId": "Author Id",
+      "creationDate": "Creation Date",
+      "name": "Name",
+      "isVisible": "Is Visible",
+      "isLocked": "Is Locked",
+      "language": "Language",
+      "numberOfDays": "Number Of Days",
+      "numberOfMealsPerDay": "Number Of Meals Per Day",
+      "totalDailyEnergy": "Total Daily Energy",
+      "percentOfProtein": "Percent Of Protein",
+      "percentOfFat": "Percent Of Fat",
+      "percentOfCarbohydrates": "Percent Of Carbohydrates",
+      "days": "Days",
+      "mealDefinitions": "Meal Definitions",
+      "tagsGoodFor": "Tags Good For",
+      "tagsBadFor": "Tags Bad For",
+      "help": {
+        "authorId": "Id of author of the plan",
+        "creationDate": "Creation date of the plan",
+        "name": "Plan name",
+        "isVisible": "Flag specifying if meal plan is visible in author&#39;s list of meal plans",
+        "isLocked": "Flag specifying if meal plan is editable",
+        "language": "Language tag of a meal plan as ISO_639-1 code",
+        "numberOfDays": "Number of days in plan",
+        "numberOfMealsPerDay": "Number of meals per day",
+        "totalDailyEnergy": "Amount of total energy per day in kcal",
+        "percentOfProtein": "Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
+        "percentOfFat": "Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
+        "percentOfCarbohydrates": "Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealPlan": {
+      "created": "Utworzono nowy obiekt typu Meal Plan z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Meal Plan z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Meal Plan z identyfikatorem {{ param }}"
+    }
+  }
+}

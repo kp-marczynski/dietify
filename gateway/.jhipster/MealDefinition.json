@@ -1,0 +1,68 @@
+{
+    "name": "MealDefinition",
+    "fields": [
+        {
+            "fieldName": "ordinalNumber",
+            "javadoc": "Daily ordinal number of meal",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "mealTypeId",
+            "javadoc": "Id of MealType entity retrieved from recipes service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "timeOfMeal",
+            "javadoc": "Usual time of meal in 24h format: HH:mm",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "\\d{2}:\\d{2}"
+        },
+        {
+            "fieldName": "percentOfEnergy",
+            "javadoc": "Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100.",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min",
+                "max"
+            ],
+            "fieldValidateRulesMin": 0,
+            "fieldValidateRulesMax": 100
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "mealPlan",
+            "otherEntityRelationshipName": "mealDefinitions",
+            "relationshipValidateRules": "required",
+            "relationshipName": "mealPlan",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190721154702",
+    "entityTableName": "meal_definition",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "mealplans"
+    ],
+    "microserviceName": "mealplans"
+}

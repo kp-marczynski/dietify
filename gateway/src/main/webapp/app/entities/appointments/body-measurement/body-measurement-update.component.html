@@ -1,0 +1,165 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-body-measurement-heading" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.home.createOrEditLabel">Create or edit a Body Measurement</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.completionDate" for="field_completionDate" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.completionDate' | translate">Completion Date</label>
+                    <div class="input-group">
+                        <input id="field_completionDate" type="text" class="form-control" name="completionDate" ngbDatepicker  #completionDateDp="ngbDatepicker" formControlName="completionDate"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="completionDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div *ngIf="editForm.get('completionDate').invalid && (editForm.get('completionDate').dirty || editForm.get('completionDate').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('completionDate').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.height" for="field_height" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.height' | translate">Height</label>
+                    <input type="number" class="form-control" name="height" id="field_height"
+                           formControlName="height"/>
+                    <div *ngIf="editForm.get('height').invalid && (editForm.get('height').dirty || editForm.get('height').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('height').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('height')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.weight" for="field_weight" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.weight' | translate">Weight</label>
+                    <input type="number" class="form-control" name="weight" id="field_weight"
+                           formControlName="weight"/>
+                    <div *ngIf="editForm.get('weight').invalid && (editForm.get('weight').dirty || editForm.get('weight').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('weight').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('weight')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.waist" for="field_waist" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.waist' | translate">Waist</label>
+                    <input type="number" class="form-control" name="waist" id="field_waist"
+                           formControlName="waist"/>
+                    <div *ngIf="editForm.get('waist').invalid && (editForm.get('waist').dirty || editForm.get('waist').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('waist').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('waist')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.percentOfFatTissue" for="field_percentOfFatTissue" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.percentOfFatTissue' | translate">Percent Of Fat Tissue</label>
+                    <input type="number" class="form-control" name="percentOfFatTissue" id="field_percentOfFatTissue"
+                           formControlName="percentOfFatTissue"/>
+                    <div *ngIf="editForm.get('percentOfFatTissue').invalid && (editForm.get('percentOfFatTissue').dirty || editForm.get('percentOfFatTissue').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfFatTissue').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfFatTissue').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('percentOfFatTissue')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.percentOfWater" for="field_percentOfWater" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.percentOfWater' | translate">Percent Of Water</label>
+                    <input type="number" class="form-control" name="percentOfWater" id="field_percentOfWater"
+                           formControlName="percentOfWater"/>
+                    <div *ngIf="editForm.get('percentOfWater').invalid && (editForm.get('percentOfWater').dirty || editForm.get('percentOfWater').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfWater').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                            This field should be at least 0.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('percentOfWater').errors.max" jhiTranslate="entity.validation.max" [translateValues]="{ max: 100 }">
+                            This field cannot be more than 100.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('percentOfWater')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.muscleMass" for="field_muscleMass" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.muscleMass' | translate">Muscle Mass</label>
+                    <input type="number" class="form-control" name="muscleMass" id="field_muscleMass"
+                           formControlName="muscleMass"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.physicalMark" for="field_physicalMark" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.physicalMark' | translate">Physical Mark</label>
+                    <input type="number" class="form-control" name="physicalMark" id="field_physicalMark"
+                           formControlName="physicalMark"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.calciumInBones" for="field_calciumInBones" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.calciumInBones' | translate">Calcium In Bones</label>
+                    <input type="number" class="form-control" name="calciumInBones" id="field_calciumInBones"
+                           formControlName="calciumInBones"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.basicMetabolism" for="field_basicMetabolism" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.basicMetabolism' | translate">Basic Metabolism</label>
+                    <input type="number" class="form-control" name="basicMetabolism" id="field_basicMetabolism"
+                           formControlName="basicMetabolism"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.metabolicAge" for="field_metabolicAge" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.metabolicAge' | translate">Metabolic Age</label>
+                    <input type="number" class="form-control" name="metabolicAge" id="field_metabolicAge"
+                           formControlName="metabolicAge"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.visceralFatLevel" for="field_visceralFatLevel" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.visceralFatLevel' | translate">Visceral Fat Level</label>
+                    <input type="number" class="form-control" name="visceralFatLevel" id="field_visceralFatLevel"
+                           formControlName="visceralFatLevel"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsBodyMeasurement.appointment" for="field_appointment">Appointment</label>
+                    <select class="form-control" id="field_appointment" name="appointment" formControlName="appointmentId">
+                        <option *ngIf="!editForm.get('appointmentId').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appointmentOption.id" *ngFor="let appointmentOption of appointments; trackBy: trackAppointmentById">{{appointmentOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appointmentId').invalid && (editForm.get('appointmentId').dirty || editForm.get('appointmentId').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appointmentId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

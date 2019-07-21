@@ -1,0 +1,48 @@
+{
+    "name": "CustomNutritionalInterviewQuestionTemplate",
+    "fields": [
+        {
+            "fieldName": "ownerId",
+            "javadoc": "Id of owner User entity retrieved from gateway service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "question",
+            "javadoc": "Custom question extending Nutritional Interview",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language of translation as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190721154714",
+    "entityTableName": "cust_nutr_intr_quest_tmpl",
+    "dto": "mapstruct",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

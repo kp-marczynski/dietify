@@ -1,0 +1,46 @@
+{
+  "gatewayApp": {
+    "productsProduct": {
+      "home": {
+        "title": "Product",
+        "createLabel": "Dodaj Product",
+        "createOrEditLabel": "Dodaj lub edytuj: Product",
+        "search": "Szukaj Product",
+        "notFound": "No Product found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Product {{ id }}?"
+      },
+      "detail": {
+        "title": "Product"
+      },
+      "source": "Source",
+      "authorId": "Author Id",
+      "description": "Description",
+      "isFinal": "Is Final",
+      "isVerified": "Is Verified",
+      "language": "Language",
+      "subcategory": "Subcategory",
+      "suitableDiets": "Suitable Diets",
+      "unsuitableDiets": "Unsuitable Diets",
+      "basicNutritionData": "Basic Nutrition Data",
+      "nutritionData": "Nutrition Data",
+      "householdMeasures": "Household Measures",
+      "help": {
+        "source": "Specifying source if product is imported, preferably url address if possible",
+        "authorId": "Author of product if product created or edited manually. Id of User entity retrieved from gateway service",
+        "description": "Short description of Product in a language of a product",
+        "isFinal": "Flag specifying if product is final or editable",
+        "isVerified": "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.",
+        "language": "Language tag of a product as ISO_639-1 code"
+      }
+    }
+  },
+  "productsApp": {
+    "productsProduct": {
+      "created": "Utworzono nowy obiekt typu Product z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Product z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Product z identyfikatorem {{ param }}"
+    }
+  }
+}
