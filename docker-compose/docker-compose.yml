@@ -8,23 +8,13 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://gateway-postgresql:5432/gateway'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://dietify-postgresql:5432/dietify'
       - JHIPSTER_SLEEP=30
-      - 'SPRING_DATA_JEST_URI=http://gateway-elasticsearch:9200'
-      - 'SPRING_ELASTICSEARCH_REST_URIS=http://gateway-elasticsearch:9200'
+      - 'SPRING_DATA_JEST_URI=http://dietify-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dietify-elasticsearch:9200'
       - JHIPSTER_REGISTRY_PASSWORD=admin
     ports:
       - '8080:8080'
-  gateway-postgresql:
-    image: 'postgres:11.3'
-    environment:
-      - POSTGRES_USER=gateway
-      - POSTGRES_PASSWORD=
-  gateway-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.4.3'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
 
   products-app:
     image: products
@@ -34,21 +24,11 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://products-postgresql:5432/products'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://dietify-postgresql:5432/dietify'
       - JHIPSTER_SLEEP=30
-      - 'SPRING_DATA_JEST_URI=http://products-elasticsearch:9200'
-      - 'SPRING_ELASTICSEARCH_REST_URIS=http://products-elasticsearch:9200'
+      - 'SPRING_DATA_JEST_URI=http://dietify-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dietify-elasticsearch:9200'
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  products-postgresql:
-    image: 'postgres:11.3'
-    environment:
-      - POSTGRES_USER=products
-      - POSTGRES_PASSWORD=
-  products-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.4.3'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
 
   recipes-app:
     image: recipes
@@ -58,21 +38,11 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://recipes-postgresql:5432/recipes'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://dietify-postgresql:5432/dietify'
       - JHIPSTER_SLEEP=30
-      - 'SPRING_DATA_JEST_URI=http://recipes-elasticsearch:9200'
-      - 'SPRING_ELASTICSEARCH_REST_URIS=http://recipes-elasticsearch:9200'
+      - 'SPRING_DATA_JEST_URI=http://dietify-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dietify-elasticsearch:9200'
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  recipes-postgresql:
-    image: 'postgres:11.3'
-    environment:
-      - POSTGRES_USER=recipes
-      - POSTGRES_PASSWORD=
-  recipes-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.4.3'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
 
   mealplans-app:
     image: mealplans
@@ -82,21 +52,11 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://mealplans-postgresql:5432/mealplans'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://dietify-postgresql:5432/dietify'
       - JHIPSTER_SLEEP=30
-      - 'SPRING_DATA_JEST_URI=http://mealplans-elasticsearch:9200'
-      - 'SPRING_ELASTICSEARCH_REST_URIS=http://mealplans-elasticsearch:9200'
+      - 'SPRING_DATA_JEST_URI=http://dietify-elasticsearch:9200'
+      - 'SPRING_ELASTICSEARCH_REST_URIS=http://dietify-elasticsearch:9200'
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  mealplans-postgresql:
-    image: 'postgres:11.3'
-    environment:
-      - POSTGRES_USER=mealplans
-      - POSTGRES_PASSWORD=
-  mealplans-elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:6.4.3'
-    environment:
-      - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
-      - discovery.type=single-node
 
   appointments-app:
     image: appointments
@@ -106,14 +66,23 @@ services:
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
       - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
-      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://appointments-postgresql:5432/appointments'
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://dietify-postgresql:5432/dietify'
       - JHIPSTER_SLEEP=30
       - JHIPSTER_REGISTRY_PASSWORD=admin
-  appointments-postgresql:
+
+  dietify-postgresql:
     image: 'postgres:11.3'
     environment:
-      - POSTGRES_USER=appointments
+      - POSTGRES_USER=dietify
       - POSTGRES_PASSWORD=
+    ports:
+        - '5432:5432'
+
+  dietify-elasticsearch:
+      image: 'docker.elastic.co/elasticsearch/elasticsearch:6.4.3'
+      environment:
+          - ES_JAVA_OPTS=-Xms1024m -Xmx1024m
+          - discovery.type=single-node
 
   jhipster-registry:
     extends:

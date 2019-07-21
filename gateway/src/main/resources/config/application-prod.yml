@@ -41,7 +41,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     url: jdbc:postgresql://localhost:5432/gateway
-    username: gateway
+    username: dietify
     password:
     hikari:
       poolName: Hikari
