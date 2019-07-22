@@ -185,7 +185,7 @@ recipes-gradle-package:
 mealplans-gradle-compile:
     stage: build
     script:
-        - cd /builds/kp.marczynski/dietify/melplans
+        - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew compileJava -x check -PnodeInstall --no-daemon
     artifacts:
         paths:
