@@ -15,11 +15,11 @@ stages:
 before_script:
   - export NG_CLI_ANALYTICS="false"
   - export GRADLE_USER_HOME=`pwd`/.gradle
-  - cd `pwd`/gateway
+  - cd /builds/kp.marczynski/dietify/gateway
   - sh gradlew npm_install -PnodeInstall --no-daemon
-  - cd `pwd`/ionic
+  - cd /builds/kp.marczynski/dietify/ionic
   - npm install
-  - cd `pwd`/
+  - cd /builds/kp.marczynski/dietify/
 
 # gateway
 gateway-gradle-compile:
