@@ -15,17 +15,13 @@ stages:
 before_script:
   - export NG_CLI_ANALYTICS="false"
   - export GRADLE_USER_HOME=`pwd`/.gradle
-  - cd /builds/kp.marczynski/dietify/gateway
-  - sh gradlew npm_install -PnodeInstall --no-daemon
-  - cd /builds/kp.marczynski/dietify/ionic
-  - npm install
-  - cd /builds/kp.marczynski/dietify/
 
 # gateway
 gateway-gradle-compile:
   stage: build
   script:
     - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew npm_install -PnodeInstall --no-daemon
     - sh gradlew compileJava -x check -PnodeInstall --no-daemon
   artifacts:
     paths:
@@ -63,6 +59,7 @@ gateway-frontend-test:
   stage: test
   script:
     - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew npm_install -PnodeInstall --no-daemon
     - sh gradlew npm_run_test -PnodeInstall --no-daemon
   artifacts:
     reports:
@@ -284,4 +281,5 @@ ionic-frontend-test:
     stage: test
     script:
         - cd /builds/kp.marczynski/dietify/ionic
+        - npm install
         - npm test
