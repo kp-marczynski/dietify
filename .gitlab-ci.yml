@@ -15,8 +15,11 @@ stages:
 before_script:
   - export NG_CLI_ANALYTICS="false"
   - export GRADLE_USER_HOME=`pwd`/.gradle
-  - sh gateway/gradlew npm_install -PnodeInstall --no-daemon
-  - sh ionic/gradlew npm_install -PnodeInstall --no-daemon
+  - cd `pwd`/gateway
+  - sh gradlew npm_install -PnodeInstall --no-daemon
+  - cd `pwd`/ionic
+  - npm install
+  - cd `pwd`/
 
 # gateway
 gateway-gradle-compile:
