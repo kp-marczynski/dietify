@@ -14,22 +14,20 @@
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154709_added_entity_PatientCard.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154710_added_entity_Appointment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154711_added_entity_BodyMeasurement.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154712_added_entity_NutritionalInterview.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154713_added_entity_CustomNutritionalInterviewQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154714_added_entity_CustomNutritionalInterviewQuestionTemplate.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154715_added_entity_OwnedKitchenAppliance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154716_added_entity_AssignedMealPlan.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154717_added_entity_AppointmentEvaluation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200939_added_entity_PatientCard.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200940_added_entity_Appointment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200941_added_entity_BodyMeasurement.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200942_added_entity_NutritionalInterview.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200943_added_entity_CustomNutritionalInterviewQuestion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200944_added_entity_CustomNutritionalInterviewQuestionTemplate.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200945_added_entity_OwnedKitchenAppliance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200946_added_entity_AssignedMealPlan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200947_added_entity_AppointmentEvaluation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20190721154710_added_entity_constraints_Appointment.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154711_added_entity_constraints_BodyMeasurement.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154712_added_entity_constraints_NutritionalInterview.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154713_added_entity_constraints_CustomNutritionalInterviewQuestion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154715_added_entity_constraints_OwnedKitchenAppliance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154716_added_entity_constraints_AssignedMealPlan.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154717_added_entity_constraints_AppointmentEvaluation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200940_added_entity_constraints_Appointment.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200943_added_entity_constraints_CustomNutritionalInterviewQuestion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200945_added_entity_constraints_OwnedKitchenAppliance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200946_added_entity_constraints_AssignedMealPlan.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200947_added_entity_constraints_AppointmentEvaluation.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

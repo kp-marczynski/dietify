@@ -18,7 +18,6 @@
       "protein": "Protein",
       "fat": "Fat",
       "carbohydrates": "Carbohydrates",
-      "product": "Product",
       "help": {
         "energy": "Energy in kcal per 100 gram of product",
         "protein": "Protein in grams per 100 gram of product",

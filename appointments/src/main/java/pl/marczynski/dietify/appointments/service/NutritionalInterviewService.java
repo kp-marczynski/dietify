@@ -1,29 +1,35 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.NutritionalInterviewDTO;
+import pl.marczynski.dietify.appointments.domain.NutritionalInterview;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.NutritionalInterview}.
+ * Service Interface for managing {@link NutritionalInterview}.
  */
 public interface NutritionalInterviewService {
 
     /**
      * Save a nutritionalInterview.
      *
-     * @param nutritionalInterviewDTO the entity to save.
+     * @param nutritionalInterview the entity to save.
      * @return the persisted entity.
      */
-    NutritionalInterviewDTO save(NutritionalInterviewDTO nutritionalInterviewDTO);
+    NutritionalInterview save(NutritionalInterview nutritionalInterview);
 
     /**
      * Get all the nutritionalInterviews.
      *
      * @return the list of entities.
      */
-    List<NutritionalInterviewDTO> findAll();
+    List<NutritionalInterview> findAll();
+    /**
+     * Get all the NutritionalInterviewDTO where Appointment is {@code null}.
+     *
+     * @return the list of entities.
+     */
+    List<NutritionalInterview> findAllWhereAppointmentIsNull();
 
 
     /**
@@ -32,7 +38,7 @@ public interface NutritionalInterviewService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<NutritionalInterviewDTO> findOne(Long id);
+    Optional<NutritionalInterview> findOne(Long id);
 
     /**
      * Delete the "id" nutritionalInterview.

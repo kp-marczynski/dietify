@@ -4,15 +4,12 @@ import pl.marczynski.dietify.mealplans.service.MealRecipeService;
 import pl.marczynski.dietify.mealplans.domain.MealRecipe;
 import pl.marczynski.dietify.mealplans.repository.MealRecipeRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealRecipeSearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealRecipeDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealRecipeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealRecipeServiceImpl implements MealRecipeService {
 
     private final MealRecipeRepository mealRecipeRepository;
 
-    private final MealRecipeMapper mealRecipeMapper;
-
     private final MealRecipeSearchRepository mealRecipeSearchRepository;
 
-    public MealRecipeServiceImpl(MealRecipeRepository mealRecipeRepository, MealRecipeMapper mealRecipeMapper, MealRecipeSearchRepository mealRecipeSearchRepository) {
+    public MealRecipeServiceImpl(MealRecipeRepository mealRecipeRepository, MealRecipeSearchRepository mealRecipeSearchRepository) {
         this.mealRecipeRepository = mealRecipeRepository;
-        this.mealRecipeMapper = mealRecipeMapper;
         this.mealRecipeSearchRepository = mealRecipeSearchRepository;
     }
 
     /**
      * Save a mealRecipe.
      *
-     * @param mealRecipeDTO the entity to save.
+     * @param mealRecipe the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealRecipeDTO save(MealRecipeDTO mealRecipeDTO) {
-        log.debug("Request to save MealRecipe : {}", mealRecipeDTO);
-        MealRecipe mealRecipe = mealRecipeMapper.toEntity(mealRecipeDTO);
-        mealRecipe = mealRecipeRepository.save(mealRecipe);
-        MealRecipeDTO result = mealRecipeMapper.toDto(mealRecipe);
-        mealRecipeSearchRepository.save(mealRecipe);
+    public MealRecipe save(MealRecipe mealRecipe) {
+        log.debug("Request to save MealRecipe : {}", mealRecipe);
+        MealRecipe result = mealRecipeRepository.save(mealRecipe);
+        mealRecipeSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealRecipeServiceImpl implements MealRecipeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealRecipeDTO> findAll() {
+    public List<MealRecipe> findAll() {
         log.debug("Request to get all MealRecipes");
-        return mealRecipeRepository.findAll().stream()
-            .map(mealRecipeMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealRecipeRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealRecipeServiceImpl implements MealRecipeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealRecipeDTO> findOne(Long id) {
+    public Optional<MealRecipe> findOne(Long id) {
         log.debug("Request to get MealRecipe : {}", id);
-        return mealRecipeRepository.findById(id)
-            .map(mealRecipeMapper::toDto);
+        return mealRecipeRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealRecipeServiceImpl implements MealRecipeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealRecipeDTO> search(String query) {
+    public List<MealRecipe> search(String query) {
         log.debug("Request to search MealRecipes for query {}", query);
         return StreamSupport
             .stream(mealRecipeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealRecipeMapper::toDto)
             .collect(Collectors.toList());
     }
 }

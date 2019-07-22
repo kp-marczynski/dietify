@@ -5,8 +5,6 @@ import pl.marczynski.dietify.products.domain.DietType;
 import pl.marczynski.dietify.products.repository.DietTypeRepository;
 import pl.marczynski.dietify.products.repository.search.DietTypeSearchRepository;
 import pl.marczynski.dietify.products.service.DietTypeService;
-import pl.marczynski.dietify.products.service.dto.DietTypeDTO;
-import pl.marczynski.dietify.products.service.mapper.DietTypeMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +43,6 @@ public class DietTypeResourceIT {
 
     @Autowired
     private DietTypeRepository dietTypeRepository;
-
-    @Autowired
-    private DietTypeMapper dietTypeMapper;
 
     @Autowired
     private DietTypeService dietTypeService;
@@ -125,10 +120,9 @@ public class DietTypeResourceIT {
         int databaseSizeBeforeCreate = dietTypeRepository.findAll().size();
 
         // Create the DietType
-        DietTypeDTO dietTypeDTO = dietTypeMapper.toDto(dietType);
         restDietTypeMockMvc.perform(post("/api/diet-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dietTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dietType)))
             .andExpect(status().isCreated());
 
         // Validate the DietType in the database
@@ -148,12 +142,11 @@ public class DietTypeResourceIT {
 
         // Create the DietType with an existing ID
         dietType.setId(1L);
-        DietTypeDTO dietTypeDTO = dietTypeMapper.toDto(dietType);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDietTypeMockMvc.perform(post("/api/diet-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dietTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dietType)))
             .andExpect(status().isBadRequest());
 
         // Validate the DietType in the database
@@ -173,11 +166,10 @@ public class DietTypeResourceIT {
         dietType.setName(null);
 
         // Create the DietType, which fails.
-        DietTypeDTO dietTypeDTO = dietTypeMapper.toDto(dietType);
 
         restDietTypeMockMvc.perform(post("/api/diet-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dietTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dietType)))
             .andExpect(status().isBadRequest());
 
         List<DietType> dietTypeList = dietTypeRepository.findAll();
@@ -224,7 +216,9 @@ public class DietTypeResourceIT {
     @Transactional
     public void updateDietType() throws Exception {
         // Initialize the database
-        dietTypeRepository.saveAndFlush(dietType);
+        dietTypeService.save(dietType);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockDietTypeSearchRepository);
 
         int databaseSizeBeforeUpdate = dietTypeRepository.findAll().size();
 
@@ -233,11 +227,10 @@ public class DietTypeResourceIT {
         // Disconnect from session so that the updates on updatedDietType are not directly saved in db
         em.detach(updatedDietType);
         updatedDietType.setName(UPDATED_NAME);
-        DietTypeDTO dietTypeDTO = dietTypeMapper.toDto(updatedDietType);
 
         restDietTypeMockMvc.perform(put("/api/diet-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dietTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedDietType)))
             .andExpect(status().isOk());
 
         // Validate the DietType in the database
@@ -256,12 +249,11 @@ public class DietTypeResourceIT {
         int databaseSizeBeforeUpdate = dietTypeRepository.findAll().size();
 
         // Create the DietType
-        DietTypeDTO dietTypeDTO = dietTypeMapper.toDto(dietType);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDietTypeMockMvc.perform(put("/api/diet-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dietTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dietType)))
             .andExpect(status().isBadRequest());
 
         // Validate the DietType in the database
@@ -276,7 +268,7 @@ public class DietTypeResourceIT {
     @Transactional
     public void deleteDietType() throws Exception {
         // Initialize the database
-        dietTypeRepository.saveAndFlush(dietType);
+        dietTypeService.save(dietType);
 
         int databaseSizeBeforeDelete = dietTypeRepository.findAll().size();
 
@@ -297,7 +289,7 @@ public class DietTypeResourceIT {
     @Transactional
     public void searchDietType() throws Exception {
         // Initialize the database
-        dietTypeRepository.saveAndFlush(dietType);
+        dietTypeService.save(dietType);
         when(mockDietTypeSearchRepository.search(queryStringQuery("id:" + dietType.getId())))
             .thenReturn(Collections.singletonList(dietType));
         // Search the dietType
@@ -321,28 +313,5 @@ public class DietTypeResourceIT {
         assertThat(dietType1).isNotEqualTo(dietType2);
         dietType1.setId(null);
         assertThat(dietType1).isNotEqualTo(dietType2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(DietTypeDTO.class);
-        DietTypeDTO dietTypeDTO1 = new DietTypeDTO();
-        dietTypeDTO1.setId(1L);
-        DietTypeDTO dietTypeDTO2 = new DietTypeDTO();
-        assertThat(dietTypeDTO1).isNotEqualTo(dietTypeDTO2);
-        dietTypeDTO2.setId(dietTypeDTO1.getId());
-        assertThat(dietTypeDTO1).isEqualTo(dietTypeDTO2);
-        dietTypeDTO2.setId(2L);
-        assertThat(dietTypeDTO1).isNotEqualTo(dietTypeDTO2);
-        dietTypeDTO1.setId(null);
-        assertThat(dietTypeDTO1).isNotEqualTo(dietTypeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(dietTypeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(dietTypeMapper.fromId(null)).isNull();
     }
 }

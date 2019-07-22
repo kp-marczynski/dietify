@@ -5,8 +5,6 @@ import pl.marczynski.dietify.recipes.domain.KitchenAppliance;
 import pl.marczynski.dietify.recipes.repository.KitchenApplianceRepository;
 import pl.marczynski.dietify.recipes.repository.search.KitchenApplianceSearchRepository;
 import pl.marczynski.dietify.recipes.service.KitchenApplianceService;
-import pl.marczynski.dietify.recipes.service.dto.KitchenApplianceDTO;
-import pl.marczynski.dietify.recipes.service.mapper.KitchenApplianceMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +43,6 @@ public class KitchenApplianceResourceIT {
 
     @Autowired
     private KitchenApplianceRepository kitchenApplianceRepository;
-
-    @Autowired
-    private KitchenApplianceMapper kitchenApplianceMapper;
 
     @Autowired
     private KitchenApplianceService kitchenApplianceService;
@@ -125,10 +120,9 @@ public class KitchenApplianceResourceIT {
         int databaseSizeBeforeCreate = kitchenApplianceRepository.findAll().size();
 
         // Create the KitchenAppliance
-        KitchenApplianceDTO kitchenApplianceDTO = kitchenApplianceMapper.toDto(kitchenAppliance);
         restKitchenApplianceMockMvc.perform(post("/api/kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenAppliance)))
             .andExpect(status().isCreated());
 
         // Validate the KitchenAppliance in the database
@@ -148,12 +142,11 @@ public class KitchenApplianceResourceIT {
 
         // Create the KitchenAppliance with an existing ID
         kitchenAppliance.setId(1L);
-        KitchenApplianceDTO kitchenApplianceDTO = kitchenApplianceMapper.toDto(kitchenAppliance);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restKitchenApplianceMockMvc.perform(post("/api/kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenAppliance)))
             .andExpect(status().isBadRequest());
 
         // Validate the KitchenAppliance in the database
@@ -173,11 +166,10 @@ public class KitchenApplianceResourceIT {
         kitchenAppliance.setName(null);
 
         // Create the KitchenAppliance, which fails.
-        KitchenApplianceDTO kitchenApplianceDTO = kitchenApplianceMapper.toDto(kitchenAppliance);
 
         restKitchenApplianceMockMvc.perform(post("/api/kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenAppliance)))
             .andExpect(status().isBadRequest());
 
         List<KitchenAppliance> kitchenApplianceList = kitchenApplianceRepository.findAll();
@@ -224,7 +216,9 @@ public class KitchenApplianceResourceIT {
     @Transactional
     public void updateKitchenAppliance() throws Exception {
         // Initialize the database
-        kitchenApplianceRepository.saveAndFlush(kitchenAppliance);
+        kitchenApplianceService.save(kitchenAppliance);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockKitchenApplianceSearchRepository);
 
         int databaseSizeBeforeUpdate = kitchenApplianceRepository.findAll().size();
 
@@ -233,11 +227,10 @@ public class KitchenApplianceResourceIT {
         // Disconnect from session so that the updates on updatedKitchenAppliance are not directly saved in db
         em.detach(updatedKitchenAppliance);
         updatedKitchenAppliance.setName(UPDATED_NAME);
-        KitchenApplianceDTO kitchenApplianceDTO = kitchenApplianceMapper.toDto(updatedKitchenAppliance);
 
         restKitchenApplianceMockMvc.perform(put("/api/kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedKitchenAppliance)))
             .andExpect(status().isOk());
 
         // Validate the KitchenAppliance in the database
@@ -256,12 +249,11 @@ public class KitchenApplianceResourceIT {
         int databaseSizeBeforeUpdate = kitchenApplianceRepository.findAll().size();
 
         // Create the KitchenAppliance
-        KitchenApplianceDTO kitchenApplianceDTO = kitchenApplianceMapper.toDto(kitchenAppliance);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restKitchenApplianceMockMvc.perform(put("/api/kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenAppliance)))
             .andExpect(status().isBadRequest());
 
         // Validate the KitchenAppliance in the database
@@ -276,7 +268,7 @@ public class KitchenApplianceResourceIT {
     @Transactional
     public void deleteKitchenAppliance() throws Exception {
         // Initialize the database
-        kitchenApplianceRepository.saveAndFlush(kitchenAppliance);
+        kitchenApplianceService.save(kitchenAppliance);
 
         int databaseSizeBeforeDelete = kitchenApplianceRepository.findAll().size();
 
@@ -297,7 +289,7 @@ public class KitchenApplianceResourceIT {
     @Transactional
     public void searchKitchenAppliance() throws Exception {
         // Initialize the database
-        kitchenApplianceRepository.saveAndFlush(kitchenAppliance);
+        kitchenApplianceService.save(kitchenAppliance);
         when(mockKitchenApplianceSearchRepository.search(queryStringQuery("id:" + kitchenAppliance.getId())))
             .thenReturn(Collections.singletonList(kitchenAppliance));
         // Search the kitchenAppliance
@@ -321,28 +313,5 @@ public class KitchenApplianceResourceIT {
         assertThat(kitchenAppliance1).isNotEqualTo(kitchenAppliance2);
         kitchenAppliance1.setId(null);
         assertThat(kitchenAppliance1).isNotEqualTo(kitchenAppliance2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(KitchenApplianceDTO.class);
-        KitchenApplianceDTO kitchenApplianceDTO1 = new KitchenApplianceDTO();
-        kitchenApplianceDTO1.setId(1L);
-        KitchenApplianceDTO kitchenApplianceDTO2 = new KitchenApplianceDTO();
-        assertThat(kitchenApplianceDTO1).isNotEqualTo(kitchenApplianceDTO2);
-        kitchenApplianceDTO2.setId(kitchenApplianceDTO1.getId());
-        assertThat(kitchenApplianceDTO1).isEqualTo(kitchenApplianceDTO2);
-        kitchenApplianceDTO2.setId(2L);
-        assertThat(kitchenApplianceDTO1).isNotEqualTo(kitchenApplianceDTO2);
-        kitchenApplianceDTO1.setId(null);
-        assertThat(kitchenApplianceDTO1).isNotEqualTo(kitchenApplianceDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(kitchenApplianceMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(kitchenApplianceMapper.fromId(null)).isNull();
     }
 }

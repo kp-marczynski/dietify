@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.mealplans.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,17 +34,18 @@ public class MealPlanDay implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Ordinal number of day", required = true)
     @Column(name = "ordinal_number", nullable = false)
     private Integer ordinalNumber;
+
+    @OneToMany(mappedBy = "mealPlanDay")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Meal> meals = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("days")
     private MealPlan mealPlan;
-
-    @OneToMany(mappedBy = "mealPlanDay")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Meal> meals = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -62,20 +64,20 @@ public class MealPlanDay implements Serializable {
         this.ordinalNumber = ordinalNumber;
     }
 
-    public MealPlan getMealPlan() {
-        return mealPlan;
-    }
-
-    public void setMealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-    }
-
     public Set<Meal> getMeals() {
         return meals;
     }
 
     public void setMeals(Set<Meal> meals) {
         this.meals = meals;
+    }
+
+    public MealPlan getMealPlan() {
+        return mealPlan;
+    }
+
+    public void setMealPlan(MealPlan mealPlan) {
+        this.mealPlan = mealPlan;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

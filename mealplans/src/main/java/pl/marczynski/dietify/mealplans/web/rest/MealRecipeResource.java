@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import pl.marczynski.dietify.mealplans.domain.MealRecipe;
 import pl.marczynski.dietify.mealplans.service.MealRecipeService;
 import pl.marczynski.dietify.mealplans.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.mealplans.service.dto.MealRecipeDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class MealRecipeResource {
     /**
      * {@code POST  /meal-recipes} : Create a new mealRecipe.
      *
-     * @param mealRecipeDTO the mealRecipeDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealRecipeDTO, or with status {@code 400 (Bad Request)} if the mealRecipe has already an ID.
+     * @param mealRecipe the mealRecipe to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealRecipe, or with status {@code 400 (Bad Request)} if the mealRecipe has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-recipes")
-    public ResponseEntity<MealRecipeDTO> createMealRecipe(@Valid @RequestBody MealRecipeDTO mealRecipeDTO) throws URISyntaxException {
-        log.debug("REST request to save MealRecipe : {}", mealRecipeDTO);
-        if (mealRecipeDTO.getId() != null) {
+    public ResponseEntity<MealRecipe> createMealRecipe(@Valid @RequestBody MealRecipe mealRecipe) throws URISyntaxException {
+        log.debug("REST request to save MealRecipe : {}", mealRecipe);
+        if (mealRecipe.getId() != null) {
             throw new BadRequestAlertException("A new mealRecipe cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealRecipeDTO result = mealRecipeService.save(mealRecipeDTO);
+        MealRecipe result = mealRecipeService.save(mealRecipe);
         return ResponseEntity.created(new URI("/api/meal-recipes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class MealRecipeResource {
     /**
      * {@code PUT  /meal-recipes} : Updates an existing mealRecipe.
      *
-     * @param mealRecipeDTO the mealRecipeDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealRecipeDTO,
-     * or with status {@code 400 (Bad Request)} if the mealRecipeDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealRecipeDTO couldn't be updated.
+     * @param mealRecipe the mealRecipe to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealRecipe,
+     * or with status {@code 400 (Bad Request)} if the mealRecipe is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealRecipe couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-recipes")
-    public ResponseEntity<MealRecipeDTO> updateMealRecipe(@Valid @RequestBody MealRecipeDTO mealRecipeDTO) throws URISyntaxException {
-        log.debug("REST request to update MealRecipe : {}", mealRecipeDTO);
-        if (mealRecipeDTO.getId() == null) {
+    public ResponseEntity<MealRecipe> updateMealRecipe(@Valid @RequestBody MealRecipe mealRecipe) throws URISyntaxException {
+        log.debug("REST request to update MealRecipe : {}", mealRecipe);
+        if (mealRecipe.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealRecipeDTO result = mealRecipeService.save(mealRecipeDTO);
+        MealRecipe result = mealRecipeService.save(mealRecipe);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealRecipeDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealRecipe.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class MealRecipeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealRecipes in body.
      */
     @GetMapping("/meal-recipes")
-    public List<MealRecipeDTO> getAllMealRecipes() {
+    public List<MealRecipe> getAllMealRecipes() {
         log.debug("REST request to get all MealRecipes");
         return mealRecipeService.findAll();
     }
@@ -96,20 +96,20 @@ public class MealRecipeResource {
     /**
      * {@code GET  /meal-recipes/:id} : get the "id" mealRecipe.
      *
-     * @param id the id of the mealRecipeDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealRecipeDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealRecipe to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealRecipe, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-recipes/{id}")
-    public ResponseEntity<MealRecipeDTO> getMealRecipe(@PathVariable Long id) {
+    public ResponseEntity<MealRecipe> getMealRecipe(@PathVariable Long id) {
         log.debug("REST request to get MealRecipe : {}", id);
-        Optional<MealRecipeDTO> mealRecipeDTO = mealRecipeService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealRecipeDTO);
+        Optional<MealRecipe> mealRecipe = mealRecipeService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealRecipe);
     }
 
     /**
      * {@code DELETE  /meal-recipes/:id} : delete the "id" mealRecipe.
      *
-     * @param id the id of the mealRecipeDTO to delete.
+     * @param id the id of the mealRecipe to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-recipes/{id}")
@@ -127,7 +127,7 @@ public class MealRecipeResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-recipes")
-    public List<MealRecipeDTO> searchMealRecipes(@RequestParam String query) {
+    public List<MealRecipe> searchMealRecipes(@RequestParam String query) {
         log.debug("REST request to search MealRecipes for query {}", query);
         return mealRecipeService.search(query);
     }

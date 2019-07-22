@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.RecipeSection;
 import pl.marczynski.dietify.recipes.repository.ProductPortionRepository;
 import pl.marczynski.dietify.recipes.repository.search.ProductPortionSearchRepository;
 import pl.marczynski.dietify.recipes.service.ProductPortionService;
-import pl.marczynski.dietify.recipes.service.dto.ProductPortionDTO;
-import pl.marczynski.dietify.recipes.service.mapper.ProductPortionMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -52,9 +50,6 @@ public class ProductPortionResourceIT {
 
     @Autowired
     private ProductPortionRepository productPortionRepository;
-
-    @Autowired
-    private ProductPortionMapper productPortionMapper;
 
     @Autowired
     private ProductPortionService productPortionService;
@@ -156,10 +151,9 @@ public class ProductPortionResourceIT {
         int databaseSizeBeforeCreate = productPortionRepository.findAll().size();
 
         // Create the ProductPortion
-        ProductPortionDTO productPortionDTO = productPortionMapper.toDto(productPortion);
         restProductPortionMockMvc.perform(post("/api/product-portions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productPortionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productPortion)))
             .andExpect(status().isCreated());
 
         // Validate the ProductPortion in the database
@@ -181,12 +175,11 @@ public class ProductPortionResourceIT {
 
         // Create the ProductPortion with an existing ID
         productPortion.setId(1L);
-        ProductPortionDTO productPortionDTO = productPortionMapper.toDto(productPortion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductPortionMockMvc.perform(post("/api/product-portions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productPortionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productPortion)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductPortion in the database
@@ -206,11 +199,10 @@ public class ProductPortionResourceIT {
         productPortion.setAmount(null);
 
         // Create the ProductPortion, which fails.
-        ProductPortionDTO productPortionDTO = productPortionMapper.toDto(productPortion);
 
         restProductPortionMockMvc.perform(post("/api/product-portions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productPortionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productPortion)))
             .andExpect(status().isBadRequest());
 
         List<ProductPortion> productPortionList = productPortionRepository.findAll();
@@ -225,11 +217,10 @@ public class ProductPortionResourceIT {
         productPortion.setProductId(null);
 
         // Create the ProductPortion, which fails.
-        ProductPortionDTO productPortionDTO = productPortionMapper.toDto(productPortion);
 
         restProductPortionMockMvc.perform(post("/api/product-portions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productPortionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productPortion)))
             .andExpect(status().isBadRequest());
 
         List<ProductPortion> productPortionList = productPortionRepository.findAll();
@@ -280,7 +271,9 @@ public class ProductPortionResourceIT {
     @Transactional
     public void updateProductPortion() throws Exception {
         // Initialize the database
-        productPortionRepository.saveAndFlush(productPortion);
+        productPortionService.save(productPortion);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockProductPortionSearchRepository);
 
         int databaseSizeBeforeUpdate = productPortionRepository.findAll().size();
 
@@ -291,11 +284,10 @@ public class ProductPortionResourceIT {
         updatedProductPortion.setAmount(UPDATED_AMOUNT);
         updatedProductPortion.setProductId(UPDATED_PRODUCT_ID);
         updatedProductPortion.setHouseholdMeasureId(UPDATED_HOUSEHOLD_MEASURE_ID);
-        ProductPortionDTO productPortionDTO = productPortionMapper.toDto(updatedProductPortion);
 
         restProductPortionMockMvc.perform(put("/api/product-portions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productPortionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedProductPortion)))
             .andExpect(status().isOk());
 
         // Validate the ProductPortion in the database
@@ -316,12 +308,11 @@ public class ProductPortionResourceIT {
         int databaseSizeBeforeUpdate = productPortionRepository.findAll().size();
 
         // Create the ProductPortion
-        ProductPortionDTO productPortionDTO = productPortionMapper.toDto(productPortion);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductPortionMockMvc.perform(put("/api/product-portions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productPortionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productPortion)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductPortion in the database
@@ -336,7 +327,7 @@ public class ProductPortionResourceIT {
     @Transactional
     public void deleteProductPortion() throws Exception {
         // Initialize the database
-        productPortionRepository.saveAndFlush(productPortion);
+        productPortionService.save(productPortion);
 
         int databaseSizeBeforeDelete = productPortionRepository.findAll().size();
 
@@ -357,7 +348,7 @@ public class ProductPortionResourceIT {
     @Transactional
     public void searchProductPortion() throws Exception {
         // Initialize the database
-        productPortionRepository.saveAndFlush(productPortion);
+        productPortionService.save(productPortion);
         when(mockProductPortionSearchRepository.search(queryStringQuery("id:" + productPortion.getId())))
             .thenReturn(Collections.singletonList(productPortion));
         // Search the productPortion
@@ -383,28 +374,5 @@ public class ProductPortionResourceIT {
         assertThat(productPortion1).isNotEqualTo(productPortion2);
         productPortion1.setId(null);
         assertThat(productPortion1).isNotEqualTo(productPortion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductPortionDTO.class);
-        ProductPortionDTO productPortionDTO1 = new ProductPortionDTO();
-        productPortionDTO1.setId(1L);
-        ProductPortionDTO productPortionDTO2 = new ProductPortionDTO();
-        assertThat(productPortionDTO1).isNotEqualTo(productPortionDTO2);
-        productPortionDTO2.setId(productPortionDTO1.getId());
-        assertThat(productPortionDTO1).isEqualTo(productPortionDTO2);
-        productPortionDTO2.setId(2L);
-        assertThat(productPortionDTO1).isNotEqualTo(productPortionDTO2);
-        productPortionDTO1.setId(null);
-        assertThat(productPortionDTO1).isNotEqualTo(productPortionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(productPortionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(productPortionMapper.fromId(null)).isNull();
     }
 }

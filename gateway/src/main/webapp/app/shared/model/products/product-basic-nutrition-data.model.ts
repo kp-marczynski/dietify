@@ -4,18 +4,8 @@ export interface IProductBasicNutritionData {
   protein?: number;
   fat?: number;
   carbohydrates?: number;
-  productDescription?: string;
-  productId?: number;
 }
 
 export class ProductBasicNutritionData implements IProductBasicNutritionData {
-  constructor(
-    public id?: number,
-    public energy?: number,
-    public protein?: number,
-    public fat?: number,
-    public carbohydrates?: number,
-    public productDescription?: string,
-    public productId?: number
-  ) {}
+  constructor(public id?: number, public energy?: number, public protein?: number, public fat?: number, public carbohydrates?: number) {}
 }

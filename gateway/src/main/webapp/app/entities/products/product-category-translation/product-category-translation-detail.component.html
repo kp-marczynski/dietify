@@ -15,8 +15,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProductCategoryTranslation.productCategory">Product Category</span></dt>
                 <dd>
-                    <div *ngIf="productCategoryTranslation.productCategoryId">
-                        <a [routerLink]="['/product-category', productCategoryTranslation.productCategoryId, 'view']">{{productCategoryTranslation.productCategoryDescription}}</a>
+                    <div *ngIf="productCategoryTranslation.productCategory">
+                        <a [routerLink]="['/product-category', productCategoryTranslation.productCategory?.id, 'view']">{{productCategoryTranslation.productCategory?.id}}</a>
                     </div>
                 </dd>
             </dl>

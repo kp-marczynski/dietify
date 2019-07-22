@@ -47,8 +47,8 @@
                 <td>{{productPortion.productId}}</td>
                 <td>{{productPortion.householdMeasureId}}</td>
                 <td>
-                    <div *ngIf="productPortion.recipeSectionId">
-                        <a [routerLink]="['../recipe-section', productPortion.recipeSectionId , 'view' ]" >{{productPortion.recipeSectionSectionName}}</a>
+                    <div *ngIf="productPortion.recipeSection">
+                        <a [routerLink]="['../recipe-section', productPortion.recipeSection?.id, 'view' ]" >{{productPortion.recipeSection?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

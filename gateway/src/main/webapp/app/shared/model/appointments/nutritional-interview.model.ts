@@ -1,6 +1,7 @@
 import { Moment } from 'moment';
 import { IOwnedKitchenAppliance } from 'app/shared/model/appointments/owned-kitchen-appliance.model';
 import { ICustomNutritionalInterviewQuestion } from 'app/shared/model/appointments/custom-nutritional-interview-question.model';
+import { IAppointment } from 'app/shared/model/appointments/appointment.model';
 
 export const enum PhysicalActivity {
   EXTREMELY_INACTIVE = 'EXTREMELY_INACTIVE',
@@ -29,9 +30,9 @@ export interface INutritionalInterview {
   dislikedProducts?: any;
   foodAllergies?: any;
   foodIntolerances?: any;
-  appointmentId?: number;
   ownedKitchenAppliances?: IOwnedKitchenAppliance[];
   customQuestions?: ICustomNutritionalInterviewQuestion[];
+  appointment?: IAppointment;
 }
 
 export class NutritionalInterview implements INutritionalInterview {
@@ -48,8 +49,8 @@ export class NutritionalInterview implements INutritionalInterview {
     public dislikedProducts?: any,
     public foodAllergies?: any,
     public foodIntolerances?: any,
-    public appointmentId?: number,
     public ownedKitchenAppliances?: IOwnedKitchenAppliance[],
-    public customQuestions?: ICustomNutritionalInterviewQuestion[]
+    public customQuestions?: ICustomNutritionalInterviewQuestion[],
+    public appointment?: IAppointment
   ) {}
 }

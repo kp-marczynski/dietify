@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.MealTypeTranslationService;
 import pl.marczynski.dietify.recipes.domain.MealTypeTranslation;
 import pl.marczynski.dietify.recipes.repository.MealTypeTranslationRepository;
 import pl.marczynski.dietify.recipes.repository.search.MealTypeTranslationSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.MealTypeTranslationDTO;
-import pl.marczynski.dietify.recipes.service.mapper.MealTypeTranslationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealTypeTranslationServiceImpl implements MealTypeTranslationServic
 
     private final MealTypeTranslationRepository mealTypeTranslationRepository;
 
-    private final MealTypeTranslationMapper mealTypeTranslationMapper;
-
     private final MealTypeTranslationSearchRepository mealTypeTranslationSearchRepository;
 
-    public MealTypeTranslationServiceImpl(MealTypeTranslationRepository mealTypeTranslationRepository, MealTypeTranslationMapper mealTypeTranslationMapper, MealTypeTranslationSearchRepository mealTypeTranslationSearchRepository) {
+    public MealTypeTranslationServiceImpl(MealTypeTranslationRepository mealTypeTranslationRepository, MealTypeTranslationSearchRepository mealTypeTranslationSearchRepository) {
         this.mealTypeTranslationRepository = mealTypeTranslationRepository;
-        this.mealTypeTranslationMapper = mealTypeTranslationMapper;
         this.mealTypeTranslationSearchRepository = mealTypeTranslationSearchRepository;
     }
 
     /**
      * Save a mealTypeTranslation.
      *
-     * @param mealTypeTranslationDTO the entity to save.
+     * @param mealTypeTranslation the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealTypeTranslationDTO save(MealTypeTranslationDTO mealTypeTranslationDTO) {
-        log.debug("Request to save MealTypeTranslation : {}", mealTypeTranslationDTO);
-        MealTypeTranslation mealTypeTranslation = mealTypeTranslationMapper.toEntity(mealTypeTranslationDTO);
-        mealTypeTranslation = mealTypeTranslationRepository.save(mealTypeTranslation);
-        MealTypeTranslationDTO result = mealTypeTranslationMapper.toDto(mealTypeTranslation);
-        mealTypeTranslationSearchRepository.save(mealTypeTranslation);
+    public MealTypeTranslation save(MealTypeTranslation mealTypeTranslation) {
+        log.debug("Request to save MealTypeTranslation : {}", mealTypeTranslation);
+        MealTypeTranslation result = mealTypeTranslationRepository.save(mealTypeTranslation);
+        mealTypeTranslationSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealTypeTranslationServiceImpl implements MealTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealTypeTranslationDTO> findAll() {
+    public List<MealTypeTranslation> findAll() {
         log.debug("Request to get all MealTypeTranslations");
-        return mealTypeTranslationRepository.findAll().stream()
-            .map(mealTypeTranslationMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealTypeTranslationRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealTypeTranslationServiceImpl implements MealTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealTypeTranslationDTO> findOne(Long id) {
+    public Optional<MealTypeTranslation> findOne(Long id) {
         log.debug("Request to get MealTypeTranslation : {}", id);
-        return mealTypeTranslationRepository.findById(id)
-            .map(mealTypeTranslationMapper::toDto);
+        return mealTypeTranslationRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealTypeTranslationServiceImpl implements MealTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealTypeTranslationDTO> search(String query) {
+    public List<MealTypeTranslation> search(String query) {
         log.debug("Request to search MealTypeTranslations for query {}", query);
         return StreamSupport
             .stream(mealTypeTranslationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealTypeTranslationMapper::toDto)
             .collect(Collectors.toList());
     }
 }

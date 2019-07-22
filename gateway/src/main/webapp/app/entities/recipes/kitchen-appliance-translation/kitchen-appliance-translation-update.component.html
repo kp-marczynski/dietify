@@ -50,14 +50,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesKitchenApplianceTranslation.kitchenAppliance" for="field_kitchenAppliance">Kitchen Appliance</label>
-                    <select class="form-control" id="field_kitchenAppliance" name="kitchenAppliance" formControlName="kitchenApplianceId">
-                        <option *ngIf="!editForm.get('kitchenApplianceId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="kitchenApplianceOption.id" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{kitchenApplianceOption.name}}</option>
+                    <select class="form-control" id="field_kitchenAppliance" name="kitchenAppliance" formControlName="kitchenAppliance">
+                        <option *ngIf="!editForm.get('kitchenAppliance').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="kitchenApplianceOption.id === editForm.get('kitchenAppliance').value?.id ? editForm.get('kitchenAppliance').value : kitchenApplianceOption" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{kitchenApplianceOption.name}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('kitchenApplianceId').invalid && (editForm.get('kitchenApplianceId').dirty || editForm.get('kitchenApplianceId').touched)">
+                <div *ngIf="editForm.get('kitchenAppliance').invalid && (editForm.get('kitchenAppliance').dirty || editForm.get('kitchenAppliance').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('kitchenApplianceId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('kitchenAppliance').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

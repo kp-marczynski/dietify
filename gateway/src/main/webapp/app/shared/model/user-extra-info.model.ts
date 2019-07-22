@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IUser } from 'app/core/user/user.model';
 
 export const enum Gender {
   FEMALE = 'FEMALE',
@@ -16,8 +17,7 @@ export interface IUserExtraInfo {
   city?: string;
   country?: string;
   personalDescription?: any;
-  userLogin?: string;
-  userId?: number;
+  user?: IUser;
 }
 
 export class UserExtraInfo implements IUserExtraInfo {
@@ -31,7 +31,6 @@ export class UserExtraInfo implements IUserExtraInfo {
     public city?: string,
     public country?: string,
     public personalDescription?: any,
-    public userLogin?: string,
-    public userId?: number
+    public user?: IUser
   ) {}
 }

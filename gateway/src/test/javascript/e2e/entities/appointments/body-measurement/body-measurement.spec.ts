@@ -52,7 +52,6 @@ describe('BodyMeasurement e2e test', () => {
             bodyMeasurementUpdatePage.setBasicMetabolismInput('5'),
             bodyMeasurementUpdatePage.setMetabolicAgeInput('5'),
             bodyMeasurementUpdatePage.setVisceralFatLevelInput('5'),
-            bodyMeasurementUpdatePage.appointmentSelectLastOption(),
         ]);
         expect(await bodyMeasurementUpdatePage.getCompletionDateInput()).to.eq('2000-12-31', 'Expected completionDate value to be equals to 2000-12-31');
         expect(await bodyMeasurementUpdatePage.getHeightInput()).to.eq('5', 'Expected height value to be equals to 5');

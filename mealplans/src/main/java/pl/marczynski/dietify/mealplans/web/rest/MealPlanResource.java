@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.service.MealPlanService;
 import pl.marczynski.dietify.mealplans.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -52,17 +52,17 @@ public class MealPlanResource {
     /**
      * {@code POST  /meal-plans} : Create a new mealPlan.
      *
-     * @param mealPlanDTO the mealPlanDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealPlanDTO, or with status {@code 400 (Bad Request)} if the mealPlan has already an ID.
+     * @param mealPlan the mealPlan to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealPlan, or with status {@code 400 (Bad Request)} if the mealPlan has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-plans")
-    public ResponseEntity<MealPlanDTO> createMealPlan(@Valid @RequestBody MealPlanDTO mealPlanDTO) throws URISyntaxException {
-        log.debug("REST request to save MealPlan : {}", mealPlanDTO);
-        if (mealPlanDTO.getId() != null) {
+    public ResponseEntity<MealPlan> createMealPlan(@Valid @RequestBody MealPlan mealPlan) throws URISyntaxException {
+        log.debug("REST request to save MealPlan : {}", mealPlan);
+        if (mealPlan.getId() != null) {
             throw new BadRequestAlertException("A new mealPlan cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealPlanDTO result = mealPlanService.save(mealPlanDTO);
+        MealPlan result = mealPlanService.save(mealPlan);
         return ResponseEntity.created(new URI("/api/meal-plans/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,21 +71,21 @@ public class MealPlanResource {
     /**
      * {@code PUT  /meal-plans} : Updates an existing mealPlan.
      *
-     * @param mealPlanDTO the mealPlanDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlanDTO,
-     * or with status {@code 400 (Bad Request)} if the mealPlanDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealPlanDTO couldn't be updated.
+     * @param mealPlan the mealPlan to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlan,
+     * or with status {@code 400 (Bad Request)} if the mealPlan is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealPlan couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-plans")
-    public ResponseEntity<MealPlanDTO> updateMealPlan(@Valid @RequestBody MealPlanDTO mealPlanDTO) throws URISyntaxException {
-        log.debug("REST request to update MealPlan : {}", mealPlanDTO);
-        if (mealPlanDTO.getId() == null) {
+    public ResponseEntity<MealPlan> updateMealPlan(@Valid @RequestBody MealPlan mealPlan) throws URISyntaxException {
+        log.debug("REST request to update MealPlan : {}", mealPlan);
+        if (mealPlan.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealPlanDTO result = mealPlanService.save(mealPlanDTO);
+        MealPlan result = mealPlanService.save(mealPlan);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealPlanDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealPlan.getId().toString()))
             .body(result);
     }
 
@@ -98,9 +98,9 @@ public class MealPlanResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealPlans in body.
      */
     @GetMapping("/meal-plans")
-    public ResponseEntity<List<MealPlanDTO>> getAllMealPlans(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<List<MealPlan>> getAllMealPlans(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of MealPlans");
-        Page<MealPlanDTO> page = mealPlanService.findAll(pageable);
+        Page<MealPlan> page = mealPlanService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -108,20 +108,20 @@ public class MealPlanResource {
     /**
      * {@code GET  /meal-plans/:id} : get the "id" mealPlan.
      *
-     * @param id the id of the mealPlanDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealPlanDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealPlan to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealPlan, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-plans/{id}")
-    public ResponseEntity<MealPlanDTO> getMealPlan(@PathVariable Long id) {
+    public ResponseEntity<MealPlan> getMealPlan(@PathVariable Long id) {
         log.debug("REST request to get MealPlan : {}", id);
-        Optional<MealPlanDTO> mealPlanDTO = mealPlanService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealPlanDTO);
+        Optional<MealPlan> mealPlan = mealPlanService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealPlan);
     }
 
     /**
      * {@code DELETE  /meal-plans/:id} : delete the "id" mealPlan.
      *
-     * @param id the id of the mealPlanDTO to delete.
+     * @param id the id of the mealPlan to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-plans/{id}")
@@ -142,9 +142,9 @@ public class MealPlanResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-plans")
-    public ResponseEntity<List<MealPlanDTO>> searchMealPlans(@RequestParam String query, Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<List<MealPlan>> searchMealPlans(@RequestParam String query, Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to search for a page of MealPlans for query {}", query);
-        Page<MealPlanDTO> page = mealPlanService.search(query, pageable);
+        Page<MealPlan> page = mealPlanService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

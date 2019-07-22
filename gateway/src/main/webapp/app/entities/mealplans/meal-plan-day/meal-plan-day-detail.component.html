@@ -11,8 +11,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.mealplansMealPlanDay.mealPlan">Meal Plan</span></dt>
                 <dd>
-                    <div *ngIf="mealPlanDay.mealPlanId">
-                        <a [routerLink]="['/meal-plan', mealPlanDay.mealPlanId, 'view']">{{mealPlanDay.mealPlanId}}</a>
+                    <div *ngIf="mealPlanDay.mealPlan">
+                        <a [routerLink]="['/meal-plan', mealPlanDay.mealPlan?.id, 'view']">{{mealPlanDay.mealPlan?.id}}</a>
                     </div>
                 </dd>
             </dl>

@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.MealTypeDTO;
+import pl.marczynski.dietify.recipes.domain.MealType;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.MealType}.
+ * Service Interface for managing {@link MealType}.
  */
 public interface MealTypeService {
 
     /**
      * Save a mealType.
      *
-     * @param mealTypeDTO the entity to save.
+     * @param mealType the entity to save.
      * @return the persisted entity.
      */
-    MealTypeDTO save(MealTypeDTO mealTypeDTO);
+    MealType save(MealType mealType);
 
     /**
      * Get all the mealTypes.
      *
      * @return the list of entities.
      */
-    List<MealTypeDTO> findAll();
+    List<MealType> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface MealTypeService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<MealTypeDTO> findOne(Long id);
+    Optional<MealType> findOne(Long id);
 
     /**
      * Delete the "id" mealType.
@@ -48,5 +48,5 @@ public interface MealTypeService {
      * 
      * @return the list of entities.
      */
-    List<MealTypeDTO> search(String query);
+    List<MealType> search(String query);
 }

@@ -5,8 +5,6 @@ import pl.marczynski.dietify.products.domain.NutritionDefinition;
 import pl.marczynski.dietify.products.repository.NutritionDefinitionRepository;
 import pl.marczynski.dietify.products.repository.search.NutritionDefinitionSearchRepository;
 import pl.marczynski.dietify.products.service.NutritionDefinitionService;
-import pl.marczynski.dietify.products.service.dto.NutritionDefinitionDTO;
-import pl.marczynski.dietify.products.service.mapper.NutritionDefinitionMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -54,9 +52,6 @@ public class NutritionDefinitionResourceIT {
 
     @Autowired
     private NutritionDefinitionRepository nutritionDefinitionRepository;
-
-    @Autowired
-    private NutritionDefinitionMapper nutritionDefinitionMapper;
 
     @Autowired
     private NutritionDefinitionService nutritionDefinitionService;
@@ -140,10 +135,9 @@ public class NutritionDefinitionResourceIT {
         int databaseSizeBeforeCreate = nutritionDefinitionRepository.findAll().size();
 
         // Create the NutritionDefinition
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
         restNutritionDefinitionMockMvc.perform(post("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isCreated());
 
         // Validate the NutritionDefinition in the database
@@ -166,12 +160,11 @@ public class NutritionDefinitionResourceIT {
 
         // Create the NutritionDefinition with an existing ID
         nutritionDefinition.setId(1L);
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNutritionDefinitionMockMvc.perform(post("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionDefinition in the database
@@ -191,11 +184,10 @@ public class NutritionDefinitionResourceIT {
         nutritionDefinition.setTag(null);
 
         // Create the NutritionDefinition, which fails.
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
 
         restNutritionDefinitionMockMvc.perform(post("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isBadRequest());
 
         List<NutritionDefinition> nutritionDefinitionList = nutritionDefinitionRepository.findAll();
@@ -210,11 +202,10 @@ public class NutritionDefinitionResourceIT {
         nutritionDefinition.setDescription(null);
 
         // Create the NutritionDefinition, which fails.
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
 
         restNutritionDefinitionMockMvc.perform(post("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isBadRequest());
 
         List<NutritionDefinition> nutritionDefinitionList = nutritionDefinitionRepository.findAll();
@@ -229,11 +220,10 @@ public class NutritionDefinitionResourceIT {
         nutritionDefinition.setUnits(null);
 
         // Create the NutritionDefinition, which fails.
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
 
         restNutritionDefinitionMockMvc.perform(post("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isBadRequest());
 
         List<NutritionDefinition> nutritionDefinitionList = nutritionDefinitionRepository.findAll();
@@ -248,11 +238,10 @@ public class NutritionDefinitionResourceIT {
         nutritionDefinition.setDecimalPlaces(null);
 
         // Create the NutritionDefinition, which fails.
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
 
         restNutritionDefinitionMockMvc.perform(post("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isBadRequest());
 
         List<NutritionDefinition> nutritionDefinitionList = nutritionDefinitionRepository.findAll();
@@ -305,7 +294,9 @@ public class NutritionDefinitionResourceIT {
     @Transactional
     public void updateNutritionDefinition() throws Exception {
         // Initialize the database
-        nutritionDefinitionRepository.saveAndFlush(nutritionDefinition);
+        nutritionDefinitionService.save(nutritionDefinition);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockNutritionDefinitionSearchRepository);
 
         int databaseSizeBeforeUpdate = nutritionDefinitionRepository.findAll().size();
 
@@ -317,11 +308,10 @@ public class NutritionDefinitionResourceIT {
         updatedNutritionDefinition.setDescription(UPDATED_DESCRIPTION);
         updatedNutritionDefinition.setUnits(UPDATED_UNITS);
         updatedNutritionDefinition.setDecimalPlaces(UPDATED_DECIMAL_PLACES);
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(updatedNutritionDefinition);
 
         restNutritionDefinitionMockMvc.perform(put("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedNutritionDefinition)))
             .andExpect(status().isOk());
 
         // Validate the NutritionDefinition in the database
@@ -343,12 +333,11 @@ public class NutritionDefinitionResourceIT {
         int databaseSizeBeforeUpdate = nutritionDefinitionRepository.findAll().size();
 
         // Create the NutritionDefinition
-        NutritionDefinitionDTO nutritionDefinitionDTO = nutritionDefinitionMapper.toDto(nutritionDefinition);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restNutritionDefinitionMockMvc.perform(put("/api/nutrition-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinition)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionDefinition in the database
@@ -363,7 +352,7 @@ public class NutritionDefinitionResourceIT {
     @Transactional
     public void deleteNutritionDefinition() throws Exception {
         // Initialize the database
-        nutritionDefinitionRepository.saveAndFlush(nutritionDefinition);
+        nutritionDefinitionService.save(nutritionDefinition);
 
         int databaseSizeBeforeDelete = nutritionDefinitionRepository.findAll().size();
 
@@ -384,7 +373,7 @@ public class NutritionDefinitionResourceIT {
     @Transactional
     public void searchNutritionDefinition() throws Exception {
         // Initialize the database
-        nutritionDefinitionRepository.saveAndFlush(nutritionDefinition);
+        nutritionDefinitionService.save(nutritionDefinition);
         when(mockNutritionDefinitionSearchRepository.search(queryStringQuery("id:" + nutritionDefinition.getId())))
             .thenReturn(Collections.singletonList(nutritionDefinition));
         // Search the nutritionDefinition
@@ -411,28 +400,5 @@ public class NutritionDefinitionResourceIT {
         assertThat(nutritionDefinition1).isNotEqualTo(nutritionDefinition2);
         nutritionDefinition1.setId(null);
         assertThat(nutritionDefinition1).isNotEqualTo(nutritionDefinition2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NutritionDefinitionDTO.class);
-        NutritionDefinitionDTO nutritionDefinitionDTO1 = new NutritionDefinitionDTO();
-        nutritionDefinitionDTO1.setId(1L);
-        NutritionDefinitionDTO nutritionDefinitionDTO2 = new NutritionDefinitionDTO();
-        assertThat(nutritionDefinitionDTO1).isNotEqualTo(nutritionDefinitionDTO2);
-        nutritionDefinitionDTO2.setId(nutritionDefinitionDTO1.getId());
-        assertThat(nutritionDefinitionDTO1).isEqualTo(nutritionDefinitionDTO2);
-        nutritionDefinitionDTO2.setId(2L);
-        assertThat(nutritionDefinitionDTO1).isNotEqualTo(nutritionDefinitionDTO2);
-        nutritionDefinitionDTO1.setId(null);
-        assertThat(nutritionDefinitionDTO1).isNotEqualTo(nutritionDefinitionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(nutritionDefinitionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(nutritionDefinitionMapper.fromId(null)).isNull();
     }
 }

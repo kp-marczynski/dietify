@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.RecipeSuitableForDiet;
 import pl.marczynski.dietify.recipes.service.RecipeSuitableForDietService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.RecipeSuitableForDietDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class RecipeSuitableForDietResource {
     /**
      * {@code POST  /recipe-suitable-for-diets} : Create a new recipeSuitableForDiet.
      *
-     * @param recipeSuitableForDietDTO the recipeSuitableForDietDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new recipeSuitableForDietDTO, or with status {@code 400 (Bad Request)} if the recipeSuitableForDiet has already an ID.
+     * @param recipeSuitableForDiet the recipeSuitableForDiet to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new recipeSuitableForDiet, or with status {@code 400 (Bad Request)} if the recipeSuitableForDiet has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/recipe-suitable-for-diets")
-    public ResponseEntity<RecipeSuitableForDietDTO> createRecipeSuitableForDiet(@Valid @RequestBody RecipeSuitableForDietDTO recipeSuitableForDietDTO) throws URISyntaxException {
-        log.debug("REST request to save RecipeSuitableForDiet : {}", recipeSuitableForDietDTO);
-        if (recipeSuitableForDietDTO.getId() != null) {
+    public ResponseEntity<RecipeSuitableForDiet> createRecipeSuitableForDiet(@Valid @RequestBody RecipeSuitableForDiet recipeSuitableForDiet) throws URISyntaxException {
+        log.debug("REST request to save RecipeSuitableForDiet : {}", recipeSuitableForDiet);
+        if (recipeSuitableForDiet.getId() != null) {
             throw new BadRequestAlertException("A new recipeSuitableForDiet cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        RecipeSuitableForDietDTO result = recipeSuitableForDietService.save(recipeSuitableForDietDTO);
+        RecipeSuitableForDiet result = recipeSuitableForDietService.save(recipeSuitableForDiet);
         return ResponseEntity.created(new URI("/api/recipe-suitable-for-diets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class RecipeSuitableForDietResource {
     /**
      * {@code PUT  /recipe-suitable-for-diets} : Updates an existing recipeSuitableForDiet.
      *
-     * @param recipeSuitableForDietDTO the recipeSuitableForDietDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated recipeSuitableForDietDTO,
-     * or with status {@code 400 (Bad Request)} if the recipeSuitableForDietDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the recipeSuitableForDietDTO couldn't be updated.
+     * @param recipeSuitableForDiet the recipeSuitableForDiet to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated recipeSuitableForDiet,
+     * or with status {@code 400 (Bad Request)} if the recipeSuitableForDiet is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the recipeSuitableForDiet couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/recipe-suitable-for-diets")
-    public ResponseEntity<RecipeSuitableForDietDTO> updateRecipeSuitableForDiet(@Valid @RequestBody RecipeSuitableForDietDTO recipeSuitableForDietDTO) throws URISyntaxException {
-        log.debug("REST request to update RecipeSuitableForDiet : {}", recipeSuitableForDietDTO);
-        if (recipeSuitableForDietDTO.getId() == null) {
+    public ResponseEntity<RecipeSuitableForDiet> updateRecipeSuitableForDiet(@Valid @RequestBody RecipeSuitableForDiet recipeSuitableForDiet) throws URISyntaxException {
+        log.debug("REST request to update RecipeSuitableForDiet : {}", recipeSuitableForDiet);
+        if (recipeSuitableForDiet.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        RecipeSuitableForDietDTO result = recipeSuitableForDietService.save(recipeSuitableForDietDTO);
+        RecipeSuitableForDiet result = recipeSuitableForDietService.save(recipeSuitableForDiet);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, recipeSuitableForDietDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, recipeSuitableForDiet.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class RecipeSuitableForDietResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of recipeSuitableForDiets in body.
      */
     @GetMapping("/recipe-suitable-for-diets")
-    public List<RecipeSuitableForDietDTO> getAllRecipeSuitableForDiets() {
+    public List<RecipeSuitableForDiet> getAllRecipeSuitableForDiets() {
         log.debug("REST request to get all RecipeSuitableForDiets");
         return recipeSuitableForDietService.findAll();
     }
@@ -96,20 +96,20 @@ public class RecipeSuitableForDietResource {
     /**
      * {@code GET  /recipe-suitable-for-diets/:id} : get the "id" recipeSuitableForDiet.
      *
-     * @param id the id of the recipeSuitableForDietDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the recipeSuitableForDietDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the recipeSuitableForDiet to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the recipeSuitableForDiet, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/recipe-suitable-for-diets/{id}")
-    public ResponseEntity<RecipeSuitableForDietDTO> getRecipeSuitableForDiet(@PathVariable Long id) {
+    public ResponseEntity<RecipeSuitableForDiet> getRecipeSuitableForDiet(@PathVariable Long id) {
         log.debug("REST request to get RecipeSuitableForDiet : {}", id);
-        Optional<RecipeSuitableForDietDTO> recipeSuitableForDietDTO = recipeSuitableForDietService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(recipeSuitableForDietDTO);
+        Optional<RecipeSuitableForDiet> recipeSuitableForDiet = recipeSuitableForDietService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(recipeSuitableForDiet);
     }
 
     /**
      * {@code DELETE  /recipe-suitable-for-diets/:id} : delete the "id" recipeSuitableForDiet.
      *
-     * @param id the id of the recipeSuitableForDietDTO to delete.
+     * @param id the id of the recipeSuitableForDiet to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/recipe-suitable-for-diets/{id}")
@@ -127,7 +127,7 @@ public class RecipeSuitableForDietResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/recipe-suitable-for-diets")
-    public List<RecipeSuitableForDietDTO> searchRecipeSuitableForDiets(@RequestParam String query) {
+    public List<RecipeSuitableForDiet> searchRecipeSuitableForDiets(@RequestParam String query) {
         log.debug("REST request to search RecipeSuitableForDiets for query {}", query);
         return recipeSuitableForDietService.search(query);
     }

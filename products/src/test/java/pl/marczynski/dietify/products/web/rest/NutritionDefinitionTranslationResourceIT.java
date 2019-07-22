@@ -6,8 +6,6 @@ import pl.marczynski.dietify.products.domain.NutritionDefinition;
 import pl.marczynski.dietify.products.repository.NutritionDefinitionTranslationRepository;
 import pl.marczynski.dietify.products.repository.search.NutritionDefinitionTranslationSearchRepository;
 import pl.marczynski.dietify.products.service.NutritionDefinitionTranslationService;
-import pl.marczynski.dietify.products.service.dto.NutritionDefinitionTranslationDTO;
-import pl.marczynski.dietify.products.service.mapper.NutritionDefinitionTranslationMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class NutritionDefinitionTranslationResourceIT {
 
     @Autowired
     private NutritionDefinitionTranslationRepository nutritionDefinitionTranslationRepository;
-
-    @Autowired
-    private NutritionDefinitionTranslationMapper nutritionDefinitionTranslationMapper;
 
     @Autowired
     private NutritionDefinitionTranslationService nutritionDefinitionTranslationService;
@@ -114,7 +109,7 @@ public class NutritionDefinitionTranslationResourceIT {
         } else {
             nutritionDefinition = TestUtil.findAll(em, NutritionDefinition.class).get(0);
         }
-        nutritionDefinitionTranslation.setNutritionDefinitions(nutritionDefinition);
+        nutritionDefinitionTranslation.setNutritionDefinition(nutritionDefinition);
         return nutritionDefinitionTranslation;
     }
     /**
@@ -136,7 +131,7 @@ public class NutritionDefinitionTranslationResourceIT {
         } else {
             nutritionDefinition = TestUtil.findAll(em, NutritionDefinition.class).get(0);
         }
-        nutritionDefinitionTranslation.setNutritionDefinitions(nutritionDefinition);
+        nutritionDefinitionTranslation.setNutritionDefinition(nutritionDefinition);
         return nutritionDefinitionTranslation;
     }
 
@@ -151,10 +146,9 @@ public class NutritionDefinitionTranslationResourceIT {
         int databaseSizeBeforeCreate = nutritionDefinitionTranslationRepository.findAll().size();
 
         // Create the NutritionDefinitionTranslation
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationMapper.toDto(nutritionDefinitionTranslation);
         restNutritionDefinitionTranslationMockMvc.perform(post("/api/nutrition-definition-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslation)))
             .andExpect(status().isCreated());
 
         // Validate the NutritionDefinitionTranslation in the database
@@ -175,12 +169,11 @@ public class NutritionDefinitionTranslationResourceIT {
 
         // Create the NutritionDefinitionTranslation with an existing ID
         nutritionDefinitionTranslation.setId(1L);
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationMapper.toDto(nutritionDefinitionTranslation);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNutritionDefinitionTranslationMockMvc.perform(post("/api/nutrition-definition-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionDefinitionTranslation in the database
@@ -200,11 +193,10 @@ public class NutritionDefinitionTranslationResourceIT {
         nutritionDefinitionTranslation.setTranslation(null);
 
         // Create the NutritionDefinitionTranslation, which fails.
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationMapper.toDto(nutritionDefinitionTranslation);
 
         restNutritionDefinitionTranslationMockMvc.perform(post("/api/nutrition-definition-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslation)))
             .andExpect(status().isBadRequest());
 
         List<NutritionDefinitionTranslation> nutritionDefinitionTranslationList = nutritionDefinitionTranslationRepository.findAll();
@@ -219,11 +211,10 @@ public class NutritionDefinitionTranslationResourceIT {
         nutritionDefinitionTranslation.setLanguage(null);
 
         // Create the NutritionDefinitionTranslation, which fails.
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationMapper.toDto(nutritionDefinitionTranslation);
 
         restNutritionDefinitionTranslationMockMvc.perform(post("/api/nutrition-definition-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslation)))
             .andExpect(status().isBadRequest());
 
         List<NutritionDefinitionTranslation> nutritionDefinitionTranslationList = nutritionDefinitionTranslationRepository.findAll();
@@ -272,7 +263,9 @@ public class NutritionDefinitionTranslationResourceIT {
     @Transactional
     public void updateNutritionDefinitionTranslation() throws Exception {
         // Initialize the database
-        nutritionDefinitionTranslationRepository.saveAndFlush(nutritionDefinitionTranslation);
+        nutritionDefinitionTranslationService.save(nutritionDefinitionTranslation);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockNutritionDefinitionTranslationSearchRepository);
 
         int databaseSizeBeforeUpdate = nutritionDefinitionTranslationRepository.findAll().size();
 
@@ -282,11 +275,10 @@ public class NutritionDefinitionTranslationResourceIT {
         em.detach(updatedNutritionDefinitionTranslation);
         updatedNutritionDefinitionTranslation.setTranslation(UPDATED_TRANSLATION);
         updatedNutritionDefinitionTranslation.setLanguage(UPDATED_LANGUAGE);
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationMapper.toDto(updatedNutritionDefinitionTranslation);
 
         restNutritionDefinitionTranslationMockMvc.perform(put("/api/nutrition-definition-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedNutritionDefinitionTranslation)))
             .andExpect(status().isOk());
 
         // Validate the NutritionDefinitionTranslation in the database
@@ -306,12 +298,11 @@ public class NutritionDefinitionTranslationResourceIT {
         int databaseSizeBeforeUpdate = nutritionDefinitionTranslationRepository.findAll().size();
 
         // Create the NutritionDefinitionTranslation
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationMapper.toDto(nutritionDefinitionTranslation);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restNutritionDefinitionTranslationMockMvc.perform(put("/api/nutrition-definition-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionDefinitionTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionDefinitionTranslation in the database
@@ -326,7 +317,7 @@ public class NutritionDefinitionTranslationResourceIT {
     @Transactional
     public void deleteNutritionDefinitionTranslation() throws Exception {
         // Initialize the database
-        nutritionDefinitionTranslationRepository.saveAndFlush(nutritionDefinitionTranslation);
+        nutritionDefinitionTranslationService.save(nutritionDefinitionTranslation);
 
         int databaseSizeBeforeDelete = nutritionDefinitionTranslationRepository.findAll().size();
 
@@ -347,7 +338,7 @@ public class NutritionDefinitionTranslationResourceIT {
     @Transactional
     public void searchNutritionDefinitionTranslation() throws Exception {
         // Initialize the database
-        nutritionDefinitionTranslationRepository.saveAndFlush(nutritionDefinitionTranslation);
+        nutritionDefinitionTranslationService.save(nutritionDefinitionTranslation);
         when(mockNutritionDefinitionTranslationSearchRepository.search(queryStringQuery("id:" + nutritionDefinitionTranslation.getId())))
             .thenReturn(Collections.singletonList(nutritionDefinitionTranslation));
         // Search the nutritionDefinitionTranslation
@@ -372,28 +363,5 @@ public class NutritionDefinitionTranslationResourceIT {
         assertThat(nutritionDefinitionTranslation1).isNotEqualTo(nutritionDefinitionTranslation2);
         nutritionDefinitionTranslation1.setId(null);
         assertThat(nutritionDefinitionTranslation1).isNotEqualTo(nutritionDefinitionTranslation2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NutritionDefinitionTranslationDTO.class);
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO1 = new NutritionDefinitionTranslationDTO();
-        nutritionDefinitionTranslationDTO1.setId(1L);
-        NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO2 = new NutritionDefinitionTranslationDTO();
-        assertThat(nutritionDefinitionTranslationDTO1).isNotEqualTo(nutritionDefinitionTranslationDTO2);
-        nutritionDefinitionTranslationDTO2.setId(nutritionDefinitionTranslationDTO1.getId());
-        assertThat(nutritionDefinitionTranslationDTO1).isEqualTo(nutritionDefinitionTranslationDTO2);
-        nutritionDefinitionTranslationDTO2.setId(2L);
-        assertThat(nutritionDefinitionTranslationDTO1).isNotEqualTo(nutritionDefinitionTranslationDTO2);
-        nutritionDefinitionTranslationDTO1.setId(null);
-        assertThat(nutritionDefinitionTranslationDTO1).isNotEqualTo(nutritionDefinitionTranslationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(nutritionDefinitionTranslationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(nutritionDefinitionTranslationMapper.fromId(null)).isNull();
     }
 }

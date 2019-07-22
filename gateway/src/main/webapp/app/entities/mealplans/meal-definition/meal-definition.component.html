@@ -49,8 +49,8 @@
                 <td>{{mealDefinition.timeOfMeal}}</td>
                 <td>{{mealDefinition.percentOfEnergy}}</td>
                 <td>
-                    <div *ngIf="mealDefinition.mealPlanId">
-                        <a [routerLink]="['../meal-plan', mealDefinition.mealPlanId , 'view' ]" >{{mealDefinition.mealPlanId}}</a>
+                    <div *ngIf="mealDefinition.mealPlan">
+                        <a [routerLink]="['../meal-plan', mealDefinition.mealPlan?.id, 'view' ]" >{{mealDefinition.mealPlan?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

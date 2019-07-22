@@ -6,8 +6,6 @@ import pl.marczynski.dietify.gateway.domain.User;
 import pl.marczynski.dietify.gateway.repository.UserExtraInfoRepository;
 import pl.marczynski.dietify.gateway.repository.search.UserExtraInfoSearchRepository;
 import pl.marczynski.dietify.gateway.service.UserExtraInfoService;
-import pl.marczynski.dietify.gateway.service.dto.UserExtraInfoDTO;
-import pl.marczynski.dietify.gateway.service.mapper.UserExtraInfoMapper;
 import pl.marczynski.dietify.gateway.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -71,9 +69,6 @@ public class UserExtraInfoResourceIT {
 
     @Autowired
     private UserExtraInfoRepository userExtraInfoRepository;
-
-    @Autowired
-    private UserExtraInfoMapper userExtraInfoMapper;
 
     @Autowired
     private UserExtraInfoService userExtraInfoService;
@@ -175,10 +170,9 @@ public class UserExtraInfoResourceIT {
         int databaseSizeBeforeCreate = userExtraInfoRepository.findAll().size();
 
         // Create the UserExtraInfo
-        UserExtraInfoDTO userExtraInfoDTO = userExtraInfoMapper.toDto(userExtraInfo);
         restUserExtraInfoMockMvc.perform(post("/api/user-extra-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userExtraInfoDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(userExtraInfo)))
             .andExpect(status().isCreated());
 
         // Validate the UserExtraInfo in the database
@@ -205,12 +199,11 @@ public class UserExtraInfoResourceIT {
 
         // Create the UserExtraInfo with an existing ID
         userExtraInfo.setId(1L);
-        UserExtraInfoDTO userExtraInfoDTO = userExtraInfoMapper.toDto(userExtraInfo);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserExtraInfoMockMvc.perform(post("/api/user-extra-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userExtraInfoDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(userExtraInfo)))
             .andExpect(status().isBadRequest());
 
         // Validate the UserExtraInfo in the database
@@ -276,7 +269,9 @@ public class UserExtraInfoResourceIT {
     @Transactional
     public void updateUserExtraInfo() throws Exception {
         // Initialize the database
-        userExtraInfoRepository.saveAndFlush(userExtraInfo);
+        userExtraInfoService.save(userExtraInfo);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockUserExtraInfoSearchRepository);
 
         int databaseSizeBeforeUpdate = userExtraInfoRepository.findAll().size();
 
@@ -292,11 +287,10 @@ public class UserExtraInfoResourceIT {
         updatedUserExtraInfo.setCity(UPDATED_CITY);
         updatedUserExtraInfo.setCountry(UPDATED_COUNTRY);
         updatedUserExtraInfo.setPersonalDescription(UPDATED_PERSONAL_DESCRIPTION);
-        UserExtraInfoDTO userExtraInfoDTO = userExtraInfoMapper.toDto(updatedUserExtraInfo);
 
         restUserExtraInfoMockMvc.perform(put("/api/user-extra-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userExtraInfoDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedUserExtraInfo)))
             .andExpect(status().isOk());
 
         // Validate the UserExtraInfo in the database
@@ -322,12 +316,11 @@ public class UserExtraInfoResourceIT {
         int databaseSizeBeforeUpdate = userExtraInfoRepository.findAll().size();
 
         // Create the UserExtraInfo
-        UserExtraInfoDTO userExtraInfoDTO = userExtraInfoMapper.toDto(userExtraInfo);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restUserExtraInfoMockMvc.perform(put("/api/user-extra-infos")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(userExtraInfoDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(userExtraInfo)))
             .andExpect(status().isBadRequest());
 
         // Validate the UserExtraInfo in the database
@@ -342,7 +335,7 @@ public class UserExtraInfoResourceIT {
     @Transactional
     public void deleteUserExtraInfo() throws Exception {
         // Initialize the database
-        userExtraInfoRepository.saveAndFlush(userExtraInfo);
+        userExtraInfoService.save(userExtraInfo);
 
         int databaseSizeBeforeDelete = userExtraInfoRepository.findAll().size();
 
@@ -363,7 +356,7 @@ public class UserExtraInfoResourceIT {
     @Transactional
     public void searchUserExtraInfo() throws Exception {
         // Initialize the database
-        userExtraInfoRepository.saveAndFlush(userExtraInfo);
+        userExtraInfoService.save(userExtraInfo);
         when(mockUserExtraInfoSearchRepository.search(queryStringQuery("id:" + userExtraInfo.getId())))
             .thenReturn(Collections.singletonList(userExtraInfo));
         // Search the userExtraInfo
@@ -394,28 +387,5 @@ public class UserExtraInfoResourceIT {
         assertThat(userExtraInfo1).isNotEqualTo(userExtraInfo2);
         userExtraInfo1.setId(null);
         assertThat(userExtraInfo1).isNotEqualTo(userExtraInfo2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(UserExtraInfoDTO.class);
-        UserExtraInfoDTO userExtraInfoDTO1 = new UserExtraInfoDTO();
-        userExtraInfoDTO1.setId(1L);
-        UserExtraInfoDTO userExtraInfoDTO2 = new UserExtraInfoDTO();
-        assertThat(userExtraInfoDTO1).isNotEqualTo(userExtraInfoDTO2);
-        userExtraInfoDTO2.setId(userExtraInfoDTO1.getId());
-        assertThat(userExtraInfoDTO1).isEqualTo(userExtraInfoDTO2);
-        userExtraInfoDTO2.setId(2L);
-        assertThat(userExtraInfoDTO1).isNotEqualTo(userExtraInfoDTO2);
-        userExtraInfoDTO1.setId(null);
-        assertThat(userExtraInfoDTO1).isNotEqualTo(userExtraInfoDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(userExtraInfoMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(userExtraInfoMapper.fromId(null)).isNull();
     }
 }

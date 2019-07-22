@@ -80,15 +80,6 @@
     ],
     "relationships": [
         {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "appointment",
-            "otherEntityRelationshipName": "nutritionalInterview",
-            "relationshipValidateRules": "required",
-            "relationshipName": "appointment",
-            "otherEntityField": "id",
-            "ownerSide": true
-        },
-        {
             "relationshipType": "one-to-many",
             "otherEntityName": "ownedKitchenAppliance",
             "otherEntityRelationshipName": "nutritionalInterview",
@@ -99,11 +90,19 @@
             "otherEntityName": "customNutritionalInterviewQuestion",
             "otherEntityRelationshipName": "nutritionalInterview",
             "relationshipName": "customQuestions"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "appointment",
+            "otherEntityRelationshipName": "nutritionalInterview",
+            "relationshipValidateRules": "required",
+            "relationshipName": "appointment",
+            "ownerSide": false
         }
     ],
-    "changelogDate": "20190721154712",
+    "changelogDate": "20190722200942",
     "entityTableName": "nutritional_interview",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

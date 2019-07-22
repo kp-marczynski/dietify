@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,6 +32,7 @@ public class NutritionDefinitionTranslation implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Translated description of nutrition definition", required = true)
     @Column(name = "translation", length = 255, nullable = false)
     private String translation;
 
@@ -39,13 +41,14 @@ public class NutritionDefinitionTranslation implements Serializable {
      */
     @NotNull
     @Size(min = 2, max = 2)
+    @ApiModelProperty(value = "Language of translation as ISO_639-1 code", required = true)
     @Column(name = "language", length = 2, nullable = false)
     private String language;
 
     @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("translations")
-    private NutritionDefinition nutritionDefinitions;
+    private NutritionDefinition nutritionDefinition;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -72,12 +75,12 @@ public class NutritionDefinitionTranslation implements Serializable {
         this.language = language;
     }
 
-    public NutritionDefinition getNutritionDefinitions() {
-        return nutritionDefinitions;
+    public NutritionDefinition getNutritionDefinition() {
+        return nutritionDefinition;
     }
 
-    public void setNutritionDefinitions(NutritionDefinition nutritionDefinition) {
-        this.nutritionDefinitions = nutritionDefinition;
+    public void setNutritionDefinition(NutritionDefinition nutritionDefinition) {
+        this.nutritionDefinition = nutritionDefinition;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -44,6 +44,7 @@ describe('Product e2e test', () => {
             productUpdatePage.setAuthorIdInput('5'),
             productUpdatePage.setDescriptionInput('description'),
             productUpdatePage.setLanguageInput('language'),
+            productUpdatePage.basicNutritionDataSelectLastOption(),
             productUpdatePage.subcategorySelectLastOption(),
             // productUpdatePage.suitableDietsSelectLastOption(),
             // productUpdatePage.unsuitableDietsSelectLastOption(),

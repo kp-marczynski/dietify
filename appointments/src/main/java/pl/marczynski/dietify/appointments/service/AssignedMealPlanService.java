@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.AssignedMealPlanDTO;
+import pl.marczynski.dietify.appointments.domain.AssignedMealPlan;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.AssignedMealPlan}.
+ * Service Interface for managing {@link AssignedMealPlan}.
  */
 public interface AssignedMealPlanService {
 
     /**
      * Save a assignedMealPlan.
      *
-     * @param assignedMealPlanDTO the entity to save.
+     * @param assignedMealPlan the entity to save.
      * @return the persisted entity.
      */
-    AssignedMealPlanDTO save(AssignedMealPlanDTO assignedMealPlanDTO);
+    AssignedMealPlan save(AssignedMealPlan assignedMealPlan);
 
     /**
      * Get all the assignedMealPlans.
      *
      * @return the list of entities.
      */
-    List<AssignedMealPlanDTO> findAll();
+    List<AssignedMealPlan> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface AssignedMealPlanService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<AssignedMealPlanDTO> findOne(Long id);
+    Optional<AssignedMealPlan> findOne(Long id);
 
     /**
      * Delete the "id" assignedMealPlan.

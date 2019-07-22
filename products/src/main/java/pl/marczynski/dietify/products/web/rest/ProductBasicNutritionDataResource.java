@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.ProductBasicNutritionData;
 import pl.marczynski.dietify.products.service.ProductBasicNutritionDataService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.ProductBasicNutritionDataDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class ProductBasicNutritionDataResource {
     /**
      * {@code POST  /product-basic-nutrition-data} : Create a new productBasicNutritionData.
      *
-     * @param productBasicNutritionDataDTO the productBasicNutritionDataDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productBasicNutritionDataDTO, or with status {@code 400 (Bad Request)} if the productBasicNutritionData has already an ID.
+     * @param productBasicNutritionData the productBasicNutritionData to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productBasicNutritionData, or with status {@code 400 (Bad Request)} if the productBasicNutritionData has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/product-basic-nutrition-data")
-    public ResponseEntity<ProductBasicNutritionDataDTO> createProductBasicNutritionData(@Valid @RequestBody ProductBasicNutritionDataDTO productBasicNutritionDataDTO) throws URISyntaxException {
-        log.debug("REST request to save ProductBasicNutritionData : {}", productBasicNutritionDataDTO);
-        if (productBasicNutritionDataDTO.getId() != null) {
+    public ResponseEntity<ProductBasicNutritionData> createProductBasicNutritionData(@Valid @RequestBody ProductBasicNutritionData productBasicNutritionData) throws URISyntaxException {
+        log.debug("REST request to save ProductBasicNutritionData : {}", productBasicNutritionData);
+        if (productBasicNutritionData.getId() != null) {
             throw new BadRequestAlertException("A new productBasicNutritionData cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ProductBasicNutritionDataDTO result = productBasicNutritionDataService.save(productBasicNutritionDataDTO);
+        ProductBasicNutritionData result = productBasicNutritionDataService.save(productBasicNutritionData);
         return ResponseEntity.created(new URI("/api/product-basic-nutrition-data/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class ProductBasicNutritionDataResource {
     /**
      * {@code PUT  /product-basic-nutrition-data} : Updates an existing productBasicNutritionData.
      *
-     * @param productBasicNutritionDataDTO the productBasicNutritionDataDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productBasicNutritionDataDTO,
-     * or with status {@code 400 (Bad Request)} if the productBasicNutritionDataDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the productBasicNutritionDataDTO couldn't be updated.
+     * @param productBasicNutritionData the productBasicNutritionData to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productBasicNutritionData,
+     * or with status {@code 400 (Bad Request)} if the productBasicNutritionData is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the productBasicNutritionData couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/product-basic-nutrition-data")
-    public ResponseEntity<ProductBasicNutritionDataDTO> updateProductBasicNutritionData(@Valid @RequestBody ProductBasicNutritionDataDTO productBasicNutritionDataDTO) throws URISyntaxException {
-        log.debug("REST request to update ProductBasicNutritionData : {}", productBasicNutritionDataDTO);
-        if (productBasicNutritionDataDTO.getId() == null) {
+    public ResponseEntity<ProductBasicNutritionData> updateProductBasicNutritionData(@Valid @RequestBody ProductBasicNutritionData productBasicNutritionData) throws URISyntaxException {
+        log.debug("REST request to update ProductBasicNutritionData : {}", productBasicNutritionData);
+        if (productBasicNutritionData.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ProductBasicNutritionDataDTO result = productBasicNutritionDataService.save(productBasicNutritionDataDTO);
+        ProductBasicNutritionData result = productBasicNutritionDataService.save(productBasicNutritionData);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productBasicNutritionDataDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productBasicNutritionData.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class ProductBasicNutritionDataResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productBasicNutritionData in body.
      */
     @GetMapping("/product-basic-nutrition-data")
-    public List<ProductBasicNutritionDataDTO> getAllProductBasicNutritionData() {
+    public List<ProductBasicNutritionData> getAllProductBasicNutritionData() {
         log.debug("REST request to get all ProductBasicNutritionData");
         return productBasicNutritionDataService.findAll();
     }
@@ -96,20 +96,20 @@ public class ProductBasicNutritionDataResource {
     /**
      * {@code GET  /product-basic-nutrition-data/:id} : get the "id" productBasicNutritionData.
      *
-     * @param id the id of the productBasicNutritionDataDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productBasicNutritionDataDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the productBasicNutritionData to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productBasicNutritionData, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/product-basic-nutrition-data/{id}")
-    public ResponseEntity<ProductBasicNutritionDataDTO> getProductBasicNutritionData(@PathVariable Long id) {
+    public ResponseEntity<ProductBasicNutritionData> getProductBasicNutritionData(@PathVariable Long id) {
         log.debug("REST request to get ProductBasicNutritionData : {}", id);
-        Optional<ProductBasicNutritionDataDTO> productBasicNutritionDataDTO = productBasicNutritionDataService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(productBasicNutritionDataDTO);
+        Optional<ProductBasicNutritionData> productBasicNutritionData = productBasicNutritionDataService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(productBasicNutritionData);
     }
 
     /**
      * {@code DELETE  /product-basic-nutrition-data/:id} : delete the "id" productBasicNutritionData.
      *
-     * @param id the id of the productBasicNutritionDataDTO to delete.
+     * @param id the id of the productBasicNutritionData to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/product-basic-nutrition-data/{id}")
@@ -127,7 +127,7 @@ public class ProductBasicNutritionDataResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/product-basic-nutrition-data")
-    public List<ProductBasicNutritionDataDTO> searchProductBasicNutritionData(@RequestParam String query) {
+    public List<ProductBasicNutritionData> searchProductBasicNutritionData(@RequestParam String query) {
         log.debug("REST request to search ProductBasicNutritionData for query {}", query);
         return productBasicNutritionDataService.search(query);
     }

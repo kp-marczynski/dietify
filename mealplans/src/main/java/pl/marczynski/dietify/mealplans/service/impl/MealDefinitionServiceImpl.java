@@ -4,15 +4,12 @@ import pl.marczynski.dietify.mealplans.service.MealDefinitionService;
 import pl.marczynski.dietify.mealplans.domain.MealDefinition;
 import pl.marczynski.dietify.mealplans.repository.MealDefinitionRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealDefinitionSearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealDefinitionDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealDefinitionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealDefinitionServiceImpl implements MealDefinitionService {
 
     private final MealDefinitionRepository mealDefinitionRepository;
 
-    private final MealDefinitionMapper mealDefinitionMapper;
-
     private final MealDefinitionSearchRepository mealDefinitionSearchRepository;
 
-    public MealDefinitionServiceImpl(MealDefinitionRepository mealDefinitionRepository, MealDefinitionMapper mealDefinitionMapper, MealDefinitionSearchRepository mealDefinitionSearchRepository) {
+    public MealDefinitionServiceImpl(MealDefinitionRepository mealDefinitionRepository, MealDefinitionSearchRepository mealDefinitionSearchRepository) {
         this.mealDefinitionRepository = mealDefinitionRepository;
-        this.mealDefinitionMapper = mealDefinitionMapper;
         this.mealDefinitionSearchRepository = mealDefinitionSearchRepository;
     }
 
     /**
      * Save a mealDefinition.
      *
-     * @param mealDefinitionDTO the entity to save.
+     * @param mealDefinition the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealDefinitionDTO save(MealDefinitionDTO mealDefinitionDTO) {
-        log.debug("Request to save MealDefinition : {}", mealDefinitionDTO);
-        MealDefinition mealDefinition = mealDefinitionMapper.toEntity(mealDefinitionDTO);
-        mealDefinition = mealDefinitionRepository.save(mealDefinition);
-        MealDefinitionDTO result = mealDefinitionMapper.toDto(mealDefinition);
-        mealDefinitionSearchRepository.save(mealDefinition);
+    public MealDefinition save(MealDefinition mealDefinition) {
+        log.debug("Request to save MealDefinition : {}", mealDefinition);
+        MealDefinition result = mealDefinitionRepository.save(mealDefinition);
+        mealDefinitionSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealDefinitionServiceImpl implements MealDefinitionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealDefinitionDTO> findAll() {
+    public List<MealDefinition> findAll() {
         log.debug("Request to get all MealDefinitions");
-        return mealDefinitionRepository.findAll().stream()
-            .map(mealDefinitionMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealDefinitionRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealDefinitionServiceImpl implements MealDefinitionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealDefinitionDTO> findOne(Long id) {
+    public Optional<MealDefinition> findOne(Long id) {
         log.debug("Request to get MealDefinition : {}", id);
-        return mealDefinitionRepository.findById(id)
-            .map(mealDefinitionMapper::toDto);
+        return mealDefinitionRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealDefinitionServiceImpl implements MealDefinitionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealDefinitionDTO> search(String query) {
+    public List<MealDefinition> search(String query) {
         log.debug("Request to search MealDefinitions for query {}", query);
         return StreamSupport
             .stream(mealDefinitionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealDefinitionMapper::toDto)
             .collect(Collectors.toList());
     }
 }

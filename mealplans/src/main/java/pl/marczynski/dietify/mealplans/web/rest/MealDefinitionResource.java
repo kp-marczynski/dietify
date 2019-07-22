@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import pl.marczynski.dietify.mealplans.domain.MealDefinition;
 import pl.marczynski.dietify.mealplans.service.MealDefinitionService;
 import pl.marczynski.dietify.mealplans.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.mealplans.service.dto.MealDefinitionDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class MealDefinitionResource {
     /**
      * {@code POST  /meal-definitions} : Create a new mealDefinition.
      *
-     * @param mealDefinitionDTO the mealDefinitionDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealDefinitionDTO, or with status {@code 400 (Bad Request)} if the mealDefinition has already an ID.
+     * @param mealDefinition the mealDefinition to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealDefinition, or with status {@code 400 (Bad Request)} if the mealDefinition has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-definitions")
-    public ResponseEntity<MealDefinitionDTO> createMealDefinition(@Valid @RequestBody MealDefinitionDTO mealDefinitionDTO) throws URISyntaxException {
-        log.debug("REST request to save MealDefinition : {}", mealDefinitionDTO);
-        if (mealDefinitionDTO.getId() != null) {
+    public ResponseEntity<MealDefinition> createMealDefinition(@Valid @RequestBody MealDefinition mealDefinition) throws URISyntaxException {
+        log.debug("REST request to save MealDefinition : {}", mealDefinition);
+        if (mealDefinition.getId() != null) {
             throw new BadRequestAlertException("A new mealDefinition cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealDefinitionDTO result = mealDefinitionService.save(mealDefinitionDTO);
+        MealDefinition result = mealDefinitionService.save(mealDefinition);
         return ResponseEntity.created(new URI("/api/meal-definitions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class MealDefinitionResource {
     /**
      * {@code PUT  /meal-definitions} : Updates an existing mealDefinition.
      *
-     * @param mealDefinitionDTO the mealDefinitionDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealDefinitionDTO,
-     * or with status {@code 400 (Bad Request)} if the mealDefinitionDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealDefinitionDTO couldn't be updated.
+     * @param mealDefinition the mealDefinition to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealDefinition,
+     * or with status {@code 400 (Bad Request)} if the mealDefinition is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealDefinition couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-definitions")
-    public ResponseEntity<MealDefinitionDTO> updateMealDefinition(@Valid @RequestBody MealDefinitionDTO mealDefinitionDTO) throws URISyntaxException {
-        log.debug("REST request to update MealDefinition : {}", mealDefinitionDTO);
-        if (mealDefinitionDTO.getId() == null) {
+    public ResponseEntity<MealDefinition> updateMealDefinition(@Valid @RequestBody MealDefinition mealDefinition) throws URISyntaxException {
+        log.debug("REST request to update MealDefinition : {}", mealDefinition);
+        if (mealDefinition.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealDefinitionDTO result = mealDefinitionService.save(mealDefinitionDTO);
+        MealDefinition result = mealDefinitionService.save(mealDefinition);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealDefinitionDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealDefinition.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class MealDefinitionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealDefinitions in body.
      */
     @GetMapping("/meal-definitions")
-    public List<MealDefinitionDTO> getAllMealDefinitions() {
+    public List<MealDefinition> getAllMealDefinitions() {
         log.debug("REST request to get all MealDefinitions");
         return mealDefinitionService.findAll();
     }
@@ -96,20 +96,20 @@ public class MealDefinitionResource {
     /**
      * {@code GET  /meal-definitions/:id} : get the "id" mealDefinition.
      *
-     * @param id the id of the mealDefinitionDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealDefinitionDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealDefinition to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealDefinition, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-definitions/{id}")
-    public ResponseEntity<MealDefinitionDTO> getMealDefinition(@PathVariable Long id) {
+    public ResponseEntity<MealDefinition> getMealDefinition(@PathVariable Long id) {
         log.debug("REST request to get MealDefinition : {}", id);
-        Optional<MealDefinitionDTO> mealDefinitionDTO = mealDefinitionService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealDefinitionDTO);
+        Optional<MealDefinition> mealDefinition = mealDefinitionService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealDefinition);
     }
 
     /**
      * {@code DELETE  /meal-definitions/:id} : delete the "id" mealDefinition.
      *
-     * @param id the id of the mealDefinitionDTO to delete.
+     * @param id the id of the mealDefinition to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-definitions/{id}")
@@ -127,7 +127,7 @@ public class MealDefinitionResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-definitions")
-    public List<MealDefinitionDTO> searchMealDefinitions(@RequestParam String query) {
+    public List<MealDefinition> searchMealDefinitions(@RequestParam String query) {
         log.debug("REST request to search MealDefinitions for query {}", query);
         return mealDefinitionService.search(query);
     }

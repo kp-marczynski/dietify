@@ -11,8 +11,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProductSubcategory.category">Category</span></dt>
                 <dd>
-                    <div *ngIf="productSubcategory.categoryId">
-                        <a [routerLink]="['/product-category', productSubcategory.categoryId, 'view']">{{productSubcategory.categoryDescription}}</a>
+                    <div *ngIf="productSubcategory.category">
+                        <a [routerLink]="['/product-category', productSubcategory.category?.id, 'view']">{{productSubcategory.category?.description}}</a>
                     </div>
                 </dd>
             </dl>

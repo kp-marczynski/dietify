@@ -14,29 +14,28 @@
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154648_added_entity_Recipe.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154649_added_entity_RecipeBasicNutritionData.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154650_added_entity_DishType.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154651_added_entity_DishTypeTranslation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154652_added_entity_MealType.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154653_added_entity_MealTypeTranslation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154654_added_entity_KitchenAppliance.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154655_added_entity_KitchenApplianceTranslation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154656_added_entity_RecipeSection.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154657_added_entity_PreparationStep.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154658_added_entity_ProductPortion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154659_added_entity_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154700_added_entity_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200918_added_entity_Recipe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200919_added_entity_RecipeBasicNutritionData.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200920_added_entity_DishType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200921_added_entity_DishTypeTranslation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200922_added_entity_MealType.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200923_added_entity_MealTypeTranslation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200924_added_entity_KitchenAppliance.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200925_added_entity_KitchenApplianceTranslation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200926_added_entity_RecipeSection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200927_added_entity_PreparationStep.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200928_added_entity_ProductPortion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200929_added_entity_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200930_added_entity_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
-    <include file="config/liquibase/changelog/20190721154648_added_entity_constraints_Recipe.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154649_added_entity_constraints_RecipeBasicNutritionData.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154651_added_entity_constraints_DishTypeTranslation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154653_added_entity_constraints_MealTypeTranslation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154655_added_entity_constraints_KitchenApplianceTranslation.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154656_added_entity_constraints_RecipeSection.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154657_added_entity_constraints_PreparationStep.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154658_added_entity_constraints_ProductPortion.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154659_added_entity_constraints_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
-    <include file="config/liquibase/changelog/20190721154700_added_entity_constraints_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200918_added_entity_constraints_Recipe.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200921_added_entity_constraints_DishTypeTranslation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200923_added_entity_constraints_MealTypeTranslation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200925_added_entity_constraints_KitchenApplianceTranslation.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200926_added_entity_constraints_RecipeSection.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200927_added_entity_constraints_PreparationStep.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200928_added_entity_constraints_ProductPortion.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200929_added_entity_constraints_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20190722200930_added_entity_constraints_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
 </databaseChangeLog>

@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.KitchenAppliance;
 import pl.marczynski.dietify.recipes.service.KitchenApplianceService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.KitchenApplianceDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class KitchenApplianceResource {
     /**
      * {@code POST  /kitchen-appliances} : Create a new kitchenAppliance.
      *
-     * @param kitchenApplianceDTO the kitchenApplianceDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new kitchenApplianceDTO, or with status {@code 400 (Bad Request)} if the kitchenAppliance has already an ID.
+     * @param kitchenAppliance the kitchenAppliance to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new kitchenAppliance, or with status {@code 400 (Bad Request)} if the kitchenAppliance has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/kitchen-appliances")
-    public ResponseEntity<KitchenApplianceDTO> createKitchenAppliance(@Valid @RequestBody KitchenApplianceDTO kitchenApplianceDTO) throws URISyntaxException {
-        log.debug("REST request to save KitchenAppliance : {}", kitchenApplianceDTO);
-        if (kitchenApplianceDTO.getId() != null) {
+    public ResponseEntity<KitchenAppliance> createKitchenAppliance(@Valid @RequestBody KitchenAppliance kitchenAppliance) throws URISyntaxException {
+        log.debug("REST request to save KitchenAppliance : {}", kitchenAppliance);
+        if (kitchenAppliance.getId() != null) {
             throw new BadRequestAlertException("A new kitchenAppliance cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        KitchenApplianceDTO result = kitchenApplianceService.save(kitchenApplianceDTO);
+        KitchenAppliance result = kitchenApplianceService.save(kitchenAppliance);
         return ResponseEntity.created(new URI("/api/kitchen-appliances/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class KitchenApplianceResource {
     /**
      * {@code PUT  /kitchen-appliances} : Updates an existing kitchenAppliance.
      *
-     * @param kitchenApplianceDTO the kitchenApplianceDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated kitchenApplianceDTO,
-     * or with status {@code 400 (Bad Request)} if the kitchenApplianceDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the kitchenApplianceDTO couldn't be updated.
+     * @param kitchenAppliance the kitchenAppliance to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated kitchenAppliance,
+     * or with status {@code 400 (Bad Request)} if the kitchenAppliance is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the kitchenAppliance couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/kitchen-appliances")
-    public ResponseEntity<KitchenApplianceDTO> updateKitchenAppliance(@Valid @RequestBody KitchenApplianceDTO kitchenApplianceDTO) throws URISyntaxException {
-        log.debug("REST request to update KitchenAppliance : {}", kitchenApplianceDTO);
-        if (kitchenApplianceDTO.getId() == null) {
+    public ResponseEntity<KitchenAppliance> updateKitchenAppliance(@Valid @RequestBody KitchenAppliance kitchenAppliance) throws URISyntaxException {
+        log.debug("REST request to update KitchenAppliance : {}", kitchenAppliance);
+        if (kitchenAppliance.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        KitchenApplianceDTO result = kitchenApplianceService.save(kitchenApplianceDTO);
+        KitchenAppliance result = kitchenApplianceService.save(kitchenAppliance);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, kitchenApplianceDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, kitchenAppliance.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class KitchenApplianceResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of kitchenAppliances in body.
      */
     @GetMapping("/kitchen-appliances")
-    public List<KitchenApplianceDTO> getAllKitchenAppliances() {
+    public List<KitchenAppliance> getAllKitchenAppliances() {
         log.debug("REST request to get all KitchenAppliances");
         return kitchenApplianceService.findAll();
     }
@@ -96,20 +96,20 @@ public class KitchenApplianceResource {
     /**
      * {@code GET  /kitchen-appliances/:id} : get the "id" kitchenAppliance.
      *
-     * @param id the id of the kitchenApplianceDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the kitchenApplianceDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the kitchenAppliance to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the kitchenAppliance, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/kitchen-appliances/{id}")
-    public ResponseEntity<KitchenApplianceDTO> getKitchenAppliance(@PathVariable Long id) {
+    public ResponseEntity<KitchenAppliance> getKitchenAppliance(@PathVariable Long id) {
         log.debug("REST request to get KitchenAppliance : {}", id);
-        Optional<KitchenApplianceDTO> kitchenApplianceDTO = kitchenApplianceService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(kitchenApplianceDTO);
+        Optional<KitchenAppliance> kitchenAppliance = kitchenApplianceService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(kitchenAppliance);
     }
 
     /**
      * {@code DELETE  /kitchen-appliances/:id} : delete the "id" kitchenAppliance.
      *
-     * @param id the id of the kitchenApplianceDTO to delete.
+     * @param id the id of the kitchenAppliance to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/kitchen-appliances/{id}")
@@ -127,7 +127,7 @@ public class KitchenApplianceResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/kitchen-appliances")
-    public List<KitchenApplianceDTO> searchKitchenAppliances(@RequestParam String query) {
+    public List<KitchenAppliance> searchKitchenAppliances(@RequestParam String query) {
         log.debug("REST request to search KitchenAppliances for query {}", query);
         return kitchenApplianceService.search(query);
     }

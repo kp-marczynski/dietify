@@ -1,3 +1,5 @@
+import { IAppointment } from 'app/shared/model/appointments/appointment.model';
+
 export const enum SatisfactionRate {
   VERY_DISSATISFIED = 'VERY_DISSATISFIED',
   DISSATISFIED = 'DISSATISFIED',
@@ -17,7 +19,7 @@ export interface IAppointmentEvaluation {
   mealTastefulnessSatisfaction?: SatisfactionRate;
   dietaryResultSatisfaction?: SatisfactionRate;
   comment?: any;
-  appointmentId?: number;
+  appointment?: IAppointment;
 }
 
 export class AppointmentEvaluation implements IAppointmentEvaluation {
@@ -32,6 +34,6 @@ export class AppointmentEvaluation implements IAppointmentEvaluation {
     public mealTastefulnessSatisfaction?: SatisfactionRate,
     public dietaryResultSatisfaction?: SatisfactionRate,
     public comment?: any,
-    public appointmentId?: number
+    public appointment?: IAppointment
   ) {}
 }

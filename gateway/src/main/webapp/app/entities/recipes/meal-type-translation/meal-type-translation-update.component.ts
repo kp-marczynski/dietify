@@ -23,7 +23,7 @@ export class MealTypeTranslationUpdateComponent implements OnInit {
     id: [],
     translation: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    mealTypeId: [null, Validators.required]
+    mealType: [null, Validators.required]
   });
 
   constructor(
@@ -53,7 +53,7 @@ export class MealTypeTranslationUpdateComponent implements OnInit {
       id: mealTypeTranslation.id,
       translation: mealTypeTranslation.translation,
       language: mealTypeTranslation.language,
-      mealTypeId: mealTypeTranslation.mealTypeId
+      mealType: mealTypeTranslation.mealType
     });
   }
 
@@ -77,7 +77,7 @@ export class MealTypeTranslationUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       translation: this.editForm.get(['translation']).value,
       language: this.editForm.get(['language']).value,
-      mealTypeId: this.editForm.get(['mealTypeId']).value
+      mealType: this.editForm.get(['mealType']).value
     };
   }
 

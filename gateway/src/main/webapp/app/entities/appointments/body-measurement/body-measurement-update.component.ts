@@ -34,8 +34,7 @@ export class BodyMeasurementUpdateComponent implements OnInit {
     calciumInBones: [],
     basicMetabolism: [],
     metabolicAge: [],
-    visceralFatLevel: [],
-    appointmentId: [null, Validators.required]
+    visceralFatLevel: []
   });
 
   constructor(
@@ -52,30 +51,12 @@ export class BodyMeasurementUpdateComponent implements OnInit {
       this.updateForm(bodyMeasurement);
     });
     this.appointmentService
-      .query({ filter: 'bodymeasurement-is-null' })
+      .query()
       .pipe(
         filter((mayBeOk: HttpResponse<IAppointment[]>) => mayBeOk.ok),
         map((response: HttpResponse<IAppointment[]>) => response.body)
       )
-      .subscribe(
-        (res: IAppointment[]) => {
-          if (!!this.editForm.get('appointmentId').value) {
-            this.appointments = res;
-          } else {
-            this.appointmentService
-              .find(this.editForm.get('appointmentId').value)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IAppointment>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IAppointment>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IAppointment) => (this.appointments = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: IAppointment[]) => (this.appointments = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(bodyMeasurement: IBodyMeasurement) {
@@ -92,8 +73,7 @@ export class BodyMeasurementUpdateComponent implements OnInit {
       calciumInBones: bodyMeasurement.calciumInBones,
       basicMetabolism: bodyMeasurement.basicMetabolism,
       metabolicAge: bodyMeasurement.metabolicAge,
-      visceralFatLevel: bodyMeasurement.visceralFatLevel,
-      appointmentId: bodyMeasurement.appointmentId
+      visceralFatLevel: bodyMeasurement.visceralFatLevel
     });
   }
 
@@ -126,8 +106,7 @@ export class BodyMeasurementUpdateComponent implements OnInit {
       calciumInBones: this.editForm.get(['calciumInBones']).value,
       basicMetabolism: this.editForm.get(['basicMetabolism']).value,
       metabolicAge: this.editForm.get(['metabolicAge']).value,
-      visceralFatLevel: this.editForm.get(['visceralFatLevel']).value,
-      appointmentId: this.editForm.get(['appointmentId']).value
+      visceralFatLevel: this.editForm.get(['visceralFatLevel']).value
     };
   }
 

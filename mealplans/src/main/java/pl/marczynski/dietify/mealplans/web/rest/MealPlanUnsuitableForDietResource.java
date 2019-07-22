@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import pl.marczynski.dietify.mealplans.domain.MealPlanUnsuitableForDiet;
 import pl.marczynski.dietify.mealplans.service.MealPlanUnsuitableForDietService;
 import pl.marczynski.dietify.mealplans.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanUnsuitableForDietDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class MealPlanUnsuitableForDietResource {
     /**
      * {@code POST  /meal-plan-unsuitable-for-diets} : Create a new mealPlanUnsuitableForDiet.
      *
-     * @param mealPlanUnsuitableForDietDTO the mealPlanUnsuitableForDietDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealPlanUnsuitableForDietDTO, or with status {@code 400 (Bad Request)} if the mealPlanUnsuitableForDiet has already an ID.
+     * @param mealPlanUnsuitableForDiet the mealPlanUnsuitableForDiet to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealPlanUnsuitableForDiet, or with status {@code 400 (Bad Request)} if the mealPlanUnsuitableForDiet has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-plan-unsuitable-for-diets")
-    public ResponseEntity<MealPlanUnsuitableForDietDTO> createMealPlanUnsuitableForDiet(@Valid @RequestBody MealPlanUnsuitableForDietDTO mealPlanUnsuitableForDietDTO) throws URISyntaxException {
-        log.debug("REST request to save MealPlanUnsuitableForDiet : {}", mealPlanUnsuitableForDietDTO);
-        if (mealPlanUnsuitableForDietDTO.getId() != null) {
+    public ResponseEntity<MealPlanUnsuitableForDiet> createMealPlanUnsuitableForDiet(@Valid @RequestBody MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) throws URISyntaxException {
+        log.debug("REST request to save MealPlanUnsuitableForDiet : {}", mealPlanUnsuitableForDiet);
+        if (mealPlanUnsuitableForDiet.getId() != null) {
             throw new BadRequestAlertException("A new mealPlanUnsuitableForDiet cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealPlanUnsuitableForDietDTO result = mealPlanUnsuitableForDietService.save(mealPlanUnsuitableForDietDTO);
+        MealPlanUnsuitableForDiet result = mealPlanUnsuitableForDietService.save(mealPlanUnsuitableForDiet);
         return ResponseEntity.created(new URI("/api/meal-plan-unsuitable-for-diets/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class MealPlanUnsuitableForDietResource {
     /**
      * {@code PUT  /meal-plan-unsuitable-for-diets} : Updates an existing mealPlanUnsuitableForDiet.
      *
-     * @param mealPlanUnsuitableForDietDTO the mealPlanUnsuitableForDietDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlanUnsuitableForDietDTO,
-     * or with status {@code 400 (Bad Request)} if the mealPlanUnsuitableForDietDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealPlanUnsuitableForDietDTO couldn't be updated.
+     * @param mealPlanUnsuitableForDiet the mealPlanUnsuitableForDiet to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlanUnsuitableForDiet,
+     * or with status {@code 400 (Bad Request)} if the mealPlanUnsuitableForDiet is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealPlanUnsuitableForDiet couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-plan-unsuitable-for-diets")
-    public ResponseEntity<MealPlanUnsuitableForDietDTO> updateMealPlanUnsuitableForDiet(@Valid @RequestBody MealPlanUnsuitableForDietDTO mealPlanUnsuitableForDietDTO) throws URISyntaxException {
-        log.debug("REST request to update MealPlanUnsuitableForDiet : {}", mealPlanUnsuitableForDietDTO);
-        if (mealPlanUnsuitableForDietDTO.getId() == null) {
+    public ResponseEntity<MealPlanUnsuitableForDiet> updateMealPlanUnsuitableForDiet(@Valid @RequestBody MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) throws URISyntaxException {
+        log.debug("REST request to update MealPlanUnsuitableForDiet : {}", mealPlanUnsuitableForDiet);
+        if (mealPlanUnsuitableForDiet.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealPlanUnsuitableForDietDTO result = mealPlanUnsuitableForDietService.save(mealPlanUnsuitableForDietDTO);
+        MealPlanUnsuitableForDiet result = mealPlanUnsuitableForDietService.save(mealPlanUnsuitableForDiet);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealPlanUnsuitableForDietDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealPlanUnsuitableForDiet.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class MealPlanUnsuitableForDietResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealPlanUnsuitableForDiets in body.
      */
     @GetMapping("/meal-plan-unsuitable-for-diets")
-    public List<MealPlanUnsuitableForDietDTO> getAllMealPlanUnsuitableForDiets() {
+    public List<MealPlanUnsuitableForDiet> getAllMealPlanUnsuitableForDiets() {
         log.debug("REST request to get all MealPlanUnsuitableForDiets");
         return mealPlanUnsuitableForDietService.findAll();
     }
@@ -96,20 +96,20 @@ public class MealPlanUnsuitableForDietResource {
     /**
      * {@code GET  /meal-plan-unsuitable-for-diets/:id} : get the "id" mealPlanUnsuitableForDiet.
      *
-     * @param id the id of the mealPlanUnsuitableForDietDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealPlanUnsuitableForDietDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealPlanUnsuitableForDiet to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealPlanUnsuitableForDiet, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-plan-unsuitable-for-diets/{id}")
-    public ResponseEntity<MealPlanUnsuitableForDietDTO> getMealPlanUnsuitableForDiet(@PathVariable Long id) {
+    public ResponseEntity<MealPlanUnsuitableForDiet> getMealPlanUnsuitableForDiet(@PathVariable Long id) {
         log.debug("REST request to get MealPlanUnsuitableForDiet : {}", id);
-        Optional<MealPlanUnsuitableForDietDTO> mealPlanUnsuitableForDietDTO = mealPlanUnsuitableForDietService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealPlanUnsuitableForDietDTO);
+        Optional<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiet = mealPlanUnsuitableForDietService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealPlanUnsuitableForDiet);
     }
 
     /**
      * {@code DELETE  /meal-plan-unsuitable-for-diets/:id} : delete the "id" mealPlanUnsuitableForDiet.
      *
-     * @param id the id of the mealPlanUnsuitableForDietDTO to delete.
+     * @param id the id of the mealPlanUnsuitableForDiet to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-plan-unsuitable-for-diets/{id}")
@@ -127,7 +127,7 @@ public class MealPlanUnsuitableForDietResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-plan-unsuitable-for-diets")
-    public List<MealPlanUnsuitableForDietDTO> searchMealPlanUnsuitableForDiets(@RequestParam String query) {
+    public List<MealPlanUnsuitableForDiet> searchMealPlanUnsuitableForDiets(@RequestParam String query) {
         log.debug("REST request to search MealPlanUnsuitableForDiets for query {}", query);
         return mealPlanUnsuitableForDietService.search(query);
     }

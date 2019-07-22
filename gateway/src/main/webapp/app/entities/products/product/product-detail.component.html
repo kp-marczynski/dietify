@@ -29,10 +29,16 @@
                 <dd>
                     <span>{{product.language}}</span>
                 </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span></dt>
+                <dd>
+                    <div *ngIf="product.basicNutritionData">
+                        <a [routerLink]="['/product-basic-nutrition-data', product.basicNutritionData?.id, 'view']">{{product.basicNutritionData?.id}}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span></dt>
                 <dd>
-                    <div *ngIf="product.subcategoryId">
-                        <a [routerLink]="['/product-subcategory', product.subcategoryId, 'view']">{{product.subcategoryDescription}}</a>
+                    <div *ngIf="product.subcategory">
+                        <a [routerLink]="['/product-subcategory', product.subcategory?.id, 'view']">{{product.subcategory?.description}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.suitableDiets">Suitable Diets</span></dt>

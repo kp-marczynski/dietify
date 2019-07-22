@@ -22,7 +22,7 @@ export class AssignedMealPlanUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     mealPlanId: [null, [Validators.required]],
-    appointmentId: [null, Validators.required]
+    appointment: [null, Validators.required]
   });
 
   constructor(
@@ -51,7 +51,7 @@ export class AssignedMealPlanUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: assignedMealPlan.id,
       mealPlanId: assignedMealPlan.mealPlanId,
-      appointmentId: assignedMealPlan.appointmentId
+      appointment: assignedMealPlan.appointment
     });
   }
 
@@ -74,7 +74,7 @@ export class AssignedMealPlanUpdateComponent implements OnInit {
       ...new AssignedMealPlan(),
       id: this.editForm.get(['id']).value,
       mealPlanId: this.editForm.get(['mealPlanId']).value,
-      appointmentId: this.editForm.get(['appointmentId']).value
+      appointment: this.editForm.get(['appointment']).value
     };
   }
 

@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.gateway.web.rest;
 
+import pl.marczynski.dietify.gateway.domain.UserExtraInfo;
 import pl.marczynski.dietify.gateway.service.UserExtraInfoService;
 import pl.marczynski.dietify.gateway.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.gateway.service.dto.UserExtraInfoDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class UserExtraInfoResource {
     /**
      * {@code POST  /user-extra-infos} : Create a new userExtraInfo.
      *
-     * @param userExtraInfoDTO the userExtraInfoDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userExtraInfoDTO, or with status {@code 400 (Bad Request)} if the userExtraInfo has already an ID.
+     * @param userExtraInfo the userExtraInfo to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new userExtraInfo, or with status {@code 400 (Bad Request)} if the userExtraInfo has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/user-extra-infos")
-    public ResponseEntity<UserExtraInfoDTO> createUserExtraInfo(@Valid @RequestBody UserExtraInfoDTO userExtraInfoDTO) throws URISyntaxException {
-        log.debug("REST request to save UserExtraInfo : {}", userExtraInfoDTO);
-        if (userExtraInfoDTO.getId() != null) {
+    public ResponseEntity<UserExtraInfo> createUserExtraInfo(@Valid @RequestBody UserExtraInfo userExtraInfo) throws URISyntaxException {
+        log.debug("REST request to save UserExtraInfo : {}", userExtraInfo);
+        if (userExtraInfo.getId() != null) {
             throw new BadRequestAlertException("A new userExtraInfo cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        UserExtraInfoDTO result = userExtraInfoService.save(userExtraInfoDTO);
+        UserExtraInfo result = userExtraInfoService.save(userExtraInfo);
         return ResponseEntity.created(new URI("/api/user-extra-infos/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class UserExtraInfoResource {
     /**
      * {@code PUT  /user-extra-infos} : Updates an existing userExtraInfo.
      *
-     * @param userExtraInfoDTO the userExtraInfoDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated userExtraInfoDTO,
-     * or with status {@code 400 (Bad Request)} if the userExtraInfoDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the userExtraInfoDTO couldn't be updated.
+     * @param userExtraInfo the userExtraInfo to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated userExtraInfo,
+     * or with status {@code 400 (Bad Request)} if the userExtraInfo is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the userExtraInfo couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/user-extra-infos")
-    public ResponseEntity<UserExtraInfoDTO> updateUserExtraInfo(@Valid @RequestBody UserExtraInfoDTO userExtraInfoDTO) throws URISyntaxException {
-        log.debug("REST request to update UserExtraInfo : {}", userExtraInfoDTO);
-        if (userExtraInfoDTO.getId() == null) {
+    public ResponseEntity<UserExtraInfo> updateUserExtraInfo(@Valid @RequestBody UserExtraInfo userExtraInfo) throws URISyntaxException {
+        log.debug("REST request to update UserExtraInfo : {}", userExtraInfo);
+        if (userExtraInfo.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        UserExtraInfoDTO result = userExtraInfoService.save(userExtraInfoDTO);
+        UserExtraInfo result = userExtraInfoService.save(userExtraInfo);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userExtraInfoDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, userExtraInfo.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class UserExtraInfoResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of userExtraInfos in body.
      */
     @GetMapping("/user-extra-infos")
-    public List<UserExtraInfoDTO> getAllUserExtraInfos() {
+    public List<UserExtraInfo> getAllUserExtraInfos() {
         log.debug("REST request to get all UserExtraInfos");
         return userExtraInfoService.findAll();
     }
@@ -96,20 +96,20 @@ public class UserExtraInfoResource {
     /**
      * {@code GET  /user-extra-infos/:id} : get the "id" userExtraInfo.
      *
-     * @param id the id of the userExtraInfoDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userExtraInfoDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the userExtraInfo to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userExtraInfo, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/user-extra-infos/{id}")
-    public ResponseEntity<UserExtraInfoDTO> getUserExtraInfo(@PathVariable Long id) {
+    public ResponseEntity<UserExtraInfo> getUserExtraInfo(@PathVariable Long id) {
         log.debug("REST request to get UserExtraInfo : {}", id);
-        Optional<UserExtraInfoDTO> userExtraInfoDTO = userExtraInfoService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(userExtraInfoDTO);
+        Optional<UserExtraInfo> userExtraInfo = userExtraInfoService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(userExtraInfo);
     }
 
     /**
      * {@code DELETE  /user-extra-infos/:id} : delete the "id" userExtraInfo.
      *
-     * @param id the id of the userExtraInfoDTO to delete.
+     * @param id the id of the userExtraInfo to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/user-extra-infos/{id}")
@@ -127,7 +127,7 @@ public class UserExtraInfoResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/user-extra-infos")
-    public List<UserExtraInfoDTO> searchUserExtraInfos(@RequestParam String query) {
+    public List<UserExtraInfo> searchUserExtraInfos(@RequestParam String query) {
         log.debug("REST request to search UserExtraInfos for query {}", query);
         return userExtraInfoService.search(query);
     }

@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.service.RecipeService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.RecipeDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -52,17 +52,17 @@ public class RecipeResource {
     /**
      * {@code POST  /recipes} : Create a new recipe.
      *
-     * @param recipeDTO the recipeDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new recipeDTO, or with status {@code 400 (Bad Request)} if the recipe has already an ID.
+     * @param recipe the recipe to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new recipe, or with status {@code 400 (Bad Request)} if the recipe has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/recipes")
-    public ResponseEntity<RecipeDTO> createRecipe(@Valid @RequestBody RecipeDTO recipeDTO) throws URISyntaxException {
-        log.debug("REST request to save Recipe : {}", recipeDTO);
-        if (recipeDTO.getId() != null) {
+    public ResponseEntity<Recipe> createRecipe(@Valid @RequestBody Recipe recipe) throws URISyntaxException {
+        log.debug("REST request to save Recipe : {}", recipe);
+        if (recipe.getId() != null) {
             throw new BadRequestAlertException("A new recipe cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        RecipeDTO result = recipeService.save(recipeDTO);
+        Recipe result = recipeService.save(recipe);
         return ResponseEntity.created(new URI("/api/recipes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -71,21 +71,21 @@ public class RecipeResource {
     /**
      * {@code PUT  /recipes} : Updates an existing recipe.
      *
-     * @param recipeDTO the recipeDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated recipeDTO,
-     * or with status {@code 400 (Bad Request)} if the recipeDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the recipeDTO couldn't be updated.
+     * @param recipe the recipe to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated recipe,
+     * or with status {@code 400 (Bad Request)} if the recipe is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the recipe couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/recipes")
-    public ResponseEntity<RecipeDTO> updateRecipe(@Valid @RequestBody RecipeDTO recipeDTO) throws URISyntaxException {
-        log.debug("REST request to update Recipe : {}", recipeDTO);
-        if (recipeDTO.getId() == null) {
+    public ResponseEntity<Recipe> updateRecipe(@Valid @RequestBody Recipe recipe) throws URISyntaxException {
+        log.debug("REST request to update Recipe : {}", recipe);
+        if (recipe.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        RecipeDTO result = recipeService.save(recipeDTO);
+        Recipe result = recipeService.save(recipe);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, recipeDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, recipe.getId().toString()))
             .body(result);
     }
 
@@ -96,18 +96,12 @@ public class RecipeResource {
      * @param queryParams a {@link MultiValueMap} query parameters.
      * @param uriBuilder a {@link UriComponentsBuilder} URI builder.
      * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of recipes in body.
      */
     @GetMapping("/recipes")
-    public ResponseEntity<List<RecipeDTO>> getAllRecipes(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false) String filter, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
-        if ("basicnutritiondata-is-null".equals(filter)) {
-            log.debug("REST request to get all Recipes where basicNutritionData is null");
-            return new ResponseEntity<>(recipeService.findAllWhereBasicNutritionDataIsNull(),
-                    HttpStatus.OK);
-        }
+    public ResponseEntity<List<Recipe>> getAllRecipes(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get a page of Recipes");
-        Page<RecipeDTO> page;
+        Page<Recipe> page;
         if (eagerload) {
             page = recipeService.findAllWithEagerRelationships(pageable);
         } else {
@@ -120,20 +114,20 @@ public class RecipeResource {
     /**
      * {@code GET  /recipes/:id} : get the "id" recipe.
      *
-     * @param id the id of the recipeDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the recipeDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the recipe to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the recipe, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/recipes/{id}")
-    public ResponseEntity<RecipeDTO> getRecipe(@PathVariable Long id) {
+    public ResponseEntity<Recipe> getRecipe(@PathVariable Long id) {
         log.debug("REST request to get Recipe : {}", id);
-        Optional<RecipeDTO> recipeDTO = recipeService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(recipeDTO);
+        Optional<Recipe> recipe = recipeService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(recipe);
     }
 
     /**
      * {@code DELETE  /recipes/:id} : delete the "id" recipe.
      *
-     * @param id the id of the recipeDTO to delete.
+     * @param id the id of the recipe to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/recipes/{id}")
@@ -154,9 +148,9 @@ public class RecipeResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/recipes")
-    public ResponseEntity<List<RecipeDTO>> searchRecipes(@RequestParam String query, Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<List<Recipe>> searchRecipes(@RequestParam String query, Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to search for a page of Recipes for query {}", query);
-        Page<RecipeDTO> page = recipeService.search(query, pageable);
+        Page<Recipe> page = recipeService.search(query, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

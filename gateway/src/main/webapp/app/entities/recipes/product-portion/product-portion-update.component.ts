@@ -24,7 +24,7 @@ export class ProductPortionUpdateComponent implements OnInit {
     amount: [null, [Validators.required, Validators.min(0)]],
     productId: [null, [Validators.required]],
     householdMeasureId: [],
-    recipeSectionId: [null, Validators.required]
+    recipeSection: [null, Validators.required]
   });
 
   constructor(
@@ -55,7 +55,7 @@ export class ProductPortionUpdateComponent implements OnInit {
       amount: productPortion.amount,
       productId: productPortion.productId,
       householdMeasureId: productPortion.householdMeasureId,
-      recipeSectionId: productPortion.recipeSectionId
+      recipeSection: productPortion.recipeSection
     });
   }
 
@@ -80,7 +80,7 @@ export class ProductPortionUpdateComponent implements OnInit {
       amount: this.editForm.get(['amount']).value,
       productId: this.editForm.get(['productId']).value,
       householdMeasureId: this.editForm.get(['householdMeasureId']).value,
-      recipeSectionId: this.editForm.get(['recipeSectionId']).value
+      recipeSection: this.editForm.get(['recipeSection']).value
     };
   }
 

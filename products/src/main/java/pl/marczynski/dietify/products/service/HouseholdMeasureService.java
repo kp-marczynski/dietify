@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.products.service;
 
-import pl.marczynski.dietify.products.service.dto.HouseholdMeasureDTO;
+import pl.marczynski.dietify.products.domain.HouseholdMeasure;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.products.domain.HouseholdMeasure}.
+ * Service Interface for managing {@link HouseholdMeasure}.
  */
 public interface HouseholdMeasureService {
 
     /**
      * Save a householdMeasure.
      *
-     * @param householdMeasureDTO the entity to save.
+     * @param householdMeasure the entity to save.
      * @return the persisted entity.
      */
-    HouseholdMeasureDTO save(HouseholdMeasureDTO householdMeasureDTO);
+    HouseholdMeasure save(HouseholdMeasure householdMeasure);
 
     /**
      * Get all the householdMeasures.
      *
      * @return the list of entities.
      */
-    List<HouseholdMeasureDTO> findAll();
+    List<HouseholdMeasure> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface HouseholdMeasureService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<HouseholdMeasureDTO> findOne(Long id);
+    Optional<HouseholdMeasure> findOne(Long id);
 
     /**
      * Delete the "id" householdMeasure.
@@ -48,5 +48,5 @@ public interface HouseholdMeasureService {
      * 
      * @return the list of entities.
      */
-    List<HouseholdMeasureDTO> search(String query);
+    List<HouseholdMeasure> search(String query);
 }

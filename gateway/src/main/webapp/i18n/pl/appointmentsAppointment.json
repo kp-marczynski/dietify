@@ -18,10 +18,10 @@
       "appointmentState": "Appointment State",
       "mealPlanId": "Meal Plan Id",
       "generalAdvice": "General Advice",
-      "patientCard": "Patient Card",
       "bodyMeasurement": "Body Measurement",
       "nutritionalInterview": "Nutritional Interview",
       "mealPlans": "Meal Plans",
+      "patientCard": "Patient Card",
       "help": {
         "appointmentDate": "Date and time of the appointment",
         "appointmentState": "Current appointment state",

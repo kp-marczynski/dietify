@@ -36,9 +36,9 @@
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20190721154655",
+    "changelogDate": "20190722200925",
     "entityTableName": "kitch_appl_trns",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

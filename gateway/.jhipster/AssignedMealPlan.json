@@ -20,9 +20,9 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154716",
+    "changelogDate": "20190722200946",
     "entityTableName": "assigned_meal_plan",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

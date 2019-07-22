@@ -1,6 +1,6 @@
 package pl.marczynski.dietify.recipes.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -35,6 +35,7 @@ public class Recipe implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Name of recipe in language of recipe", required = true)
     @Column(name = "name", length = 255, nullable = false)
     private String name;
 
@@ -43,6 +44,7 @@ public class Recipe implements Serializable {
      */
     @NotNull
     @Min(value = 0)
+    @ApiModelProperty(value = "Average time needed for overall recipe preparation, defined in minutes", required = true)
     @Column(name = "preparation_time_minutes", nullable = false)
     private Integer preparationTimeMinutes;
 
@@ -51,6 +53,7 @@ public class Recipe implements Serializable {
      */
     @NotNull
     @DecimalMin(value = "0")
+    @ApiModelProperty(value = "Number of portions for which all quantities are specified", required = true)
     @Column(name = "number_of_portions", nullable = false)
     private Double numberOfPortions;
 
@@ -58,6 +61,7 @@ public class Recipe implements Serializable {
      * Optional image of recipe
      */
     
+    @ApiModelProperty(value = "Optional image of recipe")
     @Lob
     @Column(name = "image")
     private byte[] image;
@@ -69,6 +73,7 @@ public class Recipe implements Serializable {
      * Id of recipe's author. Id of User entity retrieved from gateway service
      */
     @NotNull
+    @ApiModelProperty(value = "Id of recipe's author. Id of User entity retrieved from gateway service", required = true)
     @Column(name = "author_id", nullable = false)
     private Long authorId;
 
@@ -76,6 +81,7 @@ public class Recipe implements Serializable {
      * Date of creation
      */
     @NotNull
+    @ApiModelProperty(value = "Date of creation", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
 
@@ -83,6 +89,7 @@ public class Recipe implements Serializable {
      * Date of last edit
      */
     @NotNull
+    @ApiModelProperty(value = "Date of last edit", required = true)
     @Column(name = "last_edit_date", nullable = false)
     private LocalDate lastEditDate;
 
@@ -90,6 +97,7 @@ public class Recipe implements Serializable {
      * Flag specifying if recipe should be visible in list of author's recipes
      */
     @NotNull
+    @ApiModelProperty(value = "Flag specifying if recipe should be visible in list of author's recipes", required = true)
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
 
@@ -98,6 +106,7 @@ public class Recipe implements Serializable {
      */
     @NotNull
     @Size(min = 2, max = 2)
+    @ApiModelProperty(value = "Language tag of a recipe as ISO_639-1 code", required = true)
     @Column(name = "language", length = 2, nullable = false)
     private String language;
 
@@ -106,8 +115,26 @@ public class Recipe implements Serializable {
      */
     @NotNull
     @DecimalMin(value = "0")
+    @ApiModelProperty(value = "Total weight in grams of meal prepared from recipe", required = true)
     @Column(name = "total_grams_weight", nullable = false)
     private Double totalGramsWeight;
+
+    @OneToOne(optional = false)    @NotNull
+
+    @JoinColumn(unique = true)
+    private RecipeBasicNutritionData basicNutritionData;
+
+    @OneToMany(mappedBy = "recipe")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<RecipeSection> recipeSections = new HashSet<>();
+
+    @OneToMany(mappedBy = "recipe")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<RecipeSuitableForDiet> suitableForDiets = new HashSet<>();
+
+    @OneToMany(mappedBy = "recipe")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<RecipeUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
 
     @ManyToOne
     @JsonIgnoreProperties("recipes")
@@ -133,22 +160,6 @@ public class Recipe implements Serializable {
                joinColumns = @JoinColumn(name = "recipe_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "meal_types_id", referencedColumnName = "id"))
     private Set<MealType> mealTypes = new HashSet<>();
-
-    @OneToOne(mappedBy = "recipe")
-    @JsonIgnore
-    private RecipeBasicNutritionData basicNutritionData;
-
-    @OneToMany(mappedBy = "recipe")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<RecipeSection> recipeSections = new HashSet<>();
-
-    @OneToMany(mappedBy = "recipe")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<RecipeSuitableForDiet> suitableForDiets = new HashSet<>();
-
-    @OneToMany(mappedBy = "recipe")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<RecipeUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -247,38 +258,6 @@ public class Recipe implements Serializable {
         this.totalGramsWeight = totalGramsWeight;
     }
 
-    public Recipe getSourceRecipe() {
-        return sourceRecipe;
-    }
-
-    public void setSourceRecipe(Recipe recipe) {
-        this.sourceRecipe = recipe;
-    }
-
-    public Set<KitchenAppliance> getKitchenAppliances() {
-        return kitchenAppliances;
-    }
-
-    public void setKitchenAppliances(Set<KitchenAppliance> kitchenAppliances) {
-        this.kitchenAppliances = kitchenAppliances;
-    }
-
-    public Set<DishType> getDishTypes() {
-        return dishTypes;
-    }
-
-    public void setDishTypes(Set<DishType> dishTypes) {
-        this.dishTypes = dishTypes;
-    }
-
-    public Set<MealType> getMealTypes() {
-        return mealTypes;
-    }
-
-    public void setMealTypes(Set<MealType> mealTypes) {
-        this.mealTypes = mealTypes;
-    }
-
     public RecipeBasicNutritionData getBasicNutritionData() {
         return basicNutritionData;
     }
@@ -309,6 +288,38 @@ public class Recipe implements Serializable {
 
     public void setUnsuitableForDiets(Set<RecipeUnsuitableForDiet> recipeUnsuitableForDiets) {
         this.unsuitableForDiets = recipeUnsuitableForDiets;
+    }
+
+    public Recipe getSourceRecipe() {
+        return sourceRecipe;
+    }
+
+    public void setSourceRecipe(Recipe recipe) {
+        this.sourceRecipe = recipe;
+    }
+
+    public Set<KitchenAppliance> getKitchenAppliances() {
+        return kitchenAppliances;
+    }
+
+    public void setKitchenAppliances(Set<KitchenAppliance> kitchenAppliances) {
+        this.kitchenAppliances = kitchenAppliances;
+    }
+
+    public Set<DishType> getDishTypes() {
+        return dishTypes;
+    }
+
+    public void setDishTypes(Set<DishType> dishTypes) {
+        this.dishTypes = dishTypes;
+    }
+
+    public Set<MealType> getMealTypes() {
+        return mealTypes;
+    }
+
+    public void setMealTypes(Set<MealType> mealTypes) {
+        this.mealTypes = mealTypes;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

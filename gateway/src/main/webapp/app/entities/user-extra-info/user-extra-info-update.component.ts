@@ -30,7 +30,7 @@ export class UserExtraInfoUpdateComponent implements OnInit {
     city: [null, [Validators.minLength(1), Validators.maxLength(50)]],
     country: [null, [Validators.minLength(1), Validators.maxLength(50)]],
     personalDescription: [],
-    userId: [null, Validators.required]
+    user: [null, Validators.required]
   });
 
   constructor(
@@ -67,7 +67,7 @@ export class UserExtraInfoUpdateComponent implements OnInit {
       city: userExtraInfo.city,
       country: userExtraInfo.country,
       personalDescription: userExtraInfo.personalDescription,
-      userId: userExtraInfo.userId
+      user: userExtraInfo.user
     });
   }
 
@@ -129,7 +129,7 @@ export class UserExtraInfoUpdateComponent implements OnInit {
       city: this.editForm.get(['city']).value,
       country: this.editForm.get(['country']).value,
       personalDescription: this.editForm.get(['personalDescription']).value,
-      userId: this.editForm.get(['userId']).value
+      user: this.editForm.get(['user']).value
     };
   }
 

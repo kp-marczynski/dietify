@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.ProductSubcategory;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.ProductSubcategoryDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class ProductSubcategoryResource {
     /**
      * {@code POST  /product-subcategories} : Create a new productSubcategory.
      *
-     * @param productSubcategoryDTO the productSubcategoryDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productSubcategoryDTO, or with status {@code 400 (Bad Request)} if the productSubcategory has already an ID.
+     * @param productSubcategory the productSubcategory to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productSubcategory, or with status {@code 400 (Bad Request)} if the productSubcategory has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/product-subcategories")
-    public ResponseEntity<ProductSubcategoryDTO> createProductSubcategory(@Valid @RequestBody ProductSubcategoryDTO productSubcategoryDTO) throws URISyntaxException {
-        log.debug("REST request to save ProductSubcategory : {}", productSubcategoryDTO);
-        if (productSubcategoryDTO.getId() != null) {
+    public ResponseEntity<ProductSubcategory> createProductSubcategory(@Valid @RequestBody ProductSubcategory productSubcategory) throws URISyntaxException {
+        log.debug("REST request to save ProductSubcategory : {}", productSubcategory);
+        if (productSubcategory.getId() != null) {
             throw new BadRequestAlertException("A new productSubcategory cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ProductSubcategoryDTO result = productSubcategoryService.save(productSubcategoryDTO);
+        ProductSubcategory result = productSubcategoryService.save(productSubcategory);
         return ResponseEntity.created(new URI("/api/product-subcategories/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class ProductSubcategoryResource {
     /**
      * {@code PUT  /product-subcategories} : Updates an existing productSubcategory.
      *
-     * @param productSubcategoryDTO the productSubcategoryDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productSubcategoryDTO,
-     * or with status {@code 400 (Bad Request)} if the productSubcategoryDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the productSubcategoryDTO couldn't be updated.
+     * @param productSubcategory the productSubcategory to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productSubcategory,
+     * or with status {@code 400 (Bad Request)} if the productSubcategory is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the productSubcategory couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/product-subcategories")
-    public ResponseEntity<ProductSubcategoryDTO> updateProductSubcategory(@Valid @RequestBody ProductSubcategoryDTO productSubcategoryDTO) throws URISyntaxException {
-        log.debug("REST request to update ProductSubcategory : {}", productSubcategoryDTO);
-        if (productSubcategoryDTO.getId() == null) {
+    public ResponseEntity<ProductSubcategory> updateProductSubcategory(@Valid @RequestBody ProductSubcategory productSubcategory) throws URISyntaxException {
+        log.debug("REST request to update ProductSubcategory : {}", productSubcategory);
+        if (productSubcategory.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ProductSubcategoryDTO result = productSubcategoryService.save(productSubcategoryDTO);
+        ProductSubcategory result = productSubcategoryService.save(productSubcategory);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productSubcategoryDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productSubcategory.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class ProductSubcategoryResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productSubcategories in body.
      */
     @GetMapping("/product-subcategories")
-    public List<ProductSubcategoryDTO> getAllProductSubcategories() {
+    public List<ProductSubcategory> getAllProductSubcategories() {
         log.debug("REST request to get all ProductSubcategories");
         return productSubcategoryService.findAll();
     }
@@ -96,20 +96,20 @@ public class ProductSubcategoryResource {
     /**
      * {@code GET  /product-subcategories/:id} : get the "id" productSubcategory.
      *
-     * @param id the id of the productSubcategoryDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productSubcategoryDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the productSubcategory to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productSubcategory, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/product-subcategories/{id}")
-    public ResponseEntity<ProductSubcategoryDTO> getProductSubcategory(@PathVariable Long id) {
+    public ResponseEntity<ProductSubcategory> getProductSubcategory(@PathVariable Long id) {
         log.debug("REST request to get ProductSubcategory : {}", id);
-        Optional<ProductSubcategoryDTO> productSubcategoryDTO = productSubcategoryService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(productSubcategoryDTO);
+        Optional<ProductSubcategory> productSubcategory = productSubcategoryService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(productSubcategory);
     }
 
     /**
      * {@code DELETE  /product-subcategories/:id} : delete the "id" productSubcategory.
      *
-     * @param id the id of the productSubcategoryDTO to delete.
+     * @param id the id of the productSubcategory to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/product-subcategories/{id}")
@@ -127,7 +127,7 @@ public class ProductSubcategoryResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/product-subcategories")
-    public List<ProductSubcategoryDTO> searchProductSubcategories(@RequestParam String query) {
+    public List<ProductSubcategory> searchProductSubcategories(@RequestParam String query) {
         log.debug("REST request to search ProductSubcategories for query {}", query);
         return productSubcategoryService.search(query);
     }

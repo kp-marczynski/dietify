@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.MealType;
 import pl.marczynski.dietify.recipes.repository.MealTypeTranslationRepository;
 import pl.marczynski.dietify.recipes.repository.search.MealTypeTranslationSearchRepository;
 import pl.marczynski.dietify.recipes.service.MealTypeTranslationService;
-import pl.marczynski.dietify.recipes.service.dto.MealTypeTranslationDTO;
-import pl.marczynski.dietify.recipes.service.mapper.MealTypeTranslationMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class MealTypeTranslationResourceIT {
 
     @Autowired
     private MealTypeTranslationRepository mealTypeTranslationRepository;
-
-    @Autowired
-    private MealTypeTranslationMapper mealTypeTranslationMapper;
 
     @Autowired
     private MealTypeTranslationService mealTypeTranslationService;
@@ -151,10 +146,9 @@ public class MealTypeTranslationResourceIT {
         int databaseSizeBeforeCreate = mealTypeTranslationRepository.findAll().size();
 
         // Create the MealTypeTranslation
-        MealTypeTranslationDTO mealTypeTranslationDTO = mealTypeTranslationMapper.toDto(mealTypeTranslation);
         restMealTypeTranslationMockMvc.perform(post("/api/meal-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslation)))
             .andExpect(status().isCreated());
 
         // Validate the MealTypeTranslation in the database
@@ -175,12 +169,11 @@ public class MealTypeTranslationResourceIT {
 
         // Create the MealTypeTranslation with an existing ID
         mealTypeTranslation.setId(1L);
-        MealTypeTranslationDTO mealTypeTranslationDTO = mealTypeTranslationMapper.toDto(mealTypeTranslation);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealTypeTranslationMockMvc.perform(post("/api/meal-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealTypeTranslation in the database
@@ -200,11 +193,10 @@ public class MealTypeTranslationResourceIT {
         mealTypeTranslation.setTranslation(null);
 
         // Create the MealTypeTranslation, which fails.
-        MealTypeTranslationDTO mealTypeTranslationDTO = mealTypeTranslationMapper.toDto(mealTypeTranslation);
 
         restMealTypeTranslationMockMvc.perform(post("/api/meal-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         List<MealTypeTranslation> mealTypeTranslationList = mealTypeTranslationRepository.findAll();
@@ -219,11 +211,10 @@ public class MealTypeTranslationResourceIT {
         mealTypeTranslation.setLanguage(null);
 
         // Create the MealTypeTranslation, which fails.
-        MealTypeTranslationDTO mealTypeTranslationDTO = mealTypeTranslationMapper.toDto(mealTypeTranslation);
 
         restMealTypeTranslationMockMvc.perform(post("/api/meal-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         List<MealTypeTranslation> mealTypeTranslationList = mealTypeTranslationRepository.findAll();
@@ -272,7 +263,9 @@ public class MealTypeTranslationResourceIT {
     @Transactional
     public void updateMealTypeTranslation() throws Exception {
         // Initialize the database
-        mealTypeTranslationRepository.saveAndFlush(mealTypeTranslation);
+        mealTypeTranslationService.save(mealTypeTranslation);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealTypeTranslationSearchRepository);
 
         int databaseSizeBeforeUpdate = mealTypeTranslationRepository.findAll().size();
 
@@ -282,11 +275,10 @@ public class MealTypeTranslationResourceIT {
         em.detach(updatedMealTypeTranslation);
         updatedMealTypeTranslation.setTranslation(UPDATED_TRANSLATION);
         updatedMealTypeTranslation.setLanguage(UPDATED_LANGUAGE);
-        MealTypeTranslationDTO mealTypeTranslationDTO = mealTypeTranslationMapper.toDto(updatedMealTypeTranslation);
 
         restMealTypeTranslationMockMvc.perform(put("/api/meal-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealTypeTranslation)))
             .andExpect(status().isOk());
 
         // Validate the MealTypeTranslation in the database
@@ -306,12 +298,11 @@ public class MealTypeTranslationResourceIT {
         int databaseSizeBeforeUpdate = mealTypeTranslationRepository.findAll().size();
 
         // Create the MealTypeTranslation
-        MealTypeTranslationDTO mealTypeTranslationDTO = mealTypeTranslationMapper.toDto(mealTypeTranslation);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealTypeTranslationMockMvc.perform(put("/api/meal-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealTypeTranslation in the database
@@ -326,7 +317,7 @@ public class MealTypeTranslationResourceIT {
     @Transactional
     public void deleteMealTypeTranslation() throws Exception {
         // Initialize the database
-        mealTypeTranslationRepository.saveAndFlush(mealTypeTranslation);
+        mealTypeTranslationService.save(mealTypeTranslation);
 
         int databaseSizeBeforeDelete = mealTypeTranslationRepository.findAll().size();
 
@@ -347,7 +338,7 @@ public class MealTypeTranslationResourceIT {
     @Transactional
     public void searchMealTypeTranslation() throws Exception {
         // Initialize the database
-        mealTypeTranslationRepository.saveAndFlush(mealTypeTranslation);
+        mealTypeTranslationService.save(mealTypeTranslation);
         when(mockMealTypeTranslationSearchRepository.search(queryStringQuery("id:" + mealTypeTranslation.getId())))
             .thenReturn(Collections.singletonList(mealTypeTranslation));
         // Search the mealTypeTranslation
@@ -372,28 +363,5 @@ public class MealTypeTranslationResourceIT {
         assertThat(mealTypeTranslation1).isNotEqualTo(mealTypeTranslation2);
         mealTypeTranslation1.setId(null);
         assertThat(mealTypeTranslation1).isNotEqualTo(mealTypeTranslation2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealTypeTranslationDTO.class);
-        MealTypeTranslationDTO mealTypeTranslationDTO1 = new MealTypeTranslationDTO();
-        mealTypeTranslationDTO1.setId(1L);
-        MealTypeTranslationDTO mealTypeTranslationDTO2 = new MealTypeTranslationDTO();
-        assertThat(mealTypeTranslationDTO1).isNotEqualTo(mealTypeTranslationDTO2);
-        mealTypeTranslationDTO2.setId(mealTypeTranslationDTO1.getId());
-        assertThat(mealTypeTranslationDTO1).isEqualTo(mealTypeTranslationDTO2);
-        mealTypeTranslationDTO2.setId(2L);
-        assertThat(mealTypeTranslationDTO1).isNotEqualTo(mealTypeTranslationDTO2);
-        mealTypeTranslationDTO1.setId(null);
-        assertThat(mealTypeTranslationDTO1).isNotEqualTo(mealTypeTranslationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealTypeTranslationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealTypeTranslationMapper.fromId(null)).isNull();
     }
 }

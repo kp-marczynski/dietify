@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.gateway.service;
 
-import pl.marczynski.dietify.gateway.service.dto.LandingPageCardDTO;
+import pl.marczynski.dietify.gateway.domain.LandingPageCard;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.gateway.domain.LandingPageCard}.
+ * Service Interface for managing {@link LandingPageCard}.
  */
 public interface LandingPageCardService {
 
     /**
      * Save a landingPageCard.
      *
-     * @param landingPageCardDTO the entity to save.
+     * @param landingPageCard the entity to save.
      * @return the persisted entity.
      */
-    LandingPageCardDTO save(LandingPageCardDTO landingPageCardDTO);
+    LandingPageCard save(LandingPageCard landingPageCard);
 
     /**
      * Get all the landingPageCards.
      *
      * @return the list of entities.
      */
-    List<LandingPageCardDTO> findAll();
+    List<LandingPageCard> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface LandingPageCardService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<LandingPageCardDTO> findOne(Long id);
+    Optional<LandingPageCard> findOne(Long id);
 
     /**
      * Delete the "id" landingPageCard.
@@ -48,5 +48,5 @@ public interface LandingPageCardService {
      * 
      * @return the list of entities.
      */
-    List<LandingPageCardDTO> search(String query);
+    List<LandingPageCard> search(String query);
 }

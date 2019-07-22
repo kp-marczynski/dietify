@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.ProductBasicNutritionDataService;
 import pl.marczynski.dietify.products.domain.ProductBasicNutritionData;
 import pl.marczynski.dietify.products.repository.ProductBasicNutritionDataRepository;
 import pl.marczynski.dietify.products.repository.search.ProductBasicNutritionDataSearchRepository;
-import pl.marczynski.dietify.products.service.dto.ProductBasicNutritionDataDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductBasicNutritionDataMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class ProductBasicNutritionDataServiceImpl implements ProductBasicNutriti
 
     private final ProductBasicNutritionDataRepository productBasicNutritionDataRepository;
 
-    private final ProductBasicNutritionDataMapper productBasicNutritionDataMapper;
-
     private final ProductBasicNutritionDataSearchRepository productBasicNutritionDataSearchRepository;
 
-    public ProductBasicNutritionDataServiceImpl(ProductBasicNutritionDataRepository productBasicNutritionDataRepository, ProductBasicNutritionDataMapper productBasicNutritionDataMapper, ProductBasicNutritionDataSearchRepository productBasicNutritionDataSearchRepository) {
+    public ProductBasicNutritionDataServiceImpl(ProductBasicNutritionDataRepository productBasicNutritionDataRepository, ProductBasicNutritionDataSearchRepository productBasicNutritionDataSearchRepository) {
         this.productBasicNutritionDataRepository = productBasicNutritionDataRepository;
-        this.productBasicNutritionDataMapper = productBasicNutritionDataMapper;
         this.productBasicNutritionDataSearchRepository = productBasicNutritionDataSearchRepository;
     }
 
     /**
      * Save a productBasicNutritionData.
      *
-     * @param productBasicNutritionDataDTO the entity to save.
+     * @param productBasicNutritionData the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public ProductBasicNutritionDataDTO save(ProductBasicNutritionDataDTO productBasicNutritionDataDTO) {
-        log.debug("Request to save ProductBasicNutritionData : {}", productBasicNutritionDataDTO);
-        ProductBasicNutritionData productBasicNutritionData = productBasicNutritionDataMapper.toEntity(productBasicNutritionDataDTO);
-        productBasicNutritionData = productBasicNutritionDataRepository.save(productBasicNutritionData);
-        ProductBasicNutritionDataDTO result = productBasicNutritionDataMapper.toDto(productBasicNutritionData);
-        productBasicNutritionDataSearchRepository.save(productBasicNutritionData);
+    public ProductBasicNutritionData save(ProductBasicNutritionData productBasicNutritionData) {
+        log.debug("Request to save ProductBasicNutritionData : {}", productBasicNutritionData);
+        ProductBasicNutritionData result = productBasicNutritionDataRepository.save(productBasicNutritionData);
+        productBasicNutritionDataSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class ProductBasicNutritionDataServiceImpl implements ProductBasicNutriti
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductBasicNutritionDataDTO> findAll() {
+    public List<ProductBasicNutritionData> findAll() {
         log.debug("Request to get all ProductBasicNutritionData");
-        return productBasicNutritionDataRepository.findAll().stream()
-            .map(productBasicNutritionDataMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return productBasicNutritionDataRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class ProductBasicNutritionDataServiceImpl implements ProductBasicNutriti
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProductBasicNutritionDataDTO> findOne(Long id) {
+    public Optional<ProductBasicNutritionData> findOne(Long id) {
         log.debug("Request to get ProductBasicNutritionData : {}", id);
-        return productBasicNutritionDataRepository.findById(id)
-            .map(productBasicNutritionDataMapper::toDto);
+        return productBasicNutritionDataRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class ProductBasicNutritionDataServiceImpl implements ProductBasicNutriti
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductBasicNutritionDataDTO> search(String query) {
+    public List<ProductBasicNutritionData> search(String query) {
         log.debug("Request to search ProductBasicNutritionData for query {}", query);
         return StreamSupport
             .stream(productBasicNutritionDataSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(productBasicNutritionDataMapper::toDto)
             .collect(Collectors.toList());
     }
 }

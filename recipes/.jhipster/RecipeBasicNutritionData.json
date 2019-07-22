@@ -42,20 +42,10 @@
             "fieldValidateRulesMin": 0
         }
     ],
-    "relationships": [
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "recipe",
-            "otherEntityRelationshipName": "basicNutritionData",
-            "relationshipValidateRules": "required",
-            "relationshipName": "recipe",
-            "otherEntityField": "name",
-            "ownerSide": true
-        }
-    ],
-    "changelogDate": "20190721154649",
+    "relationships": [],
+    "changelogDate": "20190722200919",
     "entityTableName": "recipe_basic_nutrition_data",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

@@ -11,8 +11,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsOwnedKitchenAppliance.nutritionalInterview">Nutritional Interview</span></dt>
                 <dd>
-                    <div *ngIf="ownedKitchenAppliance.nutritionalInterviewId">
-                        <a [routerLink]="['/nutritional-interview', ownedKitchenAppliance.nutritionalInterviewId, 'view']">{{ownedKitchenAppliance.nutritionalInterviewId}}</a>
+                    <div *ngIf="ownedKitchenAppliance.nutritionalInterview">
+                        <a [routerLink]="['/nutritional-interview', ownedKitchenAppliance.nutritionalInterview?.id, 'view']">{{ownedKitchenAppliance.nutritionalInterview?.id}}</a>
                     </div>
                 </dd>
             </dl>

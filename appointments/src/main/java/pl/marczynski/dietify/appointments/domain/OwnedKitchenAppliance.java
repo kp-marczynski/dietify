@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,6 +28,7 @@ public class OwnedKitchenAppliance implements Serializable {
      * Id of KitchenAppliance entity retrieved from recipes service
      */
     @NotNull
+    @ApiModelProperty(value = "Id of KitchenAppliance entity retrieved from recipes service", required = true)
     @Column(name = "kitchen_appliance_id", nullable = false)
     private Long kitchenApplianceId;
 

@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.mealplans.service;
 
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanSuitableForDietDTO;
+import pl.marczynski.dietify.mealplans.domain.MealPlanSuitableForDiet;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.mealplans.domain.MealPlanSuitableForDiet}.
+ * Service Interface for managing {@link MealPlanSuitableForDiet}.
  */
 public interface MealPlanSuitableForDietService {
 
     /**
      * Save a mealPlanSuitableForDiet.
      *
-     * @param mealPlanSuitableForDietDTO the entity to save.
+     * @param mealPlanSuitableForDiet the entity to save.
      * @return the persisted entity.
      */
-    MealPlanSuitableForDietDTO save(MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO);
+    MealPlanSuitableForDiet save(MealPlanSuitableForDiet mealPlanSuitableForDiet);
 
     /**
      * Get all the mealPlanSuitableForDiets.
      *
      * @return the list of entities.
      */
-    List<MealPlanSuitableForDietDTO> findAll();
+    List<MealPlanSuitableForDiet> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface MealPlanSuitableForDietService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<MealPlanSuitableForDietDTO> findOne(Long id);
+    Optional<MealPlanSuitableForDiet> findOne(Long id);
 
     /**
      * Delete the "id" mealPlanSuitableForDiet.
@@ -48,5 +48,5 @@ public interface MealPlanSuitableForDietService {
      * 
      * @return the list of entities.
      */
-    List<MealPlanSuitableForDietDTO> search(String query);
+    List<MealPlanSuitableForDiet> search(String query);
 }

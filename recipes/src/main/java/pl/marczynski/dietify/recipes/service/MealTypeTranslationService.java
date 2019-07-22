@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.MealTypeTranslationDTO;
+import pl.marczynski.dietify.recipes.domain.MealTypeTranslation;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.MealTypeTranslation}.
+ * Service Interface for managing {@link MealTypeTranslation}.
  */
 public interface MealTypeTranslationService {
 
     /**
      * Save a mealTypeTranslation.
      *
-     * @param mealTypeTranslationDTO the entity to save.
+     * @param mealTypeTranslation the entity to save.
      * @return the persisted entity.
      */
-    MealTypeTranslationDTO save(MealTypeTranslationDTO mealTypeTranslationDTO);
+    MealTypeTranslation save(MealTypeTranslation mealTypeTranslation);
 
     /**
      * Get all the mealTypeTranslations.
      *
      * @return the list of entities.
      */
-    List<MealTypeTranslationDTO> findAll();
+    List<MealTypeTranslation> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface MealTypeTranslationService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<MealTypeTranslationDTO> findOne(Long id);
+    Optional<MealTypeTranslation> findOne(Long id);
 
     /**
      * Delete the "id" mealTypeTranslation.
@@ -48,5 +48,5 @@ public interface MealTypeTranslationService {
      * 
      * @return the list of entities.
      */
-    List<MealTypeTranslationDTO> search(String query);
+    List<MealTypeTranslation> search(String query);
 }

@@ -146,27 +146,27 @@ entity MealPlanUnsuitableForDiet {
 	dietTypeId Long required
 }
 
-relationship ManyToOne {
-	Meal{mealPlanDay required} 
-    	to MealPlanDay{meals}
+relationship OneToMany {
+	MealPlan{days}
+    	to MealPlanDay{mealPlan required} 
+	
+    MealPlan{mealDefinitions}
+    	to MealDefinition{mealPlan required} 
+    
+    MealPlanDay{meals}
+    	to Meal{mealPlanDay required}   
         
-	MealPlanDay{mealPlan required} 
-    	to MealPlan{days}
-        
-    MealDefinition{mealPlan required} 
-    	to MealPlan{mealDefinitions}
-        
-    MealRecipe{meal required} 
-    	to Meal{mealRecipes}
-        
-    MealProduct{meal required} 
-    	to Meal{mealProducts}
-        
-    MealPlanSuitableForDiet{mealPlan required} 
-    	to MealPlan{tagsGoodFor}
-        
-    MealPlanUnsuitableForDiet{mealPlan required} 
-    	to MealPlan{tagsBadFor}
+    Meal{mealRecipes}   
+    	to MealRecipe{meal required} 
+    	
+    Meal{mealProducts}
+    	to MealProduct{meal required} 
+    	 
+    MealPlan{tagsGoodFor}
+    	to MealPlanSuitableForDiet{mealPlan required} 
+    	 
+    MealPlan{tagsBadFor}
+    	to MealPlanUnsuitableForDiet{mealPlan required}  
 }
 
 search MealPlan with elasticsearch

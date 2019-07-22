@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,6 +32,7 @@ public class HouseholdMeasure implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Short description of measure in language of a product, e.g. \"cup\" or \"tea spoon\"", required = true)
     @Column(name = "description", length = 255, nullable = false)
     private String description;
 
@@ -39,6 +41,7 @@ public class HouseholdMeasure implements Serializable {
      */
     @NotNull
     @DecimalMin(value = "0")
+    @ApiModelProperty(value = "Grams weight of 1 unit of specified measure", required = true)
     @Column(name = "grams_weight", nullable = false)
     private Double gramsWeight;
 
@@ -46,6 +49,7 @@ public class HouseholdMeasure implements Serializable {
      * Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources
      */
     @NotNull
+    @ApiModelProperty(value = "Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources", required = true)
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
 

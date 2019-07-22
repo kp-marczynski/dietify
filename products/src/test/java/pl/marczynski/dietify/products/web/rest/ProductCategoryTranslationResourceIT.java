@@ -6,8 +6,6 @@ import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.repository.ProductCategoryTranslationRepository;
 import pl.marczynski.dietify.products.repository.search.ProductCategoryTranslationSearchRepository;
 import pl.marczynski.dietify.products.service.ProductCategoryTranslationService;
-import pl.marczynski.dietify.products.service.dto.ProductCategoryTranslationDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductCategoryTranslationMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class ProductCategoryTranslationResourceIT {
 
     @Autowired
     private ProductCategoryTranslationRepository productCategoryTranslationRepository;
-
-    @Autowired
-    private ProductCategoryTranslationMapper productCategoryTranslationMapper;
 
     @Autowired
     private ProductCategoryTranslationService productCategoryTranslationService;
@@ -151,10 +146,9 @@ public class ProductCategoryTranslationResourceIT {
         int databaseSizeBeforeCreate = productCategoryTranslationRepository.findAll().size();
 
         // Create the ProductCategoryTranslation
-        ProductCategoryTranslationDTO productCategoryTranslationDTO = productCategoryTranslationMapper.toDto(productCategoryTranslation);
         restProductCategoryTranslationMockMvc.perform(post("/api/product-category-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslation)))
             .andExpect(status().isCreated());
 
         // Validate the ProductCategoryTranslation in the database
@@ -175,12 +169,11 @@ public class ProductCategoryTranslationResourceIT {
 
         // Create the ProductCategoryTranslation with an existing ID
         productCategoryTranslation.setId(1L);
-        ProductCategoryTranslationDTO productCategoryTranslationDTO = productCategoryTranslationMapper.toDto(productCategoryTranslation);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductCategoryTranslationMockMvc.perform(post("/api/product-category-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductCategoryTranslation in the database
@@ -200,11 +193,10 @@ public class ProductCategoryTranslationResourceIT {
         productCategoryTranslation.setTranslation(null);
 
         // Create the ProductCategoryTranslation, which fails.
-        ProductCategoryTranslationDTO productCategoryTranslationDTO = productCategoryTranslationMapper.toDto(productCategoryTranslation);
 
         restProductCategoryTranslationMockMvc.perform(post("/api/product-category-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslation)))
             .andExpect(status().isBadRequest());
 
         List<ProductCategoryTranslation> productCategoryTranslationList = productCategoryTranslationRepository.findAll();
@@ -219,11 +211,10 @@ public class ProductCategoryTranslationResourceIT {
         productCategoryTranslation.setLanguage(null);
 
         // Create the ProductCategoryTranslation, which fails.
-        ProductCategoryTranslationDTO productCategoryTranslationDTO = productCategoryTranslationMapper.toDto(productCategoryTranslation);
 
         restProductCategoryTranslationMockMvc.perform(post("/api/product-category-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslation)))
             .andExpect(status().isBadRequest());
 
         List<ProductCategoryTranslation> productCategoryTranslationList = productCategoryTranslationRepository.findAll();
@@ -272,7 +263,9 @@ public class ProductCategoryTranslationResourceIT {
     @Transactional
     public void updateProductCategoryTranslation() throws Exception {
         // Initialize the database
-        productCategoryTranslationRepository.saveAndFlush(productCategoryTranslation);
+        productCategoryTranslationService.save(productCategoryTranslation);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockProductCategoryTranslationSearchRepository);
 
         int databaseSizeBeforeUpdate = productCategoryTranslationRepository.findAll().size();
 
@@ -282,11 +275,10 @@ public class ProductCategoryTranslationResourceIT {
         em.detach(updatedProductCategoryTranslation);
         updatedProductCategoryTranslation.setTranslation(UPDATED_TRANSLATION);
         updatedProductCategoryTranslation.setLanguage(UPDATED_LANGUAGE);
-        ProductCategoryTranslationDTO productCategoryTranslationDTO = productCategoryTranslationMapper.toDto(updatedProductCategoryTranslation);
 
         restProductCategoryTranslationMockMvc.perform(put("/api/product-category-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedProductCategoryTranslation)))
             .andExpect(status().isOk());
 
         // Validate the ProductCategoryTranslation in the database
@@ -306,12 +298,11 @@ public class ProductCategoryTranslationResourceIT {
         int databaseSizeBeforeUpdate = productCategoryTranslationRepository.findAll().size();
 
         // Create the ProductCategoryTranslation
-        ProductCategoryTranslationDTO productCategoryTranslationDTO = productCategoryTranslationMapper.toDto(productCategoryTranslation);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductCategoryTranslationMockMvc.perform(put("/api/product-category-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategoryTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductCategoryTranslation in the database
@@ -326,7 +317,7 @@ public class ProductCategoryTranslationResourceIT {
     @Transactional
     public void deleteProductCategoryTranslation() throws Exception {
         // Initialize the database
-        productCategoryTranslationRepository.saveAndFlush(productCategoryTranslation);
+        productCategoryTranslationService.save(productCategoryTranslation);
 
         int databaseSizeBeforeDelete = productCategoryTranslationRepository.findAll().size();
 
@@ -347,7 +338,7 @@ public class ProductCategoryTranslationResourceIT {
     @Transactional
     public void searchProductCategoryTranslation() throws Exception {
         // Initialize the database
-        productCategoryTranslationRepository.saveAndFlush(productCategoryTranslation);
+        productCategoryTranslationService.save(productCategoryTranslation);
         when(mockProductCategoryTranslationSearchRepository.search(queryStringQuery("id:" + productCategoryTranslation.getId())))
             .thenReturn(Collections.singletonList(productCategoryTranslation));
         // Search the productCategoryTranslation
@@ -372,28 +363,5 @@ public class ProductCategoryTranslationResourceIT {
         assertThat(productCategoryTranslation1).isNotEqualTo(productCategoryTranslation2);
         productCategoryTranslation1.setId(null);
         assertThat(productCategoryTranslation1).isNotEqualTo(productCategoryTranslation2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductCategoryTranslationDTO.class);
-        ProductCategoryTranslationDTO productCategoryTranslationDTO1 = new ProductCategoryTranslationDTO();
-        productCategoryTranslationDTO1.setId(1L);
-        ProductCategoryTranslationDTO productCategoryTranslationDTO2 = new ProductCategoryTranslationDTO();
-        assertThat(productCategoryTranslationDTO1).isNotEqualTo(productCategoryTranslationDTO2);
-        productCategoryTranslationDTO2.setId(productCategoryTranslationDTO1.getId());
-        assertThat(productCategoryTranslationDTO1).isEqualTo(productCategoryTranslationDTO2);
-        productCategoryTranslationDTO2.setId(2L);
-        assertThat(productCategoryTranslationDTO1).isNotEqualTo(productCategoryTranslationDTO2);
-        productCategoryTranslationDTO1.setId(null);
-        assertThat(productCategoryTranslationDTO1).isNotEqualTo(productCategoryTranslationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(productCategoryTranslationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(productCategoryTranslationMapper.fromId(null)).isNull();
     }
 }

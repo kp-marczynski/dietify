@@ -18,15 +18,15 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "productCategory",
-            "otherEntityRelationshipName": "subcategories",
+            "otherEntityRelationshipName": "productSubcategory",
             "relationshipValidateRules": "required",
             "relationshipName": "category",
             "otherEntityField": "description"
         }
     ],
-    "changelogDate": "20190721154639",
+    "changelogDate": "20190722200909",
     "entityTableName": "product_subcategory",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

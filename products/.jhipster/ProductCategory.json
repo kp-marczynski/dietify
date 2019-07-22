@@ -7,6 +7,7 @@
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
+                "unique",
                 "minlength",
                 "maxlength"
             ],
@@ -17,20 +18,14 @@
     "relationships": [
         {
             "relationshipType": "one-to-many",
-            "otherEntityName": "productSubcategory",
-            "otherEntityRelationshipName": "category",
-            "relationshipName": "subcategories"
-        },
-        {
-            "relationshipType": "one-to-many",
             "otherEntityName": "productCategoryTranslation",
             "otherEntityRelationshipName": "productCategory",
             "relationshipName": "translations"
         }
     ],
-    "changelogDate": "20190721154640",
+    "changelogDate": "20190722200910",
     "entityTableName": "product_category",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

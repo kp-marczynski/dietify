@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.RecipeSection;
 import pl.marczynski.dietify.recipes.repository.PreparationStepRepository;
 import pl.marczynski.dietify.recipes.repository.search.PreparationStepSearchRepository;
 import pl.marczynski.dietify.recipes.service.PreparationStepService;
-import pl.marczynski.dietify.recipes.service.dto.PreparationStepDTO;
-import pl.marczynski.dietify.recipes.service.mapper.PreparationStepMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -50,9 +48,6 @@ public class PreparationStepResourceIT {
 
     @Autowired
     private PreparationStepRepository preparationStepRepository;
-
-    @Autowired
-    private PreparationStepMapper preparationStepMapper;
 
     @Autowired
     private PreparationStepService preparationStepService;
@@ -152,10 +147,9 @@ public class PreparationStepResourceIT {
         int databaseSizeBeforeCreate = preparationStepRepository.findAll().size();
 
         // Create the PreparationStep
-        PreparationStepDTO preparationStepDTO = preparationStepMapper.toDto(preparationStep);
         restPreparationStepMockMvc.perform(post("/api/preparation-steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(preparationStepDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(preparationStep)))
             .andExpect(status().isCreated());
 
         // Validate the PreparationStep in the database
@@ -176,12 +170,11 @@ public class PreparationStepResourceIT {
 
         // Create the PreparationStep with an existing ID
         preparationStep.setId(1L);
-        PreparationStepDTO preparationStepDTO = preparationStepMapper.toDto(preparationStep);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPreparationStepMockMvc.perform(post("/api/preparation-steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(preparationStepDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(preparationStep)))
             .andExpect(status().isBadRequest());
 
         // Validate the PreparationStep in the database
@@ -201,11 +194,10 @@ public class PreparationStepResourceIT {
         preparationStep.setOrdinalNumber(null);
 
         // Create the PreparationStep, which fails.
-        PreparationStepDTO preparationStepDTO = preparationStepMapper.toDto(preparationStep);
 
         restPreparationStepMockMvc.perform(post("/api/preparation-steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(preparationStepDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(preparationStep)))
             .andExpect(status().isBadRequest());
 
         List<PreparationStep> preparationStepList = preparationStepRepository.findAll();
@@ -254,7 +246,9 @@ public class PreparationStepResourceIT {
     @Transactional
     public void updatePreparationStep() throws Exception {
         // Initialize the database
-        preparationStepRepository.saveAndFlush(preparationStep);
+        preparationStepService.save(preparationStep);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockPreparationStepSearchRepository);
 
         int databaseSizeBeforeUpdate = preparationStepRepository.findAll().size();
 
@@ -264,11 +258,10 @@ public class PreparationStepResourceIT {
         em.detach(updatedPreparationStep);
         updatedPreparationStep.setOrdinalNumber(UPDATED_ORDINAL_NUMBER);
         updatedPreparationStep.setStepDescription(UPDATED_STEP_DESCRIPTION);
-        PreparationStepDTO preparationStepDTO = preparationStepMapper.toDto(updatedPreparationStep);
 
         restPreparationStepMockMvc.perform(put("/api/preparation-steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(preparationStepDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedPreparationStep)))
             .andExpect(status().isOk());
 
         // Validate the PreparationStep in the database
@@ -288,12 +281,11 @@ public class PreparationStepResourceIT {
         int databaseSizeBeforeUpdate = preparationStepRepository.findAll().size();
 
         // Create the PreparationStep
-        PreparationStepDTO preparationStepDTO = preparationStepMapper.toDto(preparationStep);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPreparationStepMockMvc.perform(put("/api/preparation-steps")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(preparationStepDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(preparationStep)))
             .andExpect(status().isBadRequest());
 
         // Validate the PreparationStep in the database
@@ -308,7 +300,7 @@ public class PreparationStepResourceIT {
     @Transactional
     public void deletePreparationStep() throws Exception {
         // Initialize the database
-        preparationStepRepository.saveAndFlush(preparationStep);
+        preparationStepService.save(preparationStep);
 
         int databaseSizeBeforeDelete = preparationStepRepository.findAll().size();
 
@@ -329,7 +321,7 @@ public class PreparationStepResourceIT {
     @Transactional
     public void searchPreparationStep() throws Exception {
         // Initialize the database
-        preparationStepRepository.saveAndFlush(preparationStep);
+        preparationStepService.save(preparationStep);
         when(mockPreparationStepSearchRepository.search(queryStringQuery("id:" + preparationStep.getId())))
             .thenReturn(Collections.singletonList(preparationStep));
         // Search the preparationStep
@@ -354,28 +346,5 @@ public class PreparationStepResourceIT {
         assertThat(preparationStep1).isNotEqualTo(preparationStep2);
         preparationStep1.setId(null);
         assertThat(preparationStep1).isNotEqualTo(preparationStep2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(PreparationStepDTO.class);
-        PreparationStepDTO preparationStepDTO1 = new PreparationStepDTO();
-        preparationStepDTO1.setId(1L);
-        PreparationStepDTO preparationStepDTO2 = new PreparationStepDTO();
-        assertThat(preparationStepDTO1).isNotEqualTo(preparationStepDTO2);
-        preparationStepDTO2.setId(preparationStepDTO1.getId());
-        assertThat(preparationStepDTO1).isEqualTo(preparationStepDTO2);
-        preparationStepDTO2.setId(2L);
-        assertThat(preparationStepDTO1).isNotEqualTo(preparationStepDTO2);
-        preparationStepDTO1.setId(null);
-        assertThat(preparationStepDTO1).isNotEqualTo(preparationStepDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(preparationStepMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(preparationStepMapper.fromId(null)).isNull();
     }
 }

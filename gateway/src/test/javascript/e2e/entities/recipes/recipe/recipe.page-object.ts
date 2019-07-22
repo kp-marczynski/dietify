@@ -36,6 +36,7 @@ export class RecipeUpdatePage {
   isVisibleInput = element(by.id('field_isVisible'));
   languageInput = element(by.id('field_language'));
   totalGramsWeightInput = element(by.id('field_totalGramsWeight'));
+  basicNutritionDataSelect = element(by.id('field_basicNutritionData'));
   sourceRecipeSelect = element(by.id('field_sourceRecipe'));
   kitchenAppliancesSelect = element(by.id('field_kitchenAppliances'));
   dishTypesSelect = element(by.id('field_dishTypes'));
@@ -118,6 +119,25 @@ export class RecipeUpdatePage {
 
   async getTotalGramsWeightInput() {
     return await this.totalGramsWeightInput.getAttribute('value');
+  }
+
+  async basicNutritionDataSelectLastOption(timeout?: number) {
+    await this.basicNutritionDataSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async basicNutritionDataSelectOption(option) {
+    await this.basicNutritionDataSelect.sendKeys(option);
+  }
+
+  getBasicNutritionDataSelect(): ElementFinder {
+    return this.basicNutritionDataSelect;
+  }
+
+  async getBasicNutritionDataSelectedOption() {
+    return await this.basicNutritionDataSelect.element(by.css('option:checked')).getText();
   }
 
   async sourceRecipeSelectLastOption(timeout?: number) {

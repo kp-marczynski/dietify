@@ -3,8 +3,6 @@ package pl.marczynski.dietify.appointments.service.impl;
 import pl.marczynski.dietify.appointments.service.PatientCardService;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.repository.PatientCardRepository;
-import pl.marczynski.dietify.appointments.service.dto.PatientCardDTO;
-import pl.marczynski.dietify.appointments.service.mapper.PatientCardMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,25 +24,20 @@ public class PatientCardServiceImpl implements PatientCardService {
 
     private final PatientCardRepository patientCardRepository;
 
-    private final PatientCardMapper patientCardMapper;
-
-    public PatientCardServiceImpl(PatientCardRepository patientCardRepository, PatientCardMapper patientCardMapper) {
+    public PatientCardServiceImpl(PatientCardRepository patientCardRepository) {
         this.patientCardRepository = patientCardRepository;
-        this.patientCardMapper = patientCardMapper;
     }
 
     /**
      * Save a patientCard.
      *
-     * @param patientCardDTO the entity to save.
+     * @param patientCard the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public PatientCardDTO save(PatientCardDTO patientCardDTO) {
-        log.debug("Request to save PatientCard : {}", patientCardDTO);
-        PatientCard patientCard = patientCardMapper.toEntity(patientCardDTO);
-        patientCard = patientCardRepository.save(patientCard);
-        return patientCardMapper.toDto(patientCard);
+    public PatientCard save(PatientCard patientCard) {
+        log.debug("Request to save PatientCard : {}", patientCard);
+        return patientCardRepository.save(patientCard);
     }
 
     /**
@@ -55,10 +48,9 @@ public class PatientCardServiceImpl implements PatientCardService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<PatientCardDTO> findAll(Pageable pageable) {
+    public Page<PatientCard> findAll(Pageable pageable) {
         log.debug("Request to get all PatientCards");
-        return patientCardRepository.findAll(pageable)
-            .map(patientCardMapper::toDto);
+        return patientCardRepository.findAll(pageable);
     }
 
 
@@ -70,10 +62,9 @@ public class PatientCardServiceImpl implements PatientCardService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<PatientCardDTO> findOne(Long id) {
+    public Optional<PatientCard> findOne(Long id) {
         log.debug("Request to get PatientCard : {}", id);
-        return patientCardRepository.findById(id)
-            .map(patientCardMapper::toDto);
+        return patientCardRepository.findById(id);
     }
 
     /**

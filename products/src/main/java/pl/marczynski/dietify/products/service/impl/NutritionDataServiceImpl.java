@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.NutritionDataService;
 import pl.marczynski.dietify.products.domain.NutritionData;
 import pl.marczynski.dietify.products.repository.NutritionDataRepository;
 import pl.marczynski.dietify.products.repository.search.NutritionDataSearchRepository;
-import pl.marczynski.dietify.products.service.dto.NutritionDataDTO;
-import pl.marczynski.dietify.products.service.mapper.NutritionDataMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class NutritionDataServiceImpl implements NutritionDataService {
 
     private final NutritionDataRepository nutritionDataRepository;
 
-    private final NutritionDataMapper nutritionDataMapper;
-
     private final NutritionDataSearchRepository nutritionDataSearchRepository;
 
-    public NutritionDataServiceImpl(NutritionDataRepository nutritionDataRepository, NutritionDataMapper nutritionDataMapper, NutritionDataSearchRepository nutritionDataSearchRepository) {
+    public NutritionDataServiceImpl(NutritionDataRepository nutritionDataRepository, NutritionDataSearchRepository nutritionDataSearchRepository) {
         this.nutritionDataRepository = nutritionDataRepository;
-        this.nutritionDataMapper = nutritionDataMapper;
         this.nutritionDataSearchRepository = nutritionDataSearchRepository;
     }
 
     /**
      * Save a nutritionData.
      *
-     * @param nutritionDataDTO the entity to save.
+     * @param nutritionData the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public NutritionDataDTO save(NutritionDataDTO nutritionDataDTO) {
-        log.debug("Request to save NutritionData : {}", nutritionDataDTO);
-        NutritionData nutritionData = nutritionDataMapper.toEntity(nutritionDataDTO);
-        nutritionData = nutritionDataRepository.save(nutritionData);
-        NutritionDataDTO result = nutritionDataMapper.toDto(nutritionData);
-        nutritionDataSearchRepository.save(nutritionData);
+    public NutritionData save(NutritionData nutritionData) {
+        log.debug("Request to save NutritionData : {}", nutritionData);
+        NutritionData result = nutritionDataRepository.save(nutritionData);
+        nutritionDataSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class NutritionDataServiceImpl implements NutritionDataService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionDataDTO> findAll() {
+    public List<NutritionData> findAll() {
         log.debug("Request to get all NutritionData");
-        return nutritionDataRepository.findAll().stream()
-            .map(nutritionDataMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return nutritionDataRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class NutritionDataServiceImpl implements NutritionDataService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<NutritionDataDTO> findOne(Long id) {
+    public Optional<NutritionData> findOne(Long id) {
         log.debug("Request to get NutritionData : {}", id);
-        return nutritionDataRepository.findById(id)
-            .map(nutritionDataMapper::toDto);
+        return nutritionDataRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class NutritionDataServiceImpl implements NutritionDataService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionDataDTO> search(String query) {
+    public List<NutritionData> search(String query) {
         log.debug("Request to search NutritionData for query {}", query);
         return StreamSupport
             .stream(nutritionDataSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(nutritionDataMapper::toDto)
             .collect(Collectors.toList());
     }
 }

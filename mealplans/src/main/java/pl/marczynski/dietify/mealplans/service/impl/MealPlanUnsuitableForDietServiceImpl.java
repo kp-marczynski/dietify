@@ -4,15 +4,12 @@ import pl.marczynski.dietify.mealplans.service.MealPlanUnsuitableForDietService;
 import pl.marczynski.dietify.mealplans.domain.MealPlanUnsuitableForDiet;
 import pl.marczynski.dietify.mealplans.repository.MealPlanUnsuitableForDietRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanUnsuitableForDietSearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanUnsuitableForDietDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanUnsuitableForDietMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealPlanUnsuitableForDietServiceImpl implements MealPlanUnsuitableF
 
     private final MealPlanUnsuitableForDietRepository mealPlanUnsuitableForDietRepository;
 
-    private final MealPlanUnsuitableForDietMapper mealPlanUnsuitableForDietMapper;
-
     private final MealPlanUnsuitableForDietSearchRepository mealPlanUnsuitableForDietSearchRepository;
 
-    public MealPlanUnsuitableForDietServiceImpl(MealPlanUnsuitableForDietRepository mealPlanUnsuitableForDietRepository, MealPlanUnsuitableForDietMapper mealPlanUnsuitableForDietMapper, MealPlanUnsuitableForDietSearchRepository mealPlanUnsuitableForDietSearchRepository) {
+    public MealPlanUnsuitableForDietServiceImpl(MealPlanUnsuitableForDietRepository mealPlanUnsuitableForDietRepository, MealPlanUnsuitableForDietSearchRepository mealPlanUnsuitableForDietSearchRepository) {
         this.mealPlanUnsuitableForDietRepository = mealPlanUnsuitableForDietRepository;
-        this.mealPlanUnsuitableForDietMapper = mealPlanUnsuitableForDietMapper;
         this.mealPlanUnsuitableForDietSearchRepository = mealPlanUnsuitableForDietSearchRepository;
     }
 
     /**
      * Save a mealPlanUnsuitableForDiet.
      *
-     * @param mealPlanUnsuitableForDietDTO the entity to save.
+     * @param mealPlanUnsuitableForDiet the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealPlanUnsuitableForDietDTO save(MealPlanUnsuitableForDietDTO mealPlanUnsuitableForDietDTO) {
-        log.debug("Request to save MealPlanUnsuitableForDiet : {}", mealPlanUnsuitableForDietDTO);
-        MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet = mealPlanUnsuitableForDietMapper.toEntity(mealPlanUnsuitableForDietDTO);
-        mealPlanUnsuitableForDiet = mealPlanUnsuitableForDietRepository.save(mealPlanUnsuitableForDiet);
-        MealPlanUnsuitableForDietDTO result = mealPlanUnsuitableForDietMapper.toDto(mealPlanUnsuitableForDiet);
-        mealPlanUnsuitableForDietSearchRepository.save(mealPlanUnsuitableForDiet);
+    public MealPlanUnsuitableForDiet save(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
+        log.debug("Request to save MealPlanUnsuitableForDiet : {}", mealPlanUnsuitableForDiet);
+        MealPlanUnsuitableForDiet result = mealPlanUnsuitableForDietRepository.save(mealPlanUnsuitableForDiet);
+        mealPlanUnsuitableForDietSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealPlanUnsuitableForDietServiceImpl implements MealPlanUnsuitableF
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealPlanUnsuitableForDietDTO> findAll() {
+    public List<MealPlanUnsuitableForDiet> findAll() {
         log.debug("Request to get all MealPlanUnsuitableForDiets");
-        return mealPlanUnsuitableForDietRepository.findAll().stream()
-            .map(mealPlanUnsuitableForDietMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealPlanUnsuitableForDietRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealPlanUnsuitableForDietServiceImpl implements MealPlanUnsuitableF
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealPlanUnsuitableForDietDTO> findOne(Long id) {
+    public Optional<MealPlanUnsuitableForDiet> findOne(Long id) {
         log.debug("Request to get MealPlanUnsuitableForDiet : {}", id);
-        return mealPlanUnsuitableForDietRepository.findById(id)
-            .map(mealPlanUnsuitableForDietMapper::toDto);
+        return mealPlanUnsuitableForDietRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealPlanUnsuitableForDietServiceImpl implements MealPlanUnsuitableF
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealPlanUnsuitableForDietDTO> search(String query) {
+    public List<MealPlanUnsuitableForDiet> search(String query) {
         log.debug("Request to search MealPlanUnsuitableForDiets for query {}", query);
         return StreamSupport
             .stream(mealPlanUnsuitableForDietSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealPlanUnsuitableForDietMapper::toDto)
             .collect(Collectors.toList());
     }
 }

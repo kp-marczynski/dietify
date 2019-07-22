@@ -26,8 +26,8 @@ export class NutritionDataUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     nutritionValue: [null, [Validators.required, Validators.min(0)]],
-    nutritionDefinitionId: [null, Validators.required],
-    productId: [null, Validators.required]
+    nutritionDefinition: [null, Validators.required],
+    product: [null, Validators.required]
   });
 
   constructor(
@@ -64,8 +64,8 @@ export class NutritionDataUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: nutritionData.id,
       nutritionValue: nutritionData.nutritionValue,
-      nutritionDefinitionId: nutritionData.nutritionDefinitionId,
-      productId: nutritionData.productId
+      nutritionDefinition: nutritionData.nutritionDefinition,
+      product: nutritionData.product
     });
   }
 
@@ -88,8 +88,8 @@ export class NutritionDataUpdateComponent implements OnInit {
       ...new NutritionData(),
       id: this.editForm.get(['id']).value,
       nutritionValue: this.editForm.get(['nutritionValue']).value,
-      nutritionDefinitionId: this.editForm.get(['nutritionDefinitionId']).value,
-      productId: this.editForm.get(['productId']).value
+      nutritionDefinition: this.editForm.get(['nutritionDefinition']).value,
+      product: this.editForm.get(['product']).value
     };
   }
 

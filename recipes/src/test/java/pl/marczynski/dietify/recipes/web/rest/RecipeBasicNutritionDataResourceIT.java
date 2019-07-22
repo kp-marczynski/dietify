@@ -2,12 +2,9 @@ package pl.marczynski.dietify.recipes.web.rest;
 
 import pl.marczynski.dietify.recipes.RecipesApp;
 import pl.marczynski.dietify.recipes.domain.RecipeBasicNutritionData;
-import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.repository.RecipeBasicNutritionDataRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeBasicNutritionDataSearchRepository;
 import pl.marczynski.dietify.recipes.service.RecipeBasicNutritionDataService;
-import pl.marczynski.dietify.recipes.service.dto.RecipeBasicNutritionDataDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeBasicNutritionDataMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,9 +52,6 @@ public class RecipeBasicNutritionDataResourceIT {
 
     @Autowired
     private RecipeBasicNutritionDataRepository recipeBasicNutritionDataRepository;
-
-    @Autowired
-    private RecipeBasicNutritionDataMapper recipeBasicNutritionDataMapper;
 
     @Autowired
     private RecipeBasicNutritionDataService recipeBasicNutritionDataService;
@@ -113,16 +107,6 @@ public class RecipeBasicNutritionDataResourceIT {
         recipeBasicNutritionData.setProtein(DEFAULT_PROTEIN);
         recipeBasicNutritionData.setFat(DEFAULT_FAT);
         recipeBasicNutritionData.setCarbohydrates(DEFAULT_CARBOHYDRATES);
-        // Add required entity
-        Recipe recipe;
-        if (TestUtil.findAll(em, Recipe.class).isEmpty()) {
-            recipe = RecipeResourceIT.createEntity(em);
-            em.persist(recipe);
-            em.flush();
-        } else {
-            recipe = TestUtil.findAll(em, Recipe.class).get(0);
-        }
-        recipeBasicNutritionData.setRecipe(recipe);
         return recipeBasicNutritionData;
     }
     /**
@@ -137,16 +121,6 @@ public class RecipeBasicNutritionDataResourceIT {
         recipeBasicNutritionData.setProtein(UPDATED_PROTEIN);
         recipeBasicNutritionData.setFat(UPDATED_FAT);
         recipeBasicNutritionData.setCarbohydrates(UPDATED_CARBOHYDRATES);
-        // Add required entity
-        Recipe recipe;
-        if (TestUtil.findAll(em, Recipe.class).isEmpty()) {
-            recipe = RecipeResourceIT.createUpdatedEntity(em);
-            em.persist(recipe);
-            em.flush();
-        } else {
-            recipe = TestUtil.findAll(em, Recipe.class).get(0);
-        }
-        recipeBasicNutritionData.setRecipe(recipe);
         return recipeBasicNutritionData;
     }
 
@@ -161,10 +135,9 @@ public class RecipeBasicNutritionDataResourceIT {
         int databaseSizeBeforeCreate = recipeBasicNutritionDataRepository.findAll().size();
 
         // Create the RecipeBasicNutritionData
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
         restRecipeBasicNutritionDataMockMvc.perform(post("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isCreated());
 
         // Validate the RecipeBasicNutritionData in the database
@@ -187,12 +160,11 @@ public class RecipeBasicNutritionDataResourceIT {
 
         // Create the RecipeBasicNutritionData with an existing ID
         recipeBasicNutritionData.setId(1L);
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecipeBasicNutritionDataMockMvc.perform(post("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isBadRequest());
 
         // Validate the RecipeBasicNutritionData in the database
@@ -212,11 +184,10 @@ public class RecipeBasicNutritionDataResourceIT {
         recipeBasicNutritionData.setEnergy(null);
 
         // Create the RecipeBasicNutritionData, which fails.
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
 
         restRecipeBasicNutritionDataMockMvc.perform(post("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isBadRequest());
 
         List<RecipeBasicNutritionData> recipeBasicNutritionDataList = recipeBasicNutritionDataRepository.findAll();
@@ -231,11 +202,10 @@ public class RecipeBasicNutritionDataResourceIT {
         recipeBasicNutritionData.setProtein(null);
 
         // Create the RecipeBasicNutritionData, which fails.
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
 
         restRecipeBasicNutritionDataMockMvc.perform(post("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isBadRequest());
 
         List<RecipeBasicNutritionData> recipeBasicNutritionDataList = recipeBasicNutritionDataRepository.findAll();
@@ -250,11 +220,10 @@ public class RecipeBasicNutritionDataResourceIT {
         recipeBasicNutritionData.setFat(null);
 
         // Create the RecipeBasicNutritionData, which fails.
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
 
         restRecipeBasicNutritionDataMockMvc.perform(post("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isBadRequest());
 
         List<RecipeBasicNutritionData> recipeBasicNutritionDataList = recipeBasicNutritionDataRepository.findAll();
@@ -269,11 +238,10 @@ public class RecipeBasicNutritionDataResourceIT {
         recipeBasicNutritionData.setCarbohydrates(null);
 
         // Create the RecipeBasicNutritionData, which fails.
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
 
         restRecipeBasicNutritionDataMockMvc.perform(post("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isBadRequest());
 
         List<RecipeBasicNutritionData> recipeBasicNutritionDataList = recipeBasicNutritionDataRepository.findAll();
@@ -326,7 +294,9 @@ public class RecipeBasicNutritionDataResourceIT {
     @Transactional
     public void updateRecipeBasicNutritionData() throws Exception {
         // Initialize the database
-        recipeBasicNutritionDataRepository.saveAndFlush(recipeBasicNutritionData);
+        recipeBasicNutritionDataService.save(recipeBasicNutritionData);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockRecipeBasicNutritionDataSearchRepository);
 
         int databaseSizeBeforeUpdate = recipeBasicNutritionDataRepository.findAll().size();
 
@@ -338,11 +308,10 @@ public class RecipeBasicNutritionDataResourceIT {
         updatedRecipeBasicNutritionData.setProtein(UPDATED_PROTEIN);
         updatedRecipeBasicNutritionData.setFat(UPDATED_FAT);
         updatedRecipeBasicNutritionData.setCarbohydrates(UPDATED_CARBOHYDRATES);
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(updatedRecipeBasicNutritionData);
 
         restRecipeBasicNutritionDataMockMvc.perform(put("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecipeBasicNutritionData)))
             .andExpect(status().isOk());
 
         // Validate the RecipeBasicNutritionData in the database
@@ -364,12 +333,11 @@ public class RecipeBasicNutritionDataResourceIT {
         int databaseSizeBeforeUpdate = recipeBasicNutritionDataRepository.findAll().size();
 
         // Create the RecipeBasicNutritionData
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRecipeBasicNutritionDataMockMvc.perform(put("/api/recipe-basic-nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeBasicNutritionData)))
             .andExpect(status().isBadRequest());
 
         // Validate the RecipeBasicNutritionData in the database
@@ -384,7 +352,7 @@ public class RecipeBasicNutritionDataResourceIT {
     @Transactional
     public void deleteRecipeBasicNutritionData() throws Exception {
         // Initialize the database
-        recipeBasicNutritionDataRepository.saveAndFlush(recipeBasicNutritionData);
+        recipeBasicNutritionDataService.save(recipeBasicNutritionData);
 
         int databaseSizeBeforeDelete = recipeBasicNutritionDataRepository.findAll().size();
 
@@ -405,7 +373,7 @@ public class RecipeBasicNutritionDataResourceIT {
     @Transactional
     public void searchRecipeBasicNutritionData() throws Exception {
         // Initialize the database
-        recipeBasicNutritionDataRepository.saveAndFlush(recipeBasicNutritionData);
+        recipeBasicNutritionDataService.save(recipeBasicNutritionData);
         when(mockRecipeBasicNutritionDataSearchRepository.search(queryStringQuery("id:" + recipeBasicNutritionData.getId())))
             .thenReturn(Collections.singletonList(recipeBasicNutritionData));
         // Search the recipeBasicNutritionData
@@ -432,28 +400,5 @@ public class RecipeBasicNutritionDataResourceIT {
         assertThat(recipeBasicNutritionData1).isNotEqualTo(recipeBasicNutritionData2);
         recipeBasicNutritionData1.setId(null);
         assertThat(recipeBasicNutritionData1).isNotEqualTo(recipeBasicNutritionData2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RecipeBasicNutritionDataDTO.class);
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO1 = new RecipeBasicNutritionDataDTO();
-        recipeBasicNutritionDataDTO1.setId(1L);
-        RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO2 = new RecipeBasicNutritionDataDTO();
-        assertThat(recipeBasicNutritionDataDTO1).isNotEqualTo(recipeBasicNutritionDataDTO2);
-        recipeBasicNutritionDataDTO2.setId(recipeBasicNutritionDataDTO1.getId());
-        assertThat(recipeBasicNutritionDataDTO1).isEqualTo(recipeBasicNutritionDataDTO2);
-        recipeBasicNutritionDataDTO2.setId(2L);
-        assertThat(recipeBasicNutritionDataDTO1).isNotEqualTo(recipeBasicNutritionDataDTO2);
-        recipeBasicNutritionDataDTO1.setId(null);
-        assertThat(recipeBasicNutritionDataDTO1).isNotEqualTo(recipeBasicNutritionDataDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(recipeBasicNutritionDataMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(recipeBasicNutritionDataMapper.fromId(null)).isNull();
     }
 }

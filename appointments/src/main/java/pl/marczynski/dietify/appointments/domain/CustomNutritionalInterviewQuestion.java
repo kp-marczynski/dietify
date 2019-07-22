@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -28,6 +29,7 @@ public class CustomNutritionalInterviewQuestion implements Serializable {
      * Ordinal number of custom question
      */
     @Min(value = 1)
+    @ApiModelProperty(value = "Ordinal number of custom question")
     @Column(name = "ordinal_number")
     private Integer ordinalNumber;
 
@@ -35,6 +37,7 @@ public class CustomNutritionalInterviewQuestion implements Serializable {
      * Custom question extending Nutritional Interview
      */
     
+    @ApiModelProperty(value = "Custom question extending Nutritional Interview", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "question", nullable = false)
@@ -43,6 +46,7 @@ public class CustomNutritionalInterviewQuestion implements Serializable {
     /**
      * Answer for question
      */
+    @ApiModelProperty(value = "Answer for question")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "answer")

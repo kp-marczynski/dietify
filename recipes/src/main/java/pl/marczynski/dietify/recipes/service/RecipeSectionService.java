@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.RecipeSectionDTO;
+import pl.marczynski.dietify.recipes.domain.RecipeSection;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.RecipeSection}.
+ * Service Interface for managing {@link RecipeSection}.
  */
 public interface RecipeSectionService {
 
     /**
      * Save a recipeSection.
      *
-     * @param recipeSectionDTO the entity to save.
+     * @param recipeSection the entity to save.
      * @return the persisted entity.
      */
-    RecipeSectionDTO save(RecipeSectionDTO recipeSectionDTO);
+    RecipeSection save(RecipeSection recipeSection);
 
     /**
      * Get all the recipeSections.
      *
      * @return the list of entities.
      */
-    List<RecipeSectionDTO> findAll();
+    List<RecipeSection> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface RecipeSectionService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<RecipeSectionDTO> findOne(Long id);
+    Optional<RecipeSection> findOne(Long id);
 
     /**
      * Delete the "id" recipeSection.
@@ -48,5 +48,5 @@ public interface RecipeSectionService {
      * 
      * @return the list of entities.
      */
-    List<RecipeSectionDTO> search(String query);
+    List<RecipeSection> search(String query);
 }

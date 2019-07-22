@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.CustomNutritionalInterviewQuestionDTO;
+import pl.marczynski.dietify.appointments.domain.CustomNutritionalInterviewQuestion;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.CustomNutritionalInterviewQuestion}.
+ * Service Interface for managing {@link CustomNutritionalInterviewQuestion}.
  */
 public interface CustomNutritionalInterviewQuestionService {
 
     /**
      * Save a customNutritionalInterviewQuestion.
      *
-     * @param customNutritionalInterviewQuestionDTO the entity to save.
+     * @param customNutritionalInterviewQuestion the entity to save.
      * @return the persisted entity.
      */
-    CustomNutritionalInterviewQuestionDTO save(CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO);
+    CustomNutritionalInterviewQuestion save(CustomNutritionalInterviewQuestion customNutritionalInterviewQuestion);
 
     /**
      * Get all the customNutritionalInterviewQuestions.
      *
      * @return the list of entities.
      */
-    List<CustomNutritionalInterviewQuestionDTO> findAll();
+    List<CustomNutritionalInterviewQuestion> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface CustomNutritionalInterviewQuestionService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<CustomNutritionalInterviewQuestionDTO> findOne(Long id);
+    Optional<CustomNutritionalInterviewQuestion> findOne(Long id);
 
     /**
      * Delete the "id" customNutritionalInterviewQuestion.

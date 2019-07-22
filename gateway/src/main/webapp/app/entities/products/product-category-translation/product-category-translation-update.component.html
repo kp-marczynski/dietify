@@ -50,14 +50,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.productsProductCategoryTranslation.productCategory" for="field_productCategory">Product Category</label>
-                    <select class="form-control" id="field_productCategory" name="productCategory" formControlName="productCategoryId">
-                        <option *ngIf="!editForm.get('productCategoryId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="productCategoryOption.id" *ngFor="let productCategoryOption of productcategories; trackBy: trackProductCategoryById">{{productCategoryOption.description}}</option>
+                    <select class="form-control" id="field_productCategory" name="productCategory" formControlName="productCategory">
+                        <option *ngIf="!editForm.get('productCategory').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="productCategoryOption.id === editForm.get('productCategory').value?.id ? editForm.get('productCategory').value : productCategoryOption" *ngFor="let productCategoryOption of productcategories; trackBy: trackProductCategoryById">{{productCategoryOption.id}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('productCategoryId').invalid && (editForm.get('productCategoryId').dirty || editForm.get('productCategoryId').touched)">
+                <div *ngIf="editForm.get('productCategory').invalid && (editForm.get('productCategory').dirty || editForm.get('productCategory').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('productCategoryId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('productCategory').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

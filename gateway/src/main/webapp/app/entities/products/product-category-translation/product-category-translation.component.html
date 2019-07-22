@@ -45,8 +45,8 @@
                 <td>{{productCategoryTranslation.translation}}</td>
                 <td>{{productCategoryTranslation.language}}</td>
                 <td>
-                    <div *ngIf="productCategoryTranslation.productCategoryId">
-                        <a [routerLink]="['../product-category', productCategoryTranslation.productCategoryId , 'view' ]" >{{productCategoryTranslation.productCategoryDescription}}</a>
+                    <div *ngIf="productCategoryTranslation.productCategory">
+                        <a [routerLink]="['../product-category', productCategoryTranslation.productCategory?.id, 'view' ]" >{{productCategoryTranslation.productCategory?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -43,8 +43,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment">Appointment</span></dt>
                 <dd>
-                    <div *ngIf="appointmentEvaluation.appointmentId">
-                        <a [routerLink]="['/appointment', appointmentEvaluation.appointmentId, 'view']">{{appointmentEvaluation.appointmentId}}</a>
+                    <div *ngIf="appointmentEvaluation.appointment">
+                        <a [routerLink]="['/appointment', appointmentEvaluation.appointment?.id, 'view']">{{appointmentEvaluation.appointment?.id}}</a>
                     </div>
                 </dd>
             </dl>

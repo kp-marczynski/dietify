@@ -32,13 +32,13 @@
             "otherEntityName": "nutritionDefinition",
             "otherEntityRelationshipName": "translations",
             "relationshipValidateRules": "required",
-            "relationshipName": "nutritionDefinitions",
-            "otherEntityField": "tag"
+            "relationshipName": "nutritionDefinition",
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154644",
+    "changelogDate": "20190722200914",
     "entityTableName": "nutr_def_trns",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

@@ -39,12 +39,12 @@
             "otherEntityRelationshipName": "householdMeasures",
             "relationshipValidateRules": "required",
             "relationshipName": "product",
-            "otherEntityField": "description"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154642",
+    "changelogDate": "20190722200912",
     "entityTableName": "household_measure",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

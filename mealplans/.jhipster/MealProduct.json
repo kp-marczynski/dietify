@@ -35,9 +35,9 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154706",
+    "changelogDate": "20190722200936",
     "entityTableName": "meal_product",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

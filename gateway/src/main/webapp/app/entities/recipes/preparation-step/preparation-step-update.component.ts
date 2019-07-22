@@ -23,7 +23,7 @@ export class PreparationStepUpdateComponent implements OnInit {
     id: [],
     ordinalNumber: [null, [Validators.required, Validators.min(1)]],
     stepDescription: [],
-    recipeSectionId: [null, Validators.required]
+    recipeSection: [null, Validators.required]
   });
 
   constructor(
@@ -54,7 +54,7 @@ export class PreparationStepUpdateComponent implements OnInit {
       id: preparationStep.id,
       ordinalNumber: preparationStep.ordinalNumber,
       stepDescription: preparationStep.stepDescription,
-      recipeSectionId: preparationStep.recipeSectionId
+      recipeSection: preparationStep.recipeSection
     });
   }
 
@@ -110,7 +110,7 @@ export class PreparationStepUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       ordinalNumber: this.editForm.get(['ordinalNumber']).value,
       stepDescription: this.editForm.get(['stepDescription']).value,
-      recipeSectionId: this.editForm.get(['recipeSectionId']).value
+      recipeSection: this.editForm.get(['recipeSection']).value
     };
   }
 

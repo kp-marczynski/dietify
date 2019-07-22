@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,12 +32,13 @@ public class ProductSubcategory implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Short description of subcategory in language of a product", required = true)
     @Column(name = "description", length = 255, nullable = false)
     private String description;
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("subcategories")
+    @JsonIgnoreProperties("productSubcategories")
     private ProductCategory category;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

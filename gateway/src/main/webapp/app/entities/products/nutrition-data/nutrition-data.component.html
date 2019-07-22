@@ -44,13 +44,13 @@
                 <td><a [routerLink]="['/nutrition-data', nutritionData.id, 'view' ]">{{nutritionData.id}}</a></td>
                 <td>{{nutritionData.nutritionValue}}</td>
                 <td>
-                    <div *ngIf="nutritionData.nutritionDefinitionId">
-                        <a [routerLink]="['../nutrition-definition', nutritionData.nutritionDefinitionId , 'view' ]" >{{nutritionData.nutritionDefinitionTag}}</a>
+                    <div *ngIf="nutritionData.nutritionDefinition">
+                        <a [routerLink]="['../nutrition-definition', nutritionData.nutritionDefinition?.id, 'view' ]" >{{nutritionData.nutritionDefinition?.tag}}</a>
                     </div>
                 </td>
                 <td>
-                    <div *ngIf="nutritionData.productId">
-                        <a [routerLink]="['../product', nutritionData.productId , 'view' ]" >{{nutritionData.productDescription}}</a>
+                    <div *ngIf="nutritionData.product">
+                        <a [routerLink]="['../product', nutritionData.product?.id, 'view' ]" >{{nutritionData.product?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

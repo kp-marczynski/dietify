@@ -32,12 +32,12 @@
             "otherEntityRelationshipName": "productPortions",
             "relationshipValidateRules": "required",
             "relationshipName": "recipeSection",
-            "otherEntityField": "sectionName"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154658",
+    "changelogDate": "20190722200928",
     "entityTableName": "product_portion",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

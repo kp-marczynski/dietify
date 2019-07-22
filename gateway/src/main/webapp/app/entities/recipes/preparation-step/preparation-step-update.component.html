@@ -36,14 +36,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesPreparationStep.recipeSection" for="field_recipeSection">Recipe Section</label>
-                    <select class="form-control" id="field_recipeSection" name="recipeSection" formControlName="recipeSectionId">
-                        <option *ngIf="!editForm.get('recipeSectionId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="recipeSectionOption.id" *ngFor="let recipeSectionOption of recipesections; trackBy: trackRecipeSectionById">{{recipeSectionOption.sectionName}}</option>
+                    <select class="form-control" id="field_recipeSection" name="recipeSection" formControlName="recipeSection">
+                        <option *ngIf="!editForm.get('recipeSection').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="recipeSectionOption.id === editForm.get('recipeSection').value?.id ? editForm.get('recipeSection').value : recipeSectionOption" *ngFor="let recipeSectionOption of recipesections; trackBy: trackRecipeSectionById">{{recipeSectionOption.id}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('recipeSectionId').invalid && (editForm.get('recipeSectionId').dirty || editForm.get('recipeSectionId').touched)">
+                <div *ngIf="editForm.get('recipeSection').invalid && (editForm.get('recipeSection').dirty || editForm.get('recipeSection').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('recipeSectionId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('recipeSection').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

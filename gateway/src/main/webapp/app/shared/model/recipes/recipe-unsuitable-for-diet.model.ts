@@ -1,10 +1,11 @@
+import { IRecipe } from 'app/shared/model/recipes/recipe.model';
+
 export interface IRecipeUnsuitableForDiet {
   id?: number;
   dietTypeId?: number;
-  recipeName?: string;
-  recipeId?: number;
+  recipe?: IRecipe;
 }
 
 export class RecipeUnsuitableForDiet implements IRecipeUnsuitableForDiet {
-  constructor(public id?: number, public dietTypeId?: number, public recipeName?: string, public recipeId?: number) {}
+  constructor(public id?: number, public dietTypeId?: number, public recipe?: IRecipe) {}
 }

@@ -230,28 +230,27 @@ entity AppointmentEvaluation {
 }
 
 relationship OneToOne {
-    BodyMeasurement{appointment required}
-    	to Appointment{bodyMeasurement} 
+    Appointment{bodyMeasurement}
+    	to BodyMeasurement{appointment required} 
     
-    NutritionalInterview{appointment required}
-    	to Appointment{nutritionalInterview}
+    Appointment{nutritionalInterview}
+    	to NutritionalInterview{appointment required}
     
     AppointmentEvaluation{appointment required}
     	to Appointment
 }
 
-relationship ManyToOne {
-	Appointment{patientCard required} 
-    	to PatientCard{appointments}
+relationship OneToMany {
+	PatientCard{appointments}
+		to Appointment{patientCard required} 
     
-    AssignedMealPlan{appointment required}
-    	to Appointment{mealPlans}
+    Appointment{mealPlans}
+    	to AssignedMealPlan{appointment required}
+        
+    NutritionalInterview{ownedKitchenAppliances}
+    	to OwnedKitchenAppliance{nutritionalInterview required}
     
-    OwnedKitchenAppliance{nutritionalInterview required}
-    	to NutritionalInterview{ownedKitchenAppliances}
-    
-    CustomNutritionalInterviewQuestion{nutritionalInterview required}
-    	to NutritionalInterview{customQuestions}
+    NutritionalInterview{customQuestions}
+    	to CustomNutritionalInterviewQuestion{nutritionalInterview required}
 }
-
 // <<END appointments.jh>>

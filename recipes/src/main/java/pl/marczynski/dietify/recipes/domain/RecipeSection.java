@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.recipes.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,13 +33,9 @@ public class RecipeSection implements Serializable {
      * Name of recipe section in language of a recipe
      */
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Name of recipe section in language of a recipe")
     @Column(name = "section_name", length = 255)
     private String sectionName;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("recipeSections")
-    private Recipe recipe;
 
     @OneToMany(mappedBy = "recipeSection")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -47,6 +44,11 @@ public class RecipeSection implements Serializable {
     @OneToMany(mappedBy = "recipeSection")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PreparationStep> preparationSteps = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("recipeSections")
+    private Recipe recipe;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -65,14 +67,6 @@ public class RecipeSection implements Serializable {
         this.sectionName = sectionName;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
-
     public Set<ProductPortion> getProductPortions() {
         return productPortions;
     }
@@ -87,6 +81,14 @@ public class RecipeSection implements Serializable {
 
     public void setPreparationSteps(Set<PreparationStep> preparationSteps) {
         this.preparationSteps = preparationSteps;
+    }
+
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.recipes.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -32,12 +33,14 @@ public class PreparationStep implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Ordinal number of preparation step", required = true)
     @Column(name = "ordinal_number", nullable = false)
     private Integer ordinalNumber;
 
     /**
      * Preferably short step description
      */
+    @ApiModelProperty(value = "Preferably short step description")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "step_description")

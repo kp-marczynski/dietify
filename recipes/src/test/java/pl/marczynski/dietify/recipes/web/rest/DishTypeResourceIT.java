@@ -5,8 +5,6 @@ import pl.marczynski.dietify.recipes.domain.DishType;
 import pl.marczynski.dietify.recipes.repository.DishTypeRepository;
 import pl.marczynski.dietify.recipes.repository.search.DishTypeSearchRepository;
 import pl.marczynski.dietify.recipes.service.DishTypeService;
-import pl.marczynski.dietify.recipes.service.dto.DishTypeDTO;
-import pl.marczynski.dietify.recipes.service.mapper.DishTypeMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +43,6 @@ public class DishTypeResourceIT {
 
     @Autowired
     private DishTypeRepository dishTypeRepository;
-
-    @Autowired
-    private DishTypeMapper dishTypeMapper;
 
     @Autowired
     private DishTypeService dishTypeService;
@@ -125,10 +120,9 @@ public class DishTypeResourceIT {
         int databaseSizeBeforeCreate = dishTypeRepository.findAll().size();
 
         // Create the DishType
-        DishTypeDTO dishTypeDTO = dishTypeMapper.toDto(dishType);
         restDishTypeMockMvc.perform(post("/api/dish-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishType)))
             .andExpect(status().isCreated());
 
         // Validate the DishType in the database
@@ -148,12 +142,11 @@ public class DishTypeResourceIT {
 
         // Create the DishType with an existing ID
         dishType.setId(1L);
-        DishTypeDTO dishTypeDTO = dishTypeMapper.toDto(dishType);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDishTypeMockMvc.perform(post("/api/dish-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishType)))
             .andExpect(status().isBadRequest());
 
         // Validate the DishType in the database
@@ -173,11 +166,10 @@ public class DishTypeResourceIT {
         dishType.setDescription(null);
 
         // Create the DishType, which fails.
-        DishTypeDTO dishTypeDTO = dishTypeMapper.toDto(dishType);
 
         restDishTypeMockMvc.perform(post("/api/dish-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishType)))
             .andExpect(status().isBadRequest());
 
         List<DishType> dishTypeList = dishTypeRepository.findAll();
@@ -224,7 +216,9 @@ public class DishTypeResourceIT {
     @Transactional
     public void updateDishType() throws Exception {
         // Initialize the database
-        dishTypeRepository.saveAndFlush(dishType);
+        dishTypeService.save(dishType);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockDishTypeSearchRepository);
 
         int databaseSizeBeforeUpdate = dishTypeRepository.findAll().size();
 
@@ -233,11 +227,10 @@ public class DishTypeResourceIT {
         // Disconnect from session so that the updates on updatedDishType are not directly saved in db
         em.detach(updatedDishType);
         updatedDishType.setDescription(UPDATED_DESCRIPTION);
-        DishTypeDTO dishTypeDTO = dishTypeMapper.toDto(updatedDishType);
 
         restDishTypeMockMvc.perform(put("/api/dish-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedDishType)))
             .andExpect(status().isOk());
 
         // Validate the DishType in the database
@@ -256,12 +249,11 @@ public class DishTypeResourceIT {
         int databaseSizeBeforeUpdate = dishTypeRepository.findAll().size();
 
         // Create the DishType
-        DishTypeDTO dishTypeDTO = dishTypeMapper.toDto(dishType);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDishTypeMockMvc.perform(put("/api/dish-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishType)))
             .andExpect(status().isBadRequest());
 
         // Validate the DishType in the database
@@ -276,7 +268,7 @@ public class DishTypeResourceIT {
     @Transactional
     public void deleteDishType() throws Exception {
         // Initialize the database
-        dishTypeRepository.saveAndFlush(dishType);
+        dishTypeService.save(dishType);
 
         int databaseSizeBeforeDelete = dishTypeRepository.findAll().size();
 
@@ -297,7 +289,7 @@ public class DishTypeResourceIT {
     @Transactional
     public void searchDishType() throws Exception {
         // Initialize the database
-        dishTypeRepository.saveAndFlush(dishType);
+        dishTypeService.save(dishType);
         when(mockDishTypeSearchRepository.search(queryStringQuery("id:" + dishType.getId())))
             .thenReturn(Collections.singletonList(dishType));
         // Search the dishType
@@ -321,28 +313,5 @@ public class DishTypeResourceIT {
         assertThat(dishType1).isNotEqualTo(dishType2);
         dishType1.setId(null);
         assertThat(dishType1).isNotEqualTo(dishType2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(DishTypeDTO.class);
-        DishTypeDTO dishTypeDTO1 = new DishTypeDTO();
-        dishTypeDTO1.setId(1L);
-        DishTypeDTO dishTypeDTO2 = new DishTypeDTO();
-        assertThat(dishTypeDTO1).isNotEqualTo(dishTypeDTO2);
-        dishTypeDTO2.setId(dishTypeDTO1.getId());
-        assertThat(dishTypeDTO1).isEqualTo(dishTypeDTO2);
-        dishTypeDTO2.setId(2L);
-        assertThat(dishTypeDTO1).isNotEqualTo(dishTypeDTO2);
-        dishTypeDTO1.setId(null);
-        assertThat(dishTypeDTO1).isNotEqualTo(dishTypeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(dishTypeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(dishTypeMapper.fromId(null)).isNull();
     }
 }

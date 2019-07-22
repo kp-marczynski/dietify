@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.repository.AppointmentRepository;
 import pl.marczynski.dietify.appointments.service.AppointmentService;
-import pl.marczynski.dietify.appointments.service.dto.AppointmentDTO;
-import pl.marczynski.dietify.appointments.service.mapper.AppointmentMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -55,9 +53,6 @@ public class AppointmentResourceIT {
 
     @Autowired
     private AppointmentRepository appointmentRepository;
-
-    @Autowired
-    private AppointmentMapper appointmentMapper;
 
     @Autowired
     private AppointmentService appointmentService;
@@ -153,10 +148,9 @@ public class AppointmentResourceIT {
         int databaseSizeBeforeCreate = appointmentRepository.findAll().size();
 
         // Create the Appointment
-        AppointmentDTO appointmentDTO = appointmentMapper.toDto(appointment);
         restAppointmentMockMvc.perform(post("/api/appointments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointment)))
             .andExpect(status().isCreated());
 
         // Validate the Appointment in the database
@@ -176,12 +170,11 @@ public class AppointmentResourceIT {
 
         // Create the Appointment with an existing ID
         appointment.setId(1L);
-        AppointmentDTO appointmentDTO = appointmentMapper.toDto(appointment);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAppointmentMockMvc.perform(post("/api/appointments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointment)))
             .andExpect(status().isBadRequest());
 
         // Validate the Appointment in the database
@@ -198,11 +191,10 @@ public class AppointmentResourceIT {
         appointment.setAppointmentDate(null);
 
         // Create the Appointment, which fails.
-        AppointmentDTO appointmentDTO = appointmentMapper.toDto(appointment);
 
         restAppointmentMockMvc.perform(post("/api/appointments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointment)))
             .andExpect(status().isBadRequest());
 
         List<Appointment> appointmentList = appointmentRepository.findAll();
@@ -217,11 +209,10 @@ public class AppointmentResourceIT {
         appointment.setAppointmentState(null);
 
         // Create the Appointment, which fails.
-        AppointmentDTO appointmentDTO = appointmentMapper.toDto(appointment);
 
         restAppointmentMockMvc.perform(post("/api/appointments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointment)))
             .andExpect(status().isBadRequest());
 
         List<Appointment> appointmentList = appointmentRepository.findAll();
@@ -274,7 +265,7 @@ public class AppointmentResourceIT {
     @Transactional
     public void updateAppointment() throws Exception {
         // Initialize the database
-        appointmentRepository.saveAndFlush(appointment);
+        appointmentService.save(appointment);
 
         int databaseSizeBeforeUpdate = appointmentRepository.findAll().size();
 
@@ -286,11 +277,10 @@ public class AppointmentResourceIT {
         updatedAppointment.setAppointmentState(UPDATED_APPOINTMENT_STATE);
         updatedAppointment.setMealPlanId(UPDATED_MEAL_PLAN_ID);
         updatedAppointment.setGeneralAdvice(UPDATED_GENERAL_ADVICE);
-        AppointmentDTO appointmentDTO = appointmentMapper.toDto(updatedAppointment);
 
         restAppointmentMockMvc.perform(put("/api/appointments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedAppointment)))
             .andExpect(status().isOk());
 
         // Validate the Appointment in the database
@@ -309,12 +299,11 @@ public class AppointmentResourceIT {
         int databaseSizeBeforeUpdate = appointmentRepository.findAll().size();
 
         // Create the Appointment
-        AppointmentDTO appointmentDTO = appointmentMapper.toDto(appointment);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAppointmentMockMvc.perform(put("/api/appointments")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointment)))
             .andExpect(status().isBadRequest());
 
         // Validate the Appointment in the database
@@ -326,7 +315,7 @@ public class AppointmentResourceIT {
     @Transactional
     public void deleteAppointment() throws Exception {
         // Initialize the database
-        appointmentRepository.saveAndFlush(appointment);
+        appointmentService.save(appointment);
 
         int databaseSizeBeforeDelete = appointmentRepository.findAll().size();
 
@@ -353,28 +342,5 @@ public class AppointmentResourceIT {
         assertThat(appointment1).isNotEqualTo(appointment2);
         appointment1.setId(null);
         assertThat(appointment1).isNotEqualTo(appointment2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AppointmentDTO.class);
-        AppointmentDTO appointmentDTO1 = new AppointmentDTO();
-        appointmentDTO1.setId(1L);
-        AppointmentDTO appointmentDTO2 = new AppointmentDTO();
-        assertThat(appointmentDTO1).isNotEqualTo(appointmentDTO2);
-        appointmentDTO2.setId(appointmentDTO1.getId());
-        assertThat(appointmentDTO1).isEqualTo(appointmentDTO2);
-        appointmentDTO2.setId(2L);
-        assertThat(appointmentDTO1).isNotEqualTo(appointmentDTO2);
-        appointmentDTO1.setId(null);
-        assertThat(appointmentDTO1).isNotEqualTo(appointmentDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(appointmentMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(appointmentMapper.fromId(null)).isNull();
     }
 }

@@ -25,9 +25,9 @@
       "dislikedProducts": "Disliked Products",
       "foodAllergies": "Food Allergies",
       "foodIntolerances": "Food Intolerances",
-      "appointment": "Appointment",
       "ownedKitchenAppliances": "Owned Kitchen Appliances",
       "customQuestions": "Custom Questions",
+      "appointment": "Appointment",
       "help": {
         "completionDate": "Date of interview completion",
         "targetWeight": "Patient&#39;s target weight in kilograms",

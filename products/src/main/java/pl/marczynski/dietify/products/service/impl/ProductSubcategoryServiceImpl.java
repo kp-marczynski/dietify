@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 import pl.marczynski.dietify.products.domain.ProductSubcategory;
 import pl.marczynski.dietify.products.repository.ProductSubcategoryRepository;
 import pl.marczynski.dietify.products.repository.search.ProductSubcategorySearchRepository;
-import pl.marczynski.dietify.products.service.dto.ProductSubcategoryDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductSubcategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
 
     private final ProductSubcategoryRepository productSubcategoryRepository;
 
-    private final ProductSubcategoryMapper productSubcategoryMapper;
-
     private final ProductSubcategorySearchRepository productSubcategorySearchRepository;
 
-    public ProductSubcategoryServiceImpl(ProductSubcategoryRepository productSubcategoryRepository, ProductSubcategoryMapper productSubcategoryMapper, ProductSubcategorySearchRepository productSubcategorySearchRepository) {
+    public ProductSubcategoryServiceImpl(ProductSubcategoryRepository productSubcategoryRepository, ProductSubcategorySearchRepository productSubcategorySearchRepository) {
         this.productSubcategoryRepository = productSubcategoryRepository;
-        this.productSubcategoryMapper = productSubcategoryMapper;
         this.productSubcategorySearchRepository = productSubcategorySearchRepository;
     }
 
     /**
      * Save a productSubcategory.
      *
-     * @param productSubcategoryDTO the entity to save.
+     * @param productSubcategory the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public ProductSubcategoryDTO save(ProductSubcategoryDTO productSubcategoryDTO) {
-        log.debug("Request to save ProductSubcategory : {}", productSubcategoryDTO);
-        ProductSubcategory productSubcategory = productSubcategoryMapper.toEntity(productSubcategoryDTO);
-        productSubcategory = productSubcategoryRepository.save(productSubcategory);
-        ProductSubcategoryDTO result = productSubcategoryMapper.toDto(productSubcategory);
-        productSubcategorySearchRepository.save(productSubcategory);
+    public ProductSubcategory save(ProductSubcategory productSubcategory) {
+        log.debug("Request to save ProductSubcategory : {}", productSubcategory);
+        ProductSubcategory result = productSubcategoryRepository.save(productSubcategory);
+        productSubcategorySearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductSubcategoryDTO> findAll() {
+    public List<ProductSubcategory> findAll() {
         log.debug("Request to get all ProductSubcategories");
-        return productSubcategoryRepository.findAll().stream()
-            .map(productSubcategoryMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return productSubcategoryRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProductSubcategoryDTO> findOne(Long id) {
+    public Optional<ProductSubcategory> findOne(Long id) {
         log.debug("Request to get ProductSubcategory : {}", id);
-        return productSubcategoryRepository.findById(id)
-            .map(productSubcategoryMapper::toDto);
+        return productSubcategoryRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductSubcategoryDTO> search(String query) {
+    public List<ProductSubcategory> search(String query) {
         log.debug("Request to search ProductSubcategories for query {}", query);
         return StreamSupport
             .stream(productSubcategorySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(productSubcategoryMapper::toDto)
             .collect(Collectors.toList());
     }
 }

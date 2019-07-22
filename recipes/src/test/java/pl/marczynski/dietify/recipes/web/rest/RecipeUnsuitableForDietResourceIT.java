@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.repository.RecipeUnsuitableForDietRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeUnsuitableForDietSearchRepository;
 import pl.marczynski.dietify.recipes.service.RecipeUnsuitableForDietService;
-import pl.marczynski.dietify.recipes.service.dto.RecipeUnsuitableForDietDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeUnsuitableForDietMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,9 +44,6 @@ public class RecipeUnsuitableForDietResourceIT {
 
     @Autowired
     private RecipeUnsuitableForDietRepository recipeUnsuitableForDietRepository;
-
-    @Autowired
-    private RecipeUnsuitableForDietMapper recipeUnsuitableForDietMapper;
 
     @Autowired
     private RecipeUnsuitableForDietService recipeUnsuitableForDietService;
@@ -146,10 +141,9 @@ public class RecipeUnsuitableForDietResourceIT {
         int databaseSizeBeforeCreate = recipeUnsuitableForDietRepository.findAll().size();
 
         // Create the RecipeUnsuitableForDiet
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO = recipeUnsuitableForDietMapper.toDto(recipeUnsuitableForDiet);
         restRecipeUnsuitableForDietMockMvc.perform(post("/api/recipe-unsuitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDiet)))
             .andExpect(status().isCreated());
 
         // Validate the RecipeUnsuitableForDiet in the database
@@ -169,12 +163,11 @@ public class RecipeUnsuitableForDietResourceIT {
 
         // Create the RecipeUnsuitableForDiet with an existing ID
         recipeUnsuitableForDiet.setId(1L);
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO = recipeUnsuitableForDietMapper.toDto(recipeUnsuitableForDiet);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecipeUnsuitableForDietMockMvc.perform(post("/api/recipe-unsuitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDiet)))
             .andExpect(status().isBadRequest());
 
         // Validate the RecipeUnsuitableForDiet in the database
@@ -194,11 +187,10 @@ public class RecipeUnsuitableForDietResourceIT {
         recipeUnsuitableForDiet.setDietTypeId(null);
 
         // Create the RecipeUnsuitableForDiet, which fails.
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO = recipeUnsuitableForDietMapper.toDto(recipeUnsuitableForDiet);
 
         restRecipeUnsuitableForDietMockMvc.perform(post("/api/recipe-unsuitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDiet)))
             .andExpect(status().isBadRequest());
 
         List<RecipeUnsuitableForDiet> recipeUnsuitableForDietList = recipeUnsuitableForDietRepository.findAll();
@@ -245,7 +237,9 @@ public class RecipeUnsuitableForDietResourceIT {
     @Transactional
     public void updateRecipeUnsuitableForDiet() throws Exception {
         // Initialize the database
-        recipeUnsuitableForDietRepository.saveAndFlush(recipeUnsuitableForDiet);
+        recipeUnsuitableForDietService.save(recipeUnsuitableForDiet);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockRecipeUnsuitableForDietSearchRepository);
 
         int databaseSizeBeforeUpdate = recipeUnsuitableForDietRepository.findAll().size();
 
@@ -254,11 +248,10 @@ public class RecipeUnsuitableForDietResourceIT {
         // Disconnect from session so that the updates on updatedRecipeUnsuitableForDiet are not directly saved in db
         em.detach(updatedRecipeUnsuitableForDiet);
         updatedRecipeUnsuitableForDiet.setDietTypeId(UPDATED_DIET_TYPE_ID);
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO = recipeUnsuitableForDietMapper.toDto(updatedRecipeUnsuitableForDiet);
 
         restRecipeUnsuitableForDietMockMvc.perform(put("/api/recipe-unsuitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecipeUnsuitableForDiet)))
             .andExpect(status().isOk());
 
         // Validate the RecipeUnsuitableForDiet in the database
@@ -277,12 +270,11 @@ public class RecipeUnsuitableForDietResourceIT {
         int databaseSizeBeforeUpdate = recipeUnsuitableForDietRepository.findAll().size();
 
         // Create the RecipeUnsuitableForDiet
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO = recipeUnsuitableForDietMapper.toDto(recipeUnsuitableForDiet);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRecipeUnsuitableForDietMockMvc.perform(put("/api/recipe-unsuitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeUnsuitableForDiet)))
             .andExpect(status().isBadRequest());
 
         // Validate the RecipeUnsuitableForDiet in the database
@@ -297,7 +289,7 @@ public class RecipeUnsuitableForDietResourceIT {
     @Transactional
     public void deleteRecipeUnsuitableForDiet() throws Exception {
         // Initialize the database
-        recipeUnsuitableForDietRepository.saveAndFlush(recipeUnsuitableForDiet);
+        recipeUnsuitableForDietService.save(recipeUnsuitableForDiet);
 
         int databaseSizeBeforeDelete = recipeUnsuitableForDietRepository.findAll().size();
 
@@ -318,7 +310,7 @@ public class RecipeUnsuitableForDietResourceIT {
     @Transactional
     public void searchRecipeUnsuitableForDiet() throws Exception {
         // Initialize the database
-        recipeUnsuitableForDietRepository.saveAndFlush(recipeUnsuitableForDiet);
+        recipeUnsuitableForDietService.save(recipeUnsuitableForDiet);
         when(mockRecipeUnsuitableForDietSearchRepository.search(queryStringQuery("id:" + recipeUnsuitableForDiet.getId())))
             .thenReturn(Collections.singletonList(recipeUnsuitableForDiet));
         // Search the recipeUnsuitableForDiet
@@ -342,28 +334,5 @@ public class RecipeUnsuitableForDietResourceIT {
         assertThat(recipeUnsuitableForDiet1).isNotEqualTo(recipeUnsuitableForDiet2);
         recipeUnsuitableForDiet1.setId(null);
         assertThat(recipeUnsuitableForDiet1).isNotEqualTo(recipeUnsuitableForDiet2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RecipeUnsuitableForDietDTO.class);
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO1 = new RecipeUnsuitableForDietDTO();
-        recipeUnsuitableForDietDTO1.setId(1L);
-        RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO2 = new RecipeUnsuitableForDietDTO();
-        assertThat(recipeUnsuitableForDietDTO1).isNotEqualTo(recipeUnsuitableForDietDTO2);
-        recipeUnsuitableForDietDTO2.setId(recipeUnsuitableForDietDTO1.getId());
-        assertThat(recipeUnsuitableForDietDTO1).isEqualTo(recipeUnsuitableForDietDTO2);
-        recipeUnsuitableForDietDTO2.setId(2L);
-        assertThat(recipeUnsuitableForDietDTO1).isNotEqualTo(recipeUnsuitableForDietDTO2);
-        recipeUnsuitableForDietDTO1.setId(null);
-        assertThat(recipeUnsuitableForDietDTO1).isNotEqualTo(recipeUnsuitableForDietDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(recipeUnsuitableForDietMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(recipeUnsuitableForDietMapper.fromId(null)).isNull();
     }
 }

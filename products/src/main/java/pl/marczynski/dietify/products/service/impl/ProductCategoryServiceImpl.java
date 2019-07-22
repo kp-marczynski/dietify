@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.ProductCategoryService;
 import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.repository.ProductCategoryRepository;
 import pl.marczynski.dietify.products.repository.search.ProductCategorySearchRepository;
-import pl.marczynski.dietify.products.service.dto.ProductCategoryDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductCategoryMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 
     private final ProductCategoryRepository productCategoryRepository;
 
-    private final ProductCategoryMapper productCategoryMapper;
-
     private final ProductCategorySearchRepository productCategorySearchRepository;
 
-    public ProductCategoryServiceImpl(ProductCategoryRepository productCategoryRepository, ProductCategoryMapper productCategoryMapper, ProductCategorySearchRepository productCategorySearchRepository) {
+    public ProductCategoryServiceImpl(ProductCategoryRepository productCategoryRepository, ProductCategorySearchRepository productCategorySearchRepository) {
         this.productCategoryRepository = productCategoryRepository;
-        this.productCategoryMapper = productCategoryMapper;
         this.productCategorySearchRepository = productCategorySearchRepository;
     }
 
     /**
      * Save a productCategory.
      *
-     * @param productCategoryDTO the entity to save.
+     * @param productCategory the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public ProductCategoryDTO save(ProductCategoryDTO productCategoryDTO) {
-        log.debug("Request to save ProductCategory : {}", productCategoryDTO);
-        ProductCategory productCategory = productCategoryMapper.toEntity(productCategoryDTO);
-        productCategory = productCategoryRepository.save(productCategory);
-        ProductCategoryDTO result = productCategoryMapper.toDto(productCategory);
-        productCategorySearchRepository.save(productCategory);
+    public ProductCategory save(ProductCategory productCategory) {
+        log.debug("Request to save ProductCategory : {}", productCategory);
+        ProductCategory result = productCategoryRepository.save(productCategory);
+        productCategorySearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductCategoryDTO> findAll() {
+    public List<ProductCategory> findAll() {
         log.debug("Request to get all ProductCategories");
-        return productCategoryRepository.findAll().stream()
-            .map(productCategoryMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return productCategoryRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProductCategoryDTO> findOne(Long id) {
+    public Optional<ProductCategory> findOne(Long id) {
         log.debug("Request to get ProductCategory : {}", id);
-        return productCategoryRepository.findById(id)
-            .map(productCategoryMapper::toDto);
+        return productCategoryRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductCategoryDTO> search(String query) {
+    public List<ProductCategory> search(String query) {
         log.debug("Request to search ProductCategories for query {}", query);
         return StreamSupport
             .stream(productCategorySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(productCategoryMapper::toDto)
             .collect(Collectors.toList());
     }
 }

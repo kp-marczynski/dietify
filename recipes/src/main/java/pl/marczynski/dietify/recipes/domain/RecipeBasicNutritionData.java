@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.recipes.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,6 +31,7 @@ public class RecipeBasicNutritionData implements Serializable {
      */
     @NotNull
     @Min(value = 0)
+    @ApiModelProperty(value = "Energy in kcal per 100 gram of recipe meal calculated from products added to recipe", required = true)
     @Column(name = "energy", nullable = false)
     private Integer energy;
 
@@ -38,6 +40,7 @@ public class RecipeBasicNutritionData implements Serializable {
      */
     @NotNull
     @Min(value = 0)
+    @ApiModelProperty(value = "Protein in grams per 100 gram of recipe meal calculated from products added to recipe", required = true)
     @Column(name = "protein", nullable = false)
     private Integer protein;
 
@@ -46,6 +49,7 @@ public class RecipeBasicNutritionData implements Serializable {
      */
     @NotNull
     @Min(value = 0)
+    @ApiModelProperty(value = "Fat in grams per 100 gram of recipe meal calculated from products added to recipe", required = true)
     @Column(name = "fat", nullable = false)
     private Integer fat;
 
@@ -54,13 +58,9 @@ public class RecipeBasicNutritionData implements Serializable {
      */
     @NotNull
     @Min(value = 0)
+    @ApiModelProperty(value = "Carbohydrates in grams per 100 gram of recipe meal calculated from products added to recipe", required = true)
     @Column(name = "carbohydrates", nullable = false)
     private Integer carbohydrates;
-
-    @OneToOne(optional = false)    @NotNull
-
-    @JoinColumn(unique = true)
-    private Recipe recipe;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -101,14 +101,6 @@ public class RecipeBasicNutritionData implements Serializable {
 
     public void setCarbohydrates(Integer carbohydrates) {
         this.carbohydrates = carbohydrates;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

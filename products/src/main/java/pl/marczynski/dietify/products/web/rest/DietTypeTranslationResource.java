@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.DietTypeTranslation;
 import pl.marczynski.dietify.products.service.DietTypeTranslationService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.DietTypeTranslationDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class DietTypeTranslationResource {
     /**
      * {@code POST  /diet-type-translations} : Create a new dietTypeTranslation.
      *
-     * @param dietTypeTranslationDTO the dietTypeTranslationDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new dietTypeTranslationDTO, or with status {@code 400 (Bad Request)} if the dietTypeTranslation has already an ID.
+     * @param dietTypeTranslation the dietTypeTranslation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new dietTypeTranslation, or with status {@code 400 (Bad Request)} if the dietTypeTranslation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/diet-type-translations")
-    public ResponseEntity<DietTypeTranslationDTO> createDietTypeTranslation(@Valid @RequestBody DietTypeTranslationDTO dietTypeTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to save DietTypeTranslation : {}", dietTypeTranslationDTO);
-        if (dietTypeTranslationDTO.getId() != null) {
+    public ResponseEntity<DietTypeTranslation> createDietTypeTranslation(@Valid @RequestBody DietTypeTranslation dietTypeTranslation) throws URISyntaxException {
+        log.debug("REST request to save DietTypeTranslation : {}", dietTypeTranslation);
+        if (dietTypeTranslation.getId() != null) {
             throw new BadRequestAlertException("A new dietTypeTranslation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        DietTypeTranslationDTO result = dietTypeTranslationService.save(dietTypeTranslationDTO);
+        DietTypeTranslation result = dietTypeTranslationService.save(dietTypeTranslation);
         return ResponseEntity.created(new URI("/api/diet-type-translations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class DietTypeTranslationResource {
     /**
      * {@code PUT  /diet-type-translations} : Updates an existing dietTypeTranslation.
      *
-     * @param dietTypeTranslationDTO the dietTypeTranslationDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated dietTypeTranslationDTO,
-     * or with status {@code 400 (Bad Request)} if the dietTypeTranslationDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the dietTypeTranslationDTO couldn't be updated.
+     * @param dietTypeTranslation the dietTypeTranslation to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated dietTypeTranslation,
+     * or with status {@code 400 (Bad Request)} if the dietTypeTranslation is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the dietTypeTranslation couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/diet-type-translations")
-    public ResponseEntity<DietTypeTranslationDTO> updateDietTypeTranslation(@Valid @RequestBody DietTypeTranslationDTO dietTypeTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to update DietTypeTranslation : {}", dietTypeTranslationDTO);
-        if (dietTypeTranslationDTO.getId() == null) {
+    public ResponseEntity<DietTypeTranslation> updateDietTypeTranslation(@Valid @RequestBody DietTypeTranslation dietTypeTranslation) throws URISyntaxException {
+        log.debug("REST request to update DietTypeTranslation : {}", dietTypeTranslation);
+        if (dietTypeTranslation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        DietTypeTranslationDTO result = dietTypeTranslationService.save(dietTypeTranslationDTO);
+        DietTypeTranslation result = dietTypeTranslationService.save(dietTypeTranslation);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, dietTypeTranslationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, dietTypeTranslation.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class DietTypeTranslationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dietTypeTranslations in body.
      */
     @GetMapping("/diet-type-translations")
-    public List<DietTypeTranslationDTO> getAllDietTypeTranslations() {
+    public List<DietTypeTranslation> getAllDietTypeTranslations() {
         log.debug("REST request to get all DietTypeTranslations");
         return dietTypeTranslationService.findAll();
     }
@@ -96,20 +96,20 @@ public class DietTypeTranslationResource {
     /**
      * {@code GET  /diet-type-translations/:id} : get the "id" dietTypeTranslation.
      *
-     * @param id the id of the dietTypeTranslationDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the dietTypeTranslationDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the dietTypeTranslation to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the dietTypeTranslation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/diet-type-translations/{id}")
-    public ResponseEntity<DietTypeTranslationDTO> getDietTypeTranslation(@PathVariable Long id) {
+    public ResponseEntity<DietTypeTranslation> getDietTypeTranslation(@PathVariable Long id) {
         log.debug("REST request to get DietTypeTranslation : {}", id);
-        Optional<DietTypeTranslationDTO> dietTypeTranslationDTO = dietTypeTranslationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(dietTypeTranslationDTO);
+        Optional<DietTypeTranslation> dietTypeTranslation = dietTypeTranslationService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(dietTypeTranslation);
     }
 
     /**
      * {@code DELETE  /diet-type-translations/:id} : delete the "id" dietTypeTranslation.
      *
-     * @param id the id of the dietTypeTranslationDTO to delete.
+     * @param id the id of the dietTypeTranslation to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/diet-type-translations/{id}")
@@ -127,7 +127,7 @@ public class DietTypeTranslationResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/diet-type-translations")
-    public List<DietTypeTranslationDTO> searchDietTypeTranslations(@RequestParam String query) {
+    public List<DietTypeTranslation> searchDietTypeTranslations(@RequestParam String query) {
         log.debug("REST request to search DietTypeTranslations for query {}", query);
         return dietTypeTranslationService.search(query);
     }

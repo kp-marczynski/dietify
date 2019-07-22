@@ -2,13 +2,11 @@ package pl.marczynski.dietify.products.web.rest;
 
 import pl.marczynski.dietify.products.ProductsApp;
 import pl.marczynski.dietify.products.domain.Product;
-import pl.marczynski.dietify.products.domain.ProductSubcategory;
 import pl.marczynski.dietify.products.domain.ProductBasicNutritionData;
+import pl.marczynski.dietify.products.domain.ProductSubcategory;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.repository.search.ProductSearchRepository;
 import pl.marczynski.dietify.products.service.ProductService;
-import pl.marczynski.dietify.products.service.dto.ProductDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -70,9 +68,6 @@ public class ProductResourceIT {
     @Mock
     private ProductRepository productRepositoryMock;
 
-    @Autowired
-    private ProductMapper productMapper;
-
     @Mock
     private ProductService productServiceMock;
 
@@ -133,16 +128,6 @@ public class ProductResourceIT {
         product.setIsVerified(DEFAULT_IS_VERIFIED);
         product.setLanguage(DEFAULT_LANGUAGE);
         // Add required entity
-        ProductSubcategory productSubcategory;
-        if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
-            productSubcategory = ProductSubcategoryResourceIT.createEntity(em);
-            em.persist(productSubcategory);
-            em.flush();
-        } else {
-            productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
-        }
-        product.setSubcategory(productSubcategory);
-        // Add required entity
         ProductBasicNutritionData productBasicNutritionData;
         if (TestUtil.findAll(em, ProductBasicNutritionData.class).isEmpty()) {
             productBasicNutritionData = ProductBasicNutritionDataResourceIT.createEntity(em);
@@ -152,6 +137,16 @@ public class ProductResourceIT {
             productBasicNutritionData = TestUtil.findAll(em, ProductBasicNutritionData.class).get(0);
         }
         product.setBasicNutritionData(productBasicNutritionData);
+        // Add required entity
+        ProductSubcategory productSubcategory;
+        if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
+            productSubcategory = ProductSubcategoryResourceIT.createEntity(em);
+            em.persist(productSubcategory);
+            em.flush();
+        } else {
+            productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
+        }
+        product.setSubcategory(productSubcategory);
         return product;
     }
     /**
@@ -169,16 +164,6 @@ public class ProductResourceIT {
         product.setIsVerified(UPDATED_IS_VERIFIED);
         product.setLanguage(UPDATED_LANGUAGE);
         // Add required entity
-        ProductSubcategory productSubcategory;
-        if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
-            productSubcategory = ProductSubcategoryResourceIT.createUpdatedEntity(em);
-            em.persist(productSubcategory);
-            em.flush();
-        } else {
-            productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
-        }
-        product.setSubcategory(productSubcategory);
-        // Add required entity
         ProductBasicNutritionData productBasicNutritionData;
         if (TestUtil.findAll(em, ProductBasicNutritionData.class).isEmpty()) {
             productBasicNutritionData = ProductBasicNutritionDataResourceIT.createUpdatedEntity(em);
@@ -188,6 +173,16 @@ public class ProductResourceIT {
             productBasicNutritionData = TestUtil.findAll(em, ProductBasicNutritionData.class).get(0);
         }
         product.setBasicNutritionData(productBasicNutritionData);
+        // Add required entity
+        ProductSubcategory productSubcategory;
+        if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
+            productSubcategory = ProductSubcategoryResourceIT.createUpdatedEntity(em);
+            em.persist(productSubcategory);
+            em.flush();
+        } else {
+            productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
+        }
+        product.setSubcategory(productSubcategory);
         return product;
     }
 
@@ -202,10 +197,9 @@ public class ProductResourceIT {
         int databaseSizeBeforeCreate = productRepository.findAll().size();
 
         // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isCreated());
 
         // Validate the Product in the database
@@ -230,12 +224,11 @@ public class ProductResourceIT {
 
         // Create the Product with an existing ID
         product.setId(1L);
-        ProductDTO productDTO = productMapper.toDto(product);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
@@ -255,11 +248,10 @@ public class ProductResourceIT {
         product.setDescription(null);
 
         // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.toDto(product);
 
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         List<Product> productList = productRepository.findAll();
@@ -274,11 +266,10 @@ public class ProductResourceIT {
         product.setIsFinal(null);
 
         // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.toDto(product);
 
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         List<Product> productList = productRepository.findAll();
@@ -293,11 +284,10 @@ public class ProductResourceIT {
         product.setIsVerified(null);
 
         // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.toDto(product);
 
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         List<Product> productList = productRepository.findAll();
@@ -312,11 +302,10 @@ public class ProductResourceIT {
         product.setLanguage(null);
 
         // Create the Product, which fails.
-        ProductDTO productDTO = productMapper.toDto(product);
 
         restProductMockMvc.perform(post("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         List<Product> productList = productRepository.findAll();
@@ -406,7 +395,9 @@ public class ProductResourceIT {
     @Transactional
     public void updateProduct() throws Exception {
         // Initialize the database
-        productRepository.saveAndFlush(product);
+        productService.save(product);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockProductSearchRepository);
 
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
 
@@ -420,11 +411,10 @@ public class ProductResourceIT {
         updatedProduct.setIsFinal(UPDATED_IS_FINAL);
         updatedProduct.setIsVerified(UPDATED_IS_VERIFIED);
         updatedProduct.setLanguage(UPDATED_LANGUAGE);
-        ProductDTO productDTO = productMapper.toDto(updatedProduct);
 
         restProductMockMvc.perform(put("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedProduct)))
             .andExpect(status().isOk());
 
         // Validate the Product in the database
@@ -448,12 +438,11 @@ public class ProductResourceIT {
         int databaseSizeBeforeUpdate = productRepository.findAll().size();
 
         // Create the Product
-        ProductDTO productDTO = productMapper.toDto(product);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductMockMvc.perform(put("/api/products")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(product)))
             .andExpect(status().isBadRequest());
 
         // Validate the Product in the database
@@ -468,7 +457,7 @@ public class ProductResourceIT {
     @Transactional
     public void deleteProduct() throws Exception {
         // Initialize the database
-        productRepository.saveAndFlush(product);
+        productService.save(product);
 
         int databaseSizeBeforeDelete = productRepository.findAll().size();
 
@@ -489,7 +478,7 @@ public class ProductResourceIT {
     @Transactional
     public void searchProduct() throws Exception {
         // Initialize the database
-        productRepository.saveAndFlush(product);
+        productService.save(product);
         when(mockProductSearchRepository.search(queryStringQuery("id:" + product.getId()), PageRequest.of(0, 20)))
             .thenReturn(new PageImpl<>(Collections.singletonList(product), PageRequest.of(0, 1), 1));
         // Search the product
@@ -518,28 +507,5 @@ public class ProductResourceIT {
         assertThat(product1).isNotEqualTo(product2);
         product1.setId(null);
         assertThat(product1).isNotEqualTo(product2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductDTO.class);
-        ProductDTO productDTO1 = new ProductDTO();
-        productDTO1.setId(1L);
-        ProductDTO productDTO2 = new ProductDTO();
-        assertThat(productDTO1).isNotEqualTo(productDTO2);
-        productDTO2.setId(productDTO1.getId());
-        assertThat(productDTO1).isEqualTo(productDTO2);
-        productDTO2.setId(2L);
-        assertThat(productDTO1).isNotEqualTo(productDTO2);
-        productDTO1.setId(null);
-        assertThat(productDTO1).isNotEqualTo(productDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(productMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(productMapper.fromId(null)).isNull();
     }
 }

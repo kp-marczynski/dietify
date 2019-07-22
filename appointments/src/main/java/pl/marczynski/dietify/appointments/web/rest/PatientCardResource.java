@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.service.PatientCardService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.appointments.service.dto.PatientCardDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -49,17 +49,17 @@ public class PatientCardResource {
     /**
      * {@code POST  /patient-cards} : Create a new patientCard.
      *
-     * @param patientCardDTO the patientCardDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new patientCardDTO, or with status {@code 400 (Bad Request)} if the patientCard has already an ID.
+     * @param patientCard the patientCard to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new patientCard, or with status {@code 400 (Bad Request)} if the patientCard has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/patient-cards")
-    public ResponseEntity<PatientCardDTO> createPatientCard(@Valid @RequestBody PatientCardDTO patientCardDTO) throws URISyntaxException {
-        log.debug("REST request to save PatientCard : {}", patientCardDTO);
-        if (patientCardDTO.getId() != null) {
+    public ResponseEntity<PatientCard> createPatientCard(@Valid @RequestBody PatientCard patientCard) throws URISyntaxException {
+        log.debug("REST request to save PatientCard : {}", patientCard);
+        if (patientCard.getId() != null) {
             throw new BadRequestAlertException("A new patientCard cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        PatientCardDTO result = patientCardService.save(patientCardDTO);
+        PatientCard result = patientCardService.save(patientCard);
         return ResponseEntity.created(new URI("/api/patient-cards/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -68,21 +68,21 @@ public class PatientCardResource {
     /**
      * {@code PUT  /patient-cards} : Updates an existing patientCard.
      *
-     * @param patientCardDTO the patientCardDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated patientCardDTO,
-     * or with status {@code 400 (Bad Request)} if the patientCardDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the patientCardDTO couldn't be updated.
+     * @param patientCard the patientCard to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated patientCard,
+     * or with status {@code 400 (Bad Request)} if the patientCard is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the patientCard couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/patient-cards")
-    public ResponseEntity<PatientCardDTO> updatePatientCard(@Valid @RequestBody PatientCardDTO patientCardDTO) throws URISyntaxException {
-        log.debug("REST request to update PatientCard : {}", patientCardDTO);
-        if (patientCardDTO.getId() == null) {
+    public ResponseEntity<PatientCard> updatePatientCard(@Valid @RequestBody PatientCard patientCard) throws URISyntaxException {
+        log.debug("REST request to update PatientCard : {}", patientCard);
+        if (patientCard.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        PatientCardDTO result = patientCardService.save(patientCardDTO);
+        PatientCard result = patientCardService.save(patientCard);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, patientCardDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, patientCard.getId().toString()))
             .body(result);
     }
 
@@ -95,9 +95,9 @@ public class PatientCardResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of patientCards in body.
      */
     @GetMapping("/patient-cards")
-    public ResponseEntity<List<PatientCardDTO>> getAllPatientCards(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<List<PatientCard>> getAllPatientCards(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of PatientCards");
-        Page<PatientCardDTO> page = patientCardService.findAll(pageable);
+        Page<PatientCard> page = patientCardService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -105,20 +105,20 @@ public class PatientCardResource {
     /**
      * {@code GET  /patient-cards/:id} : get the "id" patientCard.
      *
-     * @param id the id of the patientCardDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the patientCardDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the patientCard to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the patientCard, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/patient-cards/{id}")
-    public ResponseEntity<PatientCardDTO> getPatientCard(@PathVariable Long id) {
+    public ResponseEntity<PatientCard> getPatientCard(@PathVariable Long id) {
         log.debug("REST request to get PatientCard : {}", id);
-        Optional<PatientCardDTO> patientCardDTO = patientCardService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(patientCardDTO);
+        Optional<PatientCard> patientCard = patientCardService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(patientCard);
     }
 
     /**
      * {@code DELETE  /patient-cards/:id} : delete the "id" patientCard.
      *
-     * @param id the id of the patientCardDTO to delete.
+     * @param id the id of the patientCard to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/patient-cards/{id}")

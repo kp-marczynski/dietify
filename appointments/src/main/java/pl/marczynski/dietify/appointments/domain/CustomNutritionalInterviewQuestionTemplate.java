@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.appointments.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -27,6 +28,7 @@ public class CustomNutritionalInterviewQuestionTemplate implements Serializable 
      * Id of owner User entity retrieved from gateway service
      */
     @NotNull
+    @ApiModelProperty(value = "Id of owner User entity retrieved from gateway service", required = true)
     @Column(name = "owner_id", nullable = false)
     private Long ownerId;
 
@@ -34,6 +36,7 @@ public class CustomNutritionalInterviewQuestionTemplate implements Serializable 
      * Custom question extending Nutritional Interview
      */
     
+    @ApiModelProperty(value = "Custom question extending Nutritional Interview", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "question", nullable = false)
@@ -44,6 +47,7 @@ public class CustomNutritionalInterviewQuestionTemplate implements Serializable 
      */
     @NotNull
     @Size(min = 2, max = 2)
+    @ApiModelProperty(value = "Language of translation as ISO_639-1 code", required = true)
     @Column(name = "language", length = 2, nullable = false)
     private String language;
 

@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.appointments.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -29,6 +30,7 @@ public class AppointmentEvaluation implements Serializable {
      * Overall visit satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Overall visit satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "overall_satisfaction", nullable = false)
     private SatisfactionRate overallSatisfaction;
@@ -37,6 +39,7 @@ public class AppointmentEvaluation implements Serializable {
      * Dietitian service satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Dietitian service satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "dietitian_service_satisfaction", nullable = false)
     private SatisfactionRate dietitianServiceSatisfaction;
@@ -45,6 +48,7 @@ public class AppointmentEvaluation implements Serializable {
      * Overall meal plan satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Overall meal plan satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_plan_overall_satisfaction", nullable = false)
     private SatisfactionRate mealPlanOverallSatisfaction;
@@ -53,6 +57,7 @@ public class AppointmentEvaluation implements Serializable {
      * Meals cost satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Meals cost satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_cost_satisfaction", nullable = false)
     private SatisfactionRate mealCostSatisfaction;
@@ -61,6 +66,7 @@ public class AppointmentEvaluation implements Serializable {
      * Meals preparation time satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Meals preparation time satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_preparation_time_satisfaction", nullable = false)
     private SatisfactionRate mealPreparationTimeSatisfaction;
@@ -69,6 +75,7 @@ public class AppointmentEvaluation implements Serializable {
      * Meal complexity level satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Meal complexity level satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_complexity_level_satisfaction", nullable = false)
     private SatisfactionRate mealComplexityLevelSatisfaction;
@@ -77,6 +84,7 @@ public class AppointmentEvaluation implements Serializable {
      * Meal tastefulness satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Meal tastefulness satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "meal_tastefulness_satisfaction", nullable = false)
     private SatisfactionRate mealTastefulnessSatisfaction;
@@ -85,6 +93,7 @@ public class AppointmentEvaluation implements Serializable {
      * Dietary result satisfaction
      */
     @NotNull
+    @ApiModelProperty(value = "Dietary result satisfaction", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "dietary_result_satisfaction", nullable = false)
     private SatisfactionRate dietaryResultSatisfaction;
@@ -92,6 +101,7 @@ public class AppointmentEvaluation implements Serializable {
     /**
      * Optional comment to visit
      */
+    @ApiModelProperty(value = "Optional comment to visit")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "comment")

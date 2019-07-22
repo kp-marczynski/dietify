@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.PreparationStepDTO;
+import pl.marczynski.dietify.recipes.domain.PreparationStep;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.PreparationStep}.
+ * Service Interface for managing {@link PreparationStep}.
  */
 public interface PreparationStepService {
 
     /**
      * Save a preparationStep.
      *
-     * @param preparationStepDTO the entity to save.
+     * @param preparationStep the entity to save.
      * @return the persisted entity.
      */
-    PreparationStepDTO save(PreparationStepDTO preparationStepDTO);
+    PreparationStep save(PreparationStep preparationStep);
 
     /**
      * Get all the preparationSteps.
      *
      * @return the list of entities.
      */
-    List<PreparationStepDTO> findAll();
+    List<PreparationStep> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface PreparationStepService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<PreparationStepDTO> findOne(Long id);
+    Optional<PreparationStep> findOne(Long id);
 
     /**
      * Delete the "id" preparationStep.
@@ -48,5 +48,5 @@ public interface PreparationStepService {
      * 
      * @return the list of entities.
      */
-    List<PreparationStepDTO> search(String query);
+    List<PreparationStep> search(String query);
 }

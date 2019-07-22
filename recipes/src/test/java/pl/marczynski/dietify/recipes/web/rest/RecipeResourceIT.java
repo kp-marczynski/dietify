@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.RecipeBasicNutritionData;
 import pl.marczynski.dietify.recipes.repository.RecipeRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeSearchRepository;
 import pl.marczynski.dietify.recipes.service.RecipeService;
-import pl.marczynski.dietify.recipes.service.dto.RecipeDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -85,9 +83,6 @@ public class RecipeResourceIT {
 
     @Mock
     private RecipeRepository recipeRepositoryMock;
-
-    @Autowired
-    private RecipeMapper recipeMapper;
 
     @Mock
     private RecipeService recipeServiceMock;
@@ -208,10 +203,9 @@ public class RecipeResourceIT {
         int databaseSizeBeforeCreate = recipeRepository.findAll().size();
 
         // Create the Recipe
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isCreated());
 
         // Validate the Recipe in the database
@@ -241,12 +235,11 @@ public class RecipeResourceIT {
 
         // Create the Recipe with an existing ID
         recipe.setId(1L);
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         // Validate the Recipe in the database
@@ -266,11 +259,10 @@ public class RecipeResourceIT {
         recipe.setName(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -285,11 +277,10 @@ public class RecipeResourceIT {
         recipe.setPreparationTimeMinutes(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -304,11 +295,10 @@ public class RecipeResourceIT {
         recipe.setNumberOfPortions(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -323,11 +313,10 @@ public class RecipeResourceIT {
         recipe.setAuthorId(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -342,11 +331,10 @@ public class RecipeResourceIT {
         recipe.setCreationDate(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -361,11 +349,10 @@ public class RecipeResourceIT {
         recipe.setLastEditDate(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -380,11 +367,10 @@ public class RecipeResourceIT {
         recipe.setIsVisible(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -399,11 +385,10 @@ public class RecipeResourceIT {
         recipe.setLanguage(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -418,11 +403,10 @@ public class RecipeResourceIT {
         recipe.setTotalGramsWeight(null);
 
         // Create the Recipe, which fails.
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         restRecipeMockMvc.perform(post("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         List<Recipe> recipeList = recipeRepository.findAll();
@@ -522,7 +506,9 @@ public class RecipeResourceIT {
     @Transactional
     public void updateRecipe() throws Exception {
         // Initialize the database
-        recipeRepository.saveAndFlush(recipe);
+        recipeService.save(recipe);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockRecipeSearchRepository);
 
         int databaseSizeBeforeUpdate = recipeRepository.findAll().size();
 
@@ -541,11 +527,10 @@ public class RecipeResourceIT {
         updatedRecipe.setIsVisible(UPDATED_IS_VISIBLE);
         updatedRecipe.setLanguage(UPDATED_LANGUAGE);
         updatedRecipe.setTotalGramsWeight(UPDATED_TOTAL_GRAMS_WEIGHT);
-        RecipeDTO recipeDTO = recipeMapper.toDto(updatedRecipe);
 
         restRecipeMockMvc.perform(put("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecipe)))
             .andExpect(status().isOk());
 
         // Validate the Recipe in the database
@@ -574,12 +559,11 @@ public class RecipeResourceIT {
         int databaseSizeBeforeUpdate = recipeRepository.findAll().size();
 
         // Create the Recipe
-        RecipeDTO recipeDTO = recipeMapper.toDto(recipe);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRecipeMockMvc.perform(put("/api/recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipe)))
             .andExpect(status().isBadRequest());
 
         // Validate the Recipe in the database
@@ -594,7 +578,7 @@ public class RecipeResourceIT {
     @Transactional
     public void deleteRecipe() throws Exception {
         // Initialize the database
-        recipeRepository.saveAndFlush(recipe);
+        recipeService.save(recipe);
 
         int databaseSizeBeforeDelete = recipeRepository.findAll().size();
 
@@ -615,7 +599,7 @@ public class RecipeResourceIT {
     @Transactional
     public void searchRecipe() throws Exception {
         // Initialize the database
-        recipeRepository.saveAndFlush(recipe);
+        recipeService.save(recipe);
         when(mockRecipeSearchRepository.search(queryStringQuery("id:" + recipe.getId()), PageRequest.of(0, 20)))
             .thenReturn(new PageImpl<>(Collections.singletonList(recipe), PageRequest.of(0, 1), 1));
         // Search the recipe
@@ -649,28 +633,5 @@ public class RecipeResourceIT {
         assertThat(recipe1).isNotEqualTo(recipe2);
         recipe1.setId(null);
         assertThat(recipe1).isNotEqualTo(recipe2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RecipeDTO.class);
-        RecipeDTO recipeDTO1 = new RecipeDTO();
-        recipeDTO1.setId(1L);
-        RecipeDTO recipeDTO2 = new RecipeDTO();
-        assertThat(recipeDTO1).isNotEqualTo(recipeDTO2);
-        recipeDTO2.setId(recipeDTO1.getId());
-        assertThat(recipeDTO1).isEqualTo(recipeDTO2);
-        recipeDTO2.setId(2L);
-        assertThat(recipeDTO1).isNotEqualTo(recipeDTO2);
-        recipeDTO1.setId(null);
-        assertThat(recipeDTO1).isNotEqualTo(recipeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(recipeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(recipeMapper.fromId(null)).isNull();
     }
 }

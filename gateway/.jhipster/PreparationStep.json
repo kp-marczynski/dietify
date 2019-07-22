@@ -25,12 +25,12 @@
             "otherEntityRelationshipName": "preparationSteps",
             "relationshipValidateRules": "required",
             "relationshipName": "recipeSection",
-            "otherEntityField": "sectionName"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154657",
+    "changelogDate": "20190722200927",
     "entityTableName": "preparation_step",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

@@ -38,7 +38,6 @@ export class BodyMeasurementUpdatePage {
   basicMetabolismInput = element(by.id('field_basicMetabolism'));
   metabolicAgeInput = element(by.id('field_metabolicAge'));
   visceralFatLevelInput = element(by.id('field_visceralFatLevel'));
-  appointmentSelect = element(by.id('field_appointment'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -138,25 +137,6 @@ export class BodyMeasurementUpdatePage {
 
   async getVisceralFatLevelInput() {
     return await this.visceralFatLevelInput.getAttribute('value');
-  }
-
-  async appointmentSelectLastOption(timeout?: number) {
-    await this.appointmentSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async appointmentSelectOption(option) {
-    await this.appointmentSelect.sendKeys(option);
-  }
-
-  getAppointmentSelect(): ElementFinder {
-    return this.appointmentSelect;
-  }
-
-  async getAppointmentSelectedOption() {
-    return await this.appointmentSelect.element(by.css('option:checked')).getText();
   }
 
   async save(timeout?: number) {

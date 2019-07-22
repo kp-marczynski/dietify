@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.mealplans.service;
 
-import pl.marczynski.dietify.mealplans.service.dto.MealRecipeDTO;
+import pl.marczynski.dietify.mealplans.domain.MealRecipe;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.mealplans.domain.MealRecipe}.
+ * Service Interface for managing {@link MealRecipe}.
  */
 public interface MealRecipeService {
 
     /**
      * Save a mealRecipe.
      *
-     * @param mealRecipeDTO the entity to save.
+     * @param mealRecipe the entity to save.
      * @return the persisted entity.
      */
-    MealRecipeDTO save(MealRecipeDTO mealRecipeDTO);
+    MealRecipe save(MealRecipe mealRecipe);
 
     /**
      * Get all the mealRecipes.
      *
      * @return the list of entities.
      */
-    List<MealRecipeDTO> findAll();
+    List<MealRecipe> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface MealRecipeService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<MealRecipeDTO> findOne(Long id);
+    Optional<MealRecipe> findOne(Long id);
 
     /**
      * Delete the "id" mealRecipe.
@@ -48,5 +48,5 @@ public interface MealRecipeService {
      * 
      * @return the list of entities.
      */
-    List<MealRecipeDTO> search(String query);
+    List<MealRecipe> search(String query);
 }

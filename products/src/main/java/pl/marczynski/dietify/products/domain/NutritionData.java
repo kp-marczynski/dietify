@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,6 +32,7 @@ public class NutritionData implements Serializable {
      */
     @NotNull
     @DecimalMin(value = "0")
+    @ApiModelProperty(value = "Nutrition value in units specified in NutritionDefinition", required = true)
     @Column(name = "nutrition_value", nullable = false)
     private Double nutritionValue;
 

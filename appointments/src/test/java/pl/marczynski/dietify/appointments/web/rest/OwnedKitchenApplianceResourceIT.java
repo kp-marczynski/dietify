@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.OwnedKitchenAppliance;
 import pl.marczynski.dietify.appointments.domain.NutritionalInterview;
 import pl.marczynski.dietify.appointments.repository.OwnedKitchenApplianceRepository;
 import pl.marczynski.dietify.appointments.service.OwnedKitchenApplianceService;
-import pl.marczynski.dietify.appointments.service.dto.OwnedKitchenApplianceDTO;
-import pl.marczynski.dietify.appointments.service.mapper.OwnedKitchenApplianceMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,9 +40,6 @@ public class OwnedKitchenApplianceResourceIT {
 
     @Autowired
     private OwnedKitchenApplianceRepository ownedKitchenApplianceRepository;
-
-    @Autowired
-    private OwnedKitchenApplianceMapper ownedKitchenApplianceMapper;
 
     @Autowired
     private OwnedKitchenApplianceService ownedKitchenApplianceService;
@@ -134,10 +129,9 @@ public class OwnedKitchenApplianceResourceIT {
         int databaseSizeBeforeCreate = ownedKitchenApplianceRepository.findAll().size();
 
         // Create the OwnedKitchenAppliance
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO = ownedKitchenApplianceMapper.toDto(ownedKitchenAppliance);
         restOwnedKitchenApplianceMockMvc.perform(post("/api/owned-kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenAppliance)))
             .andExpect(status().isCreated());
 
         // Validate the OwnedKitchenAppliance in the database
@@ -154,12 +148,11 @@ public class OwnedKitchenApplianceResourceIT {
 
         // Create the OwnedKitchenAppliance with an existing ID
         ownedKitchenAppliance.setId(1L);
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO = ownedKitchenApplianceMapper.toDto(ownedKitchenAppliance);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restOwnedKitchenApplianceMockMvc.perform(post("/api/owned-kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenAppliance)))
             .andExpect(status().isBadRequest());
 
         // Validate the OwnedKitchenAppliance in the database
@@ -176,11 +169,10 @@ public class OwnedKitchenApplianceResourceIT {
         ownedKitchenAppliance.setKitchenApplianceId(null);
 
         // Create the OwnedKitchenAppliance, which fails.
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO = ownedKitchenApplianceMapper.toDto(ownedKitchenAppliance);
 
         restOwnedKitchenApplianceMockMvc.perform(post("/api/owned-kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenAppliance)))
             .andExpect(status().isBadRequest());
 
         List<OwnedKitchenAppliance> ownedKitchenApplianceList = ownedKitchenApplianceRepository.findAll();
@@ -227,7 +219,7 @@ public class OwnedKitchenApplianceResourceIT {
     @Transactional
     public void updateOwnedKitchenAppliance() throws Exception {
         // Initialize the database
-        ownedKitchenApplianceRepository.saveAndFlush(ownedKitchenAppliance);
+        ownedKitchenApplianceService.save(ownedKitchenAppliance);
 
         int databaseSizeBeforeUpdate = ownedKitchenApplianceRepository.findAll().size();
 
@@ -236,11 +228,10 @@ public class OwnedKitchenApplianceResourceIT {
         // Disconnect from session so that the updates on updatedOwnedKitchenAppliance are not directly saved in db
         em.detach(updatedOwnedKitchenAppliance);
         updatedOwnedKitchenAppliance.setKitchenApplianceId(UPDATED_KITCHEN_APPLIANCE_ID);
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO = ownedKitchenApplianceMapper.toDto(updatedOwnedKitchenAppliance);
 
         restOwnedKitchenApplianceMockMvc.perform(put("/api/owned-kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedOwnedKitchenAppliance)))
             .andExpect(status().isOk());
 
         // Validate the OwnedKitchenAppliance in the database
@@ -256,12 +247,11 @@ public class OwnedKitchenApplianceResourceIT {
         int databaseSizeBeforeUpdate = ownedKitchenApplianceRepository.findAll().size();
 
         // Create the OwnedKitchenAppliance
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO = ownedKitchenApplianceMapper.toDto(ownedKitchenAppliance);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restOwnedKitchenApplianceMockMvc.perform(put("/api/owned-kitchen-appliances")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenApplianceDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(ownedKitchenAppliance)))
             .andExpect(status().isBadRequest());
 
         // Validate the OwnedKitchenAppliance in the database
@@ -273,7 +263,7 @@ public class OwnedKitchenApplianceResourceIT {
     @Transactional
     public void deleteOwnedKitchenAppliance() throws Exception {
         // Initialize the database
-        ownedKitchenApplianceRepository.saveAndFlush(ownedKitchenAppliance);
+        ownedKitchenApplianceService.save(ownedKitchenAppliance);
 
         int databaseSizeBeforeDelete = ownedKitchenApplianceRepository.findAll().size();
 
@@ -300,28 +290,5 @@ public class OwnedKitchenApplianceResourceIT {
         assertThat(ownedKitchenAppliance1).isNotEqualTo(ownedKitchenAppliance2);
         ownedKitchenAppliance1.setId(null);
         assertThat(ownedKitchenAppliance1).isNotEqualTo(ownedKitchenAppliance2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(OwnedKitchenApplianceDTO.class);
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO1 = new OwnedKitchenApplianceDTO();
-        ownedKitchenApplianceDTO1.setId(1L);
-        OwnedKitchenApplianceDTO ownedKitchenApplianceDTO2 = new OwnedKitchenApplianceDTO();
-        assertThat(ownedKitchenApplianceDTO1).isNotEqualTo(ownedKitchenApplianceDTO2);
-        ownedKitchenApplianceDTO2.setId(ownedKitchenApplianceDTO1.getId());
-        assertThat(ownedKitchenApplianceDTO1).isEqualTo(ownedKitchenApplianceDTO2);
-        ownedKitchenApplianceDTO2.setId(2L);
-        assertThat(ownedKitchenApplianceDTO1).isNotEqualTo(ownedKitchenApplianceDTO2);
-        ownedKitchenApplianceDTO1.setId(null);
-        assertThat(ownedKitchenApplianceDTO1).isNotEqualTo(ownedKitchenApplianceDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(ownedKitchenApplianceMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(ownedKitchenApplianceMapper.fromId(null)).isNull();
     }
 }

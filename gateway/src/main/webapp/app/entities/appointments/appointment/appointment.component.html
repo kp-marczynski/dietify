@@ -37,7 +37,9 @@
             <th jhiSortBy="appointmentState"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState">Appointment State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="mealPlanId"><span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId">Meal Plan Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="generalAdvice"><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="patientCardId"><span jhiTranslate="gatewayApp.appointmentsAppointment.patientCard">Patient Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="bodyMeasurement.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="nutritionalInterview.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional Interview</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="patientCard.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.patientCard">Patient Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -49,8 +51,18 @@
                 <td>{{appointment.mealPlanId}}</td>
                 <td>{{appointment.generalAdvice}}</td>
                 <td>
-                    <div *ngIf="appointment.patientCardId">
-                        <a [routerLink]="['../patient-card', appointment.patientCardId , 'view' ]" >{{appointment.patientCardId}}</a>
+                    <div *ngIf="appointment.bodyMeasurement">
+                        <a [routerLink]="['../body-measurement', appointment.bodyMeasurement?.id, 'view' ]" >{{appointment.bodyMeasurement?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="appointment.nutritionalInterview">
+                        <a [routerLink]="['../nutritional-interview', appointment.nutritionalInterview?.id, 'view' ]" >{{appointment.nutritionalInterview?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="appointment.patientCard">
+                        <a [routerLink]="['../patient-card', appointment.patientCard?.id, 'view' ]" >{{appointment.patientCard?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.Recipe;
 import pl.marczynski.dietify.recipes.repository.RecipeSectionRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeSectionSearchRepository;
 import pl.marczynski.dietify.recipes.service.RecipeSectionService;
-import pl.marczynski.dietify.recipes.service.dto.RecipeSectionDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeSectionMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,9 +44,6 @@ public class RecipeSectionResourceIT {
 
     @Autowired
     private RecipeSectionRepository recipeSectionRepository;
-
-    @Autowired
-    private RecipeSectionMapper recipeSectionMapper;
 
     @Autowired
     private RecipeSectionService recipeSectionService;
@@ -146,10 +141,9 @@ public class RecipeSectionResourceIT {
         int databaseSizeBeforeCreate = recipeSectionRepository.findAll().size();
 
         // Create the RecipeSection
-        RecipeSectionDTO recipeSectionDTO = recipeSectionMapper.toDto(recipeSection);
         restRecipeSectionMockMvc.perform(post("/api/recipe-sections")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeSectionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeSection)))
             .andExpect(status().isCreated());
 
         // Validate the RecipeSection in the database
@@ -169,12 +163,11 @@ public class RecipeSectionResourceIT {
 
         // Create the RecipeSection with an existing ID
         recipeSection.setId(1L);
-        RecipeSectionDTO recipeSectionDTO = recipeSectionMapper.toDto(recipeSection);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restRecipeSectionMockMvc.perform(post("/api/recipe-sections")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeSectionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeSection)))
             .andExpect(status().isBadRequest());
 
         // Validate the RecipeSection in the database
@@ -226,7 +219,9 @@ public class RecipeSectionResourceIT {
     @Transactional
     public void updateRecipeSection() throws Exception {
         // Initialize the database
-        recipeSectionRepository.saveAndFlush(recipeSection);
+        recipeSectionService.save(recipeSection);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockRecipeSectionSearchRepository);
 
         int databaseSizeBeforeUpdate = recipeSectionRepository.findAll().size();
 
@@ -235,11 +230,10 @@ public class RecipeSectionResourceIT {
         // Disconnect from session so that the updates on updatedRecipeSection are not directly saved in db
         em.detach(updatedRecipeSection);
         updatedRecipeSection.setSectionName(UPDATED_SECTION_NAME);
-        RecipeSectionDTO recipeSectionDTO = recipeSectionMapper.toDto(updatedRecipeSection);
 
         restRecipeSectionMockMvc.perform(put("/api/recipe-sections")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeSectionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedRecipeSection)))
             .andExpect(status().isOk());
 
         // Validate the RecipeSection in the database
@@ -258,12 +252,11 @@ public class RecipeSectionResourceIT {
         int databaseSizeBeforeUpdate = recipeSectionRepository.findAll().size();
 
         // Create the RecipeSection
-        RecipeSectionDTO recipeSectionDTO = recipeSectionMapper.toDto(recipeSection);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restRecipeSectionMockMvc.perform(put("/api/recipe-sections")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(recipeSectionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(recipeSection)))
             .andExpect(status().isBadRequest());
 
         // Validate the RecipeSection in the database
@@ -278,7 +271,7 @@ public class RecipeSectionResourceIT {
     @Transactional
     public void deleteRecipeSection() throws Exception {
         // Initialize the database
-        recipeSectionRepository.saveAndFlush(recipeSection);
+        recipeSectionService.save(recipeSection);
 
         int databaseSizeBeforeDelete = recipeSectionRepository.findAll().size();
 
@@ -299,7 +292,7 @@ public class RecipeSectionResourceIT {
     @Transactional
     public void searchRecipeSection() throws Exception {
         // Initialize the database
-        recipeSectionRepository.saveAndFlush(recipeSection);
+        recipeSectionService.save(recipeSection);
         when(mockRecipeSectionSearchRepository.search(queryStringQuery("id:" + recipeSection.getId())))
             .thenReturn(Collections.singletonList(recipeSection));
         // Search the recipeSection
@@ -323,28 +316,5 @@ public class RecipeSectionResourceIT {
         assertThat(recipeSection1).isNotEqualTo(recipeSection2);
         recipeSection1.setId(null);
         assertThat(recipeSection1).isNotEqualTo(recipeSection2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(RecipeSectionDTO.class);
-        RecipeSectionDTO recipeSectionDTO1 = new RecipeSectionDTO();
-        recipeSectionDTO1.setId(1L);
-        RecipeSectionDTO recipeSectionDTO2 = new RecipeSectionDTO();
-        assertThat(recipeSectionDTO1).isNotEqualTo(recipeSectionDTO2);
-        recipeSectionDTO2.setId(recipeSectionDTO1.getId());
-        assertThat(recipeSectionDTO1).isEqualTo(recipeSectionDTO2);
-        recipeSectionDTO2.setId(2L);
-        assertThat(recipeSectionDTO1).isNotEqualTo(recipeSectionDTO2);
-        recipeSectionDTO1.setId(null);
-        assertThat(recipeSectionDTO1).isNotEqualTo(recipeSectionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(recipeSectionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(recipeSectionMapper.fromId(null)).isNull();
     }
 }

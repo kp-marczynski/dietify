@@ -51,15 +51,29 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.patientCard" for="field_patientCard">Patient Card</label>
-                    <select class="form-control" id="field_patientCard" name="patientCard" formControlName="patientCardId">
-                        <option *ngIf="!editForm.get('patientCardId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="patientCardOption.id" *ngFor="let patientCardOption of patientcards; trackBy: trackPatientCardById">{{patientCardOption.id}}</option>
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement" for="field_bodyMeasurement">Body Measurement</label>
+                    <select class="form-control" id="field_bodyMeasurement" name="bodyMeasurement" formControlName="bodyMeasurement">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="bodyMeasurementOption.id === editForm.get('bodyMeasurement').value?.id ? editForm.get('bodyMeasurement').value : bodyMeasurementOption" *ngFor="let bodyMeasurementOption of bodymeasurements; trackBy: trackBodyMeasurementById">{{bodyMeasurementOption.id}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('patientCardId').invalid && (editForm.get('patientCardId').dirty || editForm.get('patientCardId').touched)">
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview" for="field_nutritionalInterview">Nutritional Interview</label>
+                    <select class="form-control" id="field_nutritionalInterview" name="nutritionalInterview" formControlName="nutritionalInterview">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="nutritionalInterviewOption.id === editForm.get('nutritionalInterview').value?.id ? editForm.get('nutritionalInterview').value : nutritionalInterviewOption" *ngFor="let nutritionalInterviewOption of nutritionalinterviews; trackBy: trackNutritionalInterviewById">{{nutritionalInterviewOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.patientCard" for="field_patientCard">Patient Card</label>
+                    <select class="form-control" id="field_patientCard" name="patientCard" formControlName="patientCard">
+                        <option *ngIf="!editForm.get('patientCard').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="patientCardOption.id === editForm.get('patientCard').value?.id ? editForm.get('patientCard').value : patientCardOption" *ngFor="let patientCardOption of patientcards; trackBy: trackPatientCardById">{{patientCardOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('patientCard').invalid && (editForm.get('patientCard').dirty || editForm.get('patientCard').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('patientCardId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('patientCard').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

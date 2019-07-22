@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.NutritionDefinitionTranslationServ
 import pl.marczynski.dietify.products.domain.NutritionDefinitionTranslation;
 import pl.marczynski.dietify.products.repository.NutritionDefinitionTranslationRepository;
 import pl.marczynski.dietify.products.repository.search.NutritionDefinitionTranslationSearchRepository;
-import pl.marczynski.dietify.products.service.dto.NutritionDefinitionTranslationDTO;
-import pl.marczynski.dietify.products.service.mapper.NutritionDefinitionTranslationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class NutritionDefinitionTranslationServiceImpl implements NutritionDefin
 
     private final NutritionDefinitionTranslationRepository nutritionDefinitionTranslationRepository;
 
-    private final NutritionDefinitionTranslationMapper nutritionDefinitionTranslationMapper;
-
     private final NutritionDefinitionTranslationSearchRepository nutritionDefinitionTranslationSearchRepository;
 
-    public NutritionDefinitionTranslationServiceImpl(NutritionDefinitionTranslationRepository nutritionDefinitionTranslationRepository, NutritionDefinitionTranslationMapper nutritionDefinitionTranslationMapper, NutritionDefinitionTranslationSearchRepository nutritionDefinitionTranslationSearchRepository) {
+    public NutritionDefinitionTranslationServiceImpl(NutritionDefinitionTranslationRepository nutritionDefinitionTranslationRepository, NutritionDefinitionTranslationSearchRepository nutritionDefinitionTranslationSearchRepository) {
         this.nutritionDefinitionTranslationRepository = nutritionDefinitionTranslationRepository;
-        this.nutritionDefinitionTranslationMapper = nutritionDefinitionTranslationMapper;
         this.nutritionDefinitionTranslationSearchRepository = nutritionDefinitionTranslationSearchRepository;
     }
 
     /**
      * Save a nutritionDefinitionTranslation.
      *
-     * @param nutritionDefinitionTranslationDTO the entity to save.
+     * @param nutritionDefinitionTranslation the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public NutritionDefinitionTranslationDTO save(NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO) {
-        log.debug("Request to save NutritionDefinitionTranslation : {}", nutritionDefinitionTranslationDTO);
-        NutritionDefinitionTranslation nutritionDefinitionTranslation = nutritionDefinitionTranslationMapper.toEntity(nutritionDefinitionTranslationDTO);
-        nutritionDefinitionTranslation = nutritionDefinitionTranslationRepository.save(nutritionDefinitionTranslation);
-        NutritionDefinitionTranslationDTO result = nutritionDefinitionTranslationMapper.toDto(nutritionDefinitionTranslation);
-        nutritionDefinitionTranslationSearchRepository.save(nutritionDefinitionTranslation);
+    public NutritionDefinitionTranslation save(NutritionDefinitionTranslation nutritionDefinitionTranslation) {
+        log.debug("Request to save NutritionDefinitionTranslation : {}", nutritionDefinitionTranslation);
+        NutritionDefinitionTranslation result = nutritionDefinitionTranslationRepository.save(nutritionDefinitionTranslation);
+        nutritionDefinitionTranslationSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class NutritionDefinitionTranslationServiceImpl implements NutritionDefin
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionDefinitionTranslationDTO> findAll() {
+    public List<NutritionDefinitionTranslation> findAll() {
         log.debug("Request to get all NutritionDefinitionTranslations");
-        return nutritionDefinitionTranslationRepository.findAll().stream()
-            .map(nutritionDefinitionTranslationMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return nutritionDefinitionTranslationRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class NutritionDefinitionTranslationServiceImpl implements NutritionDefin
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<NutritionDefinitionTranslationDTO> findOne(Long id) {
+    public Optional<NutritionDefinitionTranslation> findOne(Long id) {
         log.debug("Request to get NutritionDefinitionTranslation : {}", id);
-        return nutritionDefinitionTranslationRepository.findById(id)
-            .map(nutritionDefinitionTranslationMapper::toDto);
+        return nutritionDefinitionTranslationRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class NutritionDefinitionTranslationServiceImpl implements NutritionDefin
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionDefinitionTranslationDTO> search(String query) {
+    public List<NutritionDefinitionTranslation> search(String query) {
         log.debug("Request to search NutritionDefinitionTranslations for query {}", query);
         return StreamSupport
             .stream(nutritionDefinitionTranslationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(nutritionDefinitionTranslationMapper::toDto)
             .collect(Collectors.toList());
     }
 }

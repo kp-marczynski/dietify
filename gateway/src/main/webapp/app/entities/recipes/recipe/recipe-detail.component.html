@@ -50,10 +50,16 @@
                 <dd>
                     <span>{{recipe.totalGramsWeight}}</span>
                 </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.basicNutritionData">Basic Nutrition Data</span></dt>
+                <dd>
+                    <div *ngIf="recipe.basicNutritionData">
+                        <a [routerLink]="['/recipe-basic-nutrition-data', recipe.basicNutritionData?.id, 'view']">{{recipe.basicNutritionData?.id}}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
                 <dd>
-                    <div *ngIf="recipe.sourceRecipeId">
-                        <a [routerLink]="['/recipe', recipe.sourceRecipeId, 'view']">{{recipe.sourceRecipeName}}</a>
+                    <div *ngIf="recipe.sourceRecipe">
+                        <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.name}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.kitchenAppliances">Kitchen Appliances</span></dt>

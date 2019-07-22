@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.ProductCategoryTranslationService;
 import pl.marczynski.dietify.products.domain.ProductCategoryTranslation;
 import pl.marczynski.dietify.products.repository.ProductCategoryTranslationRepository;
 import pl.marczynski.dietify.products.repository.search.ProductCategoryTranslationSearchRepository;
-import pl.marczynski.dietify.products.service.dto.ProductCategoryTranslationDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductCategoryTranslationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class ProductCategoryTranslationServiceImpl implements ProductCategoryTra
 
     private final ProductCategoryTranslationRepository productCategoryTranslationRepository;
 
-    private final ProductCategoryTranslationMapper productCategoryTranslationMapper;
-
     private final ProductCategoryTranslationSearchRepository productCategoryTranslationSearchRepository;
 
-    public ProductCategoryTranslationServiceImpl(ProductCategoryTranslationRepository productCategoryTranslationRepository, ProductCategoryTranslationMapper productCategoryTranslationMapper, ProductCategoryTranslationSearchRepository productCategoryTranslationSearchRepository) {
+    public ProductCategoryTranslationServiceImpl(ProductCategoryTranslationRepository productCategoryTranslationRepository, ProductCategoryTranslationSearchRepository productCategoryTranslationSearchRepository) {
         this.productCategoryTranslationRepository = productCategoryTranslationRepository;
-        this.productCategoryTranslationMapper = productCategoryTranslationMapper;
         this.productCategoryTranslationSearchRepository = productCategoryTranslationSearchRepository;
     }
 
     /**
      * Save a productCategoryTranslation.
      *
-     * @param productCategoryTranslationDTO the entity to save.
+     * @param productCategoryTranslation the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public ProductCategoryTranslationDTO save(ProductCategoryTranslationDTO productCategoryTranslationDTO) {
-        log.debug("Request to save ProductCategoryTranslation : {}", productCategoryTranslationDTO);
-        ProductCategoryTranslation productCategoryTranslation = productCategoryTranslationMapper.toEntity(productCategoryTranslationDTO);
-        productCategoryTranslation = productCategoryTranslationRepository.save(productCategoryTranslation);
-        ProductCategoryTranslationDTO result = productCategoryTranslationMapper.toDto(productCategoryTranslation);
-        productCategoryTranslationSearchRepository.save(productCategoryTranslation);
+    public ProductCategoryTranslation save(ProductCategoryTranslation productCategoryTranslation) {
+        log.debug("Request to save ProductCategoryTranslation : {}", productCategoryTranslation);
+        ProductCategoryTranslation result = productCategoryTranslationRepository.save(productCategoryTranslation);
+        productCategoryTranslationSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class ProductCategoryTranslationServiceImpl implements ProductCategoryTra
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductCategoryTranslationDTO> findAll() {
+    public List<ProductCategoryTranslation> findAll() {
         log.debug("Request to get all ProductCategoryTranslations");
-        return productCategoryTranslationRepository.findAll().stream()
-            .map(productCategoryTranslationMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return productCategoryTranslationRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class ProductCategoryTranslationServiceImpl implements ProductCategoryTra
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProductCategoryTranslationDTO> findOne(Long id) {
+    public Optional<ProductCategoryTranslation> findOne(Long id) {
         log.debug("Request to get ProductCategoryTranslation : {}", id);
-        return productCategoryTranslationRepository.findById(id)
-            .map(productCategoryTranslationMapper::toDto);
+        return productCategoryTranslationRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class ProductCategoryTranslationServiceImpl implements ProductCategoryTra
      */
     @Override
     @Transactional(readOnly = true)
-    public List<ProductCategoryTranslationDTO> search(String query) {
+    public List<ProductCategoryTranslation> search(String query) {
         log.debug("Request to search ProductCategoryTranslations for query {}", query);
         return StreamSupport
             .stream(productCategoryTranslationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(productCategoryTranslationMapper::toDto)
             .collect(Collectors.toList());
     }
 }

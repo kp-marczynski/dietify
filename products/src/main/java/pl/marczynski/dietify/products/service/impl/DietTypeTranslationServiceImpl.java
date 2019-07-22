@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.DietTypeTranslationService;
 import pl.marczynski.dietify.products.domain.DietTypeTranslation;
 import pl.marczynski.dietify.products.repository.DietTypeTranslationRepository;
 import pl.marczynski.dietify.products.repository.search.DietTypeTranslationSearchRepository;
-import pl.marczynski.dietify.products.service.dto.DietTypeTranslationDTO;
-import pl.marczynski.dietify.products.service.mapper.DietTypeTranslationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class DietTypeTranslationServiceImpl implements DietTypeTranslationServic
 
     private final DietTypeTranslationRepository dietTypeTranslationRepository;
 
-    private final DietTypeTranslationMapper dietTypeTranslationMapper;
-
     private final DietTypeTranslationSearchRepository dietTypeTranslationSearchRepository;
 
-    public DietTypeTranslationServiceImpl(DietTypeTranslationRepository dietTypeTranslationRepository, DietTypeTranslationMapper dietTypeTranslationMapper, DietTypeTranslationSearchRepository dietTypeTranslationSearchRepository) {
+    public DietTypeTranslationServiceImpl(DietTypeTranslationRepository dietTypeTranslationRepository, DietTypeTranslationSearchRepository dietTypeTranslationSearchRepository) {
         this.dietTypeTranslationRepository = dietTypeTranslationRepository;
-        this.dietTypeTranslationMapper = dietTypeTranslationMapper;
         this.dietTypeTranslationSearchRepository = dietTypeTranslationSearchRepository;
     }
 
     /**
      * Save a dietTypeTranslation.
      *
-     * @param dietTypeTranslationDTO the entity to save.
+     * @param dietTypeTranslation the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public DietTypeTranslationDTO save(DietTypeTranslationDTO dietTypeTranslationDTO) {
-        log.debug("Request to save DietTypeTranslation : {}", dietTypeTranslationDTO);
-        DietTypeTranslation dietTypeTranslation = dietTypeTranslationMapper.toEntity(dietTypeTranslationDTO);
-        dietTypeTranslation = dietTypeTranslationRepository.save(dietTypeTranslation);
-        DietTypeTranslationDTO result = dietTypeTranslationMapper.toDto(dietTypeTranslation);
-        dietTypeTranslationSearchRepository.save(dietTypeTranslation);
+    public DietTypeTranslation save(DietTypeTranslation dietTypeTranslation) {
+        log.debug("Request to save DietTypeTranslation : {}", dietTypeTranslation);
+        DietTypeTranslation result = dietTypeTranslationRepository.save(dietTypeTranslation);
+        dietTypeTranslationSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class DietTypeTranslationServiceImpl implements DietTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<DietTypeTranslationDTO> findAll() {
+    public List<DietTypeTranslation> findAll() {
         log.debug("Request to get all DietTypeTranslations");
-        return dietTypeTranslationRepository.findAll().stream()
-            .map(dietTypeTranslationMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return dietTypeTranslationRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class DietTypeTranslationServiceImpl implements DietTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<DietTypeTranslationDTO> findOne(Long id) {
+    public Optional<DietTypeTranslation> findOne(Long id) {
         log.debug("Request to get DietTypeTranslation : {}", id);
-        return dietTypeTranslationRepository.findById(id)
-            .map(dietTypeTranslationMapper::toDto);
+        return dietTypeTranslationRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class DietTypeTranslationServiceImpl implements DietTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<DietTypeTranslationDTO> search(String query) {
+    public List<DietTypeTranslation> search(String query) {
         log.debug("Request to search DietTypeTranslations for query {}", query);
         return StreamSupport
             .stream(dietTypeTranslationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(dietTypeTranslationMapper::toDto)
             .collect(Collectors.toList());
     }
 }

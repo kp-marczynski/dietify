@@ -100,6 +100,33 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "recipeBasicNutritionData",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipValidateRules": "required",
+            "relationshipName": "basicNutritionData",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "recipeSection",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "recipeSections"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "recipeSuitableForDiet",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "suitableForDiets"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "recipeUnsuitableForDiet",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "unsuitableForDiets"
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "recipe",
             "otherEntityRelationshipName": "recipe",
@@ -129,37 +156,11 @@
             "relationshipName": "mealTypes",
             "otherEntityField": "name",
             "ownerSide": true
-        },
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "recipeBasicNutritionData",
-            "otherEntityRelationshipName": "recipe",
-            "relationshipValidateRules": "required",
-            "relationshipName": "basicNutritionData",
-            "ownerSide": false
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "recipeSection",
-            "otherEntityRelationshipName": "recipe",
-            "relationshipName": "recipeSections"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "recipeSuitableForDiet",
-            "otherEntityRelationshipName": "recipe",
-            "relationshipName": "suitableForDiets"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "recipeUnsuitableForDiet",
-            "otherEntityRelationshipName": "recipe",
-            "relationshipName": "unsuitableForDiets"
         }
     ],
-    "changelogDate": "20190721154648",
+    "changelogDate": "20190722200918",
     "entityTableName": "recipe",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

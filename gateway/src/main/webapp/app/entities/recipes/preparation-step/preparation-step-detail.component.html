@@ -15,8 +15,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesPreparationStep.recipeSection">Recipe Section</span></dt>
                 <dd>
-                    <div *ngIf="preparationStep.recipeSectionId">
-                        <a [routerLink]="['/recipe-section', preparationStep.recipeSectionId, 'view']">{{preparationStep.recipeSectionSectionName}}</a>
+                    <div *ngIf="preparationStep.recipeSection">
+                        <a [routerLink]="['/recipe-section', preparationStep.recipeSection?.id, 'view']">{{preparationStep.recipeSection?.id}}</a>
                     </div>
                 </dd>
             </dl>

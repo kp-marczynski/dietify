@@ -6,8 +6,6 @@ import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.HouseholdMeasureRepository;
 import pl.marczynski.dietify.products.repository.search.HouseholdMeasureSearchRepository;
 import pl.marczynski.dietify.products.service.HouseholdMeasureService;
-import pl.marczynski.dietify.products.service.dto.HouseholdMeasureDTO;
-import pl.marczynski.dietify.products.service.mapper.HouseholdMeasureMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -52,9 +50,6 @@ public class HouseholdMeasureResourceIT {
 
     @Autowired
     private HouseholdMeasureRepository householdMeasureRepository;
-
-    @Autowired
-    private HouseholdMeasureMapper householdMeasureMapper;
 
     @Autowired
     private HouseholdMeasureService householdMeasureService;
@@ -156,10 +151,9 @@ public class HouseholdMeasureResourceIT {
         int databaseSizeBeforeCreate = householdMeasureRepository.findAll().size();
 
         // Create the HouseholdMeasure
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(householdMeasure);
         restHouseholdMeasureMockMvc.perform(post("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(householdMeasure)))
             .andExpect(status().isCreated());
 
         // Validate the HouseholdMeasure in the database
@@ -181,12 +175,11 @@ public class HouseholdMeasureResourceIT {
 
         // Create the HouseholdMeasure with an existing ID
         householdMeasure.setId(1L);
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(householdMeasure);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restHouseholdMeasureMockMvc.perform(post("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(householdMeasure)))
             .andExpect(status().isBadRequest());
 
         // Validate the HouseholdMeasure in the database
@@ -206,11 +199,10 @@ public class HouseholdMeasureResourceIT {
         householdMeasure.setDescription(null);
 
         // Create the HouseholdMeasure, which fails.
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(householdMeasure);
 
         restHouseholdMeasureMockMvc.perform(post("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(householdMeasure)))
             .andExpect(status().isBadRequest());
 
         List<HouseholdMeasure> householdMeasureList = householdMeasureRepository.findAll();
@@ -225,11 +217,10 @@ public class HouseholdMeasureResourceIT {
         householdMeasure.setGramsWeight(null);
 
         // Create the HouseholdMeasure, which fails.
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(householdMeasure);
 
         restHouseholdMeasureMockMvc.perform(post("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(householdMeasure)))
             .andExpect(status().isBadRequest());
 
         List<HouseholdMeasure> householdMeasureList = householdMeasureRepository.findAll();
@@ -244,11 +235,10 @@ public class HouseholdMeasureResourceIT {
         householdMeasure.setIsVisible(null);
 
         // Create the HouseholdMeasure, which fails.
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(householdMeasure);
 
         restHouseholdMeasureMockMvc.perform(post("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(householdMeasure)))
             .andExpect(status().isBadRequest());
 
         List<HouseholdMeasure> householdMeasureList = householdMeasureRepository.findAll();
@@ -299,7 +289,9 @@ public class HouseholdMeasureResourceIT {
     @Transactional
     public void updateHouseholdMeasure() throws Exception {
         // Initialize the database
-        householdMeasureRepository.saveAndFlush(householdMeasure);
+        householdMeasureService.save(householdMeasure);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockHouseholdMeasureSearchRepository);
 
         int databaseSizeBeforeUpdate = householdMeasureRepository.findAll().size();
 
@@ -310,11 +302,10 @@ public class HouseholdMeasureResourceIT {
         updatedHouseholdMeasure.setDescription(UPDATED_DESCRIPTION);
         updatedHouseholdMeasure.setGramsWeight(UPDATED_GRAMS_WEIGHT);
         updatedHouseholdMeasure.setIsVisible(UPDATED_IS_VISIBLE);
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(updatedHouseholdMeasure);
 
         restHouseholdMeasureMockMvc.perform(put("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedHouseholdMeasure)))
             .andExpect(status().isOk());
 
         // Validate the HouseholdMeasure in the database
@@ -335,12 +326,11 @@ public class HouseholdMeasureResourceIT {
         int databaseSizeBeforeUpdate = householdMeasureRepository.findAll().size();
 
         // Create the HouseholdMeasure
-        HouseholdMeasureDTO householdMeasureDTO = householdMeasureMapper.toDto(householdMeasure);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restHouseholdMeasureMockMvc.perform(put("/api/household-measures")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(householdMeasureDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(householdMeasure)))
             .andExpect(status().isBadRequest());
 
         // Validate the HouseholdMeasure in the database
@@ -355,7 +345,7 @@ public class HouseholdMeasureResourceIT {
     @Transactional
     public void deleteHouseholdMeasure() throws Exception {
         // Initialize the database
-        householdMeasureRepository.saveAndFlush(householdMeasure);
+        householdMeasureService.save(householdMeasure);
 
         int databaseSizeBeforeDelete = householdMeasureRepository.findAll().size();
 
@@ -376,7 +366,7 @@ public class HouseholdMeasureResourceIT {
     @Transactional
     public void searchHouseholdMeasure() throws Exception {
         // Initialize the database
-        householdMeasureRepository.saveAndFlush(householdMeasure);
+        householdMeasureService.save(householdMeasure);
         when(mockHouseholdMeasureSearchRepository.search(queryStringQuery("id:" + householdMeasure.getId())))
             .thenReturn(Collections.singletonList(householdMeasure));
         // Search the householdMeasure
@@ -402,28 +392,5 @@ public class HouseholdMeasureResourceIT {
         assertThat(householdMeasure1).isNotEqualTo(householdMeasure2);
         householdMeasure1.setId(null);
         assertThat(householdMeasure1).isNotEqualTo(householdMeasure2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(HouseholdMeasureDTO.class);
-        HouseholdMeasureDTO householdMeasureDTO1 = new HouseholdMeasureDTO();
-        householdMeasureDTO1.setId(1L);
-        HouseholdMeasureDTO householdMeasureDTO2 = new HouseholdMeasureDTO();
-        assertThat(householdMeasureDTO1).isNotEqualTo(householdMeasureDTO2);
-        householdMeasureDTO2.setId(householdMeasureDTO1.getId());
-        assertThat(householdMeasureDTO1).isEqualTo(householdMeasureDTO2);
-        householdMeasureDTO2.setId(2L);
-        assertThat(householdMeasureDTO1).isNotEqualTo(householdMeasureDTO2);
-        householdMeasureDTO1.setId(null);
-        assertThat(householdMeasureDTO1).isNotEqualTo(householdMeasureDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(householdMeasureMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(householdMeasureMapper.fromId(null)).isNull();
     }
 }

@@ -27,7 +27,7 @@ export class CustomNutritionalInterviewQuestionUpdateComponent implements OnInit
     ordinalNumber: [null, [Validators.min(1)]],
     question: [null, [Validators.required]],
     answer: [],
-    nutritionalInterviewId: [null, Validators.required]
+    nutritionalInterview: [null, Validators.required]
   });
 
   constructor(
@@ -62,7 +62,7 @@ export class CustomNutritionalInterviewQuestionUpdateComponent implements OnInit
       ordinalNumber: customNutritionalInterviewQuestion.ordinalNumber,
       question: customNutritionalInterviewQuestion.question,
       answer: customNutritionalInterviewQuestion.answer,
-      nutritionalInterviewId: customNutritionalInterviewQuestion.nutritionalInterviewId
+      nutritionalInterview: customNutritionalInterviewQuestion.nutritionalInterview
     });
   }
 
@@ -119,7 +119,7 @@ export class CustomNutritionalInterviewQuestionUpdateComponent implements OnInit
       ordinalNumber: this.editForm.get(['ordinalNumber']).value,
       question: this.editForm.get(['question']).value,
       answer: this.editForm.get(['answer']).value,
-      nutritionalInterviewId: this.editForm.get(['nutritionalInterviewId']).value
+      nutritionalInterview: this.editForm.get(['nutritionalInterview']).value
     };
   }
 

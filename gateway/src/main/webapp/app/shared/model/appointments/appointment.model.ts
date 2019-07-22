@@ -1,5 +1,8 @@
 import { Moment } from 'moment';
+import { IBodyMeasurement } from 'app/shared/model/appointments/body-measurement.model';
+import { INutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
 import { IAssignedMealPlan } from 'app/shared/model/appointments/assigned-meal-plan.model';
+import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
 
 export const enum AppointmentState {
   PLANNED = 'PLANNED',
@@ -13,10 +16,10 @@ export interface IAppointment {
   appointmentState?: AppointmentState;
   mealPlanId?: number;
   generalAdvice?: any;
-  patientCardId?: number;
-  bodyMeasurementId?: number;
-  nutritionalInterviewId?: number;
+  bodyMeasurement?: IBodyMeasurement;
+  nutritionalInterview?: INutritionalInterview;
   mealPlans?: IAssignedMealPlan[];
+  patientCard?: IPatientCard;
 }
 
 export class Appointment implements IAppointment {
@@ -26,9 +29,9 @@ export class Appointment implements IAppointment {
     public appointmentState?: AppointmentState,
     public mealPlanId?: number,
     public generalAdvice?: any,
-    public patientCardId?: number,
-    public bodyMeasurementId?: number,
-    public nutritionalInterviewId?: number,
-    public mealPlans?: IAssignedMealPlan[]
+    public bodyMeasurement?: IBodyMeasurement,
+    public nutritionalInterview?: INutritionalInterview,
+    public mealPlans?: IAssignedMealPlan[],
+    public patientCard?: IPatientCard
   ) {}
 }

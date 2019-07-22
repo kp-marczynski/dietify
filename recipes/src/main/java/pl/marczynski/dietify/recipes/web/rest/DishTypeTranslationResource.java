@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.DishTypeTranslation;
 import pl.marczynski.dietify.recipes.service.DishTypeTranslationService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.DishTypeTranslationDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class DishTypeTranslationResource {
     /**
      * {@code POST  /dish-type-translations} : Create a new dishTypeTranslation.
      *
-     * @param dishTypeTranslationDTO the dishTypeTranslationDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new dishTypeTranslationDTO, or with status {@code 400 (Bad Request)} if the dishTypeTranslation has already an ID.
+     * @param dishTypeTranslation the dishTypeTranslation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new dishTypeTranslation, or with status {@code 400 (Bad Request)} if the dishTypeTranslation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/dish-type-translations")
-    public ResponseEntity<DishTypeTranslationDTO> createDishTypeTranslation(@Valid @RequestBody DishTypeTranslationDTO dishTypeTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to save DishTypeTranslation : {}", dishTypeTranslationDTO);
-        if (dishTypeTranslationDTO.getId() != null) {
+    public ResponseEntity<DishTypeTranslation> createDishTypeTranslation(@Valid @RequestBody DishTypeTranslation dishTypeTranslation) throws URISyntaxException {
+        log.debug("REST request to save DishTypeTranslation : {}", dishTypeTranslation);
+        if (dishTypeTranslation.getId() != null) {
             throw new BadRequestAlertException("A new dishTypeTranslation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        DishTypeTranslationDTO result = dishTypeTranslationService.save(dishTypeTranslationDTO);
+        DishTypeTranslation result = dishTypeTranslationService.save(dishTypeTranslation);
         return ResponseEntity.created(new URI("/api/dish-type-translations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class DishTypeTranslationResource {
     /**
      * {@code PUT  /dish-type-translations} : Updates an existing dishTypeTranslation.
      *
-     * @param dishTypeTranslationDTO the dishTypeTranslationDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated dishTypeTranslationDTO,
-     * or with status {@code 400 (Bad Request)} if the dishTypeTranslationDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the dishTypeTranslationDTO couldn't be updated.
+     * @param dishTypeTranslation the dishTypeTranslation to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated dishTypeTranslation,
+     * or with status {@code 400 (Bad Request)} if the dishTypeTranslation is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the dishTypeTranslation couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/dish-type-translations")
-    public ResponseEntity<DishTypeTranslationDTO> updateDishTypeTranslation(@Valid @RequestBody DishTypeTranslationDTO dishTypeTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to update DishTypeTranslation : {}", dishTypeTranslationDTO);
-        if (dishTypeTranslationDTO.getId() == null) {
+    public ResponseEntity<DishTypeTranslation> updateDishTypeTranslation(@Valid @RequestBody DishTypeTranslation dishTypeTranslation) throws URISyntaxException {
+        log.debug("REST request to update DishTypeTranslation : {}", dishTypeTranslation);
+        if (dishTypeTranslation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        DishTypeTranslationDTO result = dishTypeTranslationService.save(dishTypeTranslationDTO);
+        DishTypeTranslation result = dishTypeTranslationService.save(dishTypeTranslation);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, dishTypeTranslationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, dishTypeTranslation.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class DishTypeTranslationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of dishTypeTranslations in body.
      */
     @GetMapping("/dish-type-translations")
-    public List<DishTypeTranslationDTO> getAllDishTypeTranslations() {
+    public List<DishTypeTranslation> getAllDishTypeTranslations() {
         log.debug("REST request to get all DishTypeTranslations");
         return dishTypeTranslationService.findAll();
     }
@@ -96,20 +96,20 @@ public class DishTypeTranslationResource {
     /**
      * {@code GET  /dish-type-translations/:id} : get the "id" dishTypeTranslation.
      *
-     * @param id the id of the dishTypeTranslationDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the dishTypeTranslationDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the dishTypeTranslation to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the dishTypeTranslation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/dish-type-translations/{id}")
-    public ResponseEntity<DishTypeTranslationDTO> getDishTypeTranslation(@PathVariable Long id) {
+    public ResponseEntity<DishTypeTranslation> getDishTypeTranslation(@PathVariable Long id) {
         log.debug("REST request to get DishTypeTranslation : {}", id);
-        Optional<DishTypeTranslationDTO> dishTypeTranslationDTO = dishTypeTranslationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(dishTypeTranslationDTO);
+        Optional<DishTypeTranslation> dishTypeTranslation = dishTypeTranslationService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(dishTypeTranslation);
     }
 
     /**
      * {@code DELETE  /dish-type-translations/:id} : delete the "id" dishTypeTranslation.
      *
-     * @param id the id of the dishTypeTranslationDTO to delete.
+     * @param id the id of the dishTypeTranslation to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/dish-type-translations/{id}")
@@ -127,7 +127,7 @@ public class DishTypeTranslationResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/dish-type-translations")
-    public List<DishTypeTranslationDTO> searchDishTypeTranslations(@RequestParam String query) {
+    public List<DishTypeTranslation> searchDishTypeTranslations(@RequestParam String query) {
         log.debug("REST request to search DishTypeTranslations for query {}", query);
         return dishTypeTranslationService.search(query);
     }

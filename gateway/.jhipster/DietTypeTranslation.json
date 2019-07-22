@@ -33,12 +33,12 @@
             "otherEntityRelationshipName": "translations",
             "relationshipValidateRules": "required",
             "relationshipName": "dietType",
-            "otherEntityField": "name"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154647",
+    "changelogDate": "20190722200917",
     "entityTableName": "diet_type_trns",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

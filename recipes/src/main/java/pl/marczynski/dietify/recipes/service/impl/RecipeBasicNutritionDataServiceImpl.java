@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.RecipeBasicNutritionDataService;
 import pl.marczynski.dietify.recipes.domain.RecipeBasicNutritionData;
 import pl.marczynski.dietify.recipes.repository.RecipeBasicNutritionDataRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeBasicNutritionDataSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.RecipeBasicNutritionDataDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeBasicNutritionDataMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class RecipeBasicNutritionDataServiceImpl implements RecipeBasicNutrition
 
     private final RecipeBasicNutritionDataRepository recipeBasicNutritionDataRepository;
 
-    private final RecipeBasicNutritionDataMapper recipeBasicNutritionDataMapper;
-
     private final RecipeBasicNutritionDataSearchRepository recipeBasicNutritionDataSearchRepository;
 
-    public RecipeBasicNutritionDataServiceImpl(RecipeBasicNutritionDataRepository recipeBasicNutritionDataRepository, RecipeBasicNutritionDataMapper recipeBasicNutritionDataMapper, RecipeBasicNutritionDataSearchRepository recipeBasicNutritionDataSearchRepository) {
+    public RecipeBasicNutritionDataServiceImpl(RecipeBasicNutritionDataRepository recipeBasicNutritionDataRepository, RecipeBasicNutritionDataSearchRepository recipeBasicNutritionDataSearchRepository) {
         this.recipeBasicNutritionDataRepository = recipeBasicNutritionDataRepository;
-        this.recipeBasicNutritionDataMapper = recipeBasicNutritionDataMapper;
         this.recipeBasicNutritionDataSearchRepository = recipeBasicNutritionDataSearchRepository;
     }
 
     /**
      * Save a recipeBasicNutritionData.
      *
-     * @param recipeBasicNutritionDataDTO the entity to save.
+     * @param recipeBasicNutritionData the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public RecipeBasicNutritionDataDTO save(RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO) {
-        log.debug("Request to save RecipeBasicNutritionData : {}", recipeBasicNutritionDataDTO);
-        RecipeBasicNutritionData recipeBasicNutritionData = recipeBasicNutritionDataMapper.toEntity(recipeBasicNutritionDataDTO);
-        recipeBasicNutritionData = recipeBasicNutritionDataRepository.save(recipeBasicNutritionData);
-        RecipeBasicNutritionDataDTO result = recipeBasicNutritionDataMapper.toDto(recipeBasicNutritionData);
-        recipeBasicNutritionDataSearchRepository.save(recipeBasicNutritionData);
+    public RecipeBasicNutritionData save(RecipeBasicNutritionData recipeBasicNutritionData) {
+        log.debug("Request to save RecipeBasicNutritionData : {}", recipeBasicNutritionData);
+        RecipeBasicNutritionData result = recipeBasicNutritionDataRepository.save(recipeBasicNutritionData);
+        recipeBasicNutritionDataSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class RecipeBasicNutritionDataServiceImpl implements RecipeBasicNutrition
      */
     @Override
     @Transactional(readOnly = true)
-    public List<RecipeBasicNutritionDataDTO> findAll() {
+    public List<RecipeBasicNutritionData> findAll() {
         log.debug("Request to get all RecipeBasicNutritionData");
-        return recipeBasicNutritionDataRepository.findAll().stream()
-            .map(recipeBasicNutritionDataMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return recipeBasicNutritionDataRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class RecipeBasicNutritionDataServiceImpl implements RecipeBasicNutrition
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<RecipeBasicNutritionDataDTO> findOne(Long id) {
+    public Optional<RecipeBasicNutritionData> findOne(Long id) {
         log.debug("Request to get RecipeBasicNutritionData : {}", id);
-        return recipeBasicNutritionDataRepository.findById(id)
-            .map(recipeBasicNutritionDataMapper::toDto);
+        return recipeBasicNutritionDataRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class RecipeBasicNutritionDataServiceImpl implements RecipeBasicNutrition
      */
     @Override
     @Transactional(readOnly = true)
-    public List<RecipeBasicNutritionDataDTO> search(String query) {
+    public List<RecipeBasicNutritionData> search(String query) {
         log.debug("Request to search RecipeBasicNutritionData for query {}", query);
         return StreamSupport
             .stream(recipeBasicNutritionDataSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(recipeBasicNutritionDataMapper::toDto)
             .collect(Collectors.toList());
     }
 }

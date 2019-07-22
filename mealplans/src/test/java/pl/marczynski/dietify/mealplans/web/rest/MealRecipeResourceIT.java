@@ -6,8 +6,6 @@ import pl.marczynski.dietify.mealplans.domain.Meal;
 import pl.marczynski.dietify.mealplans.repository.MealRecipeRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealRecipeSearchRepository;
 import pl.marczynski.dietify.mealplans.service.MealRecipeService;
-import pl.marczynski.dietify.mealplans.service.dto.MealRecipeDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealRecipeMapper;
 import pl.marczynski.dietify.mealplans.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class MealRecipeResourceIT {
 
     @Autowired
     private MealRecipeRepository mealRecipeRepository;
-
-    @Autowired
-    private MealRecipeMapper mealRecipeMapper;
 
     @Autowired
     private MealRecipeService mealRecipeService;
@@ -151,10 +146,9 @@ public class MealRecipeResourceIT {
         int databaseSizeBeforeCreate = mealRecipeRepository.findAll().size();
 
         // Create the MealRecipe
-        MealRecipeDTO mealRecipeDTO = mealRecipeMapper.toDto(mealRecipe);
         restMealRecipeMockMvc.perform(post("/api/meal-recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealRecipe)))
             .andExpect(status().isCreated());
 
         // Validate the MealRecipe in the database
@@ -175,12 +169,11 @@ public class MealRecipeResourceIT {
 
         // Create the MealRecipe with an existing ID
         mealRecipe.setId(1L);
-        MealRecipeDTO mealRecipeDTO = mealRecipeMapper.toDto(mealRecipe);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealRecipeMockMvc.perform(post("/api/meal-recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealRecipe)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealRecipe in the database
@@ -200,11 +193,10 @@ public class MealRecipeResourceIT {
         mealRecipe.setRecipeId(null);
 
         // Create the MealRecipe, which fails.
-        MealRecipeDTO mealRecipeDTO = mealRecipeMapper.toDto(mealRecipe);
 
         restMealRecipeMockMvc.perform(post("/api/meal-recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealRecipe)))
             .andExpect(status().isBadRequest());
 
         List<MealRecipe> mealRecipeList = mealRecipeRepository.findAll();
@@ -219,11 +211,10 @@ public class MealRecipeResourceIT {
         mealRecipe.setAmount(null);
 
         // Create the MealRecipe, which fails.
-        MealRecipeDTO mealRecipeDTO = mealRecipeMapper.toDto(mealRecipe);
 
         restMealRecipeMockMvc.perform(post("/api/meal-recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealRecipe)))
             .andExpect(status().isBadRequest());
 
         List<MealRecipe> mealRecipeList = mealRecipeRepository.findAll();
@@ -272,7 +263,9 @@ public class MealRecipeResourceIT {
     @Transactional
     public void updateMealRecipe() throws Exception {
         // Initialize the database
-        mealRecipeRepository.saveAndFlush(mealRecipe);
+        mealRecipeService.save(mealRecipe);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealRecipeSearchRepository);
 
         int databaseSizeBeforeUpdate = mealRecipeRepository.findAll().size();
 
@@ -282,11 +275,10 @@ public class MealRecipeResourceIT {
         em.detach(updatedMealRecipe);
         updatedMealRecipe.setRecipeId(UPDATED_RECIPE_ID);
         updatedMealRecipe.setAmount(UPDATED_AMOUNT);
-        MealRecipeDTO mealRecipeDTO = mealRecipeMapper.toDto(updatedMealRecipe);
 
         restMealRecipeMockMvc.perform(put("/api/meal-recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealRecipe)))
             .andExpect(status().isOk());
 
         // Validate the MealRecipe in the database
@@ -306,12 +298,11 @@ public class MealRecipeResourceIT {
         int databaseSizeBeforeUpdate = mealRecipeRepository.findAll().size();
 
         // Create the MealRecipe
-        MealRecipeDTO mealRecipeDTO = mealRecipeMapper.toDto(mealRecipe);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealRecipeMockMvc.perform(put("/api/meal-recipes")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealRecipeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealRecipe)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealRecipe in the database
@@ -326,7 +317,7 @@ public class MealRecipeResourceIT {
     @Transactional
     public void deleteMealRecipe() throws Exception {
         // Initialize the database
-        mealRecipeRepository.saveAndFlush(mealRecipe);
+        mealRecipeService.save(mealRecipe);
 
         int databaseSizeBeforeDelete = mealRecipeRepository.findAll().size();
 
@@ -347,7 +338,7 @@ public class MealRecipeResourceIT {
     @Transactional
     public void searchMealRecipe() throws Exception {
         // Initialize the database
-        mealRecipeRepository.saveAndFlush(mealRecipe);
+        mealRecipeService.save(mealRecipe);
         when(mockMealRecipeSearchRepository.search(queryStringQuery("id:" + mealRecipe.getId())))
             .thenReturn(Collections.singletonList(mealRecipe));
         // Search the mealRecipe
@@ -372,28 +363,5 @@ public class MealRecipeResourceIT {
         assertThat(mealRecipe1).isNotEqualTo(mealRecipe2);
         mealRecipe1.setId(null);
         assertThat(mealRecipe1).isNotEqualTo(mealRecipe2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealRecipeDTO.class);
-        MealRecipeDTO mealRecipeDTO1 = new MealRecipeDTO();
-        mealRecipeDTO1.setId(1L);
-        MealRecipeDTO mealRecipeDTO2 = new MealRecipeDTO();
-        assertThat(mealRecipeDTO1).isNotEqualTo(mealRecipeDTO2);
-        mealRecipeDTO2.setId(mealRecipeDTO1.getId());
-        assertThat(mealRecipeDTO1).isEqualTo(mealRecipeDTO2);
-        mealRecipeDTO2.setId(2L);
-        assertThat(mealRecipeDTO1).isNotEqualTo(mealRecipeDTO2);
-        mealRecipeDTO1.setId(null);
-        assertThat(mealRecipeDTO1).isNotEqualTo(mealRecipeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealRecipeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealRecipeMapper.fromId(null)).isNull();
     }
 }

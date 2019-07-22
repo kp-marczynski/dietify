@@ -1,29 +1,35 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.BodyMeasurementDTO;
+import pl.marczynski.dietify.appointments.domain.BodyMeasurement;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.BodyMeasurement}.
+ * Service Interface for managing {@link BodyMeasurement}.
  */
 public interface BodyMeasurementService {
 
     /**
      * Save a bodyMeasurement.
      *
-     * @param bodyMeasurementDTO the entity to save.
+     * @param bodyMeasurement the entity to save.
      * @return the persisted entity.
      */
-    BodyMeasurementDTO save(BodyMeasurementDTO bodyMeasurementDTO);
+    BodyMeasurement save(BodyMeasurement bodyMeasurement);
 
     /**
      * Get all the bodyMeasurements.
      *
      * @return the list of entities.
      */
-    List<BodyMeasurementDTO> findAll();
+    List<BodyMeasurement> findAll();
+    /**
+     * Get all the BodyMeasurementDTO where Appointment is {@code null}.
+     *
+     * @return the list of entities.
+     */
+    List<BodyMeasurement> findAllWhereAppointmentIsNull();
 
 
     /**
@@ -32,7 +38,7 @@ public interface BodyMeasurementService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<BodyMeasurementDTO> findOne(Long id);
+    Optional<BodyMeasurement> findOne(Long id);
 
     /**
      * Delete the "id" bodyMeasurement.

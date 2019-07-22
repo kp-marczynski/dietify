@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.PreparationStep;
 import pl.marczynski.dietify.recipes.service.PreparationStepService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.PreparationStepDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class PreparationStepResource {
     /**
      * {@code POST  /preparation-steps} : Create a new preparationStep.
      *
-     * @param preparationStepDTO the preparationStepDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new preparationStepDTO, or with status {@code 400 (Bad Request)} if the preparationStep has already an ID.
+     * @param preparationStep the preparationStep to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new preparationStep, or with status {@code 400 (Bad Request)} if the preparationStep has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/preparation-steps")
-    public ResponseEntity<PreparationStepDTO> createPreparationStep(@Valid @RequestBody PreparationStepDTO preparationStepDTO) throws URISyntaxException {
-        log.debug("REST request to save PreparationStep : {}", preparationStepDTO);
-        if (preparationStepDTO.getId() != null) {
+    public ResponseEntity<PreparationStep> createPreparationStep(@Valid @RequestBody PreparationStep preparationStep) throws URISyntaxException {
+        log.debug("REST request to save PreparationStep : {}", preparationStep);
+        if (preparationStep.getId() != null) {
             throw new BadRequestAlertException("A new preparationStep cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        PreparationStepDTO result = preparationStepService.save(preparationStepDTO);
+        PreparationStep result = preparationStepService.save(preparationStep);
         return ResponseEntity.created(new URI("/api/preparation-steps/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class PreparationStepResource {
     /**
      * {@code PUT  /preparation-steps} : Updates an existing preparationStep.
      *
-     * @param preparationStepDTO the preparationStepDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated preparationStepDTO,
-     * or with status {@code 400 (Bad Request)} if the preparationStepDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the preparationStepDTO couldn't be updated.
+     * @param preparationStep the preparationStep to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated preparationStep,
+     * or with status {@code 400 (Bad Request)} if the preparationStep is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the preparationStep couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/preparation-steps")
-    public ResponseEntity<PreparationStepDTO> updatePreparationStep(@Valid @RequestBody PreparationStepDTO preparationStepDTO) throws URISyntaxException {
-        log.debug("REST request to update PreparationStep : {}", preparationStepDTO);
-        if (preparationStepDTO.getId() == null) {
+    public ResponseEntity<PreparationStep> updatePreparationStep(@Valid @RequestBody PreparationStep preparationStep) throws URISyntaxException {
+        log.debug("REST request to update PreparationStep : {}", preparationStep);
+        if (preparationStep.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        PreparationStepDTO result = preparationStepService.save(preparationStepDTO);
+        PreparationStep result = preparationStepService.save(preparationStep);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, preparationStepDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, preparationStep.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class PreparationStepResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of preparationSteps in body.
      */
     @GetMapping("/preparation-steps")
-    public List<PreparationStepDTO> getAllPreparationSteps() {
+    public List<PreparationStep> getAllPreparationSteps() {
         log.debug("REST request to get all PreparationSteps");
         return preparationStepService.findAll();
     }
@@ -96,20 +96,20 @@ public class PreparationStepResource {
     /**
      * {@code GET  /preparation-steps/:id} : get the "id" preparationStep.
      *
-     * @param id the id of the preparationStepDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the preparationStepDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the preparationStep to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the preparationStep, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/preparation-steps/{id}")
-    public ResponseEntity<PreparationStepDTO> getPreparationStep(@PathVariable Long id) {
+    public ResponseEntity<PreparationStep> getPreparationStep(@PathVariable Long id) {
         log.debug("REST request to get PreparationStep : {}", id);
-        Optional<PreparationStepDTO> preparationStepDTO = preparationStepService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(preparationStepDTO);
+        Optional<PreparationStep> preparationStep = preparationStepService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(preparationStep);
     }
 
     /**
      * {@code DELETE  /preparation-steps/:id} : delete the "id" preparationStep.
      *
-     * @param id the id of the preparationStepDTO to delete.
+     * @param id the id of the preparationStep to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/preparation-steps/{id}")
@@ -127,7 +127,7 @@ public class PreparationStepResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/preparation-steps")
-    public List<PreparationStepDTO> searchPreparationSteps(@RequestParam String query) {
+    public List<PreparationStep> searchPreparationSteps(@RequestParam String query) {
         log.debug("REST request to search PreparationSteps for query {}", query);
         return preparationStepService.search(query);
     }

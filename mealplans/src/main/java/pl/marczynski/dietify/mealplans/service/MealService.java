@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.mealplans.service;
 
-import pl.marczynski.dietify.mealplans.service.dto.MealDTO;
+import pl.marczynski.dietify.mealplans.domain.Meal;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.mealplans.domain.Meal}.
+ * Service Interface for managing {@link Meal}.
  */
 public interface MealService {
 
     /**
      * Save a meal.
      *
-     * @param mealDTO the entity to save.
+     * @param meal the entity to save.
      * @return the persisted entity.
      */
-    MealDTO save(MealDTO mealDTO);
+    Meal save(Meal meal);
 
     /**
      * Get all the meals.
      *
      * @return the list of entities.
      */
-    List<MealDTO> findAll();
+    List<Meal> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface MealService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<MealDTO> findOne(Long id);
+    Optional<Meal> findOne(Long id);
 
     /**
      * Delete the "id" meal.
@@ -48,5 +48,5 @@ public interface MealService {
      * 
      * @return the list of entities.
      */
-    List<MealDTO> search(String query);
+    List<Meal> search(String query);
 }

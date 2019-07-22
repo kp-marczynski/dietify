@@ -6,8 +6,6 @@ import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealPlanDayRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanDaySearchRepository;
 import pl.marczynski.dietify.mealplans.service.MealPlanDayService;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanDayDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanDayMapper;
 import pl.marczynski.dietify.mealplans.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,9 +44,6 @@ public class MealPlanDayResourceIT {
 
     @Autowired
     private MealPlanDayRepository mealPlanDayRepository;
-
-    @Autowired
-    private MealPlanDayMapper mealPlanDayMapper;
 
     @Autowired
     private MealPlanDayService mealPlanDayService;
@@ -146,10 +141,9 @@ public class MealPlanDayResourceIT {
         int databaseSizeBeforeCreate = mealPlanDayRepository.findAll().size();
 
         // Create the MealPlanDay
-        MealPlanDayDTO mealPlanDayDTO = mealPlanDayMapper.toDto(mealPlanDay);
         restMealPlanDayMockMvc.perform(post("/api/meal-plan-days")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDayDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanDay)))
             .andExpect(status().isCreated());
 
         // Validate the MealPlanDay in the database
@@ -169,12 +163,11 @@ public class MealPlanDayResourceIT {
 
         // Create the MealPlanDay with an existing ID
         mealPlanDay.setId(1L);
-        MealPlanDayDTO mealPlanDayDTO = mealPlanDayMapper.toDto(mealPlanDay);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealPlanDayMockMvc.perform(post("/api/meal-plan-days")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDayDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanDay)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealPlanDay in the database
@@ -194,11 +187,10 @@ public class MealPlanDayResourceIT {
         mealPlanDay.setOrdinalNumber(null);
 
         // Create the MealPlanDay, which fails.
-        MealPlanDayDTO mealPlanDayDTO = mealPlanDayMapper.toDto(mealPlanDay);
 
         restMealPlanDayMockMvc.perform(post("/api/meal-plan-days")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDayDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanDay)))
             .andExpect(status().isBadRequest());
 
         List<MealPlanDay> mealPlanDayList = mealPlanDayRepository.findAll();
@@ -245,7 +237,9 @@ public class MealPlanDayResourceIT {
     @Transactional
     public void updateMealPlanDay() throws Exception {
         // Initialize the database
-        mealPlanDayRepository.saveAndFlush(mealPlanDay);
+        mealPlanDayService.save(mealPlanDay);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealPlanDaySearchRepository);
 
         int databaseSizeBeforeUpdate = mealPlanDayRepository.findAll().size();
 
@@ -254,11 +248,10 @@ public class MealPlanDayResourceIT {
         // Disconnect from session so that the updates on updatedMealPlanDay are not directly saved in db
         em.detach(updatedMealPlanDay);
         updatedMealPlanDay.setOrdinalNumber(UPDATED_ORDINAL_NUMBER);
-        MealPlanDayDTO mealPlanDayDTO = mealPlanDayMapper.toDto(updatedMealPlanDay);
 
         restMealPlanDayMockMvc.perform(put("/api/meal-plan-days")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDayDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealPlanDay)))
             .andExpect(status().isOk());
 
         // Validate the MealPlanDay in the database
@@ -277,12 +270,11 @@ public class MealPlanDayResourceIT {
         int databaseSizeBeforeUpdate = mealPlanDayRepository.findAll().size();
 
         // Create the MealPlanDay
-        MealPlanDayDTO mealPlanDayDTO = mealPlanDayMapper.toDto(mealPlanDay);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealPlanDayMockMvc.perform(put("/api/meal-plan-days")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDayDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanDay)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealPlanDay in the database
@@ -297,7 +289,7 @@ public class MealPlanDayResourceIT {
     @Transactional
     public void deleteMealPlanDay() throws Exception {
         // Initialize the database
-        mealPlanDayRepository.saveAndFlush(mealPlanDay);
+        mealPlanDayService.save(mealPlanDay);
 
         int databaseSizeBeforeDelete = mealPlanDayRepository.findAll().size();
 
@@ -318,7 +310,7 @@ public class MealPlanDayResourceIT {
     @Transactional
     public void searchMealPlanDay() throws Exception {
         // Initialize the database
-        mealPlanDayRepository.saveAndFlush(mealPlanDay);
+        mealPlanDayService.save(mealPlanDay);
         when(mockMealPlanDaySearchRepository.search(queryStringQuery("id:" + mealPlanDay.getId())))
             .thenReturn(Collections.singletonList(mealPlanDay));
         // Search the mealPlanDay
@@ -342,28 +334,5 @@ public class MealPlanDayResourceIT {
         assertThat(mealPlanDay1).isNotEqualTo(mealPlanDay2);
         mealPlanDay1.setId(null);
         assertThat(mealPlanDay1).isNotEqualTo(mealPlanDay2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealPlanDayDTO.class);
-        MealPlanDayDTO mealPlanDayDTO1 = new MealPlanDayDTO();
-        mealPlanDayDTO1.setId(1L);
-        MealPlanDayDTO mealPlanDayDTO2 = new MealPlanDayDTO();
-        assertThat(mealPlanDayDTO1).isNotEqualTo(mealPlanDayDTO2);
-        mealPlanDayDTO2.setId(mealPlanDayDTO1.getId());
-        assertThat(mealPlanDayDTO1).isEqualTo(mealPlanDayDTO2);
-        mealPlanDayDTO2.setId(2L);
-        assertThat(mealPlanDayDTO1).isNotEqualTo(mealPlanDayDTO2);
-        mealPlanDayDTO1.setId(null);
-        assertThat(mealPlanDayDTO1).isNotEqualTo(mealPlanDayDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealPlanDayMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealPlanDayMapper.fromId(null)).isNull();
     }
 }

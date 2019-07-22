@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.AppointmentEvaluation;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.repository.AppointmentEvaluationRepository;
 import pl.marczynski.dietify.appointments.service.AppointmentEvaluationService;
-import pl.marczynski.dietify.appointments.service.dto.AppointmentEvaluationDTO;
-import pl.marczynski.dietify.appointments.service.mapper.AppointmentEvaluationMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -75,9 +73,6 @@ public class AppointmentEvaluationResourceIT {
 
     @Autowired
     private AppointmentEvaluationRepository appointmentEvaluationRepository;
-
-    @Autowired
-    private AppointmentEvaluationMapper appointmentEvaluationMapper;
 
     @Autowired
     private AppointmentEvaluationService appointmentEvaluationService;
@@ -183,10 +178,9 @@ public class AppointmentEvaluationResourceIT {
         int databaseSizeBeforeCreate = appointmentEvaluationRepository.findAll().size();
 
         // Create the AppointmentEvaluation
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isCreated());
 
         // Validate the AppointmentEvaluation in the database
@@ -211,12 +205,11 @@ public class AppointmentEvaluationResourceIT {
 
         // Create the AppointmentEvaluation with an existing ID
         appointmentEvaluation.setId(1L);
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         // Validate the AppointmentEvaluation in the database
@@ -233,11 +226,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setOverallSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -252,11 +244,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setDietitianServiceSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -271,11 +262,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setMealPlanOverallSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -290,11 +280,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setMealCostSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -309,11 +298,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setMealPreparationTimeSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -328,11 +316,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setMealComplexityLevelSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -347,11 +334,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setMealTastefulnessSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -366,11 +352,10 @@ public class AppointmentEvaluationResourceIT {
         appointmentEvaluation.setDietaryResultSatisfaction(null);
 
         // Create the AppointmentEvaluation, which fails.
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(post("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         List<AppointmentEvaluation> appointmentEvaluationList = appointmentEvaluationRepository.findAll();
@@ -433,7 +418,7 @@ public class AppointmentEvaluationResourceIT {
     @Transactional
     public void updateAppointmentEvaluation() throws Exception {
         // Initialize the database
-        appointmentEvaluationRepository.saveAndFlush(appointmentEvaluation);
+        appointmentEvaluationService.save(appointmentEvaluation);
 
         int databaseSizeBeforeUpdate = appointmentEvaluationRepository.findAll().size();
 
@@ -450,11 +435,10 @@ public class AppointmentEvaluationResourceIT {
         updatedAppointmentEvaluation.setMealTastefulnessSatisfaction(UPDATED_MEAL_TASTEFULNESS_SATISFACTION);
         updatedAppointmentEvaluation.setDietaryResultSatisfaction(UPDATED_DIETARY_RESULT_SATISFACTION);
         updatedAppointmentEvaluation.setComment(UPDATED_COMMENT);
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(updatedAppointmentEvaluation);
 
         restAppointmentEvaluationMockMvc.perform(put("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedAppointmentEvaluation)))
             .andExpect(status().isOk());
 
         // Validate the AppointmentEvaluation in the database
@@ -478,12 +462,11 @@ public class AppointmentEvaluationResourceIT {
         int databaseSizeBeforeUpdate = appointmentEvaluationRepository.findAll().size();
 
         // Create the AppointmentEvaluation
-        AppointmentEvaluationDTO appointmentEvaluationDTO = appointmentEvaluationMapper.toDto(appointmentEvaluation);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAppointmentEvaluationMockMvc.perform(put("/api/appointment-evaluations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(appointmentEvaluation)))
             .andExpect(status().isBadRequest());
 
         // Validate the AppointmentEvaluation in the database
@@ -495,7 +478,7 @@ public class AppointmentEvaluationResourceIT {
     @Transactional
     public void deleteAppointmentEvaluation() throws Exception {
         // Initialize the database
-        appointmentEvaluationRepository.saveAndFlush(appointmentEvaluation);
+        appointmentEvaluationService.save(appointmentEvaluation);
 
         int databaseSizeBeforeDelete = appointmentEvaluationRepository.findAll().size();
 
@@ -522,28 +505,5 @@ public class AppointmentEvaluationResourceIT {
         assertThat(appointmentEvaluation1).isNotEqualTo(appointmentEvaluation2);
         appointmentEvaluation1.setId(null);
         assertThat(appointmentEvaluation1).isNotEqualTo(appointmentEvaluation2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AppointmentEvaluationDTO.class);
-        AppointmentEvaluationDTO appointmentEvaluationDTO1 = new AppointmentEvaluationDTO();
-        appointmentEvaluationDTO1.setId(1L);
-        AppointmentEvaluationDTO appointmentEvaluationDTO2 = new AppointmentEvaluationDTO();
-        assertThat(appointmentEvaluationDTO1).isNotEqualTo(appointmentEvaluationDTO2);
-        appointmentEvaluationDTO2.setId(appointmentEvaluationDTO1.getId());
-        assertThat(appointmentEvaluationDTO1).isEqualTo(appointmentEvaluationDTO2);
-        appointmentEvaluationDTO2.setId(2L);
-        assertThat(appointmentEvaluationDTO1).isNotEqualTo(appointmentEvaluationDTO2);
-        appointmentEvaluationDTO1.setId(null);
-        assertThat(appointmentEvaluationDTO1).isNotEqualTo(appointmentEvaluationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(appointmentEvaluationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(appointmentEvaluationMapper.fromId(null)).isNull();
     }
 }

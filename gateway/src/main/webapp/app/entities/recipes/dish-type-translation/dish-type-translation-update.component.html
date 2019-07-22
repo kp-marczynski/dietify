@@ -50,14 +50,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesDishTypeTranslation.dishType" for="field_dishType">Dish Type</label>
-                    <select class="form-control" id="field_dishType" name="dishType" formControlName="dishTypeId">
-                        <option *ngIf="!editForm.get('dishTypeId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="dishTypeOption.id" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{dishTypeOption.description}}</option>
+                    <select class="form-control" id="field_dishType" name="dishType" formControlName="dishType">
+                        <option *ngIf="!editForm.get('dishType').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="dishTypeOption.id === editForm.get('dishType').value?.id ? editForm.get('dishType').value : dishTypeOption" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{dishTypeOption.description}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('dishTypeId').invalid && (editForm.get('dishTypeId').dirty || editForm.get('dishTypeId').touched)">
+                <div *ngIf="editForm.get('dishType').invalid && (editForm.get('dishType').dirty || editForm.get('dishType').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('dishTypeId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('dishType').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

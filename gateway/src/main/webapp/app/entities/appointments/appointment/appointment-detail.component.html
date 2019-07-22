@@ -21,10 +21,22 @@
                 <dd>
                     <span>{{appointment.generalAdvice}}</span>
                 </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span></dt>
+                <dd>
+                    <div *ngIf="appointment.bodyMeasurement">
+                        <a [routerLink]="['/body-measurement', appointment.bodyMeasurement?.id, 'view']">{{appointment.bodyMeasurement?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional Interview</span></dt>
+                <dd>
+                    <div *ngIf="appointment.nutritionalInterview">
+                        <a [routerLink]="['/nutritional-interview', appointment.nutritionalInterview?.id, 'view']">{{appointment.nutritionalInterview?.id}}</a>
+                    </div>
+                </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.patientCard">Patient Card</span></dt>
                 <dd>
-                    <div *ngIf="appointment.patientCardId">
-                        <a [routerLink]="['/patient-card', appointment.patientCardId, 'view']">{{appointment.patientCardId}}</a>
+                    <div *ngIf="appointment.patientCard">
+                        <a [routerLink]="['/patient-card', appointment.patientCard?.id, 'view']">{{appointment.patientCard?.id}}</a>
                     </div>
                 </dd>
             </dl>

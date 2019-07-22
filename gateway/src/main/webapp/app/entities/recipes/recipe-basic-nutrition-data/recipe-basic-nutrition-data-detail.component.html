@@ -21,12 +21,6 @@
                 <dd>
                     <span>{{recipeBasicNutritionData.carbohydrates}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.recipe">Recipe</span></dt>
-                <dd>
-                    <div *ngIf="recipeBasicNutritionData.recipeId">
-                        <a [routerLink]="['/recipe', recipeBasicNutritionData.recipeId, 'view']">{{recipeBasicNutritionData.recipeName}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

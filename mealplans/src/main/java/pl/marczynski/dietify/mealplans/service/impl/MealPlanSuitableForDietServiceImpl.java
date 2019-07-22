@@ -4,15 +4,12 @@ import pl.marczynski.dietify.mealplans.service.MealPlanSuitableForDietService;
 import pl.marczynski.dietify.mealplans.domain.MealPlanSuitableForDiet;
 import pl.marczynski.dietify.mealplans.repository.MealPlanSuitableForDietRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanSuitableForDietSearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanSuitableForDietDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanSuitableForDietMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealPlanSuitableForDietServiceImpl implements MealPlanSuitableForDi
 
     private final MealPlanSuitableForDietRepository mealPlanSuitableForDietRepository;
 
-    private final MealPlanSuitableForDietMapper mealPlanSuitableForDietMapper;
-
     private final MealPlanSuitableForDietSearchRepository mealPlanSuitableForDietSearchRepository;
 
-    public MealPlanSuitableForDietServiceImpl(MealPlanSuitableForDietRepository mealPlanSuitableForDietRepository, MealPlanSuitableForDietMapper mealPlanSuitableForDietMapper, MealPlanSuitableForDietSearchRepository mealPlanSuitableForDietSearchRepository) {
+    public MealPlanSuitableForDietServiceImpl(MealPlanSuitableForDietRepository mealPlanSuitableForDietRepository, MealPlanSuitableForDietSearchRepository mealPlanSuitableForDietSearchRepository) {
         this.mealPlanSuitableForDietRepository = mealPlanSuitableForDietRepository;
-        this.mealPlanSuitableForDietMapper = mealPlanSuitableForDietMapper;
         this.mealPlanSuitableForDietSearchRepository = mealPlanSuitableForDietSearchRepository;
     }
 
     /**
      * Save a mealPlanSuitableForDiet.
      *
-     * @param mealPlanSuitableForDietDTO the entity to save.
+     * @param mealPlanSuitableForDiet the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealPlanSuitableForDietDTO save(MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO) {
-        log.debug("Request to save MealPlanSuitableForDiet : {}", mealPlanSuitableForDietDTO);
-        MealPlanSuitableForDiet mealPlanSuitableForDiet = mealPlanSuitableForDietMapper.toEntity(mealPlanSuitableForDietDTO);
-        mealPlanSuitableForDiet = mealPlanSuitableForDietRepository.save(mealPlanSuitableForDiet);
-        MealPlanSuitableForDietDTO result = mealPlanSuitableForDietMapper.toDto(mealPlanSuitableForDiet);
-        mealPlanSuitableForDietSearchRepository.save(mealPlanSuitableForDiet);
+    public MealPlanSuitableForDiet save(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
+        log.debug("Request to save MealPlanSuitableForDiet : {}", mealPlanSuitableForDiet);
+        MealPlanSuitableForDiet result = mealPlanSuitableForDietRepository.save(mealPlanSuitableForDiet);
+        mealPlanSuitableForDietSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealPlanSuitableForDietServiceImpl implements MealPlanSuitableForDi
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealPlanSuitableForDietDTO> findAll() {
+    public List<MealPlanSuitableForDiet> findAll() {
         log.debug("Request to get all MealPlanSuitableForDiets");
-        return mealPlanSuitableForDietRepository.findAll().stream()
-            .map(mealPlanSuitableForDietMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealPlanSuitableForDietRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealPlanSuitableForDietServiceImpl implements MealPlanSuitableForDi
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealPlanSuitableForDietDTO> findOne(Long id) {
+    public Optional<MealPlanSuitableForDiet> findOne(Long id) {
         log.debug("Request to get MealPlanSuitableForDiet : {}", id);
-        return mealPlanSuitableForDietRepository.findById(id)
-            .map(mealPlanSuitableForDietMapper::toDto);
+        return mealPlanSuitableForDietRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealPlanSuitableForDietServiceImpl implements MealPlanSuitableForDi
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealPlanSuitableForDietDTO> search(String query) {
+    public List<MealPlanSuitableForDiet> search(String query) {
         log.debug("Request to search MealPlanSuitableForDiets for query {}", query);
         return StreamSupport
             .stream(mealPlanSuitableForDietSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealPlanSuitableForDietMapper::toDto)
             .collect(Collectors.toList());
     }
 }

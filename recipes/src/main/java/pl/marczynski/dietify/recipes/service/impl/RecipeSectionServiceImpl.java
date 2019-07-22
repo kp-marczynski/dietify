@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.RecipeSectionService;
 import pl.marczynski.dietify.recipes.domain.RecipeSection;
 import pl.marczynski.dietify.recipes.repository.RecipeSectionRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeSectionSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.RecipeSectionDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeSectionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class RecipeSectionServiceImpl implements RecipeSectionService {
 
     private final RecipeSectionRepository recipeSectionRepository;
 
-    private final RecipeSectionMapper recipeSectionMapper;
-
     private final RecipeSectionSearchRepository recipeSectionSearchRepository;
 
-    public RecipeSectionServiceImpl(RecipeSectionRepository recipeSectionRepository, RecipeSectionMapper recipeSectionMapper, RecipeSectionSearchRepository recipeSectionSearchRepository) {
+    public RecipeSectionServiceImpl(RecipeSectionRepository recipeSectionRepository, RecipeSectionSearchRepository recipeSectionSearchRepository) {
         this.recipeSectionRepository = recipeSectionRepository;
-        this.recipeSectionMapper = recipeSectionMapper;
         this.recipeSectionSearchRepository = recipeSectionSearchRepository;
     }
 
     /**
      * Save a recipeSection.
      *
-     * @param recipeSectionDTO the entity to save.
+     * @param recipeSection the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public RecipeSectionDTO save(RecipeSectionDTO recipeSectionDTO) {
-        log.debug("Request to save RecipeSection : {}", recipeSectionDTO);
-        RecipeSection recipeSection = recipeSectionMapper.toEntity(recipeSectionDTO);
-        recipeSection = recipeSectionRepository.save(recipeSection);
-        RecipeSectionDTO result = recipeSectionMapper.toDto(recipeSection);
-        recipeSectionSearchRepository.save(recipeSection);
+    public RecipeSection save(RecipeSection recipeSection) {
+        log.debug("Request to save RecipeSection : {}", recipeSection);
+        RecipeSection result = recipeSectionRepository.save(recipeSection);
+        recipeSectionSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class RecipeSectionServiceImpl implements RecipeSectionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<RecipeSectionDTO> findAll() {
+    public List<RecipeSection> findAll() {
         log.debug("Request to get all RecipeSections");
-        return recipeSectionRepository.findAll().stream()
-            .map(recipeSectionMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return recipeSectionRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class RecipeSectionServiceImpl implements RecipeSectionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<RecipeSectionDTO> findOne(Long id) {
+    public Optional<RecipeSection> findOne(Long id) {
         log.debug("Request to get RecipeSection : {}", id);
-        return recipeSectionRepository.findById(id)
-            .map(recipeSectionMapper::toDto);
+        return recipeSectionRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class RecipeSectionServiceImpl implements RecipeSectionService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<RecipeSectionDTO> search(String query) {
+    public List<RecipeSection> search(String query) {
         log.debug("Request to search RecipeSections for query {}", query);
         return StreamSupport
             .stream(recipeSectionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(recipeSectionMapper::toDto)
             .collect(Collectors.toList());
     }
 }

@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.gateway.domain;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -16,6 +18,7 @@ import pl.marczynski.dietify.gateway.domain.enumeration.Gender;
  * Additional information about user
  * @author Krzysztof Marczyński
  */
+@ApiModel(description = "Additional information about user @author Krzysztof Marczyński")
 @Entity
 @Table(name = "user_extra_info")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -33,6 +36,7 @@ public class UserExtraInfo implements Serializable {
     /**
      * Gender
      */
+    @ApiModelProperty(value = "Gender")
     @Enumerated(EnumType.STRING)
     @Column(name = "gender")
     private Gender gender;
@@ -40,6 +44,7 @@ public class UserExtraInfo implements Serializable {
     /**
      * Date of birth
      */
+    @ApiModelProperty(value = "Date of birth")
     @Column(name = "date_of_birth")
     private LocalDate dateOfBirth;
 
@@ -47,6 +52,7 @@ public class UserExtraInfo implements Serializable {
      * Phone number. Preferably in format (+00) 000-000-000
      */
     @Size(min = 1, max = 50)
+    @ApiModelProperty(value = "Phone number. Preferably in format (+00) 000-000-000")
     @Column(name = "phone_number", length = 50)
     private String phoneNumber;
 
@@ -54,6 +60,7 @@ public class UserExtraInfo implements Serializable {
      * Street address with house/apartment number
      */
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Street address with house/apartment number")
     @Column(name = "street_address", length = 255)
     private String streetAddress;
 
@@ -61,6 +68,7 @@ public class UserExtraInfo implements Serializable {
      * Postal or zip code
      */
     @Size(min = 1, max = 20)
+    @ApiModelProperty(value = "Postal or zip code")
     @Column(name = "postal_code", length = 20)
     private String postalCode;
 
@@ -68,6 +76,7 @@ public class UserExtraInfo implements Serializable {
      * City
      */
     @Size(min = 1, max = 50)
+    @ApiModelProperty(value = "City")
     @Column(name = "city", length = 50)
     private String city;
 
@@ -75,12 +84,14 @@ public class UserExtraInfo implements Serializable {
      * Country
      */
     @Size(min = 1, max = 50)
+    @ApiModelProperty(value = "Country")
     @Column(name = "country", length = 50)
     private String country;
 
     /**
      * Short personal description
      */
+    @ApiModelProperty(value = "Short personal description")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "personal_description")

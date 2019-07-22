@@ -27,12 +27,12 @@
             "otherEntityRelationshipName": "nutritionData",
             "relationshipValidateRules": "required",
             "relationshipName": "product",
-            "otherEntityField": "description"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154645",
+    "changelogDate": "20190722200915",
     "entityTableName": "nutrition_data",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

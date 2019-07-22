@@ -23,8 +23,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.mealplansMealDefinition.mealPlan">Meal Plan</span></dt>
                 <dd>
-                    <div *ngIf="mealDefinition.mealPlanId">
-                        <a [routerLink]="['/meal-plan', mealDefinition.mealPlanId, 'view']">{{mealDefinition.mealPlanId}}</a>
+                    <div *ngIf="mealDefinition.mealPlan">
+                        <a [routerLink]="['/meal-plan', mealDefinition.mealPlan?.id, 'view']">{{mealDefinition.mealPlan?.id}}</a>
                     </div>
                 </dd>
             </dl>

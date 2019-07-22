@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.mealplans.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,13 +34,9 @@ public class Meal implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Ordinal number of meal", required = true)
     @Column(name = "ordinal_number", nullable = false)
     private Integer ordinalNumber;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("meals")
-    private MealPlanDay mealPlanDay;
 
     @OneToMany(mappedBy = "meal")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -48,6 +45,11 @@ public class Meal implements Serializable {
     @OneToMany(mappedBy = "meal")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealProduct> mealProducts = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("meals")
+    private MealPlanDay mealPlanDay;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -66,14 +68,6 @@ public class Meal implements Serializable {
         this.ordinalNumber = ordinalNumber;
     }
 
-    public MealPlanDay getMealPlanDay() {
-        return mealPlanDay;
-    }
-
-    public void setMealPlanDay(MealPlanDay mealPlanDay) {
-        this.mealPlanDay = mealPlanDay;
-    }
-
     public Set<MealRecipe> getMealRecipes() {
         return mealRecipes;
     }
@@ -88,6 +82,14 @@ public class Meal implements Serializable {
 
     public void setMealProducts(Set<MealProduct> mealProducts) {
         this.mealProducts = mealProducts;
+    }
+
+    public MealPlanDay getMealPlanDay() {
+        return mealPlanDay;
+    }
+
+    public void setMealPlanDay(MealPlanDay mealPlanDay) {
+        this.mealPlanDay = mealPlanDay;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

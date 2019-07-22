@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.gateway.domain;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -13,6 +15,7 @@ import java.io.Serializable;
  * Landing page information
  * @author Krzysztof Marczyński
  */
+@ApiModel(description = "Landing page information @author Krzysztof Marczyński")
 @Entity
 @Table(name = "landing_page_card")
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -32,6 +35,7 @@ public class LandingPageCard implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Number for specifying order in which content should appear on landing page", required = true)
     @Column(name = "ordinal_number", nullable = false)
     private Integer ordinalNumber;
 
@@ -39,6 +43,7 @@ public class LandingPageCard implements Serializable {
      * Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content
      */
     
+    @ApiModelProperty(value = "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "html_content", nullable = false)

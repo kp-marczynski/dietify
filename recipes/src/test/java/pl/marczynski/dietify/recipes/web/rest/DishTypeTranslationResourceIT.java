@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.DishType;
 import pl.marczynski.dietify.recipes.repository.DishTypeTranslationRepository;
 import pl.marczynski.dietify.recipes.repository.search.DishTypeTranslationSearchRepository;
 import pl.marczynski.dietify.recipes.service.DishTypeTranslationService;
-import pl.marczynski.dietify.recipes.service.dto.DishTypeTranslationDTO;
-import pl.marczynski.dietify.recipes.service.mapper.DishTypeTranslationMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class DishTypeTranslationResourceIT {
 
     @Autowired
     private DishTypeTranslationRepository dishTypeTranslationRepository;
-
-    @Autowired
-    private DishTypeTranslationMapper dishTypeTranslationMapper;
 
     @Autowired
     private DishTypeTranslationService dishTypeTranslationService;
@@ -151,10 +146,9 @@ public class DishTypeTranslationResourceIT {
         int databaseSizeBeforeCreate = dishTypeTranslationRepository.findAll().size();
 
         // Create the DishTypeTranslation
-        DishTypeTranslationDTO dishTypeTranslationDTO = dishTypeTranslationMapper.toDto(dishTypeTranslation);
         restDishTypeTranslationMockMvc.perform(post("/api/dish-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslation)))
             .andExpect(status().isCreated());
 
         // Validate the DishTypeTranslation in the database
@@ -175,12 +169,11 @@ public class DishTypeTranslationResourceIT {
 
         // Create the DishTypeTranslation with an existing ID
         dishTypeTranslation.setId(1L);
-        DishTypeTranslationDTO dishTypeTranslationDTO = dishTypeTranslationMapper.toDto(dishTypeTranslation);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restDishTypeTranslationMockMvc.perform(post("/api/dish-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the DishTypeTranslation in the database
@@ -200,11 +193,10 @@ public class DishTypeTranslationResourceIT {
         dishTypeTranslation.setTranslation(null);
 
         // Create the DishTypeTranslation, which fails.
-        DishTypeTranslationDTO dishTypeTranslationDTO = dishTypeTranslationMapper.toDto(dishTypeTranslation);
 
         restDishTypeTranslationMockMvc.perform(post("/api/dish-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         List<DishTypeTranslation> dishTypeTranslationList = dishTypeTranslationRepository.findAll();
@@ -219,11 +211,10 @@ public class DishTypeTranslationResourceIT {
         dishTypeTranslation.setLanguage(null);
 
         // Create the DishTypeTranslation, which fails.
-        DishTypeTranslationDTO dishTypeTranslationDTO = dishTypeTranslationMapper.toDto(dishTypeTranslation);
 
         restDishTypeTranslationMockMvc.perform(post("/api/dish-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         List<DishTypeTranslation> dishTypeTranslationList = dishTypeTranslationRepository.findAll();
@@ -272,7 +263,9 @@ public class DishTypeTranslationResourceIT {
     @Transactional
     public void updateDishTypeTranslation() throws Exception {
         // Initialize the database
-        dishTypeTranslationRepository.saveAndFlush(dishTypeTranslation);
+        dishTypeTranslationService.save(dishTypeTranslation);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockDishTypeTranslationSearchRepository);
 
         int databaseSizeBeforeUpdate = dishTypeTranslationRepository.findAll().size();
 
@@ -282,11 +275,10 @@ public class DishTypeTranslationResourceIT {
         em.detach(updatedDishTypeTranslation);
         updatedDishTypeTranslation.setTranslation(UPDATED_TRANSLATION);
         updatedDishTypeTranslation.setLanguage(UPDATED_LANGUAGE);
-        DishTypeTranslationDTO dishTypeTranslationDTO = dishTypeTranslationMapper.toDto(updatedDishTypeTranslation);
 
         restDishTypeTranslationMockMvc.perform(put("/api/dish-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedDishTypeTranslation)))
             .andExpect(status().isOk());
 
         // Validate the DishTypeTranslation in the database
@@ -306,12 +298,11 @@ public class DishTypeTranslationResourceIT {
         int databaseSizeBeforeUpdate = dishTypeTranslationRepository.findAll().size();
 
         // Create the DishTypeTranslation
-        DishTypeTranslationDTO dishTypeTranslationDTO = dishTypeTranslationMapper.toDto(dishTypeTranslation);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restDishTypeTranslationMockMvc.perform(put("/api/dish-type-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(dishTypeTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the DishTypeTranslation in the database
@@ -326,7 +317,7 @@ public class DishTypeTranslationResourceIT {
     @Transactional
     public void deleteDishTypeTranslation() throws Exception {
         // Initialize the database
-        dishTypeTranslationRepository.saveAndFlush(dishTypeTranslation);
+        dishTypeTranslationService.save(dishTypeTranslation);
 
         int databaseSizeBeforeDelete = dishTypeTranslationRepository.findAll().size();
 
@@ -347,7 +338,7 @@ public class DishTypeTranslationResourceIT {
     @Transactional
     public void searchDishTypeTranslation() throws Exception {
         // Initialize the database
-        dishTypeTranslationRepository.saveAndFlush(dishTypeTranslation);
+        dishTypeTranslationService.save(dishTypeTranslation);
         when(mockDishTypeTranslationSearchRepository.search(queryStringQuery("id:" + dishTypeTranslation.getId())))
             .thenReturn(Collections.singletonList(dishTypeTranslation));
         // Search the dishTypeTranslation
@@ -372,28 +363,5 @@ public class DishTypeTranslationResourceIT {
         assertThat(dishTypeTranslation1).isNotEqualTo(dishTypeTranslation2);
         dishTypeTranslation1.setId(null);
         assertThat(dishTypeTranslation1).isNotEqualTo(dishTypeTranslation2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(DishTypeTranslationDTO.class);
-        DishTypeTranslationDTO dishTypeTranslationDTO1 = new DishTypeTranslationDTO();
-        dishTypeTranslationDTO1.setId(1L);
-        DishTypeTranslationDTO dishTypeTranslationDTO2 = new DishTypeTranslationDTO();
-        assertThat(dishTypeTranslationDTO1).isNotEqualTo(dishTypeTranslationDTO2);
-        dishTypeTranslationDTO2.setId(dishTypeTranslationDTO1.getId());
-        assertThat(dishTypeTranslationDTO1).isEqualTo(dishTypeTranslationDTO2);
-        dishTypeTranslationDTO2.setId(2L);
-        assertThat(dishTypeTranslationDTO1).isNotEqualTo(dishTypeTranslationDTO2);
-        dishTypeTranslationDTO1.setId(null);
-        assertThat(dishTypeTranslationDTO1).isNotEqualTo(dishTypeTranslationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(dishTypeTranslationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(dishTypeTranslationMapper.fromId(null)).isNull();
     }
 }

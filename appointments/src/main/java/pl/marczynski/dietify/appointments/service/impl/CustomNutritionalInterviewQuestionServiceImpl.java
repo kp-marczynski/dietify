@@ -3,18 +3,14 @@ package pl.marczynski.dietify.appointments.service.impl;
 import pl.marczynski.dietify.appointments.service.CustomNutritionalInterviewQuestionService;
 import pl.marczynski.dietify.appointments.domain.CustomNutritionalInterviewQuestion;
 import pl.marczynski.dietify.appointments.repository.CustomNutritionalInterviewQuestionRepository;
-import pl.marczynski.dietify.appointments.service.dto.CustomNutritionalInterviewQuestionDTO;
-import pl.marczynski.dietify.appointments.service.mapper.CustomNutritionalInterviewQuestionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link CustomNutritionalInterviewQuestion}.
@@ -27,25 +23,20 @@ public class CustomNutritionalInterviewQuestionServiceImpl implements CustomNutr
 
     private final CustomNutritionalInterviewQuestionRepository customNutritionalInterviewQuestionRepository;
 
-    private final CustomNutritionalInterviewQuestionMapper customNutritionalInterviewQuestionMapper;
-
-    public CustomNutritionalInterviewQuestionServiceImpl(CustomNutritionalInterviewQuestionRepository customNutritionalInterviewQuestionRepository, CustomNutritionalInterviewQuestionMapper customNutritionalInterviewQuestionMapper) {
+    public CustomNutritionalInterviewQuestionServiceImpl(CustomNutritionalInterviewQuestionRepository customNutritionalInterviewQuestionRepository) {
         this.customNutritionalInterviewQuestionRepository = customNutritionalInterviewQuestionRepository;
-        this.customNutritionalInterviewQuestionMapper = customNutritionalInterviewQuestionMapper;
     }
 
     /**
      * Save a customNutritionalInterviewQuestion.
      *
-     * @param customNutritionalInterviewQuestionDTO the entity to save.
+     * @param customNutritionalInterviewQuestion the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public CustomNutritionalInterviewQuestionDTO save(CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO) {
-        log.debug("Request to save CustomNutritionalInterviewQuestion : {}", customNutritionalInterviewQuestionDTO);
-        CustomNutritionalInterviewQuestion customNutritionalInterviewQuestion = customNutritionalInterviewQuestionMapper.toEntity(customNutritionalInterviewQuestionDTO);
-        customNutritionalInterviewQuestion = customNutritionalInterviewQuestionRepository.save(customNutritionalInterviewQuestion);
-        return customNutritionalInterviewQuestionMapper.toDto(customNutritionalInterviewQuestion);
+    public CustomNutritionalInterviewQuestion save(CustomNutritionalInterviewQuestion customNutritionalInterviewQuestion) {
+        log.debug("Request to save CustomNutritionalInterviewQuestion : {}", customNutritionalInterviewQuestion);
+        return customNutritionalInterviewQuestionRepository.save(customNutritionalInterviewQuestion);
     }
 
     /**
@@ -55,11 +46,9 @@ public class CustomNutritionalInterviewQuestionServiceImpl implements CustomNutr
      */
     @Override
     @Transactional(readOnly = true)
-    public List<CustomNutritionalInterviewQuestionDTO> findAll() {
+    public List<CustomNutritionalInterviewQuestion> findAll() {
         log.debug("Request to get all CustomNutritionalInterviewQuestions");
-        return customNutritionalInterviewQuestionRepository.findAll().stream()
-            .map(customNutritionalInterviewQuestionMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return customNutritionalInterviewQuestionRepository.findAll();
     }
 
 
@@ -71,10 +60,9 @@ public class CustomNutritionalInterviewQuestionServiceImpl implements CustomNutr
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<CustomNutritionalInterviewQuestionDTO> findOne(Long id) {
+    public Optional<CustomNutritionalInterviewQuestion> findOne(Long id) {
         log.debug("Request to get CustomNutritionalInterviewQuestion : {}", id);
-        return customNutritionalInterviewQuestionRepository.findById(id)
-            .map(customNutritionalInterviewQuestionMapper::toDto);
+        return customNutritionalInterviewQuestionRepository.findById(id);
     }
 
     /**

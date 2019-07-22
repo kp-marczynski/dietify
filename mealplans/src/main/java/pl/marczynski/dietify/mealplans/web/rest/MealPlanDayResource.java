@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import pl.marczynski.dietify.mealplans.domain.MealPlanDay;
 import pl.marczynski.dietify.mealplans.service.MealPlanDayService;
 import pl.marczynski.dietify.mealplans.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanDayDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class MealPlanDayResource {
     /**
      * {@code POST  /meal-plan-days} : Create a new mealPlanDay.
      *
-     * @param mealPlanDayDTO the mealPlanDayDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealPlanDayDTO, or with status {@code 400 (Bad Request)} if the mealPlanDay has already an ID.
+     * @param mealPlanDay the mealPlanDay to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealPlanDay, or with status {@code 400 (Bad Request)} if the mealPlanDay has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-plan-days")
-    public ResponseEntity<MealPlanDayDTO> createMealPlanDay(@Valid @RequestBody MealPlanDayDTO mealPlanDayDTO) throws URISyntaxException {
-        log.debug("REST request to save MealPlanDay : {}", mealPlanDayDTO);
-        if (mealPlanDayDTO.getId() != null) {
+    public ResponseEntity<MealPlanDay> createMealPlanDay(@Valid @RequestBody MealPlanDay mealPlanDay) throws URISyntaxException {
+        log.debug("REST request to save MealPlanDay : {}", mealPlanDay);
+        if (mealPlanDay.getId() != null) {
             throw new BadRequestAlertException("A new mealPlanDay cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealPlanDayDTO result = mealPlanDayService.save(mealPlanDayDTO);
+        MealPlanDay result = mealPlanDayService.save(mealPlanDay);
         return ResponseEntity.created(new URI("/api/meal-plan-days/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class MealPlanDayResource {
     /**
      * {@code PUT  /meal-plan-days} : Updates an existing mealPlanDay.
      *
-     * @param mealPlanDayDTO the mealPlanDayDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlanDayDTO,
-     * or with status {@code 400 (Bad Request)} if the mealPlanDayDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealPlanDayDTO couldn't be updated.
+     * @param mealPlanDay the mealPlanDay to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlanDay,
+     * or with status {@code 400 (Bad Request)} if the mealPlanDay is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealPlanDay couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-plan-days")
-    public ResponseEntity<MealPlanDayDTO> updateMealPlanDay(@Valid @RequestBody MealPlanDayDTO mealPlanDayDTO) throws URISyntaxException {
-        log.debug("REST request to update MealPlanDay : {}", mealPlanDayDTO);
-        if (mealPlanDayDTO.getId() == null) {
+    public ResponseEntity<MealPlanDay> updateMealPlanDay(@Valid @RequestBody MealPlanDay mealPlanDay) throws URISyntaxException {
+        log.debug("REST request to update MealPlanDay : {}", mealPlanDay);
+        if (mealPlanDay.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealPlanDayDTO result = mealPlanDayService.save(mealPlanDayDTO);
+        MealPlanDay result = mealPlanDayService.save(mealPlanDay);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealPlanDayDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealPlanDay.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class MealPlanDayResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealPlanDays in body.
      */
     @GetMapping("/meal-plan-days")
-    public List<MealPlanDayDTO> getAllMealPlanDays() {
+    public List<MealPlanDay> getAllMealPlanDays() {
         log.debug("REST request to get all MealPlanDays");
         return mealPlanDayService.findAll();
     }
@@ -96,20 +96,20 @@ public class MealPlanDayResource {
     /**
      * {@code GET  /meal-plan-days/:id} : get the "id" mealPlanDay.
      *
-     * @param id the id of the mealPlanDayDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealPlanDayDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealPlanDay to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealPlanDay, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-plan-days/{id}")
-    public ResponseEntity<MealPlanDayDTO> getMealPlanDay(@PathVariable Long id) {
+    public ResponseEntity<MealPlanDay> getMealPlanDay(@PathVariable Long id) {
         log.debug("REST request to get MealPlanDay : {}", id);
-        Optional<MealPlanDayDTO> mealPlanDayDTO = mealPlanDayService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealPlanDayDTO);
+        Optional<MealPlanDay> mealPlanDay = mealPlanDayService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealPlanDay);
     }
 
     /**
      * {@code DELETE  /meal-plan-days/:id} : delete the "id" mealPlanDay.
      *
-     * @param id the id of the mealPlanDayDTO to delete.
+     * @param id the id of the mealPlanDay to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-plan-days/{id}")
@@ -127,7 +127,7 @@ public class MealPlanDayResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-plan-days")
-    public List<MealPlanDayDTO> searchMealPlanDays(@RequestParam String query) {
+    public List<MealPlanDay> searchMealPlanDays(@RequestParam String query) {
         log.debug("REST request to search MealPlanDays for query {}", query);
         return mealPlanDayService.search(query);
     }

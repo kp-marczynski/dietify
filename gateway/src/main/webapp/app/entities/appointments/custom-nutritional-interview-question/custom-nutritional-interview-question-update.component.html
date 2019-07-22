@@ -43,14 +43,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.nutritionalInterview" for="field_nutritionalInterview">Nutritional Interview</label>
-                    <select class="form-control" id="field_nutritionalInterview" name="nutritionalInterview" formControlName="nutritionalInterviewId">
-                        <option *ngIf="!editForm.get('nutritionalInterviewId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="nutritionalInterviewOption.id" *ngFor="let nutritionalInterviewOption of nutritionalinterviews; trackBy: trackNutritionalInterviewById">{{nutritionalInterviewOption.id}}</option>
+                    <select class="form-control" id="field_nutritionalInterview" name="nutritionalInterview" formControlName="nutritionalInterview">
+                        <option *ngIf="!editForm.get('nutritionalInterview').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="nutritionalInterviewOption.id === editForm.get('nutritionalInterview').value?.id ? editForm.get('nutritionalInterview').value : nutritionalInterviewOption" *ngFor="let nutritionalInterviewOption of nutritionalinterviews; trackBy: trackNutritionalInterviewById">{{nutritionalInterviewOption.id}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('nutritionalInterviewId').invalid && (editForm.get('nutritionalInterviewId').dirty || editForm.get('nutritionalInterviewId').touched)">
+                <div *ngIf="editForm.get('nutritionalInterview').invalid && (editForm.get('nutritionalInterview').dirty || editForm.get('nutritionalInterview').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('nutritionalInterviewId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('nutritionalInterview').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

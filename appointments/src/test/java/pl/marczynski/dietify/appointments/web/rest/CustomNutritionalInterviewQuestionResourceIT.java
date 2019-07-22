@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.CustomNutritionalInterviewQuest
 import pl.marczynski.dietify.appointments.domain.NutritionalInterview;
 import pl.marczynski.dietify.appointments.repository.CustomNutritionalInterviewQuestionRepository;
 import pl.marczynski.dietify.appointments.service.CustomNutritionalInterviewQuestionService;
-import pl.marczynski.dietify.appointments.service.dto.CustomNutritionalInterviewQuestionDTO;
-import pl.marczynski.dietify.appointments.service.mapper.CustomNutritionalInterviewQuestionMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class CustomNutritionalInterviewQuestionResourceIT {
 
     @Autowired
     private CustomNutritionalInterviewQuestionRepository customNutritionalInterviewQuestionRepository;
-
-    @Autowired
-    private CustomNutritionalInterviewQuestionMapper customNutritionalInterviewQuestionMapper;
 
     @Autowired
     private CustomNutritionalInterviewQuestionService customNutritionalInterviewQuestionService;
@@ -145,10 +140,9 @@ public class CustomNutritionalInterviewQuestionResourceIT {
         int databaseSizeBeforeCreate = customNutritionalInterviewQuestionRepository.findAll().size();
 
         // Create the CustomNutritionalInterviewQuestion
-        CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO = customNutritionalInterviewQuestionMapper.toDto(customNutritionalInterviewQuestion);
         restCustomNutritionalInterviewQuestionMockMvc.perform(post("/api/custom-nutritional-interview-questions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestion)))
             .andExpect(status().isCreated());
 
         // Validate the CustomNutritionalInterviewQuestion in the database
@@ -167,12 +161,11 @@ public class CustomNutritionalInterviewQuestionResourceIT {
 
         // Create the CustomNutritionalInterviewQuestion with an existing ID
         customNutritionalInterviewQuestion.setId(1L);
-        CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO = customNutritionalInterviewQuestionMapper.toDto(customNutritionalInterviewQuestion);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restCustomNutritionalInterviewQuestionMockMvc.perform(post("/api/custom-nutritional-interview-questions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestion)))
             .andExpect(status().isBadRequest());
 
         // Validate the CustomNutritionalInterviewQuestion in the database
@@ -225,7 +218,7 @@ public class CustomNutritionalInterviewQuestionResourceIT {
     @Transactional
     public void updateCustomNutritionalInterviewQuestion() throws Exception {
         // Initialize the database
-        customNutritionalInterviewQuestionRepository.saveAndFlush(customNutritionalInterviewQuestion);
+        customNutritionalInterviewQuestionService.save(customNutritionalInterviewQuestion);
 
         int databaseSizeBeforeUpdate = customNutritionalInterviewQuestionRepository.findAll().size();
 
@@ -236,11 +229,10 @@ public class CustomNutritionalInterviewQuestionResourceIT {
         updatedCustomNutritionalInterviewQuestion.setOrdinalNumber(UPDATED_ORDINAL_NUMBER);
         updatedCustomNutritionalInterviewQuestion.setQuestion(UPDATED_QUESTION);
         updatedCustomNutritionalInterviewQuestion.setAnswer(UPDATED_ANSWER);
-        CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO = customNutritionalInterviewQuestionMapper.toDto(updatedCustomNutritionalInterviewQuestion);
 
         restCustomNutritionalInterviewQuestionMockMvc.perform(put("/api/custom-nutritional-interview-questions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedCustomNutritionalInterviewQuestion)))
             .andExpect(status().isOk());
 
         // Validate the CustomNutritionalInterviewQuestion in the database
@@ -258,12 +250,11 @@ public class CustomNutritionalInterviewQuestionResourceIT {
         int databaseSizeBeforeUpdate = customNutritionalInterviewQuestionRepository.findAll().size();
 
         // Create the CustomNutritionalInterviewQuestion
-        CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO = customNutritionalInterviewQuestionMapper.toDto(customNutritionalInterviewQuestion);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restCustomNutritionalInterviewQuestionMockMvc.perform(put("/api/custom-nutritional-interview-questions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(customNutritionalInterviewQuestion)))
             .andExpect(status().isBadRequest());
 
         // Validate the CustomNutritionalInterviewQuestion in the database
@@ -275,7 +266,7 @@ public class CustomNutritionalInterviewQuestionResourceIT {
     @Transactional
     public void deleteCustomNutritionalInterviewQuestion() throws Exception {
         // Initialize the database
-        customNutritionalInterviewQuestionRepository.saveAndFlush(customNutritionalInterviewQuestion);
+        customNutritionalInterviewQuestionService.save(customNutritionalInterviewQuestion);
 
         int databaseSizeBeforeDelete = customNutritionalInterviewQuestionRepository.findAll().size();
 
@@ -302,28 +293,5 @@ public class CustomNutritionalInterviewQuestionResourceIT {
         assertThat(customNutritionalInterviewQuestion1).isNotEqualTo(customNutritionalInterviewQuestion2);
         customNutritionalInterviewQuestion1.setId(null);
         assertThat(customNutritionalInterviewQuestion1).isNotEqualTo(customNutritionalInterviewQuestion2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(CustomNutritionalInterviewQuestionDTO.class);
-        CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO1 = new CustomNutritionalInterviewQuestionDTO();
-        customNutritionalInterviewQuestionDTO1.setId(1L);
-        CustomNutritionalInterviewQuestionDTO customNutritionalInterviewQuestionDTO2 = new CustomNutritionalInterviewQuestionDTO();
-        assertThat(customNutritionalInterviewQuestionDTO1).isNotEqualTo(customNutritionalInterviewQuestionDTO2);
-        customNutritionalInterviewQuestionDTO2.setId(customNutritionalInterviewQuestionDTO1.getId());
-        assertThat(customNutritionalInterviewQuestionDTO1).isEqualTo(customNutritionalInterviewQuestionDTO2);
-        customNutritionalInterviewQuestionDTO2.setId(2L);
-        assertThat(customNutritionalInterviewQuestionDTO1).isNotEqualTo(customNutritionalInterviewQuestionDTO2);
-        customNutritionalInterviewQuestionDTO1.setId(null);
-        assertThat(customNutritionalInterviewQuestionDTO1).isNotEqualTo(customNutritionalInterviewQuestionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(customNutritionalInterviewQuestionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(customNutritionalInterviewQuestionMapper.fromId(null)).isNull();
     }
 }

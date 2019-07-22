@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.AssignedMealPlan;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.repository.AssignedMealPlanRepository;
 import pl.marczynski.dietify.appointments.service.AssignedMealPlanService;
-import pl.marczynski.dietify.appointments.service.dto.AssignedMealPlanDTO;
-import pl.marczynski.dietify.appointments.service.mapper.AssignedMealPlanMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -42,9 +40,6 @@ public class AssignedMealPlanResourceIT {
 
     @Autowired
     private AssignedMealPlanRepository assignedMealPlanRepository;
-
-    @Autowired
-    private AssignedMealPlanMapper assignedMealPlanMapper;
 
     @Autowired
     private AssignedMealPlanService assignedMealPlanService;
@@ -134,10 +129,9 @@ public class AssignedMealPlanResourceIT {
         int databaseSizeBeforeCreate = assignedMealPlanRepository.findAll().size();
 
         // Create the AssignedMealPlan
-        AssignedMealPlanDTO assignedMealPlanDTO = assignedMealPlanMapper.toDto(assignedMealPlan);
         restAssignedMealPlanMockMvc.perform(post("/api/assigned-meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlan)))
             .andExpect(status().isCreated());
 
         // Validate the AssignedMealPlan in the database
@@ -154,12 +148,11 @@ public class AssignedMealPlanResourceIT {
 
         // Create the AssignedMealPlan with an existing ID
         assignedMealPlan.setId(1L);
-        AssignedMealPlanDTO assignedMealPlanDTO = assignedMealPlanMapper.toDto(assignedMealPlan);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restAssignedMealPlanMockMvc.perform(post("/api/assigned-meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlan)))
             .andExpect(status().isBadRequest());
 
         // Validate the AssignedMealPlan in the database
@@ -176,11 +169,10 @@ public class AssignedMealPlanResourceIT {
         assignedMealPlan.setMealPlanId(null);
 
         // Create the AssignedMealPlan, which fails.
-        AssignedMealPlanDTO assignedMealPlanDTO = assignedMealPlanMapper.toDto(assignedMealPlan);
 
         restAssignedMealPlanMockMvc.perform(post("/api/assigned-meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlan)))
             .andExpect(status().isBadRequest());
 
         List<AssignedMealPlan> assignedMealPlanList = assignedMealPlanRepository.findAll();
@@ -227,7 +219,7 @@ public class AssignedMealPlanResourceIT {
     @Transactional
     public void updateAssignedMealPlan() throws Exception {
         // Initialize the database
-        assignedMealPlanRepository.saveAndFlush(assignedMealPlan);
+        assignedMealPlanService.save(assignedMealPlan);
 
         int databaseSizeBeforeUpdate = assignedMealPlanRepository.findAll().size();
 
@@ -236,11 +228,10 @@ public class AssignedMealPlanResourceIT {
         // Disconnect from session so that the updates on updatedAssignedMealPlan are not directly saved in db
         em.detach(updatedAssignedMealPlan);
         updatedAssignedMealPlan.setMealPlanId(UPDATED_MEAL_PLAN_ID);
-        AssignedMealPlanDTO assignedMealPlanDTO = assignedMealPlanMapper.toDto(updatedAssignedMealPlan);
 
         restAssignedMealPlanMockMvc.perform(put("/api/assigned-meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedAssignedMealPlan)))
             .andExpect(status().isOk());
 
         // Validate the AssignedMealPlan in the database
@@ -256,12 +247,11 @@ public class AssignedMealPlanResourceIT {
         int databaseSizeBeforeUpdate = assignedMealPlanRepository.findAll().size();
 
         // Create the AssignedMealPlan
-        AssignedMealPlanDTO assignedMealPlanDTO = assignedMealPlanMapper.toDto(assignedMealPlan);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restAssignedMealPlanMockMvc.perform(put("/api/assigned-meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(assignedMealPlan)))
             .andExpect(status().isBadRequest());
 
         // Validate the AssignedMealPlan in the database
@@ -273,7 +263,7 @@ public class AssignedMealPlanResourceIT {
     @Transactional
     public void deleteAssignedMealPlan() throws Exception {
         // Initialize the database
-        assignedMealPlanRepository.saveAndFlush(assignedMealPlan);
+        assignedMealPlanService.save(assignedMealPlan);
 
         int databaseSizeBeforeDelete = assignedMealPlanRepository.findAll().size();
 
@@ -300,28 +290,5 @@ public class AssignedMealPlanResourceIT {
         assertThat(assignedMealPlan1).isNotEqualTo(assignedMealPlan2);
         assignedMealPlan1.setId(null);
         assertThat(assignedMealPlan1).isNotEqualTo(assignedMealPlan2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(AssignedMealPlanDTO.class);
-        AssignedMealPlanDTO assignedMealPlanDTO1 = new AssignedMealPlanDTO();
-        assignedMealPlanDTO1.setId(1L);
-        AssignedMealPlanDTO assignedMealPlanDTO2 = new AssignedMealPlanDTO();
-        assertThat(assignedMealPlanDTO1).isNotEqualTo(assignedMealPlanDTO2);
-        assignedMealPlanDTO2.setId(assignedMealPlanDTO1.getId());
-        assertThat(assignedMealPlanDTO1).isEqualTo(assignedMealPlanDTO2);
-        assignedMealPlanDTO2.setId(2L);
-        assertThat(assignedMealPlanDTO1).isNotEqualTo(assignedMealPlanDTO2);
-        assignedMealPlanDTO1.setId(null);
-        assertThat(assignedMealPlanDTO1).isNotEqualTo(assignedMealPlanDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(assignedMealPlanMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(assignedMealPlanMapper.fromId(null)).isNull();
     }
 }

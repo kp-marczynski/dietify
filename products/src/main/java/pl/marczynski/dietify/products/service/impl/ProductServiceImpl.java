@@ -4,8 +4,6 @@ import pl.marczynski.dietify.products.service.ProductService;
 import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.ProductRepository;
 import pl.marczynski.dietify.products.repository.search.ProductSearchRepository;
-import pl.marczynski.dietify.products.service.dto.ProductDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,11 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
@@ -33,29 +27,24 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
 
-    private final ProductMapper productMapper;
-
     private final ProductSearchRepository productSearchRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductMapper productMapper, ProductSearchRepository productSearchRepository) {
+    public ProductServiceImpl(ProductRepository productRepository, ProductSearchRepository productSearchRepository) {
         this.productRepository = productRepository;
-        this.productMapper = productMapper;
         this.productSearchRepository = productSearchRepository;
     }
 
     /**
      * Save a product.
      *
-     * @param productDTO the entity to save.
+     * @param product the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public ProductDTO save(ProductDTO productDTO) {
-        log.debug("Request to save Product : {}", productDTO);
-        Product product = productMapper.toEntity(productDTO);
-        product = productRepository.save(product);
-        ProductDTO result = productMapper.toDto(product);
-        productSearchRepository.save(product);
+    public Product save(Product product) {
+        log.debug("Request to save Product : {}", product);
+        Product result = productRepository.save(product);
+        productSearchRepository.save(result);
         return result;
     }
 
@@ -67,10 +56,9 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ProductDTO> findAll(Pageable pageable) {
+    public Page<Product> findAll(Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAll(pageable)
-            .map(productMapper::toDto);
+        return productRepository.findAll(pageable);
     }
 
     /**
@@ -78,25 +66,10 @@ public class ProductServiceImpl implements ProductService {
      *
      * @return the list of entities.
      */
-    public Page<ProductDTO> findAllWithEagerRelationships(Pageable pageable) {
-        return productRepository.findAllWithEagerRelationships(pageable).map(productMapper::toDto);
+    public Page<Product> findAllWithEagerRelationships(Pageable pageable) {
+        return productRepository.findAllWithEagerRelationships(pageable);
     }
     
-
-
-    /**
-    *  Get all the products where BasicNutritionData is {@code null}.
-     *  @return the list of entities.
-     */
-    @Transactional(readOnly = true) 
-    public List<ProductDTO> findAllWhereBasicNutritionDataIsNull() {
-        log.debug("Request to get all products where BasicNutritionData is null");
-        return StreamSupport
-            .stream(productRepository.findAll().spliterator(), false)
-            .filter(product -> product.getBasicNutritionData() == null)
-            .map(productMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
-    }
 
     /**
      * Get one product by id.
@@ -106,10 +79,9 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<ProductDTO> findOne(Long id) {
+    public Optional<Product> findOne(Long id) {
         log.debug("Request to get Product : {}", id);
-        return productRepository.findOneWithEagerRelationships(id)
-            .map(productMapper::toDto);
+        return productRepository.findOneWithEagerRelationships(id);
     }
 
     /**
@@ -133,9 +105,7 @@ public class ProductServiceImpl implements ProductService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<ProductDTO> search(String query, Pageable pageable) {
+    public Page<Product> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Products for query {}", query);
-        return productSearchRepository.search(queryStringQuery(query), pageable)
-            .map(productMapper::toDto);
-    }
+        return productSearchRepository.search(queryStringQuery(query), pageable);    }
 }

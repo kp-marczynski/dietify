@@ -19,8 +19,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsHouseholdMeasure.product">Product</span></dt>
                 <dd>
-                    <div *ngIf="householdMeasure.productId">
-                        <a [routerLink]="['/product', householdMeasure.productId, 'view']">{{householdMeasure.productDescription}}</a>
+                    <div *ngIf="householdMeasure.product">
+                        <a [routerLink]="['/product', householdMeasure.product?.id, 'view']">{{householdMeasure.product?.id}}</a>
                     </div>
                 </dd>
             </dl>

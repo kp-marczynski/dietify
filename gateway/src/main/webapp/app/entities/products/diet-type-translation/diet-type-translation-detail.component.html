@@ -15,8 +15,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsDietTypeTranslation.dietType">Diet Type</span></dt>
                 <dd>
-                    <div *ngIf="dietTypeTranslation.dietTypeId">
-                        <a [routerLink]="['/diet-type', dietTypeTranslation.dietTypeId, 'view']">{{dietTypeTranslation.dietTypeName}}</a>
+                    <div *ngIf="dietTypeTranslation.dietType">
+                        <a [routerLink]="['/diet-type', dietTypeTranslation.dietType?.id, 'view']">{{dietTypeTranslation.dietType?.id}}</a>
                     </div>
                 </dd>
             </dl>

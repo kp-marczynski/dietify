@@ -22,7 +22,7 @@ export class MealPlanUnsuitableForDietUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     dietTypeId: [null, [Validators.required]],
-    mealPlanId: [null, Validators.required]
+    mealPlan: [null, Validators.required]
   });
 
   constructor(
@@ -51,7 +51,7 @@ export class MealPlanUnsuitableForDietUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: mealPlanUnsuitableForDiet.id,
       dietTypeId: mealPlanUnsuitableForDiet.dietTypeId,
-      mealPlanId: mealPlanUnsuitableForDiet.mealPlanId
+      mealPlan: mealPlanUnsuitableForDiet.mealPlan
     });
   }
 
@@ -74,7 +74,7 @@ export class MealPlanUnsuitableForDietUpdateComponent implements OnInit {
       ...new MealPlanUnsuitableForDiet(),
       id: this.editForm.get(['id']).value,
       dietTypeId: this.editForm.get(['dietTypeId']).value,
-      mealPlanId: this.editForm.get(['mealPlanId']).value
+      mealPlan: this.editForm.get(['mealPlan']).value
     };
   }
 

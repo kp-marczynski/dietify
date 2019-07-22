@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.HouseholdMeasure;
 import pl.marczynski.dietify.products.service.HouseholdMeasureService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.HouseholdMeasureDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class HouseholdMeasureResource {
     /**
      * {@code POST  /household-measures} : Create a new householdMeasure.
      *
-     * @param householdMeasureDTO the householdMeasureDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new householdMeasureDTO, or with status {@code 400 (Bad Request)} if the householdMeasure has already an ID.
+     * @param householdMeasure the householdMeasure to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new householdMeasure, or with status {@code 400 (Bad Request)} if the householdMeasure has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/household-measures")
-    public ResponseEntity<HouseholdMeasureDTO> createHouseholdMeasure(@Valid @RequestBody HouseholdMeasureDTO householdMeasureDTO) throws URISyntaxException {
-        log.debug("REST request to save HouseholdMeasure : {}", householdMeasureDTO);
-        if (householdMeasureDTO.getId() != null) {
+    public ResponseEntity<HouseholdMeasure> createHouseholdMeasure(@Valid @RequestBody HouseholdMeasure householdMeasure) throws URISyntaxException {
+        log.debug("REST request to save HouseholdMeasure : {}", householdMeasure);
+        if (householdMeasure.getId() != null) {
             throw new BadRequestAlertException("A new householdMeasure cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        HouseholdMeasureDTO result = householdMeasureService.save(householdMeasureDTO);
+        HouseholdMeasure result = householdMeasureService.save(householdMeasure);
         return ResponseEntity.created(new URI("/api/household-measures/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class HouseholdMeasureResource {
     /**
      * {@code PUT  /household-measures} : Updates an existing householdMeasure.
      *
-     * @param householdMeasureDTO the householdMeasureDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated householdMeasureDTO,
-     * or with status {@code 400 (Bad Request)} if the householdMeasureDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the householdMeasureDTO couldn't be updated.
+     * @param householdMeasure the householdMeasure to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated householdMeasure,
+     * or with status {@code 400 (Bad Request)} if the householdMeasure is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the householdMeasure couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/household-measures")
-    public ResponseEntity<HouseholdMeasureDTO> updateHouseholdMeasure(@Valid @RequestBody HouseholdMeasureDTO householdMeasureDTO) throws URISyntaxException {
-        log.debug("REST request to update HouseholdMeasure : {}", householdMeasureDTO);
-        if (householdMeasureDTO.getId() == null) {
+    public ResponseEntity<HouseholdMeasure> updateHouseholdMeasure(@Valid @RequestBody HouseholdMeasure householdMeasure) throws URISyntaxException {
+        log.debug("REST request to update HouseholdMeasure : {}", householdMeasure);
+        if (householdMeasure.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        HouseholdMeasureDTO result = householdMeasureService.save(householdMeasureDTO);
+        HouseholdMeasure result = householdMeasureService.save(householdMeasure);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, householdMeasureDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, householdMeasure.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class HouseholdMeasureResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of householdMeasures in body.
      */
     @GetMapping("/household-measures")
-    public List<HouseholdMeasureDTO> getAllHouseholdMeasures() {
+    public List<HouseholdMeasure> getAllHouseholdMeasures() {
         log.debug("REST request to get all HouseholdMeasures");
         return householdMeasureService.findAll();
     }
@@ -96,20 +96,20 @@ public class HouseholdMeasureResource {
     /**
      * {@code GET  /household-measures/:id} : get the "id" householdMeasure.
      *
-     * @param id the id of the householdMeasureDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the householdMeasureDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the householdMeasure to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the householdMeasure, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/household-measures/{id}")
-    public ResponseEntity<HouseholdMeasureDTO> getHouseholdMeasure(@PathVariable Long id) {
+    public ResponseEntity<HouseholdMeasure> getHouseholdMeasure(@PathVariable Long id) {
         log.debug("REST request to get HouseholdMeasure : {}", id);
-        Optional<HouseholdMeasureDTO> householdMeasureDTO = householdMeasureService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(householdMeasureDTO);
+        Optional<HouseholdMeasure> householdMeasure = householdMeasureService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(householdMeasure);
     }
 
     /**
      * {@code DELETE  /household-measures/:id} : delete the "id" householdMeasure.
      *
-     * @param id the id of the householdMeasureDTO to delete.
+     * @param id the id of the householdMeasure to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/household-measures/{id}")
@@ -127,7 +127,7 @@ public class HouseholdMeasureResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/household-measures")
-    public List<HouseholdMeasureDTO> searchHouseholdMeasures(@RequestParam String query) {
+    public List<HouseholdMeasure> searchHouseholdMeasures(@RequestParam String query) {
         log.debug("REST request to search HouseholdMeasures for query {}", query);
         return householdMeasureService.search(query);
     }

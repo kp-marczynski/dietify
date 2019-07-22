@@ -1,6 +1,6 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.AppointmentEvaluationDTO;
+import pl.marczynski.dietify.appointments.domain.AppointmentEvaluation;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,17 +8,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.AppointmentEvaluation}.
+ * Service Interface for managing {@link AppointmentEvaluation}.
  */
 public interface AppointmentEvaluationService {
 
     /**
      * Save a appointmentEvaluation.
      *
-     * @param appointmentEvaluationDTO the entity to save.
+     * @param appointmentEvaluation the entity to save.
      * @return the persisted entity.
      */
-    AppointmentEvaluationDTO save(AppointmentEvaluationDTO appointmentEvaluationDTO);
+    AppointmentEvaluation save(AppointmentEvaluation appointmentEvaluation);
 
     /**
      * Get all the appointmentEvaluations.
@@ -26,7 +26,7 @@ public interface AppointmentEvaluationService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<AppointmentEvaluationDTO> findAll(Pageable pageable);
+    Page<AppointmentEvaluation> findAll(Pageable pageable);
 
 
     /**
@@ -35,7 +35,7 @@ public interface AppointmentEvaluationService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<AppointmentEvaluationDTO> findOne(Long id);
+    Optional<AppointmentEvaluation> findOne(Long id);
 
     /**
      * Delete the "id" appointmentEvaluation.

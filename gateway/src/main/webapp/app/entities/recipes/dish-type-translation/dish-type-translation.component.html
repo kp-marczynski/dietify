@@ -45,8 +45,8 @@
                 <td>{{dishTypeTranslation.translation}}</td>
                 <td>{{dishTypeTranslation.language}}</td>
                 <td>
-                    <div *ngIf="dishTypeTranslation.dishTypeId">
-                        <a [routerLink]="['../dish-type', dishTypeTranslation.dishTypeId , 'view' ]" >{{dishTypeTranslation.dishTypeDescription}}</a>
+                    <div *ngIf="dishTypeTranslation.dishType">
+                        <a [routerLink]="['../dish-type', dishTypeTranslation.dishType?.id, 'view' ]" >{{dishTypeTranslation.dishType?.description}}</a>
                     </div>
                 </td>
                 <td class="text-right">

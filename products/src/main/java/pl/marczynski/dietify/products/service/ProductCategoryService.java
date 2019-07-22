@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.products.service;
 
-import pl.marczynski.dietify.products.service.dto.ProductCategoryDTO;
+import pl.marczynski.dietify.products.domain.ProductCategory;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.products.domain.ProductCategory}.
+ * Service Interface for managing {@link ProductCategory}.
  */
 public interface ProductCategoryService {
 
     /**
      * Save a productCategory.
      *
-     * @param productCategoryDTO the entity to save.
+     * @param productCategory the entity to save.
      * @return the persisted entity.
      */
-    ProductCategoryDTO save(ProductCategoryDTO productCategoryDTO);
+    ProductCategory save(ProductCategory productCategory);
 
     /**
      * Get all the productCategories.
      *
      * @return the list of entities.
      */
-    List<ProductCategoryDTO> findAll();
+    List<ProductCategory> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface ProductCategoryService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<ProductCategoryDTO> findOne(Long id);
+    Optional<ProductCategory> findOne(Long id);
 
     /**
      * Delete the "id" productCategory.
@@ -48,5 +48,5 @@ public interface ProductCategoryService {
      * 
      * @return the list of entities.
      */
-    List<ProductCategoryDTO> search(String query);
+    List<ProductCategory> search(String query);
 }

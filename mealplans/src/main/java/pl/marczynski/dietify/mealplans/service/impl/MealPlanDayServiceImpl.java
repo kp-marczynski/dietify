@@ -4,15 +4,12 @@ import pl.marczynski.dietify.mealplans.service.MealPlanDayService;
 import pl.marczynski.dietify.mealplans.domain.MealPlanDay;
 import pl.marczynski.dietify.mealplans.repository.MealPlanDayRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanDaySearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanDayDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanDayMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealPlanDayServiceImpl implements MealPlanDayService {
 
     private final MealPlanDayRepository mealPlanDayRepository;
 
-    private final MealPlanDayMapper mealPlanDayMapper;
-
     private final MealPlanDaySearchRepository mealPlanDaySearchRepository;
 
-    public MealPlanDayServiceImpl(MealPlanDayRepository mealPlanDayRepository, MealPlanDayMapper mealPlanDayMapper, MealPlanDaySearchRepository mealPlanDaySearchRepository) {
+    public MealPlanDayServiceImpl(MealPlanDayRepository mealPlanDayRepository, MealPlanDaySearchRepository mealPlanDaySearchRepository) {
         this.mealPlanDayRepository = mealPlanDayRepository;
-        this.mealPlanDayMapper = mealPlanDayMapper;
         this.mealPlanDaySearchRepository = mealPlanDaySearchRepository;
     }
 
     /**
      * Save a mealPlanDay.
      *
-     * @param mealPlanDayDTO the entity to save.
+     * @param mealPlanDay the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealPlanDayDTO save(MealPlanDayDTO mealPlanDayDTO) {
-        log.debug("Request to save MealPlanDay : {}", mealPlanDayDTO);
-        MealPlanDay mealPlanDay = mealPlanDayMapper.toEntity(mealPlanDayDTO);
-        mealPlanDay = mealPlanDayRepository.save(mealPlanDay);
-        MealPlanDayDTO result = mealPlanDayMapper.toDto(mealPlanDay);
-        mealPlanDaySearchRepository.save(mealPlanDay);
+    public MealPlanDay save(MealPlanDay mealPlanDay) {
+        log.debug("Request to save MealPlanDay : {}", mealPlanDay);
+        MealPlanDay result = mealPlanDayRepository.save(mealPlanDay);
+        mealPlanDaySearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealPlanDayServiceImpl implements MealPlanDayService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealPlanDayDTO> findAll() {
+    public List<MealPlanDay> findAll() {
         log.debug("Request to get all MealPlanDays");
-        return mealPlanDayRepository.findAll().stream()
-            .map(mealPlanDayMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealPlanDayRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealPlanDayServiceImpl implements MealPlanDayService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealPlanDayDTO> findOne(Long id) {
+    public Optional<MealPlanDay> findOne(Long id) {
         log.debug("Request to get MealPlanDay : {}", id);
-        return mealPlanDayRepository.findById(id)
-            .map(mealPlanDayMapper::toDto);
+        return mealPlanDayRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealPlanDayServiceImpl implements MealPlanDayService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealPlanDayDTO> search(String query) {
+    public List<MealPlanDay> search(String query) {
         log.debug("Request to search MealPlanDays for query {}", query);
         return StreamSupport
             .stream(mealPlanDaySearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealPlanDayMapper::toDto)
             .collect(Collectors.toList());
     }
 }

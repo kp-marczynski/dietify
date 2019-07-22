@@ -9,12 +9,12 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IAppointment, Appointment } from 'app/shared/model/appointments/appointment.model';
 import { AppointmentService } from './appointment.service';
-import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
-import { PatientCardService } from 'app/entities/appointments/patient-card';
 import { IBodyMeasurement } from 'app/shared/model/appointments/body-measurement.model';
 import { BodyMeasurementService } from 'app/entities/appointments/body-measurement';
 import { INutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
 import { NutritionalInterviewService } from 'app/entities/appointments/nutritional-interview';
+import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
+import { PatientCardService } from 'app/entities/appointments/patient-card';
 
 @Component({
   selector: 'jhi-appointment-update',
@@ -23,11 +23,11 @@ import { NutritionalInterviewService } from 'app/entities/appointments/nutrition
 export class AppointmentUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  patientcards: IPatientCard[];
-
   bodymeasurements: IBodyMeasurement[];
 
   nutritionalinterviews: INutritionalInterview[];
+
+  patientcards: IPatientCard[];
 
   editForm = this.fb.group({
     id: [],
@@ -35,16 +35,18 @@ export class AppointmentUpdateComponent implements OnInit {
     appointmentState: [null, [Validators.required]],
     mealPlanId: [],
     generalAdvice: [],
-    patientCardId: [null, Validators.required]
+    bodyMeasurement: [],
+    nutritionalInterview: [],
+    patientCard: [null, Validators.required]
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected appointmentService: AppointmentService,
-    protected patientCardService: PatientCardService,
     protected bodyMeasurementService: BodyMeasurementService,
     protected nutritionalInterviewService: NutritionalInterviewService,
+    protected patientCardService: PatientCardService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -54,6 +56,56 @@ export class AppointmentUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ appointment }) => {
       this.updateForm(appointment);
     });
+    this.bodyMeasurementService
+      .query({ filter: 'appointment-is-null' })
+      .pipe(
+        filter((mayBeOk: HttpResponse<IBodyMeasurement[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IBodyMeasurement[]>) => response.body)
+      )
+      .subscribe(
+        (res: IBodyMeasurement[]) => {
+          if (!this.editForm.get('bodyMeasurement').value || !this.editForm.get('bodyMeasurement').value.id) {
+            this.bodymeasurements = res;
+          } else {
+            this.bodyMeasurementService
+              .find(this.editForm.get('bodyMeasurement').value.id)
+              .pipe(
+                filter((subResMayBeOk: HttpResponse<IBodyMeasurement>) => subResMayBeOk.ok),
+                map((subResponse: HttpResponse<IBodyMeasurement>) => subResponse.body)
+              )
+              .subscribe(
+                (subRes: IBodyMeasurement) => (this.bodymeasurements = [subRes].concat(res)),
+                (subRes: HttpErrorResponse) => this.onError(subRes.message)
+              );
+          }
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
+    this.nutritionalInterviewService
+      .query({ filter: 'appointment-is-null' })
+      .pipe(
+        filter((mayBeOk: HttpResponse<INutritionalInterview[]>) => mayBeOk.ok),
+        map((response: HttpResponse<INutritionalInterview[]>) => response.body)
+      )
+      .subscribe(
+        (res: INutritionalInterview[]) => {
+          if (!this.editForm.get('nutritionalInterview').value || !this.editForm.get('nutritionalInterview').value.id) {
+            this.nutritionalinterviews = res;
+          } else {
+            this.nutritionalInterviewService
+              .find(this.editForm.get('nutritionalInterview').value.id)
+              .pipe(
+                filter((subResMayBeOk: HttpResponse<INutritionalInterview>) => subResMayBeOk.ok),
+                map((subResponse: HttpResponse<INutritionalInterview>) => subResponse.body)
+              )
+              .subscribe(
+                (subRes: INutritionalInterview) => (this.nutritionalinterviews = [subRes].concat(res)),
+                (subRes: HttpErrorResponse) => this.onError(subRes.message)
+              );
+          }
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
     this.patientCardService
       .query()
       .pipe(
@@ -61,23 +113,6 @@ export class AppointmentUpdateComponent implements OnInit {
         map((response: HttpResponse<IPatientCard[]>) => response.body)
       )
       .subscribe((res: IPatientCard[]) => (this.patientcards = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.bodyMeasurementService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IBodyMeasurement[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IBodyMeasurement[]>) => response.body)
-      )
-      .subscribe((res: IBodyMeasurement[]) => (this.bodymeasurements = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.nutritionalInterviewService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<INutritionalInterview[]>) => mayBeOk.ok),
-        map((response: HttpResponse<INutritionalInterview[]>) => response.body)
-      )
-      .subscribe(
-        (res: INutritionalInterview[]) => (this.nutritionalinterviews = res),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
   updateForm(appointment: IAppointment) {
@@ -87,7 +122,9 @@ export class AppointmentUpdateComponent implements OnInit {
       appointmentState: appointment.appointmentState,
       mealPlanId: appointment.mealPlanId,
       generalAdvice: appointment.generalAdvice,
-      patientCardId: appointment.patientCardId
+      bodyMeasurement: appointment.bodyMeasurement,
+      nutritionalInterview: appointment.nutritionalInterview,
+      patientCard: appointment.patientCard
     });
   }
 
@@ -148,7 +185,9 @@ export class AppointmentUpdateComponent implements OnInit {
       appointmentState: this.editForm.get(['appointmentState']).value,
       mealPlanId: this.editForm.get(['mealPlanId']).value,
       generalAdvice: this.editForm.get(['generalAdvice']).value,
-      patientCardId: this.editForm.get(['patientCardId']).value
+      bodyMeasurement: this.editForm.get(['bodyMeasurement']).value,
+      nutritionalInterview: this.editForm.get(['nutritionalInterview']).value,
+      patientCard: this.editForm.get(['patientCard']).value
     };
   }
 
@@ -168,15 +207,15 @@ export class AppointmentUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackPatientCardById(index: number, item: IPatientCard) {
-    return item.id;
-  }
-
   trackBodyMeasurementById(index: number, item: IBodyMeasurement) {
     return item.id;
   }
 
   trackNutritionalInterviewById(index: number, item: INutritionalInterview) {
+    return item.id;
+  }
+
+  trackPatientCardById(index: number, item: IPatientCard) {
     return item.id;
   }
 }

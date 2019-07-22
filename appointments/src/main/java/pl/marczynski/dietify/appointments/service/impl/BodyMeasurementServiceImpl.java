@@ -3,18 +3,16 @@ package pl.marczynski.dietify.appointments.service.impl;
 import pl.marczynski.dietify.appointments.service.BodyMeasurementService;
 import pl.marczynski.dietify.appointments.domain.BodyMeasurement;
 import pl.marczynski.dietify.appointments.repository.BodyMeasurementRepository;
-import pl.marczynski.dietify.appointments.service.dto.BodyMeasurementDTO;
-import pl.marczynski.dietify.appointments.service.mapper.BodyMeasurementMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link BodyMeasurement}.
@@ -27,25 +25,20 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
 
     private final BodyMeasurementRepository bodyMeasurementRepository;
 
-    private final BodyMeasurementMapper bodyMeasurementMapper;
-
-    public BodyMeasurementServiceImpl(BodyMeasurementRepository bodyMeasurementRepository, BodyMeasurementMapper bodyMeasurementMapper) {
+    public BodyMeasurementServiceImpl(BodyMeasurementRepository bodyMeasurementRepository) {
         this.bodyMeasurementRepository = bodyMeasurementRepository;
-        this.bodyMeasurementMapper = bodyMeasurementMapper;
     }
 
     /**
      * Save a bodyMeasurement.
      *
-     * @param bodyMeasurementDTO the entity to save.
+     * @param bodyMeasurement the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public BodyMeasurementDTO save(BodyMeasurementDTO bodyMeasurementDTO) {
-        log.debug("Request to save BodyMeasurement : {}", bodyMeasurementDTO);
-        BodyMeasurement bodyMeasurement = bodyMeasurementMapper.toEntity(bodyMeasurementDTO);
-        bodyMeasurement = bodyMeasurementRepository.save(bodyMeasurement);
-        return bodyMeasurementMapper.toDto(bodyMeasurement);
+    public BodyMeasurement save(BodyMeasurement bodyMeasurement) {
+        log.debug("Request to save BodyMeasurement : {}", bodyMeasurement);
+        return bodyMeasurementRepository.save(bodyMeasurement);
     }
 
     /**
@@ -55,13 +48,25 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<BodyMeasurementDTO> findAll() {
+    public List<BodyMeasurement> findAll() {
         log.debug("Request to get all BodyMeasurements");
-        return bodyMeasurementRepository.findAll().stream()
-            .map(bodyMeasurementMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return bodyMeasurementRepository.findAll();
     }
 
+
+
+    /**
+    *  Get all the bodyMeasurements where Appointment is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true) 
+    public List<BodyMeasurement> findAllWhereAppointmentIsNull() {
+        log.debug("Request to get all bodyMeasurements where Appointment is null");
+        return StreamSupport
+            .stream(bodyMeasurementRepository.findAll().spliterator(), false)
+            .filter(bodyMeasurement -> bodyMeasurement.getAppointment() == null)
+            .collect(Collectors.toList());
+    }
 
     /**
      * Get one bodyMeasurement by id.
@@ -71,10 +76,9 @@ public class BodyMeasurementServiceImpl implements BodyMeasurementService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<BodyMeasurementDTO> findOne(Long id) {
+    public Optional<BodyMeasurement> findOne(Long id) {
         log.debug("Request to get BodyMeasurement : {}", id);
-        return bodyMeasurementRepository.findById(id)
-            .map(bodyMeasurementMapper::toDto);
+        return bodyMeasurementRepository.findById(id);
     }
 
     /**

@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.mealplans.web.rest;
 
+import pl.marczynski.dietify.mealplans.domain.MealProduct;
 import pl.marczynski.dietify.mealplans.service.MealProductService;
 import pl.marczynski.dietify.mealplans.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.mealplans.service.dto.MealProductDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class MealProductResource {
     /**
      * {@code POST  /meal-products} : Create a new mealProduct.
      *
-     * @param mealProductDTO the mealProductDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealProductDTO, or with status {@code 400 (Bad Request)} if the mealProduct has already an ID.
+     * @param mealProduct the mealProduct to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealProduct, or with status {@code 400 (Bad Request)} if the mealProduct has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-products")
-    public ResponseEntity<MealProductDTO> createMealProduct(@Valid @RequestBody MealProductDTO mealProductDTO) throws URISyntaxException {
-        log.debug("REST request to save MealProduct : {}", mealProductDTO);
-        if (mealProductDTO.getId() != null) {
+    public ResponseEntity<MealProduct> createMealProduct(@Valid @RequestBody MealProduct mealProduct) throws URISyntaxException {
+        log.debug("REST request to save MealProduct : {}", mealProduct);
+        if (mealProduct.getId() != null) {
             throw new BadRequestAlertException("A new mealProduct cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealProductDTO result = mealProductService.save(mealProductDTO);
+        MealProduct result = mealProductService.save(mealProduct);
         return ResponseEntity.created(new URI("/api/meal-products/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class MealProductResource {
     /**
      * {@code PUT  /meal-products} : Updates an existing mealProduct.
      *
-     * @param mealProductDTO the mealProductDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealProductDTO,
-     * or with status {@code 400 (Bad Request)} if the mealProductDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealProductDTO couldn't be updated.
+     * @param mealProduct the mealProduct to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealProduct,
+     * or with status {@code 400 (Bad Request)} if the mealProduct is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealProduct couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-products")
-    public ResponseEntity<MealProductDTO> updateMealProduct(@Valid @RequestBody MealProductDTO mealProductDTO) throws URISyntaxException {
-        log.debug("REST request to update MealProduct : {}", mealProductDTO);
-        if (mealProductDTO.getId() == null) {
+    public ResponseEntity<MealProduct> updateMealProduct(@Valid @RequestBody MealProduct mealProduct) throws URISyntaxException {
+        log.debug("REST request to update MealProduct : {}", mealProduct);
+        if (mealProduct.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealProductDTO result = mealProductService.save(mealProductDTO);
+        MealProduct result = mealProductService.save(mealProduct);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealProductDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealProduct.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class MealProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealProducts in body.
      */
     @GetMapping("/meal-products")
-    public List<MealProductDTO> getAllMealProducts() {
+    public List<MealProduct> getAllMealProducts() {
         log.debug("REST request to get all MealProducts");
         return mealProductService.findAll();
     }
@@ -96,20 +96,20 @@ public class MealProductResource {
     /**
      * {@code GET  /meal-products/:id} : get the "id" mealProduct.
      *
-     * @param id the id of the mealProductDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealProductDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealProduct to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealProduct, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-products/{id}")
-    public ResponseEntity<MealProductDTO> getMealProduct(@PathVariable Long id) {
+    public ResponseEntity<MealProduct> getMealProduct(@PathVariable Long id) {
         log.debug("REST request to get MealProduct : {}", id);
-        Optional<MealProductDTO> mealProductDTO = mealProductService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealProductDTO);
+        Optional<MealProduct> mealProduct = mealProductService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealProduct);
     }
 
     /**
      * {@code DELETE  /meal-products/:id} : delete the "id" mealProduct.
      *
-     * @param id the id of the mealProductDTO to delete.
+     * @param id the id of the mealProduct to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-products/{id}")
@@ -127,7 +127,7 @@ public class MealProductResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-products")
-    public List<MealProductDTO> searchMealProducts(@RequestParam String query) {
+    public List<MealProduct> searchMealProducts(@RequestParam String query) {
         log.debug("REST request to search MealProducts for query {}", query);
         return mealProductService.search(query);
     }

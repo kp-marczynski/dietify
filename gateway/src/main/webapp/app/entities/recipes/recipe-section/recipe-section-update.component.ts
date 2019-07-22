@@ -22,7 +22,7 @@ export class RecipeSectionUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     sectionName: [null, [Validators.minLength(1), Validators.maxLength(255)]],
-    recipeId: [null, Validators.required]
+    recipe: [null, Validators.required]
   });
 
   constructor(
@@ -51,7 +51,7 @@ export class RecipeSectionUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: recipeSection.id,
       sectionName: recipeSection.sectionName,
-      recipeId: recipeSection.recipeId
+      recipe: recipeSection.recipe
     });
   }
 
@@ -74,7 +74,7 @@ export class RecipeSectionUpdateComponent implements OnInit {
       ...new RecipeSection(),
       id: this.editForm.get(['id']).value,
       sectionName: this.editForm.get(['sectionName']).value,
-      recipeId: this.editForm.get(['recipeId']).value
+      recipe: this.editForm.get(['recipe']).value
     };
   }
 

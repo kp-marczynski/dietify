@@ -1,10 +1,11 @@
+import { IRecipeSection } from 'app/shared/model/recipes/recipe-section.model';
+
 export interface IProductPortion {
   id?: number;
   amount?: number;
   productId?: number;
   householdMeasureId?: number;
-  recipeSectionSectionName?: string;
-  recipeSectionId?: number;
+  recipeSection?: IRecipeSection;
 }
 
 export class ProductPortion implements IProductPortion {
@@ -13,7 +14,6 @@ export class ProductPortion implements IProductPortion {
     public amount?: number,
     public productId?: number,
     public householdMeasureId?: number,
-    public recipeSectionSectionName?: string,
-    public recipeSectionId?: number
+    public recipeSection?: IRecipeSection
   ) {}
 }

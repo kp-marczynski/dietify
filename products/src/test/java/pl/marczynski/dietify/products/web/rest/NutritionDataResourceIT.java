@@ -7,8 +7,6 @@ import pl.marczynski.dietify.products.domain.Product;
 import pl.marczynski.dietify.products.repository.NutritionDataRepository;
 import pl.marczynski.dietify.products.repository.search.NutritionDataSearchRepository;
 import pl.marczynski.dietify.products.service.NutritionDataService;
-import pl.marczynski.dietify.products.service.dto.NutritionDataDTO;
-import pl.marczynski.dietify.products.service.mapper.NutritionDataMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -47,9 +45,6 @@ public class NutritionDataResourceIT {
 
     @Autowired
     private NutritionDataRepository nutritionDataRepository;
-
-    @Autowired
-    private NutritionDataMapper nutritionDataMapper;
 
     @Autowired
     private NutritionDataService nutritionDataService;
@@ -167,10 +162,9 @@ public class NutritionDataResourceIT {
         int databaseSizeBeforeCreate = nutritionDataRepository.findAll().size();
 
         // Create the NutritionData
-        NutritionDataDTO nutritionDataDTO = nutritionDataMapper.toDto(nutritionData);
         restNutritionDataMockMvc.perform(post("/api/nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionData)))
             .andExpect(status().isCreated());
 
         // Validate the NutritionData in the database
@@ -190,12 +184,11 @@ public class NutritionDataResourceIT {
 
         // Create the NutritionData with an existing ID
         nutritionData.setId(1L);
-        NutritionDataDTO nutritionDataDTO = nutritionDataMapper.toDto(nutritionData);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNutritionDataMockMvc.perform(post("/api/nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionData)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionData in the database
@@ -215,11 +208,10 @@ public class NutritionDataResourceIT {
         nutritionData.setNutritionValue(null);
 
         // Create the NutritionData, which fails.
-        NutritionDataDTO nutritionDataDTO = nutritionDataMapper.toDto(nutritionData);
 
         restNutritionDataMockMvc.perform(post("/api/nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionData)))
             .andExpect(status().isBadRequest());
 
         List<NutritionData> nutritionDataList = nutritionDataRepository.findAll();
@@ -266,7 +258,9 @@ public class NutritionDataResourceIT {
     @Transactional
     public void updateNutritionData() throws Exception {
         // Initialize the database
-        nutritionDataRepository.saveAndFlush(nutritionData);
+        nutritionDataService.save(nutritionData);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockNutritionDataSearchRepository);
 
         int databaseSizeBeforeUpdate = nutritionDataRepository.findAll().size();
 
@@ -275,11 +269,10 @@ public class NutritionDataResourceIT {
         // Disconnect from session so that the updates on updatedNutritionData are not directly saved in db
         em.detach(updatedNutritionData);
         updatedNutritionData.setNutritionValue(UPDATED_NUTRITION_VALUE);
-        NutritionDataDTO nutritionDataDTO = nutritionDataMapper.toDto(updatedNutritionData);
 
         restNutritionDataMockMvc.perform(put("/api/nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedNutritionData)))
             .andExpect(status().isOk());
 
         // Validate the NutritionData in the database
@@ -298,12 +291,11 @@ public class NutritionDataResourceIT {
         int databaseSizeBeforeUpdate = nutritionDataRepository.findAll().size();
 
         // Create the NutritionData
-        NutritionDataDTO nutritionDataDTO = nutritionDataMapper.toDto(nutritionData);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restNutritionDataMockMvc.perform(put("/api/nutrition-data")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionDataDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionData)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionData in the database
@@ -318,7 +310,7 @@ public class NutritionDataResourceIT {
     @Transactional
     public void deleteNutritionData() throws Exception {
         // Initialize the database
-        nutritionDataRepository.saveAndFlush(nutritionData);
+        nutritionDataService.save(nutritionData);
 
         int databaseSizeBeforeDelete = nutritionDataRepository.findAll().size();
 
@@ -339,7 +331,7 @@ public class NutritionDataResourceIT {
     @Transactional
     public void searchNutritionData() throws Exception {
         // Initialize the database
-        nutritionDataRepository.saveAndFlush(nutritionData);
+        nutritionDataService.save(nutritionData);
         when(mockNutritionDataSearchRepository.search(queryStringQuery("id:" + nutritionData.getId())))
             .thenReturn(Collections.singletonList(nutritionData));
         // Search the nutritionData
@@ -363,28 +355,5 @@ public class NutritionDataResourceIT {
         assertThat(nutritionData1).isNotEqualTo(nutritionData2);
         nutritionData1.setId(null);
         assertThat(nutritionData1).isNotEqualTo(nutritionData2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NutritionDataDTO.class);
-        NutritionDataDTO nutritionDataDTO1 = new NutritionDataDTO();
-        nutritionDataDTO1.setId(1L);
-        NutritionDataDTO nutritionDataDTO2 = new NutritionDataDTO();
-        assertThat(nutritionDataDTO1).isNotEqualTo(nutritionDataDTO2);
-        nutritionDataDTO2.setId(nutritionDataDTO1.getId());
-        assertThat(nutritionDataDTO1).isEqualTo(nutritionDataDTO2);
-        nutritionDataDTO2.setId(2L);
-        assertThat(nutritionDataDTO1).isNotEqualTo(nutritionDataDTO2);
-        nutritionDataDTO1.setId(null);
-        assertThat(nutritionDataDTO1).isNotEqualTo(nutritionDataDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(nutritionDataMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(nutritionDataMapper.fromId(null)).isNull();
     }
 }

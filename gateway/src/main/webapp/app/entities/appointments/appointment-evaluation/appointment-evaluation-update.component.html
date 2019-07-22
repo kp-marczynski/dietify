@@ -145,14 +145,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment" for="field_appointment">Appointment</label>
-                    <select class="form-control" id="field_appointment" name="appointment" formControlName="appointmentId">
-                        <option *ngIf="!editForm.get('appointmentId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="appointmentOption.id" *ngFor="let appointmentOption of appointments; trackBy: trackAppointmentById">{{appointmentOption.id}}</option>
+                    <select class="form-control" id="field_appointment" name="appointment" formControlName="appointment">
+                        <option *ngIf="!editForm.get('appointment').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appointmentOption.id === editForm.get('appointment').value?.id ? editForm.get('appointment').value : appointmentOption" *ngFor="let appointmentOption of appointments; trackBy: trackAppointmentById">{{appointmentOption.id}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('appointmentId').invalid && (editForm.get('appointmentId').dirty || editForm.get('appointmentId').touched)">
+                <div *ngIf="editForm.get('appointment').invalid && (editForm.get('appointment').dirty || editForm.get('appointment').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('appointmentId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('appointment').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

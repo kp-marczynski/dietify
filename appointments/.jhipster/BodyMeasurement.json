@@ -93,13 +93,12 @@
             "otherEntityRelationshipName": "bodyMeasurement",
             "relationshipValidateRules": "required",
             "relationshipName": "appointment",
-            "otherEntityField": "id",
-            "ownerSide": true
+            "ownerSide": false
         }
     ],
-    "changelogDate": "20190721154711",
+    "changelogDate": "20190722200941",
     "entityTableName": "body_measurement",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

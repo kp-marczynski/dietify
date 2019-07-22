@@ -23,7 +23,7 @@ export class KitchenApplianceTranslationUpdateComponent implements OnInit {
     id: [],
     translation: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    kitchenApplianceId: [null, Validators.required]
+    kitchenAppliance: [null, Validators.required]
   });
 
   constructor(
@@ -53,7 +53,7 @@ export class KitchenApplianceTranslationUpdateComponent implements OnInit {
       id: kitchenApplianceTranslation.id,
       translation: kitchenApplianceTranslation.translation,
       language: kitchenApplianceTranslation.language,
-      kitchenApplianceId: kitchenApplianceTranslation.kitchenApplianceId
+      kitchenAppliance: kitchenApplianceTranslation.kitchenAppliance
     });
   }
 
@@ -77,7 +77,7 @@ export class KitchenApplianceTranslationUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       translation: this.editForm.get(['translation']).value,
       language: this.editForm.get(['language']).value,
-      kitchenApplianceId: this.editForm.get(['kitchenApplianceId']).value
+      kitchenAppliance: this.editForm.get(['kitchenAppliance']).value
     };
   }
 

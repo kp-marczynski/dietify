@@ -43,8 +43,8 @@
                 <td><a [routerLink]="['/meal', meal.id, 'view' ]">{{meal.id}}</a></td>
                 <td>{{meal.ordinalNumber}}</td>
                 <td>
-                    <div *ngIf="meal.mealPlanDayId">
-                        <a [routerLink]="['../meal-plan-day', meal.mealPlanDayId , 'view' ]" >{{meal.mealPlanDayId}}</a>
+                    <div *ngIf="meal.mealPlanDay">
+                        <a [routerLink]="['../meal-plan-day', meal.mealPlanDay?.id, 'view' ]" >{{meal.mealPlanDay?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

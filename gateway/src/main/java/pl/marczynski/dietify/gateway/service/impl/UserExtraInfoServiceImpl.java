@@ -4,15 +4,12 @@ import pl.marczynski.dietify.gateway.service.UserExtraInfoService;
 import pl.marczynski.dietify.gateway.domain.UserExtraInfo;
 import pl.marczynski.dietify.gateway.repository.UserExtraInfoRepository;
 import pl.marczynski.dietify.gateway.repository.search.UserExtraInfoSearchRepository;
-import pl.marczynski.dietify.gateway.service.dto.UserExtraInfoDTO;
-import pl.marczynski.dietify.gateway.service.mapper.UserExtraInfoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
 
     private final UserExtraInfoRepository userExtraInfoRepository;
 
-    private final UserExtraInfoMapper userExtraInfoMapper;
-
     private final UserExtraInfoSearchRepository userExtraInfoSearchRepository;
 
-    public UserExtraInfoServiceImpl(UserExtraInfoRepository userExtraInfoRepository, UserExtraInfoMapper userExtraInfoMapper, UserExtraInfoSearchRepository userExtraInfoSearchRepository) {
+    public UserExtraInfoServiceImpl(UserExtraInfoRepository userExtraInfoRepository, UserExtraInfoSearchRepository userExtraInfoSearchRepository) {
         this.userExtraInfoRepository = userExtraInfoRepository;
-        this.userExtraInfoMapper = userExtraInfoMapper;
         this.userExtraInfoSearchRepository = userExtraInfoSearchRepository;
     }
 
     /**
      * Save a userExtraInfo.
      *
-     * @param userExtraInfoDTO the entity to save.
+     * @param userExtraInfo the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public UserExtraInfoDTO save(UserExtraInfoDTO userExtraInfoDTO) {
-        log.debug("Request to save UserExtraInfo : {}", userExtraInfoDTO);
-        UserExtraInfo userExtraInfo = userExtraInfoMapper.toEntity(userExtraInfoDTO);
-        userExtraInfo = userExtraInfoRepository.save(userExtraInfo);
-        UserExtraInfoDTO result = userExtraInfoMapper.toDto(userExtraInfo);
-        userExtraInfoSearchRepository.save(userExtraInfo);
+    public UserExtraInfo save(UserExtraInfo userExtraInfo) {
+        log.debug("Request to save UserExtraInfo : {}", userExtraInfo);
+        UserExtraInfo result = userExtraInfoRepository.save(userExtraInfo);
+        userExtraInfoSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<UserExtraInfoDTO> findAll() {
+    public List<UserExtraInfo> findAll() {
         log.debug("Request to get all UserExtraInfos");
-        return userExtraInfoRepository.findAll().stream()
-            .map(userExtraInfoMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return userExtraInfoRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<UserExtraInfoDTO> findOne(Long id) {
+    public Optional<UserExtraInfo> findOne(Long id) {
         log.debug("Request to get UserExtraInfo : {}", id);
-        return userExtraInfoRepository.findById(id)
-            .map(userExtraInfoMapper::toDto);
+        return userExtraInfoRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class UserExtraInfoServiceImpl implements UserExtraInfoService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<UserExtraInfoDTO> search(String query) {
+    public List<UserExtraInfo> search(String query) {
         log.debug("Request to search UserExtraInfos for query {}", query);
         return StreamSupport
             .stream(userExtraInfoSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(userExtraInfoMapper::toDto)
             .collect(Collectors.toList());
     }
 }

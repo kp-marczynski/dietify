@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.products.service;
 
-import pl.marczynski.dietify.products.service.dto.NutritionDataDTO;
+import pl.marczynski.dietify.products.domain.NutritionData;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.products.domain.NutritionData}.
+ * Service Interface for managing {@link NutritionData}.
  */
 public interface NutritionDataService {
 
     /**
      * Save a nutritionData.
      *
-     * @param nutritionDataDTO the entity to save.
+     * @param nutritionData the entity to save.
      * @return the persisted entity.
      */
-    NutritionDataDTO save(NutritionDataDTO nutritionDataDTO);
+    NutritionData save(NutritionData nutritionData);
 
     /**
      * Get all the nutritionData.
      *
      * @return the list of entities.
      */
-    List<NutritionDataDTO> findAll();
+    List<NutritionData> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface NutritionDataService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<NutritionDataDTO> findOne(Long id);
+    Optional<NutritionData> findOne(Long id);
 
     /**
      * Delete the "id" nutritionData.
@@ -48,5 +48,5 @@ public interface NutritionDataService {
      * 
      * @return the list of entities.
      */
-    List<NutritionDataDTO> search(String query);
+    List<NutritionData> search(String query);
 }

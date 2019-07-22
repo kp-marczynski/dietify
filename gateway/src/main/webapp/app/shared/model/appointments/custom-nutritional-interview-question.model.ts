@@ -1,9 +1,11 @@
+import { INutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
+
 export interface ICustomNutritionalInterviewQuestion {
   id?: number;
   ordinalNumber?: number;
   question?: any;
   answer?: any;
-  nutritionalInterviewId?: number;
+  nutritionalInterview?: INutritionalInterview;
 }
 
 export class CustomNutritionalInterviewQuestion implements ICustomNutritionalInterviewQuestion {
@@ -12,6 +14,6 @@ export class CustomNutritionalInterviewQuestion implements ICustomNutritionalInt
     public ordinalNumber?: number,
     public question?: any,
     public answer?: any,
-    public nutritionalInterviewId?: number
+    public nutritionalInterview?: INutritionalInterview
   ) {}
 }

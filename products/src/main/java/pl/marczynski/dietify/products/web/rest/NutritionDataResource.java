@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.NutritionData;
 import pl.marczynski.dietify.products.service.NutritionDataService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.NutritionDataDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class NutritionDataResource {
     /**
      * {@code POST  /nutrition-data} : Create a new nutritionData.
      *
-     * @param nutritionDataDTO the nutritionDataDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new nutritionDataDTO, or with status {@code 400 (Bad Request)} if the nutritionData has already an ID.
+     * @param nutritionData the nutritionData to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new nutritionData, or with status {@code 400 (Bad Request)} if the nutritionData has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/nutrition-data")
-    public ResponseEntity<NutritionDataDTO> createNutritionData(@Valid @RequestBody NutritionDataDTO nutritionDataDTO) throws URISyntaxException {
-        log.debug("REST request to save NutritionData : {}", nutritionDataDTO);
-        if (nutritionDataDTO.getId() != null) {
+    public ResponseEntity<NutritionData> createNutritionData(@Valid @RequestBody NutritionData nutritionData) throws URISyntaxException {
+        log.debug("REST request to save NutritionData : {}", nutritionData);
+        if (nutritionData.getId() != null) {
             throw new BadRequestAlertException("A new nutritionData cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        NutritionDataDTO result = nutritionDataService.save(nutritionDataDTO);
+        NutritionData result = nutritionDataService.save(nutritionData);
         return ResponseEntity.created(new URI("/api/nutrition-data/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class NutritionDataResource {
     /**
      * {@code PUT  /nutrition-data} : Updates an existing nutritionData.
      *
-     * @param nutritionDataDTO the nutritionDataDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated nutritionDataDTO,
-     * or with status {@code 400 (Bad Request)} if the nutritionDataDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the nutritionDataDTO couldn't be updated.
+     * @param nutritionData the nutritionData to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated nutritionData,
+     * or with status {@code 400 (Bad Request)} if the nutritionData is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the nutritionData couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/nutrition-data")
-    public ResponseEntity<NutritionDataDTO> updateNutritionData(@Valid @RequestBody NutritionDataDTO nutritionDataDTO) throws URISyntaxException {
-        log.debug("REST request to update NutritionData : {}", nutritionDataDTO);
-        if (nutritionDataDTO.getId() == null) {
+    public ResponseEntity<NutritionData> updateNutritionData(@Valid @RequestBody NutritionData nutritionData) throws URISyntaxException {
+        log.debug("REST request to update NutritionData : {}", nutritionData);
+        if (nutritionData.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        NutritionDataDTO result = nutritionDataService.save(nutritionDataDTO);
+        NutritionData result = nutritionDataService.save(nutritionData);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, nutritionDataDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, nutritionData.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class NutritionDataResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of nutritionData in body.
      */
     @GetMapping("/nutrition-data")
-    public List<NutritionDataDTO> getAllNutritionData() {
+    public List<NutritionData> getAllNutritionData() {
         log.debug("REST request to get all NutritionData");
         return nutritionDataService.findAll();
     }
@@ -96,20 +96,20 @@ public class NutritionDataResource {
     /**
      * {@code GET  /nutrition-data/:id} : get the "id" nutritionData.
      *
-     * @param id the id of the nutritionDataDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the nutritionDataDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the nutritionData to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the nutritionData, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/nutrition-data/{id}")
-    public ResponseEntity<NutritionDataDTO> getNutritionData(@PathVariable Long id) {
+    public ResponseEntity<NutritionData> getNutritionData(@PathVariable Long id) {
         log.debug("REST request to get NutritionData : {}", id);
-        Optional<NutritionDataDTO> nutritionDataDTO = nutritionDataService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(nutritionDataDTO);
+        Optional<NutritionData> nutritionData = nutritionDataService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(nutritionData);
     }
 
     /**
      * {@code DELETE  /nutrition-data/:id} : delete the "id" nutritionData.
      *
-     * @param id the id of the nutritionDataDTO to delete.
+     * @param id the id of the nutritionData to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/nutrition-data/{id}")
@@ -127,7 +127,7 @@ public class NutritionDataResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/nutrition-data")
-    public List<NutritionDataDTO> searchNutritionData(@RequestParam String query) {
+    public List<NutritionData> searchNutritionData(@RequestParam String query) {
         log.debug("REST request to search NutritionData for query {}", query);
         return nutritionDataService.search(query);
     }

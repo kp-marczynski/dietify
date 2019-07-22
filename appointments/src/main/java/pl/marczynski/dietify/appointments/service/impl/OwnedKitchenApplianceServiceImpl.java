@@ -3,18 +3,14 @@ package pl.marczynski.dietify.appointments.service.impl;
 import pl.marczynski.dietify.appointments.service.OwnedKitchenApplianceService;
 import pl.marczynski.dietify.appointments.domain.OwnedKitchenAppliance;
 import pl.marczynski.dietify.appointments.repository.OwnedKitchenApplianceRepository;
-import pl.marczynski.dietify.appointments.service.dto.OwnedKitchenApplianceDTO;
-import pl.marczynski.dietify.appointments.service.mapper.OwnedKitchenApplianceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Service Implementation for managing {@link OwnedKitchenAppliance}.
@@ -27,25 +23,20 @@ public class OwnedKitchenApplianceServiceImpl implements OwnedKitchenApplianceSe
 
     private final OwnedKitchenApplianceRepository ownedKitchenApplianceRepository;
 
-    private final OwnedKitchenApplianceMapper ownedKitchenApplianceMapper;
-
-    public OwnedKitchenApplianceServiceImpl(OwnedKitchenApplianceRepository ownedKitchenApplianceRepository, OwnedKitchenApplianceMapper ownedKitchenApplianceMapper) {
+    public OwnedKitchenApplianceServiceImpl(OwnedKitchenApplianceRepository ownedKitchenApplianceRepository) {
         this.ownedKitchenApplianceRepository = ownedKitchenApplianceRepository;
-        this.ownedKitchenApplianceMapper = ownedKitchenApplianceMapper;
     }
 
     /**
      * Save a ownedKitchenAppliance.
      *
-     * @param ownedKitchenApplianceDTO the entity to save.
+     * @param ownedKitchenAppliance the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public OwnedKitchenApplianceDTO save(OwnedKitchenApplianceDTO ownedKitchenApplianceDTO) {
-        log.debug("Request to save OwnedKitchenAppliance : {}", ownedKitchenApplianceDTO);
-        OwnedKitchenAppliance ownedKitchenAppliance = ownedKitchenApplianceMapper.toEntity(ownedKitchenApplianceDTO);
-        ownedKitchenAppliance = ownedKitchenApplianceRepository.save(ownedKitchenAppliance);
-        return ownedKitchenApplianceMapper.toDto(ownedKitchenAppliance);
+    public OwnedKitchenAppliance save(OwnedKitchenAppliance ownedKitchenAppliance) {
+        log.debug("Request to save OwnedKitchenAppliance : {}", ownedKitchenAppliance);
+        return ownedKitchenApplianceRepository.save(ownedKitchenAppliance);
     }
 
     /**
@@ -55,11 +46,9 @@ public class OwnedKitchenApplianceServiceImpl implements OwnedKitchenApplianceSe
      */
     @Override
     @Transactional(readOnly = true)
-    public List<OwnedKitchenApplianceDTO> findAll() {
+    public List<OwnedKitchenAppliance> findAll() {
         log.debug("Request to get all OwnedKitchenAppliances");
-        return ownedKitchenApplianceRepository.findAll().stream()
-            .map(ownedKitchenApplianceMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return ownedKitchenApplianceRepository.findAll();
     }
 
 
@@ -71,10 +60,9 @@ public class OwnedKitchenApplianceServiceImpl implements OwnedKitchenApplianceSe
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<OwnedKitchenApplianceDTO> findOne(Long id) {
+    public Optional<OwnedKitchenAppliance> findOne(Long id) {
         log.debug("Request to get OwnedKitchenAppliance : {}", id);
-        return ownedKitchenApplianceRepository.findById(id)
-            .map(ownedKitchenApplianceMapper::toDto);
+        return ownedKitchenApplianceRepository.findById(id);
     }
 
     /**

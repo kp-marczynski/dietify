@@ -22,7 +22,7 @@ export class MealPlanDayUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     ordinalNumber: [null, [Validators.required, Validators.min(1)]],
-    mealPlanId: [null, Validators.required]
+    mealPlan: [null, Validators.required]
   });
 
   constructor(
@@ -51,7 +51,7 @@ export class MealPlanDayUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: mealPlanDay.id,
       ordinalNumber: mealPlanDay.ordinalNumber,
-      mealPlanId: mealPlanDay.mealPlanId
+      mealPlan: mealPlanDay.mealPlan
     });
   }
 
@@ -74,7 +74,7 @@ export class MealPlanDayUpdateComponent implements OnInit {
       ...new MealPlanDay(),
       id: this.editForm.get(['id']).value,
       ordinalNumber: this.editForm.get(['ordinalNumber']).value,
-      mealPlanId: this.editForm.get(['mealPlanId']).value
+      mealPlan: this.editForm.get(['mealPlan']).value
     };
   }
 

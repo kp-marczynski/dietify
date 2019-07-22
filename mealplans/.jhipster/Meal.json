@@ -14,14 +14,6 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "mealPlanDay",
-            "otherEntityRelationshipName": "meals",
-            "relationshipValidateRules": "required",
-            "relationshipName": "mealPlanDay",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipType": "one-to-many",
             "otherEntityName": "mealRecipe",
             "otherEntityRelationshipName": "meal",
@@ -32,11 +24,19 @@
             "otherEntityName": "mealProduct",
             "otherEntityRelationshipName": "meal",
             "relationshipName": "mealProducts"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "mealPlanDay",
+            "otherEntityRelationshipName": "meals",
+            "relationshipValidateRules": "required",
+            "relationshipName": "mealPlanDay",
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154704",
+    "changelogDate": "20190722200934",
     "entityTableName": "meal",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

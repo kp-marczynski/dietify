@@ -30,7 +30,7 @@ export class AppointmentEvaluationUpdateComponent implements OnInit {
     mealTastefulnessSatisfaction: [null, [Validators.required]],
     dietaryResultSatisfaction: [null, [Validators.required]],
     comment: [],
-    appointmentId: [null, Validators.required]
+    appointment: [null, Validators.required]
   });
 
   constructor(
@@ -55,11 +55,11 @@ export class AppointmentEvaluationUpdateComponent implements OnInit {
       )
       .subscribe(
         (res: IAppointment[]) => {
-          if (!!this.editForm.get('appointmentId').value) {
+          if (!this.editForm.get('appointment').value || !this.editForm.get('appointment').value.id) {
             this.appointments = res;
           } else {
             this.appointmentService
-              .find(this.editForm.get('appointmentId').value)
+              .find(this.editForm.get('appointment').value.id)
               .pipe(
                 filter((subResMayBeOk: HttpResponse<IAppointment>) => subResMayBeOk.ok),
                 map((subResponse: HttpResponse<IAppointment>) => subResponse.body)
@@ -86,7 +86,7 @@ export class AppointmentEvaluationUpdateComponent implements OnInit {
       mealTastefulnessSatisfaction: appointmentEvaluation.mealTastefulnessSatisfaction,
       dietaryResultSatisfaction: appointmentEvaluation.dietaryResultSatisfaction,
       comment: appointmentEvaluation.comment,
-      appointmentId: appointmentEvaluation.appointmentId
+      appointment: appointmentEvaluation.appointment
     });
   }
 
@@ -149,7 +149,7 @@ export class AppointmentEvaluationUpdateComponent implements OnInit {
       mealTastefulnessSatisfaction: this.editForm.get(['mealTastefulnessSatisfaction']).value,
       dietaryResultSatisfaction: this.editForm.get(['dietaryResultSatisfaction']).value,
       comment: this.editForm.get(['comment']).value,
-      appointmentId: this.editForm.get(['appointmentId']).value
+      appointment: this.editForm.get(['appointment']).value
     };
   }
 

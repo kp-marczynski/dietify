@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.recipes.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,7 +33,8 @@ public class DishType implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "description", length = 255, nullable = false)
+    @ApiModelProperty(value = "English description of dish type", required = true)
+    @Column(name = "description", length = 255, nullable = false, unique = true)
     private String description;
 
     @OneToMany(mappedBy = "dishType")

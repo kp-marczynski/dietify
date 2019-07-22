@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.products.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,7 +33,8 @@ public class NutritionDefinition implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "tag", length = 20, nullable = false)
+    @ApiModelProperty(value = "Short tag name of nutrient", required = true)
+    @Column(name = "tag", length = 20, nullable = false, unique = true)
     private String tag;
 
     /**
@@ -40,6 +42,7 @@ public class NutritionDefinition implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Short description of nutrient in English", required = true)
     @Column(name = "description", length = 255, nullable = false)
     private String description;
 
@@ -48,6 +51,7 @@ public class NutritionDefinition implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 10)
+    @ApiModelProperty(value = "Unit used for nutrient measurement, e.g. \"g\", \"kcal\", \"ml\"", required = true)
     @Column(name = "units", length = 10, nullable = false)
     private String units;
 
@@ -56,10 +60,11 @@ public class NutritionDefinition implements Serializable {
      */
     @NotNull
     @Min(value = 0)
+    @ApiModelProperty(value = "Decimal places to which nutrient value should be rounded", required = true)
     @Column(name = "decimal_places", nullable = false)
     private Integer decimalPlaces;
 
-    @OneToMany(mappedBy = "nutritionDefinitions")
+    @OneToMany(mappedBy = "nutritionDefinition")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NutritionDefinitionTranslation> translations = new HashSet<>();
 

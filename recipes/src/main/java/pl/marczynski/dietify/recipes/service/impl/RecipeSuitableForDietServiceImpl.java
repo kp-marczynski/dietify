@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.RecipeSuitableForDietService;
 import pl.marczynski.dietify.recipes.domain.RecipeSuitableForDiet;
 import pl.marczynski.dietify.recipes.repository.RecipeSuitableForDietRepository;
 import pl.marczynski.dietify.recipes.repository.search.RecipeSuitableForDietSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.RecipeSuitableForDietDTO;
-import pl.marczynski.dietify.recipes.service.mapper.RecipeSuitableForDietMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class RecipeSuitableForDietServiceImpl implements RecipeSuitableForDietSe
 
     private final RecipeSuitableForDietRepository recipeSuitableForDietRepository;
 
-    private final RecipeSuitableForDietMapper recipeSuitableForDietMapper;
-
     private final RecipeSuitableForDietSearchRepository recipeSuitableForDietSearchRepository;
 
-    public RecipeSuitableForDietServiceImpl(RecipeSuitableForDietRepository recipeSuitableForDietRepository, RecipeSuitableForDietMapper recipeSuitableForDietMapper, RecipeSuitableForDietSearchRepository recipeSuitableForDietSearchRepository) {
+    public RecipeSuitableForDietServiceImpl(RecipeSuitableForDietRepository recipeSuitableForDietRepository, RecipeSuitableForDietSearchRepository recipeSuitableForDietSearchRepository) {
         this.recipeSuitableForDietRepository = recipeSuitableForDietRepository;
-        this.recipeSuitableForDietMapper = recipeSuitableForDietMapper;
         this.recipeSuitableForDietSearchRepository = recipeSuitableForDietSearchRepository;
     }
 
     /**
      * Save a recipeSuitableForDiet.
      *
-     * @param recipeSuitableForDietDTO the entity to save.
+     * @param recipeSuitableForDiet the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public RecipeSuitableForDietDTO save(RecipeSuitableForDietDTO recipeSuitableForDietDTO) {
-        log.debug("Request to save RecipeSuitableForDiet : {}", recipeSuitableForDietDTO);
-        RecipeSuitableForDiet recipeSuitableForDiet = recipeSuitableForDietMapper.toEntity(recipeSuitableForDietDTO);
-        recipeSuitableForDiet = recipeSuitableForDietRepository.save(recipeSuitableForDiet);
-        RecipeSuitableForDietDTO result = recipeSuitableForDietMapper.toDto(recipeSuitableForDiet);
-        recipeSuitableForDietSearchRepository.save(recipeSuitableForDiet);
+    public RecipeSuitableForDiet save(RecipeSuitableForDiet recipeSuitableForDiet) {
+        log.debug("Request to save RecipeSuitableForDiet : {}", recipeSuitableForDiet);
+        RecipeSuitableForDiet result = recipeSuitableForDietRepository.save(recipeSuitableForDiet);
+        recipeSuitableForDietSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class RecipeSuitableForDietServiceImpl implements RecipeSuitableForDietSe
      */
     @Override
     @Transactional(readOnly = true)
-    public List<RecipeSuitableForDietDTO> findAll() {
+    public List<RecipeSuitableForDiet> findAll() {
         log.debug("Request to get all RecipeSuitableForDiets");
-        return recipeSuitableForDietRepository.findAll().stream()
-            .map(recipeSuitableForDietMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return recipeSuitableForDietRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class RecipeSuitableForDietServiceImpl implements RecipeSuitableForDietSe
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<RecipeSuitableForDietDTO> findOne(Long id) {
+    public Optional<RecipeSuitableForDiet> findOne(Long id) {
         log.debug("Request to get RecipeSuitableForDiet : {}", id);
-        return recipeSuitableForDietRepository.findById(id)
-            .map(recipeSuitableForDietMapper::toDto);
+        return recipeSuitableForDietRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class RecipeSuitableForDietServiceImpl implements RecipeSuitableForDietSe
      */
     @Override
     @Transactional(readOnly = true)
-    public List<RecipeSuitableForDietDTO> search(String query) {
+    public List<RecipeSuitableForDiet> search(String query) {
         log.debug("Request to search RecipeSuitableForDiets for query {}", query);
         return StreamSupport
             .stream(recipeSuitableForDietSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(recipeSuitableForDietMapper::toDto)
             .collect(Collectors.toList());
     }
 }

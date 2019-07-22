@@ -8,14 +8,14 @@ import * as moment from 'moment';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IRecipe, Recipe } from 'app/shared/model/recipes/recipe.model';
 import { RecipeService } from './recipe.service';
+import { IRecipeBasicNutritionData } from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
+import { RecipeBasicNutritionDataService } from 'app/entities/recipes/recipe-basic-nutrition-data';
 import { IKitchenAppliance } from 'app/shared/model/recipes/kitchen-appliance.model';
 import { KitchenApplianceService } from 'app/entities/recipes/kitchen-appliance';
 import { IDishType } from 'app/shared/model/recipes/dish-type.model';
 import { DishTypeService } from 'app/entities/recipes/dish-type';
 import { IMealType } from 'app/shared/model/recipes/meal-type.model';
 import { MealTypeService } from 'app/entities/recipes/meal-type';
-import { IRecipeBasicNutritionData } from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
-import { RecipeBasicNutritionDataService } from 'app/entities/recipes/recipe-basic-nutrition-data';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -24,6 +24,8 @@ import { RecipeBasicNutritionDataService } from 'app/entities/recipes/recipe-bas
 export class RecipeUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  basicnutritiondata: IRecipeBasicNutritionData[];
+
   recipes: IRecipe[];
 
   kitchenappliances: IKitchenAppliance[];
@@ -31,8 +33,6 @@ export class RecipeUpdateComponent implements OnInit {
   dishtypes: IDishType[];
 
   mealtypes: IMealType[];
-
-  recipebasicnutritiondata: IRecipeBasicNutritionData[];
   creationDateDp: any;
   lastEditDateDp: any;
 
@@ -49,7 +49,8 @@ export class RecipeUpdateComponent implements OnInit {
     isVisible: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
     totalGramsWeight: [null, [Validators.required, Validators.min(0)]],
-    sourceRecipeId: [],
+    basicNutritionData: [null, Validators.required],
+    sourceRecipe: [],
     kitchenAppliances: [],
     dishTypes: [],
     mealTypes: []
@@ -59,10 +60,10 @@ export class RecipeUpdateComponent implements OnInit {
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected recipeService: RecipeService,
+    protected recipeBasicNutritionDataService: RecipeBasicNutritionDataService,
     protected kitchenApplianceService: KitchenApplianceService,
     protected dishTypeService: DishTypeService,
     protected mealTypeService: MealTypeService,
-    protected recipeBasicNutritionDataService: RecipeBasicNutritionDataService,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -73,6 +74,31 @@ export class RecipeUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ recipe }) => {
       this.updateForm(recipe);
     });
+    this.recipeBasicNutritionDataService
+      .query({ filter: 'recipe-is-null' })
+      .pipe(
+        filter((mayBeOk: HttpResponse<IRecipeBasicNutritionData[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IRecipeBasicNutritionData[]>) => response.body)
+      )
+      .subscribe(
+        (res: IRecipeBasicNutritionData[]) => {
+          if (!this.editForm.get('basicNutritionData').value || !this.editForm.get('basicNutritionData').value.id) {
+            this.basicnutritiondata = res;
+          } else {
+            this.recipeBasicNutritionDataService
+              .find(this.editForm.get('basicNutritionData').value.id)
+              .pipe(
+                filter((subResMayBeOk: HttpResponse<IRecipeBasicNutritionData>) => subResMayBeOk.ok),
+                map((subResponse: HttpResponse<IRecipeBasicNutritionData>) => subResponse.body)
+              )
+              .subscribe(
+                (subRes: IRecipeBasicNutritionData) => (this.basicnutritiondata = [subRes].concat(res)),
+                (subRes: HttpErrorResponse) => this.onError(subRes.message)
+              );
+          }
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
     this.recipeService
       .query()
       .pipe(
@@ -101,16 +127,6 @@ export class RecipeUpdateComponent implements OnInit {
         map((response: HttpResponse<IMealType[]>) => response.body)
       )
       .subscribe((res: IMealType[]) => (this.mealtypes = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.recipeBasicNutritionDataService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IRecipeBasicNutritionData[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IRecipeBasicNutritionData[]>) => response.body)
-      )
-      .subscribe(
-        (res: IRecipeBasicNutritionData[]) => (this.recipebasicnutritiondata = res),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
   updateForm(recipe: IRecipe) {
@@ -127,7 +143,8 @@ export class RecipeUpdateComponent implements OnInit {
       isVisible: recipe.isVisible,
       language: recipe.language,
       totalGramsWeight: recipe.totalGramsWeight,
-      sourceRecipeId: recipe.sourceRecipeId,
+      basicNutritionData: recipe.basicNutritionData,
+      sourceRecipe: recipe.sourceRecipe,
       kitchenAppliances: recipe.kitchenAppliances,
       dishTypes: recipe.dishTypes,
       mealTypes: recipe.mealTypes
@@ -205,7 +222,8 @@ export class RecipeUpdateComponent implements OnInit {
       isVisible: this.editForm.get(['isVisible']).value,
       language: this.editForm.get(['language']).value,
       totalGramsWeight: this.editForm.get(['totalGramsWeight']).value,
-      sourceRecipeId: this.editForm.get(['sourceRecipeId']).value,
+      basicNutritionData: this.editForm.get(['basicNutritionData']).value,
+      sourceRecipe: this.editForm.get(['sourceRecipe']).value,
       kitchenAppliances: this.editForm.get(['kitchenAppliances']).value,
       dishTypes: this.editForm.get(['dishTypes']).value,
       mealTypes: this.editForm.get(['mealTypes']).value
@@ -228,6 +246,10 @@ export class RecipeUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
+  trackRecipeBasicNutritionDataById(index: number, item: IRecipeBasicNutritionData) {
+    return item.id;
+  }
+
   trackRecipeById(index: number, item: IRecipe) {
     return item.id;
   }
@@ -241,10 +263,6 @@ export class RecipeUpdateComponent implements OnInit {
   }
 
   trackMealTypeById(index: number, item: IMealType) {
-    return item.id;
-  }
-
-  trackRecipeBasicNutritionDataById(index: number, item: IRecipeBasicNutritionData) {
     return item.id;
   }
 

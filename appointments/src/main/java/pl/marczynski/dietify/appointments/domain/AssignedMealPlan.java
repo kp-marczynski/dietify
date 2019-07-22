@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -27,6 +28,7 @@ public class AssignedMealPlan implements Serializable {
      * Id of assigned MealPlan entity retrieved from mealplans service
      */
     @NotNull
+    @ApiModelProperty(value = "Id of assigned MealPlan entity retrieved from mealplans service", required = true)
     @Column(name = "meal_plan_id", nullable = false)
     private Long mealPlanId;
 

@@ -1,4 +1,6 @@
 package pl.marczynski.dietify.appointments.domain;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -34,6 +36,7 @@ public class NutritionalInterview implements Serializable {
      * Date of interview completion
      */
     @NotNull
+    @ApiModelProperty(value = "Date of interview completion", required = true)
     @Column(name = "completion_date", nullable = false)
     private LocalDate completionDate;
 
@@ -41,6 +44,7 @@ public class NutritionalInterview implements Serializable {
      * Patient's target weight in kilograms
      */
     @NotNull
+    @ApiModelProperty(value = "Patient's target weight in kilograms", required = true)
     @Column(name = "target_weight", nullable = false)
     private Integer targetWeight;
 
@@ -48,6 +52,7 @@ public class NutritionalInterview implements Serializable {
      * Advice purpose summarising what patient wish to accomplish with diet
      */
     
+    @ApiModelProperty(value = "Advice purpose summarising what patient wish to accomplish with diet", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "advice_purpose", nullable = false)
@@ -57,6 +62,7 @@ public class NutritionalInterview implements Serializable {
      * Patient's usual daily activity level
      */
     @NotNull
+    @ApiModelProperty(value = "Patient's usual daily activity level", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "physical_activity", nullable = false)
     private PhysicalActivity physicalActivity;
@@ -64,6 +70,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Patient's diseases
      */
+    @ApiModelProperty(value = "Patient's diseases")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "diseases")
@@ -72,6 +79,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Patient's medicines
      */
+    @ApiModelProperty(value = "Patient's medicines")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "medicines")
@@ -80,6 +88,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Patient's job type
      */
+    @ApiModelProperty(value = "Patient's job type")
     @Enumerated(EnumType.STRING)
     @Column(name = "job_type")
     private JobType jobType;
@@ -87,6 +96,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Food products that patient likes
      */
+    @ApiModelProperty(value = "Food products that patient likes")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "liked_products")
@@ -95,6 +105,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Food products that patient dislikes
      */
+    @ApiModelProperty(value = "Food products that patient dislikes")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "disliked_products")
@@ -103,6 +114,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Food products that patient is allergic to
      */
+    @ApiModelProperty(value = "Food products that patient is allergic to")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "food_allergies")
@@ -111,15 +123,11 @@ public class NutritionalInterview implements Serializable {
     /**
      * Patient's food intolerances
      */
+    @ApiModelProperty(value = "Patient's food intolerances")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "food_intolerances")
     private String foodIntolerances;
-
-    @OneToOne(optional = false)    @NotNull
-
-    @JoinColumn(unique = true)
-    private Appointment appointment;
 
     @OneToMany(mappedBy = "nutritionalInterview")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -128,6 +136,10 @@ public class NutritionalInterview implements Serializable {
     @OneToMany(mappedBy = "nutritionalInterview")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CustomNutritionalInterviewQuestion> customQuestions = new HashSet<>();
+
+    @OneToOne(mappedBy = "nutritionalInterview")
+    @JsonIgnore
+    private Appointment appointment;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -226,14 +238,6 @@ public class NutritionalInterview implements Serializable {
         this.foodIntolerances = foodIntolerances;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
-
     public Set<OwnedKitchenAppliance> getOwnedKitchenAppliances() {
         return ownedKitchenAppliances;
     }
@@ -248,6 +252,14 @@ public class NutritionalInterview implements Serializable {
 
     public void setCustomQuestions(Set<CustomNutritionalInterviewQuestion> customNutritionalInterviewQuestions) {
         this.customQuestions = customNutritionalInterviewQuestions;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
+    }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

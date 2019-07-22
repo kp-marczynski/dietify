@@ -6,8 +6,6 @@ import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.repository.ProductSubcategoryRepository;
 import pl.marczynski.dietify.products.repository.search.ProductSubcategorySearchRepository;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
-import pl.marczynski.dietify.products.service.dto.ProductSubcategoryDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductSubcategoryMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,9 +44,6 @@ public class ProductSubcategoryResourceIT {
 
     @Autowired
     private ProductSubcategoryRepository productSubcategoryRepository;
-
-    @Autowired
-    private ProductSubcategoryMapper productSubcategoryMapper;
 
     @Autowired
     private ProductSubcategoryService productSubcategoryService;
@@ -146,10 +141,9 @@ public class ProductSubcategoryResourceIT {
         int databaseSizeBeforeCreate = productSubcategoryRepository.findAll().size();
 
         // Create the ProductSubcategory
-        ProductSubcategoryDTO productSubcategoryDTO = productSubcategoryMapper.toDto(productSubcategory);
         restProductSubcategoryMockMvc.perform(post("/api/product-subcategories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productSubcategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productSubcategory)))
             .andExpect(status().isCreated());
 
         // Validate the ProductSubcategory in the database
@@ -169,12 +163,11 @@ public class ProductSubcategoryResourceIT {
 
         // Create the ProductSubcategory with an existing ID
         productSubcategory.setId(1L);
-        ProductSubcategoryDTO productSubcategoryDTO = productSubcategoryMapper.toDto(productSubcategory);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductSubcategoryMockMvc.perform(post("/api/product-subcategories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productSubcategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productSubcategory)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductSubcategory in the database
@@ -194,11 +187,10 @@ public class ProductSubcategoryResourceIT {
         productSubcategory.setDescription(null);
 
         // Create the ProductSubcategory, which fails.
-        ProductSubcategoryDTO productSubcategoryDTO = productSubcategoryMapper.toDto(productSubcategory);
 
         restProductSubcategoryMockMvc.perform(post("/api/product-subcategories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productSubcategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productSubcategory)))
             .andExpect(status().isBadRequest());
 
         List<ProductSubcategory> productSubcategoryList = productSubcategoryRepository.findAll();
@@ -245,7 +237,9 @@ public class ProductSubcategoryResourceIT {
     @Transactional
     public void updateProductSubcategory() throws Exception {
         // Initialize the database
-        productSubcategoryRepository.saveAndFlush(productSubcategory);
+        productSubcategoryService.save(productSubcategory);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockProductSubcategorySearchRepository);
 
         int databaseSizeBeforeUpdate = productSubcategoryRepository.findAll().size();
 
@@ -254,11 +248,10 @@ public class ProductSubcategoryResourceIT {
         // Disconnect from session so that the updates on updatedProductSubcategory are not directly saved in db
         em.detach(updatedProductSubcategory);
         updatedProductSubcategory.setDescription(UPDATED_DESCRIPTION);
-        ProductSubcategoryDTO productSubcategoryDTO = productSubcategoryMapper.toDto(updatedProductSubcategory);
 
         restProductSubcategoryMockMvc.perform(put("/api/product-subcategories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productSubcategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedProductSubcategory)))
             .andExpect(status().isOk());
 
         // Validate the ProductSubcategory in the database
@@ -277,12 +270,11 @@ public class ProductSubcategoryResourceIT {
         int databaseSizeBeforeUpdate = productSubcategoryRepository.findAll().size();
 
         // Create the ProductSubcategory
-        ProductSubcategoryDTO productSubcategoryDTO = productSubcategoryMapper.toDto(productSubcategory);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductSubcategoryMockMvc.perform(put("/api/product-subcategories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productSubcategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productSubcategory)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductSubcategory in the database
@@ -297,7 +289,7 @@ public class ProductSubcategoryResourceIT {
     @Transactional
     public void deleteProductSubcategory() throws Exception {
         // Initialize the database
-        productSubcategoryRepository.saveAndFlush(productSubcategory);
+        productSubcategoryService.save(productSubcategory);
 
         int databaseSizeBeforeDelete = productSubcategoryRepository.findAll().size();
 
@@ -318,7 +310,7 @@ public class ProductSubcategoryResourceIT {
     @Transactional
     public void searchProductSubcategory() throws Exception {
         // Initialize the database
-        productSubcategoryRepository.saveAndFlush(productSubcategory);
+        productSubcategoryService.save(productSubcategory);
         when(mockProductSubcategorySearchRepository.search(queryStringQuery("id:" + productSubcategory.getId())))
             .thenReturn(Collections.singletonList(productSubcategory));
         // Search the productSubcategory
@@ -342,28 +334,5 @@ public class ProductSubcategoryResourceIT {
         assertThat(productSubcategory1).isNotEqualTo(productSubcategory2);
         productSubcategory1.setId(null);
         assertThat(productSubcategory1).isNotEqualTo(productSubcategory2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductSubcategoryDTO.class);
-        ProductSubcategoryDTO productSubcategoryDTO1 = new ProductSubcategoryDTO();
-        productSubcategoryDTO1.setId(1L);
-        ProductSubcategoryDTO productSubcategoryDTO2 = new ProductSubcategoryDTO();
-        assertThat(productSubcategoryDTO1).isNotEqualTo(productSubcategoryDTO2);
-        productSubcategoryDTO2.setId(productSubcategoryDTO1.getId());
-        assertThat(productSubcategoryDTO1).isEqualTo(productSubcategoryDTO2);
-        productSubcategoryDTO2.setId(2L);
-        assertThat(productSubcategoryDTO1).isNotEqualTo(productSubcategoryDTO2);
-        productSubcategoryDTO1.setId(null);
-        assertThat(productSubcategoryDTO1).isNotEqualTo(productSubcategoryDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(productSubcategoryMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(productSubcategoryMapper.fromId(null)).isNull();
     }
 }

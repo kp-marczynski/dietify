@@ -5,8 +5,6 @@ import pl.marczynski.dietify.recipes.domain.MealType;
 import pl.marczynski.dietify.recipes.repository.MealTypeRepository;
 import pl.marczynski.dietify.recipes.repository.search.MealTypeSearchRepository;
 import pl.marczynski.dietify.recipes.service.MealTypeService;
-import pl.marczynski.dietify.recipes.service.dto.MealTypeDTO;
-import pl.marczynski.dietify.recipes.service.mapper.MealTypeMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +43,6 @@ public class MealTypeResourceIT {
 
     @Autowired
     private MealTypeRepository mealTypeRepository;
-
-    @Autowired
-    private MealTypeMapper mealTypeMapper;
 
     @Autowired
     private MealTypeService mealTypeService;
@@ -125,10 +120,9 @@ public class MealTypeResourceIT {
         int databaseSizeBeforeCreate = mealTypeRepository.findAll().size();
 
         // Create the MealType
-        MealTypeDTO mealTypeDTO = mealTypeMapper.toDto(mealType);
         restMealTypeMockMvc.perform(post("/api/meal-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealType)))
             .andExpect(status().isCreated());
 
         // Validate the MealType in the database
@@ -148,12 +142,11 @@ public class MealTypeResourceIT {
 
         // Create the MealType with an existing ID
         mealType.setId(1L);
-        MealTypeDTO mealTypeDTO = mealTypeMapper.toDto(mealType);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealTypeMockMvc.perform(post("/api/meal-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealType)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealType in the database
@@ -173,11 +166,10 @@ public class MealTypeResourceIT {
         mealType.setName(null);
 
         // Create the MealType, which fails.
-        MealTypeDTO mealTypeDTO = mealTypeMapper.toDto(mealType);
 
         restMealTypeMockMvc.perform(post("/api/meal-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealType)))
             .andExpect(status().isBadRequest());
 
         List<MealType> mealTypeList = mealTypeRepository.findAll();
@@ -224,7 +216,9 @@ public class MealTypeResourceIT {
     @Transactional
     public void updateMealType() throws Exception {
         // Initialize the database
-        mealTypeRepository.saveAndFlush(mealType);
+        mealTypeService.save(mealType);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealTypeSearchRepository);
 
         int databaseSizeBeforeUpdate = mealTypeRepository.findAll().size();
 
@@ -233,11 +227,10 @@ public class MealTypeResourceIT {
         // Disconnect from session so that the updates on updatedMealType are not directly saved in db
         em.detach(updatedMealType);
         updatedMealType.setName(UPDATED_NAME);
-        MealTypeDTO mealTypeDTO = mealTypeMapper.toDto(updatedMealType);
 
         restMealTypeMockMvc.perform(put("/api/meal-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealType)))
             .andExpect(status().isOk());
 
         // Validate the MealType in the database
@@ -256,12 +249,11 @@ public class MealTypeResourceIT {
         int databaseSizeBeforeUpdate = mealTypeRepository.findAll().size();
 
         // Create the MealType
-        MealTypeDTO mealTypeDTO = mealTypeMapper.toDto(mealType);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealTypeMockMvc.perform(put("/api/meal-types")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealTypeDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealType)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealType in the database
@@ -276,7 +268,7 @@ public class MealTypeResourceIT {
     @Transactional
     public void deleteMealType() throws Exception {
         // Initialize the database
-        mealTypeRepository.saveAndFlush(mealType);
+        mealTypeService.save(mealType);
 
         int databaseSizeBeforeDelete = mealTypeRepository.findAll().size();
 
@@ -297,7 +289,7 @@ public class MealTypeResourceIT {
     @Transactional
     public void searchMealType() throws Exception {
         // Initialize the database
-        mealTypeRepository.saveAndFlush(mealType);
+        mealTypeService.save(mealType);
         when(mockMealTypeSearchRepository.search(queryStringQuery("id:" + mealType.getId())))
             .thenReturn(Collections.singletonList(mealType));
         // Search the mealType
@@ -321,28 +313,5 @@ public class MealTypeResourceIT {
         assertThat(mealType1).isNotEqualTo(mealType2);
         mealType1.setId(null);
         assertThat(mealType1).isNotEqualTo(mealType2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealTypeDTO.class);
-        MealTypeDTO mealTypeDTO1 = new MealTypeDTO();
-        mealTypeDTO1.setId(1L);
-        MealTypeDTO mealTypeDTO2 = new MealTypeDTO();
-        assertThat(mealTypeDTO1).isNotEqualTo(mealTypeDTO2);
-        mealTypeDTO2.setId(mealTypeDTO1.getId());
-        assertThat(mealTypeDTO1).isEqualTo(mealTypeDTO2);
-        mealTypeDTO2.setId(2L);
-        assertThat(mealTypeDTO1).isNotEqualTo(mealTypeDTO2);
-        mealTypeDTO1.setId(null);
-        assertThat(mealTypeDTO1).isNotEqualTo(mealTypeDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealTypeMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealTypeMapper.fromId(null)).isNull();
     }
 }

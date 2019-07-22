@@ -15,14 +15,6 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "recipe",
-            "otherEntityRelationshipName": "recipeSections",
-            "relationshipValidateRules": "required",
-            "relationshipName": "recipe",
-            "otherEntityField": "name"
-        },
-        {
             "relationshipType": "one-to-many",
             "otherEntityName": "productPortion",
             "otherEntityRelationshipName": "recipeSection",
@@ -33,11 +25,19 @@
             "otherEntityName": "preparationStep",
             "otherEntityRelationshipName": "recipeSection",
             "relationshipName": "preparationSteps"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "recipe",
+            "otherEntityRelationshipName": "recipeSections",
+            "relationshipValidateRules": "required",
+            "relationshipName": "recipe",
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154656",
+    "changelogDate": "20190722200926",
     "entityTableName": "recipe_section",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

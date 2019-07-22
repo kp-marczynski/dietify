@@ -5,8 +5,6 @@ import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanSearchRepository;
 import pl.marczynski.dietify.mealplans.service.MealPlanService;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanMapper;
 import pl.marczynski.dietify.mealplans.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -82,9 +80,6 @@ public class MealPlanResourceIT {
 
     @Autowired
     private MealPlanRepository mealPlanRepository;
-
-    @Autowired
-    private MealPlanMapper mealPlanMapper;
 
     @Autowired
     private MealPlanService mealPlanService;
@@ -184,10 +179,9 @@ public class MealPlanResourceIT {
         int databaseSizeBeforeCreate = mealPlanRepository.findAll().size();
 
         // Create the MealPlan
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isCreated());
 
         // Validate the MealPlan in the database
@@ -218,12 +212,11 @@ public class MealPlanResourceIT {
 
         // Create the MealPlan with an existing ID
         mealPlan.setId(1L);
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealPlan in the database
@@ -243,11 +236,10 @@ public class MealPlanResourceIT {
         mealPlan.setAuthorId(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -262,11 +254,10 @@ public class MealPlanResourceIT {
         mealPlan.setCreationDate(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -281,11 +272,10 @@ public class MealPlanResourceIT {
         mealPlan.setIsVisible(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -300,11 +290,10 @@ public class MealPlanResourceIT {
         mealPlan.setIsLocked(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -319,11 +308,10 @@ public class MealPlanResourceIT {
         mealPlan.setLanguage(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -338,11 +326,10 @@ public class MealPlanResourceIT {
         mealPlan.setNumberOfDays(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -357,11 +344,10 @@ public class MealPlanResourceIT {
         mealPlan.setNumberOfMealsPerDay(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -376,11 +362,10 @@ public class MealPlanResourceIT {
         mealPlan.setTotalDailyEnergy(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -395,11 +380,10 @@ public class MealPlanResourceIT {
         mealPlan.setPercentOfProtein(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -414,11 +398,10 @@ public class MealPlanResourceIT {
         mealPlan.setPercentOfFat(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -433,11 +416,10 @@ public class MealPlanResourceIT {
         mealPlan.setPercentOfCarbohydrates(null);
 
         // Create the MealPlan, which fails.
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         restMealPlanMockMvc.perform(post("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         List<MealPlan> mealPlanList = mealPlanRepository.findAll();
@@ -506,7 +488,9 @@ public class MealPlanResourceIT {
     @Transactional
     public void updateMealPlan() throws Exception {
         // Initialize the database
-        mealPlanRepository.saveAndFlush(mealPlan);
+        mealPlanService.save(mealPlan);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealPlanSearchRepository);
 
         int databaseSizeBeforeUpdate = mealPlanRepository.findAll().size();
 
@@ -526,11 +510,10 @@ public class MealPlanResourceIT {
         updatedMealPlan.setPercentOfProtein(UPDATED_PERCENT_OF_PROTEIN);
         updatedMealPlan.setPercentOfFat(UPDATED_PERCENT_OF_FAT);
         updatedMealPlan.setPercentOfCarbohydrates(UPDATED_PERCENT_OF_CARBOHYDRATES);
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(updatedMealPlan);
 
         restMealPlanMockMvc.perform(put("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealPlan)))
             .andExpect(status().isOk());
 
         // Validate the MealPlan in the database
@@ -560,12 +543,11 @@ public class MealPlanResourceIT {
         int databaseSizeBeforeUpdate = mealPlanRepository.findAll().size();
 
         // Create the MealPlan
-        MealPlanDTO mealPlanDTO = mealPlanMapper.toDto(mealPlan);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealPlanMockMvc.perform(put("/api/meal-plans")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealPlan in the database
@@ -580,7 +562,7 @@ public class MealPlanResourceIT {
     @Transactional
     public void deleteMealPlan() throws Exception {
         // Initialize the database
-        mealPlanRepository.saveAndFlush(mealPlan);
+        mealPlanService.save(mealPlan);
 
         int databaseSizeBeforeDelete = mealPlanRepository.findAll().size();
 
@@ -601,7 +583,7 @@ public class MealPlanResourceIT {
     @Transactional
     public void searchMealPlan() throws Exception {
         // Initialize the database
-        mealPlanRepository.saveAndFlush(mealPlan);
+        mealPlanService.save(mealPlan);
         when(mockMealPlanSearchRepository.search(queryStringQuery("id:" + mealPlan.getId()), PageRequest.of(0, 20)))
             .thenReturn(new PageImpl<>(Collections.singletonList(mealPlan), PageRequest.of(0, 1), 1));
         // Search the mealPlan
@@ -636,28 +618,5 @@ public class MealPlanResourceIT {
         assertThat(mealPlan1).isNotEqualTo(mealPlan2);
         mealPlan1.setId(null);
         assertThat(mealPlan1).isNotEqualTo(mealPlan2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealPlanDTO.class);
-        MealPlanDTO mealPlanDTO1 = new MealPlanDTO();
-        mealPlanDTO1.setId(1L);
-        MealPlanDTO mealPlanDTO2 = new MealPlanDTO();
-        assertThat(mealPlanDTO1).isNotEqualTo(mealPlanDTO2);
-        mealPlanDTO2.setId(mealPlanDTO1.getId());
-        assertThat(mealPlanDTO1).isEqualTo(mealPlanDTO2);
-        mealPlanDTO2.setId(2L);
-        assertThat(mealPlanDTO1).isNotEqualTo(mealPlanDTO2);
-        mealPlanDTO1.setId(null);
-        assertThat(mealPlanDTO1).isNotEqualTo(mealPlanDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealPlanMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealPlanMapper.fromId(null)).isNull();
     }
 }

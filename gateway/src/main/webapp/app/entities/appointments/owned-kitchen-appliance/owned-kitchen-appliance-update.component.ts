@@ -22,7 +22,7 @@ export class OwnedKitchenApplianceUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     kitchenApplianceId: [null, [Validators.required]],
-    nutritionalInterviewId: [null, Validators.required]
+    nutritionalInterview: [null, Validators.required]
   });
 
   constructor(
@@ -54,7 +54,7 @@ export class OwnedKitchenApplianceUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: ownedKitchenAppliance.id,
       kitchenApplianceId: ownedKitchenAppliance.kitchenApplianceId,
-      nutritionalInterviewId: ownedKitchenAppliance.nutritionalInterviewId
+      nutritionalInterview: ownedKitchenAppliance.nutritionalInterview
     });
   }
 
@@ -77,7 +77,7 @@ export class OwnedKitchenApplianceUpdateComponent implements OnInit {
       ...new OwnedKitchenAppliance(),
       id: this.editForm.get(['id']).value,
       kitchenApplianceId: this.editForm.get(['kitchenApplianceId']).value,
-      nutritionalInterviewId: this.editForm.get(['nutritionalInterviewId']).value
+      nutritionalInterview: this.editForm.get(['nutritionalInterview']).value
     };
   }
 

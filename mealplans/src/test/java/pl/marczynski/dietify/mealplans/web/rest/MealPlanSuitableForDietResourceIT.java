@@ -6,8 +6,6 @@ import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealPlanSuitableForDietRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanSuitableForDietSearchRepository;
 import pl.marczynski.dietify.mealplans.service.MealPlanSuitableForDietService;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanSuitableForDietDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanSuitableForDietMapper;
 import pl.marczynski.dietify.mealplans.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -46,9 +44,6 @@ public class MealPlanSuitableForDietResourceIT {
 
     @Autowired
     private MealPlanSuitableForDietRepository mealPlanSuitableForDietRepository;
-
-    @Autowired
-    private MealPlanSuitableForDietMapper mealPlanSuitableForDietMapper;
 
     @Autowired
     private MealPlanSuitableForDietService mealPlanSuitableForDietService;
@@ -146,10 +141,9 @@ public class MealPlanSuitableForDietResourceIT {
         int databaseSizeBeforeCreate = mealPlanSuitableForDietRepository.findAll().size();
 
         // Create the MealPlanSuitableForDiet
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO = mealPlanSuitableForDietMapper.toDto(mealPlanSuitableForDiet);
         restMealPlanSuitableForDietMockMvc.perform(post("/api/meal-plan-suitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDiet)))
             .andExpect(status().isCreated());
 
         // Validate the MealPlanSuitableForDiet in the database
@@ -169,12 +163,11 @@ public class MealPlanSuitableForDietResourceIT {
 
         // Create the MealPlanSuitableForDiet with an existing ID
         mealPlanSuitableForDiet.setId(1L);
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO = mealPlanSuitableForDietMapper.toDto(mealPlanSuitableForDiet);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealPlanSuitableForDietMockMvc.perform(post("/api/meal-plan-suitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDiet)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealPlanSuitableForDiet in the database
@@ -194,11 +187,10 @@ public class MealPlanSuitableForDietResourceIT {
         mealPlanSuitableForDiet.setDietTypeId(null);
 
         // Create the MealPlanSuitableForDiet, which fails.
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO = mealPlanSuitableForDietMapper.toDto(mealPlanSuitableForDiet);
 
         restMealPlanSuitableForDietMockMvc.perform(post("/api/meal-plan-suitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDiet)))
             .andExpect(status().isBadRequest());
 
         List<MealPlanSuitableForDiet> mealPlanSuitableForDietList = mealPlanSuitableForDietRepository.findAll();
@@ -245,7 +237,9 @@ public class MealPlanSuitableForDietResourceIT {
     @Transactional
     public void updateMealPlanSuitableForDiet() throws Exception {
         // Initialize the database
-        mealPlanSuitableForDietRepository.saveAndFlush(mealPlanSuitableForDiet);
+        mealPlanSuitableForDietService.save(mealPlanSuitableForDiet);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealPlanSuitableForDietSearchRepository);
 
         int databaseSizeBeforeUpdate = mealPlanSuitableForDietRepository.findAll().size();
 
@@ -254,11 +248,10 @@ public class MealPlanSuitableForDietResourceIT {
         // Disconnect from session so that the updates on updatedMealPlanSuitableForDiet are not directly saved in db
         em.detach(updatedMealPlanSuitableForDiet);
         updatedMealPlanSuitableForDiet.setDietTypeId(UPDATED_DIET_TYPE_ID);
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO = mealPlanSuitableForDietMapper.toDto(updatedMealPlanSuitableForDiet);
 
         restMealPlanSuitableForDietMockMvc.perform(put("/api/meal-plan-suitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealPlanSuitableForDiet)))
             .andExpect(status().isOk());
 
         // Validate the MealPlanSuitableForDiet in the database
@@ -277,12 +270,11 @@ public class MealPlanSuitableForDietResourceIT {
         int databaseSizeBeforeUpdate = mealPlanSuitableForDietRepository.findAll().size();
 
         // Create the MealPlanSuitableForDiet
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO = mealPlanSuitableForDietMapper.toDto(mealPlanSuitableForDiet);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealPlanSuitableForDietMockMvc.perform(put("/api/meal-plan-suitable-for-diets")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDietDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealPlanSuitableForDiet)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealPlanSuitableForDiet in the database
@@ -297,7 +289,7 @@ public class MealPlanSuitableForDietResourceIT {
     @Transactional
     public void deleteMealPlanSuitableForDiet() throws Exception {
         // Initialize the database
-        mealPlanSuitableForDietRepository.saveAndFlush(mealPlanSuitableForDiet);
+        mealPlanSuitableForDietService.save(mealPlanSuitableForDiet);
 
         int databaseSizeBeforeDelete = mealPlanSuitableForDietRepository.findAll().size();
 
@@ -318,7 +310,7 @@ public class MealPlanSuitableForDietResourceIT {
     @Transactional
     public void searchMealPlanSuitableForDiet() throws Exception {
         // Initialize the database
-        mealPlanSuitableForDietRepository.saveAndFlush(mealPlanSuitableForDiet);
+        mealPlanSuitableForDietService.save(mealPlanSuitableForDiet);
         when(mockMealPlanSuitableForDietSearchRepository.search(queryStringQuery("id:" + mealPlanSuitableForDiet.getId())))
             .thenReturn(Collections.singletonList(mealPlanSuitableForDiet));
         // Search the mealPlanSuitableForDiet
@@ -342,28 +334,5 @@ public class MealPlanSuitableForDietResourceIT {
         assertThat(mealPlanSuitableForDiet1).isNotEqualTo(mealPlanSuitableForDiet2);
         mealPlanSuitableForDiet1.setId(null);
         assertThat(mealPlanSuitableForDiet1).isNotEqualTo(mealPlanSuitableForDiet2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealPlanSuitableForDietDTO.class);
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO1 = new MealPlanSuitableForDietDTO();
-        mealPlanSuitableForDietDTO1.setId(1L);
-        MealPlanSuitableForDietDTO mealPlanSuitableForDietDTO2 = new MealPlanSuitableForDietDTO();
-        assertThat(mealPlanSuitableForDietDTO1).isNotEqualTo(mealPlanSuitableForDietDTO2);
-        mealPlanSuitableForDietDTO2.setId(mealPlanSuitableForDietDTO1.getId());
-        assertThat(mealPlanSuitableForDietDTO1).isEqualTo(mealPlanSuitableForDietDTO2);
-        mealPlanSuitableForDietDTO2.setId(2L);
-        assertThat(mealPlanSuitableForDietDTO1).isNotEqualTo(mealPlanSuitableForDietDTO2);
-        mealPlanSuitableForDietDTO1.setId(null);
-        assertThat(mealPlanSuitableForDietDTO1).isNotEqualTo(mealPlanSuitableForDietDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealPlanSuitableForDietMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealPlanSuitableForDietMapper.fromId(null)).isNull();
     }
 }

@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.products.service;
 
-import pl.marczynski.dietify.products.service.dto.NutritionDefinitionTranslationDTO;
+import pl.marczynski.dietify.products.domain.NutritionDefinitionTranslation;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.products.domain.NutritionDefinitionTranslation}.
+ * Service Interface for managing {@link NutritionDefinitionTranslation}.
  */
 public interface NutritionDefinitionTranslationService {
 
     /**
      * Save a nutritionDefinitionTranslation.
      *
-     * @param nutritionDefinitionTranslationDTO the entity to save.
+     * @param nutritionDefinitionTranslation the entity to save.
      * @return the persisted entity.
      */
-    NutritionDefinitionTranslationDTO save(NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO);
+    NutritionDefinitionTranslation save(NutritionDefinitionTranslation nutritionDefinitionTranslation);
 
     /**
      * Get all the nutritionDefinitionTranslations.
      *
      * @return the list of entities.
      */
-    List<NutritionDefinitionTranslationDTO> findAll();
+    List<NutritionDefinitionTranslation> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface NutritionDefinitionTranslationService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<NutritionDefinitionTranslationDTO> findOne(Long id);
+    Optional<NutritionDefinitionTranslation> findOne(Long id);
 
     /**
      * Delete the "id" nutritionDefinitionTranslation.
@@ -48,5 +48,5 @@ public interface NutritionDefinitionTranslationService {
      * 
      * @return the list of entities.
      */
-    List<NutritionDefinitionTranslationDTO> search(String query);
+    List<NutritionDefinitionTranslation> search(String query);
 }

@@ -149,9 +149,9 @@
             "relationshipName": "tagsBadFor"
         }
     ],
-    "changelogDate": "20190721154701",
+    "changelogDate": "20190722200931",
     "entityTableName": "meal_plan",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

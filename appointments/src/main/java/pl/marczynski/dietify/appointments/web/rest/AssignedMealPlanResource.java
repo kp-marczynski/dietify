@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.AssignedMealPlan;
 import pl.marczynski.dietify.appointments.service.AssignedMealPlanService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.appointments.service.dto.AssignedMealPlanDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -42,17 +42,17 @@ public class AssignedMealPlanResource {
     /**
      * {@code POST  /assigned-meal-plans} : Create a new assignedMealPlan.
      *
-     * @param assignedMealPlanDTO the assignedMealPlanDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new assignedMealPlanDTO, or with status {@code 400 (Bad Request)} if the assignedMealPlan has already an ID.
+     * @param assignedMealPlan the assignedMealPlan to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new assignedMealPlan, or with status {@code 400 (Bad Request)} if the assignedMealPlan has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/assigned-meal-plans")
-    public ResponseEntity<AssignedMealPlanDTO> createAssignedMealPlan(@Valid @RequestBody AssignedMealPlanDTO assignedMealPlanDTO) throws URISyntaxException {
-        log.debug("REST request to save AssignedMealPlan : {}", assignedMealPlanDTO);
-        if (assignedMealPlanDTO.getId() != null) {
+    public ResponseEntity<AssignedMealPlan> createAssignedMealPlan(@Valid @RequestBody AssignedMealPlan assignedMealPlan) throws URISyntaxException {
+        log.debug("REST request to save AssignedMealPlan : {}", assignedMealPlan);
+        if (assignedMealPlan.getId() != null) {
             throw new BadRequestAlertException("A new assignedMealPlan cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        AssignedMealPlanDTO result = assignedMealPlanService.save(assignedMealPlanDTO);
+        AssignedMealPlan result = assignedMealPlanService.save(assignedMealPlan);
         return ResponseEntity.created(new URI("/api/assigned-meal-plans/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -61,21 +61,21 @@ public class AssignedMealPlanResource {
     /**
      * {@code PUT  /assigned-meal-plans} : Updates an existing assignedMealPlan.
      *
-     * @param assignedMealPlanDTO the assignedMealPlanDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated assignedMealPlanDTO,
-     * or with status {@code 400 (Bad Request)} if the assignedMealPlanDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the assignedMealPlanDTO couldn't be updated.
+     * @param assignedMealPlan the assignedMealPlan to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated assignedMealPlan,
+     * or with status {@code 400 (Bad Request)} if the assignedMealPlan is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the assignedMealPlan couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/assigned-meal-plans")
-    public ResponseEntity<AssignedMealPlanDTO> updateAssignedMealPlan(@Valid @RequestBody AssignedMealPlanDTO assignedMealPlanDTO) throws URISyntaxException {
-        log.debug("REST request to update AssignedMealPlan : {}", assignedMealPlanDTO);
-        if (assignedMealPlanDTO.getId() == null) {
+    public ResponseEntity<AssignedMealPlan> updateAssignedMealPlan(@Valid @RequestBody AssignedMealPlan assignedMealPlan) throws URISyntaxException {
+        log.debug("REST request to update AssignedMealPlan : {}", assignedMealPlan);
+        if (assignedMealPlan.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        AssignedMealPlanDTO result = assignedMealPlanService.save(assignedMealPlanDTO);
+        AssignedMealPlan result = assignedMealPlanService.save(assignedMealPlan);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, assignedMealPlanDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, assignedMealPlan.getId().toString()))
             .body(result);
     }
 
@@ -85,7 +85,7 @@ public class AssignedMealPlanResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of assignedMealPlans in body.
      */
     @GetMapping("/assigned-meal-plans")
-    public List<AssignedMealPlanDTO> getAllAssignedMealPlans() {
+    public List<AssignedMealPlan> getAllAssignedMealPlans() {
         log.debug("REST request to get all AssignedMealPlans");
         return assignedMealPlanService.findAll();
     }
@@ -93,20 +93,20 @@ public class AssignedMealPlanResource {
     /**
      * {@code GET  /assigned-meal-plans/:id} : get the "id" assignedMealPlan.
      *
-     * @param id the id of the assignedMealPlanDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the assignedMealPlanDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the assignedMealPlan to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the assignedMealPlan, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/assigned-meal-plans/{id}")
-    public ResponseEntity<AssignedMealPlanDTO> getAssignedMealPlan(@PathVariable Long id) {
+    public ResponseEntity<AssignedMealPlan> getAssignedMealPlan(@PathVariable Long id) {
         log.debug("REST request to get AssignedMealPlan : {}", id);
-        Optional<AssignedMealPlanDTO> assignedMealPlanDTO = assignedMealPlanService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(assignedMealPlanDTO);
+        Optional<AssignedMealPlan> assignedMealPlan = assignedMealPlanService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(assignedMealPlan);
     }
 
     /**
      * {@code DELETE  /assigned-meal-plans/:id} : delete the "id" assignedMealPlan.
      *
-     * @param id the id of the assignedMealPlanDTO to delete.
+     * @param id the id of the assignedMealPlan to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/assigned-meal-plans/{id}")

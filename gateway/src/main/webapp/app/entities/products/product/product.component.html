@@ -39,7 +39,8 @@
             <th jhiSortBy="isFinal"><span jhiTranslate="gatewayApp.productsProduct.isFinal">Is Final</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="isVerified"><span jhiTranslate="gatewayApp.productsProduct.isVerified">Is Verified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="language"><span jhiTranslate="gatewayApp.productsProduct.language">Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="subcategoryDescription"><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="basicNutritionData.id"><span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="subcategory.description"><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -53,8 +54,13 @@
                 <td>{{product.isVerified}}</td>
                 <td>{{product.language}}</td>
                 <td>
-                    <div *ngIf="product.subcategoryId">
-                        <a [routerLink]="['../product-subcategory', product.subcategoryId , 'view' ]" >{{product.subcategoryDescription}}</a>
+                    <div *ngIf="product.basicNutritionData">
+                        <a [routerLink]="['../product-basic-nutrition-data', product.basicNutritionData?.id, 'view' ]" >{{product.basicNutritionData?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="product.subcategory">
+                        <a [routerLink]="['../product-subcategory', product.subcategory?.id, 'view' ]" >{{product.subcategory?.description}}</a>
                     </div>
                 </td>
                 <td class="text-right">

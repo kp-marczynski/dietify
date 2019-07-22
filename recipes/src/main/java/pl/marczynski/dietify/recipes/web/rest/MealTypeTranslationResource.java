@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.MealTypeTranslation;
 import pl.marczynski.dietify.recipes.service.MealTypeTranslationService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.MealTypeTranslationDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class MealTypeTranslationResource {
     /**
      * {@code POST  /meal-type-translations} : Create a new mealTypeTranslation.
      *
-     * @param mealTypeTranslationDTO the mealTypeTranslationDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealTypeTranslationDTO, or with status {@code 400 (Bad Request)} if the mealTypeTranslation has already an ID.
+     * @param mealTypeTranslation the mealTypeTranslation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new mealTypeTranslation, or with status {@code 400 (Bad Request)} if the mealTypeTranslation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/meal-type-translations")
-    public ResponseEntity<MealTypeTranslationDTO> createMealTypeTranslation(@Valid @RequestBody MealTypeTranslationDTO mealTypeTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to save MealTypeTranslation : {}", mealTypeTranslationDTO);
-        if (mealTypeTranslationDTO.getId() != null) {
+    public ResponseEntity<MealTypeTranslation> createMealTypeTranslation(@Valid @RequestBody MealTypeTranslation mealTypeTranslation) throws URISyntaxException {
+        log.debug("REST request to save MealTypeTranslation : {}", mealTypeTranslation);
+        if (mealTypeTranslation.getId() != null) {
             throw new BadRequestAlertException("A new mealTypeTranslation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        MealTypeTranslationDTO result = mealTypeTranslationService.save(mealTypeTranslationDTO);
+        MealTypeTranslation result = mealTypeTranslationService.save(mealTypeTranslation);
         return ResponseEntity.created(new URI("/api/meal-type-translations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class MealTypeTranslationResource {
     /**
      * {@code PUT  /meal-type-translations} : Updates an existing mealTypeTranslation.
      *
-     * @param mealTypeTranslationDTO the mealTypeTranslationDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealTypeTranslationDTO,
-     * or with status {@code 400 (Bad Request)} if the mealTypeTranslationDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the mealTypeTranslationDTO couldn't be updated.
+     * @param mealTypeTranslation the mealTypeTranslation to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealTypeTranslation,
+     * or with status {@code 400 (Bad Request)} if the mealTypeTranslation is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealTypeTranslation couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/meal-type-translations")
-    public ResponseEntity<MealTypeTranslationDTO> updateMealTypeTranslation(@Valid @RequestBody MealTypeTranslationDTO mealTypeTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to update MealTypeTranslation : {}", mealTypeTranslationDTO);
-        if (mealTypeTranslationDTO.getId() == null) {
+    public ResponseEntity<MealTypeTranslation> updateMealTypeTranslation(@Valid @RequestBody MealTypeTranslation mealTypeTranslation) throws URISyntaxException {
+        log.debug("REST request to update MealTypeTranslation : {}", mealTypeTranslation);
+        if (mealTypeTranslation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        MealTypeTranslationDTO result = mealTypeTranslationService.save(mealTypeTranslationDTO);
+        MealTypeTranslation result = mealTypeTranslationService.save(mealTypeTranslation);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealTypeTranslationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, mealTypeTranslation.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class MealTypeTranslationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealTypeTranslations in body.
      */
     @GetMapping("/meal-type-translations")
-    public List<MealTypeTranslationDTO> getAllMealTypeTranslations() {
+    public List<MealTypeTranslation> getAllMealTypeTranslations() {
         log.debug("REST request to get all MealTypeTranslations");
         return mealTypeTranslationService.findAll();
     }
@@ -96,20 +96,20 @@ public class MealTypeTranslationResource {
     /**
      * {@code GET  /meal-type-translations/:id} : get the "id" mealTypeTranslation.
      *
-     * @param id the id of the mealTypeTranslationDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealTypeTranslationDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the mealTypeTranslation to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the mealTypeTranslation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/meal-type-translations/{id}")
-    public ResponseEntity<MealTypeTranslationDTO> getMealTypeTranslation(@PathVariable Long id) {
+    public ResponseEntity<MealTypeTranslation> getMealTypeTranslation(@PathVariable Long id) {
         log.debug("REST request to get MealTypeTranslation : {}", id);
-        Optional<MealTypeTranslationDTO> mealTypeTranslationDTO = mealTypeTranslationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(mealTypeTranslationDTO);
+        Optional<MealTypeTranslation> mealTypeTranslation = mealTypeTranslationService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(mealTypeTranslation);
     }
 
     /**
      * {@code DELETE  /meal-type-translations/:id} : delete the "id" mealTypeTranslation.
      *
-     * @param id the id of the mealTypeTranslationDTO to delete.
+     * @param id the id of the mealTypeTranslation to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/meal-type-translations/{id}")
@@ -127,7 +127,7 @@ public class MealTypeTranslationResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/meal-type-translations")
-    public List<MealTypeTranslationDTO> searchMealTypeTranslations(@RequestParam String query) {
+    public List<MealTypeTranslation> searchMealTypeTranslations(@RequestParam String query) {
         log.debug("REST request to search MealTypeTranslations for query {}", query);
         return mealTypeTranslationService.search(query);
     }

@@ -53,6 +53,7 @@ describe('Recipe e2e test', () => {
             recipeUpdatePage.setLastEditDateInput('2000-12-31'),
             recipeUpdatePage.setLanguageInput('language'),
             recipeUpdatePage.setTotalGramsWeightInput('5'),
+            recipeUpdatePage.basicNutritionDataSelectLastOption(),
             recipeUpdatePage.sourceRecipeSelectLastOption(),
             // recipeUpdatePage.kitchenAppliancesSelectLastOption(),
             // recipeUpdatePage.dishTypesSelectLastOption(),

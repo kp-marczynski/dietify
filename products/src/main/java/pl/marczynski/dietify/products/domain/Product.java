@@ -1,6 +1,6 @@
 package pl.marczynski.dietify.products.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -33,12 +33,14 @@ public class Product implements Serializable {
      * Specifying source if product is imported, preferably url address if possible
      */
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Specifying source if product is imported, preferably url address if possible")
     @Column(name = "source", length = 255)
     private String source;
 
     /**
      * Author of product if product created or edited manually. Id of User entity retrieved from gateway service
      */
+    @ApiModelProperty(value = "Author of product if product created or edited manually. Id of User entity retrieved from gateway service")
     @Column(name = "author_id")
     private Long authorId;
 
@@ -47,6 +49,7 @@ public class Product implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Short description of Product in a language of a product", required = true)
     @Column(name = "description", length = 255, nullable = false)
     private String description;
 
@@ -54,6 +57,7 @@ public class Product implements Serializable {
      * Flag specifying if product is final or editable
      */
     @NotNull
+    @ApiModelProperty(value = "Flag specifying if product is final or editable", required = true)
     @Column(name = "is_final", nullable = false)
     private Boolean isFinal;
 
@@ -61,6 +65,7 @@ public class Product implements Serializable {
      * Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.
      */
     @NotNull
+    @ApiModelProperty(value = "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.", required = true)
     @Column(name = "is_verified", nullable = false)
     private Boolean isVerified;
 
@@ -69,8 +74,22 @@ public class Product implements Serializable {
      */
     @NotNull
     @Size(min = 2, max = 2)
+    @ApiModelProperty(value = "Language tag of a product as ISO_639-1 code", required = true)
     @Column(name = "language", length = 2, nullable = false)
     private String language;
+
+    @OneToOne(optional = false)    @NotNull
+
+    @JoinColumn(unique = true)
+    private ProductBasicNutritionData basicNutritionData;
+
+    @OneToMany(mappedBy = "product")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<NutritionData> nutritionData = new HashSet<>();
+
+    @OneToMany(mappedBy = "product")
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<HouseholdMeasure> householdMeasures = new HashSet<>();
 
     @ManyToOne(optional = false)
     @NotNull
@@ -90,18 +109,6 @@ public class Product implements Serializable {
                joinColumns = @JoinColumn(name = "product_id", referencedColumnName = "id"),
                inverseJoinColumns = @JoinColumn(name = "unsuitable_diets_id", referencedColumnName = "id"))
     private Set<DietType> unsuitableDiets = new HashSet<>();
-
-    @OneToOne(mappedBy = "product")
-    @JsonIgnore
-    private ProductBasicNutritionData basicNutritionData;
-
-    @OneToMany(mappedBy = "product")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<NutritionData> nutritionData = new HashSet<>();
-
-    @OneToMany(mappedBy = "product")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<HouseholdMeasure> householdMeasures = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -160,30 +167,6 @@ public class Product implements Serializable {
         this.language = language;
     }
 
-    public ProductSubcategory getSubcategory() {
-        return subcategory;
-    }
-
-    public void setSubcategory(ProductSubcategory productSubcategory) {
-        this.subcategory = productSubcategory;
-    }
-
-    public Set<DietType> getSuitableDiets() {
-        return suitableDiets;
-    }
-
-    public void setSuitableDiets(Set<DietType> dietTypes) {
-        this.suitableDiets = dietTypes;
-    }
-
-    public Set<DietType> getUnsuitableDiets() {
-        return unsuitableDiets;
-    }
-
-    public void setUnsuitableDiets(Set<DietType> dietTypes) {
-        this.unsuitableDiets = dietTypes;
-    }
-
     public ProductBasicNutritionData getBasicNutritionData() {
         return basicNutritionData;
     }
@@ -206,6 +189,30 @@ public class Product implements Serializable {
 
     public void setHouseholdMeasures(Set<HouseholdMeasure> householdMeasures) {
         this.householdMeasures = householdMeasures;
+    }
+
+    public ProductSubcategory getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(ProductSubcategory productSubcategory) {
+        this.subcategory = productSubcategory;
+    }
+
+    public Set<DietType> getSuitableDiets() {
+        return suitableDiets;
+    }
+
+    public void setSuitableDiets(Set<DietType> dietTypes) {
+        this.suitableDiets = dietTypes;
+    }
+
+    public Set<DietType> getUnsuitableDiets() {
+        return unsuitableDiets;
+    }
+
+    public void setUnsuitableDiets(Set<DietType> dietTypes) {
+        this.unsuitableDiets = dietTypes;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

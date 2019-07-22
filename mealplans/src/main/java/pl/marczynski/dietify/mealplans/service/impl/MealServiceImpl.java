@@ -4,15 +4,12 @@ import pl.marczynski.dietify.mealplans.service.MealService;
 import pl.marczynski.dietify.mealplans.domain.Meal;
 import pl.marczynski.dietify.mealplans.repository.MealRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealSearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class MealServiceImpl implements MealService {
 
     private final MealRepository mealRepository;
 
-    private final MealMapper mealMapper;
-
     private final MealSearchRepository mealSearchRepository;
 
-    public MealServiceImpl(MealRepository mealRepository, MealMapper mealMapper, MealSearchRepository mealSearchRepository) {
+    public MealServiceImpl(MealRepository mealRepository, MealSearchRepository mealSearchRepository) {
         this.mealRepository = mealRepository;
-        this.mealMapper = mealMapper;
         this.mealSearchRepository = mealSearchRepository;
     }
 
     /**
      * Save a meal.
      *
-     * @param mealDTO the entity to save.
+     * @param meal the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealDTO save(MealDTO mealDTO) {
-        log.debug("Request to save Meal : {}", mealDTO);
-        Meal meal = mealMapper.toEntity(mealDTO);
-        meal = mealRepository.save(meal);
-        MealDTO result = mealMapper.toDto(meal);
-        mealSearchRepository.save(meal);
+    public Meal save(Meal meal) {
+        log.debug("Request to save Meal : {}", meal);
+        Meal result = mealRepository.save(meal);
+        mealSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class MealServiceImpl implements MealService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealDTO> findAll() {
+    public List<Meal> findAll() {
         log.debug("Request to get all Meals");
-        return mealRepository.findAll().stream()
-            .map(mealMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return mealRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class MealServiceImpl implements MealService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealDTO> findOne(Long id) {
+    public Optional<Meal> findOne(Long id) {
         log.debug("Request to get Meal : {}", id);
-        return mealRepository.findById(id)
-            .map(mealMapper::toDto);
+        return mealRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class MealServiceImpl implements MealService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<MealDTO> search(String query) {
+    public List<Meal> search(String query) {
         log.debug("Request to search Meals for query {}", query);
         return StreamSupport
             .stream(mealSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(mealMapper::toDto)
             .collect(Collectors.toList());
     }
 }

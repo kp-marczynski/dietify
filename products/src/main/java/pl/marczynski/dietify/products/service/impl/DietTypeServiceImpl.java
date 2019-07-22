@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.DietTypeService;
 import pl.marczynski.dietify.products.domain.DietType;
 import pl.marczynski.dietify.products.repository.DietTypeRepository;
 import pl.marczynski.dietify.products.repository.search.DietTypeSearchRepository;
-import pl.marczynski.dietify.products.service.dto.DietTypeDTO;
-import pl.marczynski.dietify.products.service.mapper.DietTypeMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class DietTypeServiceImpl implements DietTypeService {
 
     private final DietTypeRepository dietTypeRepository;
 
-    private final DietTypeMapper dietTypeMapper;
-
     private final DietTypeSearchRepository dietTypeSearchRepository;
 
-    public DietTypeServiceImpl(DietTypeRepository dietTypeRepository, DietTypeMapper dietTypeMapper, DietTypeSearchRepository dietTypeSearchRepository) {
+    public DietTypeServiceImpl(DietTypeRepository dietTypeRepository, DietTypeSearchRepository dietTypeSearchRepository) {
         this.dietTypeRepository = dietTypeRepository;
-        this.dietTypeMapper = dietTypeMapper;
         this.dietTypeSearchRepository = dietTypeSearchRepository;
     }
 
     /**
      * Save a dietType.
      *
-     * @param dietTypeDTO the entity to save.
+     * @param dietType the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public DietTypeDTO save(DietTypeDTO dietTypeDTO) {
-        log.debug("Request to save DietType : {}", dietTypeDTO);
-        DietType dietType = dietTypeMapper.toEntity(dietTypeDTO);
-        dietType = dietTypeRepository.save(dietType);
-        DietTypeDTO result = dietTypeMapper.toDto(dietType);
-        dietTypeSearchRepository.save(dietType);
+    public DietType save(DietType dietType) {
+        log.debug("Request to save DietType : {}", dietType);
+        DietType result = dietTypeRepository.save(dietType);
+        dietTypeSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class DietTypeServiceImpl implements DietTypeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<DietTypeDTO> findAll() {
+    public List<DietType> findAll() {
         log.debug("Request to get all DietTypes");
-        return dietTypeRepository.findAll().stream()
-            .map(dietTypeMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return dietTypeRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class DietTypeServiceImpl implements DietTypeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<DietTypeDTO> findOne(Long id) {
+    public Optional<DietType> findOne(Long id) {
         log.debug("Request to get DietType : {}", id);
-        return dietTypeRepository.findById(id)
-            .map(dietTypeMapper::toDto);
+        return dietTypeRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class DietTypeServiceImpl implements DietTypeService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<DietTypeDTO> search(String query) {
+    public List<DietType> search(String query) {
         log.debug("Request to search DietTypes for query {}", query);
         return StreamSupport
             .stream(dietTypeSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(dietTypeMapper::toDto)
             .collect(Collectors.toList());
     }
 }

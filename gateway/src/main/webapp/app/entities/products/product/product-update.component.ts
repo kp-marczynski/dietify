@@ -7,12 +7,12 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
 import { IProduct, Product } from 'app/shared/model/products/product.model';
 import { ProductService } from './product.service';
+import { IProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
+import { ProductBasicNutritionDataService } from 'app/entities/products/product-basic-nutrition-data';
 import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
 import { IDietType } from 'app/shared/model/products/diet-type.model';
 import { DietTypeService } from 'app/entities/products/diet-type';
-import { IProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
-import { ProductBasicNutritionDataService } from 'app/entities/products/product-basic-nutrition-data';
 
 @Component({
   selector: 'jhi-product-update',
@@ -21,11 +21,11 @@ import { ProductBasicNutritionDataService } from 'app/entities/products/product-
 export class ProductUpdateComponent implements OnInit {
   isSaving: boolean;
 
+  basicnutritiondata: IProductBasicNutritionData[];
+
   productsubcategories: IProductSubcategory[];
 
   diettypes: IDietType[];
-
-  productbasicnutritiondata: IProductBasicNutritionData[];
 
   editForm = this.fb.group({
     id: [],
@@ -35,7 +35,8 @@ export class ProductUpdateComponent implements OnInit {
     isFinal: [null, [Validators.required]],
     isVerified: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    subcategoryId: [null, Validators.required],
+    basicNutritionData: [null, Validators.required],
+    subcategory: [null, Validators.required],
     suitableDiets: [],
     unsuitableDiets: []
   });
@@ -43,9 +44,9 @@ export class ProductUpdateComponent implements OnInit {
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected productService: ProductService,
+    protected productBasicNutritionDataService: ProductBasicNutritionDataService,
     protected productSubcategoryService: ProductSubcategoryService,
     protected dietTypeService: DietTypeService,
-    protected productBasicNutritionDataService: ProductBasicNutritionDataService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -55,6 +56,31 @@ export class ProductUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ product }) => {
       this.updateForm(product);
     });
+    this.productBasicNutritionDataService
+      .query({ filter: 'product-is-null' })
+      .pipe(
+        filter((mayBeOk: HttpResponse<IProductBasicNutritionData[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IProductBasicNutritionData[]>) => response.body)
+      )
+      .subscribe(
+        (res: IProductBasicNutritionData[]) => {
+          if (!this.editForm.get('basicNutritionData').value || !this.editForm.get('basicNutritionData').value.id) {
+            this.basicnutritiondata = res;
+          } else {
+            this.productBasicNutritionDataService
+              .find(this.editForm.get('basicNutritionData').value.id)
+              .pipe(
+                filter((subResMayBeOk: HttpResponse<IProductBasicNutritionData>) => subResMayBeOk.ok),
+                map((subResponse: HttpResponse<IProductBasicNutritionData>) => subResponse.body)
+              )
+              .subscribe(
+                (subRes: IProductBasicNutritionData) => (this.basicnutritiondata = [subRes].concat(res)),
+                (subRes: HttpErrorResponse) => this.onError(subRes.message)
+              );
+          }
+        },
+        (res: HttpErrorResponse) => this.onError(res.message)
+      );
     this.productSubcategoryService
       .query()
       .pipe(
@@ -69,16 +95,6 @@ export class ProductUpdateComponent implements OnInit {
         map((response: HttpResponse<IDietType[]>) => response.body)
       )
       .subscribe((res: IDietType[]) => (this.diettypes = res), (res: HttpErrorResponse) => this.onError(res.message));
-    this.productBasicNutritionDataService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProductBasicNutritionData[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProductBasicNutritionData[]>) => response.body)
-      )
-      .subscribe(
-        (res: IProductBasicNutritionData[]) => (this.productbasicnutritiondata = res),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
   updateForm(product: IProduct) {
@@ -90,7 +106,8 @@ export class ProductUpdateComponent implements OnInit {
       isFinal: product.isFinal,
       isVerified: product.isVerified,
       language: product.language,
-      subcategoryId: product.subcategoryId,
+      basicNutritionData: product.basicNutritionData,
+      subcategory: product.subcategory,
       suitableDiets: product.suitableDiets,
       unsuitableDiets: product.unsuitableDiets
     });
@@ -120,7 +137,8 @@ export class ProductUpdateComponent implements OnInit {
       isFinal: this.editForm.get(['isFinal']).value,
       isVerified: this.editForm.get(['isVerified']).value,
       language: this.editForm.get(['language']).value,
-      subcategoryId: this.editForm.get(['subcategoryId']).value,
+      basicNutritionData: this.editForm.get(['basicNutritionData']).value,
+      subcategory: this.editForm.get(['subcategory']).value,
       suitableDiets: this.editForm.get(['suitableDiets']).value,
       unsuitableDiets: this.editForm.get(['unsuitableDiets']).value
     };
@@ -142,15 +160,15 @@ export class ProductUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
+  trackProductBasicNutritionDataById(index: number, item: IProductBasicNutritionData) {
+    return item.id;
+  }
+
   trackProductSubcategoryById(index: number, item: IProductSubcategory) {
     return item.id;
   }
 
   trackDietTypeById(index: number, item: IDietType) {
-    return item.id;
-  }
-
-  trackProductBasicNutritionDataById(index: number, item: IProductBasicNutritionData) {
     return item.id;
   }
 

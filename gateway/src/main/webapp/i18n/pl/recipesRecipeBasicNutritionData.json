@@ -18,7 +18,6 @@
       "protein": "Protein",
       "fat": "Fat",
       "carbohydrates": "Carbohydrates",
-      "recipe": "Recipe",
       "help": {
         "energy": "Energy in kcal per 100 gram of recipe meal calculated from products added to recipe",
         "protein": "Protein in grams per 100 gram of recipe meal calculated from products added to recipe",

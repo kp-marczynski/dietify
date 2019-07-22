@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.products.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,12 +33,9 @@ public class ProductCategory implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
-    @Column(name = "description", length = 255, nullable = false)
+    @ApiModelProperty(value = "Short description of category in English", required = true)
+    @Column(name = "description", length = 255, nullable = false, unique = true)
     private String description;
-
-    @OneToMany(mappedBy = "category")
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<ProductSubcategory> subcategories = new HashSet<>();
 
     @OneToMany(mappedBy = "productCategory")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -58,14 +56,6 @@ public class ProductCategory implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<ProductSubcategory> getSubcategories() {
-        return subcategories;
-    }
-
-    public void setSubcategories(Set<ProductSubcategory> productSubcategories) {
-        this.subcategories = productSubcategories;
     }
 
     public Set<ProductCategoryTranslation> getTranslations() {

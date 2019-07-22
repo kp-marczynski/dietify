@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.RecipeUnsuitableForDietDTO;
+import pl.marczynski.dietify.recipes.domain.RecipeUnsuitableForDiet;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.RecipeUnsuitableForDiet}.
+ * Service Interface for managing {@link RecipeUnsuitableForDiet}.
  */
 public interface RecipeUnsuitableForDietService {
 
     /**
      * Save a recipeUnsuitableForDiet.
      *
-     * @param recipeUnsuitableForDietDTO the entity to save.
+     * @param recipeUnsuitableForDiet the entity to save.
      * @return the persisted entity.
      */
-    RecipeUnsuitableForDietDTO save(RecipeUnsuitableForDietDTO recipeUnsuitableForDietDTO);
+    RecipeUnsuitableForDiet save(RecipeUnsuitableForDiet recipeUnsuitableForDiet);
 
     /**
      * Get all the recipeUnsuitableForDiets.
      *
      * @return the list of entities.
      */
-    List<RecipeUnsuitableForDietDTO> findAll();
+    List<RecipeUnsuitableForDiet> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface RecipeUnsuitableForDietService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<RecipeUnsuitableForDietDTO> findOne(Long id);
+    Optional<RecipeUnsuitableForDiet> findOne(Long id);
 
     /**
      * Delete the "id" recipeUnsuitableForDiet.
@@ -48,5 +48,5 @@ public interface RecipeUnsuitableForDietService {
      * 
      * @return the list of entities.
      */
-    List<RecipeUnsuitableForDietDTO> search(String query);
+    List<RecipeUnsuitableForDiet> search(String query);
 }

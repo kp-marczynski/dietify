@@ -33,12 +33,12 @@
             "otherEntityRelationshipName": "translations",
             "relationshipValidateRules": "required",
             "relationshipName": "productCategory",
-            "otherEntityField": "description"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154641",
+    "changelogDate": "20190722200911",
     "entityTableName": "product_category_trns",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

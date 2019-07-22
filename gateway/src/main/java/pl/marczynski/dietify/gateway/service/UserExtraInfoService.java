@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.gateway.service;
 
-import pl.marczynski.dietify.gateway.service.dto.UserExtraInfoDTO;
+import pl.marczynski.dietify.gateway.domain.UserExtraInfo;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.gateway.domain.UserExtraInfo}.
+ * Service Interface for managing {@link UserExtraInfo}.
  */
 public interface UserExtraInfoService {
 
     /**
      * Save a userExtraInfo.
      *
-     * @param userExtraInfoDTO the entity to save.
+     * @param userExtraInfo the entity to save.
      * @return the persisted entity.
      */
-    UserExtraInfoDTO save(UserExtraInfoDTO userExtraInfoDTO);
+    UserExtraInfo save(UserExtraInfo userExtraInfo);
 
     /**
      * Get all the userExtraInfos.
      *
      * @return the list of entities.
      */
-    List<UserExtraInfoDTO> findAll();
+    List<UserExtraInfo> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface UserExtraInfoService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<UserExtraInfoDTO> findOne(Long id);
+    Optional<UserExtraInfo> findOne(Long id);
 
     /**
      * Delete the "id" userExtraInfo.
@@ -48,5 +48,5 @@ public interface UserExtraInfoService {
      * 
      * @return the list of entities.
      */
-    List<UserExtraInfoDTO> search(String query);
+    List<UserExtraInfo> search(String query);
 }

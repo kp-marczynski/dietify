@@ -44,7 +44,6 @@
             <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.dislikedProducts">Disliked Products</span></th>
             <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodAllergies">Food Allergies</span></th>
             <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.foodIntolerances">Food Intolerances</span></th>
-            <th><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.appointment">Appointment</span></th>
             <th></th>
             </tr>
             </thead>
@@ -62,11 +61,6 @@
                 <td>{{nutritionalInterview.dislikedProducts}}</td>
                 <td>{{nutritionalInterview.foodAllergies}}</td>
                 <td>{{nutritionalInterview.foodIntolerances}}</td>
-                <td>
-                    <div *ngIf="nutritionalInterview.appointmentId">
-                        <a [routerLink]="['../appointment', nutritionalInterview.appointmentId , 'view' ]" >{{nutritionalInterview.appointmentId}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

@@ -23,7 +23,7 @@ export class DishTypeTranslationUpdateComponent implements OnInit {
     id: [],
     translation: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    dishTypeId: [null, Validators.required]
+    dishType: [null, Validators.required]
   });
 
   constructor(
@@ -53,7 +53,7 @@ export class DishTypeTranslationUpdateComponent implements OnInit {
       id: dishTypeTranslation.id,
       translation: dishTypeTranslation.translation,
       language: dishTypeTranslation.language,
-      dishTypeId: dishTypeTranslation.dishTypeId
+      dishType: dishTypeTranslation.dishType
     });
   }
 
@@ -77,7 +77,7 @@ export class DishTypeTranslationUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       translation: this.editForm.get(['translation']).value,
       language: this.editForm.get(['language']).value,
-      dishTypeId: this.editForm.get(['dishTypeId']).value
+      dishType: this.editForm.get(['dishType']).value
     };
   }
 

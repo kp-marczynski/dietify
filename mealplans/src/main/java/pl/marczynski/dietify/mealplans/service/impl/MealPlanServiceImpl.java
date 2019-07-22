@@ -4,8 +4,6 @@ import pl.marczynski.dietify.mealplans.service.MealPlanService;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealPlanRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealPlanSearchRepository;
-import pl.marczynski.dietify.mealplans.service.dto.MealPlanDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealPlanMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,29 +27,24 @@ public class MealPlanServiceImpl implements MealPlanService {
 
     private final MealPlanRepository mealPlanRepository;
 
-    private final MealPlanMapper mealPlanMapper;
-
     private final MealPlanSearchRepository mealPlanSearchRepository;
 
-    public MealPlanServiceImpl(MealPlanRepository mealPlanRepository, MealPlanMapper mealPlanMapper, MealPlanSearchRepository mealPlanSearchRepository) {
+    public MealPlanServiceImpl(MealPlanRepository mealPlanRepository, MealPlanSearchRepository mealPlanSearchRepository) {
         this.mealPlanRepository = mealPlanRepository;
-        this.mealPlanMapper = mealPlanMapper;
         this.mealPlanSearchRepository = mealPlanSearchRepository;
     }
 
     /**
      * Save a mealPlan.
      *
-     * @param mealPlanDTO the entity to save.
+     * @param mealPlan the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public MealPlanDTO save(MealPlanDTO mealPlanDTO) {
-        log.debug("Request to save MealPlan : {}", mealPlanDTO);
-        MealPlan mealPlan = mealPlanMapper.toEntity(mealPlanDTO);
-        mealPlan = mealPlanRepository.save(mealPlan);
-        MealPlanDTO result = mealPlanMapper.toDto(mealPlan);
-        mealPlanSearchRepository.save(mealPlan);
+    public MealPlan save(MealPlan mealPlan) {
+        log.debug("Request to save MealPlan : {}", mealPlan);
+        MealPlan result = mealPlanRepository.save(mealPlan);
+        mealPlanSearchRepository.save(result);
         return result;
     }
 
@@ -63,10 +56,9 @@ public class MealPlanServiceImpl implements MealPlanService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<MealPlanDTO> findAll(Pageable pageable) {
+    public Page<MealPlan> findAll(Pageable pageable) {
         log.debug("Request to get all MealPlans");
-        return mealPlanRepository.findAll(pageable)
-            .map(mealPlanMapper::toDto);
+        return mealPlanRepository.findAll(pageable);
     }
 
 
@@ -78,10 +70,9 @@ public class MealPlanServiceImpl implements MealPlanService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<MealPlanDTO> findOne(Long id) {
+    public Optional<MealPlan> findOne(Long id) {
         log.debug("Request to get MealPlan : {}", id);
-        return mealPlanRepository.findById(id)
-            .map(mealPlanMapper::toDto);
+        return mealPlanRepository.findById(id);
     }
 
     /**
@@ -105,9 +96,7 @@ public class MealPlanServiceImpl implements MealPlanService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<MealPlanDTO> search(String query, Pageable pageable) {
+    public Page<MealPlan> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of MealPlans for query {}", query);
-        return mealPlanSearchRepository.search(queryStringQuery(query), pageable)
-            .map(mealPlanMapper::toDto);
-    }
+        return mealPlanSearchRepository.search(queryStringQuery(query), pageable);    }
 }

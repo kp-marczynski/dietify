@@ -32,7 +32,7 @@
     "jhipsterVersion": "6.1.2",
     "skipUserManagement": true,
     "clientPackageManager": "npm",
-    "jwtSecretKey": "NzMxODA5NDRmN2I3NmRiZmE4NTE0MzNlZjYwMGJiMDRiOTM4ZTM4NjZiYjc0NmY0YzNjY2UwMzlmZDMwOGNlYWM0ZTJlNDE2OTIxYWFjZGFmYzZlYzJiNzBjYmZjNWQxZmE3Yjc1NzY2MWFlNTVkYmE3ZGQ4ODVhZTY3MDc0NmY=",
+    "jwtSecretKey": "MzIyYjNiNGQ1ZWZhNTM0MDczZjI0OTAxYWYwYmEzZWVmNzE1MzgzZmIyMTgzZjk4ZTFkNTY5MTg4MzgwMGM2YjE3ZGJjN2Y2ZDRlMzkxZTI3OWJmZjAxZjEzZjY2NzcxOTYyMGMwOTA5Yzg0YmFjNTM5ZDNhNzY1YjBmM2QxYjQ=",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": []

@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.HouseholdMeasureService;
 import pl.marczynski.dietify.products.domain.HouseholdMeasure;
 import pl.marczynski.dietify.products.repository.HouseholdMeasureRepository;
 import pl.marczynski.dietify.products.repository.search.HouseholdMeasureSearchRepository;
-import pl.marczynski.dietify.products.service.dto.HouseholdMeasureDTO;
-import pl.marczynski.dietify.products.service.mapper.HouseholdMeasureMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class HouseholdMeasureServiceImpl implements HouseholdMeasureService {
 
     private final HouseholdMeasureRepository householdMeasureRepository;
 
-    private final HouseholdMeasureMapper householdMeasureMapper;
-
     private final HouseholdMeasureSearchRepository householdMeasureSearchRepository;
 
-    public HouseholdMeasureServiceImpl(HouseholdMeasureRepository householdMeasureRepository, HouseholdMeasureMapper householdMeasureMapper, HouseholdMeasureSearchRepository householdMeasureSearchRepository) {
+    public HouseholdMeasureServiceImpl(HouseholdMeasureRepository householdMeasureRepository, HouseholdMeasureSearchRepository householdMeasureSearchRepository) {
         this.householdMeasureRepository = householdMeasureRepository;
-        this.householdMeasureMapper = householdMeasureMapper;
         this.householdMeasureSearchRepository = householdMeasureSearchRepository;
     }
 
     /**
      * Save a householdMeasure.
      *
-     * @param householdMeasureDTO the entity to save.
+     * @param householdMeasure the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public HouseholdMeasureDTO save(HouseholdMeasureDTO householdMeasureDTO) {
-        log.debug("Request to save HouseholdMeasure : {}", householdMeasureDTO);
-        HouseholdMeasure householdMeasure = householdMeasureMapper.toEntity(householdMeasureDTO);
-        householdMeasure = householdMeasureRepository.save(householdMeasure);
-        HouseholdMeasureDTO result = householdMeasureMapper.toDto(householdMeasure);
-        householdMeasureSearchRepository.save(householdMeasure);
+    public HouseholdMeasure save(HouseholdMeasure householdMeasure) {
+        log.debug("Request to save HouseholdMeasure : {}", householdMeasure);
+        HouseholdMeasure result = householdMeasureRepository.save(householdMeasure);
+        householdMeasureSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class HouseholdMeasureServiceImpl implements HouseholdMeasureService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<HouseholdMeasureDTO> findAll() {
+    public List<HouseholdMeasure> findAll() {
         log.debug("Request to get all HouseholdMeasures");
-        return householdMeasureRepository.findAll().stream()
-            .map(householdMeasureMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return householdMeasureRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class HouseholdMeasureServiceImpl implements HouseholdMeasureService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<HouseholdMeasureDTO> findOne(Long id) {
+    public Optional<HouseholdMeasure> findOne(Long id) {
         log.debug("Request to get HouseholdMeasure : {}", id);
-        return householdMeasureRepository.findById(id)
-            .map(householdMeasureMapper::toDto);
+        return householdMeasureRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class HouseholdMeasureServiceImpl implements HouseholdMeasureService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<HouseholdMeasureDTO> search(String query) {
+    public List<HouseholdMeasure> search(String query) {
         log.debug("Request to search HouseholdMeasures for query {}", query);
         return StreamSupport
             .stream(householdMeasureSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(householdMeasureMapper::toDto)
             .collect(Collectors.toList());
     }
 }

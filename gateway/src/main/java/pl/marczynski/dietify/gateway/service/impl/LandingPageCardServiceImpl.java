@@ -4,15 +4,12 @@ import pl.marczynski.dietify.gateway.service.LandingPageCardService;
 import pl.marczynski.dietify.gateway.domain.LandingPageCard;
 import pl.marczynski.dietify.gateway.repository.LandingPageCardRepository;
 import pl.marczynski.dietify.gateway.repository.search.LandingPageCardSearchRepository;
-import pl.marczynski.dietify.gateway.service.dto.LandingPageCardDTO;
-import pl.marczynski.dietify.gateway.service.mapper.LandingPageCardMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class LandingPageCardServiceImpl implements LandingPageCardService {
 
     private final LandingPageCardRepository landingPageCardRepository;
 
-    private final LandingPageCardMapper landingPageCardMapper;
-
     private final LandingPageCardSearchRepository landingPageCardSearchRepository;
 
-    public LandingPageCardServiceImpl(LandingPageCardRepository landingPageCardRepository, LandingPageCardMapper landingPageCardMapper, LandingPageCardSearchRepository landingPageCardSearchRepository) {
+    public LandingPageCardServiceImpl(LandingPageCardRepository landingPageCardRepository, LandingPageCardSearchRepository landingPageCardSearchRepository) {
         this.landingPageCardRepository = landingPageCardRepository;
-        this.landingPageCardMapper = landingPageCardMapper;
         this.landingPageCardSearchRepository = landingPageCardSearchRepository;
     }
 
     /**
      * Save a landingPageCard.
      *
-     * @param landingPageCardDTO the entity to save.
+     * @param landingPageCard the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public LandingPageCardDTO save(LandingPageCardDTO landingPageCardDTO) {
-        log.debug("Request to save LandingPageCard : {}", landingPageCardDTO);
-        LandingPageCard landingPageCard = landingPageCardMapper.toEntity(landingPageCardDTO);
-        landingPageCard = landingPageCardRepository.save(landingPageCard);
-        LandingPageCardDTO result = landingPageCardMapper.toDto(landingPageCard);
-        landingPageCardSearchRepository.save(landingPageCard);
+    public LandingPageCard save(LandingPageCard landingPageCard) {
+        log.debug("Request to save LandingPageCard : {}", landingPageCard);
+        LandingPageCard result = landingPageCardRepository.save(landingPageCard);
+        landingPageCardSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class LandingPageCardServiceImpl implements LandingPageCardService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<LandingPageCardDTO> findAll() {
+    public List<LandingPageCard> findAll() {
         log.debug("Request to get all LandingPageCards");
-        return landingPageCardRepository.findAll().stream()
-            .map(landingPageCardMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return landingPageCardRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class LandingPageCardServiceImpl implements LandingPageCardService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<LandingPageCardDTO> findOne(Long id) {
+    public Optional<LandingPageCard> findOne(Long id) {
         log.debug("Request to get LandingPageCard : {}", id);
-        return landingPageCardRepository.findById(id)
-            .map(landingPageCardMapper::toDto);
+        return landingPageCardRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class LandingPageCardServiceImpl implements LandingPageCardService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<LandingPageCardDTO> search(String query) {
+    public List<LandingPageCard> search(String query) {
         log.debug("Request to search LandingPageCards for query {}", query);
         return StreamSupport
             .stream(landingPageCardSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(landingPageCardMapper::toDto)
             .collect(Collectors.toList());
     }
 }

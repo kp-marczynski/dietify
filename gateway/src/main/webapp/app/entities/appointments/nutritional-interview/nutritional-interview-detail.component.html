@@ -49,12 +49,6 @@
                 <dd>
                     <span>{{nutritionalInterview.foodIntolerances}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.appointment">Appointment</span></dt>
-                <dd>
-                    <div *ngIf="nutritionalInterview.appointmentId">
-                        <a [routerLink]="['/appointment', nutritionalInterview.appointmentId, 'view']">{{nutritionalInterview.appointmentId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

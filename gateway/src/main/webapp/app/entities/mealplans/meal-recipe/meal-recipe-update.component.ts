@@ -23,7 +23,7 @@ export class MealRecipeUpdateComponent implements OnInit {
     id: [],
     recipeId: [null, [Validators.required]],
     amount: [null, [Validators.required, Validators.min(0)]],
-    mealId: [null, Validators.required]
+    meal: [null, Validators.required]
   });
 
   constructor(
@@ -53,7 +53,7 @@ export class MealRecipeUpdateComponent implements OnInit {
       id: mealRecipe.id,
       recipeId: mealRecipe.recipeId,
       amount: mealRecipe.amount,
-      mealId: mealRecipe.mealId
+      meal: mealRecipe.meal
     });
   }
 
@@ -77,7 +77,7 @@ export class MealRecipeUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       recipeId: this.editForm.get(['recipeId']).value,
       amount: this.editForm.get(['amount']).value,
-      mealId: this.editForm.get(['mealId']).value
+      meal: this.editForm.get(['meal']).value
     };
   }
 

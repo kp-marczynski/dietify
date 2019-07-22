@@ -23,7 +23,7 @@ export class DietTypeTranslationUpdateComponent implements OnInit {
     id: [],
     translation: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    dietTypeId: [null, Validators.required]
+    dietType: [null, Validators.required]
   });
 
   constructor(
@@ -53,7 +53,7 @@ export class DietTypeTranslationUpdateComponent implements OnInit {
       id: dietTypeTranslation.id,
       translation: dietTypeTranslation.translation,
       language: dietTypeTranslation.language,
-      dietTypeId: dietTypeTranslation.dietTypeId
+      dietType: dietTypeTranslation.dietType
     });
   }
 
@@ -77,7 +77,7 @@ export class DietTypeTranslationUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       translation: this.editForm.get(['translation']).value,
       language: this.editForm.get(['language']).value,
-      dietTypeId: this.editForm.get(['dietTypeId']).value
+      dietType: this.editForm.get(['dietType']).value
     };
   }
 

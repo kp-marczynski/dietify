@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.products.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -31,6 +32,7 @@ public class DietTypeTranslation implements Serializable {
      */
     @NotNull
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Translated name of diet type", required = true)
     @Column(name = "translation", length = 255, nullable = false)
     private String translation;
 
@@ -39,6 +41,7 @@ public class DietTypeTranslation implements Serializable {
      */
     @NotNull
     @Size(min = 2, max = 2)
+    @ApiModelProperty(value = "Language of translation as ISO_639-1 code", required = true)
     @Column(name = "language", length = 2, nullable = false)
     private String language;
 

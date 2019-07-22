@@ -15,7 +15,7 @@ describe('RecipeBasicNutritionData e2e test', () => {
   let signInPage: SignInPage;
   let recipeBasicNutritionDataUpdatePage: RecipeBasicNutritionDataUpdatePage;
   let recipeBasicNutritionDataComponentsPage: RecipeBasicNutritionDataComponentsPage;
-  /*let recipeBasicNutritionDataDeleteDialog: RecipeBasicNutritionDataDeleteDialog;*/
+  let recipeBasicNutritionDataDeleteDialog: RecipeBasicNutritionDataDeleteDialog;
 
   before(async () => {
     await browser.get('/');
@@ -41,38 +41,39 @@ describe('RecipeBasicNutritionData e2e test', () => {
     await recipeBasicNutritionDataUpdatePage.cancel();
   });
 
-  /* it('should create and save RecipeBasicNutritionData', async () => {
-        const nbButtonsBeforeCreate = await recipeBasicNutritionDataComponentsPage.countDeleteButtons();
+  it('should create and save RecipeBasicNutritionData', async () => {
+    const nbButtonsBeforeCreate = await recipeBasicNutritionDataComponentsPage.countDeleteButtons();
 
-        await recipeBasicNutritionDataComponentsPage.clickOnCreateButton();
-        await promise.all([
-            recipeBasicNutritionDataUpdatePage.setEnergyInput('5'),
-            recipeBasicNutritionDataUpdatePage.setProteinInput('5'),
-            recipeBasicNutritionDataUpdatePage.setFatInput('5'),
-            recipeBasicNutritionDataUpdatePage.setCarbohydratesInput('5'),
-            recipeBasicNutritionDataUpdatePage.recipeSelectLastOption(),
-        ]);
-        expect(await recipeBasicNutritionDataUpdatePage.getEnergyInput()).to.eq('5', 'Expected energy value to be equals to 5');
-        expect(await recipeBasicNutritionDataUpdatePage.getProteinInput()).to.eq('5', 'Expected protein value to be equals to 5');
-        expect(await recipeBasicNutritionDataUpdatePage.getFatInput()).to.eq('5', 'Expected fat value to be equals to 5');
-        expect(await recipeBasicNutritionDataUpdatePage.getCarbohydratesInput()).to.eq('5', 'Expected carbohydrates value to be equals to 5');
-        await recipeBasicNutritionDataUpdatePage.save();
-        expect(await recipeBasicNutritionDataUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
+    await recipeBasicNutritionDataComponentsPage.clickOnCreateButton();
+    await promise.all([
+      recipeBasicNutritionDataUpdatePage.setEnergyInput('5'),
+      recipeBasicNutritionDataUpdatePage.setProteinInput('5'),
+      recipeBasicNutritionDataUpdatePage.setFatInput('5'),
+      recipeBasicNutritionDataUpdatePage.setCarbohydratesInput('5')
+    ]);
+    expect(await recipeBasicNutritionDataUpdatePage.getEnergyInput()).to.eq('5', 'Expected energy value to be equals to 5');
+    expect(await recipeBasicNutritionDataUpdatePage.getProteinInput()).to.eq('5', 'Expected protein value to be equals to 5');
+    expect(await recipeBasicNutritionDataUpdatePage.getFatInput()).to.eq('5', 'Expected fat value to be equals to 5');
+    expect(await recipeBasicNutritionDataUpdatePage.getCarbohydratesInput()).to.eq('5', 'Expected carbohydrates value to be equals to 5');
+    await recipeBasicNutritionDataUpdatePage.save();
+    expect(await recipeBasicNutritionDataUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 
-        expect(await recipeBasicNutritionDataComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeCreate + 1, 'Expected one more entry in the table');
-    });*/
+    expect(await recipeBasicNutritionDataComponentsPage.countDeleteButtons()).to.eq(
+      nbButtonsBeforeCreate + 1,
+      'Expected one more entry in the table'
+    );
+  });
 
-  /* it('should delete last RecipeBasicNutritionData', async () => {
-        const nbButtonsBeforeDelete = await recipeBasicNutritionDataComponentsPage.countDeleteButtons();
-        await recipeBasicNutritionDataComponentsPage.clickOnLastDeleteButton();
+  it('should delete last RecipeBasicNutritionData', async () => {
+    const nbButtonsBeforeDelete = await recipeBasicNutritionDataComponentsPage.countDeleteButtons();
+    await recipeBasicNutritionDataComponentsPage.clickOnLastDeleteButton();
 
-        recipeBasicNutritionDataDeleteDialog = new RecipeBasicNutritionDataDeleteDialog();
-        expect(await recipeBasicNutritionDataDeleteDialog.getDialogTitle())
-            .to.eq('gatewayApp.recipesRecipeBasicNutritionData.delete.question');
-        await recipeBasicNutritionDataDeleteDialog.clickOnConfirmButton();
+    recipeBasicNutritionDataDeleteDialog = new RecipeBasicNutritionDataDeleteDialog();
+    expect(await recipeBasicNutritionDataDeleteDialog.getDialogTitle()).to.eq('gatewayApp.recipesRecipeBasicNutritionData.delete.question');
+    await recipeBasicNutritionDataDeleteDialog.clickOnConfirmButton();
 
-        expect(await recipeBasicNutritionDataComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
-    });*/
+    expect(await recipeBasicNutritionDataComponentsPage.countDeleteButtons()).to.eq(nbButtonsBeforeDelete - 1);
+  });
 
   after(async () => {
     await navBarPage.autoSignOut();

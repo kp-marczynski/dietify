@@ -37,7 +37,6 @@
             <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.protein">Protein</span></th>
             <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.fat">Fat</span></th>
             <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.carbohydrates">Carbohydrates</span></th>
-            <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.product">Product</span></th>
             <th></th>
             </tr>
             </thead>
@@ -48,11 +47,6 @@
                 <td>{{productBasicNutritionData.protein}}</td>
                 <td>{{productBasicNutritionData.fat}}</td>
                 <td>{{productBasicNutritionData.carbohydrates}}</td>
-                <td>
-                    <div *ngIf="productBasicNutritionData.productId">
-                        <a [routerLink]="['../product', productBasicNutritionData.productId , 'view' ]" >{{productBasicNutritionData.productDescription}}</a>
-                    </div>
-                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

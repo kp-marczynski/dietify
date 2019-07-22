@@ -28,7 +28,7 @@ export class NutritionDefinitionTranslationUpdatePage {
   cancelButton = element(by.id('cancel-save'));
   translationInput = element(by.id('field_translation'));
   languageInput = element(by.id('field_language'));
-  nutritionDefinitionsSelect = element(by.id('field_nutritionDefinitions'));
+  nutritionDefinitionSelect = element(by.id('field_nutritionDefinition'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -50,23 +50,23 @@ export class NutritionDefinitionTranslationUpdatePage {
     return await this.languageInput.getAttribute('value');
   }
 
-  async nutritionDefinitionsSelectLastOption(timeout?: number) {
-    await this.nutritionDefinitionsSelect
+  async nutritionDefinitionSelectLastOption(timeout?: number) {
+    await this.nutritionDefinitionSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async nutritionDefinitionsSelectOption(option) {
-    await this.nutritionDefinitionsSelect.sendKeys(option);
+  async nutritionDefinitionSelectOption(option) {
+    await this.nutritionDefinitionSelect.sendKeys(option);
   }
 
-  getNutritionDefinitionsSelect(): ElementFinder {
-    return this.nutritionDefinitionsSelect;
+  getNutritionDefinitionSelect(): ElementFinder {
+    return this.nutritionDefinitionSelect;
   }
 
-  async getNutritionDefinitionsSelectedOption() {
-    return await this.nutritionDefinitionsSelect.element(by.css('option:checked')).getText();
+  async getNutritionDefinitionSelectedOption() {
+    return await this.nutritionDefinitionSelect.element(by.css('option:checked')).getText();
   }
 
   async save(timeout?: number) {

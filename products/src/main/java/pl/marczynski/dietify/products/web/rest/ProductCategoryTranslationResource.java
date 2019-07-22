@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.ProductCategoryTranslation;
 import pl.marczynski.dietify.products.service.ProductCategoryTranslationService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.ProductCategoryTranslationDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class ProductCategoryTranslationResource {
     /**
      * {@code POST  /product-category-translations} : Create a new productCategoryTranslation.
      *
-     * @param productCategoryTranslationDTO the productCategoryTranslationDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productCategoryTranslationDTO, or with status {@code 400 (Bad Request)} if the productCategoryTranslation has already an ID.
+     * @param productCategoryTranslation the productCategoryTranslation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productCategoryTranslation, or with status {@code 400 (Bad Request)} if the productCategoryTranslation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/product-category-translations")
-    public ResponseEntity<ProductCategoryTranslationDTO> createProductCategoryTranslation(@Valid @RequestBody ProductCategoryTranslationDTO productCategoryTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to save ProductCategoryTranslation : {}", productCategoryTranslationDTO);
-        if (productCategoryTranslationDTO.getId() != null) {
+    public ResponseEntity<ProductCategoryTranslation> createProductCategoryTranslation(@Valid @RequestBody ProductCategoryTranslation productCategoryTranslation) throws URISyntaxException {
+        log.debug("REST request to save ProductCategoryTranslation : {}", productCategoryTranslation);
+        if (productCategoryTranslation.getId() != null) {
             throw new BadRequestAlertException("A new productCategoryTranslation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ProductCategoryTranslationDTO result = productCategoryTranslationService.save(productCategoryTranslationDTO);
+        ProductCategoryTranslation result = productCategoryTranslationService.save(productCategoryTranslation);
         return ResponseEntity.created(new URI("/api/product-category-translations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class ProductCategoryTranslationResource {
     /**
      * {@code PUT  /product-category-translations} : Updates an existing productCategoryTranslation.
      *
-     * @param productCategoryTranslationDTO the productCategoryTranslationDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productCategoryTranslationDTO,
-     * or with status {@code 400 (Bad Request)} if the productCategoryTranslationDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the productCategoryTranslationDTO couldn't be updated.
+     * @param productCategoryTranslation the productCategoryTranslation to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productCategoryTranslation,
+     * or with status {@code 400 (Bad Request)} if the productCategoryTranslation is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the productCategoryTranslation couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/product-category-translations")
-    public ResponseEntity<ProductCategoryTranslationDTO> updateProductCategoryTranslation(@Valid @RequestBody ProductCategoryTranslationDTO productCategoryTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to update ProductCategoryTranslation : {}", productCategoryTranslationDTO);
-        if (productCategoryTranslationDTO.getId() == null) {
+    public ResponseEntity<ProductCategoryTranslation> updateProductCategoryTranslation(@Valid @RequestBody ProductCategoryTranslation productCategoryTranslation) throws URISyntaxException {
+        log.debug("REST request to update ProductCategoryTranslation : {}", productCategoryTranslation);
+        if (productCategoryTranslation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ProductCategoryTranslationDTO result = productCategoryTranslationService.save(productCategoryTranslationDTO);
+        ProductCategoryTranslation result = productCategoryTranslationService.save(productCategoryTranslation);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productCategoryTranslationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productCategoryTranslation.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class ProductCategoryTranslationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productCategoryTranslations in body.
      */
     @GetMapping("/product-category-translations")
-    public List<ProductCategoryTranslationDTO> getAllProductCategoryTranslations() {
+    public List<ProductCategoryTranslation> getAllProductCategoryTranslations() {
         log.debug("REST request to get all ProductCategoryTranslations");
         return productCategoryTranslationService.findAll();
     }
@@ -96,20 +96,20 @@ public class ProductCategoryTranslationResource {
     /**
      * {@code GET  /product-category-translations/:id} : get the "id" productCategoryTranslation.
      *
-     * @param id the id of the productCategoryTranslationDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productCategoryTranslationDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the productCategoryTranslation to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productCategoryTranslation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/product-category-translations/{id}")
-    public ResponseEntity<ProductCategoryTranslationDTO> getProductCategoryTranslation(@PathVariable Long id) {
+    public ResponseEntity<ProductCategoryTranslation> getProductCategoryTranslation(@PathVariable Long id) {
         log.debug("REST request to get ProductCategoryTranslation : {}", id);
-        Optional<ProductCategoryTranslationDTO> productCategoryTranslationDTO = productCategoryTranslationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(productCategoryTranslationDTO);
+        Optional<ProductCategoryTranslation> productCategoryTranslation = productCategoryTranslationService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(productCategoryTranslation);
     }
 
     /**
      * {@code DELETE  /product-category-translations/:id} : delete the "id" productCategoryTranslation.
      *
-     * @param id the id of the productCategoryTranslationDTO to delete.
+     * @param id the id of the productCategoryTranslation to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/product-category-translations/{id}")
@@ -127,7 +127,7 @@ public class ProductCategoryTranslationResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/product-category-translations")
-    public List<ProductCategoryTranslationDTO> searchProductCategoryTranslations(@RequestParam String query) {
+    public List<ProductCategoryTranslation> searchProductCategoryTranslations(@RequestParam String query) {
         log.debug("REST request to search ProductCategoryTranslations for query {}", query);
         return productCategoryTranslationService.search(query);
     }

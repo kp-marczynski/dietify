@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.service.AppointmentService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.appointments.service.dto.AppointmentDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -25,7 +25,6 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 /**
  * REST controller for managing {@link pl.marczynski.dietify.appointments.domain.Appointment}.
@@ -50,17 +49,17 @@ public class AppointmentResource {
     /**
      * {@code POST  /appointments} : Create a new appointment.
      *
-     * @param appointmentDTO the appointmentDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new appointmentDTO, or with status {@code 400 (Bad Request)} if the appointment has already an ID.
+     * @param appointment the appointment to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new appointment, or with status {@code 400 (Bad Request)} if the appointment has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/appointments")
-    public ResponseEntity<AppointmentDTO> createAppointment(@Valid @RequestBody AppointmentDTO appointmentDTO) throws URISyntaxException {
-        log.debug("REST request to save Appointment : {}", appointmentDTO);
-        if (appointmentDTO.getId() != null) {
+    public ResponseEntity<Appointment> createAppointment(@Valid @RequestBody Appointment appointment) throws URISyntaxException {
+        log.debug("REST request to save Appointment : {}", appointment);
+        if (appointment.getId() != null) {
             throw new BadRequestAlertException("A new appointment cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        AppointmentDTO result = appointmentService.save(appointmentDTO);
+        Appointment result = appointmentService.save(appointment);
         return ResponseEntity.created(new URI("/api/appointments/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -69,21 +68,21 @@ public class AppointmentResource {
     /**
      * {@code PUT  /appointments} : Updates an existing appointment.
      *
-     * @param appointmentDTO the appointmentDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated appointmentDTO,
-     * or with status {@code 400 (Bad Request)} if the appointmentDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the appointmentDTO couldn't be updated.
+     * @param appointment the appointment to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated appointment,
+     * or with status {@code 400 (Bad Request)} if the appointment is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the appointment couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/appointments")
-    public ResponseEntity<AppointmentDTO> updateAppointment(@Valid @RequestBody AppointmentDTO appointmentDTO) throws URISyntaxException {
-        log.debug("REST request to update Appointment : {}", appointmentDTO);
-        if (appointmentDTO.getId() == null) {
+    public ResponseEntity<Appointment> updateAppointment(@Valid @RequestBody Appointment appointment) throws URISyntaxException {
+        log.debug("REST request to update Appointment : {}", appointment);
+        if (appointment.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        AppointmentDTO result = appointmentService.save(appointmentDTO);
+        Appointment result = appointmentService.save(appointment);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, appointmentDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, appointment.getId().toString()))
             .body(result);
     }
 
@@ -93,23 +92,12 @@ public class AppointmentResource {
      * @param pageable the pagination information.
      * @param queryParams a {@link MultiValueMap} query parameters.
      * @param uriBuilder a {@link UriComponentsBuilder} URI builder.
-     * @param filter the filter of the request.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of appointments in body.
      */
     @GetMapping("/appointments")
-    public ResponseEntity<List<AppointmentDTO>> getAllAppointments(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false) String filter) {
-        if ("bodymeasurement-is-null".equals(filter)) {
-            log.debug("REST request to get all Appointments where bodyMeasurement is null");
-            return new ResponseEntity<>(appointmentService.findAllWhereBodyMeasurementIsNull(),
-                    HttpStatus.OK);
-        }
-        if ("nutritionalinterview-is-null".equals(filter)) {
-            log.debug("REST request to get all Appointments where nutritionalInterview is null");
-            return new ResponseEntity<>(appointmentService.findAllWhereNutritionalInterviewIsNull(),
-                    HttpStatus.OK);
-        }
+    public ResponseEntity<List<Appointment>> getAllAppointments(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of Appointments");
-        Page<AppointmentDTO> page = appointmentService.findAll(pageable);
+        Page<Appointment> page = appointmentService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -117,20 +105,20 @@ public class AppointmentResource {
     /**
      * {@code GET  /appointments/:id} : get the "id" appointment.
      *
-     * @param id the id of the appointmentDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the appointmentDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the appointment to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the appointment, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/appointments/{id}")
-    public ResponseEntity<AppointmentDTO> getAppointment(@PathVariable Long id) {
+    public ResponseEntity<Appointment> getAppointment(@PathVariable Long id) {
         log.debug("REST request to get Appointment : {}", id);
-        Optional<AppointmentDTO> appointmentDTO = appointmentService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(appointmentDTO);
+        Optional<Appointment> appointment = appointmentService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(appointment);
     }
 
     /**
      * {@code DELETE  /appointments/:id} : delete the "id" appointment.
      *
-     * @param id the id of the appointmentDTO to delete.
+     * @param id the id of the appointment to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/appointments/{id}")

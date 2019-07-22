@@ -15,8 +15,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesKitchenApplianceTranslation.kitchenAppliance">Kitchen Appliance</span></dt>
                 <dd>
-                    <div *ngIf="kitchenApplianceTranslation.kitchenApplianceId">
-                        <a [routerLink]="['/kitchen-appliance', kitchenApplianceTranslation.kitchenApplianceId, 'view']">{{kitchenApplianceTranslation.kitchenApplianceName}}</a>
+                    <div *ngIf="kitchenApplianceTranslation.kitchenAppliance">
+                        <a [routerLink]="['/kitchen-appliance', kitchenApplianceTranslation.kitchenAppliance?.id, 'view']">{{kitchenApplianceTranslation.kitchenAppliance?.name}}</a>
                     </div>
                 </dd>
             </dl>

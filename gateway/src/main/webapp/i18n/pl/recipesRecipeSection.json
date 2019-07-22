@@ -15,9 +15,9 @@
         "title": "Recipe Section"
       },
       "sectionName": "Section Name",
-      "recipe": "Recipe",
       "productPortions": "Product Portions",
       "preparationSteps": "Preparation Steps",
+      "recipe": "Recipe",
       "help": {
         "sectionName": "Name of recipe section in language of a recipe"
       }

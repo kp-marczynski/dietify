@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.CustomNutritionalInterviewQuestionTemplate;
 import pl.marczynski.dietify.appointments.service.CustomNutritionalInterviewQuestionTemplateService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.appointments.service.dto.CustomNutritionalInterviewQuestionTemplateDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -42,17 +42,17 @@ public class CustomNutritionalInterviewQuestionTemplateResource {
     /**
      * {@code POST  /custom-nutritional-interview-question-templates} : Create a new customNutritionalInterviewQuestionTemplate.
      *
-     * @param customNutritionalInterviewQuestionTemplateDTO the customNutritionalInterviewQuestionTemplateDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new customNutritionalInterviewQuestionTemplateDTO, or with status {@code 400 (Bad Request)} if the customNutritionalInterviewQuestionTemplate has already an ID.
+     * @param customNutritionalInterviewQuestionTemplate the customNutritionalInterviewQuestionTemplate to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new customNutritionalInterviewQuestionTemplate, or with status {@code 400 (Bad Request)} if the customNutritionalInterviewQuestionTemplate has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/custom-nutritional-interview-question-templates")
-    public ResponseEntity<CustomNutritionalInterviewQuestionTemplateDTO> createCustomNutritionalInterviewQuestionTemplate(@Valid @RequestBody CustomNutritionalInterviewQuestionTemplateDTO customNutritionalInterviewQuestionTemplateDTO) throws URISyntaxException {
-        log.debug("REST request to save CustomNutritionalInterviewQuestionTemplate : {}", customNutritionalInterviewQuestionTemplateDTO);
-        if (customNutritionalInterviewQuestionTemplateDTO.getId() != null) {
+    public ResponseEntity<CustomNutritionalInterviewQuestionTemplate> createCustomNutritionalInterviewQuestionTemplate(@Valid @RequestBody CustomNutritionalInterviewQuestionTemplate customNutritionalInterviewQuestionTemplate) throws URISyntaxException {
+        log.debug("REST request to save CustomNutritionalInterviewQuestionTemplate : {}", customNutritionalInterviewQuestionTemplate);
+        if (customNutritionalInterviewQuestionTemplate.getId() != null) {
             throw new BadRequestAlertException("A new customNutritionalInterviewQuestionTemplate cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        CustomNutritionalInterviewQuestionTemplateDTO result = customNutritionalInterviewQuestionTemplateService.save(customNutritionalInterviewQuestionTemplateDTO);
+        CustomNutritionalInterviewQuestionTemplate result = customNutritionalInterviewQuestionTemplateService.save(customNutritionalInterviewQuestionTemplate);
         return ResponseEntity.created(new URI("/api/custom-nutritional-interview-question-templates/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -61,21 +61,21 @@ public class CustomNutritionalInterviewQuestionTemplateResource {
     /**
      * {@code PUT  /custom-nutritional-interview-question-templates} : Updates an existing customNutritionalInterviewQuestionTemplate.
      *
-     * @param customNutritionalInterviewQuestionTemplateDTO the customNutritionalInterviewQuestionTemplateDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated customNutritionalInterviewQuestionTemplateDTO,
-     * or with status {@code 400 (Bad Request)} if the customNutritionalInterviewQuestionTemplateDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the customNutritionalInterviewQuestionTemplateDTO couldn't be updated.
+     * @param customNutritionalInterviewQuestionTemplate the customNutritionalInterviewQuestionTemplate to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated customNutritionalInterviewQuestionTemplate,
+     * or with status {@code 400 (Bad Request)} if the customNutritionalInterviewQuestionTemplate is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the customNutritionalInterviewQuestionTemplate couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/custom-nutritional-interview-question-templates")
-    public ResponseEntity<CustomNutritionalInterviewQuestionTemplateDTO> updateCustomNutritionalInterviewQuestionTemplate(@Valid @RequestBody CustomNutritionalInterviewQuestionTemplateDTO customNutritionalInterviewQuestionTemplateDTO) throws URISyntaxException {
-        log.debug("REST request to update CustomNutritionalInterviewQuestionTemplate : {}", customNutritionalInterviewQuestionTemplateDTO);
-        if (customNutritionalInterviewQuestionTemplateDTO.getId() == null) {
+    public ResponseEntity<CustomNutritionalInterviewQuestionTemplate> updateCustomNutritionalInterviewQuestionTemplate(@Valid @RequestBody CustomNutritionalInterviewQuestionTemplate customNutritionalInterviewQuestionTemplate) throws URISyntaxException {
+        log.debug("REST request to update CustomNutritionalInterviewQuestionTemplate : {}", customNutritionalInterviewQuestionTemplate);
+        if (customNutritionalInterviewQuestionTemplate.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        CustomNutritionalInterviewQuestionTemplateDTO result = customNutritionalInterviewQuestionTemplateService.save(customNutritionalInterviewQuestionTemplateDTO);
+        CustomNutritionalInterviewQuestionTemplate result = customNutritionalInterviewQuestionTemplateService.save(customNutritionalInterviewQuestionTemplate);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, customNutritionalInterviewQuestionTemplateDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, customNutritionalInterviewQuestionTemplate.getId().toString()))
             .body(result);
     }
 
@@ -85,7 +85,7 @@ public class CustomNutritionalInterviewQuestionTemplateResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of customNutritionalInterviewQuestionTemplates in body.
      */
     @GetMapping("/custom-nutritional-interview-question-templates")
-    public List<CustomNutritionalInterviewQuestionTemplateDTO> getAllCustomNutritionalInterviewQuestionTemplates() {
+    public List<CustomNutritionalInterviewQuestionTemplate> getAllCustomNutritionalInterviewQuestionTemplates() {
         log.debug("REST request to get all CustomNutritionalInterviewQuestionTemplates");
         return customNutritionalInterviewQuestionTemplateService.findAll();
     }
@@ -93,20 +93,20 @@ public class CustomNutritionalInterviewQuestionTemplateResource {
     /**
      * {@code GET  /custom-nutritional-interview-question-templates/:id} : get the "id" customNutritionalInterviewQuestionTemplate.
      *
-     * @param id the id of the customNutritionalInterviewQuestionTemplateDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the customNutritionalInterviewQuestionTemplateDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the customNutritionalInterviewQuestionTemplate to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the customNutritionalInterviewQuestionTemplate, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/custom-nutritional-interview-question-templates/{id}")
-    public ResponseEntity<CustomNutritionalInterviewQuestionTemplateDTO> getCustomNutritionalInterviewQuestionTemplate(@PathVariable Long id) {
+    public ResponseEntity<CustomNutritionalInterviewQuestionTemplate> getCustomNutritionalInterviewQuestionTemplate(@PathVariable Long id) {
         log.debug("REST request to get CustomNutritionalInterviewQuestionTemplate : {}", id);
-        Optional<CustomNutritionalInterviewQuestionTemplateDTO> customNutritionalInterviewQuestionTemplateDTO = customNutritionalInterviewQuestionTemplateService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(customNutritionalInterviewQuestionTemplateDTO);
+        Optional<CustomNutritionalInterviewQuestionTemplate> customNutritionalInterviewQuestionTemplate = customNutritionalInterviewQuestionTemplateService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(customNutritionalInterviewQuestionTemplate);
     }
 
     /**
      * {@code DELETE  /custom-nutritional-interview-question-templates/:id} : delete the "id" customNutritionalInterviewQuestionTemplate.
      *
-     * @param id the id of the customNutritionalInterviewQuestionTemplateDTO to delete.
+     * @param id the id of the customNutritionalInterviewQuestionTemplate to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/custom-nutritional-interview-question-templates/{id}")

@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.OwnedKitchenApplianceDTO;
+import pl.marczynski.dietify.appointments.domain.OwnedKitchenAppliance;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.OwnedKitchenAppliance}.
+ * Service Interface for managing {@link OwnedKitchenAppliance}.
  */
 public interface OwnedKitchenApplianceService {
 
     /**
      * Save a ownedKitchenAppliance.
      *
-     * @param ownedKitchenApplianceDTO the entity to save.
+     * @param ownedKitchenAppliance the entity to save.
      * @return the persisted entity.
      */
-    OwnedKitchenApplianceDTO save(OwnedKitchenApplianceDTO ownedKitchenApplianceDTO);
+    OwnedKitchenAppliance save(OwnedKitchenAppliance ownedKitchenAppliance);
 
     /**
      * Get all the ownedKitchenAppliances.
      *
      * @return the list of entities.
      */
-    List<OwnedKitchenApplianceDTO> findAll();
+    List<OwnedKitchenAppliance> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface OwnedKitchenApplianceService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<OwnedKitchenApplianceDTO> findOne(Long id);
+    Optional<OwnedKitchenAppliance> findOne(Long id);
 
     /**
      * Delete the "id" ownedKitchenAppliance.

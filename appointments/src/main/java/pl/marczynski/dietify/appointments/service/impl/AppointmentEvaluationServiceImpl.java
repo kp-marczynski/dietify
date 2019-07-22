@@ -3,8 +3,6 @@ package pl.marczynski.dietify.appointments.service.impl;
 import pl.marczynski.dietify.appointments.service.AppointmentEvaluationService;
 import pl.marczynski.dietify.appointments.domain.AppointmentEvaluation;
 import pl.marczynski.dietify.appointments.repository.AppointmentEvaluationRepository;
-import pl.marczynski.dietify.appointments.service.dto.AppointmentEvaluationDTO;
-import pl.marczynski.dietify.appointments.service.mapper.AppointmentEvaluationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,25 +24,20 @@ public class AppointmentEvaluationServiceImpl implements AppointmentEvaluationSe
 
     private final AppointmentEvaluationRepository appointmentEvaluationRepository;
 
-    private final AppointmentEvaluationMapper appointmentEvaluationMapper;
-
-    public AppointmentEvaluationServiceImpl(AppointmentEvaluationRepository appointmentEvaluationRepository, AppointmentEvaluationMapper appointmentEvaluationMapper) {
+    public AppointmentEvaluationServiceImpl(AppointmentEvaluationRepository appointmentEvaluationRepository) {
         this.appointmentEvaluationRepository = appointmentEvaluationRepository;
-        this.appointmentEvaluationMapper = appointmentEvaluationMapper;
     }
 
     /**
      * Save a appointmentEvaluation.
      *
-     * @param appointmentEvaluationDTO the entity to save.
+     * @param appointmentEvaluation the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public AppointmentEvaluationDTO save(AppointmentEvaluationDTO appointmentEvaluationDTO) {
-        log.debug("Request to save AppointmentEvaluation : {}", appointmentEvaluationDTO);
-        AppointmentEvaluation appointmentEvaluation = appointmentEvaluationMapper.toEntity(appointmentEvaluationDTO);
-        appointmentEvaluation = appointmentEvaluationRepository.save(appointmentEvaluation);
-        return appointmentEvaluationMapper.toDto(appointmentEvaluation);
+    public AppointmentEvaluation save(AppointmentEvaluation appointmentEvaluation) {
+        log.debug("Request to save AppointmentEvaluation : {}", appointmentEvaluation);
+        return appointmentEvaluationRepository.save(appointmentEvaluation);
     }
 
     /**
@@ -55,10 +48,9 @@ public class AppointmentEvaluationServiceImpl implements AppointmentEvaluationSe
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<AppointmentEvaluationDTO> findAll(Pageable pageable) {
+    public Page<AppointmentEvaluation> findAll(Pageable pageable) {
         log.debug("Request to get all AppointmentEvaluations");
-        return appointmentEvaluationRepository.findAll(pageable)
-            .map(appointmentEvaluationMapper::toDto);
+        return appointmentEvaluationRepository.findAll(pageable);
     }
 
 
@@ -70,10 +62,9 @@ public class AppointmentEvaluationServiceImpl implements AppointmentEvaluationSe
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<AppointmentEvaluationDTO> findOne(Long id) {
+    public Optional<AppointmentEvaluation> findOne(Long id) {
         log.debug("Request to get AppointmentEvaluation : {}", id);
-        return appointmentEvaluationRepository.findById(id)
-            .map(appointmentEvaluationMapper::toDto);
+        return appointmentEvaluationRepository.findById(id);
     }
 
     /**

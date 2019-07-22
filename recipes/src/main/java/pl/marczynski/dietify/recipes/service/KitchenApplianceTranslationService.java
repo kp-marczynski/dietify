@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.KitchenApplianceTranslationDTO;
+import pl.marczynski.dietify.recipes.domain.KitchenApplianceTranslation;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.KitchenApplianceTranslation}.
+ * Service Interface for managing {@link KitchenApplianceTranslation}.
  */
 public interface KitchenApplianceTranslationService {
 
     /**
      * Save a kitchenApplianceTranslation.
      *
-     * @param kitchenApplianceTranslationDTO the entity to save.
+     * @param kitchenApplianceTranslation the entity to save.
      * @return the persisted entity.
      */
-    KitchenApplianceTranslationDTO save(KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO);
+    KitchenApplianceTranslation save(KitchenApplianceTranslation kitchenApplianceTranslation);
 
     /**
      * Get all the kitchenApplianceTranslations.
      *
      * @return the list of entities.
      */
-    List<KitchenApplianceTranslationDTO> findAll();
+    List<KitchenApplianceTranslation> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface KitchenApplianceTranslationService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<KitchenApplianceTranslationDTO> findOne(Long id);
+    Optional<KitchenApplianceTranslation> findOne(Long id);
 
     /**
      * Delete the "id" kitchenApplianceTranslation.
@@ -48,5 +48,5 @@ public interface KitchenApplianceTranslationService {
      * 
      * @return the list of entities.
      */
-    List<KitchenApplianceTranslationDTO> search(String query);
+    List<KitchenApplianceTranslation> search(String query);
 }

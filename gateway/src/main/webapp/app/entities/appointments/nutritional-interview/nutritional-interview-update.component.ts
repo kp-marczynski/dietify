@@ -33,8 +33,7 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
     likedProducts: [],
     dislikedProducts: [],
     foodAllergies: [],
-    foodIntolerances: [],
-    appointmentId: [null, Validators.required]
+    foodIntolerances: []
   });
 
   constructor(
@@ -52,30 +51,12 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
       this.updateForm(nutritionalInterview);
     });
     this.appointmentService
-      .query({ filter: 'nutritionalinterview-is-null' })
+      .query()
       .pipe(
         filter((mayBeOk: HttpResponse<IAppointment[]>) => mayBeOk.ok),
         map((response: HttpResponse<IAppointment[]>) => response.body)
       )
-      .subscribe(
-        (res: IAppointment[]) => {
-          if (!!this.editForm.get('appointmentId').value) {
-            this.appointments = res;
-          } else {
-            this.appointmentService
-              .find(this.editForm.get('appointmentId').value)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IAppointment>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IAppointment>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IAppointment) => (this.appointments = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+      .subscribe((res: IAppointment[]) => (this.appointments = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(nutritionalInterview: INutritionalInterview) {
@@ -91,8 +72,7 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
       likedProducts: nutritionalInterview.likedProducts,
       dislikedProducts: nutritionalInterview.dislikedProducts,
       foodAllergies: nutritionalInterview.foodAllergies,
-      foodIntolerances: nutritionalInterview.foodIntolerances,
-      appointmentId: nutritionalInterview.appointmentId
+      foodIntolerances: nutritionalInterview.foodIntolerances
     });
   }
 
@@ -156,8 +136,7 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
       likedProducts: this.editForm.get(['likedProducts']).value,
       dislikedProducts: this.editForm.get(['dislikedProducts']).value,
       foodAllergies: this.editForm.get(['foodAllergies']).value,
-      foodIntolerances: this.editForm.get(['foodIntolerances']).value,
-      appointmentId: this.editForm.get(['appointmentId']).value
+      foodIntolerances: this.editForm.get(['foodIntolerances']).value
     };
   }
 

@@ -1,29 +1,29 @@
 package pl.marczynski.dietify.recipes.service;
 
-import pl.marczynski.dietify.recipes.service.dto.RecipeBasicNutritionDataDTO;
+import pl.marczynski.dietify.recipes.domain.RecipeBasicNutritionData;
 
 import java.util.List;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.recipes.domain.RecipeBasicNutritionData}.
+ * Service Interface for managing {@link RecipeBasicNutritionData}.
  */
 public interface RecipeBasicNutritionDataService {
 
     /**
      * Save a recipeBasicNutritionData.
      *
-     * @param recipeBasicNutritionDataDTO the entity to save.
+     * @param recipeBasicNutritionData the entity to save.
      * @return the persisted entity.
      */
-    RecipeBasicNutritionDataDTO save(RecipeBasicNutritionDataDTO recipeBasicNutritionDataDTO);
+    RecipeBasicNutritionData save(RecipeBasicNutritionData recipeBasicNutritionData);
 
     /**
      * Get all the recipeBasicNutritionData.
      *
      * @return the list of entities.
      */
-    List<RecipeBasicNutritionDataDTO> findAll();
+    List<RecipeBasicNutritionData> findAll();
 
 
     /**
@@ -32,7 +32,7 @@ public interface RecipeBasicNutritionDataService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<RecipeBasicNutritionDataDTO> findOne(Long id);
+    Optional<RecipeBasicNutritionData> findOne(Long id);
 
     /**
      * Delete the "id" recipeBasicNutritionData.
@@ -48,5 +48,5 @@ public interface RecipeBasicNutritionDataService {
      * 
      * @return the list of entities.
      */
-    List<RecipeBasicNutritionDataDTO> search(String query);
+    List<RecipeBasicNutritionData> search(String query);
 }

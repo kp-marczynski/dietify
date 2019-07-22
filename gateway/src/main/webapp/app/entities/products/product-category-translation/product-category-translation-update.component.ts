@@ -23,7 +23,7 @@ export class ProductCategoryTranslationUpdateComponent implements OnInit {
     id: [],
     translation: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    productCategoryId: [null, Validators.required]
+    productCategory: [null, Validators.required]
   });
 
   constructor(
@@ -53,7 +53,7 @@ export class ProductCategoryTranslationUpdateComponent implements OnInit {
       id: productCategoryTranslation.id,
       translation: productCategoryTranslation.translation,
       language: productCategoryTranslation.language,
-      productCategoryId: productCategoryTranslation.productCategoryId
+      productCategory: productCategoryTranslation.productCategory
     });
   }
 
@@ -77,7 +77,7 @@ export class ProductCategoryTranslationUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       translation: this.editForm.get(['translation']).value,
       language: this.editForm.get(['language']).value,
-      productCategoryId: this.editForm.get(['productCategoryId']).value
+      productCategory: this.editForm.get(['productCategory']).value
     };
   }
 

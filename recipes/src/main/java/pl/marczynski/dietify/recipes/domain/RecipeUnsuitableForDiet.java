@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.recipes.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,6 +31,7 @@ public class RecipeUnsuitableForDiet implements Serializable {
      * Id of applicable DietType entity retrieved from products service
      */
     @NotNull
+    @ApiModelProperty(value = "Id of applicable DietType entity retrieved from products service", required = true)
     @Column(name = "diet_type_id", nullable = false)
     private Long dietTypeId;
 

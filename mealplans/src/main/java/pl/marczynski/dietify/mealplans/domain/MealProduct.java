@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.mealplans.domain;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -30,12 +31,14 @@ public class MealProduct implements Serializable {
      * Id of Product entity retrieved from Products service
      */
     @NotNull
+    @ApiModelProperty(value = "Id of Product entity retrieved from Products service", required = true)
     @Column(name = "product_id", nullable = false)
     private Long productId;
 
     /**
      * Id of HouseholdMeasure entity retrieved from Products service
      */
+    @ApiModelProperty(value = "Id of HouseholdMeasure entity retrieved from Products service")
     @Column(name = "household_measure_id")
     private Long householdMeasureId;
 
@@ -44,6 +47,7 @@ public class MealProduct implements Serializable {
      */
     @NotNull
     @DecimalMin(value = "0")
+    @ApiModelProperty(value = "Amount of Product in household measure units. If household measure is null then amount is in grams.", required = true)
     @Column(name = "amount", nullable = false)
     private Double amount;
 

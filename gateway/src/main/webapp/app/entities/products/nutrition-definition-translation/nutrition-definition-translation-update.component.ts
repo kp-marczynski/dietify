@@ -26,7 +26,7 @@ export class NutritionDefinitionTranslationUpdateComponent implements OnInit {
     id: [],
     translation: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    nutritionDefinitionsId: [null, Validators.required]
+    nutritionDefinition: [null, Validators.required]
   });
 
   constructor(
@@ -56,7 +56,7 @@ export class NutritionDefinitionTranslationUpdateComponent implements OnInit {
       id: nutritionDefinitionTranslation.id,
       translation: nutritionDefinitionTranslation.translation,
       language: nutritionDefinitionTranslation.language,
-      nutritionDefinitionsId: nutritionDefinitionTranslation.nutritionDefinitionsId
+      nutritionDefinition: nutritionDefinitionTranslation.nutritionDefinition
     });
   }
 
@@ -80,7 +80,7 @@ export class NutritionDefinitionTranslationUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       translation: this.editForm.get(['translation']).value,
       language: this.editForm.get(['language']).value,
-      nutritionDefinitionsId: this.editForm.get(['nutritionDefinitionsId']).value
+      nutritionDefinition: this.editForm.get(['nutritionDefinition']).value
     };
   }
 

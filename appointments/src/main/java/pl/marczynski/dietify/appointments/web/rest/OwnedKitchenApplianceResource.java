@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.OwnedKitchenAppliance;
 import pl.marczynski.dietify.appointments.service.OwnedKitchenApplianceService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.appointments.service.dto.OwnedKitchenApplianceDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -42,17 +42,17 @@ public class OwnedKitchenApplianceResource {
     /**
      * {@code POST  /owned-kitchen-appliances} : Create a new ownedKitchenAppliance.
      *
-     * @param ownedKitchenApplianceDTO the ownedKitchenApplianceDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new ownedKitchenApplianceDTO, or with status {@code 400 (Bad Request)} if the ownedKitchenAppliance has already an ID.
+     * @param ownedKitchenAppliance the ownedKitchenAppliance to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new ownedKitchenAppliance, or with status {@code 400 (Bad Request)} if the ownedKitchenAppliance has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/owned-kitchen-appliances")
-    public ResponseEntity<OwnedKitchenApplianceDTO> createOwnedKitchenAppliance(@Valid @RequestBody OwnedKitchenApplianceDTO ownedKitchenApplianceDTO) throws URISyntaxException {
-        log.debug("REST request to save OwnedKitchenAppliance : {}", ownedKitchenApplianceDTO);
-        if (ownedKitchenApplianceDTO.getId() != null) {
+    public ResponseEntity<OwnedKitchenAppliance> createOwnedKitchenAppliance(@Valid @RequestBody OwnedKitchenAppliance ownedKitchenAppliance) throws URISyntaxException {
+        log.debug("REST request to save OwnedKitchenAppliance : {}", ownedKitchenAppliance);
+        if (ownedKitchenAppliance.getId() != null) {
             throw new BadRequestAlertException("A new ownedKitchenAppliance cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        OwnedKitchenApplianceDTO result = ownedKitchenApplianceService.save(ownedKitchenApplianceDTO);
+        OwnedKitchenAppliance result = ownedKitchenApplianceService.save(ownedKitchenAppliance);
         return ResponseEntity.created(new URI("/api/owned-kitchen-appliances/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -61,21 +61,21 @@ public class OwnedKitchenApplianceResource {
     /**
      * {@code PUT  /owned-kitchen-appliances} : Updates an existing ownedKitchenAppliance.
      *
-     * @param ownedKitchenApplianceDTO the ownedKitchenApplianceDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated ownedKitchenApplianceDTO,
-     * or with status {@code 400 (Bad Request)} if the ownedKitchenApplianceDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the ownedKitchenApplianceDTO couldn't be updated.
+     * @param ownedKitchenAppliance the ownedKitchenAppliance to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated ownedKitchenAppliance,
+     * or with status {@code 400 (Bad Request)} if the ownedKitchenAppliance is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the ownedKitchenAppliance couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/owned-kitchen-appliances")
-    public ResponseEntity<OwnedKitchenApplianceDTO> updateOwnedKitchenAppliance(@Valid @RequestBody OwnedKitchenApplianceDTO ownedKitchenApplianceDTO) throws URISyntaxException {
-        log.debug("REST request to update OwnedKitchenAppliance : {}", ownedKitchenApplianceDTO);
-        if (ownedKitchenApplianceDTO.getId() == null) {
+    public ResponseEntity<OwnedKitchenAppliance> updateOwnedKitchenAppliance(@Valid @RequestBody OwnedKitchenAppliance ownedKitchenAppliance) throws URISyntaxException {
+        log.debug("REST request to update OwnedKitchenAppliance : {}", ownedKitchenAppliance);
+        if (ownedKitchenAppliance.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        OwnedKitchenApplianceDTO result = ownedKitchenApplianceService.save(ownedKitchenApplianceDTO);
+        OwnedKitchenAppliance result = ownedKitchenApplianceService.save(ownedKitchenAppliance);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, ownedKitchenApplianceDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, ownedKitchenAppliance.getId().toString()))
             .body(result);
     }
 
@@ -85,7 +85,7 @@ public class OwnedKitchenApplianceResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of ownedKitchenAppliances in body.
      */
     @GetMapping("/owned-kitchen-appliances")
-    public List<OwnedKitchenApplianceDTO> getAllOwnedKitchenAppliances() {
+    public List<OwnedKitchenAppliance> getAllOwnedKitchenAppliances() {
         log.debug("REST request to get all OwnedKitchenAppliances");
         return ownedKitchenApplianceService.findAll();
     }
@@ -93,20 +93,20 @@ public class OwnedKitchenApplianceResource {
     /**
      * {@code GET  /owned-kitchen-appliances/:id} : get the "id" ownedKitchenAppliance.
      *
-     * @param id the id of the ownedKitchenApplianceDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the ownedKitchenApplianceDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the ownedKitchenAppliance to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the ownedKitchenAppliance, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/owned-kitchen-appliances/{id}")
-    public ResponseEntity<OwnedKitchenApplianceDTO> getOwnedKitchenAppliance(@PathVariable Long id) {
+    public ResponseEntity<OwnedKitchenAppliance> getOwnedKitchenAppliance(@PathVariable Long id) {
         log.debug("REST request to get OwnedKitchenAppliance : {}", id);
-        Optional<OwnedKitchenApplianceDTO> ownedKitchenApplianceDTO = ownedKitchenApplianceService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(ownedKitchenApplianceDTO);
+        Optional<OwnedKitchenAppliance> ownedKitchenAppliance = ownedKitchenApplianceService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(ownedKitchenAppliance);
     }
 
     /**
      * {@code DELETE  /owned-kitchen-appliances/:id} : delete the "id" ownedKitchenAppliance.
      *
-     * @param id the id of the ownedKitchenApplianceDTO to delete.
+     * @param id the id of the ownedKitchenAppliance to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/owned-kitchen-appliances/{id}")

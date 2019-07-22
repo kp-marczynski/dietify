@@ -20,6 +20,6 @@
     "kubernetesServiceType": "LoadBalancer",
     "ingressDomain": "",
     "istio": false,
-    "jwtSecretKey": "OGIxMGU2ODVlZjQzODZjMjc4MDg2ZTdmOTUyODY0ZjYzZWUwMmJjNTA1OWU0ZjA5ODM2MGU1MzEwOTNkOTcxYTQ1Nzg4OTNlMTViMTY1M2NiNWRlOWU1Zjk1Mjg1YTk3NDM2YQ=="
+    "jwtSecretKey": "MzY1ZmYwZjdkNTgzMGYzM2UwNzdmMWFkODdjY2NmYjZhMmNlMjEyMzkxMzNjNWVlNjY2NGRlMmRmODY4YmNiNjI3YzU1NjAxODlhZDM0ODI2ZDJjZjBhNTdiM2I0N2MyYjdhYw=="
   }
 }

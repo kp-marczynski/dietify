@@ -61,14 +61,14 @@
 
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.productsHouseholdMeasure.product" for="field_product">Product</label>
-                    <select class="form-control" id="field_product" name="product" formControlName="productId">
-                        <option *ngIf="!editForm.get('productId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="productOption.id" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.description}}</option>
+                    <select class="form-control" id="field_product" name="product" formControlName="product">
+                        <option *ngIf="!editForm.get('product').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="productOption.id === editForm.get('product').value?.id ? editForm.get('product').value : productOption" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.id}}</option>
                     </select>
                 </div>
-                <div *ngIf="editForm.get('productId').invalid && (editForm.get('productId').dirty || editForm.get('productId').touched)">
+                <div *ngIf="editForm.get('product').invalid && (editForm.get('product').dirty || editForm.get('product').touched)">
                     <small class="form-text text-danger"
-                           *ngIf="editForm.get('productId').errors.required" jhiTranslate="entity.validation.required">
+                           *ngIf="editForm.get('product').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                     </small>
                 </div>

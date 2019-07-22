@@ -32,9 +32,9 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190721154714",
+    "changelogDate": "20190722200944",
     "entityTableName": "cust_nutr_intr_quest_tmpl",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

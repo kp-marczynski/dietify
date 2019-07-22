@@ -22,10 +22,10 @@
         }
     ],
     "relationships": [],
-    "changelogDate": "20190721154636",
+    "changelogDate": "20190722200906",
     "javadoc": "Landing page information\n@author Krzysztof Marczyński",
     "entityTableName": "landing_page_card",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

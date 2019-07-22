@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.KitchenApplianceService;
 import pl.marczynski.dietify.recipes.domain.KitchenAppliance;
 import pl.marczynski.dietify.recipes.repository.KitchenApplianceRepository;
 import pl.marczynski.dietify.recipes.repository.search.KitchenApplianceSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.KitchenApplianceDTO;
-import pl.marczynski.dietify.recipes.service.mapper.KitchenApplianceMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class KitchenApplianceServiceImpl implements KitchenApplianceService {
 
     private final KitchenApplianceRepository kitchenApplianceRepository;
 
-    private final KitchenApplianceMapper kitchenApplianceMapper;
-
     private final KitchenApplianceSearchRepository kitchenApplianceSearchRepository;
 
-    public KitchenApplianceServiceImpl(KitchenApplianceRepository kitchenApplianceRepository, KitchenApplianceMapper kitchenApplianceMapper, KitchenApplianceSearchRepository kitchenApplianceSearchRepository) {
+    public KitchenApplianceServiceImpl(KitchenApplianceRepository kitchenApplianceRepository, KitchenApplianceSearchRepository kitchenApplianceSearchRepository) {
         this.kitchenApplianceRepository = kitchenApplianceRepository;
-        this.kitchenApplianceMapper = kitchenApplianceMapper;
         this.kitchenApplianceSearchRepository = kitchenApplianceSearchRepository;
     }
 
     /**
      * Save a kitchenAppliance.
      *
-     * @param kitchenApplianceDTO the entity to save.
+     * @param kitchenAppliance the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public KitchenApplianceDTO save(KitchenApplianceDTO kitchenApplianceDTO) {
-        log.debug("Request to save KitchenAppliance : {}", kitchenApplianceDTO);
-        KitchenAppliance kitchenAppliance = kitchenApplianceMapper.toEntity(kitchenApplianceDTO);
-        kitchenAppliance = kitchenApplianceRepository.save(kitchenAppliance);
-        KitchenApplianceDTO result = kitchenApplianceMapper.toDto(kitchenAppliance);
-        kitchenApplianceSearchRepository.save(kitchenAppliance);
+    public KitchenAppliance save(KitchenAppliance kitchenAppliance) {
+        log.debug("Request to save KitchenAppliance : {}", kitchenAppliance);
+        KitchenAppliance result = kitchenApplianceRepository.save(kitchenAppliance);
+        kitchenApplianceSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class KitchenApplianceServiceImpl implements KitchenApplianceService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<KitchenApplianceDTO> findAll() {
+    public List<KitchenAppliance> findAll() {
         log.debug("Request to get all KitchenAppliances");
-        return kitchenApplianceRepository.findAll().stream()
-            .map(kitchenApplianceMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return kitchenApplianceRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class KitchenApplianceServiceImpl implements KitchenApplianceService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<KitchenApplianceDTO> findOne(Long id) {
+    public Optional<KitchenAppliance> findOne(Long id) {
         log.debug("Request to get KitchenAppliance : {}", id);
-        return kitchenApplianceRepository.findById(id)
-            .map(kitchenApplianceMapper::toDto);
+        return kitchenApplianceRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class KitchenApplianceServiceImpl implements KitchenApplianceService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<KitchenApplianceDTO> search(String query) {
+    public List<KitchenAppliance> search(String query) {
         log.debug("Request to search KitchenAppliances for query {}", query);
         return StreamSupport
             .stream(kitchenApplianceSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(kitchenApplianceMapper::toDto)
             .collect(Collectors.toList());
     }
 }

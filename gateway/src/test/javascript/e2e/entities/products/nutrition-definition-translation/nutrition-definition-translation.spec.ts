@@ -50,7 +50,7 @@ describe('NutritionDefinitionTranslation e2e test', () => {
         await promise.all([
             nutritionDefinitionTranslationUpdatePage.setTranslationInput('translation'),
             nutritionDefinitionTranslationUpdatePage.setLanguageInput('language'),
-            nutritionDefinitionTranslationUpdatePage.nutritionDefinitionsSelectLastOption(),
+            nutritionDefinitionTranslationUpdatePage.nutritionDefinitionSelectLastOption(),
         ]);
         expect(await nutritionDefinitionTranslationUpdatePage.getTranslationInput()).to.eq('translation', 'Expected Translation value to be equals to translation');
         expect(await nutritionDefinitionTranslationUpdatePage.getLanguageInput()).to.eq('language', 'Expected Language value to be equals to language');

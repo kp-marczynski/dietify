@@ -1,9 +1,10 @@
+import { INutritionDefinition } from 'app/shared/model/products/nutrition-definition.model';
+
 export interface INutritionDefinitionTranslation {
   id?: number;
   translation?: string;
   language?: string;
-  nutritionDefinitionsTag?: string;
-  nutritionDefinitionsId?: number;
+  nutritionDefinition?: INutritionDefinition;
 }
 
 export class NutritionDefinitionTranslation implements INutritionDefinitionTranslation {
@@ -11,7 +12,6 @@ export class NutritionDefinitionTranslation implements INutritionDefinitionTrans
     public id?: number,
     public translation?: string,
     public language?: string,
-    public nutritionDefinitionsTag?: string,
-    public nutritionDefinitionsId?: number
+    public nutritionDefinition?: INutritionDefinition
   ) {}
 }

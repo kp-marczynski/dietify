@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.DishTypeTranslationService;
 import pl.marczynski.dietify.recipes.domain.DishTypeTranslation;
 import pl.marczynski.dietify.recipes.repository.DishTypeTranslationRepository;
 import pl.marczynski.dietify.recipes.repository.search.DishTypeTranslationSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.DishTypeTranslationDTO;
-import pl.marczynski.dietify.recipes.service.mapper.DishTypeTranslationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class DishTypeTranslationServiceImpl implements DishTypeTranslationServic
 
     private final DishTypeTranslationRepository dishTypeTranslationRepository;
 
-    private final DishTypeTranslationMapper dishTypeTranslationMapper;
-
     private final DishTypeTranslationSearchRepository dishTypeTranslationSearchRepository;
 
-    public DishTypeTranslationServiceImpl(DishTypeTranslationRepository dishTypeTranslationRepository, DishTypeTranslationMapper dishTypeTranslationMapper, DishTypeTranslationSearchRepository dishTypeTranslationSearchRepository) {
+    public DishTypeTranslationServiceImpl(DishTypeTranslationRepository dishTypeTranslationRepository, DishTypeTranslationSearchRepository dishTypeTranslationSearchRepository) {
         this.dishTypeTranslationRepository = dishTypeTranslationRepository;
-        this.dishTypeTranslationMapper = dishTypeTranslationMapper;
         this.dishTypeTranslationSearchRepository = dishTypeTranslationSearchRepository;
     }
 
     /**
      * Save a dishTypeTranslation.
      *
-     * @param dishTypeTranslationDTO the entity to save.
+     * @param dishTypeTranslation the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public DishTypeTranslationDTO save(DishTypeTranslationDTO dishTypeTranslationDTO) {
-        log.debug("Request to save DishTypeTranslation : {}", dishTypeTranslationDTO);
-        DishTypeTranslation dishTypeTranslation = dishTypeTranslationMapper.toEntity(dishTypeTranslationDTO);
-        dishTypeTranslation = dishTypeTranslationRepository.save(dishTypeTranslation);
-        DishTypeTranslationDTO result = dishTypeTranslationMapper.toDto(dishTypeTranslation);
-        dishTypeTranslationSearchRepository.save(dishTypeTranslation);
+    public DishTypeTranslation save(DishTypeTranslation dishTypeTranslation) {
+        log.debug("Request to save DishTypeTranslation : {}", dishTypeTranslation);
+        DishTypeTranslation result = dishTypeTranslationRepository.save(dishTypeTranslation);
+        dishTypeTranslationSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class DishTypeTranslationServiceImpl implements DishTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<DishTypeTranslationDTO> findAll() {
+    public List<DishTypeTranslation> findAll() {
         log.debug("Request to get all DishTypeTranslations");
-        return dishTypeTranslationRepository.findAll().stream()
-            .map(dishTypeTranslationMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return dishTypeTranslationRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class DishTypeTranslationServiceImpl implements DishTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<DishTypeTranslationDTO> findOne(Long id) {
+    public Optional<DishTypeTranslation> findOne(Long id) {
         log.debug("Request to get DishTypeTranslation : {}", id);
-        return dishTypeTranslationRepository.findById(id)
-            .map(dishTypeTranslationMapper::toDto);
+        return dishTypeTranslationRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class DishTypeTranslationServiceImpl implements DishTypeTranslationServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<DishTypeTranslationDTO> search(String query) {
+    public List<DishTypeTranslation> search(String query) {
         log.debug("Request to search DishTypeTranslations for query {}", query);
         return StreamSupport
             .stream(dishTypeTranslationSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(dishTypeTranslationMapper::toDto)
             .collect(Collectors.toList());
     }
 }

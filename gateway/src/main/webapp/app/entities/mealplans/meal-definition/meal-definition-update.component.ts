@@ -25,7 +25,7 @@ export class MealDefinitionUpdateComponent implements OnInit {
     mealTypeId: [null, [Validators.required]],
     timeOfMeal: [null, [Validators.required, Validators.pattern('d{2}:d{2}')]],
     percentOfEnergy: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
-    mealPlanId: [null, Validators.required]
+    mealPlan: [null, Validators.required]
   });
 
   constructor(
@@ -57,7 +57,7 @@ export class MealDefinitionUpdateComponent implements OnInit {
       mealTypeId: mealDefinition.mealTypeId,
       timeOfMeal: mealDefinition.timeOfMeal,
       percentOfEnergy: mealDefinition.percentOfEnergy,
-      mealPlanId: mealDefinition.mealPlanId
+      mealPlan: mealDefinition.mealPlan
     });
   }
 
@@ -83,7 +83,7 @@ export class MealDefinitionUpdateComponent implements OnInit {
       mealTypeId: this.editForm.get(['mealTypeId']).value,
       timeOfMeal: this.editForm.get(['timeOfMeal']).value,
       percentOfEnergy: this.editForm.get(['percentOfEnergy']).value,
-      mealPlanId: this.editForm.get(['mealPlanId']).value
+      mealPlan: this.editForm.get(['mealPlan']).value
     };
   }
 

@@ -16,7 +16,7 @@
       },
       "translation": "Translation",
       "language": "Language",
-      "nutritionDefinitions": "Nutrition Definitions",
+      "nutritionDefinition": "Nutrition Definition",
       "help": {
         "translation": "Translated description of nutrition definition",
         "language": "Language of translation as ISO_639-1 code"

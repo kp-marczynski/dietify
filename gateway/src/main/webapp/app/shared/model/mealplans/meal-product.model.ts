@@ -1,9 +1,11 @@
+import { IMeal } from 'app/shared/model/mealplans/meal.model';
+
 export interface IMealProduct {
   id?: number;
   productId?: number;
   householdMeasureId?: number;
   amount?: number;
-  mealId?: number;
+  meal?: IMeal;
 }
 
 export class MealProduct implements IMealProduct {
@@ -12,6 +14,6 @@ export class MealProduct implements IMealProduct {
     public productId?: number,
     public householdMeasureId?: number,
     public amount?: number,
-    public mealId?: number
+    public meal?: IMeal
   ) {}
 }

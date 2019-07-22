@@ -77,7 +77,7 @@ entity LandingPageCard {
 }
 
 relationship OneToOne {
-	UserExtraInfo{user(login) required}
+	UserExtraInfo{user required}
     	to User
 }
 
@@ -99,7 +99,6 @@ deployment {
 }
 
 service * with serviceImpl
-dto * with mapstruct
 noFluentMethod *
 // <<END gateway.jh>>
 
@@ -189,7 +188,7 @@ entity ProductSubcategory {
 @microservice(products)
 entity ProductCategory {
     /** Short description of category in English */
-	description String required minlength(1) maxlength(255)
+	description String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -227,7 +226,7 @@ entity HouseholdMeasure {
 @microservice(products)
 entity NutritionDefinition {
 	/** Short tag name of nutrient */
-	tag String required minlength(1) maxlength(20)
+	tag String required unique minlength(1) maxlength(20)
     /** Short description of nutrient in English */
 	description String required minlength(1) maxlength(255)
     /** Unit used for nutrient measurement, e.g. "g", "kcal", "ml" */
@@ -266,7 +265,7 @@ entity NutritionData {
 @microservice(products)
 entity DietType {
     /** Short description of diet type in English */
-    name String required minlength(1) maxlength(255)
+    name String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -282,34 +281,36 @@ entity DietTypeTranslation (diet_type_trns) {
 }
 
 relationship OneToOne {
-	ProductBasicNutritionData{product(description) required}
-    	to Product{basicNutritionData required}
+	Product{basicNutritionData required}
+    	to ProductBasicNutritionData
+}
+
+relationship OneToMany {
+	Product{nutritionData(nutritionValue)}
+		to NutritionData{product required}
+        
+    Product{householdMeasures(description)}
+    	to HouseholdMeasure{product required}
+        
+    ProductCategory{translations}
+    	to ProductCategoryTranslation{productCategory required}
+    
+    DietType{translations}
+    	to DietTypeTranslation{dietType required}
+        
+    NutritionDefinition{translations}
+    	to NutritionDefinitionTranslation{nutritionDefinition required}
 }
 
 relationship ManyToOne {
 	Product{subcategory(description) required} 
     	to ProductSubcategory
 
+	ProductSubcategory{category(description) required} 
+    	to ProductCategory
+        
 	NutritionData{nutritionDefinition(tag) required} 
     	to NutritionDefinition
-        
-	ProductSubcategory{category(description) required} 
-    	to ProductCategory{subcategories(description)}
-        
-	NutritionData{product(description) required} 
-    	to Product{nutritionData(nutritionValue)}
-        
-	HouseholdMeasure{product(description) required} 
-    	to Product{householdMeasures(description)}
-    
-    ProductCategoryTranslation{productCategory(description) required}
-    	to ProductCategory{translations}
-    
-    DietTypeTranslation{dietType(name) required}
-    	to DietType{translations}
-        
-    NutritionDefinitionTranslation{nutritionDefinitions(tag) required}
-    	to NutritionDefinition{translations}
 }
 
 relationship ManyToMany {
@@ -405,7 +406,7 @@ entity RecipeBasicNutritionData {
 @microservice(recipes)
 entity DishType {
     /** English description of dish type */
-    description String required minlength(1) maxlength(255)
+    description String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -428,7 +429,7 @@ entity DishTypeTranslation (dish_type_trns) {
 @microservice(recipes)
 entity MealType {
     /** English name of meal type */
-    name String required minlength(1) maxlength(255)
+    name String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -450,7 +451,7 @@ entity MealTypeTranslation (meal_type_trns) {
 @microservice(recipes)
 entity KitchenAppliance {
     /** English name of kitchen appliance */
-    name String required minlength(1) maxlength(255)
+    name String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -526,37 +527,39 @@ entity RecipeUnsuitableForDiet {
 }
 
 relationship OneToOne {
-	RecipeBasicNutritionData{recipe(name) required}
-    	to Recipe{basicNutritionData required}
+	Recipe{basicNutritionData required}
+    	to RecipeBasicNutritionData
+}
+
+relationship OneToMany {
+	RecipeSection{productPortions}
+    	to ProductPortion{recipeSection required} 
+    
+    RecipeSection{preparationSteps}
+    	to PreparationStep{recipeSection required}
+    
+    Recipe{recipeSections(sectionName)}
+    	to RecipeSection{recipe required} 
+    
+    Recipe{suitableForDiets}
+    	to RecipeSuitableForDiet{recipe required} 
+    
+    Recipe{unsuitableForDiets}
+    	to RecipeUnsuitableForDiet{recipe required} 
+    
+    KitchenAppliance{translations}
+    	to KitchenApplianceTranslation{kitchenAppliance(name) required}
+    
+    MealType{translations}
+    	to MealTypeTranslation{mealType(name) required}
+    
+    DishType{translations}
+    	to DishTypeTranslation{dishType(description) required}
 }
 
 relationship ManyToOne {
 	Recipe{sourceRecipe(name)}
     	to Recipe
-    
-	ProductPortion{recipeSection(sectionName) required} 
-    	to RecipeSection{productPortions}
-        
-	PreparationStep{recipeSection(sectionName) required} 
-    	to RecipeSection{preparationSteps}
-    
-	RecipeSection{recipe(name) required} 
-    	to Recipe{recipeSections(sectionName)}
-    
-    RecipeSuitableForDiet{recipe(name) required} 
-    	to Recipe{suitableForDiets}
-        
-    RecipeUnsuitableForDiet{recipe(name) required} 
-    	to Recipe{unsuitableForDiets}
-    
-    KitchenApplianceTranslation{kitchenAppliance(name) required}
-    	to KitchenAppliance{translations}
-        
-    MealTypeTranslation{mealType(name) required}
-    	to MealType{translations}
-    
-    DishTypeTranslation{dishType(description) required}
-    	to DishType{translations}
 }
 
 relationship ManyToMany {
@@ -720,27 +723,27 @@ entity MealPlanUnsuitableForDiet {
 	dietTypeId Long required
 }
 
-relationship ManyToOne {
-	Meal{mealPlanDay required} 
-    	to MealPlanDay{meals}
+relationship OneToMany {
+	MealPlan{days}
+    	to MealPlanDay{mealPlan required} 
+	
+    MealPlan{mealDefinitions}
+    	to MealDefinition{mealPlan required} 
+    
+    MealPlanDay{meals}
+    	to Meal{mealPlanDay required}   
         
-	MealPlanDay{mealPlan required} 
-    	to MealPlan{days}
-        
-    MealDefinition{mealPlan required} 
-    	to MealPlan{mealDefinitions}
-        
-    MealRecipe{meal required} 
-    	to Meal{mealRecipes}
-        
-    MealProduct{meal required} 
-    	to Meal{mealProducts}
-        
-    MealPlanSuitableForDiet{mealPlan required} 
-    	to MealPlan{tagsGoodFor}
-        
-    MealPlanUnsuitableForDiet{mealPlan required} 
-    	to MealPlan{tagsBadFor}
+    Meal{mealRecipes}   
+    	to MealRecipe{meal required} 
+    	
+    Meal{mealProducts}
+    	to MealProduct{meal required} 
+    	 
+    MealPlan{tagsGoodFor}
+    	to MealPlanSuitableForDiet{mealPlan required} 
+    	 
+    MealPlan{tagsBadFor}
+    	to MealPlanUnsuitableForDiet{mealPlan required}  
 }
 
 search MealPlan with elasticsearch
@@ -977,28 +980,27 @@ entity AppointmentEvaluation {
 }
 
 relationship OneToOne {
-    BodyMeasurement{appointment required}
-    	to Appointment{bodyMeasurement} 
+    Appointment{bodyMeasurement}
+    	to BodyMeasurement{appointment required} 
     
-    NutritionalInterview{appointment required}
-    	to Appointment{nutritionalInterview}
+    Appointment{nutritionalInterview}
+    	to NutritionalInterview{appointment required}
     
     AppointmentEvaluation{appointment required}
     	to Appointment
 }
 
-relationship ManyToOne {
-	Appointment{patientCard required} 
-    	to PatientCard{appointments}
+relationship OneToMany {
+	PatientCard{appointments}
+		to Appointment{patientCard required} 
     
-    AssignedMealPlan{appointment required}
-    	to Appointment{mealPlans}
+    Appointment{mealPlans}
+    	to AssignedMealPlan{appointment required}
+        
+    NutritionalInterview{ownedKitchenAppliances}
+    	to OwnedKitchenAppliance{nutritionalInterview required}
     
-    OwnedKitchenAppliance{nutritionalInterview required}
-    	to NutritionalInterview{ownedKitchenAppliances}
-    
-    CustomNutritionalInterviewQuestion{nutritionalInterview required}
-    	to NutritionalInterview{customQuestions}
+    NutritionalInterview{customQuestions}
+    	to CustomNutritionalInterviewQuestion{nutritionalInterview required}
 }
-
 // <<END appointments.jh>>

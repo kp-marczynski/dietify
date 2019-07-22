@@ -47,8 +47,8 @@
                 <td>{{customNutritionalInterviewQuestion.question}}</td>
                 <td>{{customNutritionalInterviewQuestion.answer}}</td>
                 <td>
-                    <div *ngIf="customNutritionalInterviewQuestion.nutritionalInterviewId">
-                        <a [routerLink]="['../nutritional-interview', customNutritionalInterviewQuestion.nutritionalInterviewId , 'view' ]" >{{customNutritionalInterviewQuestion.nutritionalInterviewId}}</a>
+                    <div *ngIf="customNutritionalInterviewQuestion.nutritionalInterview">
+                        <a [routerLink]="['../nutritional-interview', customNutritionalInterviewQuestion.nutritionalInterview?.id, 'view' ]" >{{customNutritionalInterviewQuestion.nutritionalInterview?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

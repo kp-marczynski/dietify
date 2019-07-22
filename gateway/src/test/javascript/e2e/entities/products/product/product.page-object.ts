@@ -32,6 +32,7 @@ export class ProductUpdatePage {
   isFinalInput = element(by.id('field_isFinal'));
   isVerifiedInput = element(by.id('field_isVerified'));
   languageInput = element(by.id('field_language'));
+  basicNutritionDataSelect = element(by.id('field_basicNutritionData'));
   subcategorySelect = element(by.id('field_subcategory'));
   suitableDietsSelect = element(by.id('field_suitableDiets'));
   unsuitableDietsSelect = element(by.id('field_unsuitableDiets'));
@@ -76,6 +77,25 @@ export class ProductUpdatePage {
 
   async getLanguageInput() {
     return await this.languageInput.getAttribute('value');
+  }
+
+  async basicNutritionDataSelectLastOption(timeout?: number) {
+    await this.basicNutritionDataSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async basicNutritionDataSelectOption(option) {
+    await this.basicNutritionDataSelect.sendKeys(option);
+  }
+
+  getBasicNutritionDataSelect(): ElementFinder {
+    return this.basicNutritionDataSelect;
+  }
+
+  async getBasicNutritionDataSelectedOption() {
+    return await this.basicNutritionDataSelect.element(by.css('option:checked')).getText();
   }
 
   async subcategorySelectLastOption(timeout?: number) {

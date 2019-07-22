@@ -32,37 +32,39 @@
     ],
     "relationships": [
         {
-            "relationshipType": "many-to-one",
-            "otherEntityName": "patientCard",
-            "otherEntityRelationshipName": "appointments",
-            "relationshipValidateRules": "required",
-            "relationshipName": "patientCard",
-            "otherEntityField": "id"
-        },
-        {
             "relationshipType": "one-to-one",
             "otherEntityName": "bodyMeasurement",
             "otherEntityRelationshipName": "appointment",
             "relationshipName": "bodyMeasurement",
-            "ownerSide": false
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
             "relationshipType": "one-to-one",
             "otherEntityName": "nutritionalInterview",
             "otherEntityRelationshipName": "appointment",
             "relationshipName": "nutritionalInterview",
-            "ownerSide": false
+            "otherEntityField": "id",
+            "ownerSide": true
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "assignedMealPlan",
             "otherEntityRelationshipName": "appointment",
             "relationshipName": "mealPlans"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "patientCard",
+            "otherEntityRelationshipName": "appointments",
+            "relationshipValidateRules": "required",
+            "relationshipName": "patientCard",
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154710",
+    "changelogDate": "20190722200940",
     "entityTableName": "appointment",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

@@ -20,9 +20,9 @@
             "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154715",
+    "changelogDate": "20190722200945",
     "entityTableName": "owned_kitchen_appliance",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

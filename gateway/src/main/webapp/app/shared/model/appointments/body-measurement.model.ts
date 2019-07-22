@@ -1,4 +1,5 @@
 import { Moment } from 'moment';
+import { IAppointment } from 'app/shared/model/appointments/appointment.model';
 
 export interface IBodyMeasurement {
   id?: number;
@@ -14,7 +15,7 @@ export interface IBodyMeasurement {
   basicMetabolism?: number;
   metabolicAge?: number;
   visceralFatLevel?: number;
-  appointmentId?: number;
+  appointment?: IAppointment;
 }
 
 export class BodyMeasurement implements IBodyMeasurement {
@@ -32,6 +33,6 @@ export class BodyMeasurement implements IBodyMeasurement {
     public basicMetabolism?: number,
     public metabolicAge?: number,
     public visceralFatLevel?: number,
-    public appointmentId?: number
+    public appointment?: IAppointment
   ) {}
 }

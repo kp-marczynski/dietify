@@ -22,7 +22,7 @@ export class ProductSubcategoryUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
-    categoryId: [null, Validators.required]
+    category: [null, Validators.required]
   });
 
   constructor(
@@ -51,7 +51,7 @@ export class ProductSubcategoryUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: productSubcategory.id,
       description: productSubcategory.description,
-      categoryId: productSubcategory.categoryId
+      category: productSubcategory.category
     });
   }
 
@@ -74,7 +74,7 @@ export class ProductSubcategoryUpdateComponent implements OnInit {
       ...new ProductSubcategory(),
       id: this.editForm.get(['id']).value,
       description: this.editForm.get(['description']).value,
-      categoryId: this.editForm.get(['categoryId']).value
+      category: this.editForm.get(['category']).value
     };
   }
 

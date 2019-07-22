@@ -11,14 +11,14 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsNutritionData.nutritionDefinition">Nutrition Definition</span></dt>
                 <dd>
-                    <div *ngIf="nutritionData.nutritionDefinitionId">
-                        <a [routerLink]="['/nutrition-definition', nutritionData.nutritionDefinitionId, 'view']">{{nutritionData.nutritionDefinitionTag}}</a>
+                    <div *ngIf="nutritionData.nutritionDefinition">
+                        <a [routerLink]="['/nutrition-definition', nutritionData.nutritionDefinition?.id, 'view']">{{nutritionData.nutritionDefinition?.tag}}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsNutritionData.product">Product</span></dt>
                 <dd>
-                    <div *ngIf="nutritionData.productId">
-                        <a [routerLink]="['/product', nutritionData.productId, 'view']">{{nutritionData.productDescription}}</a>
+                    <div *ngIf="nutritionData.product">
+                        <a [routerLink]="['/product', nutritionData.product?.id, 'view']">{{nutritionData.product?.id}}</a>
                     </div>
                 </dd>
             </dl>

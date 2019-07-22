@@ -43,8 +43,8 @@
                 <td><a [routerLink]="['/meal-plan-unsuitable-for-diet', mealPlanUnsuitableForDiet.id, 'view' ]">{{mealPlanUnsuitableForDiet.id}}</a></td>
                 <td>{{mealPlanUnsuitableForDiet.dietTypeId}}</td>
                 <td>
-                    <div *ngIf="mealPlanUnsuitableForDiet.mealPlanId">
-                        <a [routerLink]="['../meal-plan', mealPlanUnsuitableForDiet.mealPlanId , 'view' ]" >{{mealPlanUnsuitableForDiet.mealPlanId}}</a>
+                    <div *ngIf="mealPlanUnsuitableForDiet.mealPlan">
+                        <a [routerLink]="['../meal-plan', mealPlanUnsuitableForDiet.mealPlan?.id, 'view' ]" >{{mealPlanUnsuitableForDiet.mealPlan?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

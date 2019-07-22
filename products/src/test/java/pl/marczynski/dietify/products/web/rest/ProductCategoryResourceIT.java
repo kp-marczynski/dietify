@@ -5,8 +5,6 @@ import pl.marczynski.dietify.products.domain.ProductCategory;
 import pl.marczynski.dietify.products.repository.ProductCategoryRepository;
 import pl.marczynski.dietify.products.repository.search.ProductCategorySearchRepository;
 import pl.marczynski.dietify.products.service.ProductCategoryService;
-import pl.marczynski.dietify.products.service.dto.ProductCategoryDTO;
-import pl.marczynski.dietify.products.service.mapper.ProductCategoryMapper;
 import pl.marczynski.dietify.products.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -45,9 +43,6 @@ public class ProductCategoryResourceIT {
 
     @Autowired
     private ProductCategoryRepository productCategoryRepository;
-
-    @Autowired
-    private ProductCategoryMapper productCategoryMapper;
 
     @Autowired
     private ProductCategoryService productCategoryService;
@@ -125,10 +120,9 @@ public class ProductCategoryResourceIT {
         int databaseSizeBeforeCreate = productCategoryRepository.findAll().size();
 
         // Create the ProductCategory
-        ProductCategoryDTO productCategoryDTO = productCategoryMapper.toDto(productCategory);
         restProductCategoryMockMvc.perform(post("/api/product-categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategory)))
             .andExpect(status().isCreated());
 
         // Validate the ProductCategory in the database
@@ -148,12 +142,11 @@ public class ProductCategoryResourceIT {
 
         // Create the ProductCategory with an existing ID
         productCategory.setId(1L);
-        ProductCategoryDTO productCategoryDTO = productCategoryMapper.toDto(productCategory);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restProductCategoryMockMvc.perform(post("/api/product-categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategory)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductCategory in the database
@@ -173,11 +166,10 @@ public class ProductCategoryResourceIT {
         productCategory.setDescription(null);
 
         // Create the ProductCategory, which fails.
-        ProductCategoryDTO productCategoryDTO = productCategoryMapper.toDto(productCategory);
 
         restProductCategoryMockMvc.perform(post("/api/product-categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategory)))
             .andExpect(status().isBadRequest());
 
         List<ProductCategory> productCategoryList = productCategoryRepository.findAll();
@@ -224,7 +216,9 @@ public class ProductCategoryResourceIT {
     @Transactional
     public void updateProductCategory() throws Exception {
         // Initialize the database
-        productCategoryRepository.saveAndFlush(productCategory);
+        productCategoryService.save(productCategory);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockProductCategorySearchRepository);
 
         int databaseSizeBeforeUpdate = productCategoryRepository.findAll().size();
 
@@ -233,11 +227,10 @@ public class ProductCategoryResourceIT {
         // Disconnect from session so that the updates on updatedProductCategory are not directly saved in db
         em.detach(updatedProductCategory);
         updatedProductCategory.setDescription(UPDATED_DESCRIPTION);
-        ProductCategoryDTO productCategoryDTO = productCategoryMapper.toDto(updatedProductCategory);
 
         restProductCategoryMockMvc.perform(put("/api/product-categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedProductCategory)))
             .andExpect(status().isOk());
 
         // Validate the ProductCategory in the database
@@ -256,12 +249,11 @@ public class ProductCategoryResourceIT {
         int databaseSizeBeforeUpdate = productCategoryRepository.findAll().size();
 
         // Create the ProductCategory
-        ProductCategoryDTO productCategoryDTO = productCategoryMapper.toDto(productCategory);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restProductCategoryMockMvc.perform(put("/api/product-categories")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(productCategoryDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(productCategory)))
             .andExpect(status().isBadRequest());
 
         // Validate the ProductCategory in the database
@@ -276,7 +268,7 @@ public class ProductCategoryResourceIT {
     @Transactional
     public void deleteProductCategory() throws Exception {
         // Initialize the database
-        productCategoryRepository.saveAndFlush(productCategory);
+        productCategoryService.save(productCategory);
 
         int databaseSizeBeforeDelete = productCategoryRepository.findAll().size();
 
@@ -297,7 +289,7 @@ public class ProductCategoryResourceIT {
     @Transactional
     public void searchProductCategory() throws Exception {
         // Initialize the database
-        productCategoryRepository.saveAndFlush(productCategory);
+        productCategoryService.save(productCategory);
         when(mockProductCategorySearchRepository.search(queryStringQuery("id:" + productCategory.getId())))
             .thenReturn(Collections.singletonList(productCategory));
         // Search the productCategory
@@ -321,28 +313,5 @@ public class ProductCategoryResourceIT {
         assertThat(productCategory1).isNotEqualTo(productCategory2);
         productCategory1.setId(null);
         assertThat(productCategory1).isNotEqualTo(productCategory2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(ProductCategoryDTO.class);
-        ProductCategoryDTO productCategoryDTO1 = new ProductCategoryDTO();
-        productCategoryDTO1.setId(1L);
-        ProductCategoryDTO productCategoryDTO2 = new ProductCategoryDTO();
-        assertThat(productCategoryDTO1).isNotEqualTo(productCategoryDTO2);
-        productCategoryDTO2.setId(productCategoryDTO1.getId());
-        assertThat(productCategoryDTO1).isEqualTo(productCategoryDTO2);
-        productCategoryDTO2.setId(2L);
-        assertThat(productCategoryDTO1).isNotEqualTo(productCategoryDTO2);
-        productCategoryDTO1.setId(null);
-        assertThat(productCategoryDTO1).isNotEqualTo(productCategoryDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(productCategoryMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(productCategoryMapper.fromId(null)).isNull();
     }
 }

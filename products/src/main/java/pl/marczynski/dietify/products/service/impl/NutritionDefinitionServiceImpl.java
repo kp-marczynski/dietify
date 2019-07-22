@@ -4,15 +4,12 @@ import pl.marczynski.dietify.products.service.NutritionDefinitionService;
 import pl.marczynski.dietify.products.domain.NutritionDefinition;
 import pl.marczynski.dietify.products.repository.NutritionDefinitionRepository;
 import pl.marczynski.dietify.products.repository.search.NutritionDefinitionSearchRepository;
-import pl.marczynski.dietify.products.service.dto.NutritionDefinitionDTO;
-import pl.marczynski.dietify.products.service.mapper.NutritionDefinitionMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class NutritionDefinitionServiceImpl implements NutritionDefinitionServic
 
     private final NutritionDefinitionRepository nutritionDefinitionRepository;
 
-    private final NutritionDefinitionMapper nutritionDefinitionMapper;
-
     private final NutritionDefinitionSearchRepository nutritionDefinitionSearchRepository;
 
-    public NutritionDefinitionServiceImpl(NutritionDefinitionRepository nutritionDefinitionRepository, NutritionDefinitionMapper nutritionDefinitionMapper, NutritionDefinitionSearchRepository nutritionDefinitionSearchRepository) {
+    public NutritionDefinitionServiceImpl(NutritionDefinitionRepository nutritionDefinitionRepository, NutritionDefinitionSearchRepository nutritionDefinitionSearchRepository) {
         this.nutritionDefinitionRepository = nutritionDefinitionRepository;
-        this.nutritionDefinitionMapper = nutritionDefinitionMapper;
         this.nutritionDefinitionSearchRepository = nutritionDefinitionSearchRepository;
     }
 
     /**
      * Save a nutritionDefinition.
      *
-     * @param nutritionDefinitionDTO the entity to save.
+     * @param nutritionDefinition the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public NutritionDefinitionDTO save(NutritionDefinitionDTO nutritionDefinitionDTO) {
-        log.debug("Request to save NutritionDefinition : {}", nutritionDefinitionDTO);
-        NutritionDefinition nutritionDefinition = nutritionDefinitionMapper.toEntity(nutritionDefinitionDTO);
-        nutritionDefinition = nutritionDefinitionRepository.save(nutritionDefinition);
-        NutritionDefinitionDTO result = nutritionDefinitionMapper.toDto(nutritionDefinition);
-        nutritionDefinitionSearchRepository.save(nutritionDefinition);
+    public NutritionDefinition save(NutritionDefinition nutritionDefinition) {
+        log.debug("Request to save NutritionDefinition : {}", nutritionDefinition);
+        NutritionDefinition result = nutritionDefinitionRepository.save(nutritionDefinition);
+        nutritionDefinitionSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class NutritionDefinitionServiceImpl implements NutritionDefinitionServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionDefinitionDTO> findAll() {
+    public List<NutritionDefinition> findAll() {
         log.debug("Request to get all NutritionDefinitions");
-        return nutritionDefinitionRepository.findAll().stream()
-            .map(nutritionDefinitionMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return nutritionDefinitionRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class NutritionDefinitionServiceImpl implements NutritionDefinitionServic
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<NutritionDefinitionDTO> findOne(Long id) {
+    public Optional<NutritionDefinition> findOne(Long id) {
         log.debug("Request to get NutritionDefinition : {}", id);
-        return nutritionDefinitionRepository.findById(id)
-            .map(nutritionDefinitionMapper::toDto);
+        return nutritionDefinitionRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class NutritionDefinitionServiceImpl implements NutritionDefinitionServic
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionDefinitionDTO> search(String query) {
+    public List<NutritionDefinition> search(String query) {
         log.debug("Request to search NutritionDefinitions for query {}", query);
         return StreamSupport
             .stream(nutritionDefinitionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(nutritionDefinitionMapper::toDto)
             .collect(Collectors.toList());
     }
 }

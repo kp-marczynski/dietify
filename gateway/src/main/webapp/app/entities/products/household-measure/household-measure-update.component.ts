@@ -24,7 +24,7 @@ export class HouseholdMeasureUpdateComponent implements OnInit {
     description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
     gramsWeight: [null, [Validators.required, Validators.min(0)]],
     isVisible: [null, [Validators.required]],
-    productId: [null, Validators.required]
+    product: [null, Validators.required]
   });
 
   constructor(
@@ -55,7 +55,7 @@ export class HouseholdMeasureUpdateComponent implements OnInit {
       description: householdMeasure.description,
       gramsWeight: householdMeasure.gramsWeight,
       isVisible: householdMeasure.isVisible,
-      productId: householdMeasure.productId
+      product: householdMeasure.product
     });
   }
 
@@ -80,7 +80,7 @@ export class HouseholdMeasureUpdateComponent implements OnInit {
       description: this.editForm.get(['description']).value,
       gramsWeight: this.editForm.get(['gramsWeight']).value,
       isVisible: this.editForm.get(['isVisible']).value,
-      productId: this.editForm.get(['productId']).value
+      product: this.editForm.get(['product']).value
     };
   }
 

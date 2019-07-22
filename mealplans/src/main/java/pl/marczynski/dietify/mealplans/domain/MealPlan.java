@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.mealplans.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,6 +33,7 @@ public class MealPlan implements Serializable {
      * Id of author of the plan
      */
     @NotNull
+    @ApiModelProperty(value = "Id of author of the plan", required = true)
     @Column(name = "author_id", nullable = false)
     private Long authorId;
 
@@ -39,6 +41,7 @@ public class MealPlan implements Serializable {
      * Creation date of the plan
      */
     @NotNull
+    @ApiModelProperty(value = "Creation date of the plan", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
 
@@ -46,6 +49,7 @@ public class MealPlan implements Serializable {
      * Plan name
      */
     @Size(min = 1, max = 255)
+    @ApiModelProperty(value = "Plan name")
     @Column(name = "name", length = 255)
     private String name;
 
@@ -53,6 +57,7 @@ public class MealPlan implements Serializable {
      * Flag specifying if meal plan is visible in author's list of meal plans
      */
     @NotNull
+    @ApiModelProperty(value = "Flag specifying if meal plan is visible in author's list of meal plans", required = true)
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
 
@@ -60,6 +65,7 @@ public class MealPlan implements Serializable {
      * Flag specifying if meal plan is editable
      */
     @NotNull
+    @ApiModelProperty(value = "Flag specifying if meal plan is editable", required = true)
     @Column(name = "is_locked", nullable = false)
     private Boolean isLocked;
 
@@ -68,6 +74,7 @@ public class MealPlan implements Serializable {
      */
     @NotNull
     @Size(min = 2, max = 2)
+    @ApiModelProperty(value = "Language tag of a meal plan as ISO_639-1 code", required = true)
     @Column(name = "language", length = 2, nullable = false)
     private String language;
 
@@ -76,6 +83,7 @@ public class MealPlan implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Number of days in plan", required = true)
     @Column(name = "number_of_days", nullable = false)
     private Integer numberOfDays;
 
@@ -84,6 +92,7 @@ public class MealPlan implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Number of meals per day", required = true)
     @Column(name = "number_of_meals_per_day", nullable = false)
     private Integer numberOfMealsPerDay;
 
@@ -92,6 +101,7 @@ public class MealPlan implements Serializable {
      */
     @NotNull
     @Min(value = 1)
+    @ApiModelProperty(value = "Amount of total energy per day in kcal", required = true)
     @Column(name = "total_daily_energy", nullable = false)
     private Integer totalDailyEnergy;
 
@@ -101,6 +111,7 @@ public class MealPlan implements Serializable {
     @NotNull
     @Min(value = 0)
     @Max(value = 100)
+    @ApiModelProperty(value = "Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100", required = true)
     @Column(name = "percent_of_protein", nullable = false)
     private Integer percentOfProtein;
 
@@ -110,6 +121,7 @@ public class MealPlan implements Serializable {
     @NotNull
     @Min(value = 0)
     @Max(value = 100)
+    @ApiModelProperty(value = "Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100", required = true)
     @Column(name = "percent_of_fat", nullable = false)
     private Integer percentOfFat;
 
@@ -119,6 +131,7 @@ public class MealPlan implements Serializable {
     @NotNull
     @Min(value = 0)
     @Max(value = 100)
+    @ApiModelProperty(value = "Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100", required = true)
     @Column(name = "percent_of_carbohydrates", nullable = false)
     private Integer percentOfCarbohydrates;
 

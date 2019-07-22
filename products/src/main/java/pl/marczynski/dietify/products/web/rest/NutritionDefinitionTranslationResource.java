@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.products.web.rest;
 
+import pl.marczynski.dietify.products.domain.NutritionDefinitionTranslation;
 import pl.marczynski.dietify.products.service.NutritionDefinitionTranslationService;
 import pl.marczynski.dietify.products.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.products.service.dto.NutritionDefinitionTranslationDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class NutritionDefinitionTranslationResource {
     /**
      * {@code POST  /nutrition-definition-translations} : Create a new nutritionDefinitionTranslation.
      *
-     * @param nutritionDefinitionTranslationDTO the nutritionDefinitionTranslationDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new nutritionDefinitionTranslationDTO, or with status {@code 400 (Bad Request)} if the nutritionDefinitionTranslation has already an ID.
+     * @param nutritionDefinitionTranslation the nutritionDefinitionTranslation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new nutritionDefinitionTranslation, or with status {@code 400 (Bad Request)} if the nutritionDefinitionTranslation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/nutrition-definition-translations")
-    public ResponseEntity<NutritionDefinitionTranslationDTO> createNutritionDefinitionTranslation(@Valid @RequestBody NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to save NutritionDefinitionTranslation : {}", nutritionDefinitionTranslationDTO);
-        if (nutritionDefinitionTranslationDTO.getId() != null) {
+    public ResponseEntity<NutritionDefinitionTranslation> createNutritionDefinitionTranslation(@Valid @RequestBody NutritionDefinitionTranslation nutritionDefinitionTranslation) throws URISyntaxException {
+        log.debug("REST request to save NutritionDefinitionTranslation : {}", nutritionDefinitionTranslation);
+        if (nutritionDefinitionTranslation.getId() != null) {
             throw new BadRequestAlertException("A new nutritionDefinitionTranslation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        NutritionDefinitionTranslationDTO result = nutritionDefinitionTranslationService.save(nutritionDefinitionTranslationDTO);
+        NutritionDefinitionTranslation result = nutritionDefinitionTranslationService.save(nutritionDefinitionTranslation);
         return ResponseEntity.created(new URI("/api/nutrition-definition-translations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class NutritionDefinitionTranslationResource {
     /**
      * {@code PUT  /nutrition-definition-translations} : Updates an existing nutritionDefinitionTranslation.
      *
-     * @param nutritionDefinitionTranslationDTO the nutritionDefinitionTranslationDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated nutritionDefinitionTranslationDTO,
-     * or with status {@code 400 (Bad Request)} if the nutritionDefinitionTranslationDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the nutritionDefinitionTranslationDTO couldn't be updated.
+     * @param nutritionDefinitionTranslation the nutritionDefinitionTranslation to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated nutritionDefinitionTranslation,
+     * or with status {@code 400 (Bad Request)} if the nutritionDefinitionTranslation is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the nutritionDefinitionTranslation couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/nutrition-definition-translations")
-    public ResponseEntity<NutritionDefinitionTranslationDTO> updateNutritionDefinitionTranslation(@Valid @RequestBody NutritionDefinitionTranslationDTO nutritionDefinitionTranslationDTO) throws URISyntaxException {
-        log.debug("REST request to update NutritionDefinitionTranslation : {}", nutritionDefinitionTranslationDTO);
-        if (nutritionDefinitionTranslationDTO.getId() == null) {
+    public ResponseEntity<NutritionDefinitionTranslation> updateNutritionDefinitionTranslation(@Valid @RequestBody NutritionDefinitionTranslation nutritionDefinitionTranslation) throws URISyntaxException {
+        log.debug("REST request to update NutritionDefinitionTranslation : {}", nutritionDefinitionTranslation);
+        if (nutritionDefinitionTranslation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        NutritionDefinitionTranslationDTO result = nutritionDefinitionTranslationService.save(nutritionDefinitionTranslationDTO);
+        NutritionDefinitionTranslation result = nutritionDefinitionTranslationService.save(nutritionDefinitionTranslation);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, nutritionDefinitionTranslationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, nutritionDefinitionTranslation.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class NutritionDefinitionTranslationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of nutritionDefinitionTranslations in body.
      */
     @GetMapping("/nutrition-definition-translations")
-    public List<NutritionDefinitionTranslationDTO> getAllNutritionDefinitionTranslations() {
+    public List<NutritionDefinitionTranslation> getAllNutritionDefinitionTranslations() {
         log.debug("REST request to get all NutritionDefinitionTranslations");
         return nutritionDefinitionTranslationService.findAll();
     }
@@ -96,20 +96,20 @@ public class NutritionDefinitionTranslationResource {
     /**
      * {@code GET  /nutrition-definition-translations/:id} : get the "id" nutritionDefinitionTranslation.
      *
-     * @param id the id of the nutritionDefinitionTranslationDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the nutritionDefinitionTranslationDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the nutritionDefinitionTranslation to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the nutritionDefinitionTranslation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/nutrition-definition-translations/{id}")
-    public ResponseEntity<NutritionDefinitionTranslationDTO> getNutritionDefinitionTranslation(@PathVariable Long id) {
+    public ResponseEntity<NutritionDefinitionTranslation> getNutritionDefinitionTranslation(@PathVariable Long id) {
         log.debug("REST request to get NutritionDefinitionTranslation : {}", id);
-        Optional<NutritionDefinitionTranslationDTO> nutritionDefinitionTranslationDTO = nutritionDefinitionTranslationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(nutritionDefinitionTranslationDTO);
+        Optional<NutritionDefinitionTranslation> nutritionDefinitionTranslation = nutritionDefinitionTranslationService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(nutritionDefinitionTranslation);
     }
 
     /**
      * {@code DELETE  /nutrition-definition-translations/:id} : delete the "id" nutritionDefinitionTranslation.
      *
-     * @param id the id of the nutritionDefinitionTranslationDTO to delete.
+     * @param id the id of the nutritionDefinitionTranslation to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/nutrition-definition-translations/{id}")
@@ -127,7 +127,7 @@ public class NutritionDefinitionTranslationResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/nutrition-definition-translations")
-    public List<NutritionDefinitionTranslationDTO> searchNutritionDefinitionTranslations(@RequestParam String query) {
+    public List<NutritionDefinitionTranslation> searchNutritionDefinitionTranslations(@RequestParam String query) {
         log.debug("REST request to search NutritionDefinitionTranslations for query {}", query);
         return nutritionDefinitionTranslationService.search(query);
     }

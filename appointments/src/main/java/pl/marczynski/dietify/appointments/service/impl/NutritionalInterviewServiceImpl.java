@@ -3,18 +3,16 @@ package pl.marczynski.dietify.appointments.service.impl;
 import pl.marczynski.dietify.appointments.service.NutritionalInterviewService;
 import pl.marczynski.dietify.appointments.domain.NutritionalInterview;
 import pl.marczynski.dietify.appointments.repository.NutritionalInterviewRepository;
-import pl.marczynski.dietify.appointments.service.dto.NutritionalInterviewDTO;
-import pl.marczynski.dietify.appointments.service.mapper.NutritionalInterviewMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 /**
  * Service Implementation for managing {@link NutritionalInterview}.
@@ -27,25 +25,20 @@ public class NutritionalInterviewServiceImpl implements NutritionalInterviewServ
 
     private final NutritionalInterviewRepository nutritionalInterviewRepository;
 
-    private final NutritionalInterviewMapper nutritionalInterviewMapper;
-
-    public NutritionalInterviewServiceImpl(NutritionalInterviewRepository nutritionalInterviewRepository, NutritionalInterviewMapper nutritionalInterviewMapper) {
+    public NutritionalInterviewServiceImpl(NutritionalInterviewRepository nutritionalInterviewRepository) {
         this.nutritionalInterviewRepository = nutritionalInterviewRepository;
-        this.nutritionalInterviewMapper = nutritionalInterviewMapper;
     }
 
     /**
      * Save a nutritionalInterview.
      *
-     * @param nutritionalInterviewDTO the entity to save.
+     * @param nutritionalInterview the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public NutritionalInterviewDTO save(NutritionalInterviewDTO nutritionalInterviewDTO) {
-        log.debug("Request to save NutritionalInterview : {}", nutritionalInterviewDTO);
-        NutritionalInterview nutritionalInterview = nutritionalInterviewMapper.toEntity(nutritionalInterviewDTO);
-        nutritionalInterview = nutritionalInterviewRepository.save(nutritionalInterview);
-        return nutritionalInterviewMapper.toDto(nutritionalInterview);
+    public NutritionalInterview save(NutritionalInterview nutritionalInterview) {
+        log.debug("Request to save NutritionalInterview : {}", nutritionalInterview);
+        return nutritionalInterviewRepository.save(nutritionalInterview);
     }
 
     /**
@@ -55,13 +48,25 @@ public class NutritionalInterviewServiceImpl implements NutritionalInterviewServ
      */
     @Override
     @Transactional(readOnly = true)
-    public List<NutritionalInterviewDTO> findAll() {
+    public List<NutritionalInterview> findAll() {
         log.debug("Request to get all NutritionalInterviews");
-        return nutritionalInterviewRepository.findAll().stream()
-            .map(nutritionalInterviewMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return nutritionalInterviewRepository.findAll();
     }
 
+
+
+    /**
+    *  Get all the nutritionalInterviews where Appointment is {@code null}.
+     *  @return the list of entities.
+     */
+    @Transactional(readOnly = true) 
+    public List<NutritionalInterview> findAllWhereAppointmentIsNull() {
+        log.debug("Request to get all nutritionalInterviews where Appointment is null");
+        return StreamSupport
+            .stream(nutritionalInterviewRepository.findAll().spliterator(), false)
+            .filter(nutritionalInterview -> nutritionalInterview.getAppointment() == null)
+            .collect(Collectors.toList());
+    }
 
     /**
      * Get one nutritionalInterview by id.
@@ -71,10 +76,9 @@ public class NutritionalInterviewServiceImpl implements NutritionalInterviewServ
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<NutritionalInterviewDTO> findOne(Long id) {
+    public Optional<NutritionalInterview> findOne(Long id) {
         log.debug("Request to get NutritionalInterview : {}", id);
-        return nutritionalInterviewRepository.findById(id)
-            .map(nutritionalInterviewMapper::toDto);
+        return nutritionalInterviewRepository.findById(id);
     }
 
     /**

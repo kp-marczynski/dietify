@@ -1,6 +1,8 @@
-import { IDietType } from 'app/shared/model/products/diet-type.model';
+import { IProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
 import { INutritionData } from 'app/shared/model/products/nutrition-data.model';
 import { IHouseholdMeasure } from 'app/shared/model/products/household-measure.model';
+import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
+import { IDietType } from 'app/shared/model/products/diet-type.model';
 
 export interface IProduct {
   id?: number;
@@ -10,13 +12,12 @@ export interface IProduct {
   isFinal?: boolean;
   isVerified?: boolean;
   language?: string;
-  subcategoryDescription?: string;
-  subcategoryId?: number;
-  suitableDiets?: IDietType[];
-  unsuitableDiets?: IDietType[];
-  basicNutritionDataId?: number;
+  basicNutritionData?: IProductBasicNutritionData;
   nutritionData?: INutritionData[];
   householdMeasures?: IHouseholdMeasure[];
+  subcategory?: IProductSubcategory;
+  suitableDiets?: IDietType[];
+  unsuitableDiets?: IDietType[];
 }
 
 export class Product implements IProduct {
@@ -28,13 +29,12 @@ export class Product implements IProduct {
     public isFinal?: boolean,
     public isVerified?: boolean,
     public language?: string,
-    public subcategoryDescription?: string,
-    public subcategoryId?: number,
-    public suitableDiets?: IDietType[],
-    public unsuitableDiets?: IDietType[],
-    public basicNutritionDataId?: number,
+    public basicNutritionData?: IProductBasicNutritionData,
     public nutritionData?: INutritionData[],
-    public householdMeasures?: IHouseholdMeasure[]
+    public householdMeasures?: IHouseholdMeasure[],
+    public subcategory?: IProductSubcategory,
+    public suitableDiets?: IDietType[],
+    public unsuitableDiets?: IDietType[]
   ) {
     this.isFinal = this.isFinal || false;
     this.isVerified = this.isVerified || false;

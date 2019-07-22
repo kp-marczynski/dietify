@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.AppointmentEvaluation;
 import pl.marczynski.dietify.appointments.service.AppointmentEvaluationService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.appointments.service.dto.AppointmentEvaluationDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
@@ -49,17 +49,17 @@ public class AppointmentEvaluationResource {
     /**
      * {@code POST  /appointment-evaluations} : Create a new appointmentEvaluation.
      *
-     * @param appointmentEvaluationDTO the appointmentEvaluationDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new appointmentEvaluationDTO, or with status {@code 400 (Bad Request)} if the appointmentEvaluation has already an ID.
+     * @param appointmentEvaluation the appointmentEvaluation to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new appointmentEvaluation, or with status {@code 400 (Bad Request)} if the appointmentEvaluation has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/appointment-evaluations")
-    public ResponseEntity<AppointmentEvaluationDTO> createAppointmentEvaluation(@Valid @RequestBody AppointmentEvaluationDTO appointmentEvaluationDTO) throws URISyntaxException {
-        log.debug("REST request to save AppointmentEvaluation : {}", appointmentEvaluationDTO);
-        if (appointmentEvaluationDTO.getId() != null) {
+    public ResponseEntity<AppointmentEvaluation> createAppointmentEvaluation(@Valid @RequestBody AppointmentEvaluation appointmentEvaluation) throws URISyntaxException {
+        log.debug("REST request to save AppointmentEvaluation : {}", appointmentEvaluation);
+        if (appointmentEvaluation.getId() != null) {
             throw new BadRequestAlertException("A new appointmentEvaluation cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        AppointmentEvaluationDTO result = appointmentEvaluationService.save(appointmentEvaluationDTO);
+        AppointmentEvaluation result = appointmentEvaluationService.save(appointmentEvaluation);
         return ResponseEntity.created(new URI("/api/appointment-evaluations/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -68,21 +68,21 @@ public class AppointmentEvaluationResource {
     /**
      * {@code PUT  /appointment-evaluations} : Updates an existing appointmentEvaluation.
      *
-     * @param appointmentEvaluationDTO the appointmentEvaluationDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated appointmentEvaluationDTO,
-     * or with status {@code 400 (Bad Request)} if the appointmentEvaluationDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the appointmentEvaluationDTO couldn't be updated.
+     * @param appointmentEvaluation the appointmentEvaluation to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated appointmentEvaluation,
+     * or with status {@code 400 (Bad Request)} if the appointmentEvaluation is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the appointmentEvaluation couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/appointment-evaluations")
-    public ResponseEntity<AppointmentEvaluationDTO> updateAppointmentEvaluation(@Valid @RequestBody AppointmentEvaluationDTO appointmentEvaluationDTO) throws URISyntaxException {
-        log.debug("REST request to update AppointmentEvaluation : {}", appointmentEvaluationDTO);
-        if (appointmentEvaluationDTO.getId() == null) {
+    public ResponseEntity<AppointmentEvaluation> updateAppointmentEvaluation(@Valid @RequestBody AppointmentEvaluation appointmentEvaluation) throws URISyntaxException {
+        log.debug("REST request to update AppointmentEvaluation : {}", appointmentEvaluation);
+        if (appointmentEvaluation.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        AppointmentEvaluationDTO result = appointmentEvaluationService.save(appointmentEvaluationDTO);
+        AppointmentEvaluation result = appointmentEvaluationService.save(appointmentEvaluation);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, appointmentEvaluationDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, appointmentEvaluation.getId().toString()))
             .body(result);
     }
 
@@ -95,9 +95,9 @@ public class AppointmentEvaluationResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of appointmentEvaluations in body.
      */
     @GetMapping("/appointment-evaluations")
-    public ResponseEntity<List<AppointmentEvaluationDTO>> getAllAppointmentEvaluations(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<List<AppointmentEvaluation>> getAllAppointmentEvaluations(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of AppointmentEvaluations");
-        Page<AppointmentEvaluationDTO> page = appointmentEvaluationService.findAll(pageable);
+        Page<AppointmentEvaluation> page = appointmentEvaluationService.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
@@ -105,20 +105,20 @@ public class AppointmentEvaluationResource {
     /**
      * {@code GET  /appointment-evaluations/:id} : get the "id" appointmentEvaluation.
      *
-     * @param id the id of the appointmentEvaluationDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the appointmentEvaluationDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the appointmentEvaluation to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the appointmentEvaluation, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/appointment-evaluations/{id}")
-    public ResponseEntity<AppointmentEvaluationDTO> getAppointmentEvaluation(@PathVariable Long id) {
+    public ResponseEntity<AppointmentEvaluation> getAppointmentEvaluation(@PathVariable Long id) {
         log.debug("REST request to get AppointmentEvaluation : {}", id);
-        Optional<AppointmentEvaluationDTO> appointmentEvaluationDTO = appointmentEvaluationService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(appointmentEvaluationDTO);
+        Optional<AppointmentEvaluation> appointmentEvaluation = appointmentEvaluationService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(appointmentEvaluation);
     }
 
     /**
      * {@code DELETE  /appointment-evaluations/:id} : delete the "id" appointmentEvaluation.
      *
-     * @param id the id of the appointmentEvaluationDTO to delete.
+     * @param id the id of the appointmentEvaluation to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/appointment-evaluations/{id}")

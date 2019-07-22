@@ -6,8 +6,6 @@ import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import pl.marczynski.dietify.mealplans.repository.MealDefinitionRepository;
 import pl.marczynski.dietify.mealplans.repository.search.MealDefinitionSearchRepository;
 import pl.marczynski.dietify.mealplans.service.MealDefinitionService;
-import pl.marczynski.dietify.mealplans.service.dto.MealDefinitionDTO;
-import pl.marczynski.dietify.mealplans.service.mapper.MealDefinitionMapper;
 import pl.marczynski.dietify.mealplans.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -47,17 +45,14 @@ public class MealDefinitionResourceIT {
     private static final Long DEFAULT_MEAL_TYPE_ID = 1L;
     private static final Long UPDATED_MEAL_TYPE_ID = 2L;
 
-    private static final String DEFAULT_TIME_OF_MEAL = "83:16";
-    private static final String UPDATED_TIME_OF_MEAL = "03:15";
+    private static final String DEFAULT_TIME_OF_MEAL = "97:21";
+    private static final String UPDATED_TIME_OF_MEAL = "89:88";
 
     private static final Integer DEFAULT_PERCENT_OF_ENERGY = 0;
     private static final Integer UPDATED_PERCENT_OF_ENERGY = 1;
 
     @Autowired
     private MealDefinitionRepository mealDefinitionRepository;
-
-    @Autowired
-    private MealDefinitionMapper mealDefinitionMapper;
 
     @Autowired
     private MealDefinitionService mealDefinitionService;
@@ -161,10 +156,9 @@ public class MealDefinitionResourceIT {
         int databaseSizeBeforeCreate = mealDefinitionRepository.findAll().size();
 
         // Create the MealDefinition
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
         restMealDefinitionMockMvc.perform(post("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isCreated());
 
         // Validate the MealDefinition in the database
@@ -187,12 +181,11 @@ public class MealDefinitionResourceIT {
 
         // Create the MealDefinition with an existing ID
         mealDefinition.setId(1L);
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restMealDefinitionMockMvc.perform(post("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealDefinition in the database
@@ -212,11 +205,10 @@ public class MealDefinitionResourceIT {
         mealDefinition.setOrdinalNumber(null);
 
         // Create the MealDefinition, which fails.
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
 
         restMealDefinitionMockMvc.perform(post("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isBadRequest());
 
         List<MealDefinition> mealDefinitionList = mealDefinitionRepository.findAll();
@@ -231,11 +223,10 @@ public class MealDefinitionResourceIT {
         mealDefinition.setMealTypeId(null);
 
         // Create the MealDefinition, which fails.
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
 
         restMealDefinitionMockMvc.perform(post("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isBadRequest());
 
         List<MealDefinition> mealDefinitionList = mealDefinitionRepository.findAll();
@@ -250,11 +241,10 @@ public class MealDefinitionResourceIT {
         mealDefinition.setTimeOfMeal(null);
 
         // Create the MealDefinition, which fails.
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
 
         restMealDefinitionMockMvc.perform(post("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isBadRequest());
 
         List<MealDefinition> mealDefinitionList = mealDefinitionRepository.findAll();
@@ -269,11 +259,10 @@ public class MealDefinitionResourceIT {
         mealDefinition.setPercentOfEnergy(null);
 
         // Create the MealDefinition, which fails.
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
 
         restMealDefinitionMockMvc.perform(post("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isBadRequest());
 
         List<MealDefinition> mealDefinitionList = mealDefinitionRepository.findAll();
@@ -326,7 +315,9 @@ public class MealDefinitionResourceIT {
     @Transactional
     public void updateMealDefinition() throws Exception {
         // Initialize the database
-        mealDefinitionRepository.saveAndFlush(mealDefinition);
+        mealDefinitionService.save(mealDefinition);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockMealDefinitionSearchRepository);
 
         int databaseSizeBeforeUpdate = mealDefinitionRepository.findAll().size();
 
@@ -338,11 +329,10 @@ public class MealDefinitionResourceIT {
         updatedMealDefinition.setMealTypeId(UPDATED_MEAL_TYPE_ID);
         updatedMealDefinition.setTimeOfMeal(UPDATED_TIME_OF_MEAL);
         updatedMealDefinition.setPercentOfEnergy(UPDATED_PERCENT_OF_ENERGY);
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(updatedMealDefinition);
 
         restMealDefinitionMockMvc.perform(put("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedMealDefinition)))
             .andExpect(status().isOk());
 
         // Validate the MealDefinition in the database
@@ -364,12 +354,11 @@ public class MealDefinitionResourceIT {
         int databaseSizeBeforeUpdate = mealDefinitionRepository.findAll().size();
 
         // Create the MealDefinition
-        MealDefinitionDTO mealDefinitionDTO = mealDefinitionMapper.toDto(mealDefinition);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restMealDefinitionMockMvc.perform(put("/api/meal-definitions")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealDefinitionDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(mealDefinition)))
             .andExpect(status().isBadRequest());
 
         // Validate the MealDefinition in the database
@@ -384,7 +373,7 @@ public class MealDefinitionResourceIT {
     @Transactional
     public void deleteMealDefinition() throws Exception {
         // Initialize the database
-        mealDefinitionRepository.saveAndFlush(mealDefinition);
+        mealDefinitionService.save(mealDefinition);
 
         int databaseSizeBeforeDelete = mealDefinitionRepository.findAll().size();
 
@@ -405,7 +394,7 @@ public class MealDefinitionResourceIT {
     @Transactional
     public void searchMealDefinition() throws Exception {
         // Initialize the database
-        mealDefinitionRepository.saveAndFlush(mealDefinition);
+        mealDefinitionService.save(mealDefinition);
         when(mockMealDefinitionSearchRepository.search(queryStringQuery("id:" + mealDefinition.getId())))
             .thenReturn(Collections.singletonList(mealDefinition));
         // Search the mealDefinition
@@ -432,28 +421,5 @@ public class MealDefinitionResourceIT {
         assertThat(mealDefinition1).isNotEqualTo(mealDefinition2);
         mealDefinition1.setId(null);
         assertThat(mealDefinition1).isNotEqualTo(mealDefinition2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(MealDefinitionDTO.class);
-        MealDefinitionDTO mealDefinitionDTO1 = new MealDefinitionDTO();
-        mealDefinitionDTO1.setId(1L);
-        MealDefinitionDTO mealDefinitionDTO2 = new MealDefinitionDTO();
-        assertThat(mealDefinitionDTO1).isNotEqualTo(mealDefinitionDTO2);
-        mealDefinitionDTO2.setId(mealDefinitionDTO1.getId());
-        assertThat(mealDefinitionDTO1).isEqualTo(mealDefinitionDTO2);
-        mealDefinitionDTO2.setId(2L);
-        assertThat(mealDefinitionDTO1).isNotEqualTo(mealDefinitionDTO2);
-        mealDefinitionDTO1.setId(null);
-        assertThat(mealDefinitionDTO1).isNotEqualTo(mealDefinitionDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(mealDefinitionMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(mealDefinitionMapper.fromId(null)).isNull();
     }
 }

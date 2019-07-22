@@ -6,8 +6,6 @@ import pl.marczynski.dietify.recipes.domain.KitchenAppliance;
 import pl.marczynski.dietify.recipes.repository.KitchenApplianceTranslationRepository;
 import pl.marczynski.dietify.recipes.repository.search.KitchenApplianceTranslationSearchRepository;
 import pl.marczynski.dietify.recipes.service.KitchenApplianceTranslationService;
-import pl.marczynski.dietify.recipes.service.dto.KitchenApplianceTranslationDTO;
-import pl.marczynski.dietify.recipes.service.mapper.KitchenApplianceTranslationMapper;
 import pl.marczynski.dietify.recipes.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class KitchenApplianceTranslationResourceIT {
 
     @Autowired
     private KitchenApplianceTranslationRepository kitchenApplianceTranslationRepository;
-
-    @Autowired
-    private KitchenApplianceTranslationMapper kitchenApplianceTranslationMapper;
 
     @Autowired
     private KitchenApplianceTranslationService kitchenApplianceTranslationService;
@@ -151,10 +146,9 @@ public class KitchenApplianceTranslationResourceIT {
         int databaseSizeBeforeCreate = kitchenApplianceTranslationRepository.findAll().size();
 
         // Create the KitchenApplianceTranslation
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO = kitchenApplianceTranslationMapper.toDto(kitchenApplianceTranslation);
         restKitchenApplianceTranslationMockMvc.perform(post("/api/kitchen-appliance-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslation)))
             .andExpect(status().isCreated());
 
         // Validate the KitchenApplianceTranslation in the database
@@ -175,12 +169,11 @@ public class KitchenApplianceTranslationResourceIT {
 
         // Create the KitchenApplianceTranslation with an existing ID
         kitchenApplianceTranslation.setId(1L);
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO = kitchenApplianceTranslationMapper.toDto(kitchenApplianceTranslation);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restKitchenApplianceTranslationMockMvc.perform(post("/api/kitchen-appliance-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the KitchenApplianceTranslation in the database
@@ -200,11 +193,10 @@ public class KitchenApplianceTranslationResourceIT {
         kitchenApplianceTranslation.setTranslation(null);
 
         // Create the KitchenApplianceTranslation, which fails.
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO = kitchenApplianceTranslationMapper.toDto(kitchenApplianceTranslation);
 
         restKitchenApplianceTranslationMockMvc.perform(post("/api/kitchen-appliance-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslation)))
             .andExpect(status().isBadRequest());
 
         List<KitchenApplianceTranslation> kitchenApplianceTranslationList = kitchenApplianceTranslationRepository.findAll();
@@ -219,11 +211,10 @@ public class KitchenApplianceTranslationResourceIT {
         kitchenApplianceTranslation.setLanguage(null);
 
         // Create the KitchenApplianceTranslation, which fails.
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO = kitchenApplianceTranslationMapper.toDto(kitchenApplianceTranslation);
 
         restKitchenApplianceTranslationMockMvc.perform(post("/api/kitchen-appliance-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslation)))
             .andExpect(status().isBadRequest());
 
         List<KitchenApplianceTranslation> kitchenApplianceTranslationList = kitchenApplianceTranslationRepository.findAll();
@@ -272,7 +263,9 @@ public class KitchenApplianceTranslationResourceIT {
     @Transactional
     public void updateKitchenApplianceTranslation() throws Exception {
         // Initialize the database
-        kitchenApplianceTranslationRepository.saveAndFlush(kitchenApplianceTranslation);
+        kitchenApplianceTranslationService.save(kitchenApplianceTranslation);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockKitchenApplianceTranslationSearchRepository);
 
         int databaseSizeBeforeUpdate = kitchenApplianceTranslationRepository.findAll().size();
 
@@ -282,11 +275,10 @@ public class KitchenApplianceTranslationResourceIT {
         em.detach(updatedKitchenApplianceTranslation);
         updatedKitchenApplianceTranslation.setTranslation(UPDATED_TRANSLATION);
         updatedKitchenApplianceTranslation.setLanguage(UPDATED_LANGUAGE);
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO = kitchenApplianceTranslationMapper.toDto(updatedKitchenApplianceTranslation);
 
         restKitchenApplianceTranslationMockMvc.perform(put("/api/kitchen-appliance-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedKitchenApplianceTranslation)))
             .andExpect(status().isOk());
 
         // Validate the KitchenApplianceTranslation in the database
@@ -306,12 +298,11 @@ public class KitchenApplianceTranslationResourceIT {
         int databaseSizeBeforeUpdate = kitchenApplianceTranslationRepository.findAll().size();
 
         // Create the KitchenApplianceTranslation
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO = kitchenApplianceTranslationMapper.toDto(kitchenApplianceTranslation);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restKitchenApplianceTranslationMockMvc.perform(put("/api/kitchen-appliance-translations")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslationDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(kitchenApplianceTranslation)))
             .andExpect(status().isBadRequest());
 
         // Validate the KitchenApplianceTranslation in the database
@@ -326,7 +317,7 @@ public class KitchenApplianceTranslationResourceIT {
     @Transactional
     public void deleteKitchenApplianceTranslation() throws Exception {
         // Initialize the database
-        kitchenApplianceTranslationRepository.saveAndFlush(kitchenApplianceTranslation);
+        kitchenApplianceTranslationService.save(kitchenApplianceTranslation);
 
         int databaseSizeBeforeDelete = kitchenApplianceTranslationRepository.findAll().size();
 
@@ -347,7 +338,7 @@ public class KitchenApplianceTranslationResourceIT {
     @Transactional
     public void searchKitchenApplianceTranslation() throws Exception {
         // Initialize the database
-        kitchenApplianceTranslationRepository.saveAndFlush(kitchenApplianceTranslation);
+        kitchenApplianceTranslationService.save(kitchenApplianceTranslation);
         when(mockKitchenApplianceTranslationSearchRepository.search(queryStringQuery("id:" + kitchenApplianceTranslation.getId())))
             .thenReturn(Collections.singletonList(kitchenApplianceTranslation));
         // Search the kitchenApplianceTranslation
@@ -372,28 +363,5 @@ public class KitchenApplianceTranslationResourceIT {
         assertThat(kitchenApplianceTranslation1).isNotEqualTo(kitchenApplianceTranslation2);
         kitchenApplianceTranslation1.setId(null);
         assertThat(kitchenApplianceTranslation1).isNotEqualTo(kitchenApplianceTranslation2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(KitchenApplianceTranslationDTO.class);
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO1 = new KitchenApplianceTranslationDTO();
-        kitchenApplianceTranslationDTO1.setId(1L);
-        KitchenApplianceTranslationDTO kitchenApplianceTranslationDTO2 = new KitchenApplianceTranslationDTO();
-        assertThat(kitchenApplianceTranslationDTO1).isNotEqualTo(kitchenApplianceTranslationDTO2);
-        kitchenApplianceTranslationDTO2.setId(kitchenApplianceTranslationDTO1.getId());
-        assertThat(kitchenApplianceTranslationDTO1).isEqualTo(kitchenApplianceTranslationDTO2);
-        kitchenApplianceTranslationDTO2.setId(2L);
-        assertThat(kitchenApplianceTranslationDTO1).isNotEqualTo(kitchenApplianceTranslationDTO2);
-        kitchenApplianceTranslationDTO1.setId(null);
-        assertThat(kitchenApplianceTranslationDTO1).isNotEqualTo(kitchenApplianceTranslationDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(kitchenApplianceTranslationMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(kitchenApplianceTranslationMapper.fromId(null)).isNull();
     }
 }

@@ -44,6 +44,8 @@ describe('Appointment e2e test', () => {
             appointmentUpdatePage.appointmentStateSelectLastOption(),
             appointmentUpdatePage.setMealPlanIdInput('5'),
             appointmentUpdatePage.setGeneralAdviceInput('generalAdvice'),
+            appointmentUpdatePage.bodyMeasurementSelectLastOption(),
+            appointmentUpdatePage.nutritionalInterviewSelectLastOption(),
             appointmentUpdatePage.patientCardSelectLastOption(),
         ]);
         expect(await appointmentUpdatePage.getAppointmentDateInput()).to.contain('2001-01-01T02:30', 'Expected appointmentDate value to be equals to 2000-12-31');

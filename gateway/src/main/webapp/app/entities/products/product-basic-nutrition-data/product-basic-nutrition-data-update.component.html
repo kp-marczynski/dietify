@@ -86,19 +86,6 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProductBasicNutritionData.product" for="field_product">Product</label>
-                    <select class="form-control" id="field_product" name="product" formControlName="productId">
-                        <option *ngIf="!editForm.get('productId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="productOption.id" *ngFor="let productOption of products; trackBy: trackProductById">{{productOption.description}}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('productId').invalid && (editForm.get('productId').dirty || editForm.get('productId').touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('productId').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

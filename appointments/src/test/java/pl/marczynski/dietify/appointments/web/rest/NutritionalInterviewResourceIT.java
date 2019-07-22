@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.NutritionalInterview;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.repository.NutritionalInterviewRepository;
 import pl.marczynski.dietify.appointments.service.NutritionalInterviewService;
-import pl.marczynski.dietify.appointments.service.dto.NutritionalInterviewDTO;
-import pl.marczynski.dietify.appointments.service.mapper.NutritionalInterviewMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -77,9 +75,6 @@ public class NutritionalInterviewResourceIT {
 
     @Autowired
     private NutritionalInterviewRepository nutritionalInterviewRepository;
-
-    @Autowired
-    private NutritionalInterviewMapper nutritionalInterviewMapper;
 
     @Autowired
     private NutritionalInterviewService nutritionalInterviewService;
@@ -189,10 +184,9 @@ public class NutritionalInterviewResourceIT {
         int databaseSizeBeforeCreate = nutritionalInterviewRepository.findAll().size();
 
         // Create the NutritionalInterview
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(nutritionalInterview);
         restNutritionalInterviewMockMvc.perform(post("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterview)))
             .andExpect(status().isCreated());
 
         // Validate the NutritionalInterview in the database
@@ -219,12 +213,11 @@ public class NutritionalInterviewResourceIT {
 
         // Create the NutritionalInterview with an existing ID
         nutritionalInterview.setId(1L);
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(nutritionalInterview);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restNutritionalInterviewMockMvc.perform(post("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterview)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionalInterview in the database
@@ -241,11 +234,10 @@ public class NutritionalInterviewResourceIT {
         nutritionalInterview.setCompletionDate(null);
 
         // Create the NutritionalInterview, which fails.
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(nutritionalInterview);
 
         restNutritionalInterviewMockMvc.perform(post("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterview)))
             .andExpect(status().isBadRequest());
 
         List<NutritionalInterview> nutritionalInterviewList = nutritionalInterviewRepository.findAll();
@@ -260,11 +252,10 @@ public class NutritionalInterviewResourceIT {
         nutritionalInterview.setTargetWeight(null);
 
         // Create the NutritionalInterview, which fails.
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(nutritionalInterview);
 
         restNutritionalInterviewMockMvc.perform(post("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterview)))
             .andExpect(status().isBadRequest());
 
         List<NutritionalInterview> nutritionalInterviewList = nutritionalInterviewRepository.findAll();
@@ -279,11 +270,10 @@ public class NutritionalInterviewResourceIT {
         nutritionalInterview.setPhysicalActivity(null);
 
         // Create the NutritionalInterview, which fails.
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(nutritionalInterview);
 
         restNutritionalInterviewMockMvc.perform(post("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterview)))
             .andExpect(status().isBadRequest());
 
         List<NutritionalInterview> nutritionalInterviewList = nutritionalInterviewRepository.findAll();
@@ -350,7 +340,7 @@ public class NutritionalInterviewResourceIT {
     @Transactional
     public void updateNutritionalInterview() throws Exception {
         // Initialize the database
-        nutritionalInterviewRepository.saveAndFlush(nutritionalInterview);
+        nutritionalInterviewService.save(nutritionalInterview);
 
         int databaseSizeBeforeUpdate = nutritionalInterviewRepository.findAll().size();
 
@@ -369,11 +359,10 @@ public class NutritionalInterviewResourceIT {
         updatedNutritionalInterview.setDislikedProducts(UPDATED_DISLIKED_PRODUCTS);
         updatedNutritionalInterview.setFoodAllergies(UPDATED_FOOD_ALLERGIES);
         updatedNutritionalInterview.setFoodIntolerances(UPDATED_FOOD_INTOLERANCES);
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(updatedNutritionalInterview);
 
         restNutritionalInterviewMockMvc.perform(put("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedNutritionalInterview)))
             .andExpect(status().isOk());
 
         // Validate the NutritionalInterview in the database
@@ -399,12 +388,11 @@ public class NutritionalInterviewResourceIT {
         int databaseSizeBeforeUpdate = nutritionalInterviewRepository.findAll().size();
 
         // Create the NutritionalInterview
-        NutritionalInterviewDTO nutritionalInterviewDTO = nutritionalInterviewMapper.toDto(nutritionalInterview);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restNutritionalInterviewMockMvc.perform(put("/api/nutritional-interviews")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterviewDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(nutritionalInterview)))
             .andExpect(status().isBadRequest());
 
         // Validate the NutritionalInterview in the database
@@ -416,7 +404,7 @@ public class NutritionalInterviewResourceIT {
     @Transactional
     public void deleteNutritionalInterview() throws Exception {
         // Initialize the database
-        nutritionalInterviewRepository.saveAndFlush(nutritionalInterview);
+        nutritionalInterviewService.save(nutritionalInterview);
 
         int databaseSizeBeforeDelete = nutritionalInterviewRepository.findAll().size();
 
@@ -443,28 +431,5 @@ public class NutritionalInterviewResourceIT {
         assertThat(nutritionalInterview1).isNotEqualTo(nutritionalInterview2);
         nutritionalInterview1.setId(null);
         assertThat(nutritionalInterview1).isNotEqualTo(nutritionalInterview2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(NutritionalInterviewDTO.class);
-        NutritionalInterviewDTO nutritionalInterviewDTO1 = new NutritionalInterviewDTO();
-        nutritionalInterviewDTO1.setId(1L);
-        NutritionalInterviewDTO nutritionalInterviewDTO2 = new NutritionalInterviewDTO();
-        assertThat(nutritionalInterviewDTO1).isNotEqualTo(nutritionalInterviewDTO2);
-        nutritionalInterviewDTO2.setId(nutritionalInterviewDTO1.getId());
-        assertThat(nutritionalInterviewDTO1).isEqualTo(nutritionalInterviewDTO2);
-        nutritionalInterviewDTO2.setId(2L);
-        assertThat(nutritionalInterviewDTO1).isNotEqualTo(nutritionalInterviewDTO2);
-        nutritionalInterviewDTO1.setId(null);
-        assertThat(nutritionalInterviewDTO1).isNotEqualTo(nutritionalInterviewDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(nutritionalInterviewMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(nutritionalInterviewMapper.fromId(null)).isNull();
     }
 }

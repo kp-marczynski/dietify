@@ -36,9 +36,9 @@
             "otherEntityField": "name"
         }
     ],
-    "changelogDate": "20190721154653",
+    "changelogDate": "20190722200923",
     "entityTableName": "meal_type_trns",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

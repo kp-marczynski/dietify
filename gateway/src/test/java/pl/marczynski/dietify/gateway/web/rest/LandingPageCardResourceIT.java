@@ -5,8 +5,6 @@ import pl.marczynski.dietify.gateway.domain.LandingPageCard;
 import pl.marczynski.dietify.gateway.repository.LandingPageCardRepository;
 import pl.marczynski.dietify.gateway.repository.search.LandingPageCardSearchRepository;
 import pl.marczynski.dietify.gateway.service.LandingPageCardService;
-import pl.marczynski.dietify.gateway.service.dto.LandingPageCardDTO;
-import pl.marczynski.dietify.gateway.service.mapper.LandingPageCardMapper;
 import pl.marczynski.dietify.gateway.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class LandingPageCardResourceIT {
 
     @Autowired
     private LandingPageCardRepository landingPageCardRepository;
-
-    @Autowired
-    private LandingPageCardMapper landingPageCardMapper;
 
     @Autowired
     private LandingPageCardService landingPageCardService;
@@ -131,10 +126,9 @@ public class LandingPageCardResourceIT {
         int databaseSizeBeforeCreate = landingPageCardRepository.findAll().size();
 
         // Create the LandingPageCard
-        LandingPageCardDTO landingPageCardDTO = landingPageCardMapper.toDto(landingPageCard);
         restLandingPageCardMockMvc.perform(post("/api/landing-page-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPageCard)))
             .andExpect(status().isCreated());
 
         // Validate the LandingPageCard in the database
@@ -155,12 +149,11 @@ public class LandingPageCardResourceIT {
 
         // Create the LandingPageCard with an existing ID
         landingPageCard.setId(1L);
-        LandingPageCardDTO landingPageCardDTO = landingPageCardMapper.toDto(landingPageCard);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restLandingPageCardMockMvc.perform(post("/api/landing-page-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPageCard)))
             .andExpect(status().isBadRequest());
 
         // Validate the LandingPageCard in the database
@@ -180,11 +173,10 @@ public class LandingPageCardResourceIT {
         landingPageCard.setOrdinalNumber(null);
 
         // Create the LandingPageCard, which fails.
-        LandingPageCardDTO landingPageCardDTO = landingPageCardMapper.toDto(landingPageCard);
 
         restLandingPageCardMockMvc.perform(post("/api/landing-page-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPageCard)))
             .andExpect(status().isBadRequest());
 
         List<LandingPageCard> landingPageCardList = landingPageCardRepository.findAll();
@@ -233,7 +225,9 @@ public class LandingPageCardResourceIT {
     @Transactional
     public void updateLandingPageCard() throws Exception {
         // Initialize the database
-        landingPageCardRepository.saveAndFlush(landingPageCard);
+        landingPageCardService.save(landingPageCard);
+        // As the test used the service layer, reset the Elasticsearch mock repository
+        reset(mockLandingPageCardSearchRepository);
 
         int databaseSizeBeforeUpdate = landingPageCardRepository.findAll().size();
 
@@ -243,11 +237,10 @@ public class LandingPageCardResourceIT {
         em.detach(updatedLandingPageCard);
         updatedLandingPageCard.setOrdinalNumber(UPDATED_ORDINAL_NUMBER);
         updatedLandingPageCard.setHtmlContent(UPDATED_HTML_CONTENT);
-        LandingPageCardDTO landingPageCardDTO = landingPageCardMapper.toDto(updatedLandingPageCard);
 
         restLandingPageCardMockMvc.perform(put("/api/landing-page-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedLandingPageCard)))
             .andExpect(status().isOk());
 
         // Validate the LandingPageCard in the database
@@ -267,12 +260,11 @@ public class LandingPageCardResourceIT {
         int databaseSizeBeforeUpdate = landingPageCardRepository.findAll().size();
 
         // Create the LandingPageCard
-        LandingPageCardDTO landingPageCardDTO = landingPageCardMapper.toDto(landingPageCard);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restLandingPageCardMockMvc.perform(put("/api/landing-page-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(landingPageCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(landingPageCard)))
             .andExpect(status().isBadRequest());
 
         // Validate the LandingPageCard in the database
@@ -287,7 +279,7 @@ public class LandingPageCardResourceIT {
     @Transactional
     public void deleteLandingPageCard() throws Exception {
         // Initialize the database
-        landingPageCardRepository.saveAndFlush(landingPageCard);
+        landingPageCardService.save(landingPageCard);
 
         int databaseSizeBeforeDelete = landingPageCardRepository.findAll().size();
 
@@ -308,7 +300,7 @@ public class LandingPageCardResourceIT {
     @Transactional
     public void searchLandingPageCard() throws Exception {
         // Initialize the database
-        landingPageCardRepository.saveAndFlush(landingPageCard);
+        landingPageCardService.save(landingPageCard);
         when(mockLandingPageCardSearchRepository.search(queryStringQuery("id:" + landingPageCard.getId())))
             .thenReturn(Collections.singletonList(landingPageCard));
         // Search the landingPageCard
@@ -333,28 +325,5 @@ public class LandingPageCardResourceIT {
         assertThat(landingPageCard1).isNotEqualTo(landingPageCard2);
         landingPageCard1.setId(null);
         assertThat(landingPageCard1).isNotEqualTo(landingPageCard2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(LandingPageCardDTO.class);
-        LandingPageCardDTO landingPageCardDTO1 = new LandingPageCardDTO();
-        landingPageCardDTO1.setId(1L);
-        LandingPageCardDTO landingPageCardDTO2 = new LandingPageCardDTO();
-        assertThat(landingPageCardDTO1).isNotEqualTo(landingPageCardDTO2);
-        landingPageCardDTO2.setId(landingPageCardDTO1.getId());
-        assertThat(landingPageCardDTO1).isEqualTo(landingPageCardDTO2);
-        landingPageCardDTO2.setId(2L);
-        assertThat(landingPageCardDTO1).isNotEqualTo(landingPageCardDTO2);
-        landingPageCardDTO1.setId(null);
-        assertThat(landingPageCardDTO1).isNotEqualTo(landingPageCardDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(landingPageCardMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(landingPageCardMapper.fromId(null)).isNull();
     }
 }

@@ -99,6 +99,5 @@ deployment {
 }
 
 service * with serviceImpl
-dto * with mapstruct
 noFluentMethod *
 // <<END gateway.jh>>

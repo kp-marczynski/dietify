@@ -1,4 +1,5 @@
 package pl.marczynski.dietify.appointments.domain;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -29,6 +30,7 @@ public class PatientCard implements Serializable {
      * Date when patient registered to dietitian
      */
     @NotNull
+    @ApiModelProperty(value = "Date when patient registered to dietitian", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
 
@@ -36,6 +38,7 @@ public class PatientCard implements Serializable {
      * Dietitian to which patient has signed. Id of User entity retrieved from gateway service.
      */
     @NotNull
+    @ApiModelProperty(value = "Dietitian to which patient has signed. Id of User entity retrieved from gateway service.", required = true)
     @Column(name = "dietitian_id", nullable = false)
     private Long dietitianId;
 
@@ -43,6 +46,7 @@ public class PatientCard implements Serializable {
      * Patient of dietitian. Id of User entity retrieved from gateway service.
      */
     @NotNull
+    @ApiModelProperty(value = "Patient of dietitian. Id of User entity retrieved from gateway service.", required = true)
     @Column(name = "patient_id", nullable = false)
     private Long patientId;
 

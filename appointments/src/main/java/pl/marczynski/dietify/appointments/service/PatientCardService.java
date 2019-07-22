@@ -1,6 +1,6 @@
 package pl.marczynski.dietify.appointments.service;
 
-import pl.marczynski.dietify.appointments.service.dto.PatientCardDTO;
+import pl.marczynski.dietify.appointments.domain.PatientCard;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,17 +8,17 @@ import org.springframework.data.domain.Pageable;
 import java.util.Optional;
 
 /**
- * Service Interface for managing {@link pl.marczynski.dietify.appointments.domain.PatientCard}.
+ * Service Interface for managing {@link PatientCard}.
  */
 public interface PatientCardService {
 
     /**
      * Save a patientCard.
      *
-     * @param patientCardDTO the entity to save.
+     * @param patientCard the entity to save.
      * @return the persisted entity.
      */
-    PatientCardDTO save(PatientCardDTO patientCardDTO);
+    PatientCard save(PatientCard patientCard);
 
     /**
      * Get all the patientCards.
@@ -26,7 +26,7 @@ public interface PatientCardService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<PatientCardDTO> findAll(Pageable pageable);
+    Page<PatientCard> findAll(Pageable pageable);
 
 
     /**
@@ -35,7 +35,7 @@ public interface PatientCardService {
      * @param id the id of the entity.
      * @return the entity.
      */
-    Optional<PatientCardDTO> findOne(Long id);
+    Optional<PatientCard> findOne(Long id);
 
     /**
      * Delete the "id" patientCard.

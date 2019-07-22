@@ -15,7 +15,6 @@
         "title": "Product Category"
       },
       "description": "Description",
-      "subcategories": "Subcategories",
       "translations": "Translations",
       "help": {
         "description": "Short description of category in English"

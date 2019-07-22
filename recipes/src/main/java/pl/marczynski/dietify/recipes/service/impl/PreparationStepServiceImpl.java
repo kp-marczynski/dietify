@@ -4,15 +4,12 @@ import pl.marczynski.dietify.recipes.service.PreparationStepService;
 import pl.marczynski.dietify.recipes.domain.PreparationStep;
 import pl.marczynski.dietify.recipes.repository.PreparationStepRepository;
 import pl.marczynski.dietify.recipes.repository.search.PreparationStepSearchRepository;
-import pl.marczynski.dietify.recipes.service.dto.PreparationStepDTO;
-import pl.marczynski.dietify.recipes.service.mapper.PreparationStepMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,29 +28,24 @@ public class PreparationStepServiceImpl implements PreparationStepService {
 
     private final PreparationStepRepository preparationStepRepository;
 
-    private final PreparationStepMapper preparationStepMapper;
-
     private final PreparationStepSearchRepository preparationStepSearchRepository;
 
-    public PreparationStepServiceImpl(PreparationStepRepository preparationStepRepository, PreparationStepMapper preparationStepMapper, PreparationStepSearchRepository preparationStepSearchRepository) {
+    public PreparationStepServiceImpl(PreparationStepRepository preparationStepRepository, PreparationStepSearchRepository preparationStepSearchRepository) {
         this.preparationStepRepository = preparationStepRepository;
-        this.preparationStepMapper = preparationStepMapper;
         this.preparationStepSearchRepository = preparationStepSearchRepository;
     }
 
     /**
      * Save a preparationStep.
      *
-     * @param preparationStepDTO the entity to save.
+     * @param preparationStep the entity to save.
      * @return the persisted entity.
      */
     @Override
-    public PreparationStepDTO save(PreparationStepDTO preparationStepDTO) {
-        log.debug("Request to save PreparationStep : {}", preparationStepDTO);
-        PreparationStep preparationStep = preparationStepMapper.toEntity(preparationStepDTO);
-        preparationStep = preparationStepRepository.save(preparationStep);
-        PreparationStepDTO result = preparationStepMapper.toDto(preparationStep);
-        preparationStepSearchRepository.save(preparationStep);
+    public PreparationStep save(PreparationStep preparationStep) {
+        log.debug("Request to save PreparationStep : {}", preparationStep);
+        PreparationStep result = preparationStepRepository.save(preparationStep);
+        preparationStepSearchRepository.save(result);
         return result;
     }
 
@@ -64,11 +56,9 @@ public class PreparationStepServiceImpl implements PreparationStepService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<PreparationStepDTO> findAll() {
+    public List<PreparationStep> findAll() {
         log.debug("Request to get all PreparationSteps");
-        return preparationStepRepository.findAll().stream()
-            .map(preparationStepMapper::toDto)
-            .collect(Collectors.toCollection(LinkedList::new));
+        return preparationStepRepository.findAll();
     }
 
 
@@ -80,10 +70,9 @@ public class PreparationStepServiceImpl implements PreparationStepService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Optional<PreparationStepDTO> findOne(Long id) {
+    public Optional<PreparationStep> findOne(Long id) {
         log.debug("Request to get PreparationStep : {}", id);
-        return preparationStepRepository.findById(id)
-            .map(preparationStepMapper::toDto);
+        return preparationStepRepository.findById(id);
     }
 
     /**
@@ -106,11 +95,10 @@ public class PreparationStepServiceImpl implements PreparationStepService {
      */
     @Override
     @Transactional(readOnly = true)
-    public List<PreparationStepDTO> search(String query) {
+    public List<PreparationStep> search(String query) {
         log.debug("Request to search PreparationSteps for query {}", query);
         return StreamSupport
             .stream(preparationStepSearchRepository.search(queryStringQuery(query)).spliterator(), false)
-            .map(preparationStepMapper::toDto)
             .collect(Collectors.toList());
     }
 }

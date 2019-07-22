@@ -15,8 +15,8 @@
         "title": "Meal Plan Day"
       },
       "ordinalNumber": "Ordinal Number",
-      "mealPlan": "Meal Plan",
       "meals": "Meals",
+      "mealPlan": "Meal Plan",
       "help": {
         "ordinalNumber": "Ordinal number of day"
       }

@@ -5,8 +5,6 @@ import pl.marczynski.dietify.appointments.domain.BodyMeasurement;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.repository.BodyMeasurementRepository;
 import pl.marczynski.dietify.appointments.service.BodyMeasurementService;
-import pl.marczynski.dietify.appointments.service.dto.BodyMeasurementDTO;
-import pl.marczynski.dietify.appointments.service.mapper.BodyMeasurementMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -77,9 +75,6 @@ public class BodyMeasurementResourceIT {
 
     @Autowired
     private BodyMeasurementRepository bodyMeasurementRepository;
-
-    @Autowired
-    private BodyMeasurementMapper bodyMeasurementMapper;
 
     @Autowired
     private BodyMeasurementService bodyMeasurementService;
@@ -191,10 +186,9 @@ public class BodyMeasurementResourceIT {
         int databaseSizeBeforeCreate = bodyMeasurementRepository.findAll().size();
 
         // Create the BodyMeasurement
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
         restBodyMeasurementMockMvc.perform(post("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isCreated());
 
         // Validate the BodyMeasurement in the database
@@ -222,12 +216,11 @@ public class BodyMeasurementResourceIT {
 
         // Create the BodyMeasurement with an existing ID
         bodyMeasurement.setId(1L);
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restBodyMeasurementMockMvc.perform(post("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isBadRequest());
 
         // Validate the BodyMeasurement in the database
@@ -244,11 +237,10 @@ public class BodyMeasurementResourceIT {
         bodyMeasurement.setCompletionDate(null);
 
         // Create the BodyMeasurement, which fails.
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
 
         restBodyMeasurementMockMvc.perform(post("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isBadRequest());
 
         List<BodyMeasurement> bodyMeasurementList = bodyMeasurementRepository.findAll();
@@ -263,11 +255,10 @@ public class BodyMeasurementResourceIT {
         bodyMeasurement.setHeight(null);
 
         // Create the BodyMeasurement, which fails.
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
 
         restBodyMeasurementMockMvc.perform(post("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isBadRequest());
 
         List<BodyMeasurement> bodyMeasurementList = bodyMeasurementRepository.findAll();
@@ -282,11 +273,10 @@ public class BodyMeasurementResourceIT {
         bodyMeasurement.setWeight(null);
 
         // Create the BodyMeasurement, which fails.
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
 
         restBodyMeasurementMockMvc.perform(post("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isBadRequest());
 
         List<BodyMeasurement> bodyMeasurementList = bodyMeasurementRepository.findAll();
@@ -301,11 +291,10 @@ public class BodyMeasurementResourceIT {
         bodyMeasurement.setWaist(null);
 
         // Create the BodyMeasurement, which fails.
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
 
         restBodyMeasurementMockMvc.perform(post("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isBadRequest());
 
         List<BodyMeasurement> bodyMeasurementList = bodyMeasurementRepository.findAll();
@@ -374,7 +363,7 @@ public class BodyMeasurementResourceIT {
     @Transactional
     public void updateBodyMeasurement() throws Exception {
         // Initialize the database
-        bodyMeasurementRepository.saveAndFlush(bodyMeasurement);
+        bodyMeasurementService.save(bodyMeasurement);
 
         int databaseSizeBeforeUpdate = bodyMeasurementRepository.findAll().size();
 
@@ -394,11 +383,10 @@ public class BodyMeasurementResourceIT {
         updatedBodyMeasurement.setBasicMetabolism(UPDATED_BASIC_METABOLISM);
         updatedBodyMeasurement.setMetabolicAge(UPDATED_METABOLIC_AGE);
         updatedBodyMeasurement.setVisceralFatLevel(UPDATED_VISCERAL_FAT_LEVEL);
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(updatedBodyMeasurement);
 
         restBodyMeasurementMockMvc.perform(put("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedBodyMeasurement)))
             .andExpect(status().isOk());
 
         // Validate the BodyMeasurement in the database
@@ -425,12 +413,11 @@ public class BodyMeasurementResourceIT {
         int databaseSizeBeforeUpdate = bodyMeasurementRepository.findAll().size();
 
         // Create the BodyMeasurement
-        BodyMeasurementDTO bodyMeasurementDTO = bodyMeasurementMapper.toDto(bodyMeasurement);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restBodyMeasurementMockMvc.perform(put("/api/body-measurements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurementDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(bodyMeasurement)))
             .andExpect(status().isBadRequest());
 
         // Validate the BodyMeasurement in the database
@@ -442,7 +429,7 @@ public class BodyMeasurementResourceIT {
     @Transactional
     public void deleteBodyMeasurement() throws Exception {
         // Initialize the database
-        bodyMeasurementRepository.saveAndFlush(bodyMeasurement);
+        bodyMeasurementService.save(bodyMeasurement);
 
         int databaseSizeBeforeDelete = bodyMeasurementRepository.findAll().size();
 
@@ -469,28 +456,5 @@ public class BodyMeasurementResourceIT {
         assertThat(bodyMeasurement1).isNotEqualTo(bodyMeasurement2);
         bodyMeasurement1.setId(null);
         assertThat(bodyMeasurement1).isNotEqualTo(bodyMeasurement2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(BodyMeasurementDTO.class);
-        BodyMeasurementDTO bodyMeasurementDTO1 = new BodyMeasurementDTO();
-        bodyMeasurementDTO1.setId(1L);
-        BodyMeasurementDTO bodyMeasurementDTO2 = new BodyMeasurementDTO();
-        assertThat(bodyMeasurementDTO1).isNotEqualTo(bodyMeasurementDTO2);
-        bodyMeasurementDTO2.setId(bodyMeasurementDTO1.getId());
-        assertThat(bodyMeasurementDTO1).isEqualTo(bodyMeasurementDTO2);
-        bodyMeasurementDTO2.setId(2L);
-        assertThat(bodyMeasurementDTO1).isNotEqualTo(bodyMeasurementDTO2);
-        bodyMeasurementDTO1.setId(null);
-        assertThat(bodyMeasurementDTO1).isNotEqualTo(bodyMeasurementDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(bodyMeasurementMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(bodyMeasurementMapper.fromId(null)).isNull();
     }
 }

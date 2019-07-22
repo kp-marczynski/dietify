@@ -35,7 +35,7 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="gatewayApp.productsNutritionDefinitionTranslation.translation">Translation</span></th>
             <th><span jhiTranslate="gatewayApp.productsNutritionDefinitionTranslation.language">Language</span></th>
-            <th><span jhiTranslate="gatewayApp.productsNutritionDefinitionTranslation.nutritionDefinitions">Nutrition Definitions</span></th>
+            <th><span jhiTranslate="gatewayApp.productsNutritionDefinitionTranslation.nutritionDefinition">Nutrition Definition</span></th>
             <th></th>
             </tr>
             </thead>
@@ -45,8 +45,8 @@
                 <td>{{nutritionDefinitionTranslation.translation}}</td>
                 <td>{{nutritionDefinitionTranslation.language}}</td>
                 <td>
-                    <div *ngIf="nutritionDefinitionTranslation.nutritionDefinitionsId">
-                        <a [routerLink]="['../nutrition-definition', nutritionDefinitionTranslation.nutritionDefinitionsId , 'view' ]" >{{nutritionDefinitionTranslation.nutritionDefinitionsTag}}</a>
+                    <div *ngIf="nutritionDefinitionTranslation.nutritionDefinition">
+                        <a [routerLink]="['../nutrition-definition', nutritionDefinitionTranslation.nutritionDefinition?.id, 'view' ]" >{{nutritionDefinitionTranslation.nutritionDefinition?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

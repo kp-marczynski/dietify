@@ -34,9 +34,9 @@
             "relationshipName": "appointments"
         }
     ],
-    "changelogDate": "20190721154709",
+    "changelogDate": "20190722200939",
     "entityTableName": "patient_card",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

@@ -105,19 +105,6 @@
                               formControlName="foodIntolerances"></textarea>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.appointment" for="field_appointment">Appointment</label>
-                    <select class="form-control" id="field_appointment" name="appointment" formControlName="appointmentId">
-                        <option *ngIf="!editForm.get('appointmentId').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="appointmentOption.id" *ngFor="let appointmentOption of appointments; trackBy: trackAppointmentById">{{appointmentOption.id}}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('appointmentId').invalid && (editForm.get('appointmentId').dirty || editForm.get('appointmentId').touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('appointmentId').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

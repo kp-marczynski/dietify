@@ -1,17 +1,12 @@
+import { IRecipeSection } from 'app/shared/model/recipes/recipe-section.model';
+
 export interface IPreparationStep {
   id?: number;
   ordinalNumber?: number;
   stepDescription?: any;
-  recipeSectionSectionName?: string;
-  recipeSectionId?: number;
+  recipeSection?: IRecipeSection;
 }
 
 export class PreparationStep implements IPreparationStep {
-  constructor(
-    public id?: number,
-    public ordinalNumber?: number,
-    public stepDescription?: any,
-    public recipeSectionSectionName?: string,
-    public recipeSectionId?: number
-  ) {}
+  constructor(public id?: number, public ordinalNumber?: number, public stepDescription?: any, public recipeSection?: IRecipeSection) {}
 }

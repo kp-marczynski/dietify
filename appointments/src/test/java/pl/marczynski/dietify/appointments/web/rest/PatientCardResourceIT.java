@@ -4,8 +4,6 @@ import pl.marczynski.dietify.appointments.AppointmentsApp;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.repository.PatientCardRepository;
 import pl.marczynski.dietify.appointments.service.PatientCardService;
-import pl.marczynski.dietify.appointments.service.dto.PatientCardDTO;
-import pl.marczynski.dietify.appointments.service.mapper.PatientCardMapper;
 import pl.marczynski.dietify.appointments.web.rest.errors.ExceptionTranslator;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -49,9 +47,6 @@ public class PatientCardResourceIT {
 
     @Autowired
     private PatientCardRepository patientCardRepository;
-
-    @Autowired
-    private PatientCardMapper patientCardMapper;
 
     @Autowired
     private PatientCardService patientCardService;
@@ -125,10 +120,9 @@ public class PatientCardResourceIT {
         int databaseSizeBeforeCreate = patientCardRepository.findAll().size();
 
         // Create the PatientCard
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(patientCard);
         restPatientCardMockMvc.perform(post("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
             .andExpect(status().isCreated());
 
         // Validate the PatientCard in the database
@@ -147,12 +141,11 @@ public class PatientCardResourceIT {
 
         // Create the PatientCard with an existing ID
         patientCard.setId(1L);
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(patientCard);
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restPatientCardMockMvc.perform(post("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
             .andExpect(status().isBadRequest());
 
         // Validate the PatientCard in the database
@@ -169,11 +162,10 @@ public class PatientCardResourceIT {
         patientCard.setCreationDate(null);
 
         // Create the PatientCard, which fails.
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(patientCard);
 
         restPatientCardMockMvc.perform(post("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
             .andExpect(status().isBadRequest());
 
         List<PatientCard> patientCardList = patientCardRepository.findAll();
@@ -188,11 +180,10 @@ public class PatientCardResourceIT {
         patientCard.setDietitianId(null);
 
         // Create the PatientCard, which fails.
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(patientCard);
 
         restPatientCardMockMvc.perform(post("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
             .andExpect(status().isBadRequest());
 
         List<PatientCard> patientCardList = patientCardRepository.findAll();
@@ -207,11 +198,10 @@ public class PatientCardResourceIT {
         patientCard.setPatientId(null);
 
         // Create the PatientCard, which fails.
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(patientCard);
 
         restPatientCardMockMvc.perform(post("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
             .andExpect(status().isBadRequest());
 
         List<PatientCard> patientCardList = patientCardRepository.findAll();
@@ -262,7 +252,7 @@ public class PatientCardResourceIT {
     @Transactional
     public void updatePatientCard() throws Exception {
         // Initialize the database
-        patientCardRepository.saveAndFlush(patientCard);
+        patientCardService.save(patientCard);
 
         int databaseSizeBeforeUpdate = patientCardRepository.findAll().size();
 
@@ -273,11 +263,10 @@ public class PatientCardResourceIT {
         updatedPatientCard.setCreationDate(UPDATED_CREATION_DATE);
         updatedPatientCard.setDietitianId(UPDATED_DIETITIAN_ID);
         updatedPatientCard.setPatientId(UPDATED_PATIENT_ID);
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(updatedPatientCard);
 
         restPatientCardMockMvc.perform(put("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(updatedPatientCard)))
             .andExpect(status().isOk());
 
         // Validate the PatientCard in the database
@@ -295,12 +284,11 @@ public class PatientCardResourceIT {
         int databaseSizeBeforeUpdate = patientCardRepository.findAll().size();
 
         // Create the PatientCard
-        PatientCardDTO patientCardDTO = patientCardMapper.toDto(patientCard);
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restPatientCardMockMvc.perform(put("/api/patient-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCardDTO)))
+            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
             .andExpect(status().isBadRequest());
 
         // Validate the PatientCard in the database
@@ -312,7 +300,7 @@ public class PatientCardResourceIT {
     @Transactional
     public void deletePatientCard() throws Exception {
         // Initialize the database
-        patientCardRepository.saveAndFlush(patientCard);
+        patientCardService.save(patientCard);
 
         int databaseSizeBeforeDelete = patientCardRepository.findAll().size();
 
@@ -339,28 +327,5 @@ public class PatientCardResourceIT {
         assertThat(patientCard1).isNotEqualTo(patientCard2);
         patientCard1.setId(null);
         assertThat(patientCard1).isNotEqualTo(patientCard2);
-    }
-
-    @Test
-    @Transactional
-    public void dtoEqualsVerifier() throws Exception {
-        TestUtil.equalsVerifier(PatientCardDTO.class);
-        PatientCardDTO patientCardDTO1 = new PatientCardDTO();
-        patientCardDTO1.setId(1L);
-        PatientCardDTO patientCardDTO2 = new PatientCardDTO();
-        assertThat(patientCardDTO1).isNotEqualTo(patientCardDTO2);
-        patientCardDTO2.setId(patientCardDTO1.getId());
-        assertThat(patientCardDTO1).isEqualTo(patientCardDTO2);
-        patientCardDTO2.setId(2L);
-        assertThat(patientCardDTO1).isNotEqualTo(patientCardDTO2);
-        patientCardDTO1.setId(null);
-        assertThat(patientCardDTO1).isNotEqualTo(patientCardDTO2);
-    }
-
-    @Test
-    @Transactional
-    public void testEntityFromId() {
-        assertThat(patientCardMapper.fromId(42L).getId()).isEqualTo(42);
-        assertThat(patientCardMapper.fromId(null)).isNull();
     }
 }

@@ -55,7 +55,6 @@ describe('NutritionalInterview e2e test', () => {
             nutritionalInterviewUpdatePage.setDislikedProductsInput('dislikedProducts'),
             nutritionalInterviewUpdatePage.setFoodAllergiesInput('foodAllergies'),
             nutritionalInterviewUpdatePage.setFoodIntolerancesInput('foodIntolerances'),
-            nutritionalInterviewUpdatePage.appointmentSelectLastOption(),
         ]);
         expect(await nutritionalInterviewUpdatePage.getCompletionDateInput()).to.eq('2000-12-31', 'Expected completionDate value to be equals to 2000-12-31');
         expect(await nutritionalInterviewUpdatePage.getTargetWeightInput()).to.eq('5', 'Expected targetWeight value to be equals to 5');

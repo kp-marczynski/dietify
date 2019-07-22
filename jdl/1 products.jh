@@ -85,7 +85,7 @@ entity ProductSubcategory {
 @microservice(products)
 entity ProductCategory {
     /** Short description of category in English */
-	description String required minlength(1) maxlength(255)
+	description String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -123,7 +123,7 @@ entity HouseholdMeasure {
 @microservice(products)
 entity NutritionDefinition {
 	/** Short tag name of nutrient */
-	tag String required minlength(1) maxlength(20)
+	tag String required unique minlength(1) maxlength(20)
     /** Short description of nutrient in English */
 	description String required minlength(1) maxlength(255)
     /** Unit used for nutrient measurement, e.g. "g", "kcal", "ml" */
@@ -162,7 +162,7 @@ entity NutritionData {
 @microservice(products)
 entity DietType {
     /** Short description of diet type in English */
-    name String required minlength(1) maxlength(255)
+    name String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -178,34 +178,36 @@ entity DietTypeTranslation (diet_type_trns) {
 }
 
 relationship OneToOne {
-	ProductBasicNutritionData{product(description) required}
-    	to Product{basicNutritionData required}
+	Product{basicNutritionData required}
+    	to ProductBasicNutritionData
+}
+
+relationship OneToMany {
+	Product{nutritionData(nutritionValue)}
+		to NutritionData{product required}
+        
+    Product{householdMeasures(description)}
+    	to HouseholdMeasure{product required}
+        
+    ProductCategory{translations}
+    	to ProductCategoryTranslation{productCategory required}
+    
+    DietType{translations}
+    	to DietTypeTranslation{dietType required}
+        
+    NutritionDefinition{translations}
+    	to NutritionDefinitionTranslation{nutritionDefinition required}
 }
 
 relationship ManyToOne {
 	Product{subcategory(description) required} 
     	to ProductSubcategory
 
+	ProductSubcategory{category(description) required} 
+    	to ProductCategory
+        
 	NutritionData{nutritionDefinition(tag) required} 
     	to NutritionDefinition
-        
-	ProductSubcategory{category(description) required} 
-    	to ProductCategory{subcategories(description)}
-        
-	NutritionData{product(description) required} 
-    	to Product{nutritionData(nutritionValue)}
-        
-	HouseholdMeasure{product(description) required} 
-    	to Product{householdMeasures(description)}
-    
-    ProductCategoryTranslation{productCategory(description) required}
-    	to ProductCategory{translations}
-    
-    DietTypeTranslation{dietType(name) required}
-    	to DietType{translations}
-        
-    NutritionDefinitionTranslation{nutritionDefinitions(tag) required}
-    	to NutritionDefinition{translations}
 }
 
 relationship ManyToMany {

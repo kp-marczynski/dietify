@@ -60,6 +60,27 @@
     ],
     "relationships": [
         {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "productBasicNutritionData",
+            "otherEntityRelationshipName": "product",
+            "relationshipValidateRules": "required",
+            "relationshipName": "basicNutritionData",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "nutritionData",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "nutritionData"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "householdMeasure",
+            "otherEntityRelationshipName": "product",
+            "relationshipName": "householdMeasures"
+        },
+        {
             "relationshipType": "many-to-one",
             "otherEntityName": "productSubcategory",
             "otherEntityRelationshipName": "product",
@@ -82,31 +103,11 @@
             "relationshipName": "unsuitableDiets",
             "otherEntityField": "name",
             "ownerSide": true
-        },
-        {
-            "relationshipType": "one-to-one",
-            "otherEntityName": "productBasicNutritionData",
-            "otherEntityRelationshipName": "product",
-            "relationshipValidateRules": "required",
-            "relationshipName": "basicNutritionData",
-            "ownerSide": false
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "nutritionData",
-            "otherEntityRelationshipName": "product",
-            "relationshipName": "nutritionData"
-        },
-        {
-            "relationshipType": "one-to-many",
-            "otherEntityName": "householdMeasure",
-            "otherEntityRelationshipName": "product",
-            "relationshipName": "householdMeasures"
         }
     ],
-    "changelogDate": "20190721154637",
+    "changelogDate": "20190722200907",
     "entityTableName": "product",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

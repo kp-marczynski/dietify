@@ -17,12 +17,12 @@
             "otherEntityRelationshipName": "unsuitableForDiets",
             "relationshipValidateRules": "required",
             "relationshipName": "recipe",
-            "otherEntityField": "name"
+            "otherEntityField": "id"
         }
     ],
-    "changelogDate": "20190721154700",
+    "changelogDate": "20190722200930",
     "entityTableName": "recipe_unsuitable_for_diet",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

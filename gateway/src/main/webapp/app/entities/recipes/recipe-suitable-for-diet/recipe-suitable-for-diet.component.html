@@ -43,8 +43,8 @@
                 <td><a [routerLink]="['/recipe-suitable-for-diet', recipeSuitableForDiet.id, 'view' ]">{{recipeSuitableForDiet.id}}</a></td>
                 <td>{{recipeSuitableForDiet.dietTypeId}}</td>
                 <td>
-                    <div *ngIf="recipeSuitableForDiet.recipeId">
-                        <a [routerLink]="['../recipe', recipeSuitableForDiet.recipeId , 'view' ]" >{{recipeSuitableForDiet.recipeName}}</a>
+                    <div *ngIf="recipeSuitableForDiet.recipe">
+                        <a [routerLink]="['../recipe', recipeSuitableForDiet.recipe?.id, 'view' ]" >{{recipeSuitableForDiet.recipe?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

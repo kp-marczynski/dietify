@@ -45,8 +45,8 @@
                 <td>{{dietTypeTranslation.translation}}</td>
                 <td>{{dietTypeTranslation.language}}</td>
                 <td>
-                    <div *ngIf="dietTypeTranslation.dietTypeId">
-                        <a [routerLink]="['../diet-type', dietTypeTranslation.dietTypeId , 'view' ]" >{{dietTypeTranslation.dietTypeName}}</a>
+                    <div *ngIf="dietTypeTranslation.dietType">
+                        <a [routerLink]="['../diet-type', dietTypeTranslation.dietType?.id, 'view' ]" >{{dietTypeTranslation.dietType?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

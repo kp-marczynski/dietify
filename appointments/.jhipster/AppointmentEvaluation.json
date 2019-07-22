@@ -91,9 +91,9 @@
             "ownerSide": true
         }
     ],
-    "changelogDate": "20190721154717",
+    "changelogDate": "20190722200947",
     "entityTableName": "appointment_evaluation",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "pager",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

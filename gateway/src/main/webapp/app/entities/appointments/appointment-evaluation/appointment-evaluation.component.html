@@ -42,7 +42,7 @@
             <th jhiSortBy="mealTastefulnessSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealTastefulnessSatisfaction">Meal Tastefulness Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="dietaryResultSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietaryResultSatisfaction">Dietary Result Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="comment"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.comment">Comment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="appointmentId"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment">Appointment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="appointment.id"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment">Appointment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
@@ -59,8 +59,8 @@
                 <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.dietaryResultSatisfaction}}">{{appointmentEvaluation.dietaryResultSatisfaction}}</td>
                 <td>{{appointmentEvaluation.comment}}</td>
                 <td>
-                    <div *ngIf="appointmentEvaluation.appointmentId">
-                        <a [routerLink]="['../appointment', appointmentEvaluation.appointmentId , 'view' ]" >{{appointmentEvaluation.appointmentId}}</a>
+                    <div *ngIf="appointmentEvaluation.appointment">
+                        <a [routerLink]="['../appointment', appointmentEvaluation.appointment?.id, 'view' ]" >{{appointmentEvaluation.appointment?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">

@@ -1,10 +1,12 @@
 import { Moment } from 'moment';
-import { IKitchenAppliance } from 'app/shared/model/recipes/kitchen-appliance.model';
-import { IDishType } from 'app/shared/model/recipes/dish-type.model';
-import { IMealType } from 'app/shared/model/recipes/meal-type.model';
+import { IRecipeBasicNutritionData } from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
 import { IRecipeSection } from 'app/shared/model/recipes/recipe-section.model';
 import { IRecipeSuitableForDiet } from 'app/shared/model/recipes/recipe-suitable-for-diet.model';
 import { IRecipeUnsuitableForDiet } from 'app/shared/model/recipes/recipe-unsuitable-for-diet.model';
+import { IRecipe } from 'app/shared/model/recipes/recipe.model';
+import { IKitchenAppliance } from 'app/shared/model/recipes/kitchen-appliance.model';
+import { IDishType } from 'app/shared/model/recipes/dish-type.model';
+import { IMealType } from 'app/shared/model/recipes/meal-type.model';
 
 export interface IRecipe {
   id?: number;
@@ -19,15 +21,14 @@ export interface IRecipe {
   isVisible?: boolean;
   language?: string;
   totalGramsWeight?: number;
-  sourceRecipeName?: string;
-  sourceRecipeId?: number;
-  kitchenAppliances?: IKitchenAppliance[];
-  dishTypes?: IDishType[];
-  mealTypes?: IMealType[];
-  basicNutritionDataId?: number;
+  basicNutritionData?: IRecipeBasicNutritionData;
   recipeSections?: IRecipeSection[];
   suitableForDiets?: IRecipeSuitableForDiet[];
   unsuitableForDiets?: IRecipeUnsuitableForDiet[];
+  sourceRecipe?: IRecipe;
+  kitchenAppliances?: IKitchenAppliance[];
+  dishTypes?: IDishType[];
+  mealTypes?: IMealType[];
 }
 
 export class Recipe implements IRecipe {
@@ -44,15 +45,14 @@ export class Recipe implements IRecipe {
     public isVisible?: boolean,
     public language?: string,
     public totalGramsWeight?: number,
-    public sourceRecipeName?: string,
-    public sourceRecipeId?: number,
-    public kitchenAppliances?: IKitchenAppliance[],
-    public dishTypes?: IDishType[],
-    public mealTypes?: IMealType[],
-    public basicNutritionDataId?: number,
+    public basicNutritionData?: IRecipeBasicNutritionData,
     public recipeSections?: IRecipeSection[],
     public suitableForDiets?: IRecipeSuitableForDiet[],
-    public unsuitableForDiets?: IRecipeUnsuitableForDiet[]
+    public unsuitableForDiets?: IRecipeUnsuitableForDiet[],
+    public sourceRecipe?: IRecipe,
+    public kitchenAppliances?: IKitchenAppliance[],
+    public dishTypes?: IDishType[],
+    public mealTypes?: IMealType[]
   ) {
     this.isVisible = this.isVisible || false;
   }

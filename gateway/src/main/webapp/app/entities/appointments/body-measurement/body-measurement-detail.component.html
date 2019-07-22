@@ -53,12 +53,6 @@
                 <dd>
                     <span>{{bodyMeasurement.visceralFatLevel}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.appointment">Appointment</span></dt>
-                <dd>
-                    <div *ngIf="bodyMeasurement.appointmentId">
-                        <a [routerLink]="['/appointment', bodyMeasurement.appointmentId, 'view']">{{bodyMeasurement.appointmentId}}</a>
-                    </div>
-                </dd>
             </dl>
 
             <button type="submit"

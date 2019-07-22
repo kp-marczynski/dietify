@@ -7,6 +7,7 @@
             "fieldType": "String",
             "fieldValidateRules": [
                 "required",
+                "unique",
                 "minlength",
                 "maxlength"
             ],
@@ -22,9 +23,9 @@
             "relationshipName": "translations"
         }
     ],
-    "changelogDate": "20190721154654",
+    "changelogDate": "20190722200924",
     "entityTableName": "kitchen_appliance",
-    "dto": "mapstruct",
+    "dto": "no",
     "pagination": "no",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,

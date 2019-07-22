@@ -30,6 +30,8 @@ export class AppointmentUpdatePage {
   appointmentStateSelect = element(by.id('field_appointmentState'));
   mealPlanIdInput = element(by.id('field_mealPlanId'));
   generalAdviceInput = element(by.id('field_generalAdvice'));
+  bodyMeasurementSelect = element(by.id('field_bodyMeasurement'));
+  nutritionalInterviewSelect = element(by.id('field_nutritionalInterview'));
   patientCardSelect = element(by.id('field_patientCard'));
 
   async getPageTitle() {
@@ -73,6 +75,44 @@ export class AppointmentUpdatePage {
 
   async getGeneralAdviceInput() {
     return await this.generalAdviceInput.getAttribute('value');
+  }
+
+  async bodyMeasurementSelectLastOption(timeout?: number) {
+    await this.bodyMeasurementSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async bodyMeasurementSelectOption(option) {
+    await this.bodyMeasurementSelect.sendKeys(option);
+  }
+
+  getBodyMeasurementSelect(): ElementFinder {
+    return this.bodyMeasurementSelect;
+  }
+
+  async getBodyMeasurementSelectedOption() {
+    return await this.bodyMeasurementSelect.element(by.css('option:checked')).getText();
+  }
+
+  async nutritionalInterviewSelectLastOption(timeout?: number) {
+    await this.nutritionalInterviewSelect
+      .all(by.tagName('option'))
+      .last()
+      .click();
+  }
+
+  async nutritionalInterviewSelectOption(option) {
+    await this.nutritionalInterviewSelect.sendKeys(option);
+  }
+
+  getNutritionalInterviewSelect(): ElementFinder {
+    return this.nutritionalInterviewSelect;
+  }
+
+  async getNutritionalInterviewSelectedOption() {
+    return await this.nutritionalInterviewSelect.element(by.css('option:checked')).getText();
   }
 
   async patientCardSelectLastOption(timeout?: number) {

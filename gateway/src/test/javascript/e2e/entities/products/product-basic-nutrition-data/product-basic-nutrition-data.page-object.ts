@@ -30,7 +30,6 @@ export class ProductBasicNutritionDataUpdatePage {
   proteinInput = element(by.id('field_protein'));
   fatInput = element(by.id('field_fat'));
   carbohydratesInput = element(by.id('field_carbohydrates'));
-  productSelect = element(by.id('field_product'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -66,25 +65,6 @@ export class ProductBasicNutritionDataUpdatePage {
 
   async getCarbohydratesInput() {
     return await this.carbohydratesInput.getAttribute('value');
-  }
-
-  async productSelectLastOption(timeout?: number) {
-    await this.productSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async productSelectOption(option) {
-    await this.productSelect.sendKeys(option);
-  }
-
-  getProductSelect(): ElementFinder {
-    return this.productSelect;
-  }
-
-  async getProductSelectedOption() {
-    return await this.productSelect.element(by.css('option:checked')).getText();
   }
 
   async save(timeout?: number) {

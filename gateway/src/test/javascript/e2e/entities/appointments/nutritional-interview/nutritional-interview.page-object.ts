@@ -37,7 +37,6 @@ export class NutritionalInterviewUpdatePage {
   dislikedProductsInput = element(by.id('field_dislikedProducts'));
   foodAllergiesInput = element(by.id('field_foodAllergies'));
   foodIntolerancesInput = element(by.id('field_foodIntolerances'));
-  appointmentSelect = element(by.id('field_appointment'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -143,25 +142,6 @@ export class NutritionalInterviewUpdatePage {
 
   async getFoodIntolerancesInput() {
     return await this.foodIntolerancesInput.getAttribute('value');
-  }
-
-  async appointmentSelectLastOption(timeout?: number) {
-    await this.appointmentSelect
-      .all(by.tagName('option'))
-      .last()
-      .click();
-  }
-
-  async appointmentSelectOption(option) {
-    await this.appointmentSelect.sendKeys(option);
-  }
-
-  getAppointmentSelect(): ElementFinder {
-    return this.appointmentSelect;
-  }
-
-  async getAppointmentSelectedOption() {
-    return await this.appointmentSelect.element(by.css('option:checked')).getText();
   }
 
   async save(timeout?: number) {

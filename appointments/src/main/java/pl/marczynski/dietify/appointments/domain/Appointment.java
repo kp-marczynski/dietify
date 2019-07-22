@@ -1,6 +1,6 @@
 package pl.marczynski.dietify.appointments.domain;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Type;
@@ -34,6 +34,7 @@ public class Appointment implements Serializable {
      * Date and time of the appointment
      */
     @NotNull
+    @ApiModelProperty(value = "Date and time of the appointment", required = true)
     @Column(name = "appointment_date", nullable = false)
     private Instant appointmentDate;
 
@@ -41,6 +42,7 @@ public class Appointment implements Serializable {
      * Current appointment state
      */
     @NotNull
+    @ApiModelProperty(value = "Current appointment state", required = true)
     @Enumerated(EnumType.STRING)
     @Column(name = "appointment_state", nullable = false)
     private AppointmentState appointmentState;
@@ -48,33 +50,35 @@ public class Appointment implements Serializable {
     /**
      * Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service
      */
+    @ApiModelProperty(value = "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service")
     @Column(name = "meal_plan_id")
     private Long mealPlanId;
 
     /**
      * General advice after appointment
      */
+    @ApiModelProperty(value = "General advice after appointment")
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "general_advice")
     private String generalAdvice;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("appointments")
-    private PatientCard patientCard;
-
-    @OneToOne(mappedBy = "appointment")
-    @JsonIgnore
+    @OneToOne
+    @JoinColumn(unique = true)
     private BodyMeasurement bodyMeasurement;
 
-    @OneToOne(mappedBy = "appointment")
-    @JsonIgnore
+    @OneToOne
+    @JoinColumn(unique = true)
     private NutritionalInterview nutritionalInterview;
 
     @OneToMany(mappedBy = "appointment")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AssignedMealPlan> mealPlans = new HashSet<>();
+
+    @ManyToOne(optional = false)
+    @NotNull
+    @JsonIgnoreProperties("appointments")
+    private PatientCard patientCard;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -117,14 +121,6 @@ public class Appointment implements Serializable {
         this.generalAdvice = generalAdvice;
     }
 
-    public PatientCard getPatientCard() {
-        return patientCard;
-    }
-
-    public void setPatientCard(PatientCard patientCard) {
-        this.patientCard = patientCard;
-    }
-
     public BodyMeasurement getBodyMeasurement() {
         return bodyMeasurement;
     }
@@ -147,6 +143,14 @@ public class Appointment implements Serializable {
 
     public void setMealPlans(Set<AssignedMealPlan> assignedMealPlans) {
         this.mealPlans = assignedMealPlans;
+    }
+
+    public PatientCard getPatientCard() {
+        return patientCard;
+    }
+
+    public void setPatientCard(PatientCard patientCard) {
+        this.patientCard = patientCard;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

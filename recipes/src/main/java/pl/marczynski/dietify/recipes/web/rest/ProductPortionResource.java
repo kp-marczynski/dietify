@@ -1,8 +1,8 @@
 package pl.marczynski.dietify.recipes.web.rest;
 
+import pl.marczynski.dietify.recipes.domain.ProductPortion;
 import pl.marczynski.dietify.recipes.service.ProductPortionService;
 import pl.marczynski.dietify.recipes.web.rest.errors.BadRequestAlertException;
-import pl.marczynski.dietify.recipes.service.dto.ProductPortionDTO;
 
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
@@ -45,17 +45,17 @@ public class ProductPortionResource {
     /**
      * {@code POST  /product-portions} : Create a new productPortion.
      *
-     * @param productPortionDTO the productPortionDTO to create.
-     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productPortionDTO, or with status {@code 400 (Bad Request)} if the productPortion has already an ID.
+     * @param productPortion the productPortion to create.
+     * @return the {@link ResponseEntity} with status {@code 201 (Created)} and with body the new productPortion, or with status {@code 400 (Bad Request)} if the productPortion has already an ID.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PostMapping("/product-portions")
-    public ResponseEntity<ProductPortionDTO> createProductPortion(@Valid @RequestBody ProductPortionDTO productPortionDTO) throws URISyntaxException {
-        log.debug("REST request to save ProductPortion : {}", productPortionDTO);
-        if (productPortionDTO.getId() != null) {
+    public ResponseEntity<ProductPortion> createProductPortion(@Valid @RequestBody ProductPortion productPortion) throws URISyntaxException {
+        log.debug("REST request to save ProductPortion : {}", productPortion);
+        if (productPortion.getId() != null) {
             throw new BadRequestAlertException("A new productPortion cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        ProductPortionDTO result = productPortionService.save(productPortionDTO);
+        ProductPortion result = productPortionService.save(productPortion);
         return ResponseEntity.created(new URI("/api/product-portions/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
@@ -64,21 +64,21 @@ public class ProductPortionResource {
     /**
      * {@code PUT  /product-portions} : Updates an existing productPortion.
      *
-     * @param productPortionDTO the productPortionDTO to update.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productPortionDTO,
-     * or with status {@code 400 (Bad Request)} if the productPortionDTO is not valid,
-     * or with status {@code 500 (Internal Server Error)} if the productPortionDTO couldn't be updated.
+     * @param productPortion the productPortion to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated productPortion,
+     * or with status {@code 400 (Bad Request)} if the productPortion is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the productPortion couldn't be updated.
      * @throws URISyntaxException if the Location URI syntax is incorrect.
      */
     @PutMapping("/product-portions")
-    public ResponseEntity<ProductPortionDTO> updateProductPortion(@Valid @RequestBody ProductPortionDTO productPortionDTO) throws URISyntaxException {
-        log.debug("REST request to update ProductPortion : {}", productPortionDTO);
-        if (productPortionDTO.getId() == null) {
+    public ResponseEntity<ProductPortion> updateProductPortion(@Valid @RequestBody ProductPortion productPortion) throws URISyntaxException {
+        log.debug("REST request to update ProductPortion : {}", productPortion);
+        if (productPortion.getId() == null) {
             throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
         }
-        ProductPortionDTO result = productPortionService.save(productPortionDTO);
+        ProductPortion result = productPortionService.save(productPortion);
         return ResponseEntity.ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productPortionDTO.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, productPortion.getId().toString()))
             .body(result);
     }
 
@@ -88,7 +88,7 @@ public class ProductPortionResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productPortions in body.
      */
     @GetMapping("/product-portions")
-    public List<ProductPortionDTO> getAllProductPortions() {
+    public List<ProductPortion> getAllProductPortions() {
         log.debug("REST request to get all ProductPortions");
         return productPortionService.findAll();
     }
@@ -96,20 +96,20 @@ public class ProductPortionResource {
     /**
      * {@code GET  /product-portions/:id} : get the "id" productPortion.
      *
-     * @param id the id of the productPortionDTO to retrieve.
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productPortionDTO, or with status {@code 404 (Not Found)}.
+     * @param id the id of the productPortion to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the productPortion, or with status {@code 404 (Not Found)}.
      */
     @GetMapping("/product-portions/{id}")
-    public ResponseEntity<ProductPortionDTO> getProductPortion(@PathVariable Long id) {
+    public ResponseEntity<ProductPortion> getProductPortion(@PathVariable Long id) {
         log.debug("REST request to get ProductPortion : {}", id);
-        Optional<ProductPortionDTO> productPortionDTO = productPortionService.findOne(id);
-        return ResponseUtil.wrapOrNotFound(productPortionDTO);
+        Optional<ProductPortion> productPortion = productPortionService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(productPortion);
     }
 
     /**
      * {@code DELETE  /product-portions/:id} : delete the "id" productPortion.
      *
-     * @param id the id of the productPortionDTO to delete.
+     * @param id the id of the productPortion to delete.
      * @return the {@link ResponseEntity} with status {@code 204 (NO_CONTENT)}.
      */
     @DeleteMapping("/product-portions/{id}")
@@ -127,7 +127,7 @@ public class ProductPortionResource {
      * @return the result of the search.
      */
     @GetMapping("/_search/product-portions")
-    public List<ProductPortionDTO> searchProductPortions(@RequestParam String query) {
+    public List<ProductPortion> searchProductPortions(@RequestParam String query) {
         log.debug("REST request to search ProductPortions for query {}", query);
         return productPortionService.search(query);
     }

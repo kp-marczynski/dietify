@@ -47,8 +47,8 @@
                 <td>{{householdMeasure.gramsWeight}}</td>
                 <td>{{householdMeasure.isVisible}}</td>
                 <td>
-                    <div *ngIf="householdMeasure.productId">
-                        <a [routerLink]="['../product', householdMeasure.productId , 'view' ]" >{{householdMeasure.productDescription}}</a>
+                    <div *ngIf="householdMeasure.product">
+                        <a [routerLink]="['../product', householdMeasure.product?.id, 'view' ]" >{{householdMeasure.product?.id}}</a>
                     </div>
                 </td>
                 <td class="text-right">
