@@ -1,0 +1,32 @@
+{
+  "gatewayApp": {
+    "productsNutritionData": {
+      "home": {
+        "title": "Nutrition Data",
+        "createLabel": "Create a new Nutrition Data",
+        "createOrEditLabel": "Create or edit a Nutrition Data",
+        "search": "Search for Nutrition Data",
+        "notFound": "No Nutrition Data found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Nutrition Data {{ id }}?"
+      },
+      "detail": {
+        "title": "Nutrition Data"
+      },
+      "nutritionValue": "Nutrition Value",
+      "nutritionDefinition": "Nutrition Definition",
+      "product": "Product",
+      "help": {
+        "nutritionValue": "Nutrition value in units specified in NutritionDefinition"
+      }
+    }
+  },
+  "productsApp": {
+    "productsNutritionData": {
+      "created": "A new Nutrition Data is created with identifier {{ param }}",
+      "updated": "A Nutrition Data is updated with identifier {{ param }}",
+      "deleted": "A Nutrition Data is deleted with identifier {{ param }}"
+    }
+  }
+}

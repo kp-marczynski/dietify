@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "appointmentsAssignedMealPlan": {
+      "home": {
+        "title": "Assigned Meal Plans",
+        "createLabel": "Create a new Assigned Meal Plan",
+        "createOrEditLabel": "Create or edit a Assigned Meal Plan",
+        "search": "Search for Assigned Meal Plan",
+        "notFound": "No Assigned Meal Plan found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Assigned Meal Plan {{ id }}?"
+      },
+      "detail": {
+        "title": "Assigned Meal Plan"
+      },
+      "mealPlanId": "Meal Plan Id",
+      "appointment": "Appointment",
+      "help": {
+        "mealPlanId": "Id of assigned MealPlan entity retrieved from mealplans service"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsAssignedMealPlan": {
+      "created": "A new Assigned Meal Plan is created with identifier {{ param }}",
+      "updated": "A Assigned Meal Plan is updated with identifier {{ param }}",
+      "deleted": "A Assigned Meal Plan is deleted with identifier {{ param }}"
+    }
+  }
+}

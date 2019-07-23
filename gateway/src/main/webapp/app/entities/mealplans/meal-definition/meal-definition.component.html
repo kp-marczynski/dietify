@@ -1,0 +1,84 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gatewayApp.mealplansMealDefinition.home.title">Meal Definitions</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-meal-definition" [routerLink]="['/meal-definition/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="gatewayApp.mealplansMealDefinition.home.createLabel">
+            Create new Meal Definition
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.mealplansMealDefinition.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="mealDefinitions?.length === 0">
+        <span jhiTranslate="gatewayApp.mealplansMealDefinition.home.notFound">No mealDefinitions found</span>
+    </div>
+    <div class="table-responsive" *ngIf="mealDefinitions?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+            <th><span jhiTranslate="global.field.id">ID</span></th>
+            <th><span jhiTranslate="gatewayApp.mealplansMealDefinition.ordinalNumber">Ordinal Number</span></th>
+            <th><span jhiTranslate="gatewayApp.mealplansMealDefinition.mealTypeId">Meal Type Id</span></th>
+            <th><span jhiTranslate="gatewayApp.mealplansMealDefinition.timeOfMeal">Time Of Meal</span></th>
+            <th><span jhiTranslate="gatewayApp.mealplansMealDefinition.percentOfEnergy">Percent Of Energy</span></th>
+            <th><span jhiTranslate="gatewayApp.mealplansMealDefinition.mealPlan">Meal Plan</span></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mealDefinition of mealDefinitions ;trackBy: trackId">
+                <td><a [routerLink]="['/meal-definition', mealDefinition.id, 'view' ]">{{mealDefinition.id}}</a></td>
+                <td>{{mealDefinition.ordinalNumber}}</td>
+                <td>{{mealDefinition.mealTypeId}}</td>
+                <td>{{mealDefinition.timeOfMeal}}</td>
+                <td>{{mealDefinition.percentOfEnergy}}</td>
+                <td>
+                    <div *ngIf="mealDefinition.mealPlan">
+                        <a [routerLink]="['../meal-plan', mealDefinition.mealPlan?.id, 'view' ]" >{{mealDefinition.mealPlan?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/meal-definition', mealDefinition.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/meal-definition', mealDefinition.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'meal-definition', { outlets: { popup: mealDefinition.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

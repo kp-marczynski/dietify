@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "recipesRecipeSuitableForDiet": {
+      "home": {
+        "title": "Recipe Suitable For Diet",
+        "createLabel": "Dodaj Recipe Suitable For Diet",
+        "createOrEditLabel": "Dodaj lub edytuj: Recipe Suitable For Diet",
+        "search": "Szukaj Recipe Suitable For Diet",
+        "notFound": "No Recipe Suitable For Diet found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Recipe Suitable For Diet {{ id }}?"
+      },
+      "detail": {
+        "title": "Recipe Suitable For Diet"
+      },
+      "dietTypeId": "Diet Type Id",
+      "recipe": "Recipe",
+      "help": {
+        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesRecipeSuitableForDiet": {
+      "created": "Utworzono nowy obiekt typu Recipe Suitable For Diet z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Recipe Suitable For Diet z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Recipe Suitable For Diet z identyfikatorem {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "recipesRecipeSection": {
+      "home": {
+        "title": "Recipe Section",
+        "createLabel": "Dodaj Recipe Section",
+        "createOrEditLabel": "Dodaj lub edytuj: Recipe Section",
+        "search": "Szukaj Recipe Section",
+        "notFound": "No Recipe Section found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Recipe Section {{ id }}?"
+      },
+      "detail": {
+        "title": "Recipe Section"
+      },
+      "sectionName": "Section Name",
+      "productPortions": "Product Portions",
+      "preparationSteps": "Preparation Steps",
+      "recipe": "Recipe",
+      "help": {
+        "sectionName": "Name of recipe section in language of a recipe"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesRecipeSection": {
+      "created": "Utworzono nowy obiekt typu Recipe Section z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Recipe Section z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Recipe Section z identyfikatorem {{ param }}"
+    }
+  }
+}

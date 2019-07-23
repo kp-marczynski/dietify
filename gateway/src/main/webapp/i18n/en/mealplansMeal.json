@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "mealplansMeal": {
+      "home": {
+        "title": "Meals",
+        "createLabel": "Create a new Meal",
+        "createOrEditLabel": "Create or edit a Meal",
+        "search": "Search for Meal",
+        "notFound": "No Meal found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "mealRecipes": "Meal Recipes",
+      "mealProducts": "Meal Products",
+      "mealPlanDay": "Meal Plan Day",
+      "help": {
+        "ordinalNumber": "Ordinal number of meal"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMeal": {
+      "created": "A new Meal is created with identifier {{ param }}",
+      "updated": "A Meal is updated with identifier {{ param }}",
+      "deleted": "A Meal is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recipeUnsuitableForDiet">
+            <h2><span jhiTranslate="gatewayApp.recipesRecipeUnsuitableForDiet.detail.title">Recipe Unsuitable For Diet</span> {{recipeUnsuitableForDiet.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.recipesRecipeUnsuitableForDiet.dietTypeId" [ngbTooltip]="'gatewayApp.recipesRecipeUnsuitableForDiet.help.dietTypeId' | translate">Diet Type Id</span></dt>
+                <dd>
+                    <span>{{recipeUnsuitableForDiet.dietTypeId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipeUnsuitableForDiet.recipe">Recipe</span></dt>
+                <dd>
+                    <div *ngIf="recipeUnsuitableForDiet.recipe">
+                        <a [routerLink]="['/recipe', recipeUnsuitableForDiet.recipe?.id, 'view']">{{recipeUnsuitableForDiet.recipe?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recipe-unsuitable-for-diet', recipeUnsuitableForDiet.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

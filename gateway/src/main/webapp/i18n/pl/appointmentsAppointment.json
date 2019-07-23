@@ -1,0 +1,40 @@
+{
+  "gatewayApp": {
+    "appointmentsAppointment": {
+      "home": {
+        "title": "Appointment",
+        "createLabel": "Dodaj Appointment",
+        "createOrEditLabel": "Dodaj lub edytuj: Appointment",
+        "search": "Szukaj Appointment",
+        "notFound": "No Appointment found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Appointment {{ id }}?"
+      },
+      "detail": {
+        "title": "Appointment"
+      },
+      "appointmentDate": "Appointment Date",
+      "appointmentState": "Appointment State",
+      "mealPlanId": "Meal Plan Id",
+      "generalAdvice": "General Advice",
+      "bodyMeasurement": "Body Measurement",
+      "nutritionalInterview": "Nutritional Interview",
+      "mealPlans": "Meal Plans",
+      "patientCard": "Patient Card",
+      "help": {
+        "appointmentDate": "Date and time of the appointment",
+        "appointmentState": "Current appointment state",
+        "mealPlanId": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
+        "generalAdvice": "General advice after appointment"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsAppointment": {
+      "created": "Utworzono nowy obiekt typu Appointment z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Appointment z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Appointment z identyfikatorem {{ param }}"
+    }
+  }
+}

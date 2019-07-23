@@ -1,0 +1,59 @@
+{
+    "name": "RecipeBasicNutritionData",
+    "fields": [
+        {
+            "fieldName": "energy",
+            "javadoc": "Energy in kcal per 100 gram of recipe meal calculated from products added to recipe",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "protein",
+            "javadoc": "Protein in grams per 100 gram of recipe meal calculated from products added to recipe",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "fat",
+            "javadoc": "Fat in grams per 100 gram of recipe meal calculated from products added to recipe",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "carbohydrates",
+            "javadoc": "Carbohydrates in grams per 100 gram of recipe meal calculated from products added to recipe",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "relationships": [],
+    "changelogDate": "20190722200919",
+    "entityTableName": "recipe_basic_nutrition_data",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

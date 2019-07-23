@@ -1,0 +1,85 @@
+<div class="card jh-card">
+    <h2 id="page-heading">
+        <span>Meal Plans</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-meal-plan" [routerLink]="['/meal-plan/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span >
+            Create new Meal Plan
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="table-responsive" *ngIf="mealPlans">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span>ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="authorId"><span>Author Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creationDate"><span>Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span>Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="isVisible"><span>Is Visible</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="isLocked"><span>Is Locked</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="languageId"><span>Language Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numberOfDays"><span>Number Of Days</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numberOfMealsPerDay"><span>Number Of Meals Per Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="totalDailyEnergyKcal"><span>Total Daily Energy Kcal</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="percentOfProtein"><span>Percent Of Protein</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="percentOfFat"><span>Percent Of Fat</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="percentOfCarbohydrates"><span>Percent Of Carbohydrates</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let mealPlan of mealPlans ;trackBy: trackId">
+                <td><a [routerLink]="['/meal-plan', mealPlan.id, 'view' ]">{{mealPlan.id}}</a></td>
+                <td>{{mealPlan.authorId}}</td>
+                <td>{{mealPlan.creationDate | date:'mediumDate'}}</td>
+                <td>{{mealPlan.name}}</td>
+                <td>{{mealPlan.isVisible}}</td>
+                <td>{{mealPlan.isLocked}}</td>
+                <td>{{mealPlan.languageId}}</td>
+                <td>{{mealPlan.numberOfDays}}</td>
+                <td>{{mealPlan.numberOfMealsPerDay}}</td>
+                <td>{{mealPlan.totalDailyEnergyKcal}}</td>
+                <td>{{mealPlan.percentOfProtein}}</td>
+                <td>{{mealPlan.percentOfFat}}</td>
+                <td>{{mealPlan.percentOfCarbohydrates}}</td>
+                <td class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="submit"
+                                [routerLink]="['/meal-plan', mealPlan.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/meal-plan', mealPlan.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'meal-plan', { outlets: { popup: mealPlan.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div *ngIf="mealPlans && mealPlans.length">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [size]="'sm'" [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,69 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-custom-nutritional-interview-question-template-heading" jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.home.createOrEditLabel">Create or edit a Custom Nutritional Interview Question Template</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.ownerId" for="field_ownerId" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.help.ownerId' | translate">Owner Id</label>
+                    <input type="number" class="form-control" name="ownerId" id="field_ownerId"
+                           formControlName="ownerId"/>
+                    <div *ngIf="editForm.get('ownerId').invalid && (editForm.get('ownerId').dirty || editForm.get('ownerId').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('ownerId').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.get('ownerId')?.errors?.number" jhiTranslate="entity.validation.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.question" for="field_question" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.help.question' | translate">Question</label>
+                    <textarea class="form-control" name="question" id="field_question"
+                              formControlName="question"></textarea>
+                    <div *ngIf="editForm.get('question').invalid && (editForm.get('question').dirty || editForm.get('question').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('question').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.language" for="field_language" [ngbTooltip]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestionTemplate.help.language' | translate">Language</label>
+                    <input type="text" class="form-control" name="language" id="field_language"
+                           formControlName="language"/>
+                    <div *ngIf="editForm.get('language').invalid && (editForm.get('language').dirty || editForm.get('language').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('language').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('language').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('language').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2 }">
+                        This field cannot be longer than 2 characters.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

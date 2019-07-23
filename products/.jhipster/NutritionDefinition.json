@@ -1,0 +1,73 @@
+{
+    "name": "NutritionDefinition",
+    "fields": [
+        {
+            "fieldName": "tag",
+            "javadoc": "Short tag name of nutrient",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "unique",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 20
+        },
+        {
+            "fieldName": "description",
+            "javadoc": "Short description of nutrient in English",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "units",
+            "javadoc": "Unit used for nutrient measurement, e.g. \"g\", \"kcal\", \"ml\"",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 10
+        },
+        {
+            "fieldName": "decimalPlaces",
+            "javadoc": "Decimal places to which nutrient value should be rounded",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "nutritionDefinitionTranslation",
+            "otherEntityRelationshipName": "nutritionDefinition",
+            "relationshipName": "translations"
+        }
+    ],
+    "changelogDate": "20190722200913",
+    "entityTableName": "nutrition_definition",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

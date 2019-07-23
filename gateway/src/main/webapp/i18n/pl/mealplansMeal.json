@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "mealplansMeal": {
+      "home": {
+        "title": "Meal",
+        "createLabel": "Dodaj Meal",
+        "createOrEditLabel": "Dodaj lub edytuj: Meal",
+        "search": "Szukaj Meal",
+        "notFound": "No Meal found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Meal {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "mealRecipes": "Meal Recipes",
+      "mealProducts": "Meal Products",
+      "mealPlanDay": "Meal Plan Day",
+      "help": {
+        "ordinalNumber": "Ordinal number of meal"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMeal": {
+      "created": "Utworzono nowy obiekt typu Meal z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Meal z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Meal z identyfikatorem {{ param }}"
+    }
+  }
+}

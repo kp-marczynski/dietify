@@ -1,0 +1,40 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="landingPageCard">
+            <h2><span jhiTranslate="gatewayApp.landingPageCard.detail.title">Landing Page Card</span> {{landingPageCard.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.landingPageCard.ordinalNumber" [ngbTooltip]="'gatewayApp.landingPageCard.help.ordinalNumber' | translate">Ordinal Number</span></dt>
+                <dd>
+                    <span>{{landingPageCard.ordinalNumber}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.landingPageCard.htmlContent" [ngbTooltip]="'gatewayApp.landingPageCard.help.htmlContent' | translate">Html Content</span></dt>
+                <dd>
+                    <span>{{landingPageCard.htmlContent}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.landingPageCard.cardImage" [ngbTooltip]="'gatewayApp.landingPageCard.help.cardImage' | translate">Card Image</span></dt>
+                <dd>
+                    <div *ngIf="landingPageCard.cardImage">
+                        <a (click)="openFile(landingPageCard.cardImageContentType, landingPageCard.cardImage)">
+                            <img [src]="'data:' + landingPageCard.cardImageContentType + ';base64,' + landingPageCard.cardImage" style="max-width: 100%;" alt="landingPageCard image"/>
+                        </a>
+                        {{landingPageCard.cardImageContentType}}, {{byteSize(landingPageCard.cardImage)}}
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/landing-page-card', landingPageCard.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

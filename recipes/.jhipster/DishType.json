@@ -1,0 +1,39 @@
+{
+    "name": "DishType",
+    "fields": [
+        {
+            "fieldName": "description",
+            "javadoc": "English description of dish type",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "unique",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "dishTypeTranslation",
+            "otherEntityRelationshipName": "dishType",
+            "relationshipName": "translations"
+        }
+    ],
+    "changelogDate": "20190722200920",
+    "entityTableName": "dish_type",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

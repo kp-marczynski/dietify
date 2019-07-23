@@ -1,0 +1,40 @@
+{
+    "name": "ProductSubcategory",
+    "fields": [
+        {
+            "fieldName": "description",
+            "javadoc": "Short description of subcategory in language of a product",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "productCategory",
+            "otherEntityRelationshipName": "productSubcategory",
+            "relationshipValidateRules": "required",
+            "relationshipName": "category",
+            "otherEntityField": "description"
+        }
+    ],
+    "changelogDate": "20190722200909",
+    "entityTableName": "product_subcategory",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

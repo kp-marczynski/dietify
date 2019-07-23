@@ -1,0 +1,21 @@
+{
+  "generator-jhipster": {
+    "deploymentType": "docker-compose",
+    "gatewayType": "zuul",
+    "monitoring": "elk",
+    "directoryPath": "../",
+    "appsFolders": [
+      "gateway",
+      "products",
+      "recipes",
+      "mealplans",
+      "appointments"
+    ],
+    "clusteredDbApps": [],
+    "consoleOptions": [],
+    "serviceDiscoveryType": "eureka",
+    "dockerRepositoryName": "dietify",
+    "dockerPushCommand": "docker push",
+    "jwtSecretKey": "NzIwOTA4OWZmNzBkNTIzN2E1YTlmMTI5ZGZkMDY4N2QxZmJlM2NjZDM1ODM5ODQ4OTM1OGU4MTUzZDVkMWQ0YWU0YjJhOWUyNzU5MDEzYmQzZTlmNzhhN2IwMGE3N2QyNDY4Yg=="
+  }
+}

@@ -142,3 +142,5 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+
+!service-discovery/jhipster-registry-5.0.2.jar

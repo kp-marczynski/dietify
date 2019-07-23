@@ -1,0 +1,156 @@
+<div id="product-list-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            <button id="jh-create-entity" class="btn btn-primary jh-create-entity create-recipe"
+                    [routerLink]="['/recipe/new']" *ngIf="standaloneView">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>Create new Recipe</span>
+            </button>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control jh-card shadow" placeholder="Search..." (keyup.enter)="search()"
+                   id="search"
+                   name="search"
+                   [(ngModel)]="searchPhrase"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 center-block">
+            <div class="card jh-card">
+                <h2>Filters</h2>
+                <label for="language-select">Language:</label>
+                <select class="form-control" id="language-select" name="language-select" [(ngModel)]="selectedLanguage"
+                        (change)="search()">
+                    <option
+                        [ngValue]="language.id === selectedLanguage?.id ? selectedLanguage : language"
+                        *ngFor="let language of languages; trackBy: customTrackBy">{{language.englishName}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card jh-card">
+                <h2 id="page-heading">
+                    <span>Recipes</span>
+                </h2>
+                <jhi-alert></jhi-alert>
+                <br/>
+                <div class="table-responsive" *ngIf="recipes">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span>ID</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="name"><span>Name</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="preparationTimeMinutes"><span>Preparation Time Minutes</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="numberOfPortions"><span>Number Of Portions</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="image"><span>Image</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="authorId"><span>Author Id</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="creationDate"><span>Creation Date</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="lastEditDate"><span>Last Edit Date</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="isVisible"><span>Is Visible</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="isLocked"><span>Is Locked</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="languageId"><span>Language Id</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="sourceRecipe.id"><span>Source Recipe</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let recipe of recipes ;trackBy: trackId">
+                            <td><a [routerLink]="['/recipe', recipe.id, 'view' ]">{{recipe.id}}</a></td>
+                            <td>{{recipe.name}}</td>
+                            <td>{{recipe.preparationTimeMinutes}}</td>
+                            <td>{{recipe.numberOfPortions}}</td>
+                            <td>
+                                <a *ngIf="recipe.image" (click)="openFile(recipe.imageContentType, recipe.image)">
+                                    <img [src]="'data:' + recipe.imageContentType + ';base64,' + recipe.image"
+                                         style="max-height: 30px;" alt="recipe image"/>
+                                </a>
+                                <span *ngIf="recipe.image">{{recipe.imageContentType}}
+                                    , {{byteSize(recipe.image)}}</span>
+                            </td>
+                            <td>{{recipe.authorId}}</td>
+                            <td>{{recipe.creationDate | date:'mediumDate'}}</td>
+                            <td>{{recipe.lastEditDate | date:'mediumDate'}}</td>
+                            <td>{{recipe.isVisible}}</td>
+                            <td>{{recipe.isLocked}}</td>
+                            <td>{{recipe.languageId}}</td>
+                            <td>
+                                <div *ngIf="recipe.sourceRecipe">
+                                    <a [routerLink]="['../recipe', recipe.sourceRecipe?.id, 'view' ]">{{recipe.sourceRecipe?.id}}</a>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container" *ngIf="standaloneView">
+                                    <button type="submit"
+                                            [routerLink]="['/recipe', recipe.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/recipe', recipe.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'recipe', { outlets: { popup: recipe.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                                <div class="btn-group flex-btn-group-container" *ngIf="!standaloneView">
+                                    <button type="submit" class="btn btn-info btn-sm" (click)="passBack(recipe)">
+                                        <fa-icon [icon]="'plus'"></fa-icon>
+                                        <span class="d-none d-md-inline">Add</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pager is not implemented yet, so this is normal pagination instead -->
+                <div *ngIf="recipes && recipes.length">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="totalItems"
+                                        [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [size]="'sm'" [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                                        [maxSize]="5"
+                                        [rotate]="true" [boundaryLinks]="true"
+                                        (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

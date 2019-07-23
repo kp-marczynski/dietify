@@ -1,0 +1,107 @@
+<div class="list-group list-group-flush">
+    <h2>Administration</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/user-management"
+           routerLinkActive="active" id="user-management-aside">
+            <fa-icon icon="user" fixedWidth="true"></fa-icon>
+            <span>User management</span>
+        </a>
+    </span>
+    <span *ngIf="swaggerEnabled">
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/docs"
+           routerLinkActive="active">
+            <fa-icon icon="book" fixedWidth="true"></fa-icon>
+            <span>API</span>
+        </a>
+    </span>
+    <span *ngIf="!inProduction">
+        <a class="list-group-item list-group-item-action waves-effect" href='./h2-console' target="_tab">
+            <fa-icon icon="hdd" fixedWidth="true"></fa-icon>
+            <span>Database</span>
+        </a>
+    </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2>Core</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/language" id="language"
+           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Languages</span>
+        </a>
+    </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2>Products</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect"
+           routerLink="//nutrition-definition"
+           id="nutrition-definition"
+           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Nutrition Definitions</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/product-category"
+           id="product-category"
+           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Product Categories</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/diet-type"
+           id="diet-type"
+           routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Diet Types</span>
+        </a>
+    </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2>Recipes</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/dish-type"
+           routerLinkActive="active" id="dish-type"
+           [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Dish Type</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/meal-type"
+           routerLinkActive="active" id="meal-type"
+           [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Meal Type</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/kitchen-appliance"
+           routerLinkActive="active" id="kitchen-appliance"
+           [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Kitchen Appliance</span>
+        </a>
+    </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2>Appointments</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/patient"
+           routerLinkActive="active" id="patient"
+           [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Patient</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/dietetician"
+           routerLinkActive="active" id="dietetician"
+           [routerLinkActiveOptions]="{ exact: true }">
+            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+            <span>Dietetician</span>
+        </a>
+    </span>
+</div>

@@ -1,0 +1,134 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-user-extra-info-heading" jhiTranslate="gatewayApp.userExtraInfo.home.createOrEditLabel">Create or edit a User Extra Info</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.gender" for="field_gender" [ngbTooltip]="'gatewayApp.userExtraInfo.help.gender' | translate">Gender</label>
+                    <select class="form-control" name="gender" formControlName="gender" id="field_gender">
+                        <option value="FEMALE">{{'gatewayApp.Gender.FEMALE' | translate}}</option>
+                        <option value="MALE">{{'gatewayApp.Gender.MALE' | translate}}</option>
+                        <option value="OTHER">{{'gatewayApp.Gender.OTHER' | translate}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.dateOfBirth" for="field_dateOfBirth" [ngbTooltip]="'gatewayApp.userExtraInfo.help.dateOfBirth' | translate">Date Of Birth</label>
+                    <div class="input-group">
+                        <input id="field_dateOfBirth" type="text" class="form-control" name="dateOfBirth" ngbDatepicker  #dateOfBirthDp="ngbDatepicker" formControlName="dateOfBirth"/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateOfBirthDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.phoneNumber" for="field_phoneNumber" [ngbTooltip]="'gatewayApp.userExtraInfo.help.phoneNumber' | translate">Phone Number</label>
+                    <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
+                           formControlName="phoneNumber"/>
+                    <div *ngIf="editForm.get('phoneNumber').invalid && (editForm.get('phoneNumber').dirty || editForm.get('phoneNumber').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phoneNumber').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('phoneNumber').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.streetAddress" for="field_streetAddress" [ngbTooltip]="'gatewayApp.userExtraInfo.help.streetAddress' | translate">Street Address</label>
+                    <input type="text" class="form-control" name="streetAddress" id="field_streetAddress"
+                           formControlName="streetAddress"/>
+                    <div *ngIf="editForm.get('streetAddress').invalid && (editForm.get('streetAddress').dirty || editForm.get('streetAddress').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('streetAddress').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('streetAddress').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.postalCode" for="field_postalCode" [ngbTooltip]="'gatewayApp.userExtraInfo.help.postalCode' | translate">Postal Code</label>
+                    <input type="text" class="form-control" name="postalCode" id="field_postalCode"
+                           formControlName="postalCode"/>
+                    <div *ngIf="editForm.get('postalCode').invalid && (editForm.get('postalCode').dirty || editForm.get('postalCode').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('postalCode').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('postalCode').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 20 }">
+                        This field cannot be longer than 20 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.city" for="field_city" [ngbTooltip]="'gatewayApp.userExtraInfo.help.city' | translate">City</label>
+                    <input type="text" class="form-control" name="city" id="field_city"
+                           formControlName="city"/>
+                    <div *ngIf="editForm.get('city').invalid && (editForm.get('city').dirty || editForm.get('city').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('city').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('city').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.country" for="field_country" [ngbTooltip]="'gatewayApp.userExtraInfo.help.country' | translate">Country</label>
+                    <input type="text" class="form-control" name="country" id="field_country"
+                           formControlName="country"/>
+                    <div *ngIf="editForm.get('country').invalid && (editForm.get('country').dirty || editForm.get('country').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('country').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('country').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 50 }">
+                        This field cannot be longer than 50 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.personalDescription" for="field_personalDescription" [ngbTooltip]="'gatewayApp.userExtraInfo.help.personalDescription' | translate">Personal Description</label>
+                    <textarea class="form-control" name="personalDescription" id="field_personalDescription"
+                              formControlName="personalDescription"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.userExtraInfo.user" for="field_user">User</label>
+                    <select class="form-control" id="field_user" name="user" formControlName="user">
+                        <option *ngIf="!editForm.get('user').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="userOption.id === editForm.get('user').value?.id ? editForm.get('user').value : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('user').invalid && (editForm.get('user').dirty || editForm.get('user').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('user').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,51 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appointment">
+            <h2><span>Appointment</span> {{appointment.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span ngbTooltip="Date of the appointment">Appointment Date</span></dt>
+                <dd>
+                    <span>{{appointment.appointmentDate}}</span>
+                </dd>
+                <dt><span ngbTooltip="Current appointment state">Appointment State</span></dt>
+                <dd>
+                    <span>{{appointment.appointmentState}}</span>
+                </dd>
+                <dt><span ngbTooltip="Meal plan designed for patient">Meal Plan Id</span></dt>
+                <dd>
+                    <span>{{appointment.mealPlanId}}</span>
+                </dd>
+                <dt><span ngbTooltip="General advice after appointment">General Advice</span></dt>
+                <dd>
+                    <span>{{appointment.generalAdvice}}</span>
+                </dd>
+                <dt><span>Body Measurment</span></dt>
+                <dd>
+                    <div *ngIf="appointment.bodyMeasurment">
+                        <a [routerLink]="['/body-measurment', appointment.bodyMeasurment?.id, 'view']">{{appointment.bodyMeasurment?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Patient Card</span></dt>
+                <dd>
+                    <div *ngIf="appointment.patientCard">
+                        <a [routerLink]="['/patient-card', appointment.patientCard?.id, 'view']">{{appointment.patientCard?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/appointment', appointment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

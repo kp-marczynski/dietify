@@ -1,0 +1,462 @@
+<nav class="navbar navbar-dark navbar-expand-md bg-primary bg-success fixed-top">
+    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
+        <span class="logo-img"></span>
+        <span jhiTranslate="global.title" class="navbar-title">Dietify</span>
+    </a>
+    <a class="navbar-toggler text-white d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
+        <fa-icon icon="bars"></fa-icon>
+    </a>
+    <div class="navbar-collapse collapse bg-primary sidebar flex-column" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="home"></fa-icon>
+                        <span jhiTranslate="global.menu.home">Home</span>
+                    </span>
+                </a>
+            </li>
+            <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu">
+                    <span>
+                        <fa-icon icon="th-list"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.main">
+                            Entities
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">
+                    <li>
+                        <a class="dropdown-item" routerLink="user-extra-info" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.userExtraInfo">User Extra Info</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="landing-page-card" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.landingPageCard">Landing Page Card</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsProduct">Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product-basic-nutrition-data" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsProductBasicNutritionData">Product Basic Nutrition Data</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product-subcategory" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsProductSubcategory">Product Subcategory</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product-category" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsProductCategory">Product Category</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product-category-translation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsProductCategoryTranslation">Product Category Translation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="household-measure" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsHouseholdMeasure">Household Measure</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="nutrition-definition" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsNutritionDefinition">Nutrition Definition</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="nutrition-definition-translation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsNutritionDefinitionTranslation">Nutrition Definition Translation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="nutrition-data" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsNutritionData">Nutrition Data</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="diet-type" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsDietType">Diet Type</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="diet-type-translation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.productsDietTypeTranslation">Diet Type Translation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="recipe" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesRecipe">Recipe</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="recipe-basic-nutrition-data" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesRecipeBasicNutritionData">Recipe Basic Nutrition Data</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="dish-type" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesDishType">Dish Type</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="dish-type-translation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesDishTypeTranslation">Dish Type Translation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-type" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesMealType">Meal Type</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-type-translation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesMealTypeTranslation">Meal Type Translation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="kitchen-appliance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesKitchenAppliance">Kitchen Appliance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="kitchen-appliance-translation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesKitchenApplianceTranslation">Kitchen Appliance Translation</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="recipe-section" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesRecipeSection">Recipe Section</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="preparation-step" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesPreparationStep">Preparation Step</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="product-portion" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesProductPortion">Product Portion</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="recipe-suitable-for-diet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesRecipeSuitableForDiet">Recipe Suitable For Diet</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="recipe-unsuitable-for-diet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.recipesRecipeUnsuitableForDiet">Recipe Unsuitable For Diet</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-plan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealPlan">Meal Plan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-definition" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealDefinition">Meal Definition</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-plan-day" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealPlanDay">Meal Plan Day</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMeal">Meal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-recipe" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealRecipe">Meal Recipe</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-product" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealProduct">Meal Product</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-plan-suitable-for-diet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealPlanSuitableForDiet">Meal Plan Suitable For Diet</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="meal-plan-unsuitable-for-diet" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.mealplansMealPlanUnsuitableForDiet">Meal Plan Unsuitable For Diet</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="patient-card" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsPatientCard">Patient Card</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="appointment" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsAppointment">Appointment</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="body-measurement" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsBodyMeasurement">Body Measurement</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="nutritional-interview" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsNutritionalInterview">Nutritional Interview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="custom-nutritional-interview-question" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsCustomNutritionalInterviewQuestion">Custom Nutritional Interview Question</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="custom-nutritional-interview-question-template" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsCustomNutritionalInterviewQuestionTemplate">Custom Nutritional Interview Question Template</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="owned-kitchen-appliance" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsOwnedKitchenAppliance">Owned Kitchen Appliance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="assigned-meal-plan" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsAssignedMealPlan">Assigned Meal Plan</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" routerLink="appointment-evaluation" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                            <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                            <span jhiTranslate="global.menu.entities.appointmentsAppointmentEvaluation">Appointment Evaluation</span>
+                        </a>
+                    </li>
+                    <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+                </ul>
+            </li>
+        </ul>
+        <div class="separator"></div>
+        <ul class="navbar-nav flex-column">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="product" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="barcode"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.productsProduct">Products</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="recipe" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="receipt"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.recipesRecipe">Recipes</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="meal-plan" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="calendar-alt"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.mealplansMealPlan">Meal Plans</span>
+                    </span>
+                </a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="patient-card" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="users"></fa-icon>
+                        <span jhiTranslate="global.menu.entities.appointmentsPatientCard">Patients</span>
+                    </span>
+                </a>
+            </li>
+        </ul>
+        <div class="sidebar-footer">
+            <ul class="navbar-nav flex-column">
+                <li *jhiHasAnyAuthority="'ROLE_ADMIN'" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="admin-menu">
+                    <span>
+                        <fa-icon icon="user-shield"></fa-icon>
+                        <span jhiTranslate="global.menu.admin.main">Administration</span>
+                    </span>
+                    </a>
+                    <ul class="dropdown-menu up" ngbDropdownMenu aria-labelledby="admin-menu">
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/gateway" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="road" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.gateway">Gateway</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/user-management" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="user" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.userManagement">User management</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/jhi-tracker" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="eye" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.tracker">User tracker</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/jhi-metrics" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="tachometer-alt" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/jhi-health" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="heart" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.health">Health</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/jhi-configuration" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="list" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/audits" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="bell" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.audits">Audits</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" routerLink="admin/logs" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="tasks" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.logs">Logs</span>
+                            </a>
+                        </li>
+                        <li *ngIf="swaggerEnabled">
+                            <a class="dropdown-item" routerLink="admin/docs" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="book" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.apidocs">API</span>
+                            </a>
+                        </li>
+                        <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
+                        <li *ngIf="!inProduction">
+                            <a class="dropdown-item" href='./h2-console' target="_tab" (click)="collapseNavbar()">
+                                <fa-icon icon="hdd" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.admin.database">Database</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
+                      <span *ngIf="!getImageUrl()">
+                        <fa-icon icon="user"></fa-icon>
+                        <span jhiTranslate="global.menu.account.main">
+                          Account
+                        </span>
+                      </span>
+                        <span *ngIf="getImageUrl()">
+                          <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar">
+                      </span>
+                    </a>
+                    <ul class="dropdown-menu up" ngbDropdownMenu aria-labelledby="account-menu">
+                        <li *ngSwitchCase="true">
+                            <a class="dropdown-item" routerLink="settings" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="wrench" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.settings">Settings</span>
+                            </a>
+                        </li>
+                        <li *ngSwitchCase="true">
+                            <a class="dropdown-item" routerLink="password" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="lock" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.password">Password</span>
+                            </a>
+                        </li>
+                        <li *ngSwitchCase="true">
+                            <a class="dropdown-item" (click)="logout()" id="logout">
+                                <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.logout">Sign out</span>
+                            </a>
+                        </li>
+                        <li *ngSwitchCase="false">
+                            <a class="dropdown-item" (click)="login()" id="login">
+                                <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.login">Sign in</span>
+                            </a>
+                        </li>
+                        <li *ngSwitchCase="false">
+                            <a class="dropdown-item" routerLink="register" routerLinkActive="active" (click)="collapseNavbar()">
+                                <fa-icon icon="user-plus" fixedWidth="true"></fa-icon>
+                                <span jhiTranslate="global.menu.account.register">Register</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li ngbDropdown class="nav-item dropdown pointer" *ngIf="languages && languages.length > 1">
+                    <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
+                        <span>
+                            <fa-icon icon="flag"></fa-icon>
+                            <span jhiTranslate="global.menu.language">Language</span>
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu up" ngbDropdownMenu aria-labelledby="languagesnavBarDropdown">
+                        <li *ngFor="let language of languages">
+                            <a class="dropdown-item" [jhiActiveMenu]="language" href="javascript:void(0);" (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <jhi-footer></jhi-footer>
+        </div>
+    </div>
+</nav>

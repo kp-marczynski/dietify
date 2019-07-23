@@ -1,0 +1,9 @@
+{
+  "home": {
+    "title": "Welcome to Dietify!",
+    "subtitle": "May your journey to healthier live begin with us!",
+    "logged": {
+      "message": "You are logged in as user \"{{username}}\"."
+    }
+  }
+}

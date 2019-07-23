@@ -1,0 +1,52 @@
+{
+    "name": "CustomNutritionalInterviewQuestion",
+    "fields": [
+        {
+            "fieldName": "ordinalNumber",
+            "javadoc": "Ordinal number of custom question",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "question",
+            "javadoc": "Custom question extending Nutritional Interview",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "answer",
+            "javadoc": "Answer for question",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "nutritionalInterview",
+            "otherEntityRelationshipName": "customQuestions",
+            "relationshipValidateRules": "required",
+            "relationshipName": "nutritionalInterview",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200943",
+    "entityTableName": "cust_nutr_intr_quest",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

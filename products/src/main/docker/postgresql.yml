@@ -1,0 +1,11 @@
+version: '2'
+services:
+  products-postgresql:
+    image: postgres:11.3
+    # volumes:
+    #     - ~/volumes/jhipster/products/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=products
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432

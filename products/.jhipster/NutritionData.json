@@ -1,0 +1,46 @@
+{
+    "name": "NutritionData",
+    "fields": [
+        {
+            "fieldName": "nutritionValue",
+            "javadoc": "Nutrition value in units specified in NutritionDefinition",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "nutritionDefinition",
+            "otherEntityRelationshipName": "nutritionData",
+            "relationshipValidateRules": "required",
+            "relationshipName": "nutritionDefinition",
+            "otherEntityField": "tag"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "product",
+            "otherEntityRelationshipName": "nutritionData",
+            "relationshipValidateRules": "required",
+            "relationshipName": "product",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200915",
+    "entityTableName": "nutrition_data",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

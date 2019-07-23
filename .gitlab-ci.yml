@@ -1,81 +1,285 @@
-image: jhipster/jhipster:v5.8.2
+image: jhipster/jhipster:v6.1.2
 
 cache:
-    key: "$CI_COMMIT_REF_NAME"
-    paths:
-        - .maven/
+  key: '$CI_COMMIT_REF_NAME'
+  paths:
+    - .gradle/
 stages:
-    - build
-    - test
-    - analyze
-    - package
-    - release
-    - deploy
-
+  - build
+  - test
+  - analyze
+  - package
+  - release
+  - deploy
 
 before_script:
-    - export MAVEN_USER_HOME=`pwd`/.maven
-    - sh mvnw com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v10.15.0 -DnpmVersion=6.4.1 -Dmaven.repo.local=$MAVEN_USER_HOME
-    - sh mvnw com.github.eirslett:frontend-maven-plugin:npm -Dmaven.repo.local=$MAVEN_USER_HOME
+  - export NG_CLI_ANALYTICS="false"
+  - export GRADLE_USER_HOME=`pwd`/.gradle
 
-maven-compile:
+# gateway
+gateway-gradle-compile:
+  stage: build
+  script:
+    - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew npm_install -PnodeInstall --no-daemon
+    - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+  artifacts:
+    paths:
+      - /builds/kp.marczynski/dietify/gateway/build/classes/
+      - /builds/kp.marczynski/dietify/gateway/build/generated/
+    expire_in: 1 day
+
+gateway-gradle-test:
+  stage: test
+  script:
+    - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew test -PnodeInstall --no-daemon
+  artifacts:
+    reports:
+      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/test/TEST-*.xml
+    paths:
+      - /builds/kp.marczynski/dietify/gateway/build/test-results/
+      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+    expire_in: 1 day
+
+gateway-gradle-integration-test:
+  stage: test
+  script:
+    - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew integrationTest -PnodeInstall --no-daemon
+  artifacts:
+    reports:
+      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/integrationTest/TEST-*.xml
+    paths:
+      - /builds/kp.marczynski/dietify/gateway/build/test-results/
+      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+    expire_in: 1 day
+
+gateway-frontend-test:
+  stage: test
+  script:
+    - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew npm_install -PnodeInstall --no-daemon
+    - sh gradlew npm_run_test -PnodeInstall --no-daemon
+  artifacts:
+    reports:
+      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
+    paths:
+      - /builds/kp.marczynski/dietify/gateway/build/test-results/
+      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+    expire_in: 1 day
+
+gateway-gradle-package:
+  stage: package
+  script:
+    - cd /builds/kp.marczynski/dietify/gateway
+    - sh gradlew bootJar -Pprod -x check --no-daemon
+  artifacts:
+    paths:
+      - /builds/kp.marczynski/dietify/gateway/build/libs/*.jar
+      - /builds/kp.marczynski/dietify/gateway/build/classes
+    expire_in: 1 day
+
+# products
+products-gradle-compile:
     stage: build
     script:
-        - sh mvnw compile -Dmaven.repo.local=$MAVEN_USER_HOME
+        - cd /builds/kp.marczynski/dietify/products
+        - sh gradlew compileJava -x check -PnodeInstall --no-daemon
     artifacts:
         paths:
-            - target/classes/
-            - target/generated-sources/
+            - /builds/kp.marczynski/dietify/products/build/classes/
+            - /builds/kp.marczynski/dietify/products/build/generated/
         expire_in: 1 day
 
-maven-test:
+products-gradle-test:
     stage: test
     script:
-        - sh mvnw test -Dmaven.repo.local=$MAVEN_USER_HOME
+        - cd /builds/kp.marczynski/dietify/products
+        - sh gradlew test -PnodeInstall --no-daemon
     artifacts:
         reports:
-            junit: target/surefire-reports/TEST-*.xml
+            junit: /builds/kp.marczynski/dietify/products/build/test-results/test/TEST-*.xml
         paths:
-            - target/test-results
+            - /builds/kp.marczynski/dietify/products/build/test-results/
+            - /builds/kp.marczynski/dietify/products/build/jacoco/
         expire_in: 1 day
 
-frontend-test:
+products-gradle-integration-test:
     stage: test
     script:
-        - sh mvnw com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='test' -Dmaven.repo.local=$MAVEN_USER_HOME
+        - cd /builds/kp.marczynski/dietify/products
+        - sh gradlew integrationTest -PnodeInstall --no-daemon
     artifacts:
         reports:
-            junit: target/test-results/TESTS-*.xml
+            junit: /builds/kp.marczynski/dietify/products/build/test-results/integrationTest/TEST-*.xml
         paths:
-            - target/test-results
+            - /builds/kp.marczynski/dietify/products/build/test-results/
+            - /builds/kp.marczynski/dietify/products/build/jacoco/
         expire_in: 1 day
 
-maven-package:
+products-gradle-package:
     stage: package
     script:
-        - sh mvnw verify -Pprod -DskipTests -Dmaven.repo.local=$MAVEN_USER_HOME
+        - cd /builds/kp.marczynski/dietify/products
+        - sh gradlew bootJar -Pprod -x check --no-daemon
     artifacts:
         paths:
-            - target/*.war
+            - /builds/kp.marczynski/dietify/products/build/libs/*.jar
+            - /builds/kp.marczynski/dietify/products/build/classes
         expire_in: 1 day
 
-# Uncomment the following line to use gitlabs container registry. You need to adapt the REGISTRY_URL in case you are not using gitlab.com
-#docker-push:
-#    image: docker:latest
-#    services:
-#        - docker:dind
-#    variables:
-#        REGISTRY_URL: registry.gitlab.com
-#        DOCKER_HOST: tcp://docker:2375
-#        DOCKER_DRIVER: overlay2
-#        IMAGE_TAG: $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
-#    stage: release
-#    dependencies:
-#        - maven-package
-#    before_script:
-#        - docker info
-#        - cp target/*.war src/main/docker
-#    script:
-#        - docker login -u "gitlab-ci-token" -p "$CI_BUILD_TOKEN" $REGISTRY_URL
-#        - docker build -f src/main/docker/Dockerfile -t $IMAGE_TAG src/main/docker
-#        - docker push $IMAGE_TAG
+# recipes
+recipes-gradle-compile:
+    stage: build
+    script:
+        - cd /builds/kp.marczynski/dietify/recipes
+        - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/recipes/build/classes/
+            - /builds/kp.marczynski/dietify/recipes/build/generated/
+        expire_in: 1 day
+
+recipes-gradle-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/recipes
+        - sh gradlew test -PnodeInstall --no-daemon
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/recipes/build/test-results/test/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/recipes/build/test-results/
+            - /builds/kp.marczynski/dietify/recipes/build/jacoco/
+        expire_in: 1 day
+
+recipes-gradle-integration-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/recipes
+        - sh gradlew integrationTest -PnodeInstall --no-daemon
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/recipes/build/test-results/integrationTest/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/recipes/build/test-results/
+            - /builds/kp.marczynski/dietify/recipes/build/jacoco/
+        expire_in: 1 day
+
+recipes-gradle-package:
+    stage: package
+    script:
+        - cd /builds/kp.marczynski/dietify/recipes
+        - sh gradlew bootJar -Pprod -x check --no-daemon
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/recipes/build/libs/*.jar
+            - /builds/kp.marczynski/dietify/recipes/build/classes
+        expire_in: 1 day
+
+# mealplans
+mealplans-gradle-compile:
+    stage: build
+    script:
+        - cd /builds/kp.marczynski/dietify/mealplans
+        - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/mealplans/build/classes/
+            - /builds/kp.marczynski/dietify/mealplans/build/generated/
+        expire_in: 1 day
+
+mealplans-gradle-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/mealplans
+        - sh gradlew test -PnodeInstall --no-daemon
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/mealplans/build/test-results/test/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/mealplans/build/test-results/
+            - /builds/kp.marczynski/dietify/mealplans/build/jacoco/
+        expire_in: 1 day
+
+mealplans-gradle-integration-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/appointments
+        - sh gradlew integrationTest -PnodeInstall --no-daemon
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/mealplans/build/test-results/integrationTest/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/mealplans/build/test-results/
+            - /builds/kp.marczynski/dietify/mealplans/build/jacoco/
+        expire_in: 1 day
+
+mealplans-gradle-package:
+    stage: package
+    script:
+        - cd /builds/kp.marczynski/dietify/mealplans
+        - sh gradlew bootJar -Pprod -x check --no-daemon
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/mealplans/build/libs/*.jar
+            - /builds/kp.marczynski/dietify/mealplans/build/classes
+        expire_in: 1 day
+
+# appointments
+appointments-gradle-compile:
+    stage: build
+    script:
+        - cd /builds/kp.marczynski/dietify/appointments
+        - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/appointments/build/classes/
+            - /builds/kp.marczynski/dietify/appointments/build/generated/
+        expire_in: 1 day
+
+appointments-gradle-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/appointments
+        - sh gradlew test -PnodeInstall --no-daemon
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/appointments/build/test-results/test/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/appointments/build/test-results/
+            - /builds/kp.marczynski/dietify/appointments/build/jacoco/
+        expire_in: 1 day
+
+appointments-gradle-integration-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/appointments
+        - sh gradlew integrationTest -PnodeInstall --no-daemon
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/appointments/build/test-results/integrationTest/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/appointments/build/test-results/
+            - /builds/kp.marczynski/dietify/appointments/build/jacoco/
+        expire_in: 1 day
+
+appointments-gradle-package:
+    stage: package
+    script:
+        - cd /builds/kp.marczynski/dietify/appointments
+        - sh gradlew bootJar -Pprod -x check --no-daemon
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/appointments/build/libs/*.jar
+            - /builds/kp.marczynski/dietify/appointments/build/classes
+        expire_in: 1 day
+
+# ionic
+ionic-frontend-test:
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/ionic
+        - npm install
+        - npm test

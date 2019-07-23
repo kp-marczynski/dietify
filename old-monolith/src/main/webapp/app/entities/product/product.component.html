@@ -1,0 +1,147 @@
+<div id="product-list-wrapper">
+    <div class="row">
+        <div class="col-md-3">
+            <button id="jh-create-entity" class="btn btn-primary jh-create-entity create-product"
+                    [routerLink]="['/product/new']" *ngIf="standaloneView">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span>Create new Product</span>
+            </button>
+        </div>
+        <div class="col-md-9">
+            <input type="text" class="form-control jh-card shadow" placeholder="Search..." (keyup.enter)="search()"
+                   id="search"
+                   name="search"
+                   [(ngModel)]="searchPhrase"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 center-block">
+            <div class="card jh-card">
+                <h2>Filters</h2>
+                <label for="language-select">Language:</label>
+                <select class="form-control" id="language-select" name="language-select" [(ngModel)]="selectedLanguage"
+                        (change)="fetchSubcategories(); search()">
+                    <option
+                        [ngValue]="language.id === selectedLanguage?.id ? selectedLanguage : language"
+                        *ngFor="let language of languages; trackBy: customTrackBy">{{language.englishName}}</option>
+                </select>
+                <label for="category-select">Category:</label>
+                <select class="form-control" id="category-select" name="category-select" [(ngModel)]="selectedCategory"
+                        (change)="fetchSubcategories(); search()">
+                    <option [ngValue]="null"></option>
+                    <option
+                        [ngValue]="productCategoryOption.id === selectedCategory?.id ? selectedCategory : productCategoryOption"
+                        *ngFor="let productCategoryOption of productCategories; trackBy: customTrackBy">{{productCategoryOption.descriptionEnglish}}</option>
+                </select>
+                <label for="subcategory-select">Subcategory:</label>
+                <select class="form-control" id="subcategory-select" name="subcategory-select"
+                        [(ngModel)]="selectedSubcategory" (click)="search()">
+                    <option [ngValue]="null"></option>
+                    <option
+                        [ngValue]="productSubcategoryOption.id === selectedSubcategory?.id ? selectedSubcategory : productSubcategoryOption"
+                        *ngFor="let productSubcategoryOption of productSubcategories; trackBy: customTrackBy">{{productSubcategoryOption.description}}</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div class="card jh-card ">
+                <h2 id="page-heading">
+                    <span>Products</span>
+                </h2>
+                <jhi-alert></jhi-alert>
+                <br/>
+                <div class="table-responsive" *ngIf="products">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse"
+                            [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span>ID</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="source"><span>Source</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="description"><span>Description</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="language.id"><span>Language</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="subcategory.id"><span>Subcategory</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th jhiSortBy="author.login"><span>Author</span>
+                                <fa-icon [icon]="'sort'"></fa-icon>
+                            </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let product of products ;trackBy: trackId">
+                            <td><a [routerLink]="['/product', product.id, 'view' ]">{{product.id}}</a></td>
+                            <td>{{product.source}}</td>
+                            <td>{{product.description}}</td>
+                            <td>
+                                <div *ngIf="product.language">
+                                    <a [routerLink]="['../language', product.language?.id, 'view' ]">{{product.language?.englishName}}</a>
+                                </div>
+                            </td>
+                            <td>
+                                <div *ngIf="product.subcategory">
+                                    <a [routerLink]="['../product-subcategory', product.subcategory?.id, 'view' ]">{{product.subcategory?.description}}</a>
+                                </div>
+                            </td>
+                            <td>
+                                {{product.author?.login}}
+                            </td>
+                            <td class="text-right">
+                                <div class="btn-group flex-btn-group-container" *ngIf="standaloneView">
+                                    <button type="submit"
+                                            [routerLink]="['/product', product.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/product', product.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'product', { outlets: { popup: product.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline">Delete</span>
+                                    </button>
+                                </div>
+                                <div class="btn-group flex-btn-group-container" *ngIf="!standaloneView">
+                                    <button type="submit" class="btn btn-info btn-sm" (click)="passBack(product)">
+                                        <fa-icon [icon]="'plus'"></fa-icon>
+                                        <span class="d-none d-md-inline">Add</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pager is not implemented yet, so this is normal pagination instead -->
+                <div *ngIf="products && products.length">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="totalItems"
+                                        [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [size]="'sm'" [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage"
+                                        [maxSize]="5"
+                                        [rotate]="true" [boundaryLinks]="true"
+                                        (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

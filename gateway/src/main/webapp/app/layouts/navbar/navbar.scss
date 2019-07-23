@@ -1,0 +1,97 @@
+@import '~bootstrap/scss/functions';
+@import '~bootswatch/dist/flatly/variables';
+@import '~bootstrap/scss/variables';
+
+/* ==========================================================================
+Navbar
+========================================================================== */
+
+.profile-image {
+  height: 1.75em;
+  width: 1.75em;
+}
+
+.navbar {
+  z-index: $zindex-dropdown - 1;
+  padding: 0.2rem 1rem;
+  height: 60px;
+
+  .dropdown-item.active,
+  .dropdown-item.active:focus,
+  .dropdown-item.active:hover {
+    background-color: $dark;
+  }
+
+  ul.navbar-nav {
+    .nav-item {
+      margin-left: 0.5em;
+    }
+  }
+
+  a.nav-link {
+    font-weight: 400;
+  }
+
+  .navbar-toggler {
+    &:hover {
+      color: $navbar-dark-hover-color;
+    }
+  }
+}
+
+/* ==========================================================================
+Logo styles
+========================================================================== */
+.logo-img {
+  height: 45px;
+  width: 45px;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('../../../content/images/logo-dietify.png') no-repeat center center;
+  background-size: contain;
+}
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 230px;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  padding-top: 85px;
+  align-items: flex-start;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
+  scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar {
+  scrollbar-width: none;
+  display: none; // Safari and Chrome
+}
+
+.sidebar-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.navbar-title {
+  font-size: 1.3rem;
+  letter-spacing: 0.25rem;
+}
+
+.separator {
+  border-top: 1px solid rgba(255, 255, 255, 0.125);
+  width: 100%;
+}
+
+.up { bottom:100% !important; top:auto !important; }
+
+fa-icon {
+  display: inline-block;
+  width: 1.25rem;
+}

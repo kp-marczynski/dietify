@@ -1,0 +1,44 @@
+{
+    "name": "PreparationStep",
+    "fields": [
+        {
+            "fieldName": "ordinalNumber",
+            "javadoc": "Ordinal number of preparation step",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
+            "fieldName": "stepDescription",
+            "javadoc": "Preferably short step description",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "recipeSection",
+            "otherEntityRelationshipName": "preparationSteps",
+            "relationshipValidateRules": "required",
+            "relationshipName": "recipeSection",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200927",
+    "entityTableName": "preparation_step",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

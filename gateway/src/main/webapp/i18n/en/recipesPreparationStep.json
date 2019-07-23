@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "recipesPreparationStep": {
+      "home": {
+        "title": "Preparation Steps",
+        "createLabel": "Create a new Preparation Step",
+        "createOrEditLabel": "Create or edit a Preparation Step",
+        "search": "Search for Preparation Step",
+        "notFound": "No Preparation Step found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Preparation Step {{ id }}?"
+      },
+      "detail": {
+        "title": "Preparation Step"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "stepDescription": "Step Description",
+      "recipeSection": "Recipe Section",
+      "help": {
+        "ordinalNumber": "Ordinal number of preparation step",
+        "stepDescription": "Preferably short step description"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesPreparationStep": {
+      "created": "A new Preparation Step is created with identifier {{ param }}",
+      "updated": "A Preparation Step is updated with identifier {{ param }}",
+      "deleted": "A Preparation Step is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,84 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+            <h2 id="jhi-patient-heading">Create or edit a Patient</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!patient.id">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id"
+                        [(ngModel)]="patient.id" readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_userId" ngbTooltip="Id of user">User Id</label>
+                    <input type="number" class="form-control" name="userId" id="field_userId"
+                        [(ngModel)]="patient.userId" required/>
+                    <div [hidden]="!(editForm.controls.userId?.dirty && editForm.controls.userId?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.userId?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.userId?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_gender" ngbTooltip="Gender of patient">Gender</label>
+                    <select class="form-control" name="gender" [(ngModel)]="patient.gender" id="field_gender"  required>
+                        <option value="FEMALE">FEMALE</option>
+                        <option value="MALE">MALE</option>
+                        <option value="OTHER">OTHER</option>
+                    </select>
+                    <div [hidden]="!(editForm.controls.gender?.dirty && editForm.controls.gender?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.gender?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_dateOfBirth" ngbTooltip="Date of birth of patient">Date Of Birth</label>
+                    <div class="input-group">
+                        <input id="field_dateOfBirth" type="text" class="form-control" name="dateOfBirth" ngbDatepicker  #dateOfBirthDp="ngbDatepicker" [(ngModel)]="patient.dateOfBirth"
+                        required/>
+                        <span class="input-group-append">
+                            <button type="button" class="btn btn-secondary" (click)="dateOfBirthDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
+                        </span>
+                    </div>
+                    <div [hidden]="!(editForm.controls.dateOfBirth?.dirty && editForm.controls.dateOfBirth?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.dateOfBirth?.errors?.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_preferableLanguageId" ngbTooltip="Patient&#39;s preferable language">Preferable Language Id</label>
+                    <input type="number" class="form-control" name="preferableLanguageId" id="field_preferableLanguageId"
+                        [(ngModel)]="patient.preferableLanguageId" required/>
+                    <div [hidden]="!(editForm.controls.preferableLanguageId?.dirty && editForm.controls.preferableLanguageId?.invalid)">
+                        <small class="form-text text-danger"
+                        [hidden]="!editForm.controls.preferableLanguageId?.errors?.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                            [hidden]="!editForm.controls.preferableLanguageId?.errors?.number">
+                            This field should be a number.
+                        </small>
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

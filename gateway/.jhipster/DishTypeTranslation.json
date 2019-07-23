@@ -1,0 +1,52 @@
+{
+    "name": "DishTypeTranslation",
+    "fields": [
+        {
+            "fieldName": "translation",
+            "javadoc": "Translated name of dish type",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language of translation as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "dishType",
+            "otherEntityRelationshipName": "translations",
+            "relationshipValidateRules": "required",
+            "relationshipName": "dishType",
+            "otherEntityField": "description"
+        }
+    ],
+    "changelogDate": "20190722200921",
+    "entityTableName": "dish_type_trns",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

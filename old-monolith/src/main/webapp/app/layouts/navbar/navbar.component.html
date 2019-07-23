@@ -1,0 +1,232 @@
+<nav class="navbar navbar-light bg-white fixed-top navbar-expand-lg scrolling-navbar">
+    <div class="container-fluid">
+        <a class="jh-navbar-toggler  float-right" href="javascript:void(0);" data-toggle="collapse"
+           data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+           aria-label="Toggle navigation" (click)="toggleNavbar()">
+            <fa-icon icon="bars"></fa-icon>
+        </a>
+        <a class="navbar-brand waves-effect" (click)="collapseNavbar()">>
+            <strong class="blue-text">{{getUrl()}}</strong>
+        </a>
+    </div>
+    <div class="jh-navbar-responsive" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed"
+         [ngSwitch]="isAuthenticated()">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="home"></fa-icon>
+                        <span>Home</span>
+                    </span>
+                </a>
+            </li>
+            <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
+            <li *ngSwitchCase="true" ngbDropdown class="nav-item dropdown pointer" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+            <li>
+                <a class="dropdown-item" routerLink="product" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="barcode" fixedWidth="true"></fa-icon>
+                    <span>Product</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" routerLink="recipe" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="receipt" fixedWidth="true"></fa-icon>
+                    <span>Recipe</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" routerLink="meal-plan" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="calendar-alt" fixedWidth="true"></fa-icon>
+                    <span>Meal Plan</span>
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" routerLink="patient-card" routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="users" fixedWidth="true"></fa-icon>
+                    <span>Patients</span>
+                </a>
+            </li>
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="dropdown-item" routerLink="admin"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
+                    <fa-icon icon="user-shield" fixedWidth="true"></fa-icon>
+                    <span>Admin</span>
+                </a>
+            </li>
+
+            <!-- jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here -->
+            <li ngbDropdown class="nav-item dropdown pointer" placement="bottom-right" routerLinkActive="active"
+                [routerLinkActiveOptions]="{exact: true}">
+                <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu">
+                  <span *ngIf="!getImageUrl()">
+                    <fa-icon icon="user"></fa-icon>
+                    <span>
+                      Account
+                    </span>
+                  </span>
+                    <span *ngIf="getImageUrl()">
+                      <img [src]="getImageUrl()" class="profile-image rounded-circle" alt="Avatar">
+                  </span>
+                </a>
+                <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="account-menu">
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="settings" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <fa-icon icon="wrench" fixedWidth="true"></fa-icon>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" routerLink="password" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <fa-icon icon="clock" fixedWidth="true"></fa-icon>
+                            <span>Password</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="true">
+                        <a class="dropdown-item" (click)="logout()" id="logout">
+                            <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                            <span>Sign out</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" (click)="login()" id="login">
+                            <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
+                            <span>Sign in</span>
+                        </a>
+                    </li>
+                    <li *ngSwitchCase="false">
+                        <a class="dropdown-item" routerLink="register" routerLinkActive="active"
+                           (click)="collapseNavbar()">
+                            <fa-icon icon="user-plus" fixedWidth="true"></fa-icon>
+                            <span>Register</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<aside class="sidebar-fixed position-fixed sidebar">
+    <div class="sidebar-header">
+        <div class="logo-wrapper">
+            <span class="logo-wrapper waves-effect">
+            <fa-icon icon="utensils" routerLink="/"></fa-icon>
+                <!--<img src="/content/images/outline_watch.png" class="img-fluid" alt="">-->
+            </span>
+            <h3 class="header-logo">Dietify</h3>
+        </div>
+        <div [ngSwitch]="isAuthenticated()">
+        <span routerLinkActive="active" class="list-group" ngbDropdown [routerLinkActiveOptions]="{exact: true}">
+            <a class="list-group-item-heading" ngbDropdownToggle id="account-menu-aside">
+                  <span *ngIf="!getImageUrl()">
+                      <span><fa-icon icon="user"></fa-icon> Account </span>
+                      <span *ngIf="isAuthenticated()">{{account?.login}}</span>
+                  </span>
+                <span *ngIf="getImageUrl()">
+                      <img [src]="getImageUrl()" class="profile-image img-circle" alt="Avatar">
+                  </span>
+            </a>
+            <span ngbDropdownMenu>
+                <span *ngSwitchCase="true">
+                    <a class="list-group-item list-group-item-action waves-effect" routerLink="settings"
+                       routerLinkActive="active" (click)="collapseNavbar()" id="settings-aside">
+                        <fa-icon icon="wrench" fixedWidth="true"></fa-icon>
+                        <span>Settings</span>
+                    </a>
+                </span>
+                <span *ngSwitchCase="true">
+                    <a class="list-group-item list-group-item-action waves-effect" routerLink="password"
+                       routerLinkActive="active" (click)="collapseNavbar()" id="password-aside">
+                        <fa-icon icon="clock" fixedWidth="true"></fa-icon>
+                        <span>Password</span>
+                    </a>
+                </span>
+                <span *ngSwitchCase="true">
+                    <a class="list-group-item list-group-item-action waves-effect" (click)="logout()" id="logout-aside">
+                        <fa-icon icon="sign-out-alt" fixedWidth="true"></fa-icon>
+                        <span>Sign out</span>
+                    </a>
+                </span>
+                <span *ngSwitchCase="false">
+                    <a class="list-group-item list-group-item-action waves-effect" (click)="login()" id="login-aside">
+                        <fa-icon icon="sign-in-alt" fixedWidth="true"></fa-icon>
+                        <span>Sign in</span>
+                    </a>
+                </span>
+                <span *ngSwitchCase="false">
+                    <a class="list-group-item list-group-item-action waves-effect" routerLink="register"
+                       routerLinkActive="active" (click)="collapseNavbar()" id="register-aside">
+                        <fa-icon icon="user-plus" fixedWidth="true"></fa-icon>
+                        <span>Register</span>
+                    </a>
+                </span>
+            </span>
+        </span>
+        </div>
+    </div>
+    <div class="sidebar-body">
+        <div class="list-group list-group-flush" [ngSwitch]="isAuthenticated()">
+            <!--<span routerLinkActive="active" class="list-group" [routerLinkActiveOptions]="{exact: true}">-->
+            <a class="list-group-item list-group-item-action waves-effect" routerLink="/">
+                    <span>
+                        <fa-icon icon="home"></fa-icon>
+                        <span>Home</span>
+                    </span>
+            </a>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="product" id="product"
+                   routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+                    <fa-icon icon="barcode" fixedWidth="true"></fa-icon>
+                    <span>Products</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="recipe"
+                   routerLinkActive="active" id="recipe"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                    <fa-icon icon="receipt" fixedWidth="true"></fa-icon>
+                    <span>Recipes</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="meal-plan"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                    <fa-icon icon="calendar-alt" fixedWidth="true"></fa-icon>
+                    <span>Meal Plan</span>
+                </a>
+            </span>
+            <span>
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="patient-card"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                    <fa-icon icon="users" fixedWidth="true"></fa-icon>
+                    <span>Patients</span>
+                </a>
+            </span>
+            <span *jhiHasAnyAuthority="'ROLE_ADMIN'">
+                <a class="list-group-item list-group-item-action waves-effect" routerLink="admin"
+                   routerLinkActive="active"
+                   [routerLinkActiveOptions]="{ exact: true }">
+                    <fa-icon icon="user-shield" fixedWidth="true"></fa-icon>
+                    <span>Admin</span>
+                </a>
+            </span>
+            <!--</span>-->
+        </div>
+    </div>
+    <div class="sidebar-footer small text-center">
+        v0.14.0
+        <br/>
+        &copy; {{currentYear}}, K. Marczyński
+    </div>
+</aside>

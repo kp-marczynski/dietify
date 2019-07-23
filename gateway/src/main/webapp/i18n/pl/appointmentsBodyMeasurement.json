@@ -1,0 +1,53 @@
+{
+  "gatewayApp": {
+    "appointmentsBodyMeasurement": {
+      "home": {
+        "title": "Body Measurement",
+        "createLabel": "Dodaj Body Measurement",
+        "createOrEditLabel": "Dodaj lub edytuj: Body Measurement",
+        "search": "Szukaj Body Measurement",
+        "notFound": "No Body Measurement found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Body Measurement {{ id }}?"
+      },
+      "detail": {
+        "title": "Body Measurement"
+      },
+      "completionDate": "Completion Date",
+      "height": "Height",
+      "weight": "Weight",
+      "waist": "Waist",
+      "percentOfFatTissue": "Percent Of Fat Tissue",
+      "percentOfWater": "Percent Of Water",
+      "muscleMass": "Muscle Mass",
+      "physicalMark": "Physical Mark",
+      "calciumInBones": "Calcium In Bones",
+      "basicMetabolism": "Basic Metabolism",
+      "metabolicAge": "Metabolic Age",
+      "visceralFatLevel": "Visceral Fat Level",
+      "appointment": "Appointment",
+      "help": {
+        "completionDate": "Date of measurement completion",
+        "height": "Patient&#39;s height. Alongside with weight it is used to calculate BMI factor",
+        "weight": "Patient&#39;s weight. Alongside with height it is used to calculate BMI factor",
+        "waist": "Patient&#39;s waist measure",
+        "percentOfFatTissue": "Percent of fat tissue in patient&#39;s body. Norm for women: 16-20. Norm for men: 15-18",
+        "percentOfWater": "Percent of water in patient&#39;s body. Norm for women: 45-60. Norm for men: 50-65",
+        "muscleMass": "Mass of patient&#39;s muscle tissue in kilograms",
+        "physicalMark": "Physical mark. Norm: 5",
+        "calciumInBones": "Level of calcium in patient&#39;s bones in kilograms. Norm: ~2.4kg",
+        "basicMetabolism": "Basic metabolism in kcal",
+        "metabolicAge": "Metabolic age in years",
+        "visceralFatLevel": "Level of visceral fat. Norm: 1-12"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsBodyMeasurement": {
+      "created": "Utworzono nowy obiekt typu Body Measurement z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Body Measurement z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Body Measurement z identyfikatorem {{ param }}"
+    }
+  }
+}

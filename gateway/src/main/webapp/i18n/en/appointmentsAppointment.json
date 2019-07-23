@@ -1,0 +1,40 @@
+{
+  "gatewayApp": {
+    "appointmentsAppointment": {
+      "home": {
+        "title": "Appointments",
+        "createLabel": "Create a new Appointment",
+        "createOrEditLabel": "Create or edit a Appointment",
+        "search": "Search for Appointment",
+        "notFound": "No Appointment found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Appointment {{ id }}?"
+      },
+      "detail": {
+        "title": "Appointment"
+      },
+      "appointmentDate": "Appointment Date",
+      "appointmentState": "Appointment State",
+      "mealPlanId": "Meal Plan Id",
+      "generalAdvice": "General Advice",
+      "bodyMeasurement": "Body Measurement",
+      "nutritionalInterview": "Nutritional Interview",
+      "mealPlans": "Meal Plans",
+      "patientCard": "Patient Card",
+      "help": {
+        "appointmentDate": "Date and time of the appointment",
+        "appointmentState": "Current appointment state",
+        "mealPlanId": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
+        "generalAdvice": "General advice after appointment"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsAppointment": {
+      "created": "A new Appointment is created with identifier {{ param }}",
+      "updated": "A Appointment is updated with identifier {{ param }}",
+      "deleted": "A Appointment is deleted with identifier {{ param }}"
+    }
+  }
+}

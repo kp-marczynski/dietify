@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="productSubcategory">
+            <h2><span jhiTranslate="gatewayApp.productsProductSubcategory.detail.title">Product Subcategory</span> {{productSubcategory.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.productsProductSubcategory.description" [ngbTooltip]="'gatewayApp.productsProductSubcategory.help.description' | translate">Description</span></dt>
+                <dd>
+                    <span>{{productSubcategory.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProductSubcategory.category">Category</span></dt>
+                <dd>
+                    <div *ngIf="productSubcategory.category">
+                        <a [routerLink]="['/product-category', productSubcategory.category?.id, 'view']">{{productSubcategory.category?.description}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/product-subcategory', productSubcategory.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

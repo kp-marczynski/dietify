@@ -1,0 +1,143 @@
+/**
+ * A set of available genders
+ * @author Krzysztof Marczyński
+ */
+enum Gender {
+	FEMALE, MALE, OTHER
+}
+
+/**
+ * A user with dietetician role
+ * @author Krzysztof Marczyński
+ */
+entity Dietetician{
+	/** Id of user */
+	userId Long
+}
+
+/**
+ * A user with patient role
+ * @author Krzysztof Marczyński
+ */
+entity Patient {
+	/** Id of user */
+	userId Long required
+    /** Gender of patient */
+    gender Gender required
+    /** Date of birth of patient */
+    dateOfBirth LocalDate required
+    /** Patient's preferable language */
+    preferableLanguageId Long required
+}
+
+/**
+ * A Patient's card
+ * @author Krzysztof Marczyński
+ */
+entity PatientCard {
+	creationDate LocalDate required
+}
+
+enum AppointmentState {
+	PLANNED, CANCELED, COMPLETED
+}
+
+/**
+ * An appointment
+ * @author Krzysztof Marczyński
+ */
+entity Appointment {
+	/** Date of the appointment */
+	appointmentDate LocalDate required
+    /** Current appointment state */
+    appointmentState AppointmentState
+    /** Meal plan designed for patient */
+	mealPlanId Long
+    /** General advice after appointment */
+	generalAdvice TextBlob
+}
+
+/**
+ * A body measurment
+ * @author Krzysztof Marczyński
+ */
+entity BodyMeasurment {
+	/** Date of measurment completion */
+	completionDate LocalDate required
+    /** 
+    * Patient's height 
+    * Alongside with weight it is used to calculate BMI factor
+    */
+    height Integer required
+    /** 
+    * Patient's weight 
+    * Alongside with height it is used to calculate BMI factor
+    */
+    weight Integer required
+    /** Patient's waist measure */
+    waist Double required
+    /** 
+    * Percent of fat tissue in patient's body
+    * Norm for women: 16-20
+    * Norm for men: 15-18
+    */
+	percentOfFatTissue Double min(0) max(100)
+    /** 
+    * Percent of water in patient's body
+    * Norm for women: 45-60
+    * Norm for men: 50-65
+    */
+    percentOfWater Double min(0) max(100)
+    /** 
+    * Mass of patient's muscle tissue in kilograms
+    */
+    muscleMass Double
+    /** 
+    * Physical mark
+    * Norm: 5
+    */
+    physicalMark Double
+    /** 
+    * Level of calcium in patient's bones in kilograms
+    * Norm: ~2.4kg
+    */
+    calciumInBones Double
+    /** Basic metabolism in kcal */
+    basicMetabolism Integer
+    /** Metabolic age in years */
+    metabolicAge Double
+    /** 
+    * Level of visceral fat
+    * Norm: 1-12
+    */
+    visceralFatLevel Double
+}
+
+relationship ManyToOne {
+	/** Patient for whom card was created */
+	PatientCard{patient required} 
+    	to 
+        /** Collection of patient's cards */
+        Patient{patientCards}
+    
+    /** Dietetician responsible for patient's card */
+	PatientCard{dietetician required} 
+    	to 
+        /** Collection of patient's cards assigned to dietetician */
+        Dietetician{patientcards}
+    
+    /** PatientCard for which appointment was created */
+	Appointment{patientCard required} 
+    	to 
+        /** Collection of appointments */
+        PatientCard{appointments}
+}
+
+relationship OneToOne {
+    /** Body Measurments conducted on appointment */
+    Appointment{bodyMeasurment} 
+    	to BodyMeasurment
+}
+
+paginate PatientCard, Appointment with pager
+service * with serviceImpl

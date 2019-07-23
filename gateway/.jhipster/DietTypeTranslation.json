@@ -1,0 +1,52 @@
+{
+    "name": "DietTypeTranslation",
+    "fields": [
+        {
+            "fieldName": "translation",
+            "javadoc": "Translated name of diet type",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language of translation as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "dietType",
+            "otherEntityRelationshipName": "translations",
+            "relationshipValidateRules": "required",
+            "relationshipName": "dietType",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200917",
+    "entityTableName": "diet_type_trns",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "products"
+    ],
+    "microserviceName": "products"
+}

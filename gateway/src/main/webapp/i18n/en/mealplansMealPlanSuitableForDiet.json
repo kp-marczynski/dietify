@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "mealplansMealPlanSuitableForDiet": {
+      "home": {
+        "title": "Meal Plan Suitable For Diets",
+        "createLabel": "Create a new Meal Plan Suitable For Diet",
+        "createOrEditLabel": "Create or edit a Meal Plan Suitable For Diet",
+        "search": "Search for Meal Plan Suitable For Diet",
+        "notFound": "No Meal Plan Suitable For Diet found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal Plan Suitable For Diet {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Plan Suitable For Diet"
+      },
+      "dietTypeId": "Diet Type Id",
+      "mealPlan": "Meal Plan",
+      "help": {
+        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealPlanSuitableForDiet": {
+      "created": "A new Meal Plan Suitable For Diet is created with identifier {{ param }}",
+      "updated": "A Meal Plan Suitable For Diet is updated with identifier {{ param }}",
+      "deleted": "A Meal Plan Suitable For Diet is deleted with identifier {{ param }}"
+    }
+  }
+}

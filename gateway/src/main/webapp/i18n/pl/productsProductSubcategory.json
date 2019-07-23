@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "productsProductSubcategory": {
+      "home": {
+        "title": "Product Subcategory",
+        "createLabel": "Dodaj Product Subcategory",
+        "createOrEditLabel": "Dodaj lub edytuj: Product Subcategory",
+        "search": "Szukaj Product Subcategory",
+        "notFound": "No Product Subcategory found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Product Subcategory {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Subcategory"
+      },
+      "description": "Description",
+      "category": "Category",
+      "help": {
+        "description": "Short description of subcategory in language of a product"
+      }
+    }
+  },
+  "productsApp": {
+    "productsProductSubcategory": {
+      "created": "Utworzono nowy obiekt typu Product Subcategory z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Product Subcategory z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Product Subcategory z identyfikatorem {{ param }}"
+    }
+  }
+}

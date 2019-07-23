@@ -1,0 +1,53 @@
+{
+  "generator-jhipster": {
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "enableHibernateCache": true,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "jhi",
+    "languages": [
+      "en",
+      "pl"
+    ],
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "pl.marczynski.dietify.products",
+    "packageFolder": "pl/marczynski/dietify/products",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "serviceDiscoveryType": "eureka",
+    "skipClient": true,
+    "testFrameworks": [
+      "gatling",
+      "cucumber"
+    ],
+    "websocket": false,
+    "baseName": "products",
+    "applicationType": "microservice",
+    "serverPort": "8081",
+    "authenticationType": "jwt",
+    "buildTool": "gradle",
+    "cacheProvider": "hazelcast",
+    "jhipsterVersion": "6.1.2",
+    "skipUserManagement": true,
+    "clientPackageManager": "npm",
+    "jwtSecretKey": "MzIyYjNiNGQ1ZWZhNTM0MDczZjI0OTAxYWYwYmEzZWVmNzE1MzgzZmIyMTgzZjk4ZTFkNTY5MTg4MzgwMGM2YjE3ZGJjN2Y2ZDRlMzkxZTI3OWJmZjAxZjEzZjY2NzcxOTYyMGMwOTA5Yzg0YmFjNTM5ZDNhNzY1YjBmM2QxYjQ=",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
+  },
+  "entities": [
+    "Product",
+    "ProductSubcategory",
+    "ProductCategory",
+    "ProductCategoryTranslation",
+    "NutritionData",
+    "NutritionDefinition",
+    "NutritionDefinitionTranslation",
+    "HouseholdMeasure",
+    "DietType",
+    "DietTypeTranslation",
+    "ProductBasicNutritionData"
+  ]
+}

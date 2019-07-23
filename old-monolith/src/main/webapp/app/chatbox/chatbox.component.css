@@ -1,0 +1,166 @@
+.chatbox-holder {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: flex-end;
+    height: 0;
+}
+
+.chatbox {
+    width: 20rem;
+    height: 25rem;
+    margin: 0 2rem 0 0;
+    position: relative;
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-flow: column;
+    background: white;
+    bottom: 0;
+}
+
+.chatbox-top {
+    position: relative;
+    display: flex;
+    padding: 10px;
+    background: #37474f;
+}
+
+.chatbox-icons {
+    display: flex;
+    position: relative;
+}
+
+button {
+    flex: 1;
+}
+
+.fa {
+    padding: 3px 5px;
+    font-size: 1rem;
+}
+
+.chat-partner-name,
+.chat-group-name {
+    flex: 1;
+    padding: 0 0 0 95px;
+    font-weight: bold;
+}
+
+.chatbox-avatar {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border-radius: 50%;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    position: absolute;
+    bottom: 356px;
+    left: 6px;
+    background-color: white;
+    padding-left: 0.65rem;
+    padding-top: 0.5rem;
+    z-index: 1000;
+}
+
+.chatbox-avatar fa-icon {
+    font-size: 1.5rem;
+}
+
+.chat-messages {
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    overflow: auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    align-content: flex-start;
+    flex: 1;
+}
+
+::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;
+}
+
+.message-box-holder {
+    width: 100%;
+    margin: 0 0 15px;
+    display: flex;
+    flex-flow: column;
+    align-items: flex-end;
+}
+
+.message-box {
+    padding: 10px;
+    border-radius: 6px;
+    position: relative;
+    font-size: 0.85rem;
+    max-width: 75%;
+}
+
+.message-partner {
+    align-self: flex-start;
+}
+
+.chat-input-holder {
+    display: flex;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.chat-input {
+    resize: none;
+    padding: 10px;
+    /*height: 40px;*/
+    flex: 1;
+    border: none;
+    background: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.chat-input:focus,
+.message-send:focus,
+button:focus {
+    outline: none;
+}
+
+.message-send:focus,
+button:focus,
+.message-send:hover,
+button:hover {
+    cursor: pointer;
+}
+
+.message-send {
+    background: #30649c;
+    color: white;
+    padding: 0 15px;
+    border: none;
+}
+
+/*.chatbox-min .chat-messages, .chatbox-min .chat-input-holder, .chatbox-min .chatbox-top {*/
+/*display: none;*/
+/*}*/
+
+.chatbox-min .chat-partner-name,
+.chatbox-min .chat-group-name {
+    padding: 0 0 0 75px;
+}
+
+.chatbox-min.chatbox {
+    height: 0;
+}
+.chatbox-hidden {
+    display: none;
+}
+
+.chat-partner-name a {
+    color: white;
+    font-size: 1rem;
+}
+
+.chatbox-min.chatbox-avatar {
+    bottom: 20px;
+    left: 275px;
+}
