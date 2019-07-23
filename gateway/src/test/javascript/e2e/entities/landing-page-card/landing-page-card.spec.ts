@@ -3,6 +3,7 @@ import { browser, ExpectedConditions as ec, promise } from 'protractor';
 import { NavBarPage, SignInPage } from '../../page-objects/jhi-page-objects';
 
 import { LandingPageCardComponentsPage, LandingPageCardDeleteDialog, LandingPageCardUpdatePage } from './landing-page-card.page-object';
+import * as path from 'path';
 
 const expect = chai.expect;
 
@@ -12,6 +13,9 @@ describe('LandingPageCard e2e test', () => {
   let landingPageCardUpdatePage: LandingPageCardUpdatePage;
   let landingPageCardComponentsPage: LandingPageCardComponentsPage;
   let landingPageCardDeleteDialog: LandingPageCardDeleteDialog;
+  const fileNameToUpload = 'logo-jhipster.png';
+  const fileToUpload = '../../../../../../src/main/webapp/content/images/' + fileNameToUpload;
+  const absolutePath = path.resolve(__dirname, fileToUpload);
 
   before(async () => {
     await browser.get('/');
@@ -39,11 +43,19 @@ describe('LandingPageCard e2e test', () => {
     const nbButtonsBeforeCreate = await landingPageCardComponentsPage.countDeleteButtons();
 
     await landingPageCardComponentsPage.clickOnCreateButton();
-    await promise.all([landingPageCardUpdatePage.setOrdinalNumberInput('5'), landingPageCardUpdatePage.setHtmlContentInput('htmlContent')]);
+    await promise.all([
+      landingPageCardUpdatePage.setOrdinalNumberInput('5'),
+      landingPageCardUpdatePage.setHtmlContentInput('htmlContent'),
+      landingPageCardUpdatePage.setCardImageInput(absolutePath)
+    ]);
     expect(await landingPageCardUpdatePage.getOrdinalNumberInput()).to.eq('5', 'Expected ordinalNumber value to be equals to 5');
     expect(await landingPageCardUpdatePage.getHtmlContentInput()).to.eq(
       'htmlContent',
       'Expected HtmlContent value to be equals to htmlContent'
+    );
+    expect(await landingPageCardUpdatePage.getCardImageInput()).to.endsWith(
+      fileNameToUpload,
+      'Expected CardImage value to be end with ' + fileNameToUpload
     );
     await landingPageCardUpdatePage.save();
     expect(await landingPageCardUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;

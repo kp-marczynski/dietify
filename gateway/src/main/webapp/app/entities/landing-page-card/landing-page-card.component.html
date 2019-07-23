@@ -35,6 +35,7 @@
             <th><span jhiTranslate="global.field.id">ID</span></th>
             <th><span jhiTranslate="gatewayApp.landingPageCard.ordinalNumber">Ordinal Number</span></th>
             <th><span jhiTranslate="gatewayApp.landingPageCard.htmlContent">Html Content</span></th>
+            <th><span jhiTranslate="gatewayApp.landingPageCard.cardImage">Card Image</span></th>
             <th></th>
             </tr>
             </thead>
@@ -43,6 +44,12 @@
                 <td><a [routerLink]="['/landing-page-card', landingPageCard.id, 'view' ]">{{landingPageCard.id}}</a></td>
                 <td>{{landingPageCard.ordinalNumber}}</td>
                 <td>{{landingPageCard.htmlContent}}</td>
+                <td>
+                    <a *ngIf="landingPageCard.cardImage" (click)="openFile(landingPageCard.cardImageContentType, landingPageCard.cardImage)">
+                        <img [src]="'data:' + landingPageCard.cardImageContentType + ';base64,' + landingPageCard.cardImage" style="max-height: 30px;" alt="landingPageCard image"/>
+                    </a>
+                    <span *ngIf="landingPageCard.cardImage">{{landingPageCard.cardImageContentType}}, {{byteSize(landingPageCard.cardImage)}}</span>
+                </td>
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

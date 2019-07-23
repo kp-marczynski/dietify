@@ -45,6 +45,11 @@ public class LandingPageCardResourceIT {
     private static final String DEFAULT_HTML_CONTENT = "AAAAAAAAAA";
     private static final String UPDATED_HTML_CONTENT = "BBBBBBBBBB";
 
+    private static final byte[] DEFAULT_CARD_IMAGE = TestUtil.createByteArray(1, "0");
+    private static final byte[] UPDATED_CARD_IMAGE = TestUtil.createByteArray(1, "1");
+    private static final String DEFAULT_CARD_IMAGE_CONTENT_TYPE = "image/jpg";
+    private static final String UPDATED_CARD_IMAGE_CONTENT_TYPE = "image/png";
+
     @Autowired
     private LandingPageCardRepository landingPageCardRepository;
 
@@ -100,6 +105,8 @@ public class LandingPageCardResourceIT {
         LandingPageCard landingPageCard = new LandingPageCard();
         landingPageCard.setOrdinalNumber(DEFAULT_ORDINAL_NUMBER);
         landingPageCard.setHtmlContent(DEFAULT_HTML_CONTENT);
+        landingPageCard.setCardImage(DEFAULT_CARD_IMAGE);
+        landingPageCard.setCardImageContentType(DEFAULT_CARD_IMAGE_CONTENT_TYPE);
         return landingPageCard;
     }
     /**
@@ -112,6 +119,8 @@ public class LandingPageCardResourceIT {
         LandingPageCard landingPageCard = new LandingPageCard();
         landingPageCard.setOrdinalNumber(UPDATED_ORDINAL_NUMBER);
         landingPageCard.setHtmlContent(UPDATED_HTML_CONTENT);
+        landingPageCard.setCardImage(UPDATED_CARD_IMAGE);
+        landingPageCard.setCardImageContentType(UPDATED_CARD_IMAGE_CONTENT_TYPE);
         return landingPageCard;
     }
 
@@ -137,6 +146,8 @@ public class LandingPageCardResourceIT {
         LandingPageCard testLandingPageCard = landingPageCardList.get(landingPageCardList.size() - 1);
         assertThat(testLandingPageCard.getOrdinalNumber()).isEqualTo(DEFAULT_ORDINAL_NUMBER);
         assertThat(testLandingPageCard.getHtmlContent()).isEqualTo(DEFAULT_HTML_CONTENT);
+        assertThat(testLandingPageCard.getCardImage()).isEqualTo(DEFAULT_CARD_IMAGE);
+        assertThat(testLandingPageCard.getCardImageContentType()).isEqualTo(DEFAULT_CARD_IMAGE_CONTENT_TYPE);
 
         // Validate the LandingPageCard in Elasticsearch
         verify(mockLandingPageCardSearchRepository, times(1)).save(testLandingPageCard);
@@ -195,7 +206,9 @@ public class LandingPageCardResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(landingPageCard.getId().intValue())))
             .andExpect(jsonPath("$.[*].ordinalNumber").value(hasItem(DEFAULT_ORDINAL_NUMBER)))
-            .andExpect(jsonPath("$.[*].htmlContent").value(hasItem(DEFAULT_HTML_CONTENT.toString())));
+            .andExpect(jsonPath("$.[*].htmlContent").value(hasItem(DEFAULT_HTML_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].cardImageContentType").value(hasItem(DEFAULT_CARD_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].cardImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_CARD_IMAGE))));
     }
     
     @Test
@@ -210,7 +223,9 @@ public class LandingPageCardResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(landingPageCard.getId().intValue()))
             .andExpect(jsonPath("$.ordinalNumber").value(DEFAULT_ORDINAL_NUMBER))
-            .andExpect(jsonPath("$.htmlContent").value(DEFAULT_HTML_CONTENT.toString()));
+            .andExpect(jsonPath("$.htmlContent").value(DEFAULT_HTML_CONTENT.toString()))
+            .andExpect(jsonPath("$.cardImageContentType").value(DEFAULT_CARD_IMAGE_CONTENT_TYPE))
+            .andExpect(jsonPath("$.cardImage").value(Base64Utils.encodeToString(DEFAULT_CARD_IMAGE)));
     }
 
     @Test
@@ -237,6 +252,8 @@ public class LandingPageCardResourceIT {
         em.detach(updatedLandingPageCard);
         updatedLandingPageCard.setOrdinalNumber(UPDATED_ORDINAL_NUMBER);
         updatedLandingPageCard.setHtmlContent(UPDATED_HTML_CONTENT);
+        updatedLandingPageCard.setCardImage(UPDATED_CARD_IMAGE);
+        updatedLandingPageCard.setCardImageContentType(UPDATED_CARD_IMAGE_CONTENT_TYPE);
 
         restLandingPageCardMockMvc.perform(put("/api/landing-page-cards")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -249,6 +266,8 @@ public class LandingPageCardResourceIT {
         LandingPageCard testLandingPageCard = landingPageCardList.get(landingPageCardList.size() - 1);
         assertThat(testLandingPageCard.getOrdinalNumber()).isEqualTo(UPDATED_ORDINAL_NUMBER);
         assertThat(testLandingPageCard.getHtmlContent()).isEqualTo(UPDATED_HTML_CONTENT);
+        assertThat(testLandingPageCard.getCardImage()).isEqualTo(UPDATED_CARD_IMAGE);
+        assertThat(testLandingPageCard.getCardImageContentType()).isEqualTo(UPDATED_CARD_IMAGE_CONTENT_TYPE);
 
         // Validate the LandingPageCard in Elasticsearch
         verify(mockLandingPageCardSearchRepository, times(1)).save(testLandingPageCard);
@@ -309,7 +328,9 @@ public class LandingPageCardResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(landingPageCard.getId().intValue())))
             .andExpect(jsonPath("$.[*].ordinalNumber").value(hasItem(DEFAULT_ORDINAL_NUMBER)))
-            .andExpect(jsonPath("$.[*].htmlContent").value(hasItem(DEFAULT_HTML_CONTENT.toString())));
+            .andExpect(jsonPath("$.[*].htmlContent").value(hasItem(DEFAULT_HTML_CONTENT.toString())))
+            .andExpect(jsonPath("$.[*].cardImageContentType").value(hasItem(DEFAULT_CARD_IMAGE_CONTENT_TYPE)))
+            .andExpect(jsonPath("$.[*].cardImage").value(hasItem(Base64Utils.encodeToString(DEFAULT_CARD_IMAGE))));
     }
 
     @Test

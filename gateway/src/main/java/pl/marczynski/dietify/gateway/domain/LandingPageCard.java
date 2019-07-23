@@ -49,6 +49,17 @@ public class LandingPageCard implements Serializable {
     @Column(name = "html_content", nullable = false)
     private String htmlContent;
 
+    /**
+     * Optional image to be shown beside htmlContent
+     */
+    @ApiModelProperty(value = "Optional image to be shown beside htmlContent")
+    @Lob
+    @Column(name = "card_image")
+    private byte[] cardImage;
+
+    @Column(name = "card_image_content_type")
+    private String cardImageContentType;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -72,6 +83,22 @@ public class LandingPageCard implements Serializable {
 
     public void setHtmlContent(String htmlContent) {
         this.htmlContent = htmlContent;
+    }
+
+    public byte[] getCardImage() {
+        return cardImage;
+    }
+
+    public void setCardImage(byte[] cardImage) {
+        this.cardImage = cardImage;
+    }
+
+    public String getCardImageContentType() {
+        return cardImageContentType;
+    }
+
+    public void setCardImageContentType(String cardImageContentType) {
+        this.cardImageContentType = cardImageContentType;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -97,6 +124,8 @@ public class LandingPageCard implements Serializable {
             "id=" + getId() +
             ", ordinalNumber=" + getOrdinalNumber() +
             ", htmlContent='" + getHtmlContent() + "'" +
+            ", cardImage='" + getCardImage() + "'" +
+            ", cardImageContentType='" + getCardImageContentType() + "'" +
             "}";
     }
 }

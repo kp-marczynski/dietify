@@ -39,6 +39,23 @@
                         </small>
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.landingPageCard.cardImage" for="field_cardImage" [ngbTooltip]="'gatewayApp.landingPageCard.help.cardImage' | translate">Card Image</label>
+                    <div>
+                        <img [src]="'data:' + editForm.get('cardImageContentType').value + ';base64,' + editForm.get('cardImage').value" style="max-height: 100px;" *ngIf="editForm.get('cardImage').value" alt="landingPageCard image"/>
+                        <div *ngIf="editForm.get('cardImage').value" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{editForm.get('cardImageContentType').value}}, {{byteSize(editForm.get('cardImage').value)}}</span>
+                            <button type="button" (click)="clearInputImage('cardImage', 'cardImageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_cardImage" (change)="setFileData($event, 'cardImage', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+                    </div>
+                    <input type="hidden" class="form-control" name="cardImage" id="field_cardImage"
+                           formControlName="cardImage"/>
+                    <input type="hidden" class="form-control" name="cardImageContentType" id="field_cardImageContentType"
+                           formControlName="cardImageContentType" />
+                </div>
 
             </div>
             <div>

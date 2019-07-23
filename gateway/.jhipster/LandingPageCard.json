@@ -19,10 +19,16 @@
             "fieldValidateRules": [
                 "required"
             ]
+        },
+        {
+            "fieldName": "cardImage",
+            "javadoc": "Optional image to be shown beside htmlContent",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
         }
     ],
     "relationships": [],
-    "changelogDate": "20190722200906",
+    "changelogDate": "20190723075824",
     "javadoc": "Landing page information\n@author Krzysztof Marczyński",
     "entityTableName": "landing_page_card",
     "dto": "no",
@@ -31,7 +37,5 @@
     "jpaMetamodelFiltering": false,
     "fluentMethods": false,
     "clientRootFolder": "",
-    "applications": [
-        "gateway"
-    ]
+    "applications": "*"
 }

@@ -23,7 +23,7 @@ describe('Service Tests', () => {
       service = injector.get(LandingPageCardService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new LandingPageCard(0, 0, 'AAAAAAA');
+      elemDefault = new LandingPageCard(0, 0, 'AAAAAAA', 'image/png', 'AAAAAAA');
     });
 
     describe('Service methods', () => {
@@ -60,7 +60,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             ordinalNumber: 1,
-            htmlContent: 'BBBBBB'
+            htmlContent: 'BBBBBB',
+            cardImage: 'BBBBBB'
           },
           elemDefault
         );
@@ -79,7 +80,8 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             ordinalNumber: 1,
-            htmlContent: 'BBBBBB'
+            htmlContent: 'BBBBBB',
+            cardImage: 'BBBBBB'
           },
           elemDefault
         );

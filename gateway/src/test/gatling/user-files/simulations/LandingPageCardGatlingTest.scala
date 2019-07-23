@@ -74,6 +74,7 @@ class LandingPageCardGatlingTest extends Simulation {
                 "id":null
                 , "ordinalNumber":"0"
                 , "htmlContent":null
+                , "cardImage":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_landingPageCard_url"))).exitHereIfFailed

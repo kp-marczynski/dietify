@@ -13,6 +13,15 @@
                 <dd>
                     <span>{{landingPageCard.htmlContent}}</span>
                 </dd>
+                <dt><span jhiTranslate="gatewayApp.landingPageCard.cardImage" [ngbTooltip]="'gatewayApp.landingPageCard.help.cardImage' | translate">Card Image</span></dt>
+                <dd>
+                    <div *ngIf="landingPageCard.cardImage">
+                        <a (click)="openFile(landingPageCard.cardImageContentType, landingPageCard.cardImage)">
+                            <img [src]="'data:' + landingPageCard.cardImageContentType + ';base64,' + landingPageCard.cardImage" style="max-width: 100%;" alt="landingPageCard image"/>
+                        </a>
+                        {{landingPageCard.cardImageContentType}}, {{byteSize(landingPageCard.cardImage)}}
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

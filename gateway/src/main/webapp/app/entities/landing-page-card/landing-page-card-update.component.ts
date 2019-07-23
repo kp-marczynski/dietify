@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -17,13 +17,16 @@ export class LandingPageCardUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     ordinalNumber: [null, [Validators.required, Validators.min(1)]],
-    htmlContent: [null, [Validators.required]]
+    htmlContent: [null, [Validators.required]],
+    cardImage: [],
+    cardImageContentType: []
   });
 
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected landingPageCardService: LandingPageCardService,
+    protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
@@ -39,7 +42,9 @@ export class LandingPageCardUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: landingPageCard.id,
       ordinalNumber: landingPageCard.ordinalNumber,
-      htmlContent: landingPageCard.htmlContent
+      htmlContent: landingPageCard.htmlContent,
+      cardImage: landingPageCard.cardImage,
+      cardImageContentType: landingPageCard.cardImageContentType
     });
   }
 
@@ -75,6 +80,16 @@ export class LandingPageCardUpdateComponent implements OnInit {
     );
   }
 
+  clearInputImage(field: string, fieldContentType: string, idInput: string) {
+    this.editForm.patchValue({
+      [field]: null,
+      [fieldContentType]: null
+    });
+    if (this.elementRef && idInput && this.elementRef.nativeElement.querySelector('#' + idInput)) {
+      this.elementRef.nativeElement.querySelector('#' + idInput).value = null;
+    }
+  }
+
   previousState() {
     window.history.back();
   }
@@ -94,7 +109,9 @@ export class LandingPageCardUpdateComponent implements OnInit {
       ...new LandingPageCard(),
       id: this.editForm.get(['id']).value,
       ordinalNumber: this.editForm.get(['ordinalNumber']).value,
-      htmlContent: this.editForm.get(['htmlContent']).value
+      htmlContent: this.editForm.get(['htmlContent']).value,
+      cardImageContentType: this.editForm.get(['cardImageContentType']).value,
+      cardImage: this.editForm.get(['cardImage']).value
     };
   }
 

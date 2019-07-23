@@ -28,6 +28,7 @@ export class LandingPageCardUpdatePage {
   cancelButton = element(by.id('cancel-save'));
   ordinalNumberInput = element(by.id('field_ordinalNumber'));
   htmlContentInput = element(by.id('field_htmlContent'));
+  cardImageInput = element(by.id('file_cardImage'));
 
   async getPageTitle() {
     return this.pageTitle.getAttribute('jhiTranslate');
@@ -47,6 +48,14 @@ export class LandingPageCardUpdatePage {
 
   async getHtmlContentInput() {
     return await this.htmlContentInput.getAttribute('value');
+  }
+
+  async setCardImageInput(cardImage) {
+    await this.cardImageInput.sendKeys(cardImage);
+  }
+
+  async getCardImageInput() {
+    return await this.cardImageInput.getAttribute('value');
   }
 
   async save(timeout?: number) {
