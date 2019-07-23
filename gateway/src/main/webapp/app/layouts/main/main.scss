@@ -1,6 +1,10 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
+.main-wrapper {
+  padding-top: 60px;
+}
+
 @media (min-width: map-get($grid-breakpoints, md)) {
   .main-wrapper {
     padding-left: $tooltip-max-width;

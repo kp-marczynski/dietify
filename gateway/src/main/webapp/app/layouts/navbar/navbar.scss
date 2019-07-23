@@ -76,13 +76,3 @@ Logo styles
   width: 100%;
   bottom: 0;
 }
-
-.navbar-brand {
-  z-index: $zindex-dropdown - 1;
-  position: static;
-  top: 0;
-
-  @media (min-width: map-get($grid-breakpoints, md)) {
-    position: fixed;
-  }
-}
