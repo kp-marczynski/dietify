@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "recipesMealTypeTranslation": {
+      "home": {
+        "title": "Meal Type Translations",
+        "createLabel": "Create a new Meal Type Translation",
+        "createOrEditLabel": "Create or edit a Meal Type Translation",
+        "search": "Search for Meal Type Translation",
+        "notFound": "No Meal Type Translation found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal Type Translation {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Type Translation"
+      },
+      "translation": "Translation",
+      "language": "Language",
+      "mealType": "Meal Type",
+      "help": {
+        "translation": "Translated name of meal type",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesMealTypeTranslation": {
+      "created": "A new Meal Type Translation is created with identifier {{ param }}",
+      "updated": "A Meal Type Translation is updated with identifier {{ param }}",
+      "deleted": "A Meal Type Translation is deleted with identifier {{ param }}"
+    }
+  }
+}

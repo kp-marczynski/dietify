@@ -1,0 +1,37 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="mealTypeTranslation">
+            <h2><span jhiTranslate="gatewayApp.recipesMealTypeTranslation.detail.title">Meal Type Translation</span> {{mealTypeTranslation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.recipesMealTypeTranslation.translation" [ngbTooltip]="'gatewayApp.recipesMealTypeTranslation.help.translation' | translate">Translation</span></dt>
+                <dd>
+                    <span>{{mealTypeTranslation.translation}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesMealTypeTranslation.language" [ngbTooltip]="'gatewayApp.recipesMealTypeTranslation.help.language' | translate">Language</span></dt>
+                <dd>
+                    <span>{{mealTypeTranslation.language}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesMealTypeTranslation.mealType">Meal Type</span></dt>
+                <dd>
+                    <div *ngIf="mealTypeTranslation.mealType">
+                        <a [routerLink]="['/meal-type', mealTypeTranslation.mealType?.id, 'view']">{{mealTypeTranslation.mealType?.name}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/meal-type-translation', mealTypeTranslation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

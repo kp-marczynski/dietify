@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "productsProductCategoryTranslation": {
+      "home": {
+        "title": "Product Category Translations",
+        "createLabel": "Create a new Product Category Translation",
+        "createOrEditLabel": "Create or edit a Product Category Translation",
+        "search": "Search for Product Category Translation",
+        "notFound": "No Product Category Translation found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Product Category Translation {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Category Translation"
+      },
+      "translation": "Translation",
+      "language": "Language",
+      "productCategory": "Product Category",
+      "help": {
+        "translation": "Translated name of product category",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "productsApp": {
+    "productsProductCategoryTranslation": {
+      "created": "A new Product Category Translation is created with identifier {{ param }}",
+      "updated": "A Product Category Translation is updated with identifier {{ param }}",
+      "deleted": "A Product Category Translation is deleted with identifier {{ param }}"
+    }
+  }
+}

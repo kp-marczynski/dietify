@@ -1,0 +1,36 @@
+{
+    "name": "MealPlanUnsuitableForDiet",
+    "fields": [
+        {
+            "fieldName": "dietTypeId",
+            "javadoc": "Id of applicable DietType entity retrieved from products service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "mealPlan",
+            "otherEntityRelationshipName": "tagsBadFor",
+            "relationshipValidateRules": "required",
+            "relationshipName": "mealPlan",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200938",
+    "entityTableName": "meal_plan_unsuitable_for_diet",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "mealplans"
+    ],
+    "microserviceName": "mealplans"
+}

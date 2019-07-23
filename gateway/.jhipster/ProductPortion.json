@@ -1,0 +1,51 @@
+{
+    "name": "ProductPortion",
+    "fields": [
+        {
+            "fieldName": "amount",
+            "javadoc": "Amount of product in household measure units. If household measure is null then amount is in grams",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "productId",
+            "javadoc": "Id of Product entity retrieved form products service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "householdMeasureId",
+            "javadoc": "Id of HouseholdMeasure entity retrieved from products service",
+            "fieldType": "Long"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "recipeSection",
+            "otherEntityRelationshipName": "productPortions",
+            "relationshipValidateRules": "required",
+            "relationshipName": "recipeSection",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200928",
+    "entityTableName": "product_portion",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes"
+}

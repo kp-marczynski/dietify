@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "mealplansMealRecipe": {
+      "home": {
+        "title": "Meal Recipes",
+        "createLabel": "Create a new Meal Recipe",
+        "createOrEditLabel": "Create or edit a Meal Recipe",
+        "search": "Search for Meal Recipe",
+        "notFound": "No Meal Recipe found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal Recipe {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Recipe"
+      },
+      "recipeId": "Recipe Id",
+      "amount": "Amount",
+      "meal": "Meal",
+      "help": {
+        "recipeId": "Id of Recipe entity retrieved from recipes service",
+        "amount": "Amount of recipe in grams"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealRecipe": {
+      "created": "A new Meal Recipe is created with identifier {{ param }}",
+      "updated": "A Meal Recipe is updated with identifier {{ param }}",
+      "deleted": "A Meal Recipe is deleted with identifier {{ param }}"
+    }
+  }
+}

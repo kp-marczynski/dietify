@@ -1,0 +1,142 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-product-heading" jhiTranslate="gatewayApp.productsProduct.home.createOrEditLabel">Create or edit a Product</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.source" for="field_source" [ngbTooltip]="'gatewayApp.productsProduct.help.source' | translate">Source</label>
+                    <input type="text" class="form-control" name="source" id="field_source"
+                           formControlName="source"/>
+                    <div *ngIf="editForm.get('source').invalid && (editForm.get('source').dirty || editForm.get('source').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('source').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('source').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.authorId" for="field_authorId" [ngbTooltip]="'gatewayApp.productsProduct.help.authorId' | translate">Author Id</label>
+                    <input type="number" class="form-control" name="authorId" id="field_authorId"
+                           formControlName="authorId"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.description" for="field_description" [ngbTooltip]="'gatewayApp.productsProduct.help.description' | translate">Description</label>
+                    <input type="text" class="form-control" name="description" id="field_description"
+                           formControlName="description"/>
+                    <div *ngIf="editForm.get('description').invalid && (editForm.get('description').dirty || editForm.get('description').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('description').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('description').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 1 }">
+                        This field is required to be at least 1 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('description').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 255 }">
+                        This field cannot be longer than 255 characters.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.isFinal" for="field_isFinal" [ngbTooltip]="'gatewayApp.productsProduct.help.isFinal' | translate">Is Final</label>
+                    <input type="checkbox" class="form-control" name="isFinal" id="field_isFinal"
+                           formControlName="isFinal"/>
+                    <div *ngIf="editForm.get('isFinal').invalid && (editForm.get('isFinal').dirty || editForm.get('isFinal').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('isFinal').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.isVerified" for="field_isVerified" [ngbTooltip]="'gatewayApp.productsProduct.help.isVerified' | translate">Is Verified</label>
+                    <input type="checkbox" class="form-control" name="isVerified" id="field_isVerified"
+                           formControlName="isVerified"/>
+                    <div *ngIf="editForm.get('isVerified').invalid && (editForm.get('isVerified').dirty || editForm.get('isVerified').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('isVerified').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.language" for="field_language" [ngbTooltip]="'gatewayApp.productsProduct.help.language' | translate">Language</label>
+                    <input type="text" class="form-control" name="language" id="field_language"
+                           formControlName="language"/>
+                    <div *ngIf="editForm.get('language').invalid && (editForm.get('language').dirty || editForm.get('language').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('language').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('language').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
+                        This field is required to be at least 2 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('language').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2 }">
+                        This field cannot be longer than 2 characters.
+                        </small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.basicNutritionData" for="field_basicNutritionData">Basic Nutrition Data</label>
+                    <select class="form-control" id="field_basicNutritionData" name="basicNutritionData" formControlName="basicNutritionData">
+                        <option *ngIf="!editForm.get('basicNutritionData').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="productBasicNutritionDataOption.id === editForm.get('basicNutritionData').value?.id ? editForm.get('basicNutritionData').value : productBasicNutritionDataOption" *ngFor="let productBasicNutritionDataOption of basicnutritiondata; trackBy: trackProductBasicNutritionDataById">{{productBasicNutritionDataOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('basicNutritionData').invalid && (editForm.get('basicNutritionData').dirty || editForm.get('basicNutritionData').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('basicNutritionData').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.subcategory" for="field_subcategory">Subcategory</label>
+                    <select class="form-control" id="field_subcategory" name="subcategory" formControlName="subcategory">
+                        <option *ngIf="!editForm.get('subcategory').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="productSubcategoryOption.id === editForm.get('subcategory').value?.id ? editForm.get('subcategory').value : productSubcategoryOption" *ngFor="let productSubcategoryOption of productsubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('subcategory').invalid && (editForm.get('subcategory').dirty || editForm.get('subcategory').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subcategory').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="gatewayApp.productsProduct.suitableDiets" for="field_suitableDiets">Suitable Diets</label>
+                    <select class="form-control" id="field_suitableDiets" multiple name="suitableDiets" formControlName="suitableDiets">
+                        <option [ngValue]="getSelected(editForm.get('suitableDiets').value, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="gatewayApp.productsProduct.unsuitableDiets" for="field_unsuitableDiets">Unsuitable Diets</label>
+                    <select class="form-control" id="field_unsuitableDiets" multiple name="unsuitableDiets" formControlName="unsuitableDiets">
+                        <option [ngValue]="getSelected(editForm.get('unsuitableDiets').value, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+{
+  "gatewayApp": {
+    "productsProductBasicNutritionData": {
+      "home": {
+        "title": "Product Basic Nutrition Data",
+        "createLabel": "Create a new Product Basic Nutrition Data",
+        "createOrEditLabel": "Create or edit a Product Basic Nutrition Data",
+        "search": "Search for Product Basic Nutrition Data",
+        "notFound": "No Product Basic Nutrition Data found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Product Basic Nutrition Data {{ id }}?"
+      },
+      "detail": {
+        "title": "Product Basic Nutrition Data"
+      },
+      "energy": "Energy",
+      "protein": "Protein",
+      "fat": "Fat",
+      "carbohydrates": "Carbohydrates",
+      "help": {
+        "energy": "Energy in kcal per 100 gram of product",
+        "protein": "Protein in grams per 100 gram of product",
+        "fat": "Fat in grams per 100 gram of product",
+        "carbohydrates": "Carbohydrates in grams per 100 gram of product"
+      }
+    }
+  },
+  "productsApp": {
+    "productsProductBasicNutritionData": {
+      "created": "A new Product Basic Nutrition Data is created with identifier {{ param }}",
+      "updated": "A Product Basic Nutrition Data is updated with identifier {{ param }}",
+      "deleted": "A Product Basic Nutrition Data is deleted with identifier {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "gatewayApp": {
+    "mealplansMealDefinition": {
+      "home": {
+        "title": "Meal Definition",
+        "createLabel": "Dodaj Meal Definition",
+        "createOrEditLabel": "Dodaj lub edytuj: Meal Definition",
+        "search": "Szukaj Meal Definition",
+        "notFound": "No Meal Definition found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Meal Definition {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Definition"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "mealTypeId": "Meal Type Id",
+      "timeOfMeal": "Time Of Meal",
+      "percentOfEnergy": "Percent Of Energy",
+      "mealPlan": "Meal Plan",
+      "help": {
+        "ordinalNumber": "Daily ordinal number of meal",
+        "mealTypeId": "Id of MealType entity retrieved from recipes service",
+        "timeOfMeal": "Usual time of meal in 24h format: HH:mm",
+        "percentOfEnergy": "Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100."
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealDefinition": {
+      "created": "Utworzono nowy obiekt typu Meal Definition z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Meal Definition z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Meal Definition z identyfikatorem {{ param }}"
+    }
+  }
+}

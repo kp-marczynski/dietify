@@ -1,0 +1,175 @@
+{
+    "name": "Recipe",
+    "fields": [
+        {
+            "fieldName": "name",
+            "javadoc": "Name of recipe in language of recipe",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 1,
+            "fieldValidateRulesMaxlength": 255
+        },
+        {
+            "fieldName": "preparationTimeMinutes",
+            "javadoc": "Average time needed for overall recipe preparation, defined in minutes",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "numberOfPortions",
+            "javadoc": "Number of portions for which all quantities are specified",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "image",
+            "javadoc": "Optional image of recipe",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image",
+            "fieldValidateRules": [
+                "maxbytes"
+            ],
+            "fieldValidateRulesMaxbytes": 5000000
+        },
+        {
+            "fieldName": "authorId",
+            "javadoc": "Id of recipe's author. Id of User entity retrieved from gateway service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "creationDate",
+            "javadoc": "Date of creation",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "lastEditDate",
+            "javadoc": "Date of last edit",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "isVisible",
+            "javadoc": "Flag specifying if recipe should be visible in list of author's recipes",
+            "fieldType": "Boolean",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "language",
+            "javadoc": "Language tag of a recipe as ISO_639-1 code",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength"
+            ],
+            "fieldValidateRulesMinlength": 2,
+            "fieldValidateRulesMaxlength": 2
+        },
+        {
+            "fieldName": "totalGramsWeight",
+            "javadoc": "Total weight in grams of meal prepared from recipe",
+            "fieldType": "Double",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "recipeBasicNutritionData",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipValidateRules": "required",
+            "relationshipName": "basicNutritionData",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "recipeSection",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "recipeSections"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "recipeSuitableForDiet",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "suitableForDiets"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "recipeUnsuitableForDiet",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "unsuitableForDiets"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "recipe",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "sourceRecipe",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "kitchenAppliance",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "kitchenAppliances",
+            "otherEntityField": "name",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "dishType",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "dishTypes",
+            "otherEntityField": "description",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "mealType",
+            "otherEntityRelationshipName": "recipe",
+            "relationshipName": "mealTypes",
+            "otherEntityField": "name",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190722200918",
+    "entityTableName": "recipe",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "recipes"
+    ],
+    "microserviceName": "recipes",
+    "searchEngine": "elasticsearch"
+}

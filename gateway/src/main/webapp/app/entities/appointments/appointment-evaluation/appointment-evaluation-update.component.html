@@ -1,0 +1,170 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-appointment-evaluation-heading" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.home.createOrEditLabel">Create or edit a Appointment Evaluation</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id" jhiTranslate="global.field.id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.overallSatisfaction" for="field_overallSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.overallSatisfaction' | translate">Overall Satisfaction</label>
+                    <select class="form-control" name="overallSatisfaction" formControlName="overallSatisfaction" id="field_overallSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('overallSatisfaction').invalid && (editForm.get('overallSatisfaction').dirty || editForm.get('overallSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('overallSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietitianServiceSatisfaction" for="field_dietitianServiceSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.dietitianServiceSatisfaction' | translate">Dietitian Service Satisfaction</label>
+                    <select class="form-control" name="dietitianServiceSatisfaction" formControlName="dietitianServiceSatisfaction" id="field_dietitianServiceSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('dietitianServiceSatisfaction').invalid && (editForm.get('dietitianServiceSatisfaction').dirty || editForm.get('dietitianServiceSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dietitianServiceSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealPlanOverallSatisfaction" for="field_mealPlanOverallSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealPlanOverallSatisfaction' | translate">Meal Plan Overall Satisfaction</label>
+                    <select class="form-control" name="mealPlanOverallSatisfaction" formControlName="mealPlanOverallSatisfaction" id="field_mealPlanOverallSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('mealPlanOverallSatisfaction').invalid && (editForm.get('mealPlanOverallSatisfaction').dirty || editForm.get('mealPlanOverallSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mealPlanOverallSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealCostSatisfaction" for="field_mealCostSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealCostSatisfaction' | translate">Meal Cost Satisfaction</label>
+                    <select class="form-control" name="mealCostSatisfaction" formControlName="mealCostSatisfaction" id="field_mealCostSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('mealCostSatisfaction').invalid && (editForm.get('mealCostSatisfaction').dirty || editForm.get('mealCostSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mealCostSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealPreparationTimeSatisfaction" for="field_mealPreparationTimeSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealPreparationTimeSatisfaction' | translate">Meal Preparation Time Satisfaction</label>
+                    <select class="form-control" name="mealPreparationTimeSatisfaction" formControlName="mealPreparationTimeSatisfaction" id="field_mealPreparationTimeSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('mealPreparationTimeSatisfaction').invalid && (editForm.get('mealPreparationTimeSatisfaction').dirty || editForm.get('mealPreparationTimeSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mealPreparationTimeSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealComplexityLevelSatisfaction" for="field_mealComplexityLevelSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealComplexityLevelSatisfaction' | translate">Meal Complexity Level Satisfaction</label>
+                    <select class="form-control" name="mealComplexityLevelSatisfaction" formControlName="mealComplexityLevelSatisfaction" id="field_mealComplexityLevelSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('mealComplexityLevelSatisfaction').invalid && (editForm.get('mealComplexityLevelSatisfaction').dirty || editForm.get('mealComplexityLevelSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mealComplexityLevelSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealTastefulnessSatisfaction" for="field_mealTastefulnessSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealTastefulnessSatisfaction' | translate">Meal Tastefulness Satisfaction</label>
+                    <select class="form-control" name="mealTastefulnessSatisfaction" formControlName="mealTastefulnessSatisfaction" id="field_mealTastefulnessSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('mealTastefulnessSatisfaction').invalid && (editForm.get('mealTastefulnessSatisfaction').dirty || editForm.get('mealTastefulnessSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('mealTastefulnessSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietaryResultSatisfaction" for="field_dietaryResultSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.dietaryResultSatisfaction' | translate">Dietary Result Satisfaction</label>
+                    <select class="form-control" name="dietaryResultSatisfaction" formControlName="dietaryResultSatisfaction" id="field_dietaryResultSatisfaction">
+                        <option value="VERY_DISSATISFIED">{{'gatewayApp.SatisfactionRate.VERY_DISSATISFIED' | translate}}</option>
+                        <option value="DISSATISFIED">{{'gatewayApp.SatisfactionRate.DISSATISFIED' | translate}}</option>
+                        <option value="NEUTRAL">{{'gatewayApp.SatisfactionRate.NEUTRAL' | translate}}</option>
+                        <option value="SATISFIED">{{'gatewayApp.SatisfactionRate.SATISFIED' | translate}}</option>
+                        <option value="VERY_SATISFIED">{{'gatewayApp.SatisfactionRate.VERY_SATISFIED' | translate}}</option>
+                    </select>
+                    <div *ngIf="editForm.get('dietaryResultSatisfaction').invalid && (editForm.get('dietaryResultSatisfaction').dirty || editForm.get('dietaryResultSatisfaction').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('dietaryResultSatisfaction').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.comment" for="field_comment" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.comment' | translate">Comment</label>
+                    <textarea class="form-control" name="comment" id="field_comment"
+                              formControlName="comment"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment" for="field_appointment">Appointment</label>
+                    <select class="form-control" id="field_appointment" name="appointment" formControlName="appointment">
+                        <option *ngIf="!editForm.get('appointment').value" [ngValue]="null" selected></option>
+                        <option [ngValue]="appointmentOption.id === editForm.get('appointment').value?.id ? editForm.get('appointment').value : appointmentOption" *ngFor="let appointmentOption of appointments; trackBy: trackAppointmentById">{{appointmentOption.id}}</option>
+                    </select>
+                </div>
+                <div *ngIf="editForm.get('appointment').invalid && (editForm.get('appointment').dirty || editForm.get('appointment').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('appointment').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

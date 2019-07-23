@@ -1,0 +1,57 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appointment">
+            <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> {{appointment.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentDate' | translate">Appointment Date</span></dt>
+                <dd>
+                    <span>{{appointment.appointmentDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentState' | translate">Appointment State</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.AppointmentState.' + appointment.appointmentState}}">{{appointment.appointmentState}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.mealPlanId' | translate">Meal Plan Id</span></dt>
+                <dd>
+                    <span>{{appointment.mealPlanId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</span></dt>
+                <dd>
+                    <span>{{appointment.generalAdvice}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span></dt>
+                <dd>
+                    <div *ngIf="appointment.bodyMeasurement">
+                        <a [routerLink]="['/body-measurement', appointment.bodyMeasurement?.id, 'view']">{{appointment.bodyMeasurement?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional Interview</span></dt>
+                <dd>
+                    <div *ngIf="appointment.nutritionalInterview">
+                        <a [routerLink]="['/nutritional-interview', appointment.nutritionalInterview?.id, 'view']">{{appointment.nutritionalInterview?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.patientCard">Patient Card</span></dt>
+                <dd>
+                    <div *ngIf="appointment.patientCard">
+                        <a [routerLink]="['/patient-card', appointment.patientCard?.id, 'view']">{{appointment.patientCard?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/appointment', appointment.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

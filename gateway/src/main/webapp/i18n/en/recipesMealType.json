@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "recipesMealType": {
+      "home": {
+        "title": "Meal Types",
+        "createLabel": "Create a new Meal Type",
+        "createOrEditLabel": "Create or edit a Meal Type",
+        "search": "Search for Meal Type",
+        "notFound": "No Meal Type found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal Type {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Type"
+      },
+      "name": "Name",
+      "translations": "Translations",
+      "help": {
+        "name": "English name of meal type"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesMealType": {
+      "created": "A new Meal Type is created with identifier {{ param }}",
+      "updated": "A Meal Type is updated with identifier {{ param }}",
+      "deleted": "A Meal Type is deleted with identifier {{ param }}"
+    }
+  }
+}

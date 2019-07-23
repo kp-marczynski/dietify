@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="appointmentEvaluation">
+            <h2><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.detail.title">Appointment Evaluation</span> {{appointmentEvaluation.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.overallSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.overallSatisfaction' | translate">Overall Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.overallSatisfaction}}">{{appointmentEvaluation.overallSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietitianServiceSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.dietitianServiceSatisfaction' | translate">Dietitian Service Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.dietitianServiceSatisfaction}}">{{appointmentEvaluation.dietitianServiceSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealPlanOverallSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealPlanOverallSatisfaction' | translate">Meal Plan Overall Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealPlanOverallSatisfaction}}">{{appointmentEvaluation.mealPlanOverallSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealCostSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealCostSatisfaction' | translate">Meal Cost Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealCostSatisfaction}}">{{appointmentEvaluation.mealCostSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealPreparationTimeSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealPreparationTimeSatisfaction' | translate">Meal Preparation Time Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealPreparationTimeSatisfaction}}">{{appointmentEvaluation.mealPreparationTimeSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealComplexityLevelSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealComplexityLevelSatisfaction' | translate">Meal Complexity Level Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealComplexityLevelSatisfaction}}">{{appointmentEvaluation.mealComplexityLevelSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealTastefulnessSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.mealTastefulnessSatisfaction' | translate">Meal Tastefulness Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealTastefulnessSatisfaction}}">{{appointmentEvaluation.mealTastefulnessSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietaryResultSatisfaction" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.dietaryResultSatisfaction' | translate">Dietary Result Satisfaction</span></dt>
+                <dd>
+                    <span jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.dietaryResultSatisfaction}}">{{appointmentEvaluation.dietaryResultSatisfaction}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.comment" [ngbTooltip]="'gatewayApp.appointmentsAppointmentEvaluation.help.comment' | translate">Comment</span></dt>
+                <dd>
+                    <span>{{appointmentEvaluation.comment}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment">Appointment</span></dt>
+                <dd>
+                    <div *ngIf="appointmentEvaluation.appointment">
+                        <a [routerLink]="['/appointment', appointmentEvaluation.appointment?.id, 'view']">{{appointmentEvaluation.appointment?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/appointment-evaluation', appointmentEvaluation.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="householdMeasure">
+            <h2><span jhiTranslate="gatewayApp.productsHouseholdMeasure.detail.title">Household Measure</span> {{householdMeasure.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.productsHouseholdMeasure.description" [ngbTooltip]="'gatewayApp.productsHouseholdMeasure.help.description' | translate">Description</span></dt>
+                <dd>
+                    <span>{{householdMeasure.description}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsHouseholdMeasure.gramsWeight" [ngbTooltip]="'gatewayApp.productsHouseholdMeasure.help.gramsWeight' | translate">Grams Weight</span></dt>
+                <dd>
+                    <span>{{householdMeasure.gramsWeight}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsHouseholdMeasure.isVisible" [ngbTooltip]="'gatewayApp.productsHouseholdMeasure.help.isVisible' | translate">Is Visible</span></dt>
+                <dd>
+                    <span>{{householdMeasure.isVisible}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsHouseholdMeasure.product">Product</span></dt>
+                <dd>
+                    <div *ngIf="householdMeasure.product">
+                        <a [routerLink]="['/product', householdMeasure.product?.id, 'view']">{{householdMeasure.product?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/household-measure', householdMeasure.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

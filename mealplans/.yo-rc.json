@@ -1,0 +1,50 @@
+{
+  "generator-jhipster": {
+    "databaseType": "sql",
+    "devDatabaseType": "h2Disk",
+    "enableHibernateCache": true,
+    "enableSwaggerCodegen": false,
+    "enableTranslation": true,
+    "jhiPrefix": "jhi",
+    "languages": [
+      "en",
+      "pl"
+    ],
+    "messageBroker": false,
+    "nativeLanguage": "en",
+    "packageName": "pl.marczynski.dietify.mealplans",
+    "packageFolder": "pl/marczynski/dietify/mealplans",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": "elasticsearch",
+    "serviceDiscoveryType": "eureka",
+    "skipClient": true,
+    "testFrameworks": [
+      "gatling",
+      "cucumber"
+    ],
+    "websocket": false,
+    "baseName": "mealplans",
+    "applicationType": "microservice",
+    "serverPort": "8083",
+    "authenticationType": "jwt",
+    "buildTool": "gradle",
+    "cacheProvider": "hazelcast",
+    "jhipsterVersion": "6.1.2",
+    "skipUserManagement": true,
+    "clientPackageManager": "npm",
+    "jwtSecretKey": "ODNlOWFiY2Q0ZjAzYzZiYjkzNGUzZjhmYzhiODNmOWNmYTliMGZmOWE1OWViMmQ0MjI0OGMwNzEzMDA1ZGQ5NjNkZjU1ZGVjNmYwZWI3NzI4OWU5YjJiNDZlZDM2MmI1Zjc2ZDY1NmUxNDZhOTM2Y2MxMzE2OTNkZjQ3MzNlNDM=",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
+  },
+  "entities": [
+    "MealPlan",
+    "MealDefinition",
+    "MealPlanSuitableForDiet",
+    "MealPlanUnsuitableForDiet",
+    "MealPlanDay",
+    "Meal",
+    "MealRecipe",
+    "MealProduct"
+  ]
+}

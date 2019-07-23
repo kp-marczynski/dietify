@@ -1,0 +1,50 @@
+{
+    "name": "PatientCard",
+    "fields": [
+        {
+            "fieldName": "creationDate",
+            "javadoc": "Date when patient registered to dietitian",
+            "fieldType": "LocalDate",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dietitianId",
+            "javadoc": "Dietitian to which patient has signed. Id of User entity retrieved from gateway service.",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "patientId",
+            "javadoc": "Patient of dietitian. Id of User entity retrieved from gateway service.",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "appointment",
+            "otherEntityRelationshipName": "patientCard",
+            "relationshipName": "appointments"
+        }
+    ],
+    "changelogDate": "20190722200939",
+    "entityTableName": "patient_card",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

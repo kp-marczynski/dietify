@@ -1,0 +1,98 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recipe">
+            <h2><span jhiTranslate="gatewayApp.recipesRecipe.detail.title">Recipe</span> {{recipe.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.name" [ngbTooltip]="'gatewayApp.recipesRecipe.help.name' | translate">Name</span></dt>
+                <dd>
+                    <span>{{recipe.name}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.preparationTimeMinutes" [ngbTooltip]="'gatewayApp.recipesRecipe.help.preparationTimeMinutes' | translate">Preparation Time Minutes</span></dt>
+                <dd>
+                    <span>{{recipe.preparationTimeMinutes}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.numberOfPortions" [ngbTooltip]="'gatewayApp.recipesRecipe.help.numberOfPortions' | translate">Number Of Portions</span></dt>
+                <dd>
+                    <span>{{recipe.numberOfPortions}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.image" [ngbTooltip]="'gatewayApp.recipesRecipe.help.image' | translate">Image</span></dt>
+                <dd>
+                    <div *ngIf="recipe.image">
+                        <a (click)="openFile(recipe.imageContentType, recipe.image)">
+                            <img [src]="'data:' + recipe.imageContentType + ';base64,' + recipe.image" style="max-width: 100%;" alt="recipe image"/>
+                        </a>
+                        {{recipe.imageContentType}}, {{byteSize(recipe.image)}}
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.authorId" [ngbTooltip]="'gatewayApp.recipesRecipe.help.authorId' | translate">Author Id</span></dt>
+                <dd>
+                    <span>{{recipe.authorId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.creationDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.creationDate' | translate">Creation Date</span></dt>
+                <dd>
+                    <span>{{recipe.creationDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.lastEditDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.lastEditDate' | translate">Last Edit Date</span></dt>
+                <dd>
+                    <span>{{recipe.lastEditDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.isVisible" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isVisible' | translate">Is Visible</span></dt>
+                <dd>
+                    <span>{{recipe.isVisible}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.language" [ngbTooltip]="'gatewayApp.recipesRecipe.help.language' | translate">Language</span></dt>
+                <dd>
+                    <span>{{recipe.language}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight" [ngbTooltip]="'gatewayApp.recipesRecipe.help.totalGramsWeight' | translate">Total Grams Weight</span></dt>
+                <dd>
+                    <span>{{recipe.totalGramsWeight}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.basicNutritionData">Basic Nutrition Data</span></dt>
+                <dd>
+                    <div *ngIf="recipe.basicNutritionData">
+                        <a [routerLink]="['/recipe-basic-nutrition-data', recipe.basicNutritionData?.id, 'view']">{{recipe.basicNutritionData?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
+                <dd>
+                    <div *ngIf="recipe.sourceRecipe">
+                        <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.name}}</a>
+                    </div>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.kitchenAppliances">Kitchen Appliances</span></dt>
+                <dd>
+                    <span *ngFor="let kitchenAppliances of recipe.kitchenAppliances; let last = last">
+                        <a [routerLink]="['/kitchen-appliance', kitchenAppliances?.id, 'view' ]">{{kitchenAppliances.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.dishTypes">Dish Types</span></dt>
+                <dd>
+                    <span *ngFor="let dishTypes of recipe.dishTypes; let last = last">
+                        <a [routerLink]="['/dish-type', dishTypes?.id, 'view' ]">{{dishTypes.description}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.mealTypes">Meal Types</span></dt>
+                <dd>
+                    <span *ngFor="let mealTypes of recipe.mealTypes; let last = last">
+                        <a [routerLink]="['/meal-type', mealTypes?.id, 'view' ]">{{mealTypes.name}}</a>{{last ? '' : ', '}}
+                    </span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recipe', recipe.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+{
+    "name": "OwnedKitchenAppliance",
+    "fields": [
+        {
+            "fieldName": "kitchenApplianceId",
+            "javadoc": "Id of KitchenAppliance entity retrieved from recipes service",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "nutritionalInterview",
+            "otherEntityRelationshipName": "ownedKitchenAppliances",
+            "relationshipValidateRules": "required",
+            "relationshipName": "nutritionalInterview",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200945",
+    "entityTableName": "owned_kitchen_appliance",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

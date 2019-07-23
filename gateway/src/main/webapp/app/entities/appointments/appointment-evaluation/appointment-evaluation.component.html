@@ -1,0 +1,103 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.home.title">Appointment Evaluations</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appointment-evaluation" [routerLink]="['/appointment-evaluation/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.home.createLabel">
+            Create new Appointment Evaluation
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.appointmentsAppointmentEvaluation.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="appointmentEvaluations?.length === 0">
+        <span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.home.notFound">No appointmentEvaluations found</span>
+    </div>
+    <div class="table-responsive" *ngIf="appointmentEvaluations?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="overallSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.overallSatisfaction">Overall Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dietitianServiceSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietitianServiceSatisfaction">Dietitian Service Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mealPlanOverallSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealPlanOverallSatisfaction">Meal Plan Overall Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mealCostSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealCostSatisfaction">Meal Cost Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mealPreparationTimeSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealPreparationTimeSatisfaction">Meal Preparation Time Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mealComplexityLevelSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealComplexityLevelSatisfaction">Meal Complexity Level Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="mealTastefulnessSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.mealTastefulnessSatisfaction">Meal Tastefulness Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="dietaryResultSatisfaction"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.dietaryResultSatisfaction">Dietary Result Satisfaction</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="comment"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.comment">Comment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="appointment.id"><span jhiTranslate="gatewayApp.appointmentsAppointmentEvaluation.appointment">Appointment</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let appointmentEvaluation of appointmentEvaluations ;trackBy: trackId">
+                <td><a [routerLink]="['/appointment-evaluation', appointmentEvaluation.id, 'view' ]">{{appointmentEvaluation.id}}</a></td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.overallSatisfaction}}">{{appointmentEvaluation.overallSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.dietitianServiceSatisfaction}}">{{appointmentEvaluation.dietitianServiceSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealPlanOverallSatisfaction}}">{{appointmentEvaluation.mealPlanOverallSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealCostSatisfaction}}">{{appointmentEvaluation.mealCostSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealPreparationTimeSatisfaction}}">{{appointmentEvaluation.mealPreparationTimeSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealComplexityLevelSatisfaction}}">{{appointmentEvaluation.mealComplexityLevelSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.mealTastefulnessSatisfaction}}">{{appointmentEvaluation.mealTastefulnessSatisfaction}}</td>
+                <td jhiTranslate="{{'gatewayApp.SatisfactionRate.' + appointmentEvaluation.dietaryResultSatisfaction}}">{{appointmentEvaluation.dietaryResultSatisfaction}}</td>
+                <td>{{appointmentEvaluation.comment}}</td>
+                <td>
+                    <div *ngIf="appointmentEvaluation.appointment">
+                        <a [routerLink]="['../appointment', appointmentEvaluation.appointment?.id, 'view' ]" >{{appointmentEvaluation.appointment?.id}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/appointment-evaluation', appointmentEvaluation.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/appointment-evaluation', appointmentEvaluation.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'appointment-evaluation', { outlets: { popup: appointmentEvaluation.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div [hidden]="appointmentEvaluations?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

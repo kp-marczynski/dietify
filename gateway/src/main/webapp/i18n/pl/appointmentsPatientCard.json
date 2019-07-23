@@ -1,0 +1,35 @@
+{
+  "gatewayApp": {
+    "appointmentsPatientCard": {
+      "home": {
+        "title": "Patient Card",
+        "createLabel": "Dodaj Patient Card",
+        "createOrEditLabel": "Dodaj lub edytuj: Patient Card",
+        "search": "Szukaj Patient Card",
+        "notFound": "No Patient Card found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Patient Card {{ id }}?"
+      },
+      "detail": {
+        "title": "Patient Card"
+      },
+      "creationDate": "Creation Date",
+      "dietitianId": "Dietitian Id",
+      "patientId": "Patient Id",
+      "appointments": "Appointments",
+      "help": {
+        "creationDate": "Date when patient registered to dietitian",
+        "dietitianId": "Dietitian to which patient has signed. Id of User entity retrieved from gateway service.",
+        "patientId": "Patient of dietitian. Id of User entity retrieved from gateway service."
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsPatientCard": {
+      "created": "Utworzono nowy obiekt typu Patient Card z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Patient Card z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Patient Card z identyfikatorem {{ param }}"
+    }
+  }
+}

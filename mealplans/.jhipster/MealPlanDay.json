@@ -1,0 +1,44 @@
+{
+    "name": "MealPlanDay",
+    "fields": [
+        {
+            "fieldName": "ordinalNumber",
+            "javadoc": "Ordinal number of day",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "meal",
+            "otherEntityRelationshipName": "mealPlanDay",
+            "relationshipName": "meals"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "mealPlan",
+            "otherEntityRelationshipName": "days",
+            "relationshipValidateRules": "required",
+            "relationshipName": "mealPlan",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200933",
+    "entityTableName": "meal_plan_day",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "mealplans"
+    ],
+    "microserviceName": "mealplans"
+}

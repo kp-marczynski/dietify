@@ -1,0 +1,107 @@
+{
+    "name": "AppointmentEvaluation",
+    "fields": [
+        {
+            "fieldName": "overallSatisfaction",
+            "javadoc": "Overall visit satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dietitianServiceSatisfaction",
+            "javadoc": "Dietitian service satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mealPlanOverallSatisfaction",
+            "javadoc": "Overall meal plan satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mealCostSatisfaction",
+            "javadoc": "Meals cost satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mealPreparationTimeSatisfaction",
+            "javadoc": "Meals preparation time satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mealComplexityLevelSatisfaction",
+            "javadoc": "Meal complexity level satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "mealTastefulnessSatisfaction",
+            "javadoc": "Meal tastefulness satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "dietaryResultSatisfaction",
+            "javadoc": "Dietary result satisfaction",
+            "fieldType": "SatisfactionRate",
+            "fieldValues": "VERY_DISSATISFIED,DISSATISFIED,NEUTRAL,SATISFIED,VERY_SATISFIED",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "comment",
+            "javadoc": "Optional comment to visit",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "text"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "appointment",
+            "otherEntityRelationshipName": "appointmentEvaluation",
+            "relationshipValidateRules": "required",
+            "relationshipName": "appointment",
+            "otherEntityField": "id",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20190722200947",
+    "entityTableName": "appointment_evaluation",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "appointments"
+    ],
+    "microserviceName": "appointments"
+}

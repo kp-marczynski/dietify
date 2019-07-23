@@ -1,0 +1,32 @@
+{
+  "gatewayApp": {
+    "mealplansMealPlanDay": {
+      "home": {
+        "title": "Meal Plan Day",
+        "createLabel": "Dodaj Meal Plan Day",
+        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan Day",
+        "search": "Szukaj Meal Plan Day",
+        "notFound": "No Meal Plan Day found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Meal Plan Day {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Plan Day"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "meals": "Meals",
+      "mealPlan": "Meal Plan",
+      "help": {
+        "ordinalNumber": "Ordinal number of day"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealPlanDay": {
+      "created": "Utworzono nowy obiekt typu Meal Plan Day z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Meal Plan Day z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Meal Plan Day z identyfikatorem {{ param }}"
+    }
+  }
+}

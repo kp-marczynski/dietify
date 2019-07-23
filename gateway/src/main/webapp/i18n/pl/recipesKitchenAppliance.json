@@ -1,0 +1,31 @@
+{
+  "gatewayApp": {
+    "recipesKitchenAppliance": {
+      "home": {
+        "title": "Kitchen Appliance",
+        "createLabel": "Dodaj Kitchen Appliance",
+        "createOrEditLabel": "Dodaj lub edytuj: Kitchen Appliance",
+        "search": "Szukaj Kitchen Appliance",
+        "notFound": "No Kitchen Appliance found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Kitchen Appliance {{ id }}?"
+      },
+      "detail": {
+        "title": "Kitchen Appliance"
+      },
+      "name": "Name",
+      "translations": "Translations",
+      "help": {
+        "name": "English name of kitchen appliance"
+      }
+    }
+  },
+  "recipesApp": {
+    "recipesKitchenAppliance": {
+      "created": "Utworzono nowy obiekt typu Kitchen Appliance z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Kitchen Appliance z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Kitchen Appliance z identyfikatorem {{ param }}"
+    }
+  }
+}

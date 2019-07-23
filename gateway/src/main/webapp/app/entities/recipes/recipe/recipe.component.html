@@ -1,0 +1,116 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="gatewayApp.recipesRecipe.home.title">Recipes</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-recipe" [routerLink]="['/recipe/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span class="hidden-sm-down"  jhiTranslate="gatewayApp.recipesRecipe.home.createLabel">
+            Create new Recipe
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <div class="row">
+        <div class="col-sm-12">
+            <form name="searchForm" class="form-inline">
+                <div class="input-group w-100 mt-3">
+                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.recipesRecipe.home.search' | translate }}">
+                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                        <fa-icon [icon]="'search'"></fa-icon>
+                    </button>
+                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
+                        <fa-icon [icon]="'trash-alt'"></fa-icon>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <br/>
+    <div class="alert alert-warning" *ngIf="recipes?.length === 0">
+        <span jhiTranslate="gatewayApp.recipesRecipe.home.notFound">No recipes found</span>
+    </div>
+    <div class="table-responsive" *ngIf="recipes?.length > 0">
+        <table class="table table-striped">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="name"><span jhiTranslate="gatewayApp.recipesRecipe.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="preparationTimeMinutes"><span jhiTranslate="gatewayApp.recipesRecipe.preparationTimeMinutes">Preparation Time Minutes</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="numberOfPortions"><span jhiTranslate="gatewayApp.recipesRecipe.numberOfPortions">Number Of Portions</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="image"><span jhiTranslate="gatewayApp.recipesRecipe.image">Image</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="authorId"><span jhiTranslate="gatewayApp.recipesRecipe.authorId">Author Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.recipesRecipe.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="lastEditDate"><span jhiTranslate="gatewayApp.recipesRecipe.lastEditDate">Last Edit Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="isVisible"><span jhiTranslate="gatewayApp.recipesRecipe.isVisible">Is Visible</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="language"><span jhiTranslate="gatewayApp.recipesRecipe.language">Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="totalGramsWeight"><span jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight">Total Grams Weight</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="basicNutritionData.id"><span jhiTranslate="gatewayApp.recipesRecipe.basicNutritionData">Basic Nutrition Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="sourceRecipe.name"><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let recipe of recipes ;trackBy: trackId">
+                <td><a [routerLink]="['/recipe', recipe.id, 'view' ]">{{recipe.id}}</a></td>
+                <td>{{recipe.name}}</td>
+                <td>{{recipe.preparationTimeMinutes}}</td>
+                <td>{{recipe.numberOfPortions}}</td>
+                <td>
+                    <a *ngIf="recipe.image" (click)="openFile(recipe.imageContentType, recipe.image)">
+                        <img [src]="'data:' + recipe.imageContentType + ';base64,' + recipe.image" style="max-height: 30px;" alt="recipe image"/>
+                    </a>
+                    <span *ngIf="recipe.image">{{recipe.imageContentType}}, {{byteSize(recipe.image)}}</span>
+                </td>
+                <td>{{recipe.authorId}}</td>
+                <td>{{recipe.creationDate | date:'mediumDate'}}</td>
+                <td>{{recipe.lastEditDate | date:'mediumDate'}}</td>
+                <td>{{recipe.isVisible}}</td>
+                <td>{{recipe.language}}</td>
+                <td>{{recipe.totalGramsWeight}}</td>
+                <td>
+                    <div *ngIf="recipe.basicNutritionData">
+                        <a [routerLink]="['../recipe-basic-nutrition-data', recipe.basicNutritionData?.id, 'view' ]" >{{recipe.basicNutritionData?.id}}</a>
+                    </div>
+                </td>
+                <td>
+                    <div *ngIf="recipe.sourceRecipe">
+                        <a [routerLink]="['../recipe', recipe.sourceRecipe?.id, 'view' ]" >{{recipe.sourceRecipe?.name}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/recipe', recipe.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/recipe', recipe.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/', 'recipe', { outlets: { popup: recipe.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Pager is not implemented yet, so this is normal pagination instead -->
+    <div [hidden]="recipes?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+        </div>
+    </div>
+</div>

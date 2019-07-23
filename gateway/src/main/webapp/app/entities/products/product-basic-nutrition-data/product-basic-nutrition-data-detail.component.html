@@ -1,0 +1,39 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="productBasicNutritionData">
+            <h2><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.detail.title">Product Basic Nutrition Data</span> {{productBasicNutritionData.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.energy" [ngbTooltip]="'gatewayApp.productsProductBasicNutritionData.help.energy' | translate">Energy</span></dt>
+                <dd>
+                    <span>{{productBasicNutritionData.energy}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.protein" [ngbTooltip]="'gatewayApp.productsProductBasicNutritionData.help.protein' | translate">Protein</span></dt>
+                <dd>
+                    <span>{{productBasicNutritionData.protein}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.fat" [ngbTooltip]="'gatewayApp.productsProductBasicNutritionData.help.fat' | translate">Fat</span></dt>
+                <dd>
+                    <span>{{productBasicNutritionData.fat}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.carbohydrates" [ngbTooltip]="'gatewayApp.productsProductBasicNutritionData.help.carbohydrates' | translate">Carbohydrates</span></dt>
+                <dd>
+                    <span>{{productBasicNutritionData.carbohydrates}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/product-basic-nutrition-data', productBasicNutritionData.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

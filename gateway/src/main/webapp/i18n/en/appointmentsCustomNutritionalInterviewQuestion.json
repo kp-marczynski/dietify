@@ -1,0 +1,35 @@
+{
+  "gatewayApp": {
+    "appointmentsCustomNutritionalInterviewQuestion": {
+      "home": {
+        "title": "Custom Nutritional Interview Questions",
+        "createLabel": "Create a new Custom Nutritional Interview Question",
+        "createOrEditLabel": "Create or edit a Custom Nutritional Interview Question",
+        "search": "Search for Custom Nutritional Interview Question",
+        "notFound": "No Custom Nutritional Interview Question found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Custom Nutritional Interview Question {{ id }}?"
+      },
+      "detail": {
+        "title": "Custom Nutritional Interview Question"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "question": "Question",
+      "answer": "Answer",
+      "nutritionalInterview": "Nutritional Interview",
+      "help": {
+        "ordinalNumber": "Ordinal number of custom question",
+        "question": "Custom question extending Nutritional Interview",
+        "answer": "Answer for question"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsCustomNutritionalInterviewQuestion": {
+      "created": "A new Custom Nutritional Interview Question is created with identifier {{ param }}",
+      "updated": "A Custom Nutritional Interview Question is updated with identifier {{ param }}",
+      "deleted": "A Custom Nutritional Interview Question is deleted with identifier {{ param }}"
+    }
+  }
+}

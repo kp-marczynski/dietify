@@ -1,0 +1,33 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="recipeSuitableForDiet">
+            <h2><span jhiTranslate="gatewayApp.recipesRecipeSuitableForDiet.detail.title">Recipe Suitable For Diet</span> {{recipeSuitableForDiet.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.recipesRecipeSuitableForDiet.dietTypeId" [ngbTooltip]="'gatewayApp.recipesRecipeSuitableForDiet.help.dietTypeId' | translate">Diet Type Id</span></dt>
+                <dd>
+                    <span>{{recipeSuitableForDiet.dietTypeId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipeSuitableForDiet.recipe">Recipe</span></dt>
+                <dd>
+                    <div *ngIf="recipeSuitableForDiet.recipe">
+                        <a [routerLink]="['/recipe', recipeSuitableForDiet.recipe?.id, 'view']">{{recipeSuitableForDiet.recipe?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/recipe-suitable-for-diet', recipeSuitableForDiet.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

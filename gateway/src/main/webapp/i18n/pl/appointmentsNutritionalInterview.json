@@ -1,0 +1,53 @@
+{
+  "gatewayApp": {
+    "appointmentsNutritionalInterview": {
+      "home": {
+        "title": "Nutritional Interview",
+        "createLabel": "Dodaj Nutritional Interview",
+        "createOrEditLabel": "Dodaj lub edytuj: Nutritional Interview",
+        "search": "Szukaj Nutritional Interview",
+        "notFound": "No Nutritional Interview found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Nutritional Interview {{ id }}?"
+      },
+      "detail": {
+        "title": "Nutritional Interview"
+      },
+      "completionDate": "Completion Date",
+      "targetWeight": "Target Weight",
+      "advicePurpose": "Advice Purpose",
+      "physicalActivity": "Physical Activity",
+      "diseases": "Diseases",
+      "medicines": "Medicines",
+      "jobType": "Job Type",
+      "likedProducts": "Liked Products",
+      "dislikedProducts": "Disliked Products",
+      "foodAllergies": "Food Allergies",
+      "foodIntolerances": "Food Intolerances",
+      "ownedKitchenAppliances": "Owned Kitchen Appliances",
+      "customQuestions": "Custom Questions",
+      "appointment": "Appointment",
+      "help": {
+        "completionDate": "Date of interview completion",
+        "targetWeight": "Patient&#39;s target weight in kilograms",
+        "advicePurpose": "Advice purpose summarising what patient wish to accomplish with diet",
+        "physicalActivity": "Patient&#39;s usual daily activity level",
+        "diseases": "Patient&#39;s diseases",
+        "medicines": "Patient&#39;s medicines",
+        "jobType": "Patient&#39;s job type",
+        "likedProducts": "Food products that patient likes",
+        "dislikedProducts": "Food products that patient dislikes",
+        "foodAllergies": "Food products that patient is allergic to",
+        "foodIntolerances": "Patient&#39;s food intolerances"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsNutritionalInterview": {
+      "created": "Utworzono nowy obiekt typu Nutritional Interview z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Nutritional Interview z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Nutritional Interview z identyfikatorem {{ param }}"
+    }
+  }
+}

@@ -1,0 +1,1006 @@
+
+// <<START gateway.jh>>
+application {
+	config {
+        baseName gateway
+        packageName pl.marczynski.dietify.gateway
+        
+        applicationType gateway
+        serverPort 8080
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        websocket spring-websocket
+        useSass true
+        clientFramework angularX
+        //clientTheme flatly
+        //clientThemeVariant primary
+        
+        testFrameworks [gatling, cucumber, protractor]
+    }
+    entities *
+}
+
+/**
+ * A set of available genders
+ * @author Krzysztof Marczyński
+ */
+enum Gender {
+	FEMALE, MALE, OTHER
+}
+
+/**
+ * Additional information about user
+ * @author Krzysztof Marczyński
+ */
+entity UserExtraInfo {
+	/** Gender */
+	gender Gender
+    /** Date of birth */
+	dateOfBirth LocalDate
+    /** Phone number. Preferably in format (+00) 000-000-000 */
+    phoneNumber String minlength(1) maxlength(50)
+    /** Street address with house/apartment number */
+    streetAddress String minlength(1) maxlength(255)
+    /** Postal or zip code */
+    postalCode String minlength(1) maxlength(20)
+    /** City */
+    city String minlength(1) maxlength(50)
+    /** Country */
+    country String minlength(1) maxlength(50)
+    /** Short personal description */
+    personalDescription TextBlob
+}
+
+/**
+ * Landing page information
+ * @author Krzysztof Marczyński
+ */
+entity LandingPageCard {
+	/** Number for specifying order in which content should appear on landing page */
+	ordinalNumber Integer required min(1)
+    /** Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content */
+	htmlContent TextBlob required
+}
+
+relationship OneToOne {
+	UserExtraInfo{user required}
+    	to User
+}
+
+deployment {
+  deploymentType docker-compose
+  
+  appsFolders [gateway, products, recipes, mealplans, appointments]
+  dockerRepositoryName "dietify"
+  monitoring elk
+}
+
+deployment {
+  deploymentType kubernetes
+  kubernetesNamespace dietify
+  
+  appsFolders [gateway, products, recipes, mealplans, appointments]
+  dockerRepositoryName "dietify"
+  monitoring elk
+}
+
+service * with serviceImpl
+noFluentMethod *
+// <<END gateway.jh>>
+
+// <<START products.jh>>
+application {
+	config {
+        baseName products
+        packageName pl.marczynski.dietify.products
+        
+        applicationType microservice
+        serverPort 8081
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        testFrameworks [gatling, cucumber]
+    }
+    entities Product, ProductSubcategory, ProductCategory, ProductCategoryTranslation, NutritionData, NutritionDefinition, NutritionDefinitionTranslation, HouseholdMeasure, DietType, DietTypeTranslation, ProductBasicNutritionData
+}
+
+/**
+ * A food product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(products)
+entity Product {
+	/** Specifying source if product is imported, preferably url address if possible */
+	source String minlength(1) maxlength(255)
+    /** Author of product if product created or edited manually. Id of User entity retrieved from gateway service */
+    authorId Long
+    /** Short description of Product in a language of a product*/
+	description String required minlength(1) maxlength(255)
+    /** Flag specifying if product is final or editable */
+	isFinal Boolean required
+    /** Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these. */
+	isVerified Boolean required
+    /** Language tag of a product as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * Basic nutrition data
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductBasicNutritionData {
+    /** Energy in kcal per 100 gram of product */
+    energy Integer required min(0)
+    /** Protein in grams per 100 gram of product */
+    protein Integer required min(0)
+    /** Fat in grams per 100 gram of product */
+    fat Integer required min(0)
+    /** Carbohydrates in grams per 100 gram of product */
+    carbohydrates Integer required min(0)
+}
+
+/**
+ * A subcategory of product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductSubcategory {
+	/** Short description of subcategory in language of a product */
+	description String required minlength(1) maxlength(255)
+}
+
+/**
+ * A main category of product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductCategory {
+    /** Short description of category in English */
+	description String required unique minlength(1) maxlength(255)
+}
+
+/**
+ * Product category translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity ProductCategoryTranslation (product_category_trns) {
+	/** Translated name of product category */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A household measures of product with weight in grams
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity HouseholdMeasure {
+    /** Short description of measure in language of a product, e.g. "cup" or "tea spoon" */
+	description String required minlength(1) maxlength(255)
+    /** Grams weight of 1 unit of specified measure */
+	gramsWeight Double required min(0)
+    /** Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources */
+	isVisible Boolean required
+}
+
+/**
+ * A definition of nutrition
+ * Data retrieved form USDA Standard Reference database. Data set is not planned to be expanded.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity NutritionDefinition {
+	/** Short tag name of nutrient */
+	tag String required unique minlength(1) maxlength(20)
+    /** Short description of nutrient in English */
+	description String required minlength(1) maxlength(255)
+    /** Unit used for nutrient measurement, e.g. "g", "kcal", "ml" */
+	units String required minlength(1) maxlength(10)
+    /** Decimal places to which nutrient value should be rounded */
+	decimalPlaces Integer required min(0)
+}
+
+/**
+ * Nutrition definition translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity NutritionDefinitionTranslation (nutr_def_trns) {
+	/** Translated description of nutrition definition*/
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A value of nutrition definition for concrete Product
+ * Data initially retrieved form USDA Standard Reference database.
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity NutritionData {
+	/** Nutrition value in units specified in NutritionDefinition */
+	nutritionValue Double required min(0)
+}
+
+/**
+ * A tag specifying characteristic feature of object to which it is applied
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity DietType {
+    /** Short description of diet type in English */
+    name String required unique minlength(1) maxlength(255)
+}
+
+/**
+ * Diet type translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(products)
+entity DietTypeTranslation (diet_type_trns) {
+	/** Translated name of diet type */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+relationship OneToOne {
+	Product{basicNutritionData required}
+    	to ProductBasicNutritionData
+}
+
+relationship OneToMany {
+	Product{nutritionData(nutritionValue)}
+		to NutritionData{product required}
+        
+    Product{householdMeasures(description)}
+    	to HouseholdMeasure{product required}
+        
+    ProductCategory{translations}
+    	to ProductCategoryTranslation{productCategory required}
+    
+    DietType{translations}
+    	to DietTypeTranslation{dietType required}
+        
+    NutritionDefinition{translations}
+    	to NutritionDefinitionTranslation{nutritionDefinition required}
+}
+
+relationship ManyToOne {
+	Product{subcategory(description) required} 
+    	to ProductSubcategory
+
+	ProductSubcategory{category(description) required} 
+    	to ProductCategory
+        
+	NutritionData{nutritionDefinition(tag) required} 
+    	to NutritionDefinition
+}
+
+relationship ManyToMany {
+	Product{suitableDiets(name)}
+    	to DietType
+    
+    Product{unsuitableDiets(name)}
+    	to DietType
+}
+
+search Product with elasticsearch
+// <<END products.jh>>
+
+// <<START recipes.jh>>
+application {
+	config {
+        baseName recipes
+        packageName pl.marczynski.dietify.recipes
+        
+        applicationType microservice
+        serverPort 8082
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        testFrameworks [gatling, cucumber]
+    }
+    entities Recipe, MealType, MealTypeTranslation, DishType, DishTypeTranslation, KitchenAppliance, KitchenApplianceTranslation, RecipeSuitableForDiet, RecipeUnsuitableForDiet, RecipeSection, ProductPortion, PreparationStep, RecipeBasicNutritionData
+}
+
+/**
+ * A recipe
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(recipes)
+entity Recipe {
+	/** Name of recipe in language of recipe*/
+	name String required minlength(1) maxlength(255)
+    /** Average time needed for overall recipe preparation, defined in minutes */
+	preparationTimeMinutes Integer required min(0)
+    /** Number of portions for which all quantities are specified */
+	numberOfPortions Double required min(0)
+    /** Optional image of recipe */
+	image ImageBlob maxbytes(5000000)
+    /** Id of recipe's author. Id of User entity retrieved from gateway service */
+	authorId Long required
+	/** Date of creation */
+	creationDate LocalDate required
+    /** Date of last edit */
+	lastEditDate LocalDate required
+    /** Flag specifying if recipe should be visible in list of author's recipes */
+	isVisible Boolean required
+    /** Language tag of a recipe as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+    /** Total weight in grams of meal prepared from recipe */
+    totalGramsWeight Double required min(0)
+}
+
+/**
+ * Basic nutrition data
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeBasicNutritionData {
+    /** Energy in kcal per 100 gram of recipe meal calculated from products added to recipe */
+    energy Integer required min(0)
+    /** Protein in grams per 100 gram of recipe meal calculated from products added to recipe */
+    protein Integer required min(0)
+    /** Fat in grams per 100 gram of recipe meal calculated from products added to recipe */
+    fat Integer required min(0)
+    /** Carbohydrates in grams per 100 gram of recipe meal calculated from products added to recipe */
+    carbohydrates Integer required min(0)
+}
+
+/**
+ * A dish type
+ * e.g. salad or soup
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity DishType {
+    /** English description of dish type */
+    description String required unique minlength(1) maxlength(255)
+}
+
+/**
+ * Dish type translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity DishTypeTranslation (dish_type_trns) {
+	/** Translated name of dish type */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A meal type
+ * e.g. breakfast or dinner
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity MealType {
+    /** English name of meal type */
+    name String required unique minlength(1) maxlength(255)
+}
+
+/**
+ * Meal type translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity MealTypeTranslation (meal_type_trns) {
+	/** Translated name of meal type */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * Kitchen appliance definition
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity KitchenAppliance {
+    /** English name of kitchen appliance */
+    name String required unique minlength(1) maxlength(255)
+}
+
+/**
+ * Kitchen appliance translation
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity KitchenApplianceTranslation (kitch_appl_trns) {
+	/** Translated name of kitchen appliance */
+	translation String required minlength(1) maxlength(255)
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * A recipe section
+ * e.g. recipe for cheesecake might have 3 separate sections for dough, filling and topping.
+ * First section might be unnamed.
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeSection {
+	/** Name of recipe section in language of a recipe*/
+	sectionName String minlength(1) maxlength(255)
+}
+
+/**
+ * A preparation step in recipe
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity PreparationStep {
+	/** Ordinal number of preparation step */
+	ordinalNumber Integer required min(1)
+  	/** Preferably short step description */
+    stepDescription TextBlob
+}
+
+/**
+ * A portion of product used in recipe
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity ProductPortion {
+    /** Amount of product in household measure units. If household measure is null then amount is in grams */
+	amount Double required min(0)
+    /** Id of Product entity retrieved form products service */
+    productId Long required
+    /** Id of HouseholdMeasure entity retrieved from products service */
+    householdMeasureId Long
+}
+
+/**
+ * A tag specifying cases in which recipe might be positively used
+ * e.g. vegetarian should mean it is good for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeSuitableForDiet {
+	/** Id of applicable DietType entity retrieved from products service */
+	dietTypeId Long required
+}
+
+/**
+ * A tag specifying cases in which recipe should not be used, 
+ * e.g. vegetarian should mean it is bad for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(recipes)
+entity RecipeUnsuitableForDiet {
+	/** Id of applicable DietType entity retrieved from products service */
+	dietTypeId Long required
+}
+
+relationship OneToOne {
+	Recipe{basicNutritionData required}
+    	to RecipeBasicNutritionData
+}
+
+relationship OneToMany {
+	RecipeSection{productPortions}
+    	to ProductPortion{recipeSection required} 
+    
+    RecipeSection{preparationSteps}
+    	to PreparationStep{recipeSection required}
+    
+    Recipe{recipeSections(sectionName)}
+    	to RecipeSection{recipe required} 
+    
+    Recipe{suitableForDiets}
+    	to RecipeSuitableForDiet{recipe required} 
+    
+    Recipe{unsuitableForDiets}
+    	to RecipeUnsuitableForDiet{recipe required} 
+    
+    KitchenAppliance{translations}
+    	to KitchenApplianceTranslation{kitchenAppliance(name) required}
+    
+    MealType{translations}
+    	to MealTypeTranslation{mealType(name) required}
+    
+    DishType{translations}
+    	to DishTypeTranslation{dishType(description) required}
+}
+
+relationship ManyToOne {
+	Recipe{sourceRecipe(name)}
+    	to Recipe
+}
+
+relationship ManyToMany {
+	Recipe{kitchenAppliances(name)} 
+    	to KitchenAppliance
+    
+    Recipe{dishTypes(description)} 
+    	to DishType
+   
+    Recipe{mealTypes(name)} 
+    	to MealType
+}
+
+search Recipe with elasticsearch
+// <<END recipes.jh>>
+
+// <<START mealPlans.jh>>
+application {
+	config {
+        baseName mealplans
+        packageName pl.marczynski.dietify.mealplans
+        
+        applicationType microservice
+        serverPort 8083
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        testFrameworks [gatling, cucumber]
+    }
+    entities MealPlan, MealDefinition, MealPlanSuitableForDiet, MealPlanUnsuitableForDiet, MealPlanDay, Meal, MealRecipe, MealProduct
+}
+
+/**
+ * A Meal plan
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(mealplans)
+entity MealPlan {
+	/** Id of author of the plan */
+	authorId Long required
+    /** Creation date of the plan */
+	creationDate LocalDate required
+    /** Plan name */
+    name String minlength(1) maxlength(255)
+    /** Flag specifying if meal plan is visible in author's list of meal plans */
+	isVisible Boolean required
+    /** Flag specifying if meal plan is editable */
+	isLocked Boolean required
+    /** Language tag of a meal plan as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+    
+    /** Number of days in plan */
+	numberOfDays Integer required min(1)
+    /** Number of meals per day */
+    numberOfMealsPerDay Integer required min(1)
+    /** Amount of total energy per day in kcal */
+    totalDailyEnergy Integer required min(1)
+    /** Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100 */
+    percentOfProtein Integer required min(0) max(100)
+    /** Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100 */
+    percentOfFat Integer required min(0) max(100)
+    /**  Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100 */
+    percentOfCarbohydrates Integer required min(0) max(100)
+}
+
+/**
+ * A Meal Definition used for specifying basic properties of each daily meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealDefinition {
+	/** Daily ordinal number of meal */
+    ordinalNumber Integer required min(1)
+    /** Id of MealType entity retrieved from recipes service */
+	mealTypeId Long required
+    /** Usual time of meal in 24h format: HH:mm */
+    timeOfMeal String required pattern(/\d{2}:\d{2}/)
+    /** Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100. */
+    percentOfEnergy Integer required min(0) max(100)
+}
+
+/**
+ * A Day in meal plan
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealPlanDay {
+	/** Ordinal number of day */
+	ordinalNumber Integer required min(1)
+}
+
+/**
+ * A Meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity Meal {
+	/** Ordinal number of meal */
+	ordinalNumber Integer required min(1)
+}
+
+/**
+ * A Recipe assigned to a meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealRecipe {
+	/** Id of Recipe entity retrieved from recipes service */
+	recipeId Long required
+    /** Amount of recipe in grams */
+	amount Integer required min(0)
+}
+
+/**
+ * A Product assigned to a meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealProduct {
+	/** Id of Product entity retrieved from Products service */
+	productId Long required
+    /** Id of HouseholdMeasure entity retrieved from Products service */
+	householdMeasureId Long
+    /** Amount of Product in household measure units. If household measure is null then amount is in grams. */
+	amount Double required min(0)
+}
+
+/**
+ * A tag specifying cases in which MealPlan might be positively used
+ * e.g. vegetarian should mean it is good for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealPlanSuitableForDiet {
+	/** Id of applicable DietType entity retrieved from products service */
+	dietTypeId Long required
+}
+
+/**
+ * A tag specifying cases in which MealPlan should not be used
+ * e.g. vegetarian should mean it is bad for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealPlanUnsuitableForDiet {
+	/** Id of applicable DietType entity retrieved from products service */
+	dietTypeId Long required
+}
+
+relationship OneToMany {
+	MealPlan{days}
+    	to MealPlanDay{mealPlan required} 
+	
+    MealPlan{mealDefinitions}
+    	to MealDefinition{mealPlan required} 
+    
+    MealPlanDay{meals}
+    	to Meal{mealPlanDay required}   
+        
+    Meal{mealRecipes}   
+    	to MealRecipe{meal required} 
+    	
+    Meal{mealProducts}
+    	to MealProduct{meal required} 
+    	 
+    MealPlan{tagsGoodFor}
+    	to MealPlanSuitableForDiet{mealPlan required} 
+    	 
+    MealPlan{tagsBadFor}
+    	to MealPlanUnsuitableForDiet{mealPlan required}  
+}
+
+search MealPlan with elasticsearch
+// <<END mealPlans.jh>>
+
+// <<START appointments.jh>>
+application {
+	config {
+        baseName appointments
+        packageName pl.marczynski.dietify.appointments
+        
+        applicationType microservice
+        serverPort 8084
+        
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+        
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine false
+        
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+        
+        testFrameworks [gatling, cucumber]
+    }
+    entities Appointment, BodyMeasurement, PatientCard, NutritionalInterview, AssignedMealPlan, OwnedKitchenAppliance, CustomNutritionalInterviewQuestion, CustomNutritionalInterviewQuestionTemplate, AppointmentEvaluation
+}
+
+/**
+ * State of the appointment
+ * @author Krzysztof Marczyński
+ */
+enum AppointmentState {
+	PLANNED, CANCELED, COMPLETED
+}
+
+/**
+ * A set of available patient physical activity state compliant with PAL levels
+ * @author Krzysztof Marczyński
+ */
+enum PhysicalActivity {
+	EXTREMELY_INACTIVE, SEDENTARY, MODERATELY_ACTIVE, VIGOROUSLY_ACTIVE, EXTREMELY_ACTIVE
+}
+
+/**
+ * A type of job
+ * @author Krzysztof Marczyński
+ */
+enum JobType {
+	SITTING, STANDING, MIXED
+}
+
+/**
+ * Satisfaction rate levels
+ * @author Krzysztof Marczyński
+ */
+enum SatisfactionRate {
+	VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_SATISFIED
+}
+
+/**
+ * A Patient's card
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(appointments)
+entity PatientCard {
+	/** Date when patient registered to dietitian */
+	creationDate LocalDate required
+    /** Dietitian to which patient has signed. Id of User entity retrieved from gateway service. */
+    dietitianId Long required
+    /** Patient of dietitian. Id of User entity retrieved from gateway service. */
+    patientId Long required
+}
+
+/**
+ * An appointment
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(appointments)
+entity Appointment {
+	/** Date and time of the appointment */
+	appointmentDate Instant required
+    /** Current appointment state */
+    appointmentState AppointmentState required
+    /** Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service */
+	mealPlanId Long
+    /** General advice after appointment */
+	generalAdvice TextBlob
+}
+
+/**
+ * A body measurement
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity BodyMeasurement {
+	/** Date of measurement completion */
+	completionDate LocalDate required
+    /** Patient's height. Alongside with weight it is used to calculate BMI factor */
+    height Integer required
+    /** Patient's weight. Alongside with height it is used to calculate BMI factor */
+    weight Integer required
+    /** Patient's waist measure */
+    waist Double required
+    /** Percent of fat tissue in patient's body. Norm for women: 16-20. Norm for men: 15-18 */
+	percentOfFatTissue Double min(0) max(100)
+    /** Percent of water in patient's body. Norm for women: 45-60. Norm for men: 50-65 */
+    percentOfWater Double min(0) max(100)
+    /** Mass of patient's muscle tissue in kilograms */
+    muscleMass Double
+    /** Physical mark. Norm: 5 */
+    physicalMark Double
+    /** Level of calcium in patient's bones in kilograms. Norm: ~2.4kg */
+    calciumInBones Double
+    /** Basic metabolism in kcal */
+    basicMetabolism Integer
+    /** Metabolic age in years */
+    metabolicAge Double
+    /** Level of visceral fat. Norm: 1-12 */
+    visceralFatLevel Double
+}
+
+/**
+ * A nutritional interview
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity NutritionalInterview {
+	/** Date of interview completion */
+    completionDate LocalDate required
+	/** Patient's target weight in kilograms */
+    targetWeight Integer required
+    /** Advice purpose summarising what patient wish to accomplish with diet */
+    advicePurpose TextBlob required
+    /** Patient's usual daily activity level */
+    physicalActivity PhysicalActivity required
+    /** Patient's diseases */
+    diseases TextBlob
+    /** Patient's medicines */
+    medicines TextBlob 
+    /** Patient's job type */
+    jobType JobType
+    /** Food products that patient likes */
+    likedProducts TextBlob
+    /** Food products that patient dislikes */
+    dislikedProducts TextBlob
+    /** Food products that patient is allergic to */
+    foodAllergies TextBlob
+    /** Patient's food intolerances */
+    foodIntolerances TextBlob
+}
+
+/**
+ * A custom nutritional interview question
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity CustomNutritionalInterviewQuestion (cust_nutr_intr_quest) {
+	/** Ordinal number of custom question*/
+    ordinalNumber Integer min(1)
+    /** Custom question extending Nutritional Interview */
+    question TextBlob required
+    /** Answer for question */
+    answer TextBlob
+}
+
+/**
+ * A template for custom nutritional interview question
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity CustomNutritionalInterviewQuestionTemplate (cust_nutr_intr_quest_tmpl) {
+    /** Id of owner User entity retrieved from gateway service */
+    ownerId Long required
+    /** Custom question extending Nutritional Interview */
+    question TextBlob required
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * An owned kitchen appliance
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity OwnedKitchenAppliance {
+	/** Id of KitchenAppliance entity retrieved from recipes service */
+	kitchenApplianceId Long required
+}
+
+/**
+ * An assigned meal plan
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity AssignedMealPlan {
+	/** Id of assigned MealPlan entity retrieved from mealplans service */
+    mealPlanId Long required
+}
+
+/**
+ * Patient's appointment evaluation
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(appointments)
+entity AppointmentEvaluation {
+	/** Overall visit satisfaction */
+	overallSatisfaction SatisfactionRate required
+    /** Dietitian service satisfaction */
+	dietitianServiceSatisfaction SatisfactionRate required
+    /** Overall meal plan satisfaction */
+    mealPlanOverallSatisfaction SatisfactionRate required
+    /** Meals cost satisfaction */
+    mealCostSatisfaction SatisfactionRate required
+    /** Meals preparation time satisfaction */
+    mealPreparationTimeSatisfaction SatisfactionRate required
+    /** Meal complexity level satisfaction */
+    mealComplexityLevelSatisfaction SatisfactionRate required
+    /** Meal tastefulness satisfaction */
+    mealTastefulnessSatisfaction SatisfactionRate required
+    /** Dietary result satisfaction */
+    dietaryResultSatisfaction SatisfactionRate required
+    /** Optional comment to visit */
+    comment TextBlob
+}
+
+relationship OneToOne {
+    Appointment{bodyMeasurement}
+    	to BodyMeasurement{appointment required} 
+    
+    Appointment{nutritionalInterview}
+    	to NutritionalInterview{appointment required}
+    
+    AppointmentEvaluation{appointment required}
+    	to Appointment
+}
+
+relationship OneToMany {
+	PatientCard{appointments}
+		to Appointment{patientCard required} 
+    
+    Appointment{mealPlans}
+    	to AssignedMealPlan{appointment required}
+        
+    NutritionalInterview{ownedKitchenAppliances}
+    	to OwnedKitchenAppliance{nutritionalInterview required}
+    
+    NutritionalInterview{customQuestions}
+    	to CustomNutritionalInterviewQuestion{nutritionalInterview required}
+}
+// <<END appointments.jh>>

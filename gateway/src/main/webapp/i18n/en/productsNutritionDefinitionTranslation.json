@@ -1,0 +1,33 @@
+{
+  "gatewayApp": {
+    "productsNutritionDefinitionTranslation": {
+      "home": {
+        "title": "Nutrition Definition Translations",
+        "createLabel": "Create a new Nutrition Definition Translation",
+        "createOrEditLabel": "Create or edit a Nutrition Definition Translation",
+        "search": "Search for Nutrition Definition Translation",
+        "notFound": "No Nutrition Definition Translation found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Nutrition Definition Translation {{ id }}?"
+      },
+      "detail": {
+        "title": "Nutrition Definition Translation"
+      },
+      "translation": "Translation",
+      "language": "Language",
+      "nutritionDefinition": "Nutrition Definition",
+      "help": {
+        "translation": "Translated description of nutrition definition",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "productsApp": {
+    "productsNutritionDefinitionTranslation": {
+      "created": "A new Nutrition Definition Translation is created with identifier {{ param }}",
+      "updated": "A Nutrition Definition Translation is updated with identifier {{ param }}",
+      "deleted": "A Nutrition Definition Translation is deleted with identifier {{ param }}"
+    }
+  }
+}

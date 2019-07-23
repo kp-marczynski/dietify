@@ -1,0 +1,71 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="bodyMeasurement">
+            <h2><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.detail.title">Body Measurement</span> {{bodyMeasurement.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.completionDate" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.completionDate' | translate">Completion Date</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.completionDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.height" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.height' | translate">Height</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.height}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.weight" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.weight' | translate">Weight</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.weight}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.waist" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.waist' | translate">Waist</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.waist}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.percentOfFatTissue" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.percentOfFatTissue' | translate">Percent Of Fat Tissue</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.percentOfFatTissue}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.percentOfWater" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.percentOfWater' | translate">Percent Of Water</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.percentOfWater}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.muscleMass" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.muscleMass' | translate">Muscle Mass</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.muscleMass}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.physicalMark" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.physicalMark' | translate">Physical Mark</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.physicalMark}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.calciumInBones" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.calciumInBones' | translate">Calcium In Bones</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.calciumInBones}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.basicMetabolism" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.basicMetabolism' | translate">Basic Metabolism</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.basicMetabolism}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.metabolicAge" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.metabolicAge' | translate">Metabolic Age</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.metabolicAge}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsBodyMeasurement.visceralFatLevel" [ngbTooltip]="'gatewayApp.appointmentsBodyMeasurement.help.visceralFatLevel' | translate">Visceral Fat Level</span></dt>
+                <dd>
+                    <span>{{bodyMeasurement.visceralFatLevel}}</span>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/body-measurement', bodyMeasurement.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

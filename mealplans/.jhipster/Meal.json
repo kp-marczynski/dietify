@@ -1,0 +1,50 @@
+{
+    "name": "Meal",
+    "fields": [
+        {
+            "fieldName": "ordinalNumber",
+            "javadoc": "Ordinal number of meal",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 1
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealRecipe",
+            "otherEntityRelationshipName": "meal",
+            "relationshipName": "mealRecipes"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "mealProduct",
+            "otherEntityRelationshipName": "meal",
+            "relationshipName": "mealProducts"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "mealPlanDay",
+            "otherEntityRelationshipName": "meals",
+            "relationshipValidateRules": "required",
+            "relationshipName": "mealPlanDay",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190722200934",
+    "entityTableName": "meal",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": false,
+    "clientRootFolder": "",
+    "applications": [
+        "gateway",
+        "mealplans"
+    ],
+    "microserviceName": "mealplans"
+}

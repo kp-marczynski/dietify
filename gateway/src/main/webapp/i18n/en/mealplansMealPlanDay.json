@@ -1,0 +1,32 @@
+{
+  "gatewayApp": {
+    "mealplansMealPlanDay": {
+      "home": {
+        "title": "Meal Plan Days",
+        "createLabel": "Create a new Meal Plan Day",
+        "createOrEditLabel": "Create or edit a Meal Plan Day",
+        "search": "Search for Meal Plan Day",
+        "notFound": "No Meal Plan Day found"
+      },
+      "delete": {
+        "question": "Are you sure you want to delete Meal Plan Day {{ id }}?"
+      },
+      "detail": {
+        "title": "Meal Plan Day"
+      },
+      "ordinalNumber": "Ordinal Number",
+      "meals": "Meals",
+      "mealPlan": "Meal Plan",
+      "help": {
+        "ordinalNumber": "Ordinal number of day"
+      }
+    }
+  },
+  "mealplansApp": {
+    "mealplansMealPlanDay": {
+      "created": "A new Meal Plan Day is created with identifier {{ param }}",
+      "updated": "A Meal Plan Day is updated with identifier {{ param }}",
+      "deleted": "A Meal Plan Day is deleted with identifier {{ param }}"
+    }
+  }
+}

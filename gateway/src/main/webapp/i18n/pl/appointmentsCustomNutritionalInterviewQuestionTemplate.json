@@ -1,0 +1,34 @@
+{
+  "gatewayApp": {
+    "appointmentsCustomNutritionalInterviewQuestionTemplate": {
+      "home": {
+        "title": "Custom Nutritional Interview Question Template",
+        "createLabel": "Dodaj Custom Nutritional Interview Question Template",
+        "createOrEditLabel": "Dodaj lub edytuj: Custom Nutritional Interview Question Template",
+        "search": "Szukaj Custom Nutritional Interview Question Template",
+        "notFound": "No Custom Nutritional Interview Question Template found"
+      },
+      "delete": {
+        "question": "Czy na pewno chcesz usunąć Custom Nutritional Interview Question Template {{ id }}?"
+      },
+      "detail": {
+        "title": "Custom Nutritional Interview Question Template"
+      },
+      "ownerId": "Owner Id",
+      "question": "Question",
+      "language": "Language",
+      "help": {
+        "ownerId": "Id of owner User entity retrieved from gateway service",
+        "question": "Custom question extending Nutritional Interview",
+        "language": "Language of translation as ISO_639-1 code"
+      }
+    }
+  },
+  "appointmentsApp": {
+    "appointmentsCustomNutritionalInterviewQuestionTemplate": {
+      "created": "Utworzono nowy obiekt typu Custom Nutritional Interview Question Template z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Custom Nutritional Interview Question Template z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Custom Nutritional Interview Question Template z identyfikatorem {{ param }}"
+    }
+  }
+}
