@@ -1,0 +1,11 @@
+id;ordinal_number;question;answer;nutritional_interview_id
+1;1659;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;8
+2;51209;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;9
+3;22650;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;4
+4;64517;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;1
+5;17437;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;10
+6;69094;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;4
+7;38674;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;6
+8;93673;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;9
+9;13752;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;7
+10;34107;../data/faker/blob/hipster.txt;../data/faker/blob/hipster.txt;8
