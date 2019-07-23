@@ -7,7 +7,7 @@ id;translation;language;dish_type_id
 6;brownie;pl;6
 7;burrito;pl;7
 8;carpaccio;pl;8
-9;ciasta;pl;9
+9;ciasta/torty;pl;9
 10;ciasteczka;pl;10
 11;cielęcina;pl;11
 12;desery;pl;12
@@ -37,7 +37,7 @@ id;translation;language;dish_type_id
 36;makowce;pl;36
 37;muffinki;pl;37
 38;mule;pl;38
-39;naleśniki;pl;39
+39;naleśniki/racuchy;pl;39
 40;napoje;pl;40
 41;owoce morza;pl;41
 42;pasty;pl;42
@@ -52,7 +52,6 @@ id;translation;language;dish_type_id
 51;przetwory;pl;51
 52;quesadilla;pl;52
 53;quiche;pl;53
-54;racuchy;pl;54
 55;ratatouille;pl;55
 56;risotto;pl;56
 57;ryby;pl;57
@@ -67,7 +66,6 @@ id;translation;language;dish_type_id
 66;śledzie;pl;66
 67;tarty;pl;67
 68;tortilla;pl;68
-69;torty;pl;69
 70;tosty;pl;70
 71;wieprzowina;pl;71
 72;wołowina;pl;72
