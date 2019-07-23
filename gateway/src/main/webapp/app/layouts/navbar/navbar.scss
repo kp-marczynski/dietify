@@ -6,11 +6,6 @@
 Navbar
 ========================================================================== */
 
-.navbar-version {
-  font-size: 0.65em;
-  color: $navbar-dark-color;
-}
-
 .profile-image {
   height: 1.75em;
   width: 1.75em;
@@ -19,6 +14,7 @@ Navbar
 .navbar {
   z-index: $zindex-dropdown - 1;
   padding: 0.2rem 1rem;
+  height: 60px;
 
   .dropdown-item.active,
   .dropdown-item.active:focus,
@@ -55,11 +51,38 @@ Logo styles
   background-size: contain;
 }
 
-.navbar-collapse {
+.sidebar {
   position: fixed;
-  height: 100vh;
+  height: 100%;
   width: $tooltip-max-width;
   z-index: -1;
   top: 0;
   left: 0;
+  padding-top: 85px;
+  align-items: flex-start;
+  overflow-y: scroll;
+
+  -ms-overflow-style: none; // IE 10+
+  overflow: -moz-scrollbars-none; // Firefox
+}
+
+.sidebar::-webkit-scrollbar {
+  scrollbar-width: none;
+  display: none; // Safari and Chrome
+}
+
+.sidebar-footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.navbar-brand {
+  z-index: $zindex-dropdown - 1;
+  position: static;
+  top: 0;
+
+  @media (min-width: map-get($grid-breakpoints, md)) {
+    position: fixed;
+  }
 }

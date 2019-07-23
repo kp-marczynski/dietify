@@ -1,0 +1,8 @@
+@import '~bootstrap/scss/functions';
+@import '~bootswatch/dist/flatly/variables';
+@import '~bootstrap/scss/variables';
+
+.navbar-version {
+  font-size: 0.65em;
+  color: $navbar-dark-color;
+}
