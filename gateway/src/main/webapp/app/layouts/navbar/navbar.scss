@@ -17,6 +17,7 @@ Navbar
 }
 
 .navbar {
+  z-index: $zindex-dropdown - 1;
   padding: 0.2rem 1rem;
 
   .dropdown-item.active,
@@ -52,4 +53,13 @@ Logo styles
   vertical-align: middle;
   background: url('../../../content/images/logo-dietify.png') no-repeat center center;
   background-size: contain;
+}
+
+.navbar-collapse {
+  position: fixed;
+  height: 100vh;
+  width: $tooltip-max-width;
+  z-index: -1;
+  top: 0;
+  left: 0;
 }
