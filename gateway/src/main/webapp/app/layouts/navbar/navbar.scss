@@ -54,16 +54,18 @@ Logo styles
 .sidebar {
   position: fixed;
   height: 100%;
-  width: $tooltip-max-width;
+  width: 230px;
   z-index: -1;
   top: 0;
   left: 0;
   padding-top: 85px;
   align-items: flex-start;
   overflow-y: scroll;
+  overflow-x: hidden;
 
   -ms-overflow-style: none; // IE 10+
   overflow: -moz-scrollbars-none; // Firefox
+  scrollbar-width: none;
 }
 
 .sidebar::-webkit-scrollbar {
@@ -81,3 +83,10 @@ Logo styles
   font-size: 1.3rem;
   letter-spacing: 0.25rem;
 }
+
+.separator {
+  border-top: 1px solid rgba(255, 255, 255, 0.125);
+  width: 100%;
+}
+
+.up { bottom:100% !important; top:auto !important; }

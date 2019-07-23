@@ -3,10 +3,11 @@
 
 .main-wrapper {
   padding-top: 60px;
+  padding-bottom: 15px;
 }
 
 @media (min-width: map-get($grid-breakpoints, md)) {
   .main-wrapper {
-    padding-left: $tooltip-max-width;
+    padding-left: 230px;
   }
 }
