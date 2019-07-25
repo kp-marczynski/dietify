@@ -14,8 +14,8 @@
         </loadData>
     </changeSet>
     <changeSet id="201907251224" author="kmarczynski" context="usda">
-        <loadData file="config/liquibase/usda_sr_db/product_category.csv" quotchar='"' separator=";"
-                  tableName="product_category">
+        <loadData file="config/liquibase/usda_sr_db/product_category_translation.csv" quotchar='"' separator=";"
+                  tableName="product_category_trns">
             <column header="id" name="id" type="numeric"/>
             <column header="category_id" name="product_category_id" type="numeric"/>
             <column header="description_polish" name="translation" type="string"/>
@@ -58,7 +58,8 @@
         </loadData>
     </changeSet>
     <changeSet id="201907251302" author="kmarczynski" context="usda">
-        <loadData file="config/liquibase/usda_sr_db/product_basic_nutrition_data.csv" quotchar='"' separator=";" tableName="product">
+        <loadData file="config/liquibase/usda_sr_db/product_basic_nutrition_data.csv" quotchar='"' separator=";"
+                  tableName="product_basic_nutrition_data">
             <column header="product_id" name="id" type="numeric"/>
             <column header="protein" name="protein" type="numeric"/>
             <column header="fat" name="fat" type="numeric"/>
@@ -67,9 +68,10 @@
         </loadData>
     </changeSet>
     <changeSet id="201902130004" author="kmarczynski" context="usda">
-        <loadData file="config/liquibase/usda_sr_db/product.csv" quotchar='"' separator=";" tableName="product">
+        <loadData file="config/liquibase/usda_sr_db/product.csv" quotchar='"' separator=";"
+                  tableName="product">
             <column header="product_id" name="id" type="numeric"/>
-            <column header="product_id" name="basic_nutrition_data_id" type="numeric"/>
+            <column header="basic_nutrition_id" name="basic_nutrition_data_id" type="numeric"/>
             <column header="subcategory_id" name="subcategory_id" type="numeric"/>
             <column header="description" name="description" type="string"/>
             <column header="source" name="source" type="string"/>

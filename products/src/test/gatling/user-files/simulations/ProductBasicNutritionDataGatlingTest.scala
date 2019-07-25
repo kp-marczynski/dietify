@@ -72,10 +72,10 @@ class ProductBasicNutritionDataGatlingTest extends Simulation {
             .headers(headers_http_authenticated)
             .body(StringBody("""{
                 "id":null
-                , "energy":"0"
-                , "protein":"0"
-                , "fat":"0"
-                , "carbohydrates":"0"
+                , "energy":null
+                , "protein":null
+                , "fat":null
+                , "carbohydrates":null
                 }""")).asJson
             .check(status.is(201))
             .check(headerRegex("Location", "(.*)").saveAs("new_productBasicNutritionData_url"))).exitHereIfFailed

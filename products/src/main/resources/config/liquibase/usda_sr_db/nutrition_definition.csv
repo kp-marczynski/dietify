@@ -38,7 +38,7 @@
 "324";"IU";"VITD";"Vitamin D";"0"
 "325";"µg";"ERGCAL";"Vitamin D2 (ergocalciferol)";"1"
 "326";"µg";"CHOCAL";"Vitamin D3 (cholecalciferol)";"1"
-"328";"µg";"VITD";"Vitamin D (D2 + D3)";"1"
+"328";"µg";"VITD2+3";"Vitamin D (D2 + D3)";"1"
 "334";"µg";"CRYPX";"Cryptoxanthin, beta";"0"
 "337";"µg";"LYCPN";"Lycopene";"0"
 "338";"µg";"LUT+ZEA";"Lutein + zeaxanthin";"0"

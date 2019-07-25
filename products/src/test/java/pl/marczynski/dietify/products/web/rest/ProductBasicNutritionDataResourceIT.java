@@ -38,17 +38,17 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(classes = ProductsApp.class)
 public class ProductBasicNutritionDataResourceIT {
 
-    private static final Integer DEFAULT_ENERGY = 0;
-    private static final Integer UPDATED_ENERGY = 1;
+    private static final Double DEFAULT_ENERGY = 0D;
+    private static final Double UPDATED_ENERGY = 1D;
 
-    private static final Integer DEFAULT_PROTEIN = 0;
-    private static final Integer UPDATED_PROTEIN = 1;
+    private static final Double DEFAULT_PROTEIN = 0D;
+    private static final Double UPDATED_PROTEIN = 1D;
 
-    private static final Integer DEFAULT_FAT = 0;
-    private static final Integer UPDATED_FAT = 1;
+    private static final Double DEFAULT_FAT = 0D;
+    private static final Double UPDATED_FAT = 1D;
 
-    private static final Integer DEFAULT_CARBOHYDRATES = 0;
-    private static final Integer UPDATED_CARBOHYDRATES = 1;
+    private static final Double DEFAULT_CARBOHYDRATES = 0D;
+    private static final Double UPDATED_CARBOHYDRATES = 1D;
 
     @Autowired
     private ProductBasicNutritionDataRepository productBasicNutritionDataRepository;
@@ -259,10 +259,10 @@ public class ProductBasicNutritionDataResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(productBasicNutritionData.getId().intValue())))
-            .andExpect(jsonPath("$.[*].energy").value(hasItem(DEFAULT_ENERGY)))
-            .andExpect(jsonPath("$.[*].protein").value(hasItem(DEFAULT_PROTEIN)))
-            .andExpect(jsonPath("$.[*].fat").value(hasItem(DEFAULT_FAT)))
-            .andExpect(jsonPath("$.[*].carbohydrates").value(hasItem(DEFAULT_CARBOHYDRATES)));
+            .andExpect(jsonPath("$.[*].energy").value(hasItem(DEFAULT_ENERGY.doubleValue())))
+            .andExpect(jsonPath("$.[*].protein").value(hasItem(DEFAULT_PROTEIN.doubleValue())))
+            .andExpect(jsonPath("$.[*].fat").value(hasItem(DEFAULT_FAT.doubleValue())))
+            .andExpect(jsonPath("$.[*].carbohydrates").value(hasItem(DEFAULT_CARBOHYDRATES.doubleValue())));
     }
     
     @Test
@@ -276,10 +276,10 @@ public class ProductBasicNutritionDataResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(productBasicNutritionData.getId().intValue()))
-            .andExpect(jsonPath("$.energy").value(DEFAULT_ENERGY))
-            .andExpect(jsonPath("$.protein").value(DEFAULT_PROTEIN))
-            .andExpect(jsonPath("$.fat").value(DEFAULT_FAT))
-            .andExpect(jsonPath("$.carbohydrates").value(DEFAULT_CARBOHYDRATES));
+            .andExpect(jsonPath("$.energy").value(DEFAULT_ENERGY.doubleValue()))
+            .andExpect(jsonPath("$.protein").value(DEFAULT_PROTEIN.doubleValue()))
+            .andExpect(jsonPath("$.fat").value(DEFAULT_FAT.doubleValue()))
+            .andExpect(jsonPath("$.carbohydrates").value(DEFAULT_CARBOHYDRATES.doubleValue()));
     }
 
     @Test
@@ -381,10 +381,10 @@ public class ProductBasicNutritionDataResourceIT {
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(productBasicNutritionData.getId().intValue())))
-            .andExpect(jsonPath("$.[*].energy").value(hasItem(DEFAULT_ENERGY)))
-            .andExpect(jsonPath("$.[*].protein").value(hasItem(DEFAULT_PROTEIN)))
-            .andExpect(jsonPath("$.[*].fat").value(hasItem(DEFAULT_FAT)))
-            .andExpect(jsonPath("$.[*].carbohydrates").value(hasItem(DEFAULT_CARBOHYDRATES)));
+            .andExpect(jsonPath("$.[*].energy").value(hasItem(DEFAULT_ENERGY.doubleValue())))
+            .andExpect(jsonPath("$.[*].protein").value(hasItem(DEFAULT_PROTEIN.doubleValue())))
+            .andExpect(jsonPath("$.[*].fat").value(hasItem(DEFAULT_FAT.doubleValue())))
+            .andExpect(jsonPath("$.[*].carbohydrates").value(hasItem(DEFAULT_CARBOHYDRATES.doubleValue())));
     }
 
     @Test
