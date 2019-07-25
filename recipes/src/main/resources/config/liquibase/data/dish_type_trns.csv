@@ -1,11 +1,75 @@
 id;translation;language;dish_type_id
-1;Versatile Exclusive Moroccan Dirham;ca;7
-2;Berkshire Small Plastic Pants Investor;Ca;6
-3;Way Dominican Republic;Bu;3
-4;transmitter;Po;4
-5;bypassing optical;in;2
-6;Refined Rubber Gloves Algerian Dinar Clothing;op;1
-7;Quality;sy;2
-8;bricks-and-clicks Concrete Global;Fi;10
-9;Borders content-based;Ta;7
-10;B2B;Sa;9
+1;babeczki;pl;1
+2;baranina;pl;2
+3;barszcz;pl;3
+4;befsztyk;pl;4
+5;bezy;pl;5
+6;brownie;pl;6
+7;burrito;pl;7
+8;carpaccio;pl;8
+9;ciasta/torty;pl;9
+10;ciasteczka;pl;10
+11;cielęcina;pl;11
+12;desery;pl;12
+13;drinki;pl;13
+14;dziczyzna;pl;14
+15;fajita;pl;15
+16;flaki;pl;16
+17;golonka;pl;17
+18;gołąbki;pl;18
+19;grill;pl;19
+20;gulasze;pl;20
+21;gyros;pl;21
+22;hamburgery;pl;22
+23;humus;pl;23
+24;jagnięcina;pl;24
+25;kanapki;pl;25
+26;kaszanka;pl;26
+27;kebab;pl;27
+28;keftedes;pl;28
+29;koktajle;pl;29
+30;kopytka;pl;30
+31;kotlety mielone;pl;31
+32;kurczak;pl;32
+33;lasagne;pl;33
+34;lody;pl;34
+35;makarony, kluski;pl;35
+36;makowce;pl;36
+37;muffinki;pl;37
+38;mule;pl;38
+39;naleśniki/racuchy;pl;39
+40;napoje;pl;40
+41;owoce morza;pl;41
+42;pasty;pl;42
+43;pasty do chleba;pl;43
+44;pasztety i terriny;pl;44
+45;pączki;pl;45
+46;pieczywo;pl;46
+47;pierogi;pl;47
+48;pizza;pl;48
+49;placki ziemniaczane;pl;49
+50;przekąski;pl;50
+51;przetwory;pl;51
+52;quesadilla;pl;52
+53;quiche;pl;53
+55;ratatouille;pl;55
+56;risotto;pl;56
+57;ryby;pl;57
+58;sałatki;pl;58
+59;sery;pl;59
+60;skrzydełka;pl;60
+61;sosy, kremy, pasty;pl;61
+62;steki;pl;62
+63;surówki;pl;63
+64;sushi;pl;64
+65;szaszłyk;pl;65
+66;śledzie;pl;66
+67;tarty;pl;67
+68;tortilla;pl;68
+70;tosty;pl;70
+71;wieprzowina;pl;71
+72;wołowina;pl;72
+73;zapiekanki;pl;73
+74;zrazy;pl;74
+75;zupy;pl;75
+76;żeberka;pl;76

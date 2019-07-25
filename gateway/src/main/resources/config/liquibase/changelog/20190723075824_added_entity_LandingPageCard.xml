@@ -50,7 +50,7 @@
     -->
     <changeSet id="20190723075824-1-data" author="jhipster" context="faker">
         <loadData
-                  file="config/liquibase/data/landing_page_card.csv"
+                  file="config/liquibase/data/faker/landing_page_card.csv"
                   separator=";"
                   tableName="landing_page_card">
             <column name="id" type="numeric"/>
