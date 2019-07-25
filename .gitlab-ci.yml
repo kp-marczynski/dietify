@@ -1,84 +1,94 @@
 image: jhipster/jhipster:v6.1.2
 
 cache:
-  key: '$CI_COMMIT_REF_NAME'
-  paths:
-    - .gradle/
+    key: '$CI_COMMIT_REF_NAME'
+    paths:
+        - .gradle/
 stages:
-  - build
-  - test
-  - analyze
-  - package
-  - release
-  - deploy
+    - build
+    - test
+    - analyze
+    - package
+    - release
+    - deploy
 
 before_script:
-  - export NG_CLI_ANALYTICS="false"
-  - export GRADLE_USER_HOME=`pwd`/.gradle
+    - export NG_CLI_ANALYTICS="false"
+    - export GRADLE_USER_HOME=`pwd`/.gradle
 
 # gateway
 gateway-gradle-compile:
-  stage: build
-  script:
-    - cd /builds/kp.marczynski/dietify/gateway
-    - sh gradlew npm_install -PnodeInstall --no-daemon
-    - sh gradlew compileJava -x check -PnodeInstall --no-daemon
-  artifacts:
-    paths:
-      - /builds/kp.marczynski/dietify/gateway/build/classes/
-      - /builds/kp.marczynski/dietify/gateway/build/generated/
-    expire_in: 1 day
+    stage: build
+    script:
+        - cd /builds/kp.marczynski/dietify/gateway
+        - sh gradlew npm_install -PnodeInstall --no-daemon
+        - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/gateway/build/classes/
+            - /builds/kp.marczynski/dietify/gateway/build/generated/
+        expire_in: 1 day
 
 gateway-gradle-test:
-  stage: test
-  script:
-    - cd /builds/kp.marczynski/dietify/gateway
-    - sh gradlew test -PnodeInstall --no-daemon
-  artifacts:
-    reports:
-      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/test/TEST-*.xml
-    paths:
-      - /builds/kp.marczynski/dietify/gateway/build/test-results/
-      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
-    expire_in: 1 day
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/gateway
+        - sh gradlew test -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/gateway/build/test-results/test/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/gateway/build/test-results/
+            - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+        expire_in: 1 day
 
 gateway-gradle-integration-test:
-  stage: test
-  script:
-    - cd /builds/kp.marczynski/dietify/gateway
-    - sh gradlew integrationTest -PnodeInstall --no-daemon
-  artifacts:
-    reports:
-      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/integrationTest/TEST-*.xml
-    paths:
-      - /builds/kp.marczynski/dietify/gateway/build/test-results/
-      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
-    expire_in: 1 day
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/gateway
+        - sh gradlew integrationTest -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/gateway/build/test-results/integrationTest/TEST-*.xml
+        paths:
+            - /builds/kp.marczynski/dietify/gateway/build/test-results/
+            - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+        expire_in: 1 day
 
 gateway-frontend-test:
-  stage: test
-  script:
-    - cd /builds/kp.marczynski/dietify/gateway
-    - sh gradlew npm_install -PnodeInstall --no-daemon
-    - sh gradlew npm_run_test -PnodeInstall --no-daemon
-  artifacts:
-    reports:
-      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
-    paths:
-      - /builds/kp.marczynski/dietify/gateway/build/test-results/
-      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
-    expire_in: 1 day
+    stage: test
+    script:
+        - cd /builds/kp.marczynski/dietify/gateway
+        - sh gradlew npm_install -PnodeInstall --no-daemon
+        - sh gradlew npm_run_test -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
+    artifacts:
+        reports:
+            junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
+        paths:
+            - /builds/kp.marczynski/dietify/gateway/build/test-results/
+            - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+        expire_in: 1 day
 
 gateway-gradle-package:
-  stage: package
-  script:
-    - cd /builds/kp.marczynski/dietify/gateway
-    - sh gradlew bootJar -Pprod -x check --no-daemon
-  artifacts:
-    paths:
-      - /builds/kp.marczynski/dietify/gateway/build/libs/*.jar
-      - /builds/kp.marczynski/dietify/gateway/build/classes
-    expire_in: 1 day
+    stage: package
+    script:
+        - cd /builds/kp.marczynski/dietify/gateway
+        - sh gradlew bootJar -Pprod -x check --no-daemon
+    except:
+        - praca-dyplomowa
+    artifacts:
+        paths:
+            - /builds/kp.marczynski/dietify/gateway/build/libs/*.jar
+            - /builds/kp.marczynski/dietify/gateway/build/classes
+        expire_in: 1 day
 
 # products
 products-gradle-compile:
@@ -86,6 +96,8 @@ products-gradle-compile:
     script:
         - cd /builds/kp.marczynski/dietify/products
         - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/products/build/classes/
@@ -97,6 +109,8 @@ products-gradle-test:
     script:
         - cd /builds/kp.marczynski/dietify/products
         - sh gradlew test -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/products/build/test-results/test/TEST-*.xml
@@ -110,6 +124,8 @@ products-gradle-integration-test:
     script:
         - cd /builds/kp.marczynski/dietify/products
         - sh gradlew integrationTest -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/products/build/test-results/integrationTest/TEST-*.xml
@@ -123,6 +139,8 @@ products-gradle-package:
     script:
         - cd /builds/kp.marczynski/dietify/products
         - sh gradlew bootJar -Pprod -x check --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/products/build/libs/*.jar
@@ -135,6 +153,8 @@ recipes-gradle-compile:
     script:
         - cd /builds/kp.marczynski/dietify/recipes
         - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/recipes/build/classes/
@@ -146,6 +166,8 @@ recipes-gradle-test:
     script:
         - cd /builds/kp.marczynski/dietify/recipes
         - sh gradlew test -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/recipes/build/test-results/test/TEST-*.xml
@@ -159,6 +181,8 @@ recipes-gradle-integration-test:
     script:
         - cd /builds/kp.marczynski/dietify/recipes
         - sh gradlew integrationTest -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/recipes/build/test-results/integrationTest/TEST-*.xml
@@ -172,6 +196,8 @@ recipes-gradle-package:
     script:
         - cd /builds/kp.marczynski/dietify/recipes
         - sh gradlew bootJar -Pprod -x check --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/recipes/build/libs/*.jar
@@ -184,6 +210,8 @@ mealplans-gradle-compile:
     script:
         - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/mealplans/build/classes/
@@ -195,6 +223,8 @@ mealplans-gradle-test:
     script:
         - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew test -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/mealplans/build/test-results/test/TEST-*.xml
@@ -208,6 +238,8 @@ mealplans-gradle-integration-test:
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew integrationTest -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/mealplans/build/test-results/integrationTest/TEST-*.xml
@@ -221,6 +253,8 @@ mealplans-gradle-package:
     script:
         - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew bootJar -Pprod -x check --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/mealplans/build/libs/*.jar
@@ -233,6 +267,8 @@ appointments-gradle-compile:
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew compileJava -x check -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/appointments/build/classes/
@@ -244,6 +280,8 @@ appointments-gradle-test:
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew test -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/appointments/build/test-results/test/TEST-*.xml
@@ -257,6 +295,8 @@ appointments-gradle-integration-test:
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew integrationTest -PnodeInstall --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         reports:
             junit: /builds/kp.marczynski/dietify/appointments/build/test-results/integrationTest/TEST-*.xml
@@ -270,6 +310,8 @@ appointments-gradle-package:
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew bootJar -Pprod -x check --no-daemon
+    except:
+        - praca-dyplomowa
     artifacts:
         paths:
             - /builds/kp.marczynski/dietify/appointments/build/libs/*.jar
@@ -283,3 +325,5 @@ ionic-frontend-test:
         - cd /builds/kp.marczynski/dietify/ionic
         - npm install
         - npm test
+    except:
+        - praca-dyplomowa
