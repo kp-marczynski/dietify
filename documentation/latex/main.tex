@@ -3,7 +3,7 @@
 \usepackage{hyperref}
 %%
 \usepackage{lipsum}
-\usepackage{todonotes}
+\usepackage{easy-todo}
 
 % Dane o pracy
 \author{Krzysztof Marczyński}
@@ -21,14 +21,15 @@
 
     \maketitle
     \pagenumbering{gobble}
-    \input{streszczenie}
+    \input{ch0.1_streszczenie}
     \cleardoublepage
 
     \tableofcontents
     \cleardoublepage
 
     \pagenumbering{arabic}
-    \input{wstep}
+    \todo{uzupełnić streszczenie i słowa kluczowe na stronie tytułowej}
+    \input{ch0.2_wstep}
 
     \input{ch1}
     \input{ch2}
@@ -40,7 +41,7 @@
     %\input{instrukcja}
     %\input{demo}
 
-    \input{zakonczenie}
+    \input{ch7_zakonczenie}
 
     % W pracy pojawią się tylko prace naprawdę cytowane.
     % \nocite{*}

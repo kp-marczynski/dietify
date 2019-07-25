@@ -9,3 +9,5 @@ _minted-main/
 *.synctex(busy)
 *.toc
 *.gz
+*.upa
+*.upb
