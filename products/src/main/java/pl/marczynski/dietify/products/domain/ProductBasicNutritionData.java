@@ -30,37 +30,37 @@ public class ProductBasicNutritionData implements Serializable {
      * Energy in kcal per 100 gram of product
      */
     @NotNull
-    @Min(value = 0)
+    @DecimalMin(value = "0")
     @ApiModelProperty(value = "Energy in kcal per 100 gram of product", required = true)
     @Column(name = "energy", nullable = false)
-    private Integer energy;
+    private Double energy;
 
     /**
      * Protein in grams per 100 gram of product
      */
     @NotNull
-    @Min(value = 0)
+    @DecimalMin(value = "0")
     @ApiModelProperty(value = "Protein in grams per 100 gram of product", required = true)
     @Column(name = "protein", nullable = false)
-    private Integer protein;
+    private Double protein;
 
     /**
      * Fat in grams per 100 gram of product
      */
     @NotNull
-    @Min(value = 0)
+    @DecimalMin(value = "0")
     @ApiModelProperty(value = "Fat in grams per 100 gram of product", required = true)
     @Column(name = "fat", nullable = false)
-    private Integer fat;
+    private Double fat;
 
     /**
      * Carbohydrates in grams per 100 gram of product
      */
     @NotNull
-    @Min(value = 0)
+    @DecimalMin(value = "0")
     @ApiModelProperty(value = "Carbohydrates in grams per 100 gram of product", required = true)
     @Column(name = "carbohydrates", nullable = false)
-    private Integer carbohydrates;
+    private Double carbohydrates;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -71,35 +71,35 @@ public class ProductBasicNutritionData implements Serializable {
         this.id = id;
     }
 
-    public Integer getEnergy() {
+    public Double getEnergy() {
         return energy;
     }
 
-    public void setEnergy(Integer energy) {
+    public void setEnergy(Double energy) {
         this.energy = energy;
     }
 
-    public Integer getProtein() {
+    public Double getProtein() {
         return protein;
     }
 
-    public void setProtein(Integer protein) {
+    public void setProtein(Double protein) {
         this.protein = protein;
     }
 
-    public Integer getFat() {
+    public Double getFat() {
         return fat;
     }
 
-    public void setFat(Integer fat) {
+    public void setFat(Double fat) {
         this.fat = fat;
     }
 
-    public Integer getCarbohydrates() {
+    public Double getCarbohydrates() {
         return carbohydrates;
     }
 
-    public void setCarbohydrates(Integer carbohydrates) {
+    public void setCarbohydrates(Double carbohydrates) {
         this.carbohydrates = carbohydrates;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
