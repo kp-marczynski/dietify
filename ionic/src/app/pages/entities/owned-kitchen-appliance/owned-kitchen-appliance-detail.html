@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Owned Kitchen Appliance
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Kitchen Appliance Id</ion-label>
+            <div item-content>
+                <span>{{ownedKitchenAppliance.kitchenApplianceId}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Nutritional Interview</ion-label>
+            <div item-content *ngIf="ownedKitchenAppliance.nutritionalInterview">
+                <a>{{ownedKitchenAppliance.nutritionalInterview?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(ownedKitchenAppliance)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(ownedKitchenAppliance)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

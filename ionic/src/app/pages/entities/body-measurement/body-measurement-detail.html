@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Body Measurement
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Completion Date</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.completionDate | date:'mediumDate'}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Height</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.height}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Weight</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.weight}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Waist</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.waist}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Percent Of Fat Tissue</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.percentOfFatTissue}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Percent Of Water</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.percentOfWater}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Muscle Mass</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.muscleMass}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Physical Mark</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.physicalMark}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Calcium In Bones</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.calciumInBones}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Basic Metabolism</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.basicMetabolism}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Metabolic Age</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.metabolicAge}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Visceral Fat Level</ion-label>
+            <div item-content>
+                <span>{{bodyMeasurement.visceralFatLevel}}</span>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(bodyMeasurement)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(bodyMeasurement)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>
