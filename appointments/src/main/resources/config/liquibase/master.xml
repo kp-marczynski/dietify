@@ -13,6 +13,8 @@
     <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
     <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
 
+    <property name="autoIncrement" value="true"/>
+
     <include file="config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190722200939_added_entity_PatientCard.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190722200940_added_entity_Appointment.xml" relativeToChangelogFile="false"/>

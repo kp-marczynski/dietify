@@ -74,6 +74,8 @@ entity LandingPageCard {
 	ordinalNumber Integer required min(1)
     /** Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content */
 	htmlContent TextBlob required
+    /** Optional image to be shown beside htmlContent */
+    cardImage ImageBlob
 }
 
 relationship OneToOne {
@@ -160,13 +162,13 @@ entity Product {
 @microservice(products)
 entity ProductBasicNutritionData {
     /** Energy in kcal per 100 gram of product */
-    energy Integer required min(0)
+    energy Double required min(0)
     /** Protein in grams per 100 gram of product */
-    protein Integer required min(0)
+    protein Double required min(0)
     /** Fat in grams per 100 gram of product */
-    fat Integer required min(0)
+    fat Double required min(0)
     /** Carbohydrates in grams per 100 gram of product */
-    carbohydrates Integer required min(0)
+    carbohydrates Double required min(0)
 }
 
 /**
