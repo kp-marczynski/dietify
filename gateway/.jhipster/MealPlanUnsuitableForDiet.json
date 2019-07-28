@@ -14,7 +14,7 @@
         {
             "relationshipType": "many-to-one",
             "otherEntityName": "mealPlan",
-            "otherEntityRelationshipName": "tagsBadFor",
+            "otherEntityRelationshipName": "unsuitableForDiet",
             "relationshipValidateRules": "required",
             "relationshipName": "mealPlan",
             "otherEntityField": "id"

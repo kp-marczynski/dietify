@@ -21,8 +21,8 @@ export class MealPlan implements BaseEntity {
         public percentOfCarbohydrates?: number,
         public days?: MealPlanDay[],
         public mealDefinitions?: MealDefinition[],
-        public tagsGoodFors?: MealPlanSuitableForDiet[],
-        public tagsBadFors?: MealPlanUnsuitableForDiet[],
+        public suitableForDiets?: MealPlanSuitableForDiet[],
+        public unsuitableForDiets?: MealPlanUnsuitableForDiet[],
     ) {
         this.isVisible = false;
         this.isLocked = false;

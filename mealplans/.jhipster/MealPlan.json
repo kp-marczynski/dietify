@@ -140,13 +140,13 @@
             "relationshipType": "one-to-many",
             "otherEntityName": "mealPlanSuitableForDiet",
             "otherEntityRelationshipName": "mealPlan",
-            "relationshipName": "tagsGoodFor"
+            "relationshipName": "suitableForDiet"
         },
         {
             "relationshipType": "one-to-many",
             "otherEntityName": "mealPlanUnsuitableForDiet",
             "otherEntityRelationshipName": "mealPlan",
-            "relationshipName": "tagsBadFor"
+            "relationshipName": "unsuitableForDiet"
         }
     ],
     "changelogDate": "20190722200931",

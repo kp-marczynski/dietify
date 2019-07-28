@@ -165,7 +165,7 @@ relationship OneToMany {
     MealPlan{suitableForDiet}
     	to MealPlanSuitableForDiet{mealPlan required} 
     	 
-    MealPlan{tagsBadFor}
+    MealPlan{unsuitableForDiet}
     	to MealPlanUnsuitableForDiet{mealPlan required}  
 }
 

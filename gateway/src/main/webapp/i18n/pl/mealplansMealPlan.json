@@ -28,8 +28,8 @@
       "percentOfCarbohydrates": "Percent węglowodanów",
       "days": "Dni",
       "mealDefinitions": "Definicje posiłków",
-      "tagsGoodFor": "Odpowiedni dla diet",
-      "tagsBadFor": "Nieodpowiedni dla diet",
+      "suitableForDiet": "Odpowiedni dla diet",
+      "unsuitableForDiet": "Nieodpowiedni dla diet",
       "help": {
         "authorId": "Id autora jadłospisu",
         "creationDate": "Data utworzenia jadłospisu",
