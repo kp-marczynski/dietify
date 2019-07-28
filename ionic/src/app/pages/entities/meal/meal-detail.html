@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Meal
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Ordinal Number</ion-label>
+            <div item-content>
+                <span>{{meal.ordinalNumber}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Meal Plan Day</ion-label>
+            <div item-content *ngIf="meal.mealPlanDay">
+                <a>{{meal.mealPlanDay?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(meal)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(meal)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>
