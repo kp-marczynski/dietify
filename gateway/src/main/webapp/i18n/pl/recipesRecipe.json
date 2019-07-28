@@ -41,7 +41,7 @@
         "creationDate": "Date of creation",
         "lastEditDate": "Date of last edit",
         "isVisible": "Flag specifying if recipe should be visible in list of author&#39;s recipes",
-        "language": "Language tag of a recipe as ISO_639-1 code",
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1",
         "totalGramsWeight": "Total weight in grams of meal prepared from recipe"
       }
     }

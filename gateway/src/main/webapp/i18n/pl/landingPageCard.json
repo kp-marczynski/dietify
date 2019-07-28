@@ -2,28 +2,28 @@
   "gatewayApp": {
     "landingPageCard": {
       "home": {
-        "title": "Landing Page Card",
-        "createLabel": "Dodaj Landing Page Card",
-        "createOrEditLabel": "Dodaj lub edytuj: Landing Page Card",
-        "search": "Szukaj Landing Page Card",
-        "notFound": "No Landing Page Card found"
+        "title": "Karta strony domowej",
+        "createLabel": "Dodaj kartę strony domowej",
+        "createOrEditLabel": "Dodaj lub edytuj kartę strony domowej",
+        "search": "Szukaj kartę strony domowej",
+        "notFound": "Nie znaleziono żadnej karty strony domowej"
       },
-      "created": "Utworzono nowy obiekt typu Landing Page Card z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Landing Page Card z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Landing Page Card z identyfikatorem {{ param }}",
+      "created": "Utworzono nowy obiekt typu Karta Strony Domowej z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Karta Strony Domowej z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Karta Strony Domowej z identyfikatorem {{ param }}",
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Landing Page Card {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć kartę strony domowej {{ id }}?"
       },
       "detail": {
-        "title": "Landing Page Card"
+        "title": "Karta strony domowej"
       },
-      "ordinalNumber": "Ordinal Number",
-      "htmlContent": "Html Content",
-      "cardImage": "Card Image",
+      "ordinalNumber": "Numer porządkowy",
+      "htmlContent": "Treść HTML",
+      "cardImage": "Obrazek karty",
       "help": {
-        "ordinalNumber": "Number for specifying order in which content should appear on landing page",
-        "htmlContent": "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content",
-        "cardImage": "Optional image to be shown beside htmlContent"
+        "ordinalNumber": "Numer wyznaczający porządek w jakim karty powinny pojawiać się na stronie domowej",
+        "htmlContent": "Treść karty strony domowej w postaci prostego tekstu lub kodu HTML. Bootstrap i Font Awesome mogą być wykorzystane do formatowania treści",
+        "cardImage": "Opcjonalny obrazek wyświetlany obok treści HTML"
       }
     }
   }

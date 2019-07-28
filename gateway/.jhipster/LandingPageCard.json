@@ -13,7 +13,7 @@
         },
         {
             "fieldName": "htmlContent",
-            "javadoc": "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content",
+            "javadoc": "Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content",
             "fieldType": "byte[]",
             "fieldTypeBlobContent": "text",
             "fieldValidateRules": [

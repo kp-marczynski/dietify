@@ -19,7 +19,7 @@
       "dietType": "Diet Type",
       "help": {
         "translation": "Translated name of diet type",
-        "language": "Language of translation as ISO_639-1 code"
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },

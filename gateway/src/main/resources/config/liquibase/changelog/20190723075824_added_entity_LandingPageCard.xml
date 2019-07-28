@@ -19,7 +19,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="html_content" type="${clobType}" remarks="Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content">
+            <column name="html_content" type="${clobType}" remarks="Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content">
                 <constraints nullable="false" />
             </column>
 

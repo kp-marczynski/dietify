@@ -2,34 +2,34 @@
   "gatewayApp": {
     "appointmentsCustomNutritionalInterviewQuestion": {
       "home": {
-        "title": "Custom Nutritional Interview Question",
-        "createLabel": "Dodaj Custom Nutritional Interview Question",
-        "createOrEditLabel": "Dodaj lub edytuj: Custom Nutritional Interview Question",
-        "search": "Szukaj Custom Nutritional Interview Question",
-        "notFound": "No Custom Nutritional Interview Question found"
+        "title": "Dodatkowe pytanie do wywiadu żywieniowego",
+        "createLabel": "Dodaj dodatkowe pytanie do wywiadu żywieniowego",
+        "createOrEditLabel": "Dodaj lub edytuj dodatkowe pytanie do wywiadu żywieniowego",
+        "search": "Szukaj dodatkowe pytanie do wywiadu żywieniowego",
+        "notFound": "Nie znaleziono dodatkowych pytań do wywiadu żywieniowego"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Custom Nutritional Interview Question {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć dodatkowe pytanie do wywiadu żywieniowego {{ id }}?"
       },
       "detail": {
-        "title": "Custom Nutritional Interview Question"
+        "title": "Dodatkowe pytanie do wywiadu żywieniowego"
       },
-      "ordinalNumber": "Ordinal Number",
-      "question": "Question",
-      "answer": "Answer",
-      "nutritionalInterview": "Nutritional Interview",
+      "ordinalNumber": "Numer porządkowy",
+      "question": "Pytanie",
+      "answer": "Odpowiedź",
+      "nutritionalInterview": "Wywiad żywieniowy",
       "help": {
-        "ordinalNumber": "Ordinal number of custom question",
-        "question": "Custom question extending Nutritional Interview",
-        "answer": "Answer for question"
+        "ordinalNumber": "Numer porządkowy dodatkowego pytania",
+        "question": "Dodatkowe pytanie rozszerzające wywiad żywieniowy",
+        "answer": "Odpowiedź na pytanie"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsCustomNutritionalInterviewQuestion": {
-      "created": "Utworzono nowy obiekt typu Custom Nutritional Interview Question z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Custom Nutritional Interview Question z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Custom Nutritional Interview Question z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Dodatkowe Pytanie Do Wywiadu Żywieniowego z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Dodatkowe Pytanie Do Wywiadu Żywieniowego z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Dodatkowe Pytanie Do Wywiadu Żywieniowego z identyfikatorem {{ param }}"
     }
   }
 }

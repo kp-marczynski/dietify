@@ -19,7 +19,7 @@
       "productCategory": "Product Category",
       "help": {
         "translation": "Translated name of product category",
-        "language": "Language of translation as ISO_639-1 code"
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },

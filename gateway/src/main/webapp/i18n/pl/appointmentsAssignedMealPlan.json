@@ -2,30 +2,30 @@
   "gatewayApp": {
     "appointmentsAssignedMealPlan": {
       "home": {
-        "title": "Assigned Meal Plan",
-        "createLabel": "Dodaj Assigned Meal Plan",
-        "createOrEditLabel": "Dodaj lub edytuj: Assigned Meal Plan",
-        "search": "Szukaj Assigned Meal Plan",
-        "notFound": "No Assigned Meal Plan found"
+        "title": "Przypisany jadłospis",
+        "createLabel": "Przypisz jadłospis do wizyty",
+        "createOrEditLabel": "Dodaj lub edytuj: Przypisany do wizyty jadłospis",
+        "search": "Szukaj przypisany do wizyty jadłospis",
+        "notFound": "Nie znaleziono żadnych przzypisanych do wizyty jadłospisów"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Assigned Meal Plan {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć przypisany do wziyty jadłospis {{ id }}?"
       },
       "detail": {
-        "title": "Assigned Meal Plan"
+        "title": "Przypisany jadłospis"
       },
-      "mealPlanId": "Meal Plan Id",
-      "appointment": "Appointment",
+      "mealPlanId": "Id jadłospisu",
+      "appointment": "Wizyta",
       "help": {
-        "mealPlanId": "Id of assigned MealPlan entity retrieved from mealplans service"
+        "mealPlanId": "Id jadłospisu pobrane z serwisu mealplans"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsAssignedMealPlan": {
-      "created": "Utworzono nowy obiekt typu Assigned Meal Plan z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Assigned Meal Plan z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Assigned Meal Plan z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Przypisany Jadłospis z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Przypisany Jadłospis z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Przypisany Jadłospis z identyfikatorem {{ param }}"
     }
   }
 }

@@ -32,7 +32,7 @@
         "description": "Short description of Product in a language of a product",
         "isFinal": "Flag specifying if product is final or editable",
         "isVerified": "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.",
-        "language": "Language tag of a product as ISO_639-1 code"
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },

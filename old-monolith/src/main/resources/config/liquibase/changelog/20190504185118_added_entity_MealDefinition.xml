@@ -34,7 +34,7 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="percent_of_energy" type="integer" remarks="Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100.">
+            <column name="percent_of_energy" type="integer" remarks="Part of daily total energy expressed in percent. Sum of all values for one MealPlan must be equal 100.">
                 <constraints nullable="false" />
             </column>
 

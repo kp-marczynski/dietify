@@ -2,9 +2,9 @@
   "gatewayApp": {
     "JobType": {
       "null": "",
-      "SITTING": "SITTING",
-      "STANDING": "STANDING",
-      "MIXED": "MIXED"
+      "SITTING": "Sitting",
+      "STANDING": "Standing",
+      "MIXED": "Mixed"
     }
   }
 }

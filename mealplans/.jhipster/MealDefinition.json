@@ -31,7 +31,7 @@
         },
         {
             "fieldName": "percentOfEnergy",
-            "javadoc": "Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100.",
+            "javadoc": "Part of daily total energy expressed in percent. Sum of all values for one MealPlan must be equal 100.",
             "fieldType": "Integer",
             "fieldValidateRules": [
                 "required",
