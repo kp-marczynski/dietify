@@ -333,7 +333,7 @@ latex-compilation:
     image: aergus/latex
     script:
         - cd /builds/kp.marczynski/dietify/documentation/latex
-        - latexmk -pdf main.tex
+        - latexmk -pdf main.tex -shell-escape
     artifacts:
         expire_in: 1 day
         paths:
