@@ -38,7 +38,9 @@ export class ProductUpdateComponent implements OnInit {
     basicNutritionData: [null, Validators.required],
     subcategory: [null, Validators.required],
     suitableDiets: [],
-    unsuitableDiets: []
+    unsuitableDiets: [],
+    nutritionData: [],
+    householdMeasures: []
   });
 
   constructor(
@@ -109,7 +111,9 @@ export class ProductUpdateComponent implements OnInit {
       basicNutritionData: product.basicNutritionData,
       subcategory: product.subcategory,
       suitableDiets: product.suitableDiets,
-      unsuitableDiets: product.unsuitableDiets
+      unsuitableDiets: product.unsuitableDiets,
+      nutritionData: product.nutritionData,
+      householdMeasures: product.householdMeasures
     });
   }
 
@@ -140,7 +144,9 @@ export class ProductUpdateComponent implements OnInit {
       basicNutritionData: this.editForm.get(['basicNutritionData']).value,
       subcategory: this.editForm.get(['subcategory']).value,
       suitableDiets: this.editForm.get(['suitableDiets']).value,
-      unsuitableDiets: this.editForm.get(['unsuitableDiets']).value
+      unsuitableDiets: this.editForm.get(['unsuitableDiets']).value,
+      nutritionData: this.editForm.get(['nutritionData']).value,
+      householdMeasures: this.editForm.get(['householdMeasures']).value
     };
   }
 
