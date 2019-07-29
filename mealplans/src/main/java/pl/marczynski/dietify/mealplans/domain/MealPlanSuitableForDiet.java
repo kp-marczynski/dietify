@@ -37,7 +37,7 @@ public class MealPlanSuitableForDiet implements Serializable {
 
     @ManyToOne(optional = false)
     @NotNull
-    @JsonIgnoreProperties("tagsGoodFors")
+    @JsonIgnoreProperties("suitableForDiets")
     private MealPlan mealPlan;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove

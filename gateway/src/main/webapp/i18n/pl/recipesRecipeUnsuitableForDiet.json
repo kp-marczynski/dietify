@@ -2,30 +2,30 @@
   "gatewayApp": {
     "recipesRecipeUnsuitableForDiet": {
       "home": {
-        "title": "Recipe Unsuitable For Diet",
-        "createLabel": "Dodaj Recipe Unsuitable For Diet",
-        "createOrEditLabel": "Dodaj lub edytuj: Recipe Unsuitable For Diet",
-        "search": "Szukaj Recipe Unsuitable For Diet",
-        "notFound": "No Recipe Unsuitable For Diet found"
+        "title": "Typ diety niedpowiedni dla przepisu",
+        "createLabel": "Dodaj typ diety niedpowiedni dla przepisu",
+        "createOrEditLabel": "Dodaj lub edytuj typ diety niedpowiedni dla przepisu",
+        "search": "Szukaj typ diety niedpowiedni dla przepisu",
+        "notFound": "Nie znaleziono żadnego typu diety niedpowiedniego dla przepisów"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Recipe Unsuitable For Diet {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć typ diety niedpowiedni dla przepisu {{ id }}?"
       },
       "detail": {
-        "title": "Recipe Unsuitable For Diet"
+        "title": "Typ diety niedpowiedni dla przepisu"
       },
-      "dietTypeId": "Diet Type Id",
-      "recipe": "Recipe",
+      "dietTypeId": "Id typu diety",
+      "recipe": "Przepis",
       "help": {
-        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+        "dietTypeId": "Id typu diety pobrane z serwisu products"
       }
     }
   },
   "recipesApp": {
     "recipesRecipeUnsuitableForDiet": {
-      "created": "Utworzono nowy obiekt typu Recipe Unsuitable For Diet z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Recipe Unsuitable For Diet z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Recipe Unsuitable For Diet z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Typ Diety Niedpowiedni Dla Przepisu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Typ Diety Niedpowiedni Dla Przepisu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Typ Diety Niedpowiedni Dla Przepisu z identyfikatorem {{ param }}"
     }
   }
 }

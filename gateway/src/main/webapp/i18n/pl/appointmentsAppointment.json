@@ -2,39 +2,39 @@
   "gatewayApp": {
     "appointmentsAppointment": {
       "home": {
-        "title": "Appointment",
-        "createLabel": "Dodaj Appointment",
-        "createOrEditLabel": "Dodaj lub edytuj: Appointment",
-        "search": "Szukaj Appointment",
-        "notFound": "No Appointment found"
+        "title": "Wizyta",
+        "createLabel": "Dodaj wizytę",
+        "createOrEditLabel": "Dodaj lub edytuj wizytę",
+        "search": "Szukaj wizytę",
+        "notFound": "Nie znaleziono żadnej wizyty"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Appointment {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć wizytę {{ id }}?"
       },
       "detail": {
-        "title": "Appointment"
+        "title": "Wizyta"
       },
-      "appointmentDate": "Appointment Date",
-      "appointmentState": "Appointment State",
-      "mealPlanId": "Meal Plan Id",
-      "generalAdvice": "General Advice",
-      "bodyMeasurement": "Body Measurement",
-      "nutritionalInterview": "Nutritional Interview",
-      "mealPlans": "Meal Plans",
-      "patientCard": "Patient Card",
+      "appointmentDate": "Data wizyty",
+      "appointmentState": "Stan wizyty",
+      "mealPlanId": "Id jadłospisu",
+      "generalAdvice": "Ogólna porada",
+      "bodyMeasurement": "Pomiary ciała",
+      "nutritionalInterview": "Wywiad żywieniowy",
+      "mealPlans": "Jadłospisy",
+      "patientCard": "Karta pacjenta",
       "help": {
-        "appointmentDate": "Date and time of the appointment",
-        "appointmentState": "Current appointment state",
-        "mealPlanId": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
-        "generalAdvice": "General advice after appointment"
+        "appointmentDate": "Data i godzina wizyty",
+        "appointmentState": "Stan wizyty",
+        "mealPlanId": "Jadłospis ułożony dla pacjenta. Id jadłospisu pobrane z serwisu mealplans",
+        "generalAdvice": "Ogólna porada po wizycie"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsAppointment": {
-      "created": "Utworzono nowy obiekt typu Appointment z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Appointment z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Appointment z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Wizyta z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Wizyta z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Wizyta z identyfikatorem {{ param }}"
     }
   }
 }

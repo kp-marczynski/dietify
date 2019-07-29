@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Recipe Section
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button [disabled]="!isReadyToSave" (click)="save()" color="primary">
+              <span *ngIf="platform.is('ios')">{{'DONE_BUTTON' | translate}}</span>
+              <ion-icon name="md-checkmark" *ngIf="!platform.is('ios')"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <form *ngIf="form" name="form" [formGroup]="form" (ngSubmit)="save()">
+        <ion-list>
+            <ion-item [hidden]="!form.id">
+                <ion-label>ID</ion-label>
+                <ion-input type="hidden" id="id" formControlName="id" readonly></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Section Name</ion-label>
+                <ion-input type="text" name="sectionName" formControlName="sectionName"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Recipe</ion-label>
+                <ion-select id="field_recipe" formControlName="recipe" [compareWith]="compareRecipe" required>
+                    <ion-select-option *ngIf="!form.value.recipe" [value]="null" selected></ion-select-option>
+                    <ion-select-option [value]="recipeOption" *ngFor="let recipeOption of recipes; trackBy: trackRecipeById">{{recipeOption.id}}</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <div [hidden]="!(form.controls.recipe?.dirty && form.controls.recipe?.invalid)">
+                <small [hidden]="!form.controls.recipe?.errors?.required">
+                    This field is required.
+                </small>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

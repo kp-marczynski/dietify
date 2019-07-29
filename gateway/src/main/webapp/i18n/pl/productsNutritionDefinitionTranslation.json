@@ -2,32 +2,32 @@
   "gatewayApp": {
     "productsNutritionDefinitionTranslation": {
       "home": {
-        "title": "Nutrition Definition Translation",
-        "createLabel": "Dodaj Nutrition Definition Translation",
-        "createOrEditLabel": "Dodaj lub edytuj: Nutrition Definition Translation",
-        "search": "Szukaj Nutrition Definition Translation",
-        "notFound": "No Nutrition Definition Translation found"
+        "title": "Tłumaczenie definicji wartości odżywczej",
+        "createLabel": "Dodaj tłumaczenie definicji wartości odżywczej",
+        "createOrEditLabel": "Dodaj lub edytuj tłumaczenie definicji wartości odżywczej",
+        "search": "Szukaj tłumaczenie definicji wartości odżywczej",
+        "notFound": "Nie znaleziono żadnego tłumaczenia definicji wartości odżywczej"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Nutrition Definition Translation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć tłumaczenie definicji wartości odżywczej {{ id }}?"
       },
       "detail": {
-        "title": "Nutrition Definition Translation"
+        "title": "Tłumaczenie definicji wartości odżywczej"
       },
-      "translation": "Translation",
-      "language": "Language",
-      "nutritionDefinition": "Nutrition Definition",
+      "translation": "Tłumaczenie",
+      "language": "Język",
+      "nutritionDefinition": "Definicja wartości odżywczej",
       "help": {
-        "translation": "Translated description of nutrition definition",
-        "language": "Language of translation as ISO_639-1 code"
+        "translation": "Przetłumaczony opis definicji wartości odżywczej",
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "productsApp": {
     "productsNutritionDefinitionTranslation": {
-      "created": "Utworzono nowy obiekt typu Nutrition Definition Translation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Nutrition Definition Translation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Nutrition Definition Translation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Tłumaczenie Definicji Wartości Odżywczej z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tłumaczenie Definicji Wartości Odżywczej z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tłumaczenie Definicji Wartości Odżywczej z identyfikatorem {{ param }}"
     }
   }
 }

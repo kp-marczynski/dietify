@@ -2,36 +2,36 @@
   "gatewayApp": {
     "mealplansMealDefinition": {
       "home": {
-        "title": "Meal Definition",
-        "createLabel": "Dodaj Meal Definition",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Definition",
-        "search": "Szukaj Meal Definition",
-        "notFound": "No Meal Definition found"
+        "title": "Definicja posiłku",
+        "createLabel": "Dodaj definicję posiłku",
+        "createOrEditLabel": "Dodaj lub edytuj definicję posiłku",
+        "search": "Szukaj definicję posiłku",
+        "notFound": "Nie znaleziono żadnej definicji posiłku"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Definition {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć definicję posiłku {{ id }}?"
       },
       "detail": {
-        "title": "Meal Definition"
+        "title": "Definicja posiłku"
       },
-      "ordinalNumber": "Ordinal Number",
-      "mealTypeId": "Meal Type Id",
-      "timeOfMeal": "Time Of Meal",
-      "percentOfEnergy": "Percent Of Energy",
-      "mealPlan": "Meal Plan",
+      "ordinalNumber": "Numer porządkowy",
+      "mealTypeId": "Id typu posiłku",
+      "timeOfMeal": "Godzina spożywania posiłku",
+      "percentOfEnergy": "Procent energii",
+      "mealPlan": "Jadłospis",
       "help": {
-        "ordinalNumber": "Daily ordinal number of meal",
-        "mealTypeId": "Id of MealType entity retrieved from recipes service",
-        "timeOfMeal": "Usual time of meal in 24h format: HH:mm",
-        "percentOfEnergy": "Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100."
+        "ordinalNumber": "Dzienny numer porządkowy posiłku",
+        "mealTypeId": "Id typu posiłku pobrane z serwisu recipes",
+        "timeOfMeal": "Typowy czas spożywania posiłku w 24h formacie: HH:mm",
+        "percentOfEnergy": "Udział posiłku w dziennym zapotrzebowaniu energetycznym wyrażony w procentach. Suma wszystkich wartości dla jednego jadłospisu musi być równa dokładnie 100"
       }
     }
   },
   "mealplansApp": {
     "mealplansMealDefinition": {
-      "created": "Utworzono nowy obiekt typu Meal Definition z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Definition z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Definition z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Definicja Posiłku z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Definicja Posiłku z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Definicja Posiłku z identyfikatorem {{ param }}"
     }
   }
 }

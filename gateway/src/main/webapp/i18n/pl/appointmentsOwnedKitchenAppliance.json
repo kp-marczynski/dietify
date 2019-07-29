@@ -2,30 +2,30 @@
   "gatewayApp": {
     "appointmentsOwnedKitchenAppliance": {
       "home": {
-        "title": "Owned Kitchen Appliance",
-        "createLabel": "Dodaj Owned Kitchen Appliance",
-        "createOrEditLabel": "Dodaj lub edytuj: Owned Kitchen Appliance",
-        "search": "Szukaj Owned Kitchen Appliance",
-        "notFound": "No Owned Kitchen Appliance found"
+        "title": "Posiadane wyposażenie kuchenne",
+        "createLabel": "Dodaj posiadane wyposażenie kuchenne",
+        "createOrEditLabel": "Dodaj lub edytuj posiadane wyposażenie kuchenne",
+        "search": "Szukaj posiadane wyposażenie kuchenne",
+        "notFound": "Nie znaleziono żadnego posiadanego wyposażenia kuchennego"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Owned Kitchen Appliance {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć posiadane wyposażenie kuchenne {{ id }}?"
       },
       "detail": {
-        "title": "Owned Kitchen Appliance"
+        "title": "Posiadane wyposażenie kuchenne"
       },
-      "kitchenApplianceId": "Kitchen Appliance Id",
-      "nutritionalInterview": "Nutritional Interview",
+      "kitchenApplianceId": "Id sprzętu kuchennego",
+      "nutritionalInterview": "Wywiad żywieniowy",
       "help": {
-        "kitchenApplianceId": "Id of KitchenAppliance entity retrieved from recipes service"
+        "kitchenApplianceId": "Id sprzętu kuchennego pobrane z serwisu recipes"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsOwnedKitchenAppliance": {
-      "created": "Utworzono nowy obiekt typu Owned Kitchen Appliance z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Owned Kitchen Appliance z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Owned Kitchen Appliance z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Posiadane Wyposażenie Kuchenne z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Posiadane Wyposażenie Kuchenne z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Posiadane Wyposażenie Kuchenne z identyfikatorem {{ param }}"
     }
   }
 }

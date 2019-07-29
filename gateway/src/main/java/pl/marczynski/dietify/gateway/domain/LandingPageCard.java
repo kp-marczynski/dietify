@@ -40,10 +40,10 @@ public class LandingPageCard implements Serializable {
     private Integer ordinalNumber;
 
     /**
-     * Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content
+     * Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content
      */
     
-    @ApiModelProperty(value = "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content", required = true)
+    @ApiModelProperty(value = "Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "html_content", nullable = false)

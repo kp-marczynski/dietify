@@ -4,7 +4,7 @@
       "home": {
         "title": "Appointments",
         "createLabel": "Create a new Appointment",
-        "createOrEditLabel": "Create or edit a Appointment",
+        "createOrEditLabel": "Create or edit an Appointment",
         "search": "Search for Appointment",
         "notFound": "No Appointment found"
       },

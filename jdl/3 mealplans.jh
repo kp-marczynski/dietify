@@ -74,7 +74,7 @@ entity MealDefinition {
 	mealTypeId Long required
     /** Usual time of meal in 24h format: HH:mm */
     timeOfMeal String required pattern(/\d{2}:\d{2}/)
-    /** Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100. */
+    /** Part of daily total energy expressed in percent. Sum of all values for one MealPlan must be equal 100. */
     percentOfEnergy Integer required min(0) max(100)
 }
 
@@ -162,10 +162,10 @@ relationship OneToMany {
     Meal{mealProducts}
     	to MealProduct{meal required} 
     	 
-    MealPlan{tagsGoodFor}
+    MealPlan{suitableForDiet}
     	to MealPlanSuitableForDiet{mealPlan required} 
     	 
-    MealPlan{tagsBadFor}
+    MealPlan{unsuitableForDiet}
     	to MealPlanUnsuitableForDiet{mealPlan required}  
 }
 

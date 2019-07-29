@@ -1,0 +1,91 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Meal Plan
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Author Id</ion-label>
+            <div item-content>
+                <span>{{mealPlan.authorId}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Creation Date</ion-label>
+            <div item-content>
+                <span>{{mealPlan.creationDate | date:'mediumDate'}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Name</ion-label>
+            <div item-content>
+                <span>{{mealPlan.name}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Is Visible</ion-label>
+            <div item-content>
+                <span>{{mealPlan.isVisible}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Is Locked</ion-label>
+            <div item-content>
+                <span>{{mealPlan.isLocked}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Language</ion-label>
+            <div item-content>
+                <span>{{mealPlan.language}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Number Of Days</ion-label>
+            <div item-content>
+                <span>{{mealPlan.numberOfDays}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Number Of Meals Per Day</ion-label>
+            <div item-content>
+                <span>{{mealPlan.numberOfMealsPerDay}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Total Daily Energy</ion-label>
+            <div item-content>
+                <span>{{mealPlan.totalDailyEnergy}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Percent Of Protein</ion-label>
+            <div item-content>
+                <span>{{mealPlan.percentOfProtein}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Percent Of Fat</ion-label>
+            <div item-content>
+                <span>{{mealPlan.percentOfFat}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Percent Of Carbohydrates</ion-label>
+            <div item-content>
+                <span>{{mealPlan.percentOfCarbohydrates}}</span>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(mealPlan)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(mealPlan)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

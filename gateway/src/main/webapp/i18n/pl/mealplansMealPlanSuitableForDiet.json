@@ -2,30 +2,30 @@
   "gatewayApp": {
     "mealplansMealPlanSuitableForDiet": {
       "home": {
-        "title": "Meal Plan Suitable For Diet",
-        "createLabel": "Dodaj Meal Plan Suitable For Diet",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan Suitable For Diet",
-        "search": "Szukaj Meal Plan Suitable For Diet",
-        "notFound": "No Meal Plan Suitable For Diet found"
+        "title": "Typ diety odpowiedni dla jadłospisu",
+        "createLabel": "Dodaj typ diety odpowiedni dla jadłospisu",
+        "createOrEditLabel": "Dodaj lub edytuj typ diety odpowiedni dla jadłospisu",
+        "search": "Szukaj typ diety odpowiedni dla jadłospisu",
+        "notFound": "Nie znaleziono żadnych typów diety odpowiednich dla jadłospisu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Plan Suitable For Diet {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć typ diety odpowiedni dla jadłospisu {{ id }}?"
       },
       "detail": {
-        "title": "Meal Plan Suitable For Diet"
+        "title": "Typ diety odpowiedni dla jadłospisu"
       },
-      "dietTypeId": "Diet Type Id",
-      "mealPlan": "Meal Plan",
+      "dietTypeId": "Id typu diety",
+      "mealPlan": "Jadłospis",
       "help": {
-        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+        "dietTypeId": "Id typu diety pobrane z serwisu products"
       }
     }
   },
   "mealplansApp": {
     "mealplansMealPlanSuitableForDiet": {
-      "created": "Utworzono nowy obiekt typu Meal Plan Suitable For Diet z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Plan Suitable For Diet z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Plan Suitable For Diet z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Typ Diety Odpowiedni Dla Jadłospisu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Typ Diety Odpowiedni Dla Jadłospisu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Typ Diety Odpowiedni Dla Jadłospisu z identyfikatorem {{ param }}"
     }
   }
 }

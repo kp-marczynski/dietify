@@ -1,0 +1,49 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Meal Definition
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Ordinal Number</ion-label>
+            <div item-content>
+                <span>{{mealDefinition.ordinalNumber}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Meal Type Id</ion-label>
+            <div item-content>
+                <span>{{mealDefinition.mealTypeId}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Time Of Meal</ion-label>
+            <div item-content>
+                <span>{{mealDefinition.timeOfMeal}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Percent Of Energy</ion-label>
+            <div item-content>
+                <span>{{mealDefinition.percentOfEnergy}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Meal Plan</ion-label>
+            <div item-content *ngIf="mealDefinition.mealPlan">
+                <a>{{mealDefinition.mealPlan?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(mealDefinition)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(mealDefinition)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

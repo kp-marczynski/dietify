@@ -2,30 +2,30 @@
   "gatewayApp": {
     "productsDietType": {
       "home": {
-        "title": "Diet Type",
-        "createLabel": "Dodaj Diet Type",
-        "createOrEditLabel": "Dodaj lub edytuj: Diet Type",
-        "search": "Szukaj Diet Type",
-        "notFound": "No Diet Type found"
+        "title": "Typ diety",
+        "createLabel": "Dodaj typ diety",
+        "createOrEditLabel": "Dodaj lub edytuj typ diety",
+        "search": "Szukaj typ diety",
+        "notFound": "Nie znaleziono żadnego typu diety"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Diet Type {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć typ diety {{ id }}?"
       },
       "detail": {
-        "title": "Diet Type"
+        "title": "Typ diety"
       },
-      "name": "Name",
-      "translations": "Translations",
+      "name": "Nazwa",
+      "translations": "Tłumaczenia",
       "help": {
-        "name": "Short description of diet type in English"
+        "name": "Krótki opis typu diety w języku angielskim"
       }
     }
   },
   "productsApp": {
     "productsDietType": {
-      "created": "Utworzono nowy obiekt typu Diet Type z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Diet Type z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Diet Type z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Typ Diety z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Typ Diety z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Typ Diety z identyfikatorem {{ param }}"
     }
   }
 }

@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Preparation Step
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Ordinal Number</ion-label>
+            <div item-content>
+                <span>{{preparationStep.ordinalNumber}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Step Description</ion-label>
+            <div item-content>
+                <span>{{preparationStep.stepDescription}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Recipe Section</ion-label>
+            <div item-content *ngIf="preparationStep.recipeSection">
+                <a>{{preparationStep.recipeSection?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(preparationStep)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(preparationStep)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>
