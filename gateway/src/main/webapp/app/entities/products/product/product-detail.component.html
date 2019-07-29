@@ -53,6 +53,27 @@
                         <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.name}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.nutritionData">Nutritions</span></dt>
+                <dd>
+<!--                    <div>-->
+<!--                        <canvas id="canvas">{{ chart }}</canvas>-->
+<!--                    </div>-->
+                    <table>
+                        <tr *ngFor="let nutritionData of product.nutritionData">
+                            <td>{{getNutritionDefinitionTranslation(nutritionData.nutritionDefinition)}} [{{nutritionData.nutritionDefinition.units}}]:</td>
+                            <td>{{nutritionData.nutritionValue}}</td>
+                        </tr>
+                    </table>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.householdMeasures">Household Measures</span></dt>
+                <dd>
+                    <table>
+                        <tr *ngFor="let householdMeasure of product.householdMeasures">
+                            <td>{{householdMeasure.description}}</td>
+                            <td>{{householdMeasure.gramsWeight}}g</td>
+                        </tr>
+                    </table>
+                </dd>
             </dl>
 
             <button type="submit"

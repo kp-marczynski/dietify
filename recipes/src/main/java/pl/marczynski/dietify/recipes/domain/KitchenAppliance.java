@@ -37,7 +37,7 @@ public class KitchenAppliance implements Serializable {
     @Column(name = "name", length = 255, nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "kitchenAppliance")
+    @OneToMany(mappedBy = "kitchenAppliance", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<KitchenApplianceTranslation> translations = new HashSet<>();
 
