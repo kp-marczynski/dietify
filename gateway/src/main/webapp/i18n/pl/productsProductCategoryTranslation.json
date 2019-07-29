@@ -2,32 +2,32 @@
   "gatewayApp": {
     "productsProductCategoryTranslation": {
       "home": {
-        "title": "Product Category Translation",
-        "createLabel": "Dodaj Product Category Translation",
-        "createOrEditLabel": "Dodaj lub edytuj: Product Category Translation",
-        "search": "Szukaj Product Category Translation",
-        "notFound": "No Product Category Translation found"
+        "title": "Tłumaczenie kategorii produktu",
+        "createLabel": "Dodaj tłumaczenie kategorii produktu",
+        "createOrEditLabel": "Dodaj lub edytuj tłumaczenie kategorii produktu",
+        "search": "Szukaj tłumaczenie kategorii produktu",
+        "notFound": "Nie znaleziono żadnego tłumaczenia kategorii produktu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Product Category Translation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć tłumaczenie kategorii produktu {{ id }}?"
       },
       "detail": {
-        "title": "Product Category Translation"
+        "title": "Tłumaczenie kategorii produktu"
       },
-      "translation": "Translation",
-      "language": "Language",
-      "productCategory": "Product Category",
+      "translation": "Tłumaczenie",
+      "language": "Język",
+      "productCategory": "Kategoria produktu",
       "help": {
-        "translation": "Translated name of product category",
+        "translation": "Przetłumaczona nazwa kategorii produktu",
         "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "productsApp": {
     "productsProductCategoryTranslation": {
-      "created": "Utworzono nowy obiekt typu Product Category Translation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Product Category Translation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Product Category Translation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Tłumaczenie Kategorii Produktu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tłumaczenie Kategorii Produktu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tłumaczenie Kategorii Produktu z identyfikatorem {{ param }}"
     }
   }
 }

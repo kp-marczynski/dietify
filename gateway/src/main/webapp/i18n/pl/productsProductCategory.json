@@ -2,30 +2,30 @@
   "gatewayApp": {
     "productsProductCategory": {
       "home": {
-        "title": "Product Category",
-        "createLabel": "Dodaj Product Category",
-        "createOrEditLabel": "Dodaj lub edytuj: Product Category",
-        "search": "Szukaj Product Category",
-        "notFound": "No Product Category found"
+        "title": "Kategoria produktu",
+        "createLabel": "Dodaj kategorię produktu",
+        "createOrEditLabel": "Dodaj lub edytuj kategorię produktu",
+        "search": "Szukaj kategorię produktu",
+        "notFound": "Nie znaleziono żadnej kategorii produktu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Product Category {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć kategorię produktu {{ id }}?"
       },
       "detail": {
-        "title": "Product Category"
+        "title": "Kategoria produktu"
       },
-      "description": "Description",
-      "translations": "Translations",
+      "description": "Opis",
+      "translations": "Tłumaczenia",
       "help": {
-        "description": "Short description of category in English"
+        "description": "Krótki opis kategorii w języku angielskim"
       }
     }
   },
   "productsApp": {
     "productsProductCategory": {
-      "created": "Utworzono nowy obiekt typu Product Category z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Product Category z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Product Category z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Kategoria Produktu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Kategoria Produktu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Kategoria Produktu z identyfikatorem {{ param }}"
     }
   }
 }

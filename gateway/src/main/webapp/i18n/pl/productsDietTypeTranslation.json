@@ -2,32 +2,32 @@
   "gatewayApp": {
     "productsDietTypeTranslation": {
       "home": {
-        "title": "Diet Type Translation",
-        "createLabel": "Dodaj Diet Type Translation",
-        "createOrEditLabel": "Dodaj lub edytuj: Diet Type Translation",
-        "search": "Szukaj Diet Type Translation",
-        "notFound": "No Diet Type Translation found"
+        "title": "Tłumaczenie typu diety",
+        "createLabel": "Dodaj tłumaczenie typu diety",
+        "createOrEditLabel": "Dodaj lub edytuj tłumaczenie typu diety",
+        "search": "Szukaj tłumaczenie typu diety",
+        "notFound": "Nie znaleziono żadnego tłumaczenia typu diety"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Diet Type Translation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć tłumaczenie typu diety {{ id }}?"
       },
       "detail": {
-        "title": "Diet Type Translation"
+        "title": "Tłumaczenie typu diety"
       },
-      "translation": "Translation",
-      "language": "Language",
-      "dietType": "Diet Type",
+      "translation": "Tłumaczenie",
+      "language": "Język",
+      "dietType": "Typ diety",
       "help": {
-        "translation": "Translated name of diet type",
+        "translation": "Przetłumaczona nazwa tpyu diety",
         "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "productsApp": {
     "productsDietTypeTranslation": {
-      "created": "Utworzono nowy obiekt typu Diet Type Translation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Diet Type Translation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Diet Type Translation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Tłumaczenie Typu Diety z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tłumaczenie Typu Diety z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tłumaczenie Typu Diety z identyfikatorem {{ param }}"
     }
   }
 }

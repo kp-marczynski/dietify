@@ -2,45 +2,45 @@
   "gatewayApp": {
     "productsProduct": {
       "home": {
-        "title": "Product",
-        "createLabel": "Dodaj Product",
-        "createOrEditLabel": "Dodaj lub edytuj: Product",
-        "search": "Szukaj Product",
-        "notFound": "No Product found"
+        "title": "Produkt",
+        "createLabel": "Dodaj produkt",
+        "createOrEditLabel": "Dodaj lub edytuj produkt",
+        "search": "Szukaj produkt",
+        "notFound": "Nie znaleziono żadnego produktu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Product {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć produkt {{ id }}?"
       },
       "detail": {
-        "title": "Product"
+        "title": "Produkt"
       },
-      "source": "Source",
-      "authorId": "Author Id",
-      "description": "Description",
-      "isFinal": "Is Final",
-      "isVerified": "Is Verified",
-      "language": "Language",
-      "basicNutritionData": "Basic Nutrition Data",
-      "nutritionData": "Nutrition Data",
-      "householdMeasures": "Household Measures",
-      "subcategory": "Subcategory",
-      "suitableDiets": "Suitable Diets",
-      "unsuitableDiets": "Unsuitable Diets",
+      "source": "Źródło",
+      "authorId": "Id autora",
+      "description": "Opis",
+      "isFinal": "Czy ostateczny",
+      "isVerified": "Czy zweryfikowany",
+      "language": "Język",
+      "basicNutritionData": "Podstawowe wartości odżywcze",
+      "nutritionData": "Wartości odżywcze",
+      "householdMeasures": "Miary domowe",
+      "subcategory": "Podkategoria",
+      "suitableDiets": "Odpowiedni dla typów diet",
+      "unsuitableDiets": "Nieodpowiedni dla typów diet",
       "help": {
-        "source": "Specifying source if product is imported, preferably url address if possible",
-        "authorId": "Author of product if product created or edited manually. Id of User entity retrieved from gateway service",
-        "description": "Short description of Product in a language of a product",
-        "isFinal": "Flag specifying if product is final or editable",
-        "isVerified": "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.",
+        "source": "Określa źródło dla zaimportowanego produktu, najlepiej w postaci adresu url",
+        "authorId": "Autor produktu w przypadku gdy produkt jest tworzony lub edytowany manualnie. Id użytkownika pobierane jest z serwisu gateway",
+        "description": "Krótki opis produktu w języku produktu",
+        "isFinal": "Flaga określająca czy produkt jest ostateczny czy edytowalny",
+        "isVerified": "Flaga określająca czy produkt jest zweryfikowany. Wszystkie produktu pochodzące z zewnętrznych źródeł powinny zostać manualnie sprawdzone, więc dla importowanych produktów flaga ma początkowo wartość fałsz",
         "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "productsApp": {
     "productsProduct": {
-      "created": "Utworzono nowy obiekt typu Product z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Product z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Product z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Produkt z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Produkt z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Produkt z identyfikatorem {{ param }}"
     }
   }
 }
