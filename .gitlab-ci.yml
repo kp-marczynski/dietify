@@ -327,3 +327,17 @@ ionic-frontend-test:
         - npm test
     except:
         - praca-dyplomowa
+
+latex-compilation:
+    stage: build
+    image: aergus/latex
+    script:
+        - cd /builds/kp.marczynski/dietify/documentation/latex
+        - latexmk -pdf main.tex
+    artifacts:
+        expire_in: 1 day
+        paths:
+            - result.pdf
+    only:
+        refs:
+            - praca-dyplomowa
