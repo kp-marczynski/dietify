@@ -2,32 +2,32 @@
   "gatewayApp": {
     "recipesDishTypeTranslation": {
       "home": {
-        "title": "Dish Type Translation",
-        "createLabel": "Dodaj Dish Type Translation",
-        "createOrEditLabel": "Dodaj lub edytuj: Dish Type Translation",
-        "search": "Szukaj Dish Type Translation",
-        "notFound": "No Dish Type Translation found"
+        "title": "Tłumaczenie rodzaju dania",
+        "createLabel": "Dodaj tłumaczenie rodzaju dania",
+        "createOrEditLabel": "Dodaj lub edytuj tłumaczenie rodzaju dania",
+        "search": "Szukaj tłumaczenie rodzaju dania",
+        "notFound": "Nie znaleziono żadnego tłumaczenia rodzaju dania"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Dish Type Translation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć tłumaczenie rodzaju dania {{ id }}?"
       },
       "detail": {
-        "title": "Dish Type Translation"
+        "title": "Tłumaczenie rodzaju dania"
       },
-      "translation": "Translation",
-      "language": "Language",
-      "dishType": "Dish Type",
+      "translation": "Tłumaczenie",
+      "language": "Język",
+      "dishType": "Rodzaj dania",
       "help": {
-        "translation": "Translated name of dish type",
+        "translation": "Przetłumaczona nazwa rodzaju dania",
         "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "recipesApp": {
     "recipesDishTypeTranslation": {
-      "created": "Utworzono nowy obiekt typu Dish Type Translation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Dish Type Translation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Dish Type Translation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Tłumaczenie Rodzaju Dania z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tłumaczenie Rodzaju Dania z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tłumaczenie Rodzaju Dania z identyfikatorem {{ param }}"
     }
   }
 }

@@ -2,55 +2,55 @@
   "gatewayApp": {
     "recipesRecipe": {
       "home": {
-        "title": "Recipe",
-        "createLabel": "Dodaj Recipe",
-        "createOrEditLabel": "Dodaj lub edytuj: Recipe",
-        "search": "Szukaj Recipe",
-        "notFound": "No Recipe found"
+        "title": "Przepis",
+        "createLabel": "Dodaj przepis",
+        "createOrEditLabel": "Dodaj lub edytuj przepis",
+        "search": "Szukaj przepis",
+        "notFound": "Nie znaleziono żadnego przepisu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Recipe {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć przepis {{ id }}?"
       },
       "detail": {
-        "title": "Recipe"
+        "title": "Przepis"
       },
-      "name": "Name",
-      "preparationTimeMinutes": "Preparation Time Minutes",
-      "numberOfPortions": "Number Of Portions",
-      "image": "Image",
-      "authorId": "Author Id",
-      "creationDate": "Creation Date",
-      "lastEditDate": "Last Edit Date",
-      "isVisible": "Is Visible",
-      "language": "Language",
-      "totalGramsWeight": "Total Grams Weight",
-      "basicNutritionData": "Basic Nutrition Data",
-      "recipeSections": "Recipe Sections",
-      "suitableForDiets": "Suitable For Diets",
-      "unsuitableForDiets": "Unsuitable For Diets",
-      "sourceRecipe": "Source Recipe",
-      "kitchenAppliances": "Kitchen Appliances",
-      "dishTypes": "Dish Types",
-      "mealTypes": "Meal Types",
+      "name": "Nazwa",
+      "preparationTimeMinutes": "Czas przygotowania w minutach",
+      "numberOfPortions": "Liczba porcji",
+      "image": "Zdjęcie",
+      "authorId": "Id autora",
+      "creationDate": "Data utworzenia",
+      "lastEditDate": "Data ostatniej edycji",
+      "isVisible": "Czy widoczne",
+      "language": "Język",
+      "totalGramsWeight": "Całkowita waga w gramach",
+      "basicNutritionData": "Podstawowe wartości odżywcze",
+      "recipeSections": "Sekcje przepisu",
+      "suitableForDiets": "Odpowiedni dla typów diet",
+      "unsuitableForDiets": "Nieodpowiedni dla typów diet",
+      "sourceRecipe": "Przepis źródłowy",
+      "kitchenAppliances": "Wyposażenie kuchenne",
+      "dishTypes": "Rodzaje potraw",
+      "mealTypes": "Typy posiłków",
       "help": {
-        "name": "Name of recipe in language of recipe",
-        "preparationTimeMinutes": "Average time needed for overall recipe preparation, defined in minutes",
-        "numberOfPortions": "Number of portions for which all quantities are specified",
-        "image": "Optional image of recipe",
-        "authorId": "Id of recipe&#39;s author. Id of User entity retrieved from gateway service",
-        "creationDate": "Date of creation",
-        "lastEditDate": "Date of last edit",
-        "isVisible": "Flag specifying if recipe should be visible in list of author&#39;s recipes",
+        "name": "Nazwa przepisu w języku przpisu",
+        "preparationTimeMinutes": "Średni czas potrzebny na przygotowanie potrawy zdefiniowany w minutach",
+        "numberOfPortions": "Liczba porcji dla których przepis jest zdefiniowany",
+        "image": "Opcjonalny obrazek przedstawiający danie",
+        "authorId": "Id autora przepisu. Id użytkownika pobrane z serwisu gateway",
+        "creationDate": "Data utworzenia",
+        "lastEditDate": "Data ostatniej edycji",
+        "isVisible": "Flaga określająca czy przepis powinien być widoczny na liście przepisów autora",
         "language": "Język w postaci kodu spełniającego normę ISO_639-1",
-        "totalGramsWeight": "Total weight in grams of meal prepared from recipe"
+        "totalGramsWeight": "Całkowita waga w gramach dania przygotowanego na podstawie przepisu"
       }
     }
   },
   "recipesApp": {
     "recipesRecipe": {
-      "created": "Utworzono nowy obiekt typu Recipe z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Recipe z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Recipe z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Przepis z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Przepis z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Przepis z identyfikatorem {{ param }}"
     }
   }
 }
