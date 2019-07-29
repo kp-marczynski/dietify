@@ -337,7 +337,7 @@ latex-compilation:
     artifacts:
         expire_in: 1 day
         paths:
-            - main.pdf
+            - /builds/kp.marczynski/dietify/documentation/latex/main.pdf
     only:
         refs:
             - praca-dyplomowa
