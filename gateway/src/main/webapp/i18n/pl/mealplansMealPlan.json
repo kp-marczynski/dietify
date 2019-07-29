@@ -2,55 +2,55 @@
   "gatewayApp": {
     "mealplansMealPlan": {
       "home": {
-        "title": "Meal Plan",
-        "createLabel": "Dodaj Meal Plan",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan",
-        "search": "Szukaj Meal Plan",
-        "notFound": "No Meal Plan found"
+        "title": "Jadłospis",
+        "createLabel": "Dodaj jadłospis",
+        "createOrEditLabel": "Dodaj lub edytuj jadłospis",
+        "search": "Szukaj jadłospis",
+        "notFound": "Nie znaleziono żadnego jadłospisu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Plan {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć jadłospis {{ id }}?"
       },
       "detail": {
-        "title": "Meal Plan"
+        "title": "Jadłospis"
       },
-      "authorId": "Author Id",
-      "creationDate": "Creation Date",
-      "name": "Name",
-      "isVisible": "Is Visible",
-      "isLocked": "Is Locked",
-      "language": "Language",
-      "numberOfDays": "Number Of Days",
-      "numberOfMealsPerDay": "Number Of Meals Per Day",
-      "totalDailyEnergy": "Total Daily Energy",
-      "percentOfProtein": "Percent Of Protein",
-      "percentOfFat": "Percent Of Fat",
-      "percentOfCarbohydrates": "Percent Of Carbohydrates",
-      "days": "Days",
-      "mealDefinitions": "Meal Definitions",
-      "tagsGoodFor": "Tags Good For",
-      "tagsBadFor": "Tags Bad For",
+      "authorId": "Id autora",
+      "creationDate": "Data utworzenia",
+      "name": "Nazwa",
+      "isVisible": "Czy widoczny",
+      "isLocked": "Czy zablokowany",
+      "language": "Język",
+      "numberOfDays": "Liczba dni",
+      "numberOfMealsPerDay": "Liczba posiłków w ciągu dnia",
+      "totalDailyEnergy": "Całkowita dzienna energia",
+      "percentOfProtein": "Procent białka",
+      "percentOfFat": "Procent tłuszczu",
+      "percentOfCarbohydrates": "Percent węglowodanów",
+      "days": "Dni",
+      "mealDefinitions": "Definicje posiłków",
+      "suitableForDiet": "Odpowiedni dla diet",
+      "unsuitableForDiet": "Nieodpowiedni dla diet",
       "help": {
-        "authorId": "Id of author of the plan",
-        "creationDate": "Creation date of the plan",
-        "name": "Plan name",
-        "isVisible": "Flag specifying if meal plan is visible in author&#39;s list of meal plans",
-        "isLocked": "Flag specifying if meal plan is editable",
-        "language": "Language tag of a meal plan as ISO_639-1 code",
-        "numberOfDays": "Number of days in plan",
-        "numberOfMealsPerDay": "Number of meals per day",
-        "totalDailyEnergy": "Amount of total energy per day in kcal",
-        "percentOfProtein": "Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
-        "percentOfFat": "Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100",
-        "percentOfCarbohydrates": "Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100"
+        "authorId": "Id autora jadłospisu",
+        "creationDate": "Data utworzenia jadłospisu",
+        "name": "Nazwa jadłospisu",
+        "isVisible": "Flaga określająca czy jadłospis jest widoczny na liście jadłospisów autora jadłospisu",
+        "isLocked": "Flaga określająca czy jadłospis można edytować",
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1",
+        "numberOfDays": "Liczba dni w jadłospisie",
+        "numberOfMealsPerDay": "Liczba posiłków w ciągu dnia",
+        "totalDailyEnergy": "Całkowita dzienna energia w kcal",
+        "percentOfProtein": "Procentowy udział białek w całkowitej energii dziennej. Suma proentów białek, tłuszczów i węglowodanów nie może przekraczać 100",
+        "percentOfFat": "Procentowy udział tłuszczów w całkowitej energii dziennej. Suma proentów białek, tłuszczów i węglowodanów nie może przekraczać 100",
+        "percentOfCarbohydrates": "Procentowy udział węglowodanów w całkowitej energii dziennej. Suma proentów białek, tłuszczów i węglowodanów nie może przekraczać 100"
       }
     }
   },
   "mealplansApp": {
     "mealplansMealPlan": {
-      "created": "Utworzono nowy obiekt typu Meal Plan z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Plan z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Plan z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Jadłospis z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Jadłospis z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Jadłospis z identyfikatorem {{ param }}"
     }
   }
 }

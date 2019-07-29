@@ -28,8 +28,8 @@
       "percentOfCarbohydrates": "Percent Of Carbohydrates",
       "days": "Days",
       "mealDefinitions": "Meal Definitions",
-      "tagsGoodFor": "Tags Good For",
-      "tagsBadFor": "Tags Bad For",
+      "suitableForDiet": "Tags Good For",
+      "unsuitableForDiet": "Tags Bad For",
       "help": {
         "authorId": "Id of author of the plan",
         "creationDate": "Creation date of the plan",

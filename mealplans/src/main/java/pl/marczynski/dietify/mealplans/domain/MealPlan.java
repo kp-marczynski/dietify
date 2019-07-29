@@ -145,11 +145,11 @@ public class MealPlan implements Serializable {
 
     @OneToMany(mappedBy = "mealPlan")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<MealPlanSuitableForDiet> tagsGoodFors = new HashSet<>();
+    private Set<MealPlanSuitableForDiet> suitableForDiets = new HashSet<>();
 
     @OneToMany(mappedBy = "mealPlan")
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<MealPlanUnsuitableForDiet> tagsBadFors = new HashSet<>();
+    private Set<MealPlanUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -272,20 +272,20 @@ public class MealPlan implements Serializable {
         this.mealDefinitions = mealDefinitions;
     }
 
-    public Set<MealPlanSuitableForDiet> getTagsGoodFors() {
-        return tagsGoodFors;
+    public Set<MealPlanSuitableForDiet> getSuitableForDiets() {
+        return suitableForDiets;
     }
 
-    public void setTagsGoodFors(Set<MealPlanSuitableForDiet> mealPlanSuitableForDiets) {
-        this.tagsGoodFors = mealPlanSuitableForDiets;
+    public void setSuitableForDiets(Set<MealPlanSuitableForDiet> mealPlanSuitableForDiets) {
+        this.suitableForDiets = mealPlanSuitableForDiets;
     }
 
-    public Set<MealPlanUnsuitableForDiet> getTagsBadFors() {
-        return tagsBadFors;
+    public Set<MealPlanUnsuitableForDiet> getUnsuitableForDiets() {
+        return unsuitableForDiets;
     }
 
-    public void setTagsBadFors(Set<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiets) {
-        this.tagsBadFors = mealPlanUnsuitableForDiets;
+    public void setUnsuitableForDiets(Set<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiets) {
+        this.unsuitableForDiets = mealPlanUnsuitableForDiets;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -21,8 +21,8 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Long> {
     @Cacheable(cacheNames = MEALPLAN_EAGER_BY_ID_CACHE)
     @Query("select mealPlan from MealPlan mealPlan " +
         "left join fetch mealPlan.mealDefinitions " +
-        "left join fetch mealPlan.tagsGoodFors " +
-        "left join fetch mealPlan.tagsBadFors " +
+        "left join fetch mealPlan.suitableForDiets " +
+        "left join fetch mealPlan.unsuitableForDiets " +
         "left join fetch mealPlan.days days " +
         "left join fetch days.meals meals " +
         "left join fetch meals.mealRecipes " +

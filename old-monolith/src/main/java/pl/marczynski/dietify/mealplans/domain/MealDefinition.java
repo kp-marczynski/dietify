@@ -54,12 +54,12 @@ public class MealDefinition implements Serializable {
 
     /**
      * Part of daily total energy expressed in percent.
-     * Sum of all values for one MealPlanProperty must be equal 100.
+     * Sum of all values for one MealPlan must be equal 100.
      */
     @NotNull
     @Min(value = 0)
     @Max(value = 100)
-    @ApiModelProperty(value = "Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100.", required = true)
+    @ApiModelProperty(value = "Part of daily total energy expressed in percent. Sum of all values for one MealPlan must be equal 100.", required = true)
     @Column(name = "percent_of_energy", nullable = false)
     private Integer percentOfEnergy;
 

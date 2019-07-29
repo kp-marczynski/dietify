@@ -22,7 +22,7 @@
       "cardImage": "Card Image",
       "help": {
         "ordinalNumber": "Number for specifying order in which content should appear on landing page",
-        "htmlContent": "Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content",
+        "htmlContent": "Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content",
         "cardImage": "Optional image to be shown beside htmlContent"
       }
     }

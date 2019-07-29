@@ -2,32 +2,32 @@
   "gatewayApp": {
     "mealplansMealRecipe": {
       "home": {
-        "title": "Meal Recipe",
-        "createLabel": "Dodaj Meal Recipe",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Recipe",
-        "search": "Szukaj Meal Recipe",
-        "notFound": "No Meal Recipe found"
+        "title": "Przepis posiłku",
+        "createLabel": "Dodaj przepis posiłku",
+        "createOrEditLabel": "Dodaj lub edytuj przepis posiłku",
+        "search": "Szukaj przepis posiłku",
+        "notFound": "Nie znaleziono żadnego przepisu posiłku"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Recipe {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć przepis posiłku {{ id }}?"
       },
       "detail": {
-        "title": "Meal Recipe"
+        "title": "Przepis posiłku"
       },
-      "recipeId": "Recipe Id",
-      "amount": "Amount",
-      "meal": "Meal",
+      "recipeId": "Id przepisu",
+      "amount": "Ilość",
+      "meal": "Posiłek",
       "help": {
-        "recipeId": "Id of Recipe entity retrieved from recipes service",
-        "amount": "Amount of recipe in grams"
+        "recipeId": "Id przepisu pobrane z serwisu recipes",
+        "amount": "Ilość przepisu w gramach"
       }
     }
   },
   "mealplansApp": {
     "mealplansMealRecipe": {
-      "created": "Utworzono nowy obiekt typu Meal Recipe z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Recipe z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Recipe z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Przepis Posiłku z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Przepis Posiłku z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Przepis Posiłku z identyfikatorem {{ param }}"
     }
   }
 }

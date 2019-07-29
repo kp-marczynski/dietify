@@ -2,26 +2,26 @@
   "gatewayApp": {
     "appointmentsPatientCard": {
       "home": {
-        "title": "Patient Card",
-        "createLabel": "Dodaj Patient Card",
-        "createOrEditLabel": "Dodaj lub edytuj: Patient Card",
-        "search": "Szukaj Patient Card",
-        "notFound": "No Patient Card found"
+        "title": "Karta pacjenta",
+        "createLabel": "Dodaj kartę pacjenta",
+        "createOrEditLabel": "Dodaj lub edytuj kartę pacjenta",
+        "search": "Szukaj kartę pacjenta",
+        "notFound": "Nie znaleziono żadnej karty pacjenta"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Patient Card {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć kartę pacjenta {{ id }}?"
       },
       "detail": {
-        "title": "Patient Card"
+        "title": "Karta pacjenta"
       },
-      "creationDate": "Creation Date",
-      "dietitianId": "Dietitian Id",
-      "patientId": "Patient Id",
-      "appointments": "Appointments",
+      "creationDate": "Data utworzenia",
+      "dietitianId": "Id dietetyka",
+      "patientId": "Id pacjenta",
+      "appointments": "Wizyty",
       "help": {
-        "creationDate": "Date when patient registered to dietitian",
-        "dietitianId": "Dietitian to which patient has signed. Id of User entity retrieved from gateway service.",
-        "patientId": "Patient of dietitian. Id of User entity retrieved from gateway service."
+        "creationDate": "Data kiedy pacjent po raz pierwszy zarejestrował się do dietetyka",
+        "dietitianId": "Dietetyk do którego pacjent się zapisał. Id użytkownika pobierane z serwisu gateway.",
+        "patientId": "Pacjent dietetyka. Id użytkownika pobierane z serwisu gateway."
       }
     }
   },

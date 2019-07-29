@@ -2,30 +2,30 @@
   "gatewayApp": {
     "recipesRecipeSuitableForDiet": {
       "home": {
-        "title": "Recipe Suitable For Diet",
-        "createLabel": "Dodaj Recipe Suitable For Diet",
-        "createOrEditLabel": "Dodaj lub edytuj: Recipe Suitable For Diet",
-        "search": "Szukaj Recipe Suitable For Diet",
-        "notFound": "No Recipe Suitable For Diet found"
+        "title": "Typ diety odpowiedni dla przepisu",
+        "createLabel": "Dodaj typ diety odpowiedni dla przepisu",
+        "createOrEditLabel": "Dodaj lub edytuj typ diety odpowiedni dla przepisu",
+        "search": "Szukaj typ diety odpowiedni dla przepisu",
+        "notFound": "Nie znaleziono żadnego typu diety odpowiedniego dla przepisów"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Recipe Suitable For Diet {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć typ diety odpowiedni dla przepisu {{ id }}?"
       },
       "detail": {
-        "title": "Recipe Suitable For Diet"
+        "title": "Typ diety odpowiedni dla przepisu"
       },
-      "dietTypeId": "Diet Type Id",
-      "recipe": "Recipe",
+      "dietTypeId": "Id typu diety",
+      "recipe": "Przepis",
       "help": {
-        "dietTypeId": "Id of applicable DietType entity retrieved from products service"
+        "dietTypeId": "Id typu diety pobrane z serwisu products"
       }
     }
   },
   "recipesApp": {
     "recipesRecipeSuitableForDiet": {
-      "created": "Utworzono nowy obiekt typu Recipe Suitable For Diet z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Recipe Suitable For Diet z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Recipe Suitable For Diet z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Typ Diety Odpowiedni Dla Przepisu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Typ Diety Odpowiedni Dla Przepisu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Typ Diety Odpowiedni Dla Przepisu z identyfikatorem {{ param }}"
     }
   }
 }

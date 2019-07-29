@@ -2,11 +2,11 @@
   "gatewayApp": {
     "PhysicalActivity": {
       "null": "",
-      "EXTREMELY_INACTIVE": "EXTREMELY_INACTIVE",
-      "SEDENTARY": "SEDENTARY",
-      "MODERATELY_ACTIVE": "MODERATELY_ACTIVE",
-      "VIGOROUSLY_ACTIVE": "VIGOROUSLY_ACTIVE",
-      "EXTREMELY_ACTIVE": "EXTREMELY_ACTIVE"
+      "EXTREMELY_INACTIVE": "Extremely Inactive",
+      "SEDENTARY": "Sedentary",
+      "MODERATELY_ACTIVE": "Moderately Active",
+      "VIGOROUSLY_ACTIVE": "Vigorously Active",
+      "EXTREMELY_ACTIVE": "Extremely Active"
     }
   }
 }

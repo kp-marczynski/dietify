@@ -2,11 +2,11 @@
   "gatewayApp": {
     "SatisfactionRate": {
       "null": "",
-      "VERY_DISSATISFIED": "VERY_DISSATISFIED",
-      "DISSATISFIED": "DISSATISFIED",
-      "NEUTRAL": "NEUTRAL",
-      "SATISFIED": "SATISFIED",
-      "VERY_SATISFIED": "VERY_SATISFIED"
+      "VERY_DISSATISFIED": "Bardzo niezadowolający",
+      "DISSATISFIED": "Niezadowolający",
+      "NEUTRAL": "Brak opinii",
+      "SATISFIED": "Zadowolający",
+      "VERY_SATISFIED": "Bardzo zadowolający"
     }
   }
 }

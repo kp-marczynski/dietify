@@ -20,8 +20,8 @@ export interface IMealPlan {
   percentOfCarbohydrates?: number;
   days?: IMealPlanDay[];
   mealDefinitions?: IMealDefinition[];
-  tagsGoodFors?: IMealPlanSuitableForDiet[];
-  tagsBadFors?: IMealPlanUnsuitableForDiet[];
+  suitableForDiets?: IMealPlanSuitableForDiet[];
+  unsuitableForDiets?: IMealPlanUnsuitableForDiet[];
 }
 
 export class MealPlan implements IMealPlan {
@@ -41,8 +41,8 @@ export class MealPlan implements IMealPlan {
     public percentOfCarbohydrates?: number,
     public days?: IMealPlanDay[],
     public mealDefinitions?: IMealDefinition[],
-    public tagsGoodFors?: IMealPlanSuitableForDiet[],
-    public tagsBadFors?: IMealPlanUnsuitableForDiet[]
+    public suitableForDiets?: IMealPlanSuitableForDiet[],
+    public unsuitableForDiets?: IMealPlanUnsuitableForDiet[]
   ) {
     this.isVisible = this.isVisible || false;
     this.isLocked = this.isLocked || false;

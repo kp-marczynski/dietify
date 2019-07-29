@@ -2,46 +2,46 @@
   "gatewayApp": {
     "appointmentsAppointmentEvaluation": {
       "home": {
-        "title": "Appointment Evaluation",
-        "createLabel": "Dodaj Appointment Evaluation",
-        "createOrEditLabel": "Dodaj lub edytuj: Appointment Evaluation",
-        "search": "Szukaj Appointment Evaluation",
-        "notFound": "No Appointment Evaluation found"
+        "title": "Ocena wizyty",
+        "createLabel": "Dodaj ocenę wizyty",
+        "createOrEditLabel": "Dodaj lub edytuj ocenę wizyty",
+        "search": "Szukaj ocenę wizyty",
+        "notFound": "Nie znaleziono żadnej oceny wizyty"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Appointment Evaluation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć ocenę wizyty {{ id }}?"
       },
       "detail": {
-        "title": "Appointment Evaluation"
+        "title": "Ocena wizyty"
       },
-      "overallSatisfaction": "Overall Satisfaction",
-      "dietitianServiceSatisfaction": "Dietitian Service Satisfaction",
-      "mealPlanOverallSatisfaction": "Meal Plan Overall Satisfaction",
-      "mealCostSatisfaction": "Meal Cost Satisfaction",
-      "mealPreparationTimeSatisfaction": "Meal Preparation Time Satisfaction",
-      "mealComplexityLevelSatisfaction": "Meal Complexity Level Satisfaction",
-      "mealTastefulnessSatisfaction": "Meal Tastefulness Satisfaction",
-      "dietaryResultSatisfaction": "Dietary Result Satisfaction",
-      "comment": "Comment",
-      "appointment": "Appointment",
+      "overallSatisfaction": "Ogólne zadowolenie z wizyty",
+      "dietitianServiceSatisfaction": "Zadowolenie z obsługi dietetyka",
+      "mealPlanOverallSatisfaction": "Ogólne zadowolenie z jadłospisu",
+      "mealCostSatisfaction": "Zadowolenie z kosztu posiłków",
+      "mealPreparationTimeSatisfaction": "Zadowolenie z czasu przygotowania posiłków",
+      "mealComplexityLevelSatisfaction": "Zadowolenie z stopnia złożoności posiłków",
+      "mealTastefulnessSatisfaction": "Zadowolenie ze smaku posiłków",
+      "dietaryResultSatisfaction": "Zadowolenie z rezultatów diety",
+      "comment": "Komentarz",
+      "appointment": "Wizyta",
       "help": {
-        "overallSatisfaction": "Overall visit satisfaction",
-        "dietitianServiceSatisfaction": "Dietitian service satisfaction",
-        "mealPlanOverallSatisfaction": "Overall meal plan satisfaction",
-        "mealCostSatisfaction": "Meals cost satisfaction",
-        "mealPreparationTimeSatisfaction": "Meals preparation time satisfaction",
-        "mealComplexityLevelSatisfaction": "Meal complexity level satisfaction",
-        "mealTastefulnessSatisfaction": "Meal tastefulness satisfaction",
-        "dietaryResultSatisfaction": "Dietary result satisfaction",
-        "comment": "Optional comment to visit"
+        "overallSatisfaction": "Ogólne zadowolenie z wizyty",
+        "dietitianServiceSatisfaction": "Zadowolenie z obsługi dietetyka",
+        "mealPlanOverallSatisfaction": "Ogólne zadowolenie z jadłospisu",
+        "mealCostSatisfaction": "Zadowolenie z kosztu posiłków",
+        "mealPreparationTimeSatisfaction": "Zadowolenie z czasu przygotowania posiłków",
+        "mealComplexityLevelSatisfaction": "Zadowolenie z stopnia złożoności posiłków",
+        "mealTastefulnessSatisfaction": "Zadowolenie ze smaku posiłków",
+        "dietaryResultSatisfaction": "Zadowolenie z rezultatów diety",
+        "comment": "Komentarz"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsAppointmentEvaluation": {
-      "created": "Utworzono nowy obiekt typu Appointment Evaluation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Appointment Evaluation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Appointment Evaluation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Ocena Wizyty z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Ocena Wizyty z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Ocena Wizyty z identyfikatorem {{ param }}"
     }
   }
 }
