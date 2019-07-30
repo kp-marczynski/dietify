@@ -128,14 +128,7 @@ public class ProductResourceIT {
         product.setIsVerified(DEFAULT_IS_VERIFIED);
         product.setLanguage(DEFAULT_LANGUAGE);
         // Add required entity
-        ProductBasicNutritionData productBasicNutritionData;
-        if (TestUtil.findAll(em, ProductBasicNutritionData.class).isEmpty()) {
-            productBasicNutritionData = ProductBasicNutritionDataResourceIT.createEntity(em);
-            em.persist(productBasicNutritionData);
-            em.flush();
-        } else {
-            productBasicNutritionData = TestUtil.findAll(em, ProductBasicNutritionData.class).get(0);
-        }
+        ProductBasicNutritionData productBasicNutritionData  = ProductBasicNutritionDataResourceIT.createEntity(em);
         product.setBasicNutritionData(productBasicNutritionData);
         // Add required entity
         ProductSubcategory productSubcategory;
@@ -330,7 +323,7 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].isVerified").value(hasItem(DEFAULT_IS_VERIFIED.booleanValue())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllProductsWithEagerRelationshipsIsEnabled() throws Exception {
         ProductResource productResource = new ProductResource(productServiceMock);
