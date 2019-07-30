@@ -146,7 +146,9 @@ export class ProductUpdateComponent implements OnInit {
       unsuitableDiets: product.unsuitableDiets,
       householdMeasures: product.householdMeasures
     });
-    this.getNutritionDataFormArray().patchValue(product.nutritionData);
+    if (product.nutritionData) {
+      this.getNutritionDataFormArray().patchValue(product.nutritionData);
+    }
   }
 
   previousState() {
