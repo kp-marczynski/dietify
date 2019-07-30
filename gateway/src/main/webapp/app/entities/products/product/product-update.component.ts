@@ -1,24 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators, FormArray } from '@angular/forms';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { JhiAlertService } from 'ng-jhipster';
+import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 import { IProduct, Product } from 'app/shared/model/products/product.model';
 import { ProductService } from './product.service';
 import { IProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
-import { ProductBasicNutritionDataService } from 'app/entities/products/product-basic-nutrition-data';
 import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
 import { IDietType } from 'app/shared/model/products/diet-type.model';
 import { DietTypeService } from 'app/entities/products/diet-type';
 import { NutritionDefinitionService } from 'app/entities/products/nutrition-definition';
 import { INutritionDefinition } from 'app/shared/model/products/nutrition-definition.model';
-import { INutritionData } from 'app/shared/model/products/nutrition-data.model';
 import { INutritionDefinitionTranslation } from 'app/shared/model/products/nutrition-definition-translation.model';
 import { JhiLanguageHelper } from 'app/core';
-import { JhiLanguageService } from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-product-update',
@@ -43,7 +40,13 @@ export class ProductUpdateComponent implements OnInit {
     isFinal: [null, [Validators.required]],
     isVerified: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    basicNutritionData: [null, Validators.required],
+    basicNutritionData: this.fb.group({
+      id: [],
+      energy: [null, [Validators.required]],
+      protein: [null, [Validators.required]],
+      fat: [null, [Validators.required]],
+      carbohydrates: [null, [Validators.required]]
+    }),
     subcategory: [null, Validators.required],
     suitableDiets: [],
     unsuitableDiets: [],
@@ -54,7 +57,6 @@ export class ProductUpdateComponent implements OnInit {
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected productService: ProductService,
-    protected productBasicNutritionDataService: ProductBasicNutritionDataService,
     protected productSubcategoryService: ProductSubcategoryService,
     protected dietTypeService: DietTypeService,
     protected activatedRoute: ActivatedRoute,
@@ -98,31 +100,6 @@ export class ProductUpdateComponent implements OnInit {
           (res: HttpErrorResponse) => this.onError(res.message)
         );
     });
-    this.productBasicNutritionDataService
-      .query({ filter: 'product-is-null' })
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProductBasicNutritionData[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProductBasicNutritionData[]>) => response.body)
-      )
-      .subscribe(
-        (res: IProductBasicNutritionData[]) => {
-          if (!this.editForm.get('basicNutritionData').value || !this.editForm.get('basicNutritionData').value.id) {
-            this.basicnutritiondata = res;
-          } /*else {
-            this.productBasicNutritionDataService
-              .find(this.editForm.get('basicNutritionData').value.id)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IProductBasicNutritionData>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IProductBasicNutritionData>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IProductBasicNutritionData) => (this.basicnutritiondata = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }*/
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
     this.productSubcategoryService
       .query()
       .pipe(
@@ -145,7 +122,7 @@ export class ProductUpdateComponent implements OnInit {
   getNutritionDataFormGroup() {
     return this.fb.group({
       id: [],
-      nutritionValue: [Validators.min(0)],
+      nutritionValue: [null, [Validators.min(0)]],
       nutritionDefinition: []
     });
   }
@@ -179,11 +156,18 @@ export class ProductUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const product = this.createFromForm();
+
+    this.removeEmptyNutritionData(product);
+    console.log(product);
     if (product.id !== undefined) {
       this.subscribeToSaveResponse(this.productService.update(product));
     } else {
       this.subscribeToSaveResponse(this.productService.create(product));
     }
+  }
+
+  private removeEmptyNutritionData(product: IProduct) {
+    product.nutritionData = product.nutritionData.filter(data => !isNaN(data.nutritionValue) && data.nutritionValue !== null);
   }
 
   private createFromForm(): IProduct {
