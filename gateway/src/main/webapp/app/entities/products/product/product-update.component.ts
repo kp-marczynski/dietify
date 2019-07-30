@@ -87,7 +87,7 @@ export class ProductUpdateComponent implements OnInit {
                 )
               ) {
                 const nutritionDataFormGroup = this.getNutritionDataFormGroup();
-                nutritionDataFormGroup.patchValue({ nutritionDefinition: nutritionDefinition });
+                nutritionDataFormGroup.patchValue({ nutritionDefinition });
                 this.getNutritionDataFormArray().push(nutritionDataFormGroup);
               }
             }
