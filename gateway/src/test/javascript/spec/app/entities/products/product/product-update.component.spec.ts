@@ -36,6 +36,7 @@ describe('Component Tests', () => {
         const entity = new Product(123);
         entity.basicNutritionData = new ProductBasicNutritionData();
         entity.nutritionData = [];
+        entity.householdMeasures = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -52,6 +53,7 @@ describe('Component Tests', () => {
         const entity = new Product();
         entity.basicNutritionData = new ProductBasicNutritionData();
         entity.nutritionData = [];
+        entity.householdMeasures = [];
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN

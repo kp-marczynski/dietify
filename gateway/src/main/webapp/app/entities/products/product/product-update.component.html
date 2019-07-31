@@ -186,7 +186,7 @@
                             <td><label class="form-control-label" for="nutritionValue_{{i}}">{{getNutritionDefinitionTranslation(nutritionData.value.nutritionDefinition)}}</label></td>
                             <td><input type="number" class="form-control" id="nutritionValue_{{i}}"
                                        formControlName="nutritionValue"
-                                       placeholder="Nutrition value">
+                                       [placeholder]="'gatewayApp.productsNutritionData.nutritionValue' | translate">
                             </td>
                             <td *ngIf="getNutritionDataFormArray().controls[i].get('nutritionValue').invalid && (getNutritionDataFormArray().controls[i].get('nutritionValue').dirty || getNutritionDataFormArray().controls[i].get('nutritionValue').touched)">
                                 <small class="form-text text-danger"
@@ -212,13 +212,13 @@
                             <td><input type="text" class="form-control" name="householdMeasure_description{{i}}" id="householdMeasure_description{{i}}"
                                        formControlName="description"
                                        (keyup)="updateHouseholdMeasureList()"
-                                       placeholder="Description" />
+                                       [placeholder]="'gatewayApp.productsHouseholdMeasure.description' | translate" />
                             </td>
                             <td>
                                 <input type="number" class="form-control" name="householdMeasure_gramsWeight{{i}}" id="householdMeasure_gramsWeight{{i}}"
                                        formControlName="gramsWeight"
                                        (keyup)="updateHouseholdMeasureList()"
-                                       placeholder="Grams weight"/>
+                                       [placeholder]="'gatewayApp.productsHouseholdMeasure.gramsWeight' | translate" />
                             </td>
                         </tr>
                     </table>
