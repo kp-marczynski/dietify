@@ -190,6 +190,7 @@ export class ProductUpdateComponent implements OnInit {
     const product = this.createFromForm();
 
     this.removeEmptyNutritionData(product);
+    this.removeEmptyHouseholdMeasures();
     console.log(product);
     if (product.id !== undefined) {
       this.subscribeToSaveResponse(this.productService.update(product));
@@ -200,6 +201,17 @@ export class ProductUpdateComponent implements OnInit {
 
   private removeEmptyNutritionData(product: IProduct) {
     product.nutritionData = product.nutritionData.filter(data => !isNaN(data.nutritionValue) && data.nutritionValue !== null);
+  }
+
+  private removeEmptyHouseholdMeasures() {
+    for (let i = this.getHouseholdMeasuresFormArray().length - 1; i >= 0; --i) {
+      if (
+        !this.getHouseholdMeasuresFormArray().controls[i].get('description').value &&
+        !this.getHouseholdMeasuresFormArray().controls[i].get('gramsWeight').value
+      ) {
+        this.getHouseholdMeasuresFormArray().removeAt(i);
+      }
+    }
   }
 
   private createFromForm(): IProduct {
@@ -276,14 +288,7 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   private updateHouseholdMeasureList() {
-    for (let i = this.getHouseholdMeasuresFormArray().length - 1; i >= 0; --i) {
-      if (
-        !this.getHouseholdMeasuresFormArray().controls[i].get('description').value &&
-        !this.getHouseholdMeasuresFormArray().controls[i].get('gramsWeight').value
-      ) {
-        this.getHouseholdMeasuresFormArray().removeAt(i);
-      }
-    }
+    this.removeEmptyHouseholdMeasures();
     this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
   }
 }
