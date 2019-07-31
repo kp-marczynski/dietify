@@ -7,7 +7,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 import { IProduct, Product } from 'app/shared/model/products/product.model';
 import { ProductService } from './product.service';
-import { IProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
+import { IProductBasicNutritionData, ProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
 import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
 import { IDietType } from 'app/shared/model/products/diet-type.model';
@@ -51,7 +51,7 @@ export class ProductUpdateComponent implements OnInit {
     suitableDiets: [],
     unsuitableDiets: [],
     nutritionData: this.fb.array([]),
-    householdMeasures: []
+    householdMeasures: this.fb.array([this.getHouseholdMeasuresFormGroup()])
   });
 
   constructor(
@@ -69,8 +69,18 @@ export class ProductUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ product }) => {
-      for (let nutritionDataIndex = 0; nutritionDataIndex < product.nutritionData.length; ++nutritionDataIndex) {
-        this.getNutritionDataFormArray().push(this.getNutritionDataFormGroup());
+      if (!product.basicNutritionData) {
+        product.basicNutritionData = new ProductBasicNutritionData();
+      }
+      if (product.nutritionData) {
+        for (let nutritionDataIndex = 0; nutritionDataIndex < product.nutritionData.length; ++nutritionDataIndex) {
+          this.getNutritionDataFormArray().push(this.getNutritionDataFormGroup());
+        }
+      }
+      if (product.housholdMeasures) {
+        for (let householdMeasuresIndex = 0; householdMeasuresIndex < product.householdMeasures.length; ++householdMeasuresIndex) {
+          this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
+        }
       }
       this.updateForm(product);
 
@@ -84,6 +94,7 @@ export class ProductUpdateComponent implements OnInit {
           (res: INutritionDefinition[]) => {
             for (const nutritionDefinition of res) {
               if (
+                this.getNutritionDataFormArray().controls.length === 0 ||
                 !this.getNutritionDataFormArray().controls.find(
                   nutritionData => nutritionData.value.nutritionDefinition.tag === nutritionDefinition.tag
                 )
@@ -117,6 +128,9 @@ export class ProductUpdateComponent implements OnInit {
 
     this.languageService.getCurrent().then(res => this.changeLanguage(res));
     this.languageHelper.language.subscribe((languageKey: string) => this.changeLanguage(languageKey));
+
+    // this.getHouseholdMeasuresFormArray().valueChanges
+    //   .subscribe(householdMeasures => this.updateHouseholdMeasureList(householdMeasures));
   }
 
   getNutritionDataFormGroup() {
@@ -131,6 +145,20 @@ export class ProductUpdateComponent implements OnInit {
     return this.editForm.get('nutritionData') as FormArray;
   }
 
+  getHouseholdMeasuresFormArray(): FormArray {
+    return this.editForm.get('householdMeasures') as FormArray;
+  }
+
+  getHouseholdMeasuresFormGroup() {
+    return this.fb.group({
+      id: [],
+      description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
+      gramsWeight: [null, [Validators.required, Validators.min(0)]],
+      isVisible: [null, [Validators.required]],
+      product: [null, Validators.required]
+    });
+  }
+
   updateForm(product: IProduct) {
     this.editForm.patchValue({
       id: product.id,
@@ -143,11 +171,13 @@ export class ProductUpdateComponent implements OnInit {
       basicNutritionData: product.basicNutritionData,
       subcategory: product.subcategory,
       suitableDiets: product.suitableDiets,
-      unsuitableDiets: product.unsuitableDiets,
-      householdMeasures: product.householdMeasures
+      unsuitableDiets: product.unsuitableDiets
     });
     if (product.nutritionData) {
       this.getNutritionDataFormArray().patchValue(product.nutritionData);
+    }
+    if (product.householdMeasures) {
+      this.getHouseholdMeasuresFormArray().patchValue(product.householdMeasures);
     }
   }
 
@@ -208,10 +238,6 @@ export class ProductUpdateComponent implements OnInit {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackProductBasicNutritionDataById(index: number, item: IProductBasicNutritionData) {
-    return item.id;
-  }
-
   trackProductSubcategoryById(index: number, item: IProductSubcategory) {
     return item.id;
   }
@@ -247,5 +273,17 @@ export class ProductUpdateComponent implements OnInit {
 
   private reloadTranslations() {
     this.getNutritionDataFormArray().patchValue(this.getNutritionDataFormArray().value);
+  }
+
+  private updateHouseholdMeasureList() {
+    for (let i = this.getHouseholdMeasuresFormArray().length - 1; i >= 0; --i) {
+      if (
+        !this.getHouseholdMeasuresFormArray().controls[i].get('description').value &&
+        !this.getHouseholdMeasuresFormArray().controls[i].get('gramsWeight').value
+      ) {
+        this.getHouseholdMeasuresFormArray().removeAt(i);
+      }
+    }
+    this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
   }
 }
