@@ -206,16 +206,16 @@
                     <table formArrayName="householdMeasures">
                         <tr *ngFor="let householdMeasure of getHouseholdMeasuresFormArray().controls; let i = index" [formGroupName]="i">
                             <td>
-                                <input type="checkbox" class="form-control" id="householdMeasure_isVisible{{i}}"
+                                <input type="checkbox" class="form-control" name="householdMeasure_isVisible{{i}}" id="householdMeasure_isVisible{{i}}"
                                        formControlName="isVisible" />
                             </td>
-                            <td><input type="text" class="form-control" id="householdMeasure_description{{i}}"
+                            <td><input type="text" class="form-control" name="householdMeasure_description{{i}}" id="householdMeasure_description{{i}}"
                                        formControlName="description"
                                        (keyup)="updateHouseholdMeasureList()"
                                        placeholder="Description" />
                             </td>
                             <td>
-                                <input type="number" class="form-control" id="householdMeasure_gramsWeight{{i}}"
+                                <input type="number" class="form-control" name="householdMeasure_gramsWeight{{i}}" id="householdMeasure_gramsWeight{{i}}"
                                        formControlName="gramsWeight"
                                        (keyup)="updateHouseholdMeasureList()"
                                        placeholder="Grams weight"/>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -16,6 +16,12 @@ import { NutritionDefinitionService } from 'app/entities/products/nutrition-defi
 import { INutritionDefinition } from 'app/shared/model/products/nutrition-definition.model';
 import { INutritionDefinitionTranslation } from 'app/shared/model/products/nutrition-definition-translation.model';
 import { JhiLanguageHelper } from 'app/core';
+
+const HouseholdMeasureValidator: ValidatorFn = (fg: FormGroup) => {
+  const description = fg.get('description').value;
+  const gramsWeight = fg.get('gramsWeight').value;
+  return (description && gramsWeight) || (!description && !gramsWeight) ? null : { required: true };
+};
 
 @Component({
   selector: 'jhi-product-update',
@@ -83,6 +89,7 @@ export class ProductUpdateComponent implements OnInit {
         }
       }
       this.updateForm(product);
+      this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
 
       this.nutritionDefinitionService
         .query()
@@ -150,13 +157,15 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   getHouseholdMeasuresFormGroup() {
-    return this.fb.group({
-      id: [],
-      description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
-      gramsWeight: [null, [Validators.required, Validators.min(0)]],
-      isVisible: [null, [Validators.required]],
-      product: [null, Validators.required]
-    });
+    return this.fb.group(
+      {
+        id: [],
+        description: [null, [Validators.minLength(1), Validators.maxLength(255)]],
+        gramsWeight: [null, [Validators.min(0)]],
+        isVisible: [false, [Validators.required]]
+      },
+      { validator: HouseholdMeasureValidator }
+    );
   }
 
   updateForm(product: IProduct) {
