@@ -37,7 +37,7 @@ public class ProductCategory implements Serializable {
     @Column(name = "description", length = 255, nullable = false, unique = true)
     private String description;
 
-    @OneToMany(mappedBy = "productCategory")
+    @OneToMany(mappedBy = "productCategory", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ProductCategoryTranslation> translations = new HashSet<>();
 

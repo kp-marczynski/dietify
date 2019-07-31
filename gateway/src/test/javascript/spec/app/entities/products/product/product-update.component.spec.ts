@@ -8,6 +8,7 @@ import { GatewayTestModule } from '../../../../test.module';
 import { ProductUpdateComponent } from 'app/entities/products/product/product-update.component';
 import { ProductService } from 'app/entities/products/product/product.service';
 import { Product } from 'app/shared/model/products/product.model';
+import { ProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
 
 describe('Component Tests', () => {
   describe('Product Management Update Component', () => {
@@ -33,6 +34,9 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new Product(123);
+        entity.basicNutritionData = new ProductBasicNutritionData();
+        entity.nutritionData = [];
+        entity.householdMeasures = [];
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
@@ -47,6 +51,9 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new Product();
+        entity.basicNutritionData = new ProductBasicNutritionData();
+        entity.nutritionData = [];
+        entity.householdMeasures = [];
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN

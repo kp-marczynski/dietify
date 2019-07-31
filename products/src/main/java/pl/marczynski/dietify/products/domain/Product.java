@@ -78,16 +78,18 @@ public class Product implements Serializable {
     @Column(name = "language", length = 2, nullable = false)
     private String language;
 
-    @OneToOne(optional = false)    @NotNull
-
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotNull
     @JoinColumn(unique = true)
     private ProductBasicNutritionData basicNutritionData;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "product_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NutritionData> nutritionData = new HashSet<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "product_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<HouseholdMeasure> householdMeasures = new HashSet<>();
 

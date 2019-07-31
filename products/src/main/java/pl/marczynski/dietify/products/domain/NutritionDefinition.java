@@ -64,7 +64,7 @@ public class NutritionDefinition implements Serializable {
     @Column(name = "decimal_places", nullable = false)
     private Integer decimalPlaces;
 
-    @OneToMany(mappedBy = "nutritionDefinition")
+    @OneToMany(mappedBy = "nutritionDefinition", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<NutritionDefinitionTranslation> translations = new HashSet<>();
 

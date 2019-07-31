@@ -1,5 +1,5 @@
 package pl.marczynski.dietify.products.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -53,11 +53,6 @@ public class HouseholdMeasure implements Serializable {
     @Column(name = "is_visible", nullable = false)
     private Boolean isVisible;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("householdMeasures")
-    private Product product;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -91,13 +86,6 @@ public class HouseholdMeasure implements Serializable {
         this.isVisible = isVisible;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

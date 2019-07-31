@@ -24,7 +24,7 @@ Navbar
 
   ul.navbar-nav {
     .nav-item {
-      margin-left: 0.5em;
+      margin-left: 1em;
     }
   }
 
@@ -89,7 +89,10 @@ Logo styles
   width: 100%;
 }
 
-.up { bottom:100% !important; top:auto !important; }
+.up {
+  bottom: 100% !important;
+  top: auto !important;
+}
 
 fa-icon {
   display: inline-block;

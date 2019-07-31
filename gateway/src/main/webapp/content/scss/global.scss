@@ -11,6 +11,10 @@ body {
   height: 100%;
 }
 
+body {
+  font-family: 'Lato', sans-serif;
+}
+
 body,
 h1,
 h2,
@@ -185,3 +189,7 @@ ui bootstrap tweaks
 }
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
+
+input[type='checkbox'] {
+  min-width: 40px;
+}
