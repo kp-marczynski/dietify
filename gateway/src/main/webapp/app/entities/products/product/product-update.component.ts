@@ -289,7 +289,7 @@ export class ProductUpdateComponent implements OnInit {
     this.getNutritionDataFormArray().patchValue(this.getNutritionDataFormArray().value);
   }
 
-  private updateHouseholdMeasureList() {
+  updateHouseholdMeasureList() {
     for (let i = this.getHouseholdMeasuresFormArray().length - 1; i >= 0; --i) {
       if (
         !this.getHouseholdMeasuresFormArray().controls[i].get('description').value &&
