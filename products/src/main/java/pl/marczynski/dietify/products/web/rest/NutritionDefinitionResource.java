@@ -99,6 +99,17 @@ public class NutritionDefinitionResource {
     }
 
     /**
+     * {@code GET  /nutrition-definitions-basic} : get all the nutritionDefinitions for basic nutritions.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of nutritionDefinitions in body.
+     */
+    @GetMapping("/nutrition-definitions-basic")
+    public List<NutritionDefinition> getAllBasicNutritionDefinitions() {
+        log.debug("REST request to get all basic NutritionDefinitions");
+        return nutritionDefinitionService.findAllBasicNutritions();
+    }
+
+    /**
      * {@code GET  /nutrition-definitions/:id} : get the "id" nutritionDefinition.
      *
      * @param id the id of the nutritionDefinition to retrieve.
