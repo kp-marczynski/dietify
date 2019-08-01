@@ -155,13 +155,13 @@
                     </table>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_category">Category</label>
+                    <label class="form-control-label" for="field_category" jhiTranslate="gatewayApp.productsProduct.category">Category</label>
                     <select class="form-control col-5" id="field_category" name="category"
                             formControlName="subcategory" (change)="fetchSubcategories()">
 <!--                        <option *ngIf="!editForm.get('category').value" [ngValue]="null" selected></option>-->
                         <option
                             [ngValue]="productCategoryOption.id === editForm.get('category').value?.id ? editForm.get('category').value : productCategoryOption"
-                            *ngFor="let productCategoryOption of productCategories; trackBy: trackProductSubcategoryById">{{productCategoryOption.description}}</option>
+                            *ngFor="let productCategoryOption of productCategories; trackBy: trackProductCategoryById">{{getProductCategoryTranslation(productCategoryOption)}}</option>
                     </select>
                 </div>
                 <div class="form-group">

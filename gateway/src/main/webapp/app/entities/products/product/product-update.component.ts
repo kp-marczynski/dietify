@@ -18,6 +18,7 @@ import { INutritionDefinitionTranslation } from 'app/shared/model/products/nutri
 import { JhiLanguageHelper } from 'app/core';
 import { IProductCategory } from 'app/shared/model/products/product-category.model';
 import { ProductCategoryService } from 'app/entities/products/product-category';
+import { IProductCategoryTranslation } from 'app/shared/model/products/product-category-translation.model';
 
 const HouseholdMeasureValidator: ValidatorFn = (fg: FormGroup) => {
   const description = fg.get('description').value;
@@ -159,6 +160,12 @@ export class ProductUpdateComponent implements OnInit {
       .subscribe((res: IProductCategory[]) => (this.productCategories = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.languageService.getCurrent().then(res => this.changeLanguage(res));
     this.languageHelper.language.subscribe((languageKey: string) => this.changeLanguage(languageKey));
+
+    this.editForm.get('language').valueChanges.subscribe((lang: string) => {
+      if (lang.length === 2) {
+        this.fetchSubcategories();
+      }
+    });
   }
 
   getNutritionDataFormGroup() {
@@ -280,6 +287,10 @@ export class ProductUpdateComponent implements OnInit {
     return item.id;
   }
 
+  trackProductCategoryById(index: number, item: IProductCategory) {
+    return item.id;
+  }
+
   trackDietTypeById(index: number, item: IDietType) {
     return item.id;
   }
@@ -302,6 +313,13 @@ export class ProductUpdateComponent implements OnInit {
     return nutritionDefinitionTranslation ? nutritionDefinitionTranslation.translation : nutritionDefinition.description;
   }
 
+  getProductCategoryTranslation(productCategory: IProductCategory): string {
+    const productCategoryTranslation: IProductCategoryTranslation = productCategory.translations.find(
+      translation => translation.language === this.lang
+    );
+    return productCategoryTranslation ? productCategoryTranslation.translation : productCategory.description;
+  }
+
   changeLanguage(newLang: string) {
     if (newLang !== undefined && newLang !== this.lang) {
       this.lang = newLang;
@@ -311,6 +329,7 @@ export class ProductUpdateComponent implements OnInit {
 
   private reloadTranslations() {
     this.getNutritionDataFormArray().patchValue(this.getNutritionDataFormArray().value);
+    this.productCategories = [...this.productCategories];
   }
 
   updateHouseholdMeasureList() {
