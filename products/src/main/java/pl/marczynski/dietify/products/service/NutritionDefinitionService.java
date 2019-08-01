@@ -25,6 +25,12 @@ public interface NutritionDefinitionService {
      */
     List<NutritionDefinition> findAll();
 
+    /**
+     * Get all the nutritionDefinitions except basic nutritions.
+     *
+     * @return the list of entities.
+     */
+    List<NutritionDefinition> findAllExceptBasicNutritions();
 
     /**
      * Get the "id" nutritionDefinition.
@@ -45,7 +51,7 @@ public interface NutritionDefinitionService {
      * Search for the nutritionDefinition corresponding to the query.
      *
      * @param query the query of the search.
-     * 
+     *
      * @return the list of entities.
      */
     List<NutritionDefinition> search(String query);
