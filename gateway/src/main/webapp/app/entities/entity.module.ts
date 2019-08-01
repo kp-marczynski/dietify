@@ -17,10 +17,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: './products/product/product.module#ProductsProductModule'
       },
       {
-        path: 'product-basic-nutrition-data',
-        loadChildren: './products/product-basic-nutrition-data/product-basic-nutrition-data.module#ProductsProductBasicNutritionDataModule'
-      },
-      {
         path: 'product-subcategory',
         loadChildren: './products/product-subcategory/product-subcategory.module#ProductsProductSubcategoryModule'
       },
@@ -52,6 +48,10 @@ import { RouterModule } from '@angular/router';
       {
         path: 'recipe',
         loadChildren: './recipes/recipe/recipe.module#RecipesRecipeModule'
+      },
+      {
+        path: 'recipe-basic-nutrition-data',
+        loadChildren: './recipes/recipe-basic-nutrition-data/recipe-basic-nutrition-data.module#RecipesRecipeBasicNutritionDataModule'
       },
       {
         path: 'dish-type',
