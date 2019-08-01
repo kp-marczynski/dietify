@@ -16,11 +16,19 @@ import { NutritionDefinitionService } from 'app/entities/products/nutrition-defi
 import { INutritionDefinition } from 'app/shared/model/products/nutrition-definition.model';
 import { INutritionDefinitionTranslation } from 'app/shared/model/products/nutrition-definition-translation.model';
 import { JhiLanguageHelper } from 'app/core';
+import { IProductCategory } from 'app/shared/model/products/product-category.model';
+import { ProductCategoryService } from 'app/entities/products/product-category';
 
 const HouseholdMeasureValidator: ValidatorFn = (fg: FormGroup) => {
   const description = fg.get('description').value;
   const gramsWeight = fg.get('gramsWeight').value;
   return (description && gramsWeight) || (!description && !gramsWeight) ? null : { required: true };
+};
+
+const ProductSubcategoryValidator: ValidatorFn = (fg: FormGroup) => {
+  const subcategory = fg.get('subcategory').value;
+  const newSubcategory = fg.get('newSubcategory').value;
+  return subcategory || newSubcategory ? null : { required: true };
 };
 
 @Component({
@@ -38,32 +46,42 @@ export class ProductUpdateComponent implements OnInit {
 
   lang = 'en';
 
-  editForm = this.fb.group({
-    id: [],
-    source: [null, [Validators.minLength(1), Validators.maxLength(255)]],
-    authorId: [],
-    description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
-    isFinal: [null, [Validators.required]],
-    isVerified: [null, [Validators.required]],
-    language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    basicNutritionData: this.fb.group({
+  productCategories: IProductCategory[];
+
+  newSubcategory = '';
+
+  editForm = this.fb.group(
+    {
       id: [],
-      energy: [null, [Validators.required]],
-      protein: [null, [Validators.required]],
-      fat: [null, [Validators.required]],
-      carbohydrates: [null, [Validators.required]]
-    }),
-    subcategory: [null, Validators.required],
-    suitableDiets: [],
-    unsuitableDiets: [],
-    nutritionData: this.fb.array([]),
-    householdMeasures: this.fb.array([this.getHouseholdMeasuresFormGroup()])
-  });
+      source: [null, [Validators.minLength(1), Validators.maxLength(255)]],
+      authorId: [],
+      description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
+      isFinal: [null, [Validators.required]],
+      isVerified: [null, [Validators.required]],
+      language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+      basicNutritionData: this.fb.group({
+        id: [],
+        energy: [null, [Validators.required]],
+        protein: [null, [Validators.required]],
+        fat: [null, [Validators.required]],
+        carbohydrates: [null, [Validators.required]]
+      }),
+      category: [null, [Validators.required]],
+      subcategory: [],
+      newSubcategory: [],
+      suitableDiets: [],
+      unsuitableDiets: [],
+      nutritionData: this.fb.array([]),
+      householdMeasures: this.fb.array([this.getHouseholdMeasuresFormGroup()])
+    },
+    { validator: ProductSubcategoryValidator }
+  );
 
   constructor(
     protected jhiAlertService: JhiAlertService,
     protected productService: ProductService,
     protected productSubcategoryService: ProductSubcategoryService,
+    protected productCategoryService: ProductCategoryService,
     protected dietTypeService: DietTypeService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
@@ -132,12 +150,15 @@ export class ProductUpdateComponent implements OnInit {
         map((response: HttpResponse<IDietType[]>) => response.body)
       )
       .subscribe((res: IDietType[]) => (this.diettypes = res), (res: HttpErrorResponse) => this.onError(res.message));
-
+    this.productCategoryService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IProductCategory[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IProductCategory[]>) => response.body)
+      )
+      .subscribe((res: IProductCategory[]) => (this.productCategories = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.languageService.getCurrent().then(res => this.changeLanguage(res));
     this.languageHelper.language.subscribe((languageKey: string) => this.changeLanguage(languageKey));
-
-    // this.getHouseholdMeasuresFormArray().valueChanges
-    //   .subscribe(householdMeasures => this.updateHouseholdMeasureList(householdMeasures));
   }
 
   getNutritionDataFormGroup() {
@@ -178,6 +199,7 @@ export class ProductUpdateComponent implements OnInit {
       isVerified: product.isVerified,
       language: product.language,
       basicNutritionData: product.basicNutritionData,
+      category: product.subcategory.category,
       subcategory: product.subcategory,
       suitableDiets: product.suitableDiets,
       unsuitableDiets: product.unsuitableDiets
@@ -299,5 +321,38 @@ export class ProductUpdateComponent implements OnInit {
       }
     }
     this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
+  }
+
+  fetchSubcategories() {
+    if (this.editForm.get('subcategory').value && this.editForm.get('subcategory').value.category !== this.editForm.get('category').value) {
+      this.editForm.get('subcategory').setValue(null);
+    }
+    if (this.editForm.get('category').value) {
+      document.getElementById('field_subcategory').removeAttribute('disabled');
+      document.getElementById('new-subcategory').removeAttribute('disabled');
+      this.productSubcategoryService
+        .query({
+          productCategoryId: this.editForm.get('category').value.id,
+          languageId: this.editForm.get('language').value
+        })
+        .pipe(
+          filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
+          map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+        )
+        .subscribe(
+          (res: IProductSubcategory[]) => (this.productsubcategories = res),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
+  }
+
+  selectedNewSubcategory() {
+    this.editForm.get('subcategory').setValue(null);
+  }
+
+  selectedExistingSubcategory() {
+    if (this.editForm.get('subcategory').value) {
+      this.editForm.get('newSubcategory').setValue(null);
+    }
   }
 }
