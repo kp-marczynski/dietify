@@ -55,9 +55,9 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.nutritionData">Nutritions</span></dt>
                 <dd>
-<!--                    <div>-->
-<!--                        <canvas id="canvas">{{ chart }}</canvas>-->
-<!--                    </div>-->
+                    <div>
+                        <canvas id="canvas">{{ chart }}</canvas>
+                    </div>
                     <table>
                         <tr *ngFor="let nutritionData of product.nutritionData">
                             <td>{{getNutritionDefinitionTranslation(nutritionData.nutritionDefinition)}} [{{nutritionData.nutritionDefinition.units}}]:</td>

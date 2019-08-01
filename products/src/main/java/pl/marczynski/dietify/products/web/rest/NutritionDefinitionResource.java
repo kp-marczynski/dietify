@@ -85,12 +85,28 @@ public class NutritionDefinitionResource {
     /**
      * {@code GET  /nutrition-definitions} : get all the nutritionDefinitions.
      *
+     * @param excludeBasicNutritions flag specifying if basic nutritions should be excluded
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of nutritionDefinitions in body.
      */
     @GetMapping("/nutrition-definitions")
-    public List<NutritionDefinition> getAllNutritionDefinitions() {
+    public List<NutritionDefinition> getAllNutritionDefinitions(@RequestParam(required = false) Boolean excludeBasicNutritions) {
         log.debug("REST request to get all NutritionDefinitions");
-        return nutritionDefinitionService.findAll();
+        if (excludeBasicNutritions != null && excludeBasicNutritions) {
+            return nutritionDefinitionService.findAllExceptBasicNutritions();
+        } else {
+            return nutritionDefinitionService.findAll();
+        }
+    }
+
+    /**
+     * {@code GET  /nutrition-definitions-basic} : get all the nutritionDefinitions for basic nutritions.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of nutritionDefinitions in body.
+     */
+    @GetMapping("/nutrition-definitions-basic")
+    public List<NutritionDefinition> getAllBasicNutritionDefinitions() {
+        log.debug("REST request to get all basic NutritionDefinitions");
+        return nutritionDefinitionService.findAllBasicNutritions();
     }
 
     /**
