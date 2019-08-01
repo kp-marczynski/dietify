@@ -92,7 +92,9 @@ export class ProductUpdateComponent implements OnInit {
       this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
 
       this.nutritionDefinitionService
-        .query()
+        .query({
+          excludeBasicNutritions: true
+        })
         .pipe(
           filter((res: HttpResponse<INutritionDefinition[]>) => res.ok),
           map((res: HttpResponse<INutritionDefinition[]>) => res.body)
