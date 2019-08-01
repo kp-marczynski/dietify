@@ -33,10 +33,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: './products/product-category-translation/product-category-translation.module#ProductsProductCategoryTranslationModule'
       },
       {
-        path: 'household-measure',
-        loadChildren: './products/household-measure/household-measure.module#ProductsHouseholdMeasureModule'
-      },
-      {
         path: 'nutrition-definition',
         loadChildren: './products/nutrition-definition/nutrition-definition.module#ProductsNutritionDefinitionModule'
       },
@@ -44,10 +40,6 @@ import { RouterModule } from '@angular/router';
         path: 'nutrition-definition-translation',
         loadChildren:
           './products/nutrition-definition-translation/nutrition-definition-translation.module#ProductsNutritionDefinitionTranslationModule'
-      },
-      {
-        path: 'nutrition-data',
-        loadChildren: './products/nutrition-data/nutrition-data.module#ProductsNutritionDataModule'
       },
       {
         path: 'diet-type',
@@ -60,10 +52,6 @@ import { RouterModule } from '@angular/router';
       {
         path: 'recipe',
         loadChildren: './recipes/recipe/recipe.module#RecipesRecipeModule'
-      },
-      {
-        path: 'recipe-basic-nutrition-data',
-        loadChildren: './recipes/recipe-basic-nutrition-data/recipe-basic-nutrition-data.module#RecipesRecipeBasicNutritionDataModule'
       },
       {
         path: 'dish-type',
