@@ -199,7 +199,6 @@ export class ProductUpdateComponent implements OnInit {
       isVerified: product.isVerified,
       language: product.language,
       basicNutritionData: product.basicNutritionData,
-      category: product.subcategory.category,
       subcategory: product.subcategory,
       suitableDiets: product.suitableDiets,
       unsuitableDiets: product.unsuitableDiets
@@ -209,6 +208,9 @@ export class ProductUpdateComponent implements OnInit {
     }
     if (product.householdMeasures) {
       this.getHouseholdMeasuresFormArray().patchValue(product.householdMeasures);
+    }
+    if (product.subcategory) {
+      this.editForm.patchValue({ category: product.subcategory.category });
     }
   }
 

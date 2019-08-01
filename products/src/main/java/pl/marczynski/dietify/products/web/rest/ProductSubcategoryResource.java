@@ -83,17 +83,6 @@ public class ProductSubcategoryResource {
     }
 
     /**
-     * {@code GET  /product-subcategories} : get all the productSubcategories.
-     *
-     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of productSubcategories in body.
-     */
-    @GetMapping("/product-subcategories")
-    public List<ProductSubcategory> getAllProductSubcategories() {
-        log.debug("REST request to get all ProductSubcategories");
-        return productSubcategoryService.findAll();
-    }
-
-    /**
      * {@code GET  /product-subcategories/:id} : get the "id" productSubcategory.
      *
      * @param id the id of the productSubcategory to retrieve.
