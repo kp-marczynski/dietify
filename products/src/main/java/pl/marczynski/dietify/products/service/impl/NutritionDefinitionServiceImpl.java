@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
@@ -74,7 +75,7 @@ public class NutritionDefinitionServiceImpl implements NutritionDefinitionServic
     @Transactional(readOnly = true)
     public List<NutritionDefinition> findAllExceptBasicNutritions() {
         log.debug("Request to get all NutritionDefinitions except basic nutritions");
-        return nutritionDefinitionRepository.findAllByTagNotIn(Stream.of("PROCNT", "FAT", "CHOCDF", "ENERC_KCAL").collect(Collectors.toCollection(HashSet::new)));
+        return nutritionDefinitionRepository.findAllByTagNotIn(basicNutritions);
     }
 
     /**
