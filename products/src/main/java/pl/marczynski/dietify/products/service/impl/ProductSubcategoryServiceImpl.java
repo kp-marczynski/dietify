@@ -101,4 +101,16 @@ public class ProductSubcategoryServiceImpl implements ProductSubcategoryService 
             .stream(productSubcategorySearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
     }
+
+    @Override
+    public List<ProductSubcategory> findAllByCategoryIdAndProductLanguage(Long productCategoryId, String language) {
+        log.debug("Request to get all ProductSubcategories for category with id: " + productCategoryId);
+        return productSubcategoryRepository.findAllByCategoryIdAndProductLanguage(productCategoryId, language);
+    }
+
+    @Override
+    public void removeOrphans() {
+        List<ProductSubcategory> allNotAssignedToProducts = productSubcategoryRepository.findAllNotAssignedToProducts();
+        productSubcategoryRepository.deleteAll(allNotAssignedToProducts);
+    }
 }
