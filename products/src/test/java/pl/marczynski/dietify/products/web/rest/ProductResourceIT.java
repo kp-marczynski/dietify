@@ -150,8 +150,6 @@ public class ProductResourceIT {
         ProductSubcategory productSubcategory;
         if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
             productSubcategory = ProductSubcategoryResourceIT.createEntity(em);
-            em.persist(productSubcategory);
-            em.flush();
         } else {
             productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
         }
@@ -180,8 +178,6 @@ public class ProductResourceIT {
             productBasicNutritionData.setProtein(UPDATED_PROTEIN);
             productBasicNutritionData.setFat(UPDATED_FAT);
             productBasicNutritionData.setCarbohydrates(UPDATED_CARBOHYDRATES);
-            em.persist(productBasicNutritionData);
-            em.flush();
         } else {
             productBasicNutritionData = TestUtil.findAll(em, ProductBasicNutritionData.class).get(0);
         }
@@ -190,8 +186,6 @@ public class ProductResourceIT {
         ProductSubcategory productSubcategory;
         if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
             productSubcategory = ProductSubcategoryResourceIT.createUpdatedEntity(em);
-            em.persist(productSubcategory);
-            em.flush();
         } else {
             productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
         }
