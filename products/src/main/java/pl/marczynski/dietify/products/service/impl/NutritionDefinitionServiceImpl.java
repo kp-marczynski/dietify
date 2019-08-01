@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -25,6 +25,8 @@ import static org.elasticsearch.index.query.QueryBuilders.*;
 public class NutritionDefinitionServiceImpl implements NutritionDefinitionService {
 
     private final Logger log = LoggerFactory.getLogger(NutritionDefinitionServiceImpl.class);
+
+    private final static Set<String> basicNutritions = Stream.of("PROCNT", "FAT", "CHOCDF", "ENERC_KCAL", "OTHER").collect(Collectors.toCollection(HashSet::new));
 
     private final NutritionDefinitionRepository nutritionDefinitionRepository;
 
@@ -59,6 +61,18 @@ public class NutritionDefinitionServiceImpl implements NutritionDefinitionServic
     public List<NutritionDefinition> findAll() {
         log.debug("Request to get all NutritionDefinitions");
         return nutritionDefinitionRepository.findAll();
+    }
+
+    /**
+     * Get all the nutritionDefinitions except basic nutritions.
+     *
+     * @return the list of entities.
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<NutritionDefinition> findAllBasicNutritions() {
+        log.debug("Request to get all NutritionDefinitions for basic nutritions");
+        return nutritionDefinitionRepository.findAllByTagIn(basicNutritions);
     }
 
 
