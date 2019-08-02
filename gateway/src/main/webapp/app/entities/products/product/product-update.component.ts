@@ -1,35 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
-import { FormArray, FormBuilder, FormGroup, ValidatorFn, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
-import { IProduct, Product } from 'app/shared/model/products/product.model';
-import { ProductService } from './product.service';
-import { IProductBasicNutritionData, ProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
-import { IProductSubcategory, ProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
-import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
-import { IDietType } from 'app/shared/model/products/diet-type.model';
-import { DietTypeService } from 'app/entities/products/diet-type';
-import { NutritionDefinitionService } from 'app/entities/products/nutrition-definition';
-import { INutritionDefinition } from 'app/shared/model/products/nutrition-definition.model';
-import { INutritionDefinitionTranslation } from 'app/shared/model/products/nutrition-definition-translation.model';
-import { JhiLanguageHelper } from 'app/core';
-import { IProductCategory } from 'app/shared/model/products/product-category.model';
-import { ProductCategoryService } from 'app/entities/products/product-category';
-import { IProductCategoryTranslation } from 'app/shared/model/products/product-category-translation.model';
+import {Component, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {FormArray, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiAlertService, JhiLanguageService} from 'ng-jhipster';
+import {IProduct, Product} from 'app/shared/model/products/product.model';
+import {ProductService} from './product.service';
+import {
+  IProductBasicNutritionData,
+  ProductBasicNutritionData
+} from 'app/shared/model/products/product-basic-nutrition-data.model';
+import {IProductSubcategory, ProductSubcategory} from 'app/shared/model/products/product-subcategory.model';
+import {ProductSubcategoryService} from 'app/entities/products/product-subcategory';
+import {IDietType} from 'app/shared/model/products/diet-type.model';
+import {DietTypeService} from 'app/entities/products/diet-type';
+import {NutritionDefinitionService} from 'app/entities/products/nutrition-definition';
+import {INutritionDefinition} from 'app/shared/model/products/nutrition-definition.model';
+import {INutritionDefinitionTranslation} from 'app/shared/model/products/nutrition-definition-translation.model';
+import {JhiLanguageHelper} from 'app/core';
+import {IProductCategory} from 'app/shared/model/products/product-category.model';
+import {ProductCategoryService} from 'app/entities/products/product-category';
+import {IProductCategoryTranslation} from 'app/shared/model/products/product-category-translation.model';
 
 const HouseholdMeasureValidator: ValidatorFn = (fg: FormGroup) => {
   const description = fg.get('description').value;
   const gramsWeight = fg.get('gramsWeight').value;
-  return (description && gramsWeight) || (!description && !gramsWeight) ? null : { required: true };
+  return (description && gramsWeight) || (!description && !gramsWeight) ? null : {required: true};
 };
 
 const ProductSubcategoryValidator: ValidatorFn = (fg: FormGroup) => {
   const subcategory = fg.get('subcategory').value;
   const newSubcategory = fg.get('newSubcategory').value;
-  return subcategory || (newSubcategory && newSubcategory.trim().length > 0) ? null : { required: true };
+  return subcategory || (newSubcategory && newSubcategory.trim().length > 0) ? null : {required: true};
 };
 
 @Component({
@@ -45,6 +48,7 @@ export class ProductUpdateComponent implements OnInit {
 
   diettypes: IDietType[];
 
+  languages: any[];
   lang = 'en';
 
   productCategories: IProductCategory[];
@@ -75,7 +79,7 @@ export class ProductUpdateComponent implements OnInit {
       nutritionData: this.fb.array([]),
       householdMeasures: this.fb.array([this.getHouseholdMeasuresFormGroup()])
     },
-    { validator: ProductSubcategoryValidator }
+    {validator: ProductSubcategoryValidator}
   );
 
   constructor(
@@ -89,11 +93,12 @@ export class ProductUpdateComponent implements OnInit {
     private nutritionDefinitionService: NutritionDefinitionService,
     private languageService: JhiLanguageService,
     private languageHelper: JhiLanguageHelper
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ product }) => {
+    this.activatedRoute.data.subscribe(({product}) => {
       if (!product.basicNutritionData) {
         product.basicNutritionData = new ProductBasicNutritionData();
       }
@@ -128,7 +133,7 @@ export class ProductUpdateComponent implements OnInit {
                 )
               ) {
                 const nutritionDataFormGroup = this.getNutritionDataFormGroup();
-                nutritionDataFormGroup.patchValue({ nutritionDefinition });
+                nutritionDataFormGroup.patchValue({nutritionDefinition});
                 this.getNutritionDataFormArray().push(nutritionDataFormGroup);
               }
             }
@@ -160,6 +165,10 @@ export class ProductUpdateComponent implements OnInit {
         map((response: HttpResponse<IProductCategory[]>) => response.body)
       )
       .subscribe((res: IProductCategory[]) => (this.productCategories = res), (res: HttpErrorResponse) => this.onError(res.message));
+
+    this.languageHelper.getAll().then(languages => {
+      this.languages = languages;
+    });
     this.languageService.getCurrent().then(res => this.changeLanguage(res));
     this.languageHelper.language.subscribe((languageKey: string) => this.changeLanguage(languageKey));
 
@@ -194,7 +203,7 @@ export class ProductUpdateComponent implements OnInit {
         gramsWeight: [null, [Validators.min(0)]],
         isVisible: [false, [Validators.required]]
       },
-      { validator: HouseholdMeasureValidator }
+      {validator: HouseholdMeasureValidator}
     );
   }
 
@@ -218,9 +227,8 @@ export class ProductUpdateComponent implements OnInit {
     if (product.householdMeasures) {
       this.getHouseholdMeasuresFormArray().patchValue(product.householdMeasures);
     }
-    console.log(product.subcategory);
     if (product.subcategory) {
-      this.editForm.patchValue({ category: product.subcategory.category });
+      this.editForm.patchValue({category: product.subcategory.category});
       this.fetchSubcategories();
     }
   }
@@ -352,7 +360,6 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   fetchSubcategories() {
-    console.log(this.editForm.get('category'));
     if (this.editForm.get('subcategory').value && this.editForm.get('subcategory').value.category !== this.editForm.get('category').value) {
       this.editForm.get('subcategory').setValue(null);
     }
