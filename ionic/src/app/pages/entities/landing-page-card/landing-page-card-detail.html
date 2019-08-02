@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Landing Page Card
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Ordinal Number</ion-label>
+            <div item-content>
+                <span>{{landingPageCard.ordinalNumber}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Html Content</ion-label>
+            <div item-content>
+                <span>{{landingPageCard.htmlContent}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Card Image</ion-label>
+            <div item-content>
+                <div *ngIf="landingPageCard.cardImage">
+                    <a (click)="openFile(landingPageCard.cardImageContentType, landingPageCard.cardImage)">
+                        <img [src]="'data:' + landingPageCard.cardImageContentType + ';base64,' + landingPageCard.cardImage" style="max-width: 100%;" alt="landingPageCard image"/>
+                    </a>
+                    {{landingPageCard.cardImageContentType}}, {{byteSize(landingPageCard.cardImage)}}
+                </div>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(landingPageCard)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(landingPageCard)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

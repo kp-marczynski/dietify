@@ -37,7 +37,7 @@ public class DishType implements Serializable {
     @Column(name = "description", length = 255, nullable = false, unique = true)
     private String description;
 
-    @OneToMany(mappedBy = "dishType")
+    @OneToMany(mappedBy = "dishType", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<DishTypeTranslation> translations = new HashSet<>();
 

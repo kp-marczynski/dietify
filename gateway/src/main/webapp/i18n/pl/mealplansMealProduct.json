@@ -2,34 +2,34 @@
   "gatewayApp": {
     "mealplansMealProduct": {
       "home": {
-        "title": "Meal Product",
-        "createLabel": "Dodaj Meal Product",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Product",
-        "search": "Szukaj Meal Product",
-        "notFound": "No Meal Product found"
+        "title": "Produkt posiłku",
+        "createLabel": "Dodaj produkt posiłku",
+        "createOrEditLabel": "Dodaj lub edytuj produkt posiłku",
+        "search": "Szukaj produkt posiłku",
+        "notFound": "Nie znaleziono żadnego produktu posiłku"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Product {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć produkt posiłku {{ id }}?"
       },
       "detail": {
-        "title": "Meal Product"
+        "title": "Produkt posiłku"
       },
-      "productId": "Product Id",
-      "householdMeasureId": "Household Measure Id",
-      "amount": "Amount",
-      "meal": "Meal",
+      "productId": "Id produktu",
+      "householdMeasureId": "Id miary domowej",
+      "amount": "Ilość",
+      "meal": "Posiłek",
       "help": {
-        "productId": "Id of Product entity retrieved from Products service",
-        "householdMeasureId": "Id of HouseholdMeasure entity retrieved from Products service",
-        "amount": "Amount of Product in household measure units. If household measure is null then amount is in grams."
+        "productId": "Id produktu pobrane z serwisu products",
+        "householdMeasureId": "Id miary domowej z serwisu products",
+        "amount": "Ilość produktu w jednostce miary domowej. Jeśli miara domowa nie została zdefiniowana to ilość jest w gramach"
       }
     }
   },
   "mealplansApp": {
     "mealplansMealProduct": {
-      "created": "Utworzono nowy obiekt typu Meal Product z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Product z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Product z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Produkt Posiłku z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Produkt Posiłku z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Produkt Posiłku z identyfikatorem {{ param }}"
     }
   }
 }

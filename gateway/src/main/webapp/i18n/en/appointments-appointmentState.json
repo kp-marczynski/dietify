@@ -2,9 +2,9 @@
   "gatewayApp": {
     "AppointmentState": {
       "null": "",
-      "PLANNED": "PLANNED",
-      "CANCELED": "CANCELED",
-      "COMPLETED": "COMPLETED"
+      "PLANNED": "Planned",
+      "CANCELED": "Canceled",
+      "COMPLETED": "Completed"
     }
   }
 }

@@ -2,34 +2,34 @@
   "gatewayApp": {
     "recipesProductPortion": {
       "home": {
-        "title": "Product Portion",
-        "createLabel": "Dodaj Product Portion",
-        "createOrEditLabel": "Dodaj lub edytuj: Product Portion",
-        "search": "Szukaj Product Portion",
-        "notFound": "No Product Portion found"
+        "title": "Porcja produktu",
+        "createLabel": "Dodaj porcję produktu",
+        "createOrEditLabel": "Dodaj lub edytuj porcję produktu",
+        "search": "Szukaj porcję produktu",
+        "notFound": "Nie znaleziono żadnej porcji produktu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Product Portion {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć porcję produktu {{ id }}?"
       },
       "detail": {
-        "title": "Product Portion"
+        "title": "Porcja produktu"
       },
-      "amount": "Amount",
-      "productId": "Product Id",
-      "householdMeasureId": "Household Measure Id",
-      "recipeSection": "Recipe Section",
+      "amount": "Ilość",
+      "productId": "Id produktu",
+      "householdMeasureId": "Id miary domowej",
+      "recipeSection": "Sekcja przepisu",
       "help": {
-        "amount": "Amount of product in household measure units. If household measure is null then amount is in grams",
-        "productId": "Id of Product entity retrieved form products service",
-        "householdMeasureId": "Id of HouseholdMeasure entity retrieved from products service"
+        "amount": "Ilość produktu w jednostkach miary domowej. Jeśli miara jest niezdefiniowana to ilość podawana jest w gramach",
+        "productId": "Id produktu pobrane z serwisu products",
+        "householdMeasureId": "Id miary domowej pobrane z serwisu products"
       }
     }
   },
   "recipesApp": {
     "recipesProductPortion": {
-      "created": "Utworzono nowy obiekt typu Product Portion z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Product Portion z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Product Portion z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Porcja Produktu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Porcja Produktu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Porcja Produktu z identyfikatorem {{ param }}"
     }
   }
 }

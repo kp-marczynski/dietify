@@ -2,34 +2,34 @@
   "gatewayApp": {
     "productsHouseholdMeasure": {
       "home": {
-        "title": "Household Measure",
-        "createLabel": "Dodaj Household Measure",
-        "createOrEditLabel": "Dodaj lub edytuj: Household Measure",
-        "search": "Szukaj Household Measure",
-        "notFound": "No Household Measure found"
+        "title": "Miara domowa",
+        "createLabel": "Dodaj miarę domową",
+        "createOrEditLabel": "Dodaj lub edytuj miarę domową",
+        "search": "Szukaj miarę domową",
+        "notFound": "Nie znaleziono żadnej miary domowej"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Household Measure {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć miarę domową {{ id }}?"
       },
       "detail": {
-        "title": "Household Measure"
+        "title": "Miara domowa"
       },
-      "description": "Description",
-      "gramsWeight": "Grams Weight",
-      "isVisible": "Is Visible",
-      "product": "Product",
+      "description": "Opis",
+      "gramsWeight": "Waga w gramach",
+      "isVisible": "Czy widoczny",
+      "product": "Produkt",
       "help": {
-        "description": "Short description of measure in language of a product, e.g. &#34;cup&#34; or &#34;tea spoon&#34;",
-        "gramsWeight": "Grams weight of 1 unit of specified measure",
-        "isVisible": "Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources"
+        "description": "Krótki opis miary w języku produktu, np. szklanka, łyżeczka",
+        "gramsWeight": "Waga w gramach 1 jednostki zdefiniowanej miary",
+        "isVisible": "Flaga określająca czy miara jest widoczna w wartwie prezentacyjnej. Domyślnie fałsz dla danych zaimportowanych z zewnętrznych źródeł"
       }
     }
   },
   "productsApp": {
     "productsHouseholdMeasure": {
-      "created": "Utworzono nowy obiekt typu Household Measure z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Household Measure z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Household Measure z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Miara Domowa z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Miara Domowa z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Miara Domowa z identyfikatorem {{ param }}"
     }
   }
 }

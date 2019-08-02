@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Recipe Section
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Section Name</ion-label>
+            <div item-content>
+                <span>{{recipeSection.sectionName}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Recipe</ion-label>
+            <div item-content *ngIf="recipeSection.recipe">
+                <a>{{recipeSection.recipe?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(recipeSection)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(recipeSection)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

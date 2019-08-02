@@ -1,0 +1,81 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Nutritional Interview
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button [disabled]="!isReadyToSave" (click)="save()" color="primary">
+              <span *ngIf="platform.is('ios')">{{'DONE_BUTTON' | translate}}</span>
+              <ion-icon name="md-checkmark" *ngIf="!platform.is('ios')"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <form *ngIf="form" name="form" [formGroup]="form" (ngSubmit)="save()">
+        <ion-list>
+            <ion-item [hidden]="!form.id">
+                <ion-label>ID</ion-label>
+                <ion-input type="hidden" id="id" formControlName="id" readonly></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Completion Date</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="completionDate" id="field_completionDate"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Target Weight</ion-label>
+                <ion-input type="number" name="targetWeight" formControlName="targetWeight"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Advice Purpose" formControlName="advicePurpose" id="field_advicePurpose"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label>Physical Activity</ion-label>
+                <ion-select formControlName="physicalActivity" id="field_physicalActivity"  required>
+                        <ion-select-option value="EXTREMELY_INACTIVE">EXTREMELY_INACTIVE</ion-select-option>
+                        <ion-select-option value="SEDENTARY">SEDENTARY</ion-select-option>
+                        <ion-select-option value="MODERATELY_ACTIVE">MODERATELY_ACTIVE</ion-select-option>
+                        <ion-select-option value="VIGOROUSLY_ACTIVE">VIGOROUSLY_ACTIVE</ion-select-option>
+                        <ion-select-option value="EXTREMELY_ACTIVE">EXTREMELY_ACTIVE</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Diseases" formControlName="diseases" id="field_diseases"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Medicines" formControlName="medicines" id="field_medicines"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-label>Job Type</ion-label>
+                <ion-select formControlName="jobType" id="field_jobType" >
+                        <ion-select-option value="SITTING">SITTING</ion-select-option>
+                        <ion-select-option value="STANDING">STANDING</ion-select-option>
+                        <ion-select-option value="MIXED">MIXED</ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Liked Products" formControlName="likedProducts" id="field_likedProducts"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Disliked Products" formControlName="dislikedProducts" id="field_dislikedProducts"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Food Allergies" formControlName="foodAllergies" id="field_foodAllergies"></ion-textarea>
+            </ion-item>
+            <ion-item>
+                <ion-textarea placeholder="Food Intolerances" formControlName="foodIntolerances" id="field_foodIntolerances"></ion-textarea>
+            </ion-item>
+            <div [hidden]="!(form.controls.appointment?.dirty && form.controls.appointment?.invalid)">
+                <small [hidden]="!form.controls.appointment?.errors?.required">
+                    This field is required.
+                </small>
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

@@ -156,14 +156,14 @@ public class MealPlan implements Serializable {
     @ApiModelProperty(value = "Collection of tags specifying for which cases recipe might be used")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "meal_plan_id", nullable = false)
-    private Set<MealPlanSuitableForDiet> tagsGoodFors = new HashSet<>();
+    private Set<MealPlanSuitableForDiet> suitableForDiets = new HashSet<>();
     /**
      * Collection of tags specifying for which cases recipe should not be used
      */
     @ApiModelProperty(value = "Collection of tags specifying for which cases recipe should not be used")
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "meal_plan_id", nullable = false)
-    private Set<MealPlanUnsuitableForDiet> tagsBadFors = new HashSet<>();
+    private Set<MealPlanUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -375,50 +375,50 @@ public class MealPlan implements Serializable {
         this.mealDefinitions = mealDefinitions;
     }
 
-    public Set<MealPlanSuitableForDiet> getTagsGoodFors() {
-        return tagsGoodFors;
+    public Set<MealPlanSuitableForDiet> getSuitableForDiets() {
+        return suitableForDiets;
     }
 
-    public MealPlan tagsGoodFors(Set<MealPlanSuitableForDiet> mealPlanSuitableForDiets) {
-        this.tagsGoodFors = mealPlanSuitableForDiets;
+    public MealPlan suitableForDiets(Set<MealPlanSuitableForDiet> mealPlanSuitableForDiets) {
+        this.suitableForDiets = mealPlanSuitableForDiets;
         return this;
     }
 
-    public MealPlan addTagsGoodFor(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
-        this.tagsGoodFors.add(mealPlanSuitableForDiet);
+    public MealPlan addSuitableForDiet(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
+        this.suitableForDiets.add(mealPlanSuitableForDiet);
         return this;
     }
 
-    public MealPlan removeTagsGoodFor(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
-        this.tagsGoodFors.remove(mealPlanSuitableForDiet);
+    public MealPlan removeSuitableForDiet(MealPlanSuitableForDiet mealPlanSuitableForDiet) {
+        this.suitableForDiets.remove(mealPlanSuitableForDiet);
         return this;
     }
 
-    public void setTagsGoodFors(Set<MealPlanSuitableForDiet> mealPlanSuitableForDiets) {
-        this.tagsGoodFors = mealPlanSuitableForDiets;
+    public void setSuitableForDiets(Set<MealPlanSuitableForDiet> mealPlanSuitableForDiets) {
+        this.suitableForDiets = mealPlanSuitableForDiets;
     }
 
-    public Set<MealPlanUnsuitableForDiet> getTagsBadFors() {
-        return tagsBadFors;
+    public Set<MealPlanUnsuitableForDiet> getUnsuitableForDiets() {
+        return unsuitableForDiets;
     }
 
-    public MealPlan tagsBadFors(Set<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiets) {
-        this.tagsBadFors = mealPlanUnsuitableForDiets;
+    public MealPlan unsuitableForDiets(Set<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiets) {
+        this.unsuitableForDiets = mealPlanUnsuitableForDiets;
         return this;
     }
 
-    public MealPlan addTagsBadFor(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
-        this.tagsBadFors.add(mealPlanUnsuitableForDiet);
+    public MealPlan addUnsuitableForDiet(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
+        this.unsuitableForDiets.add(mealPlanUnsuitableForDiet);
         return this;
     }
 
-    public MealPlan removeTagsBadFor(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
-        this.tagsBadFors.remove(mealPlanUnsuitableForDiet);
+    public MealPlan removeUnsuitableForDiet(MealPlanUnsuitableForDiet mealPlanUnsuitableForDiet) {
+        this.unsuitableForDiets.remove(mealPlanUnsuitableForDiet);
         return this;
     }
 
-    public void setTagsBadFors(Set<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiets) {
-        this.tagsBadFors = mealPlanUnsuitableForDiets;
+    public void setUnsuitableForDiets(Set<MealPlanUnsuitableForDiet> mealPlanUnsuitableForDiets) {
+        this.unsuitableForDiets = mealPlanUnsuitableForDiets;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 

@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            User Extra Info
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Gender</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.gender}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Date Of Birth</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.dateOfBirth | date:'mediumDate'}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Phone Number</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.phoneNumber}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Street Address</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.streetAddress}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Postal Code</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.postalCode}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">City</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.city}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Country</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.country}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Personal Description</ion-label>
+            <div item-content>
+                <span>{{userExtraInfo.personalDescription}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>User</ion-label>
+            <div item-content>{{userExtraInfo.user?.id}}</div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(userExtraInfo)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(userExtraInfo)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

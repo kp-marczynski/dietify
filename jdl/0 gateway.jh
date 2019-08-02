@@ -72,7 +72,7 @@ entity UserExtraInfo {
 entity LandingPageCard {
 	/** Number for specifying order in which content should appear on landing page */
 	ordinalNumber Integer required min(1)
-    /** Landing page card content in form of simple string or html code. Bootrstrap and Font Awesome may be used to style content */
+    /** Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content */
 	htmlContent TextBlob required
     /** Optional image to be shown beside htmlContent */
     cardImage ImageBlob

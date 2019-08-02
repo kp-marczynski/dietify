@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Meal Recipe
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Recipe Id</ion-label>
+            <div item-content>
+                <span>{{mealRecipe.recipeId}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Amount</ion-label>
+            <div item-content>
+                <span>{{mealRecipe.amount}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Meal</ion-label>
+            <div item-content *ngIf="mealRecipe.meal">
+                <a>{{mealRecipe.meal?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(mealRecipe)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(mealRecipe)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

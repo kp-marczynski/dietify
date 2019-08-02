@@ -2,30 +2,30 @@
   "gatewayApp": {
     "recipesKitchenAppliance": {
       "home": {
-        "title": "Kitchen Appliance",
-        "createLabel": "Dodaj Kitchen Appliance",
-        "createOrEditLabel": "Dodaj lub edytuj: Kitchen Appliance",
-        "search": "Szukaj Kitchen Appliance",
-        "notFound": "No Kitchen Appliance found"
+        "title": "Wyposażenie kuchenne",
+        "createLabel": "Dodaj wyposażenie kuchenne",
+        "createOrEditLabel": "Dodaj lub edytuj wyposażenie kuchenne",
+        "search": "Szukaj wyposażenie kuchenne",
+        "notFound": "Nie znaleziono żadnego wyposażenia kuchennego"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Kitchen Appliance {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć wyposażenie kuchenne {{ id }}?"
       },
       "detail": {
-        "title": "Kitchen Appliance"
+        "title": "Wyposażenie kuchenne"
       },
-      "name": "Name",
-      "translations": "Translations",
+      "name": "Nazwa",
+      "translations": "Tłumaczenia",
       "help": {
-        "name": "English name of kitchen appliance"
+        "name": "Angielska nazwa sprzętu kuchennego"
       }
     }
   },
   "recipesApp": {
     "recipesKitchenAppliance": {
-      "created": "Utworzono nowy obiekt typu Kitchen Appliance z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Kitchen Appliance z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Kitchen Appliance z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Wyposażenie Kuchenne z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Wyposażenie Kuchenne z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Wyposażenie Kuchenne z identyfikatorem {{ param }}"
     }
   }
 }

@@ -45,8 +45,22 @@ public interface ProductSubcategoryService {
      * Search for the productSubcategory corresponding to the query.
      *
      * @param query the query of the search.
-     * 
+     *
      * @return the list of entities.
      */
     List<ProductSubcategory> search(String query);
+
+    /**
+     * Get all the productSubcategories for selected ProductCategory
+     *
+     * @param productCategoryId id of selected category
+     * @param language product language
+     * @return the list of entities
+     */
+    List<ProductSubcategory> findAllByCategoryIdAndProductLanguage(Long productCategoryId, String language);
+
+    /**
+     * Remove subcategories not assigned to any product
+     */
+    void removeOrphans();
 }

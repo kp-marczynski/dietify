@@ -2,33 +2,33 @@
   "gatewayApp": {
     "appointmentsCustomNutritionalInterviewQuestionTemplate": {
       "home": {
-        "title": "Custom Nutritional Interview Question Template",
-        "createLabel": "Dodaj Custom Nutritional Interview Question Template",
-        "createOrEditLabel": "Dodaj lub edytuj: Custom Nutritional Interview Question Template",
-        "search": "Szukaj Custom Nutritional Interview Question Template",
-        "notFound": "No Custom Nutritional Interview Question Template found"
+        "title": "Szablon dodatkowego pytania do wywiadu żywieniowego",
+        "createLabel": "Dodaj szablon dodatkowego pytania do wywiadu żywieniowego",
+        "createOrEditLabel": "Dodaj lub edytuj szablon dodatkowego pytania do wywiadu żywieniowego",
+        "search": "Szukaj szablon dodatkowego pytania do wywiadu żywieniowego",
+        "notFound": "Nie znaleziono żadnego szablonu dodatkowego pytania do wywiadu żywieniowego"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Custom Nutritional Interview Question Template {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć szablon dodatkowego pytania do wywiadu żywieniowego {{ id }}?"
       },
       "detail": {
-        "title": "Custom Nutritional Interview Question Template"
+        "title": "Szablon dodatkowego pytania do wywiadu żywieniowego"
       },
-      "ownerId": "Owner Id",
-      "question": "Question",
-      "language": "Language",
+      "ownerId": "Id właściciela pytania",
+      "question": "Pytanie",
+      "language": "Język",
       "help": {
-        "ownerId": "Id of owner User entity retrieved from gateway service",
-        "question": "Custom question extending Nutritional Interview",
-        "language": "Language of translation as ISO_639-1 code"
+        "ownerId": "Id właściciela pytania pobrane z serwisu gateway",
+        "question": "Dodatkowe pytanie rozszerzające wywiad żywieniowy",
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsCustomNutritionalInterviewQuestionTemplate": {
-      "created": "Utworzono nowy obiekt typu Custom Nutritional Interview Question Template z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Custom Nutritional Interview Question Template z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Custom Nutritional Interview Question Template z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Szablon Dodatkowego Pytania Do Wywiadu Żywieniowego z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Szablon Dodatkowego Pytania Do Wywiadu Żywieniowego z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Szablon Dodatkowego Pytania Do Wywiadu Żywieniowego z identyfikatorem {{ param }}"
     }
   }
 }

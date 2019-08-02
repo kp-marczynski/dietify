@@ -1,0 +1,77 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Meal Plan
+        </ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button [disabled]="!isReadyToSave" (click)="save()" color="primary">
+              <span *ngIf="platform.is('ios')">{{'DONE_BUTTON' | translate}}</span>
+              <ion-icon name="md-checkmark" *ngIf="!platform.is('ios')"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content padding>
+    <form *ngIf="form" name="form" [formGroup]="form" (ngSubmit)="save()">
+        <ion-list>
+            <ion-item [hidden]="!form.id">
+                <ion-label>ID</ion-label>
+                <ion-input type="hidden" id="id" formControlName="id" readonly></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Author Id</ion-label>
+                <ion-input type="number" name="authorId" formControlName="authorId"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Creation Date</ion-label>
+                <ion-datetime displayFormat="MM/DD/YYYY" formControlName="creationDate" id="field_creationDate"></ion-datetime>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Name</ion-label>
+                <ion-input type="text" name="name" formControlName="name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Is Visible</ion-label>
+                <ion-checkbox formControlName="isVisible"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+                <ion-label>Is Locked</ion-label>
+                <ion-checkbox formControlName="isLocked"></ion-checkbox>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Language</ion-label>
+                <ion-input type="text" name="language" formControlName="language"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Number Of Days</ion-label>
+                <ion-input type="number" name="numberOfDays" formControlName="numberOfDays"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Number Of Meals Per Day</ion-label>
+                <ion-input type="number" name="numberOfMealsPerDay" formControlName="numberOfMealsPerDay"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Total Daily Energy</ion-label>
+                <ion-input type="number" name="totalDailyEnergy" formControlName="totalDailyEnergy"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Percent Of Protein</ion-label>
+                <ion-input type="number" name="percentOfProtein" formControlName="percentOfProtein"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Percent Of Fat</ion-label>
+                <ion-input type="number" name="percentOfFat" formControlName="percentOfFat"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">Percent Of Carbohydrates</ion-label>
+                <ion-input type="number" name="percentOfCarbohydrates" formControlName="percentOfCarbohydrates"></ion-input>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>
