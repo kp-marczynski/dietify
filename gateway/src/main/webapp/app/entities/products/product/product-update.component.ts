@@ -378,4 +378,8 @@ export class ProductUpdateComponent implements OnInit {
       this.editForm.get('newSubcategory').setValue(null);
     }
   }
+
+  removeHouseholdMeasure(index: number) {
+    this.getHouseholdMeasuresFormArray().removeAt(index);
+  }
 }
