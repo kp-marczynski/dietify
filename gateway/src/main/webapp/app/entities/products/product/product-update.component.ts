@@ -232,7 +232,7 @@ export class ProductUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const product = this.createFromForm();
-    if (!product.subcategory) {
+    if (!product.subcategory && this.editForm.get('newSubcategory').value && this.editForm.get('newSubcategory').value.trim().length > 0) {
       product.subcategory = new ProductSubcategory(null, this.editForm.get('newSubcategory').value, this.editForm.get('category').value);
     }
 
