@@ -240,7 +240,7 @@
                                        [placeholder]="'gatewayApp.productsHouseholdMeasure.gramsWeight' | translate" />
                             </td>
                             <td>
-                                <button type="button"
+                                <button type="button" *ngIf="getHouseholdMeasuresFormArray().controls.length - 1 !== i"
                                         (click)="removeHouseholdMeasure(i)"
                                         class="btn btn-danger btn-sm">
                                     <fa-icon [icon]="'times'"></fa-icon>

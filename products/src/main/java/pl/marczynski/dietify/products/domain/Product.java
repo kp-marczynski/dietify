@@ -93,7 +93,7 @@ public class Product implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<HouseholdMeasure> householdMeasures = new HashSet<>();
 
-    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
+    @ManyToOne(optional = false)
     @NotNull
     @JsonIgnoreProperties("products")
     private ProductSubcategory subcategory;

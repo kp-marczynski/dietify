@@ -17,6 +17,7 @@ public interface ProductSubcategoryRepository extends JpaRepository<ProductSubca
     @Query("select productSubcategory from ProductSubcategory productSubcategory where productSubcategory.category.id = :productCategoryId and productSubcategory in (select distinct product.subcategory from Product product where product.language = :language)")
     List<ProductSubcategory> findAllByCategoryIdAndProductLanguage(@Param("productCategoryId") Long productCategoryId, @Param("language") String language);
 
-    @Query("select productSubcategory from ProductSubcategory productSubcategory where productSubcategory not in (select distinct product.subcategory from Product product)")
-    List<ProductSubcategory> findAllNotAssignedToProducts();
+    @Modifying
+    @Query("delete from ProductSubcategory productSubcategory where productSubcategory not in (select distinct product.subcategory from Product product)")
+    void deleteAllNotAssignedToProducts();
 }
