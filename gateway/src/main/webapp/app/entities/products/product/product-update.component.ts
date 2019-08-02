@@ -8,7 +8,7 @@ import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 import { IProduct, Product } from 'app/shared/model/products/product.model';
 import { ProductService } from './product.service';
 import { IProductBasicNutritionData, ProductBasicNutritionData } from 'app/shared/model/products/product-basic-nutrition-data.model';
-import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
+import { IProductSubcategory, ProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
 import { IDietType } from 'app/shared/model/products/diet-type.model';
 import { DietTypeService } from 'app/entities/products/diet-type';
@@ -29,7 +29,7 @@ const HouseholdMeasureValidator: ValidatorFn = (fg: FormGroup) => {
 const ProductSubcategoryValidator: ValidatorFn = (fg: FormGroup) => {
   const subcategory = fg.get('subcategory').value;
   const newSubcategory = fg.get('newSubcategory').value;
-  return subcategory || newSubcategory ? null : { required: true };
+  return subcategory || (newSubcategory && newSubcategory.trim().length > 0) ? null : { required: true };
 };
 
 @Component({
@@ -139,13 +139,13 @@ export class ProductUpdateComponent implements OnInit {
           (res: HttpErrorResponse) => this.onError(res.message)
         );
     });
-    this.productSubcategoryService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IProductSubcategory[]>) => response.body)
-      )
-      .subscribe((res: IProductSubcategory[]) => (this.productsubcategories = res), (res: HttpErrorResponse) => this.onError(res.message));
+    // this.productSubcategoryService
+    //   .query()
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+    //   )
+    //   .subscribe((res: IProductSubcategory[]) => (this.productsubcategories = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.dietTypeService
       .query()
       .pipe(
@@ -218,8 +218,10 @@ export class ProductUpdateComponent implements OnInit {
     if (product.householdMeasures) {
       this.getHouseholdMeasuresFormArray().patchValue(product.householdMeasures);
     }
+    console.log(product.subcategory);
     if (product.subcategory) {
       this.editForm.patchValue({ category: product.subcategory.category });
+      this.fetchSubcategories();
     }
   }
 
@@ -230,6 +232,9 @@ export class ProductUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const product = this.createFromForm();
+    if (!product.subcategory) {
+      product.subcategory = new ProductSubcategory(null, this.editForm.get('newSubcategory').value, this.editForm.get('category').value);
+    }
 
     this.removeEmptyNutritionData(product);
     this.removeEmptyHouseholdMeasures(product);
@@ -347,16 +352,17 @@ export class ProductUpdateComponent implements OnInit {
   }
 
   fetchSubcategories() {
+    console.log(this.editForm.get('category'));
     if (this.editForm.get('subcategory').value && this.editForm.get('subcategory').value.category !== this.editForm.get('category').value) {
       this.editForm.get('subcategory').setValue(null);
     }
     if (this.editForm.get('category').value) {
       document.getElementById('field_subcategory').removeAttribute('disabled');
-      document.getElementById('new-subcategory').removeAttribute('disabled');
+      document.getElementById('new_subcategory').removeAttribute('disabled');
       this.productSubcategoryService
         .query({
           productCategoryId: this.editForm.get('category').value.id,
-          languageId: this.editForm.get('language').value
+          language: this.editForm.get('language').value
         })
         .pipe(
           filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),

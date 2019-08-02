@@ -157,8 +157,8 @@
                 <div class="form-group">
                     <label class="form-control-label" for="field_category" jhiTranslate="gatewayApp.productsProduct.category">Category</label>
                     <select class="form-control col-5" id="field_category" name="category"
-                            formControlName="subcategory" (change)="fetchSubcategories()">
-<!--                        <option *ngIf="!editForm.get('category').value" [ngValue]="null" selected></option>-->
+                            formControlName="category" (change)="fetchSubcategories()">
+                        <option *ngIf="!editForm.get('category').value" [ngValue]="null" selected></option>
                         <option
                             [ngValue]="productCategoryOption.id === editForm.get('category').value?.id ? editForm.get('category').value : productCategoryOption"
                             *ngFor="let productCategoryOption of productCategories; trackBy: trackProductCategoryById">{{getProductCategoryTranslation(productCategoryOption)}}</option>
@@ -167,7 +167,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.subcategory"
                            for="field_subcategory">Subcategory</label>
-                    <div class="row" ]>
+                    <div class="row">
                         <select class="form-control col-5" id="field_subcategory" name="subcategory"
                                 formControlName="subcategory" (click)="selectedExistingSubcategory()">
                             <option *ngIf="!editForm.get('subcategory').value" [ngValue]="null" selected></option>
@@ -176,7 +176,7 @@
                                 *ngFor="let productSubcategoryOption of productsubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
                         </select>
                         <div class="col-2 text-center">-- SELECT OR NEW --</div>
-                        <input id="new-subcategory" type="text" class="form-control col-5" name="newSubcategory"
+                        <input id="new_subcategory" type="text" class="form-control col-5" name="newSubcategory" formControlName="newSubcategory"
                                (keyup)="selectedNewSubcategory()">
                     </div>
                 </div>
