@@ -150,6 +150,8 @@ public class ProductResourceIT {
         ProductSubcategory productSubcategory;
         if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
             productSubcategory = ProductSubcategoryResourceIT.createEntity(em);
+            em.persist(productSubcategory);
+            em.flush();
         } else {
             productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
         }
@@ -186,6 +188,8 @@ public class ProductResourceIT {
         ProductSubcategory productSubcategory;
         if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
             productSubcategory = ProductSubcategoryResourceIT.createUpdatedEntity(em);
+            em.persist(productSubcategory);
+            em.flush();
         } else {
             productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
         }
