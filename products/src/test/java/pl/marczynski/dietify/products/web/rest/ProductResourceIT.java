@@ -62,6 +62,18 @@ public class ProductResourceIT {
     private static final String DEFAULT_LANGUAGE = "AA";
     private static final String UPDATED_LANGUAGE = "BB";
 
+    private static final Double DEFAULT_ENERGY = 0D;
+    private static final Double UPDATED_ENERGY = 1D;
+
+    private static final Double DEFAULT_PROTEIN = 0D;
+    private static final Double UPDATED_PROTEIN = 1D;
+
+    private static final Double DEFAULT_FAT = 0D;
+    private static final Double UPDATED_FAT = 1D;
+
+    private static final Double DEFAULT_CARBOHYDRATES = 0D;
+    private static final Double UPDATED_CARBOHYDRATES = 1D;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -128,14 +140,16 @@ public class ProductResourceIT {
         product.setIsVerified(DEFAULT_IS_VERIFIED);
         product.setLanguage(DEFAULT_LANGUAGE);
         // Add required entity
-        ProductBasicNutritionData productBasicNutritionData  = ProductBasicNutritionDataResourceIT.createEntity(em);
+        ProductBasicNutritionData productBasicNutritionData = new ProductBasicNutritionData();
+        productBasicNutritionData.setEnergy(DEFAULT_ENERGY);
+        productBasicNutritionData.setProtein(DEFAULT_PROTEIN);
+        productBasicNutritionData.setFat(DEFAULT_FAT);
+        productBasicNutritionData.setCarbohydrates(DEFAULT_CARBOHYDRATES);
         product.setBasicNutritionData(productBasicNutritionData);
         // Add required entity
         ProductSubcategory productSubcategory;
         if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
             productSubcategory = ProductSubcategoryResourceIT.createEntity(em);
-            em.persist(productSubcategory);
-            em.flush();
         } else {
             productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
         }
@@ -159,9 +173,11 @@ public class ProductResourceIT {
         // Add required entity
         ProductBasicNutritionData productBasicNutritionData;
         if (TestUtil.findAll(em, ProductBasicNutritionData.class).isEmpty()) {
-            productBasicNutritionData = ProductBasicNutritionDataResourceIT.createUpdatedEntity(em);
-            em.persist(productBasicNutritionData);
-            em.flush();
+            productBasicNutritionData = new ProductBasicNutritionData();
+            productBasicNutritionData.setEnergy(UPDATED_ENERGY);
+            productBasicNutritionData.setProtein(UPDATED_PROTEIN);
+            productBasicNutritionData.setFat(UPDATED_FAT);
+            productBasicNutritionData.setCarbohydrates(UPDATED_CARBOHYDRATES);
         } else {
             productBasicNutritionData = TestUtil.findAll(em, ProductBasicNutritionData.class).get(0);
         }
@@ -170,8 +186,6 @@ public class ProductResourceIT {
         ProductSubcategory productSubcategory;
         if (TestUtil.findAll(em, ProductSubcategory.class).isEmpty()) {
             productSubcategory = ProductSubcategoryResourceIT.createUpdatedEntity(em);
-            em.persist(productSubcategory);
-            em.flush();
         } else {
             productSubcategory = TestUtil.findAll(em, ProductSubcategory.class).get(0);
         }
