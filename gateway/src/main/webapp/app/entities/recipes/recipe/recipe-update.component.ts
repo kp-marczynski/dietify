@@ -1,6 +1,6 @@
-import {Component, OnInit, ElementRef} from '@angular/core';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import {FormArray, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Component, ElementRef, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
@@ -16,12 +16,9 @@ import {IDishType} from 'app/shared/model/recipes/dish-type.model';
 import {DishTypeService} from 'app/entities/recipes/dish-type';
 import {IMealType} from 'app/shared/model/recipes/meal-type.model';
 import {MealTypeService} from 'app/entities/recipes/meal-type';
-import {IProductPortion, ProductPortion} from 'app/shared/model/recipes/product-portion.model';
 import {IProduct, Product} from 'app/shared/model/products/product.model';
-import {IRecipeSection} from 'app/shared/model/recipes/recipe-section.model';
 import {ProductComponent, ProductService} from 'app/entities/products/product';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {PreparationStep} from 'app/shared/model/recipes/preparation-step.model';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -82,7 +79,9 @@ export class RecipeUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({recipe}) => {
+      console.log(recipe);
       this.updateForm(recipe);
+      console.log(this.editForm);
     });
     this.recipeBasicNutritionDataService
       .query({filter: 'recipe-is-null'})
@@ -159,6 +158,19 @@ export class RecipeUpdateComponent implements OnInit {
       dishTypes: recipe.dishTypes,
       mealTypes: recipe.mealTypes
     });
+    if (recipe.recipeSections) {
+      for (let i = 0; i < recipe.recipeSections.length; ++i) {
+        const recipeSectionsFormGroup = this.getRecipeSectionsFormGroup();
+        for (let j = 0; j < recipe.recipeSections[i].productPortions.length; ++j) {
+          this.getProductPortionsFormArray(recipeSectionsFormGroup).push(this.getProductPortionsFormGroup());
+        }
+        for (let j = 0; j < recipe.recipeSections[i].preparationSteps.length; ++j) {
+          this.getPreparationStepsFormArray(recipeSectionsFormGroup).push(this.getPreparationStepsFormGroup());
+        }
+        this.getRecipeSectionsFormArray().push(recipeSectionsFormGroup);
+      }
+      this.getRecipeSectionsFormArray().patchValue(recipe.recipeSections);
+    }
   }
 
   byteSize(field) {
@@ -236,7 +248,8 @@ export class RecipeUpdateComponent implements OnInit {
       sourceRecipe: this.editForm.get(['sourceRecipe']).value,
       kitchenAppliances: this.editForm.get(['kitchenAppliances']).value,
       dishTypes: this.editForm.get(['dishTypes']).value,
-      mealTypes: this.editForm.get(['mealTypes']).value
+      mealTypes: this.editForm.get(['mealTypes']).value,
+      recipeSections: this.editForm.get(['recipeSections']).value
     };
   }
 
@@ -368,5 +381,9 @@ export class RecipeUpdateComponent implements OnInit {
 
   addSection() {
     this.getRecipeSectionsFormArray().push(this.getRecipeSectionsFormGroup());
+  }
+
+  removeRecipeSection(sectionIndex: number) {
+    this.getRecipeSectionsFormArray().removeAt(sectionIndex);
   }
 }
