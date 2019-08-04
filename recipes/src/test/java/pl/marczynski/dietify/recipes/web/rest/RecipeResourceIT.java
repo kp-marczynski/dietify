@@ -78,6 +78,18 @@ public class RecipeResourceIT {
     private static final Double DEFAULT_TOTAL_GRAMS_WEIGHT = 0D;
     private static final Double UPDATED_TOTAL_GRAMS_WEIGHT = 1D;
 
+    private static final Integer DEFAULT_ENERGY = 0;
+    private static final Integer UPDATED_ENERGY = 1;
+
+    private static final Integer DEFAULT_PROTEIN = 0;
+    private static final Integer UPDATED_PROTEIN = 1;
+
+    private static final Integer DEFAULT_FAT = 0;
+    private static final Integer UPDATED_FAT = 1;
+
+    private static final Integer DEFAULT_CARBOHYDRATES = 0;
+    private static final Integer UPDATED_CARBOHYDRATES = 1;
+
     @Autowired
     private RecipeRepository recipeRepository;
 
@@ -149,14 +161,11 @@ public class RecipeResourceIT {
         recipe.setLanguage(DEFAULT_LANGUAGE);
         recipe.setTotalGramsWeight(DEFAULT_TOTAL_GRAMS_WEIGHT);
         // Add required entity
-        RecipeBasicNutritionData recipeBasicNutritionData;
-//        if (TestUtil.findAll(em, RecipeBasicNutritionData.class).isEmpty()) {
-            recipeBasicNutritionData = RecipeBasicNutritionDataResourceIT.createEntity(em);
-//            em.persist(recipeBasicNutritionData);
-//            em.flush();
-//        } else {
-//            recipeBasicNutritionData = TestUtil.findAll(em, RecipeBasicNutritionData.class).get(0);
-//        }
+        RecipeBasicNutritionData recipeBasicNutritionData = new RecipeBasicNutritionData();
+        recipeBasicNutritionData.setEnergy(DEFAULT_ENERGY);
+        recipeBasicNutritionData.setProtein(DEFAULT_PROTEIN);
+        recipeBasicNutritionData.setFat(DEFAULT_FAT);
+        recipeBasicNutritionData.setCarbohydrates(DEFAULT_CARBOHYDRATES);
         recipe.setBasicNutritionData(recipeBasicNutritionData);
         return recipe;
     }
@@ -180,14 +189,11 @@ public class RecipeResourceIT {
         recipe.setLanguage(UPDATED_LANGUAGE);
         recipe.setTotalGramsWeight(UPDATED_TOTAL_GRAMS_WEIGHT);
         // Add required entity
-        RecipeBasicNutritionData recipeBasicNutritionData;
-        if (TestUtil.findAll(em, RecipeBasicNutritionData.class).isEmpty()) {
-            recipeBasicNutritionData = RecipeBasicNutritionDataResourceIT.createUpdatedEntity(em);
-            em.persist(recipeBasicNutritionData);
-            em.flush();
-        } else {
-            recipeBasicNutritionData = TestUtil.findAll(em, RecipeBasicNutritionData.class).get(0);
-        }
+        RecipeBasicNutritionData recipeBasicNutritionData = new RecipeBasicNutritionData();
+        recipeBasicNutritionData.setEnergy(UPDATED_ENERGY);
+        recipeBasicNutritionData.setProtein(UPDATED_PROTEIN);
+        recipeBasicNutritionData.setFat(UPDATED_FAT);
+        recipeBasicNutritionData.setCarbohydrates(UPDATED_CARBOHYDRATES);
         recipe.setBasicNutritionData(recipeBasicNutritionData);
         return recipe;
     }
