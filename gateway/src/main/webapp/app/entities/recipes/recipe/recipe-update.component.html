@@ -223,19 +223,20 @@
                     </select>
                 </div>
                 <div formArrayName="recipeSections">
-                    <h1>Recipe sections</h1>
+                    <h1 jhiTranslate="gatewayApp.recipesRecipe.recipeSections">Recipe sections</h1>
                     <button type="button" class="btn btn-info btn-sm" (click)="addSection()">
                         <fa-icon [icon]="'plus'"></fa-icon>
-                        <span class="d-none d-md-inline">Add</span>
+                        <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
                     </button>
                     <div *ngFor="let recipeSection of getRecipeSectionsFormArray().controls; let sectionIndex = index"
                          [formGroupName]="sectionIndex">
-                        <h2>{{recipeSection.value.sectionName}}</h2>
+                        <h2>{{'gatewayApp.recipesRecipeSection.detail.title' | translate}} {{sectionIndex + 1}}</h2>
+                        <input class="form-control" type="text" formControlName="sectionName" [placeholder]="'gatewayApp.recipesRecipeSection.sectionName' | translate"/>
                         <div class="form-group">
-                            <label>Ingredients</label>
+                            <label jhiTranslate="gatewayApp.recipesRecipeSection.productPortions">Ingredients</label>
                             <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(recipeSection)">
                                 <fa-icon [icon]="'plus'"></fa-icon>
-                                <span class="d-none d-md-inline">Add</span>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
                             </button>
                             <table formArrayName="productPortions">
                                 <tr *ngFor="let productPortion of getProductPortionsFormArray(recipeSection).controls; let last = last; let portionIndex = index"
@@ -247,7 +248,8 @@
                                                class="form-control"
                                                name="section{{sectionIndex}}portion{{portionIndex}}productHidden"
                                                formControlName="product" placeholder="Can't find product for id"
-                                               [required]="productPortion.get('productId').value"/>
+                                               [required]="productPortion.get('productId').value"
+                                               [placeholder]="'gatewayApp.recipesProductPortion.productId' | translate"/>
                                     </td>
                                     <td>
                                         <select class="form-control" *ngIf="productPortion.get('product').value"
@@ -271,7 +273,8 @@
                                                name="section{{sectionIndex}}portion{{portionIndex}}amount"
                                                formControlName="amount"
                                                [required]="productPortion.get('productId').value"
-                                               jhiMin="0.00001" placeholder="Amount"/>
+                                               jhiMin="0.00001" placeholder="Amount"
+                                               [placeholder]="'gatewayApp.recipesProductPortion.amount' | translate"/>
                                     </td>
                                     <td>
                                         <button type="button" class="btn btn-danger btn-sm"
@@ -283,7 +286,7 @@
                             </table>
                         </div>
                         <div class="form-group" formArrayName="preparationSteps">
-                            <label>Preparation Steps</label>
+                            <label jhiTranslate="gatewayApp.recipesRecipeSection.preparationSteps">Preparation Steps</label>
                             <table>
                             <tr
                                 *ngFor="let preparationStep of getPreparationStepsFormArray(recipeSection).controls; let last = last; let preparationIndex = index"
@@ -292,7 +295,7 @@
                                 <input type="text" class="form-control"
                                        formControlName="stepDescription"
                                        (keyup)="updatePreparationSteps(recipeSection)"
-                                       placeholder="Step description..."/>
+                                       [placeholder]="'gatewayApp.recipesPreparationStep.stepDescription' | translate"/>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-sm"
