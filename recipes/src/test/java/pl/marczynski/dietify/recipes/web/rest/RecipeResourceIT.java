@@ -150,13 +150,13 @@ public class RecipeResourceIT {
         recipe.setTotalGramsWeight(DEFAULT_TOTAL_GRAMS_WEIGHT);
         // Add required entity
         RecipeBasicNutritionData recipeBasicNutritionData;
-        if (TestUtil.findAll(em, RecipeBasicNutritionData.class).isEmpty()) {
+//        if (TestUtil.findAll(em, RecipeBasicNutritionData.class).isEmpty()) {
             recipeBasicNutritionData = RecipeBasicNutritionDataResourceIT.createEntity(em);
-            em.persist(recipeBasicNutritionData);
-            em.flush();
-        } else {
-            recipeBasicNutritionData = TestUtil.findAll(em, RecipeBasicNutritionData.class).get(0);
-        }
+//            em.persist(recipeBasicNutritionData);
+//            em.flush();
+//        } else {
+//            recipeBasicNutritionData = TestUtil.findAll(em, RecipeBasicNutritionData.class).get(0);
+//        }
         recipe.setBasicNutritionData(recipeBasicNutritionData);
         return recipe;
     }
