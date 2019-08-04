@@ -8,7 +8,10 @@ import * as moment from 'moment';
 import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
 import {IRecipe, Recipe} from 'app/shared/model/recipes/recipe.model';
 import {RecipeService} from './recipe.service';
-import {IRecipeBasicNutritionData} from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
+import {
+  IRecipeBasicNutritionData,
+  RecipeBasicNutritionData
+} from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
 import {RecipeBasicNutritionDataService} from 'app/entities/recipes/recipe-basic-nutrition-data';
 import {IKitchenAppliance} from 'app/shared/model/recipes/kitchen-appliance.model';
 import {KitchenApplianceService} from 'app/entities/recipes/kitchen-appliance';
@@ -19,6 +22,7 @@ import {MealTypeService} from 'app/entities/recipes/meal-type';
 import {IProduct, Product} from 'app/shared/model/products/product.model';
 import {ProductComponent, ProductService} from 'app/entities/products/product';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ProductBasicNutritionData} from 'app/shared/model/products/product-basic-nutrition-data.model';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -52,7 +56,13 @@ export class RecipeUpdateComponent implements OnInit {
     isVisible: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
     totalGramsWeight: [null, [Validators.required, Validators.min(0)]],
-    basicNutritionData: [null, Validators.required],
+    basicNutritionData: this.fb.group({
+      id: [],
+      energy: [null, [Validators.required]],
+      protein: [null, [Validators.required]],
+      fat: [null, [Validators.required]],
+      carbohydrates: [null, [Validators.required]]
+    }),
     recipeSections: this.fb.array([]),
     sourceRecipe: [],
     kitchenAppliances: [],
@@ -79,35 +89,38 @@ export class RecipeUpdateComponent implements OnInit {
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({recipe}) => {
+      if (!recipe.basicNutritionData) {
+        recipe.basicNutritionData = new RecipeBasicNutritionData();
+      }
       console.log(recipe);
       this.updateForm(recipe);
       console.log(this.editForm);
     });
-    this.recipeBasicNutritionDataService
-      .query({filter: 'recipe-is-null'})
-      .pipe(
-        filter((mayBeOk: HttpResponse<IRecipeBasicNutritionData[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IRecipeBasicNutritionData[]>) => response.body)
-      )
-      .subscribe(
-        (res: IRecipeBasicNutritionData[]) => {
-          if (!this.editForm.get('basicNutritionData').value || !this.editForm.get('basicNutritionData').value.id) {
-            this.basicnutritiondata = res;
-          } else {
-            this.recipeBasicNutritionDataService
-              .find(this.editForm.get('basicNutritionData').value.id)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IRecipeBasicNutritionData>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IRecipeBasicNutritionData>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IRecipeBasicNutritionData) => (this.basicnutritiondata = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
+    // this.recipeBasicNutritionDataService
+    //   .query({filter: 'recipe-is-null'})
+    //   .pipe(
+    //     filter((mayBeOk: HttpResponse<IRecipeBasicNutritionData[]>) => mayBeOk.ok),
+    //     map((response: HttpResponse<IRecipeBasicNutritionData[]>) => response.body)
+    //   )
+    //   .subscribe(
+    //     (res: IRecipeBasicNutritionData[]) => {
+    //       if (!this.editForm.get('basicNutritionData').value || !this.editForm.get('basicNutritionData').value.id) {
+    //         this.basicnutritiondata = res;
+    //       } else {
+    //         this.recipeBasicNutritionDataService
+    //           .find(this.editForm.get('basicNutritionData').value.id)
+    //           .pipe(
+    //             filter((subResMayBeOk: HttpResponse<IRecipeBasicNutritionData>) => subResMayBeOk.ok),
+    //             map((subResponse: HttpResponse<IRecipeBasicNutritionData>) => subResponse.body)
+    //           )
+    //           .subscribe(
+    //             (subRes: IRecipeBasicNutritionData) => (this.basicnutritiondata = [subRes].concat(res)),
+    //             (subRes: HttpErrorResponse) => this.onError(subRes.message)
+    //           );
+    //       }
+    //     },
+    //     (res: HttpErrorResponse) => this.onError(res.message)
+    //   );
     this.recipeService
       .query()
       .pipe(
@@ -170,6 +183,11 @@ export class RecipeUpdateComponent implements OnInit {
         this.getRecipeSectionsFormArray().push(recipeSectionsFormGroup);
       }
       this.getRecipeSectionsFormArray().patchValue(recipe.recipeSections);
+      for (const section of this.getRecipeSectionsFormArray().controls) {
+        for (const productPortion of this.getProductPortionsFormArray(section as FormGroup).controls) {
+          this.findProduct(productPortion as FormGroup);
+        }
+      }
     }
   }
 
@@ -222,6 +240,15 @@ export class RecipeUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const recipe = this.createFromForm();
+    for (const section of recipe.recipeSections) {
+      section.preparationSteps = section.preparationSteps.filter(step => step.stepDescription && (step.stepDescription as string).trim().length > 0);
+      for (let i = 0; i < section.preparationSteps.length; ++i) {
+        section.preparationSteps[i].ordinalNumber = i + 1;
+      }
+    }
+    recipe.recipeSections = recipe.recipeSections.filter(section => (section.preparationSteps && section.preparationSteps.length > 0) || (section.productPortions && section.productPortions.length > 0));
+
+    console.log(recipe);
     if (recipe.id !== undefined) {
       this.subscribeToSaveResponse(this.recipeService.update(recipe));
     } else {

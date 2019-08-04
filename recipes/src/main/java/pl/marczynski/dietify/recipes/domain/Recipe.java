@@ -119,7 +119,7 @@ public class Recipe implements Serializable {
     @Column(name = "total_grams_weight", nullable = false)
     private Double totalGramsWeight;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     @NotNull
     @JoinColumn(unique = true)
     private RecipeBasicNutritionData basicNutritionData;
