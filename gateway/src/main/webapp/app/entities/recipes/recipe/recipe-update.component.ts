@@ -4,15 +4,14 @@ import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {Observable} from 'rxjs';
 import {filter, map} from 'rxjs/operators';
+import {JhiAlertService, JhiDataUtils, JhiLanguageService} from 'ng-jhipster';
 import * as moment from 'moment';
-import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
 import {IRecipe, Recipe} from 'app/shared/model/recipes/recipe.model';
 import {RecipeService} from './recipe.service';
 import {
   IRecipeBasicNutritionData,
   RecipeBasicNutritionData
 } from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
-import {RecipeBasicNutritionDataService} from 'app/entities/recipes/recipe-basic-nutrition-data';
 import {IKitchenAppliance} from 'app/shared/model/recipes/kitchen-appliance.model';
 import {KitchenApplianceService} from 'app/entities/recipes/kitchen-appliance';
 import {IDishType} from 'app/shared/model/recipes/dish-type.model';
@@ -22,7 +21,8 @@ import {MealTypeService} from 'app/entities/recipes/meal-type';
 import {IProduct, Product} from 'app/shared/model/products/product.model';
 import {ProductComponent, ProductService} from 'app/entities/products/product';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {ProductBasicNutritionData} from 'app/shared/model/products/product-basic-nutrition-data.model';
+import {JhiLanguageHelper} from 'app/core';
+import {IProductCategoryTranslation} from 'app/shared/model/products/product-category-translation.model';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -42,6 +42,9 @@ export class RecipeUpdateComponent implements OnInit {
   mealtypes: IMealType[];
   creationDateDp: any;
   lastEditDateDp: any;
+
+  languages: any[];
+  lang = 'en';
 
   editForm = this.fb.group({
     id: [],
@@ -74,7 +77,6 @@ export class RecipeUpdateComponent implements OnInit {
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected recipeService: RecipeService,
-    protected recipeBasicNutritionDataService: RecipeBasicNutritionDataService,
     protected kitchenApplianceService: KitchenApplianceService,
     protected dishTypeService: DishTypeService,
     protected mealTypeService: MealTypeService,
@@ -82,7 +84,9 @@ export class RecipeUpdateComponent implements OnInit {
     protected modalService: NgbModal,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private languageService: JhiLanguageService,
+    private languageHelper: JhiLanguageHelper
   ) {
   }
 
@@ -96,31 +100,7 @@ export class RecipeUpdateComponent implements OnInit {
       this.updateForm(recipe);
       console.log(this.editForm);
     });
-    // this.recipeBasicNutritionDataService
-    //   .query({filter: 'recipe-is-null'})
-    //   .pipe(
-    //     filter((mayBeOk: HttpResponse<IRecipeBasicNutritionData[]>) => mayBeOk.ok),
-    //     map((response: HttpResponse<IRecipeBasicNutritionData[]>) => response.body)
-    //   )
-    //   .subscribe(
-    //     (res: IRecipeBasicNutritionData[]) => {
-    //       if (!this.editForm.get('basicNutritionData').value || !this.editForm.get('basicNutritionData').value.id) {
-    //         this.basicnutritiondata = res;
-    //       } else {
-    //         this.recipeBasicNutritionDataService
-    //           .find(this.editForm.get('basicNutritionData').value.id)
-    //           .pipe(
-    //             filter((subResMayBeOk: HttpResponse<IRecipeBasicNutritionData>) => subResMayBeOk.ok),
-    //             map((subResponse: HttpResponse<IRecipeBasicNutritionData>) => subResponse.body)
-    //           )
-    //           .subscribe(
-    //             (subRes: IRecipeBasicNutritionData) => (this.basicnutritiondata = [subRes].concat(res)),
-    //             (subRes: HttpErrorResponse) => this.onError(subRes.message)
-    //           );
-    //       }
-    //     },
-    //     (res: HttpErrorResponse) => this.onError(res.message)
-    //   );
+
     this.recipeService
       .query()
       .pipe(
@@ -149,6 +129,12 @@ export class RecipeUpdateComponent implements OnInit {
         map((response: HttpResponse<IMealType[]>) => response.body)
       )
       .subscribe((res: IMealType[]) => (this.mealtypes = res), (res: HttpErrorResponse) => this.onError(res.message));
+
+    this.languageHelper.getAll().then(languages => {
+      this.languages = languages;
+    });
+    this.languageService.getCurrent().then(res => this.changeLanguage(res));
+    this.languageHelper.language.subscribe((languageKey: string) => this.changeLanguage(languageKey));
   }
 
   updateForm(recipe: IRecipe) {
@@ -412,5 +398,39 @@ export class RecipeUpdateComponent implements OnInit {
 
   removeRecipeSection(sectionIndex: number) {
     this.getRecipeSectionsFormArray().removeAt(sectionIndex);
+  }
+
+  changeLanguage(newLang: string) {
+    if (newLang !== undefined && newLang !== this.lang) {
+      this.lang = newLang;
+      this.reloadTranslations();
+    }
+  }
+
+  private reloadTranslations() {
+    this.mealtypes = [...this.mealtypes];
+    this.dishtypes = [...this.dishtypes];
+    this.kitchenappliances = [...this.kitchenappliances];
+  }
+
+  getMealTypeTranslation(mealType: IMealType): string {
+    const productCategoryTranslation: IProductCategoryTranslation = mealType.translations.find(
+      translation => translation.language === this.lang
+    );
+    return productCategoryTranslation ? productCategoryTranslation.translation : mealType.name;
+  }
+
+  getDishTypeTranslation(dishType: IDishType): string {
+    const productCategoryTranslation: IProductCategoryTranslation = dishType.translations.find(
+      translation => translation.language === this.lang
+    );
+    return productCategoryTranslation ? productCategoryTranslation.translation : dishType.description;
+  }
+
+  getKitchenApplianceTranslation(kitchenAppliance: IKitchenAppliance): string {
+    const productCategoryTranslation: IProductCategoryTranslation = kitchenAppliance.translations.find(
+      translation => translation.language === this.lang
+    );
+    return productCategoryTranslation ? productCategoryTranslation.translation : kitchenAppliance.name;
   }
 }

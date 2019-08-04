@@ -259,19 +259,19 @@
                 <div class="form-group">
                     <label jhiTranslate="gatewayApp.recipesRecipe.kitchenAppliances" for="field_kitchenAppliances">Kitchen Appliances</label>
                     <select class="form-control" id="field_kitchenAppliances" multiple name="kitchenAppliances" formControlName="kitchenAppliances">
-                        <option [ngValue]="getSelected(editForm.get('kitchenAppliances').value, kitchenApplianceOption)" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{kitchenApplianceOption.name}}</option>
+                        <option [ngValue]="getSelected(editForm.get('kitchenAppliances').value, kitchenApplianceOption)" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{getKitchenApplianceTranslation(kitchenApplianceOption)}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label jhiTranslate="gatewayApp.recipesRecipe.dishTypes" for="field_dishTypes">Dish Types</label>
                     <select class="form-control" id="field_dishTypes" multiple name="dishTypes" formControlName="dishTypes">
-                        <option [ngValue]="getSelected(editForm.get('dishTypes').value, dishTypeOption)" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{dishTypeOption.description}}</option>
+                        <option [ngValue]="getSelected(editForm.get('dishTypes').value, dishTypeOption)" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{getDishTypeTranslation(dishTypeOption)}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label jhiTranslate="gatewayApp.recipesRecipe.mealTypes" for="field_mealTypes">Meal Types</label>
                     <select class="form-control" id="field_mealTypes" multiple name="mealTypes" formControlName="mealTypes">
-                        <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{mealTypeOption.name}}</option>
+                        <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{getMealTypeTranslation(mealTypeOption)}}</option>
                     </select>
                 </div>
                 <div formArrayName="recipeSections">
