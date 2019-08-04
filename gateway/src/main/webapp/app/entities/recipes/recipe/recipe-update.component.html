@@ -222,6 +222,89 @@
                         <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{mealTypeOption.name}}</option>
                     </select>
                 </div>
+                <div formArrayName="recipeSections">
+                    <h1>Recipe sections</h1>
+                    <button type="button" class="btn btn-info btn-sm" (click)="addSection()">
+                        <fa-icon [icon]="'plus'"></fa-icon>
+                        <span class="d-none d-md-inline">Add</span>
+                    </button>
+                    <div *ngFor="let recipeSection of getRecipeSectionsFormArray().controls; let sectionIndex = index"
+                         [formGroupName]="sectionIndex">
+                        <h2>{{recipeSection.value.sectionName}}</h2>
+                        <div class="form-group">
+                            <label>Ingredients</label>
+                            <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(recipeSection)">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span class="d-none d-md-inline">Add</span>
+                            </button>
+                            <table formArrayName="productPortions">
+                                <tr *ngFor="let productPortion of getProductPortionsFormArray(recipeSection).controls; let last = last; let portionIndex = index"
+                                    [formGroupName]="portionIndex">
+                                    <td>
+                                        <span
+                                            *ngIf="productPortion.get('product').value">{{productPortion.get('product').value ? productPortion.get('product').value.description : "Can't find product for id"}}</span>
+                                        <input *ngIf="!productPortion.get('product').value" type="text" readonly
+                                               class="form-control"
+                                               name="section{{sectionIndex}}portion{{portionIndex}}productHidden"
+                                               formControlName="product" placeholder="Can't find product for id"
+                                               [required]="productPortion.get('productId').value"/>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" *ngIf="productPortion.get('product').value"
+                                                name="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                                id="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                                formControlName="householdMeasureId">
+                                            <option [ngValue]="null"></option>
+                                            <option
+                                                [ngValue]="measure.id === productPortion.get('householdMeasureId').value ? productPortion.get('householdMeasureId').value : measure.id"
+                                                *ngFor="let measure of productPortion.get('product').value.householdMeasures; trackBy: trackRecipeById">{{measure.description}}</option>
+                                        </select>
+                                        <select class="form-control" *ngIf="!productPortion.get('product').value"
+                                                name="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"
+                                                id="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"
+                                                formControlName="householdMeasureId">
+                                            <option [ngValue]="null"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                               name="section{{sectionIndex}}portion{{portionIndex}}amount"
+                                               formControlName="amount"
+                                               [required]="productPortion.get('productId').value"
+                                               jhiMin="0.00001" placeholder="Amount"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                (click)="removeIngredientFromSection(recipeSection, portionIndex)">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group" formArrayName="preparationSteps">
+                            <label>Preparation Steps</label>
+                            <table>
+                            <tr
+                                *ngFor="let preparationStep of getPreparationStepsFormArray(recipeSection).controls; let last = last; let preparationIndex = index"
+                                [formGroupName]="preparationIndex">
+                                <td>
+                                <input type="text" class="form-control"
+                                       formControlName="stepDescription"
+                                       (keyup)="updatePreparationSteps(recipeSection)"
+                                       placeholder="Step description..."/>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="removePreparationStepFromSection(recipeSection, preparationIndex)">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">

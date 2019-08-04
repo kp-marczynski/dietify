@@ -1,21 +1,27 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {Component, OnInit, ElementRef} from '@angular/core';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {FormArray, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { IRecipe, Recipe } from 'app/shared/model/recipes/recipe.model';
-import { RecipeService } from './recipe.service';
-import { IRecipeBasicNutritionData } from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
-import { RecipeBasicNutritionDataService } from 'app/entities/recipes/recipe-basic-nutrition-data';
-import { IKitchenAppliance } from 'app/shared/model/recipes/kitchen-appliance.model';
-import { KitchenApplianceService } from 'app/entities/recipes/kitchen-appliance';
-import { IDishType } from 'app/shared/model/recipes/dish-type.model';
-import { DishTypeService } from 'app/entities/recipes/dish-type';
-import { IMealType } from 'app/shared/model/recipes/meal-type.model';
-import { MealTypeService } from 'app/entities/recipes/meal-type';
+import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import {IRecipe, Recipe} from 'app/shared/model/recipes/recipe.model';
+import {RecipeService} from './recipe.service';
+import {IRecipeBasicNutritionData} from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
+import {RecipeBasicNutritionDataService} from 'app/entities/recipes/recipe-basic-nutrition-data';
+import {IKitchenAppliance} from 'app/shared/model/recipes/kitchen-appliance.model';
+import {KitchenApplianceService} from 'app/entities/recipes/kitchen-appliance';
+import {IDishType} from 'app/shared/model/recipes/dish-type.model';
+import {DishTypeService} from 'app/entities/recipes/dish-type';
+import {IMealType} from 'app/shared/model/recipes/meal-type.model';
+import {MealTypeService} from 'app/entities/recipes/meal-type';
+import {IProductPortion, ProductPortion} from 'app/shared/model/recipes/product-portion.model';
+import {IProduct, Product} from 'app/shared/model/products/product.model';
+import {IRecipeSection} from 'app/shared/model/recipes/recipe-section.model';
+import {ProductComponent, ProductService} from 'app/entities/products/product';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {PreparationStep} from 'app/shared/model/recipes/preparation-step.model';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -50,6 +56,7 @@ export class RecipeUpdateComponent implements OnInit {
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
     totalGramsWeight: [null, [Validators.required, Validators.min(0)]],
     basicNutritionData: [null, Validators.required],
+    recipeSections: this.fb.array([]),
     sourceRecipe: [],
     kitchenAppliances: [],
     dishTypes: [],
@@ -64,18 +71,21 @@ export class RecipeUpdateComponent implements OnInit {
     protected kitchenApplianceService: KitchenApplianceService,
     protected dishTypeService: DishTypeService,
     protected mealTypeService: MealTypeService,
+    protected productService: ProductService,
+    protected modalService: NgbModal,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ recipe }) => {
+    this.activatedRoute.data.subscribe(({recipe}) => {
       this.updateForm(recipe);
     });
     this.recipeBasicNutritionDataService
-      .query({ filter: 'recipe-is-null' })
+      .query({filter: 'recipe-is-null'})
       .pipe(
         filter((mayBeOk: HttpResponse<IRecipeBasicNutritionData[]>) => mayBeOk.ok),
         map((response: HttpResponse<IRecipeBasicNutritionData[]>) => response.body)
@@ -242,6 +252,7 @@ export class RecipeUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
+
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
@@ -275,5 +286,87 @@ export class RecipeUpdateComponent implements OnInit {
       }
     }
     return option;
+  }
+
+  findProduct(productPortion: FormGroup): void {
+    this.productService.find(productPortion.get('productId').value).subscribe(
+      (res: HttpResponse<IProduct>) => productPortion.patchValue({product: res.body}),
+      (res: HttpErrorResponse) => productPortion.patchValue({product: null})
+    );
+  }
+
+  addIngredient(recipeSection: FormGroup) {
+    const modalRef = this.modalService.open(ProductComponent, {windowClass: 'custom-modal'});
+
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry: Product) => {
+      modalRef.close();
+
+      const productPortionsFormGroup = this.getProductPortionsFormGroup();
+      productPortionsFormGroup.patchValue({productId: receivedEntry.id});
+      this.getProductPortionsFormArray(recipeSection).push(productPortionsFormGroup);
+      this.findProduct(productPortionsFormGroup);
+    });
+  }
+
+  removeIngredientFromSection(recipeSection: FormGroup, portionIndex: number): void {
+    this.getProductPortionsFormArray(recipeSection).removeAt(portionIndex);
+  }
+
+  removePreparationStepFromSection(recipeSection: FormGroup, preparationIndex: number) {
+    this.getPreparationStepsFormArray(recipeSection).removeAt(preparationIndex);
+  }
+
+  updatePreparationSteps(recipeSection: FormGroup) {
+    const preparationStepsArray = this.getPreparationStepsFormArray(recipeSection);
+    for (let i = preparationStepsArray.length - 1; i >= 0; --i) {
+      if (!preparationStepsArray.controls[i].get('stepDescription').value) {
+        preparationStepsArray.removeAt(i);
+      }
+    }
+    preparationStepsArray.push(this.getPreparationStepsFormGroup());
+    recipeSection.setControl('preparationSteps', preparationStepsArray);
+  }
+
+  getRecipeSectionsFormArray(): FormArray {
+    return this.editForm.get('recipeSections') as FormArray;
+  }
+
+  getRecipeSectionsFormGroup() {
+    return this.fb.group({
+      id: [],
+      sectionName: [null, [Validators.minLength(1), Validators.maxLength(255)]],
+      productPortions: this.fb.array([]),
+      preparationSteps: this.fb.array([this.getPreparationStepsFormGroup()])
+    });
+  }
+
+  getPreparationStepsFormArray(recipeSection: FormGroup): FormArray {
+    return recipeSection.get('preparationSteps') as FormArray;
+  }
+
+  getPreparationStepsFormGroup() {
+    return this.fb.group({
+      id: [],
+      ordinalNumber: [],
+      stepDescription: []
+    });
+  }
+
+  getProductPortionsFormArray(recipeSection: FormGroup): FormArray {
+    return recipeSection.get('productPortions') as FormArray;
+  }
+
+  getProductPortionsFormGroup() {
+    return this.fb.group({
+      id: [],
+      amount: [null, [Validators.required, Validators.min(0)]],
+      productId: [null, [Validators.required]],
+      householdMeasureId: [],
+      product: []
+    });
+  }
+
+  addSection() {
+    this.getRecipeSectionsFormArray().push(this.getRecipeSectionsFormGroup());
   }
 }

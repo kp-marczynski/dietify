@@ -13,13 +13,13 @@ import {
   productRoute,
   productPopupRoute
 } from './';
+import {ProductsProductListModule} from 'app/entities/products/product/product-list.module';
 
 const ENTITY_STATES = [...productRoute, ...productPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), ProductsProductListModule],
   declarations: [
-    ProductComponent,
     ProductDetailComponent,
     ProductUpdateComponent,
     ProductDeleteDialogComponent,
