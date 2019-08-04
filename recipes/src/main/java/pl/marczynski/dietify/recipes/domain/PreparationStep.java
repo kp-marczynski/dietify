@@ -46,11 +46,6 @@ public class PreparationStep implements Serializable {
     @Column(name = "step_description")
     private String stepDescription;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("preparationSteps")
-    private RecipeSection recipeSection;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -76,13 +71,6 @@ public class PreparationStep implements Serializable {
         this.stepDescription = stepDescription;
     }
 
-    public RecipeSection getRecipeSection() {
-        return recipeSection;
-    }
-
-    public void setRecipeSection(RecipeSection recipeSection) {
-        this.recipeSection = recipeSection;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

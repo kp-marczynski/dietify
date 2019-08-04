@@ -193,3 +193,9 @@ ui bootstrap tweaks
 input[type='checkbox'] {
   min-width: 40px;
 }
+
+.custom-modal .modal-dialog {
+  max-width: 80% !important;
+  min-width: 80% !important;
+  width: 80% !important;
+}

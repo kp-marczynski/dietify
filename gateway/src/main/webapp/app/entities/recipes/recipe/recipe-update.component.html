@@ -184,18 +184,70 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.basicNutritionData" for="field_basicNutritionData">Basic Nutrition Data</label>
-                    <select class="form-control" id="field_basicNutritionData" name="basicNutritionData" formControlName="basicNutritionData">
-                        <option *ngIf="!editForm.get('basicNutritionData').value" [ngValue]="null" selected></option>
-                        <option [ngValue]="recipeBasicNutritionDataOption.id === editForm.get('basicNutritionData').value?.id ? editForm.get('basicNutritionData').value : recipeBasicNutritionDataOption" *ngFor="let recipeBasicNutritionDataOption of basicnutritiondata; trackBy: trackRecipeBasicNutritionDataById">{{recipeBasicNutritionDataOption.id}}</option>
-                    </select>
-                </div>
-                <div *ngIf="editForm.get('basicNutritionData').invalid && (editForm.get('basicNutritionData').dirty || editForm.get('basicNutritionData').touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('basicNutritionData').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
+                <div class="form-group" formGroupName="basicNutritionData">
+                    <span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span>
+                    <table>
+                        <tr>
+                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.energy" for="field_energy" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.energy' | translate">Energy</label></td>
+                            <td><input type="text" class="form-control" name="energy" id="field_energy"
+                                       formControlName="energy"/></td>
+                            <td *ngIf="editForm.get('basicNutritionData').get('energy').invalid && (editForm.get('basicNutritionData').get('energy').dirty || editForm.get('basicNutritionData').get('energy').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('energy').errors.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('energy').errors.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.protein" for="field_protein" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.protein' | translate">protein</label></td>
+                            <td><input type="text" class="form-control" name="protein" id="field_protein"
+                                       formControlName="protein"/></td>
+                            <td *ngIf="editForm.get('basicNutritionData').get('protein').invalid && (editForm.get('basicNutritionData').get('protein').dirty || editForm.get('basicNutritionData').get('protein').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('protein').errors.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('protein').errors.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.fat" for="field_fat" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.fat' | translate">fat</label></td>
+                            <td><input type="text" class="form-control" name="fat" id="field_fat"
+                                       formControlName="fat"/></td>
+                            <td *ngIf="editForm.get('basicNutritionData').get('fat').invalid && (editForm.get('basicNutritionData').get('fat').dirty || editForm.get('basicNutritionData').get('fat').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('fat').errors.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('fat').errors.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.carbohydrates" for="field_carbohydrates" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.carbohydrates' | translate">carbohydrates</label></td>
+                            <td><input type="text" class="form-control" name="carbohydrates" id="field_carbohydrates"
+                                       formControlName="carbohydrates"/></td>
+                            <td *ngIf="editForm.get('basicNutritionData').get('carbohydrates').invalid && (editForm.get('basicNutritionData').get('carbohydrates').dirty || editForm.get('basicNutritionData').get('carbohydrates').touched)">
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('carbohydrates').errors.required" jhiTranslate="entity.validation.required">
+                                    This field is required.
+                                </small>
+                                <small class="form-text text-danger"
+                                       *ngIf="editForm.get('basicNutritionData').get('carbohydrates').errors.number" jhiTranslate="entity.validation.number">
+                                    This field should be a number.
+                                </small>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe" for="field_sourceRecipe">Source Recipe</label>
@@ -207,20 +259,114 @@
                 <div class="form-group">
                     <label jhiTranslate="gatewayApp.recipesRecipe.kitchenAppliances" for="field_kitchenAppliances">Kitchen Appliances</label>
                     <select class="form-control" id="field_kitchenAppliances" multiple name="kitchenAppliances" formControlName="kitchenAppliances">
-                        <option [ngValue]="getSelected(editForm.get('kitchenAppliances').value, kitchenApplianceOption)" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{kitchenApplianceOption.name}}</option>
+                        <option [ngValue]="getSelected(editForm.get('kitchenAppliances').value, kitchenApplianceOption)" *ngFor="let kitchenApplianceOption of kitchenappliances; trackBy: trackKitchenApplianceById">{{getKitchenApplianceTranslation(kitchenApplianceOption)}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label jhiTranslate="gatewayApp.recipesRecipe.dishTypes" for="field_dishTypes">Dish Types</label>
                     <select class="form-control" id="field_dishTypes" multiple name="dishTypes" formControlName="dishTypes">
-                        <option [ngValue]="getSelected(editForm.get('dishTypes').value, dishTypeOption)" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{dishTypeOption.description}}</option>
+                        <option [ngValue]="getSelected(editForm.get('dishTypes').value, dishTypeOption)" *ngFor="let dishTypeOption of dishtypes; trackBy: trackDishTypeById">{{getDishTypeTranslation(dishTypeOption)}}</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label jhiTranslate="gatewayApp.recipesRecipe.mealTypes" for="field_mealTypes">Meal Types</label>
                     <select class="form-control" id="field_mealTypes" multiple name="mealTypes" formControlName="mealTypes">
-                        <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{mealTypeOption.name}}</option>
+                        <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{getMealTypeTranslation(mealTypeOption)}}</option>
                     </select>
+                </div>
+                <div formArrayName="recipeSections">
+                    <h1>
+                        <span jhiTranslate="gatewayApp.recipesRecipe.recipeSections">Recipe sections</span>
+                        <button type="button" class="btn btn-info btn-sm" (click)="addSection()">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
+                        </button>
+                    </h1>
+                    <div *ngFor="let recipeSection of getRecipeSectionsFormArray().controls; let sectionIndex = index"
+                         [formGroupName]="sectionIndex">
+                        <h2>
+                            {{'gatewayApp.recipesRecipeSection.detail.title' | translate}} {{sectionIndex + 1}}
+                            <button type="button" class="btn btn-danger btn-sm"
+                                    (click)="removeRecipeSection(sectionIndex)">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </h2>
+                        <input class="form-control" type="text" formControlName="sectionName" [placeholder]="'gatewayApp.recipesRecipeSection.sectionName' | translate"/>
+                        <div class="form-group">
+                            <label jhiTranslate="gatewayApp.recipesRecipeSection.productPortions">Ingredients</label>
+                            <button type="button" class="btn btn-info btn-sm" (click)="addIngredient(recipeSection)">
+                                <fa-icon [icon]="'plus'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
+                            </button>
+                            <table formArrayName="productPortions">
+                                <tr *ngFor="let productPortion of getProductPortionsFormArray(recipeSection).controls; let last = last; let portionIndex = index"
+                                    [formGroupName]="portionIndex">
+                                    <td>
+                                        <span
+                                            *ngIf="productPortion.get('product').value">{{productPortion.get('product').value ? productPortion.get('product').value.description : "Can't find product for id"}}</span>
+                                        <input *ngIf="!productPortion.get('product').value" type="text" readonly
+                                               class="form-control"
+                                               name="section{{sectionIndex}}portion{{portionIndex}}productHidden"
+                                               formControlName="product" placeholder="Can't find product for id"
+                                               [required]="productPortion.get('productId').value"
+                                               [placeholder]="'gatewayApp.recipesProductPortion.productId' | translate"/>
+                                    </td>
+                                    <td>
+                                        <select class="form-control" *ngIf="productPortion.get('product').value"
+                                                name="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                                id="section{{sectionIndex}}portion{{portionIndex}}measureId"
+                                                formControlName="householdMeasureId">
+                                            <option [ngValue]="null"></option>
+                                            <option
+                                                [ngValue]="measure.id === productPortion.get('householdMeasureId').value ? productPortion.get('householdMeasureId').value : measure.id"
+                                                *ngFor="let measure of productPortion.get('product').value.householdMeasures; trackBy: trackRecipeById">{{measure.description}}</option>
+                                        </select>
+                                        <select class="form-control" *ngIf="!productPortion.get('product').value"
+                                                name="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"
+                                                id="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"
+                                                formControlName="householdMeasureId">
+                                            <option [ngValue]="null"></option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                               name="section{{sectionIndex}}portion{{portionIndex}}amount"
+                                               formControlName="amount"
+                                               [required]="productPortion.get('productId').value"
+                                               jhiMin="0.00001" placeholder="Amount"
+                                               [placeholder]="'gatewayApp.recipesProductPortion.amount' | translate"/>
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                (click)="removeIngredientFromSection(recipeSection, portionIndex)">
+                                            <fa-icon [icon]="'times'"></fa-icon>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group" formArrayName="preparationSteps">
+                            <label jhiTranslate="gatewayApp.recipesRecipeSection.preparationSteps">Preparation Steps</label>
+                            <table>
+                            <tr
+                                *ngFor="let preparationStep of getPreparationStepsFormArray(recipeSection).controls; let last = last; let preparationIndex = index"
+                                [formGroupName]="preparationIndex">
+                                <td>
+                                <input type="text" class="form-control"
+                                       formControlName="stepDescription"
+                                       (keyup)="updatePreparationSteps(recipeSection)"
+                                       [placeholder]="'gatewayApp.recipesPreparationStep.stepDescription' | translate"/>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-danger btn-sm"
+                                            (click)="removePreparationStepFromSection(recipeSection, preparationIndex)">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                    </button>
+                                </td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div>

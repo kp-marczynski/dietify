@@ -50,10 +50,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: './recipes/recipe/recipe.module#RecipesRecipeModule'
       },
       {
-        path: 'recipe-basic-nutrition-data',
-        loadChildren: './recipes/recipe-basic-nutrition-data/recipe-basic-nutrition-data.module#RecipesRecipeBasicNutritionDataModule'
-      },
-      {
         path: 'dish-type',
         loadChildren: './recipes/dish-type/dish-type.module#RecipesDishTypeModule'
       },
@@ -77,18 +73,6 @@ import { RouterModule } from '@angular/router';
         path: 'kitchen-appliance-translation',
         loadChildren:
           './recipes/kitchen-appliance-translation/kitchen-appliance-translation.module#RecipesKitchenApplianceTranslationModule'
-      },
-      {
-        path: 'recipe-section',
-        loadChildren: './recipes/recipe-section/recipe-section.module#RecipesRecipeSectionModule'
-      },
-      {
-        path: 'preparation-step',
-        loadChildren: './recipes/preparation-step/preparation-step.module#RecipesPreparationStepModule'
-      },
-      {
-        path: 'product-portion',
-        loadChildren: './recipes/product-portion/product-portion.module#RecipesProductPortionModule'
       },
       {
         path: 'recipe-suitable-for-diet',

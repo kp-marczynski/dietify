@@ -119,12 +119,13 @@ public class Recipe implements Serializable {
     @Column(name = "total_grams_weight", nullable = false)
     private Double totalGramsWeight;
 
-    @OneToOne(optional = false)    @NotNull
-
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotNull
     @JoinColumn(unique = true)
     private RecipeBasicNutritionData basicNutritionData;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "recipe_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<RecipeSection> recipeSections = new HashSet<>();
 

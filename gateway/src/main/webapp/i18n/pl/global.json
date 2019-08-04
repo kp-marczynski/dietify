@@ -134,6 +134,7 @@
   },
   "entity": {
     "action": {
+      "add": "Dodaj",
       "addblob": "Dodaj dane binarne",
       "addimage": "Dodaj zdjęcie",
       "back": "Wstecz",
