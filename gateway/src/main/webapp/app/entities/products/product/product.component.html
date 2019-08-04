@@ -32,36 +32,46 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="source"><span jhiTranslate="gatewayApp.productsProduct.source">Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="authorId"><span jhiTranslate="gatewayApp.productsProduct.authorId">Author Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="description"><span jhiTranslate="gatewayApp.productsProduct.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="isFinal"><span jhiTranslate="gatewayApp.productsProduct.isFinal">Is Final</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="isVerified"><span jhiTranslate="gatewayApp.productsProduct.isVerified">Is Verified</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="language"><span jhiTranslate="gatewayApp.productsProduct.language">Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="basicNutritionData.id"><span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="subcategory.description"><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="source"><span jhiTranslate="gatewayApp.productsProduct.source">Source</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="authorId"><span jhiTranslate="gatewayApp.productsProduct.authorId">Author Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="description"><span jhiTranslate="gatewayApp.productsProduct.description">Description</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+<!--            <th jhiSortBy="isFinal"><span jhiTranslate="gatewayApp.productsProduct.isFinal">Is Final</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="isVerified"><span jhiTranslate="gatewayApp.productsProduct.isVerified">Is Verified</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="language"><span jhiTranslate="gatewayApp.productsProduct.language">Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+            <th jhiSortBy="subcategory.description"><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="basicNutritionData.energy"><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.energy">Energy</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="basicNutritionData.protein"><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.protein">Protein</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="basicNutritionData.fat"><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.fat">Fat</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="basicNutritionData.carbohydrates"><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.carbohydrates">Carbohydrates</span>&nbsp;<fa-icon [icon]="'sort'"></fa-icon></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let product of products ;trackBy: trackId">
-                <td><a [routerLink]="['/product', product.id, 'view' ]">{{product.id}}</a></td>
-                <td>{{product.source}}</td>
-                <td>{{product.authorId}}</td>
+<!--                <td><a [routerLink]="['/product', product.id, 'view' ]">{{product.id}}</a></td>-->
+<!--                <td>{{product.source}}</td>-->
+<!--                <td>{{product.authorId}}</td>-->
                 <td>{{product.description}}</td>
-                <td>{{product.isFinal}}</td>
-                <td>{{product.isVerified}}</td>
-                <td>{{product.language}}</td>
-                <td>
-                    <div *ngIf="product.basicNutritionData">
-                        <a [routerLink]="['../product-basic-nutrition-data', product.basicNutritionData?.id, 'view' ]" >{{product.basicNutritionData?.id}}</a>
-                    </div>
-                </td>
+<!--                <td>{{product.isFinal}}</td>-->
+<!--                <td>{{product.isVerified}}</td>-->
+<!--                <td>{{product.language}}</td>-->
                 <td>
                     <div *ngIf="product.subcategory">
                         <a [routerLink]="['../product-subcategory', product.subcategory?.id, 'view' ]" >{{product.subcategory?.description}}</a>
                     </div>
+                </td>
+                <td>
+                    <div *ngIf="product.basicNutritionData">{{product.basicNutritionData.energy}}</div>
+                </td>
+                <td>
+                    <div *ngIf="product.basicNutritionData">{{product.basicNutritionData.protein}}</div>
+                </td>
+                <td>
+                    <div *ngIf="product.basicNutritionData">{{product.basicNutritionData.fat}}</div>
+                </td>
+                <td>
+                    <div *ngIf="product.basicNutritionData">{{product.basicNutritionData.carbohydrates}}</div>
                 </td>
                 <td class="text-right">
                     <div class="btn-group" *ngIf="standaloneView">
