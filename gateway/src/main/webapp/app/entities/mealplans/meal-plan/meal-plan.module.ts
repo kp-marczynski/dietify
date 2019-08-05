@@ -13,11 +13,12 @@ import {
   mealPlanRoute,
   mealPlanPopupRoute
 } from './';
+import { NgbModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 
 const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), NgbTabsetModule, NgbModule],
   declarations: [
     MealPlanComponent,
     MealPlanDetailComponent,

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
@@ -28,7 +28,9 @@ export class MealPlanUpdateComponent implements OnInit {
     totalDailyEnergy: [null, [Validators.required, Validators.min(1)]],
     percentOfProtein: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     percentOfFat: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
-    percentOfCarbohydrates: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
+    percentOfCarbohydrates: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
+    mealDefinitions: this.fb.array([]),
+    days: this.fb.array([])
   });
 
   constructor(protected mealPlanService: MealPlanService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -37,6 +39,75 @@ export class MealPlanUpdateComponent implements OnInit {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ mealPlan }) => {
       this.updateForm(mealPlan);
+    });
+
+    this.editForm.get('numberOfMealsPerDay').valueChanges.subscribe(numberOfMeals => this.numberOfMealsPerDayChanged());
+    this.editForm.get('numberOfDays').valueChanges.subscribe(numberOfDays => this.numberOfDaysChanged());
+  }
+
+  getMealDefinitionsFormArray() {
+    return this.editForm.get('mealDefinitions') as FormArray;
+  }
+
+  getMealDefinitionsFormGroup() {
+    return this.fb.group({
+      id: [],
+      ordinalNumber: [],
+      mealTypeId: [],
+      timeOfMeal: [null, [Validators.required, Validators.pattern('d{2}:d{2}')]],
+      percentOfEnergy: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
+    });
+  }
+
+  getDaysFormArray() {
+    return this.editForm.get('days') as FormArray;
+  }
+
+  getDaysFormGroup() {
+    return this.fb.group({
+      id: [],
+      ordinalNumber: [],
+      meals: this.fb.array([])
+    });
+  }
+
+  getMealsFormArray(day: FormGroup) {
+    return day.get('meals') as FormArray;
+  }
+
+  getMealsFormGroup() {
+    return this.fb.group({
+      id: [],
+      ordinalNumber: [],
+      recipes: this.fb.array([]),
+      products: this.fb.array([])
+    });
+  }
+
+  getMealRecipesFormArray(meal: FormGroup) {
+    return meal.get('recipes') as FormArray;
+  }
+
+  getMealRecipesFormGroup() {
+    return this.fb.group({
+      id: [],
+      recipeId: [null, [Validators.required]],
+      recipe: [],
+      amount: [null, [Validators.required, Validators.min(0)]]
+    });
+  }
+
+  getMealProductsFormArray(meal: FormGroup) {
+    return meal.get('products') as FormArray;
+  }
+
+  getMealProductsFormGroup() {
+    return this.fb.group({
+      id: [],
+      productId: [null, [Validators.required]],
+      product: [],
+      householdMeasureId: [],
+      amount: [null, [Validators.required, Validators.min(0)]]
     });
   }
 
@@ -102,5 +173,62 @@ export class MealPlanUpdateComponent implements OnInit {
 
   protected onSaveError() {
     this.isSaving = false;
+  }
+
+  numberOfDaysChanged() {
+    const daysFormArray = this.getDaysFormArray();
+    const numberOfDays = this.editForm.get('numberOfDays').value;
+    if (numberOfDays && numberOfDays > 0) {
+      if (numberOfDays !== daysFormArray.controls.length) {
+        for (let i = daysFormArray.controls.length - 1; i >= numberOfDays; --i) {
+          daysFormArray.removeAt(i);
+        }
+        for (let i = daysFormArray.controls.length; i < numberOfDays; ++i) {
+          const daysFormGroup = this.getDaysFormGroup();
+          daysFormGroup.patchValue({ ordinalNumber: i + 1 });
+          daysFormArray.push(daysFormGroup);
+        }
+        this.numberOfMealsPerDayChanged();
+      }
+    }
+  }
+
+  numberOfMealsPerDayChanged() {
+    const numberOfMeals = this.editForm.get('numberOfMealsPerDay').value;
+    const mealDefinitionsFormArray = this.getMealDefinitionsFormArray();
+    if (numberOfMeals && numberOfMeals > 0) {
+      if (mealDefinitionsFormArray.controls.length !== numberOfMeals) {
+        for (let i = mealDefinitionsFormArray.controls.length - 1; i >= numberOfMeals; --i) {
+          mealDefinitionsFormArray.removeAt(i);
+        }
+        for (let i = mealDefinitionsFormArray.controls.length; i < numberOfMeals; ++i) {
+          const mealDefinitionsFormGroup = this.getMealDefinitionsFormGroup();
+          mealDefinitionsFormGroup.patchValue({ ordinalNumber: i + 1 });
+          mealDefinitionsFormArray.push(mealDefinitionsFormGroup);
+        }
+        console.log(mealDefinitionsFormArray);
+      }
+
+      if (this.editForm.get('numberOfDays').value) {
+        if (this.getDaysFormArray().controls.length !== this.editForm.get('numberOfDays').value) {
+          this.numberOfDaysChanged();
+        } else {
+          for (const day of this.getDaysFormArray().controls) {
+            const mealsFormArray = this.getMealsFormArray(day as FormGroup);
+            if (mealsFormArray.controls.length !== numberOfMeals) {
+              for (let i = mealsFormArray.controls.length - 1; i >= numberOfMeals; --i) {
+                mealsFormArray.removeAt(i);
+              }
+              for (let i = mealsFormArray.controls.length; i < numberOfMeals; ++i) {
+                const mealsFormGroup = this.getMealsFormGroup();
+                mealsFormGroup.patchValue({ ordinalNumber: i + 1 });
+                mealsFormArray.push(mealsFormGroup);
+              }
+            }
+          }
+        }
+      }
+    }
+    console.log(this.editForm);
   }
 }
