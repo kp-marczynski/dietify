@@ -13,14 +13,16 @@ import {
   mealRoute,
   mealPopupRoute
 } from './';
+import {ProductsProductListModule} from 'app/entities/products/product/product-list.module';
 
 const ENTITY_STATES = [...mealRoute, ...mealPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule, ProductsProductListModule],
   declarations: [MealComponent, MealDetailComponent, MealUpdateComponent, MealDeleteDialogComponent, MealDeletePopupComponent],
   entryComponents: [MealComponent, MealUpdateComponent, MealDeleteDialogComponent, MealDeletePopupComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+  exports: [MealUpdateComponent, MealDetailComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MealplansMealModule {

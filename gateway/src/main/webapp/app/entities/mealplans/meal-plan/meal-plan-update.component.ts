@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import {Component, OnInit} from '@angular/core';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {FormBuilder, Validators, FormArray, FormGroup} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
 import * as moment from 'moment';
-import { IMealPlan, MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
-import { MealPlanService } from './meal-plan.service';
+import {IMealPlan, MealPlan} from 'app/shared/model/mealplans/meal-plan.model';
+import {MealPlanService} from './meal-plan.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MealUpdateComponent} from 'app/entities/mealplans/meal';
 
 @Component({
   selector: 'jhi-meal-plan-update',
@@ -33,11 +35,16 @@ export class MealPlanUpdateComponent implements OnInit {
     days: this.fb.array([])
   });
 
-  constructor(protected mealPlanService: MealPlanService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected mealPlanService: MealPlanService,
+    protected activatedRoute: ActivatedRoute,
+    protected modalService: NgbModal,
+    private fb: FormBuilder) {
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ mealPlan }) => {
+    this.activatedRoute.data.subscribe(({mealPlan}) => {
       this.updateForm(mealPlan);
     });
 
@@ -185,7 +192,7 @@ export class MealPlanUpdateComponent implements OnInit {
         }
         for (let i = daysFormArray.controls.length; i < numberOfDays; ++i) {
           const daysFormGroup = this.getDaysFormGroup();
-          daysFormGroup.patchValue({ ordinalNumber: i + 1 });
+          daysFormGroup.patchValue({ordinalNumber: i + 1});
           daysFormArray.push(daysFormGroup);
         }
         this.numberOfMealsPerDayChanged();
@@ -203,7 +210,7 @@ export class MealPlanUpdateComponent implements OnInit {
         }
         for (let i = mealDefinitionsFormArray.controls.length; i < numberOfMeals; ++i) {
           const mealDefinitionsFormGroup = this.getMealDefinitionsFormGroup();
-          mealDefinitionsFormGroup.patchValue({ ordinalNumber: i + 1 });
+          mealDefinitionsFormGroup.patchValue({ordinalNumber: i + 1});
           mealDefinitionsFormArray.push(mealDefinitionsFormGroup);
         }
         console.log(mealDefinitionsFormArray);
@@ -221,7 +228,7 @@ export class MealPlanUpdateComponent implements OnInit {
               }
               for (let i = mealsFormArray.controls.length; i < numberOfMeals; ++i) {
                 const mealsFormGroup = this.getMealsFormGroup();
-                mealsFormGroup.patchValue({ ordinalNumber: i + 1 });
+                mealsFormGroup.patchValue({ordinalNumber: i + 1});
                 mealsFormArray.push(mealsFormGroup);
               }
             }
@@ -231,4 +238,89 @@ export class MealPlanUpdateComponent implements OnInit {
     }
     console.log(this.editForm);
   }
+
+  editMeal(meal: FormGroup) {
+    const modalRef = this.modalService.open(MealUpdateComponent, {windowClass: 'custom-modal'});
+    modalRef.componentInstance.expectedEnergy = this.getMealDefinitionsFormArray().controls[meal.get('ordinalNumber').value - 1].get('percentOfEnergy').value * this.editForm.get('totalDailyEnergy').value;
+
+    modalRef.componentInstance.meal = meal;
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry: FormGroup) => {
+      modalRef.close();
+
+      // meal.mealRecipes = receivedEntry.mealRecipes;
+      // meal.mealProducts = receivedEntry.mealProducts;
+      // this.findMealProductsAndRecipes(meal);
+    });
+
+    modalRef.componentInstance.mealChanged.subscribe((receivedEntry: FormGroup) => {
+      console.log('meal changed');
+      // this.findMealProductsAndRecipes(receivedEntry);
+    });
+
+    // modalRef.result.then(
+    //   () => this.findMealProductsAndRecipes(meal),
+    //   () => this.findMealProductsAndRecipes(meal)
+    // );
+  }
+
+  //
+  // findMealProductsAndRecipes(meal: IMeal) {
+  //   if (meal.mealProducts) {
+  //     for (const product of meal.mealProducts) {
+  //       this.findProduct(product);
+  //     }
+  //   }
+  //   if (meal.mealRecipes) {
+  //     for (const recipe of meal.mealRecipes) {
+  //       this.findRecipe(recipe);
+  //     }
+  //   }
+  // }
+
+  // findProductsAndRecipes(): void {
+  //   if (this.mealPlan.days) {
+  //     for (const day of this.mealPlan.days) {
+  //       if (day.meals) {
+  //         for (const meal of day.meals) {
+  //           this.findMealProductsAndRecipes(meal);
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
+  //
+  // findProduct(mealProduct: IMealProduct): void {
+  //   this.productService.find(mealProduct.productId).subscribe(
+  //     (res: HttpResponse<IProduct>) => mealProduct.product = res.body,
+  //     (res: HttpErrorResponse) => mealProduct.product = null
+  //   );
+  //   this.productService.getBasicNutrtions([new BasicNutritionRequest(mealProduct.productId, mealProduct.amount, mealProduct.householdMeasureId)])
+  //     .subscribe((res: HttpResponse<IBasicNutritionResponse>) => {
+  //       mealProduct.basicNutritionData = res.body;
+  //       this.updateDays();
+  //     });
+  // }
+  //
+  // findRecipe(mealRecipe: IMealRecipe): void {
+  //   this.recipeService.find(mealRecipe.recipeId).subscribe(
+  //     (res: HttpResponse<IRecipe>) => {
+  //       mealRecipe.recipe = res.body;
+  //       const request: IBasicNutritionRequest[] = [];
+  //       for (const section of mealRecipe.recipe.recipeSections) {
+  //         for (const portion of section.productPortions) {
+  //           request.push(new BasicNutritionRequest(portion.productId, portion.amount, portion.householdMeasureId));
+  //         }
+  //       }
+  //       this.productService.getBasicNutrtions(request)
+  //         .subscribe((res2: HttpResponse<IBasicNutritionResponse>) => {
+  //           mealRecipe.basicNutritionData = new BasicNutritionResponse(0, 0, 0, 0, 0);
+  //           mealRecipe.basicNutritionData.addNutritions(res2.body);
+  //
+  //           mealRecipe.basicNutritionData.scaleForWeight(mealRecipe.amount);
+  //           this.updateDays();
+  //         });
+  //     },
+  //     (res: HttpErrorResponse) => mealRecipe.recipe = null
+  //   );
+  // }
 }

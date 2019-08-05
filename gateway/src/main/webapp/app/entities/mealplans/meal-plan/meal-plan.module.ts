@@ -14,11 +14,13 @@ import {
   mealPlanPopupRoute
 } from './';
 import { NgbModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
+import { MealDetailComponent, MealUpdateComponent} from 'app/entities/mealplans/meal';
+import {MealplansMealModule} from "app/entities/mealplans/meal/meal.module";
 
 const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), NgbTabsetModule, NgbModule],
+  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), NgbTabsetModule, NgbModule, MealplansMealModule],
   declarations: [
     MealPlanComponent,
     MealPlanDetailComponent,
@@ -26,7 +28,7 @@ const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
     MealPlanDeleteDialogComponent,
     MealPlanDeletePopupComponent
   ],
-  entryComponents: [MealPlanComponent, MealPlanUpdateComponent, MealPlanDeleteDialogComponent, MealPlanDeletePopupComponent],
+  entryComponents: [MealPlanComponent, MealPlanUpdateComponent, MealPlanDeleteDialogComponent, MealPlanDeletePopupComponent, MealUpdateComponent, MealDetailComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
