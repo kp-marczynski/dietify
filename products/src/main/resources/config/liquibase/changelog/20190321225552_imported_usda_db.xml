@@ -80,7 +80,7 @@
             <column header="language" name="language" type="string"/>
         </loadData>
     </changeSet>
-    <changeSet id="201902130002" author="kmarczynski" context="usda">
+    <changeSet id="201902130002" author="kmarczynski" context="usda and db_10k">
         <loadData file="config/liquibase/usda_sr_db/nutrition_data.csv" quotchar='"' separator=";"
                   tableName="nutrition_data">
             <column header="nutrition_def_id" name="nutrition_definition_id" type="numeric"/>
