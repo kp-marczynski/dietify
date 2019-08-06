@@ -3,78 +3,37 @@
 ## Prerequisites
 
 -   [Node.js][]
--   [jdk8][]
+-   [jdk11][]
 
 ## How to run?
+### With Docker
+Simply run: 
+    
+    sh docker-compose/build-and-run-docker.sh
+    
+Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
-    backend: ./mvnw
-    frontend: npm start
+### Without Docker
+First start eureka service discovery: 
 
-## Building for production
-
-    ./mvnw -Pprod clean package
-
-This will concatenate and minify the client CSS and JavaScript files. It will also modify `index.html` so it references these new files.
-To ensure everything worked, run:
-
-    java -jar target/*.war
+    sh service-discovery/start-registry.sh
+    
+For each app { gateway, products, recipes, mealplans, appointments } run in app root directory: 
+    
+    ./gradlew 
 
 Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
 
-## Backend tests
+For live frontend reload run in gateway app root directory: 
+    
+    npm install && npm start
 
-    ./mvnw clean test
+Then navigate to [http://localhost:9000](http://localhost:9000) in your browser.
 
-### Client tests
-
-Unit tests are run by [Jest][] and written with [Jasmine][]. They're located in [src/test/javascript/](src/test/javascript/) and can be run with:
-
-    npm test
-
-For more information, refer to the [Running tests page][].
-
-## Using Docker
-
-To start a mysql database in a docker container, run:
-
-    docker-compose -f src/main/docker/mysql.yml up -d
-
-To stop it and remove the container, run:
-
-    docker-compose -f src/main/docker/mysql.yml down
-
-You can also fully dockerize your application and all the services that it depends on.
-To achieve this, first build a docker image of your app by running:
-
-    ./mvnw package -Pprod verify jib:dockerBuild
-
-Then run:
-
-    docker-compose -f src/main/docker/app.yml up -d
-
-## TODO
-
--   [x] framework mvc
--   [x] usage of orm
--   [x] usage of cache (backend only)
--   [x] user authentication & authorization
--   [x] admin panel
--   [x] integration with external service
--   [x] unit tests
--   [x] ajax elements
--   [x] charts
--   [x] connected selectboxes - choosing product category trigger retriving of proper subcategories
--   [x] navbar options
--   [x] loader css
+## Building for production
+For each app { gateway, products, recipes, mealplans, appointments } run in app root directory:
+    
+    ./gradlew -Pprod clean bootJar
 
 [node.js]: https://nodejs.org/
-[yarn]: https://yarnpkg.org/
-[webpack]: https://webpack.github.io/
-[angular cli]: https://cli.angular.io/
-[browsersync]: http://www.browsersync.io/
-[jest]: https://facebook.github.io/jest/
-[jasmine]: http://jasmine.github.io/2.0/introduction.html
-[protractor]: https://angular.github.io/protractor/
-[leaflet]: http://leafletjs.com/
-[definitelytyped]: http://definitelytyped.org/
-[jdk8]: https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+[jdk11]: https://openjdk.java.net/projects/jdk/11/
