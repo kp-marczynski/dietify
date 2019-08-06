@@ -232,14 +232,14 @@
                             <div class="row d-none d-sm-flex p-1 bg-primary text-white">
                                 <h5 class="col-sm p-1 text-center"></h5>
                                 <h5 class="col-sm p-1 text-center" *ngFor="let meal of getMealDefinitionsFormArray().controls">
-                                    Meal {{meal.get('ordinalNumber').value}}</h5>
-                                <h5 class="col-sm p-1 text-center">Summary</h5>
+                                    {{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.get('ordinalNumber').value}}</h5>
+                                <h5 class="col-sm p-1 text-center" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</h5>
                             </div>
                         </header>
                         <div class="row border border-right-0 border-bottom-0"
                              *ngFor="let day of getDaysFormArray().controls; let dayIndex = index" >
                             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-primary text-white">
-                                <h5 class="col-sm p-1 text-center">Day {{day.get('ordinalNumber').value}}</h5>
+                                <h5 class="col-sm p-1 text-center">{{'gatewayApp.mealplansMealPlanDay.detail.title' | translate}} {{day.get('ordinalNumber').value}}</h5>
                             </div>
                             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate "
                                  *ngFor="let meal of getMealsFormArray(day).controls; let mealIndex = index">
@@ -247,13 +247,13 @@
                                         (click)="editMeal(meal)"
                                         class="btn btn-primary btn-sm">
                                     <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                                    <span class="d-none d-md-inline">Edit</span>
+                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                                 </button>
                                 <h5 class="row align-items-center">
-                                    <small class="col d-sm-none text-center text-muted">Meal {{meal.get('ordinalNumber').value}}</small>
+                                    <small class="col d-sm-none text-center text-muted">{{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.get('ordinalNumber').value}}</small>
                                 </h5>
                                 <h5 class="row align-items-center" *ngIf="meal.get('recipes').controls.length > 0">
-                                    <span class="col-1">Recipes</span>
+                                    <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealRecipes">Recipes</span>
                                 </h5>
                                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
                                    title="{{recipe.get('recipe').value ? recipe.get('recipe').value.name : recipe.get('recipeId').value}}"
@@ -265,7 +265,7 @@
                                     {{recipe.get('recipe').value ? recipe.get('recipe').value.name : recipe.get('recipeId').value}}
                                 </a>
                                 <h5 class="row align-items-center" *ngIf="meal.get('products').controls.length > 0">
-                                    <span class="col-1">Products</span>
+                                    <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealProducts">Products</span>
                                 </h5>
                                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
                                    title="{{product.get('product').value ? product.get('product').value.description : product.get('productId').value}}"
@@ -279,7 +279,7 @@
                             </div>
                             <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate" >
                                 <h5 class="row align-items-center">
-                                    <small class="col d-sm-none text-center text-muted">Summary</small>
+                                    <small class="col d-sm-none text-center text-muted" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</small>
                                 </h5>
 <!--                                <div *ngIf="day.nutritionData">-->
 <!--                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">-->

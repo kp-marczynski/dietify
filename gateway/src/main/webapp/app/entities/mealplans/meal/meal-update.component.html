@@ -11,7 +11,7 @@
                 <h3>Products</h3>
                 <button type="button" class="btn btn-info btn-sm" (click)="addIngredient()">
                     <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="d-none d-md-inline">Add</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
                 </button>
                 <table formArrayName="products">
                     <tr *ngFor="let mealProduct of getMealProductsFormArray().controls; let portionIndex = index" [formGroupName]="portionIndex">
@@ -53,9 +53,9 @@
                     </tr>
                 </table>
                 <h3>Recipes</h3>
-                <button type="button" class="btn btn-info btn-sm" (click)="addRecipe(meal)">
+                <button type="button" class="btn btn-info btn-sm" (click)="addRecipe()">
                     <fa-icon [icon]="'plus'"></fa-icon>
-                    <span class="d-none d-md-inline">Add</span>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Add</span>
                 </button>
                 <table formArrayName="recipes">
                     <tr *ngFor="let mealRecipe of getMealRecipesFormArray().controls; let portionIndex = index" [formGroupName]="portionIndex">
