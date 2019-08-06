@@ -1,4 +1,4 @@
-<div>
+<div id="recipe-list-wrapper">
     <h2 id="page-heading">
         <span jhiTranslate="gatewayApp.recipesRecipe.home.title">Recipes</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-recipe" [routerLink]="['/recipe/new']">
@@ -87,7 +87,7 @@
 <!--                    </div>-->
 <!--                </td>-->
                 <td class="text-right">
-                    <div class="btn-group">
+                    <div class="btn-group" *ngIf="standaloneView">
                         <button type="submit"
                                 [routerLink]="['/recipe', recipe.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -107,6 +107,12 @@
                                 class="btn btn-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                    <div class="btn-group flex-btn-group-container" *ngIf="!standaloneView">
+                        <button type="submit" class="btn btn-info btn-sm" (click)="passBack(recipe)">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span class="d-none d-md-inline">Add</span>
                         </button>
                     </div>
                 </td>

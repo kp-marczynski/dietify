@@ -319,7 +319,7 @@
                                             <option [ngValue]="null"></option>
                                             <option
                                                 [ngValue]="measure.id === productPortion.get('householdMeasureId').value ? productPortion.get('householdMeasureId').value : measure.id"
-                                                *ngFor="let measure of productPortion.get('product').value.householdMeasures; trackBy: trackRecipeById">{{measure.description}}</option>
+                                                *ngFor="let measure of productPortion.get('product').value.householdMeasures">{{measure.description}}</option>
                                         </select>
                                         <select class="form-control" *ngIf="!productPortion.get('product').value"
                                                 name="section{{sectionIndex}}portion{{portionIndex}}measureIdEmpty"

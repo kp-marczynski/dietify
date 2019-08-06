@@ -1,13 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import {FormBuilder, Validators, FormArray, FormGroup} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import {IMealPlan, MealPlan} from 'app/shared/model/mealplans/meal-plan.model';
-import {MealPlanService} from './meal-plan.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MealUpdateComponent} from 'app/entities/mealplans/meal';
+import { IMealPlan, MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
+import { MealPlanService } from './meal-plan.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MealUpdateComponent } from 'app/entities/mealplans/meal';
 
 @Component({
   selector: 'jhi-meal-plan-update',
@@ -25,8 +25,8 @@ export class MealPlanUpdateComponent implements OnInit {
     isVisible: [null, [Validators.required]],
     isLocked: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    numberOfDays: [null, [Validators.required, Validators.min(1)]],
-    numberOfMealsPerDay: [null, [Validators.required, Validators.min(1)]],
+    numberOfDays: [7, [Validators.required, Validators.min(1)]],
+    numberOfMealsPerDay: [5, [Validators.required, Validators.min(1)]],
     totalDailyEnergy: [null, [Validators.required, Validators.min(1)]],
     percentOfProtein: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     percentOfFat: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -39,12 +39,12 @@ export class MealPlanUpdateComponent implements OnInit {
     protected mealPlanService: MealPlanService,
     protected activatedRoute: ActivatedRoute,
     protected modalService: NgbModal,
-    private fb: FormBuilder) {
-  }
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({mealPlan}) => {
+    this.activatedRoute.data.subscribe(({ mealPlan }) => {
       this.updateForm(mealPlan);
     });
 
@@ -192,7 +192,7 @@ export class MealPlanUpdateComponent implements OnInit {
         }
         for (let i = daysFormArray.controls.length; i < numberOfDays; ++i) {
           const daysFormGroup = this.getDaysFormGroup();
-          daysFormGroup.patchValue({ordinalNumber: i + 1});
+          daysFormGroup.patchValue({ ordinalNumber: i + 1 });
           daysFormArray.push(daysFormGroup);
         }
         this.numberOfMealsPerDayChanged();
@@ -210,7 +210,7 @@ export class MealPlanUpdateComponent implements OnInit {
         }
         for (let i = mealDefinitionsFormArray.controls.length; i < numberOfMeals; ++i) {
           const mealDefinitionsFormGroup = this.getMealDefinitionsFormGroup();
-          mealDefinitionsFormGroup.patchValue({ordinalNumber: i + 1});
+          mealDefinitionsFormGroup.patchValue({ ordinalNumber: i + 1 });
           mealDefinitionsFormArray.push(mealDefinitionsFormGroup);
         }
         console.log(mealDefinitionsFormArray);
@@ -228,7 +228,7 @@ export class MealPlanUpdateComponent implements OnInit {
               }
               for (let i = mealsFormArray.controls.length; i < numberOfMeals; ++i) {
                 const mealsFormGroup = this.getMealsFormGroup();
-                mealsFormGroup.patchValue({ordinalNumber: i + 1});
+                mealsFormGroup.patchValue({ ordinalNumber: i + 1 });
                 mealsFormArray.push(mealsFormGroup);
               }
             }
@@ -240,8 +240,10 @@ export class MealPlanUpdateComponent implements OnInit {
   }
 
   editMeal(meal: FormGroup) {
-    const modalRef = this.modalService.open(MealUpdateComponent, {windowClass: 'custom-modal'});
-    modalRef.componentInstance.expectedEnergy = this.getMealDefinitionsFormArray().controls[meal.get('ordinalNumber').value - 1].get('percentOfEnergy').value * this.editForm.get('totalDailyEnergy').value;
+    const modalRef = this.modalService.open(MealUpdateComponent, { windowClass: 'custom-modal' });
+    modalRef.componentInstance.expectedEnergy =
+      this.getMealDefinitionsFormArray().controls[meal.get('ordinalNumber').value - 1].get('percentOfEnergy').value *
+      this.editForm.get('totalDailyEnergy').value;
 
     modalRef.componentInstance.meal = meal;
     modalRef.componentInstance.passEntry.subscribe((receivedEntry: FormGroup) => {
@@ -250,11 +252,6 @@ export class MealPlanUpdateComponent implements OnInit {
       // meal.mealRecipes = receivedEntry.mealRecipes;
       // meal.mealProducts = receivedEntry.mealProducts;
       // this.findMealProductsAndRecipes(meal);
-    });
-
-    modalRef.componentInstance.mealChanged.subscribe((receivedEntry: FormGroup) => {
-      console.log('meal changed');
-      // this.findMealProductsAndRecipes(receivedEntry);
     });
 
     // modalRef.result.then(
