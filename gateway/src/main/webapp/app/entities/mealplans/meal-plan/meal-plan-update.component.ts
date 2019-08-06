@@ -119,6 +119,23 @@ export class MealPlanUpdateComponent implements OnInit {
   }
 
   updateForm(mealPlan: IMealPlan) {
+    for (const day of mealPlan.days) {
+      const daysFormGroup = this.getDaysFormGroup();
+      for (const meal of day.meals) {
+        const mealsFormGroup = this.getMealsFormGroup();
+        const mealProductsFormArray = this.getMealProductsFormArray(mealsFormGroup);
+        const mealRecipesFormArray = this.getMealRecipesFormArray(mealsFormGroup);
+        for (const product of meal.mealProducts) {
+          mealProductsFormArray.push(this.getMealProductsFormGroup());
+        }
+        for (const recipe of meal.mealRecipes) {
+          mealRecipesFormArray.push(this.getMealRecipesFormGroup());
+        }
+        this.getMealsFormArray(daysFormGroup).push(mealsFormGroup);
+      }
+      this.getDaysFormArray().push(daysFormGroup);
+    }
+
     this.editForm.patchValue({
       id: mealPlan.id,
       authorId: mealPlan.authorId,
@@ -132,7 +149,8 @@ export class MealPlanUpdateComponent implements OnInit {
       totalDailyEnergy: mealPlan.totalDailyEnergy,
       percentOfProtein: mealPlan.percentOfProtein,
       percentOfFat: mealPlan.percentOfFat,
-      percentOfCarbohydrates: mealPlan.percentOfCarbohydrates
+      percentOfCarbohydrates: mealPlan.percentOfCarbohydrates,
+      days: mealPlan.days
     });
   }
 
@@ -165,7 +183,8 @@ export class MealPlanUpdateComponent implements OnInit {
       totalDailyEnergy: this.editForm.get(['totalDailyEnergy']).value,
       percentOfProtein: this.editForm.get(['percentOfProtein']).value,
       percentOfFat: this.editForm.get(['percentOfFat']).value,
-      percentOfCarbohydrates: this.editForm.get(['percentOfCarbohydrates']).value
+      percentOfCarbohydrates: this.editForm.get(['percentOfCarbohydrates']).value,
+      days: this.editForm.get(['days']).value
     };
   }
 
