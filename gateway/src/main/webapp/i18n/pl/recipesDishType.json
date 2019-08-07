@@ -2,30 +2,30 @@
   "gatewayApp": {
     "recipesDishType": {
       "home": {
-        "title": "Dish Type",
-        "createLabel": "Dodaj Dish Type",
-        "createOrEditLabel": "Dodaj lub edytuj: Dish Type",
-        "search": "Szukaj Dish Type",
-        "notFound": "No Dish Type found"
+        "title": "Rodzaj dania",
+        "createLabel": "Dodaj rodzaj dania",
+        "createOrEditLabel": "Dodaj lub edytuj rodzaj dania",
+        "search": "Szukaj rodzaj dania",
+        "notFound": "Nie znaleziono żadnego rodzaju dania"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Dish Type {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć rodzaj dania {{ id }}?"
       },
       "detail": {
-        "title": "Dish Type"
+        "title": "Rodzaj dania"
       },
-      "description": "Description",
-      "translations": "Translations",
+      "description": "Opis",
+      "translations": "Tłumaczenia",
       "help": {
-        "description": "English description of dish type"
+        "description": "Opis rodzaju dania w języku angielskim"
       }
     }
   },
   "recipesApp": {
     "recipesDishType": {
-      "created": "Utworzono nowy obiekt typu Dish Type z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Dish Type z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Dish Type z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Rodzaj Dania z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Rodzaj Dania z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Rodzaj Dania z identyfikatorem {{ param }}"
     }
   }
 }

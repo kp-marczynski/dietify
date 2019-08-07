@@ -2,32 +2,32 @@
   "gatewayApp": {
     "recipesKitchenApplianceTranslation": {
       "home": {
-        "title": "Kitchen Appliance Translation",
-        "createLabel": "Dodaj Kitchen Appliance Translation",
-        "createOrEditLabel": "Dodaj lub edytuj: Kitchen Appliance Translation",
-        "search": "Szukaj Kitchen Appliance Translation",
-        "notFound": "No Kitchen Appliance Translation found"
+        "title": "Tłumaczenie wyposażenia kuchennego",
+        "createLabel": "Dodaj tłumaczenie wyposażenia kuchennego",
+        "createOrEditLabel": "Dodaj lub edytuj tłumaczenie wyposażenia kuchennego",
+        "search": "Szukaj tłumaczenie wyposażenia kuchennego",
+        "notFound": "Nie znaleziono żadnego tłumaczenia wyposażenia kuchennego"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Kitchen Appliance Translation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć tłumaczenie wyposażenia kuchennego {{ id }}?"
       },
       "detail": {
-        "title": "Kitchen Appliance Translation"
+        "title": "Tłumaczenie wyposażenia kuchennego"
       },
-      "translation": "Translation",
-      "language": "Language",
-      "kitchenAppliance": "Kitchen Appliance",
+      "translation": "Tłumaczenie",
+      "language": "Język",
+      "kitchenAppliance": "Wyposażenie kuchenne",
       "help": {
-        "translation": "Translated name of kitchen appliance",
-        "language": "Language of translation as ISO_639-1 code"
+        "translation": "Przetłumaczona nazwa sprzętu kuchennego",
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "recipesApp": {
     "recipesKitchenApplianceTranslation": {
-      "created": "Utworzono nowy obiekt typu Kitchen Appliance Translation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Kitchen Appliance Translation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Kitchen Appliance Translation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Tłumaczenie Wyposażenia Kuchennego z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tłumaczenie Wyposażenia Kuchennego z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tłumaczenie Wyposażenia Kuchennego z identyfikatorem {{ param }}"
     }
   }
 }

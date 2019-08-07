@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Custom Nutritional Interview Question Template
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Owner Id</ion-label>
+            <div item-content>
+                <span>{{customNutritionalInterviewQuestionTemplate.ownerId}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Question</ion-label>
+            <div item-content>
+                <span>{{customNutritionalInterviewQuestionTemplate.question}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Language</ion-label>
+            <div item-content>
+                <span>{{customNutritionalInterviewQuestionTemplate.language}}</span>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(customNutritionalInterviewQuestionTemplate)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(customNutritionalInterviewQuestionTemplate)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

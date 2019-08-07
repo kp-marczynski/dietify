@@ -2,9 +2,9 @@
   "gatewayApp": {
     "Gender": {
       "null": "",
-      "FEMALE": "FEMALE",
-      "MALE": "MALE",
-      "OTHER": "OTHER"
+      "FEMALE": "Kobieta",
+      "MALE": "Mężczyzna",
+      "OTHER": "Inne"
     }
   }
 }

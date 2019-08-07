@@ -2,31 +2,31 @@
   "gatewayApp": {
     "mealplansMealPlanDay": {
       "home": {
-        "title": "Meal Plan Day",
-        "createLabel": "Dodaj Meal Plan Day",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Plan Day",
-        "search": "Szukaj Meal Plan Day",
-        "notFound": "No Meal Plan Day found"
+        "title": "Dzień jadłospisu",
+        "createLabel": "Dodaj dzień jadłospisu",
+        "createOrEditLabel": "Dodaj lub edytuj dzień jadłospisu",
+        "search": "Szukaj dzień jadłospisu",
+        "notFound": "Nie znaleziono żadnych dni jadłospisu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Plan Day {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć dzień jadłospisu {{ id }}?"
       },
       "detail": {
-        "title": "Meal Plan Day"
+        "title": "Dzień jadłospisu"
       },
-      "ordinalNumber": "Ordinal Number",
-      "meals": "Meals",
-      "mealPlan": "Meal Plan",
+      "ordinalNumber": "Numer porządkowy",
+      "meals": "Posiłki",
+      "mealPlan": "Jadłospis",
       "help": {
-        "ordinalNumber": "Ordinal number of day"
+        "ordinalNumber": "Numer porządkowy dnia"
       }
     }
   },
   "mealplansApp": {
     "mealplansMealPlanDay": {
-      "created": "Utworzono nowy obiekt typu Meal Plan Day z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Plan Day z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Plan Day z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Dzień Jadłospisu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Dzień Jadłospisu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Dzień Jadłospisu z identyfikatorem {{ param }}"
     }
   }
 }

@@ -23,7 +23,7 @@
         "ordinalNumber": "Daily ordinal number of meal",
         "mealTypeId": "Id of MealType entity retrieved from recipes service",
         "timeOfMeal": "Usual time of meal in 24h format: HH:mm",
-        "percentOfEnergy": "Part of daily total energy expressed in percent. Sum of all values for one MealPlanProperty must be equal 100."
+        "percentOfEnergy": "Part of daily total energy expressed in percent. Sum of all values for one MealPlan must be equal 100."
       }
     }
   },

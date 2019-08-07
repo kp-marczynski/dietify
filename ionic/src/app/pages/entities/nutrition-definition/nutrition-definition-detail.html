@@ -1,0 +1,43 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Nutrition Definition
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Tag</ion-label>
+            <div item-content>
+                <span>{{nutritionDefinition.tag}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Description</ion-label>
+            <div item-content>
+                <span>{{nutritionDefinition.description}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Units</ion-label>
+            <div item-content>
+                <span>{{nutritionDefinition.units}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label position="fixed">Decimal Places</ion-label>
+            <div item-content>
+                <span>{{nutritionDefinition.decimalPlaces}}</span>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(nutritionDefinition)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(nutritionDefinition)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

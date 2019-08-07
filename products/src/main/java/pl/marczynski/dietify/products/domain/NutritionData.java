@@ -41,11 +41,6 @@ public class NutritionData implements Serializable {
     @JsonIgnoreProperties("nutritionData")
     private NutritionDefinition nutritionDefinition;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("nutritionData")
-    private Product product;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -71,13 +66,6 @@ public class NutritionData implements Serializable {
         this.nutritionDefinition = nutritionDefinition;
     }
 
-    public Product getProduct() {
-        return product;
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

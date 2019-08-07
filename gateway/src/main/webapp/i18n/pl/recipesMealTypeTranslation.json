@@ -2,32 +2,32 @@
   "gatewayApp": {
     "recipesMealTypeTranslation": {
       "home": {
-        "title": "Meal Type Translation",
-        "createLabel": "Dodaj Meal Type Translation",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Type Translation",
-        "search": "Szukaj Meal Type Translation",
-        "notFound": "No Meal Type Translation found"
+        "title": "Tłumaczenie typu posiłku",
+        "createLabel": "Dodaj tłumaczenie typu posiłku",
+        "createOrEditLabel": "Dodaj lub edytuj tłumaczenie typu posiłku",
+        "search": "Szukaj tłumaczenie typu posiłku",
+        "notFound": "Nie znaleziono żadnego tłumaczenia typu posiłku"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Type Translation {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć tłumaczenie typu posiłku {{ id }}?"
       },
       "detail": {
-        "title": "Meal Type Translation"
+        "title": "Tłumaczenie typu posiłku"
       },
-      "translation": "Translation",
-      "language": "Language",
-      "mealType": "Meal Type",
+      "translation": "Tłumaczenie",
+      "language": "Język",
+      "mealType": "Typ posiłku",
       "help": {
-        "translation": "Translated name of meal type",
-        "language": "Language of translation as ISO_639-1 code"
+        "translation": "Przetłumaczona nazwa typu posiłku",
+        "language": "Język w postaci kodu spełniającego normę ISO_639-1"
       }
     }
   },
   "recipesApp": {
     "recipesMealTypeTranslation": {
-      "created": "Utworzono nowy obiekt typu Meal Type Translation z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Type Translation z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Type Translation z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Tłumaczenie Typu Posiłku z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Tłumaczenie Typu Posiłku z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Tłumaczenie Typu Posiłku z identyfikatorem {{ param }}"
     }
   }
 }

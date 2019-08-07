@@ -2,52 +2,52 @@
   "gatewayApp": {
     "appointmentsBodyMeasurement": {
       "home": {
-        "title": "Body Measurement",
-        "createLabel": "Dodaj Body Measurement",
-        "createOrEditLabel": "Dodaj lub edytuj: Body Measurement",
-        "search": "Szukaj Body Measurement",
-        "notFound": "No Body Measurement found"
+        "title": "Pomiary ciała",
+        "createLabel": "Dodaj pomiary ciała",
+        "createOrEditLabel": "Dodaj lub edytuj pomiary ciała",
+        "search": "Szukaj pomiary ciała",
+        "notFound": "Nie znaleziono żadnych pomiarów ciała"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Body Measurement {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć pomiary ciała {{ id }}?"
       },
       "detail": {
-        "title": "Body Measurement"
+        "title": "Pomiary ciała"
       },
-      "completionDate": "Completion Date",
-      "height": "Height",
-      "weight": "Weight",
-      "waist": "Waist",
-      "percentOfFatTissue": "Percent Of Fat Tissue",
-      "percentOfWater": "Percent Of Water",
-      "muscleMass": "Muscle Mass",
-      "physicalMark": "Physical Mark",
-      "calciumInBones": "Calcium In Bones",
-      "basicMetabolism": "Basic Metabolism",
-      "metabolicAge": "Metabolic Age",
-      "visceralFatLevel": "Visceral Fat Level",
-      "appointment": "Appointment",
+      "completionDate": "Data wypełnienia",
+      "height": "Wzrost",
+      "weight": "Waga",
+      "waist": "Obwód pasa",
+      "percentOfFatTissue": "Procent tkanki tłuszczowej",
+      "percentOfWater": "Procent wody",
+      "muscleMass": "Masa mieśni",
+      "physicalMark": "Ocena fizyczna",
+      "calciumInBones": "Wapń w kościach",
+      "basicMetabolism": "Podstawowy metabolizm",
+      "metabolicAge": "Wiek metaboliczny",
+      "visceralFatLevel": "Poziom tkanki trzewnej",
+      "appointment": "Wizyta",
       "help": {
-        "completionDate": "Date of measurement completion",
-        "height": "Patient&#39;s height. Alongside with weight it is used to calculate BMI factor",
-        "weight": "Patient&#39;s weight. Alongside with height it is used to calculate BMI factor",
-        "waist": "Patient&#39;s waist measure",
-        "percentOfFatTissue": "Percent of fat tissue in patient&#39;s body. Norm for women: 16-20. Norm for men: 15-18",
-        "percentOfWater": "Percent of water in patient&#39;s body. Norm for women: 45-60. Norm for men: 50-65",
-        "muscleMass": "Mass of patient&#39;s muscle tissue in kilograms",
-        "physicalMark": "Physical mark. Norm: 5",
-        "calciumInBones": "Level of calcium in patient&#39;s bones in kilograms. Norm: ~2.4kg",
-        "basicMetabolism": "Basic metabolism in kcal",
-        "metabolicAge": "Metabolic age in years",
-        "visceralFatLevel": "Level of visceral fat. Norm: 1-12"
+        "completionDate": "Data pobrania pomiarów",
+        "height": "Wzrost pacjenta. Razem z wagą potrzebny do oblcizenia współczynnika BMI",
+        "weight": "Waga pacjenta. Razem z wzrostem potrzebny do oblcizenia współczynnika BMI",
+        "waist": "Obwód pasa pacjenta",
+        "percentOfFatTissue": "Procent tkanki tłuszczowej w ciele pacjenta. Norma dla kobiet: 16-20. Norma dla mężczyzn: 15-18",
+        "percentOfWater": "PProcent wody w ciele pacjenta. Norma dla kobiet: 45-60. Norma dla mężczyzn: 50-65",
+        "muscleMass": "Masa tkanki tłuszczowej w ciele pacjenta podawana w kilogramach",
+        "physicalMark": "Ocenafizyczna. Norma: 5",
+        "calciumInBones": "Poziom wapnia w kościach pacjenta podawany w kilogramach. Norma: ~2.4kg",
+        "basicMetabolism": "Podstawowy metabolizm kcal",
+        "metabolicAge": "Wiek metaboliczny w latach",
+        "visceralFatLevel": "Poziom tkanki trzewnej. Norma: 1-12"
       }
     }
   },
   "appointmentsApp": {
     "appointmentsBodyMeasurement": {
-      "created": "Utworzono nowy obiekt typu Body Measurement z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Body Measurement z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Body Measurement z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Pomiary Ciała z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Pomiary Ciała z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Pomiary Ciała z identyfikatorem {{ param }}"
     }
   }
 }

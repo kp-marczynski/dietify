@@ -2,32 +2,32 @@
   "gatewayApp": {
     "mealplansMeal": {
       "home": {
-        "title": "Meal",
-        "createLabel": "Dodaj Meal",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal",
-        "search": "Szukaj Meal",
-        "notFound": "No Meal found"
+        "title": "Posiłek",
+        "createLabel": "Dodaj posiłek",
+        "createOrEditLabel": "Dodaj lub edytuj posiłek",
+        "search": "Szukaj posiłek",
+        "notFound": "Nie znaleziono żadnego posiłku"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć posiłek {{ id }}?"
       },
       "detail": {
-        "title": "Meal"
+        "title": "Posiłek"
       },
-      "ordinalNumber": "Ordinal Number",
-      "mealRecipes": "Meal Recipes",
-      "mealProducts": "Meal Products",
-      "mealPlanDay": "Meal Plan Day",
+      "ordinalNumber": "Numer porządkowy",
+      "mealRecipes": "Przepisy w posiłku",
+      "mealProducts": "Produkty w posiłku",
+      "mealPlanDay": "Dzień jadłospisu",
       "help": {
-        "ordinalNumber": "Ordinal number of meal"
+        "ordinalNumber": "Numer porządkowy posiłku"
       }
     }
   },
   "mealplansApp": {
     "mealplansMeal": {
-      "created": "Utworzono nowy obiekt typu Meal z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Posiłek z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Posiłek z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Posiłek z identyfikatorem {{ param }}"
     }
   }
 }

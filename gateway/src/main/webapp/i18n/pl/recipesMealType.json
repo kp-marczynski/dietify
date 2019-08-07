@@ -2,30 +2,30 @@
   "gatewayApp": {
     "recipesMealType": {
       "home": {
-        "title": "Meal Type",
-        "createLabel": "Dodaj Meal Type",
-        "createOrEditLabel": "Dodaj lub edytuj: Meal Type",
-        "search": "Szukaj Meal Type",
-        "notFound": "No Meal Type found"
+        "title": "Typ posiłku",
+        "createLabel": "Dodaj typ posiłku",
+        "createOrEditLabel": "Dodaj lub edytuj typ posiłku",
+        "search": "Szukaj typ posiłku",
+        "notFound": "Nie znaleziono żadnego typu posiłku"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Meal Type {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć typ posiłku {{ id }}?"
       },
       "detail": {
-        "title": "Meal Type"
+        "title": "Typ posiłku"
       },
-      "name": "Name",
-      "translations": "Translations",
+      "name": "Nazwa",
+      "translations": "Tłumaczenia",
       "help": {
-        "name": "English name of meal type"
+        "name": "Angielska nazwa typu posiłku"
       }
     }
   },
   "recipesApp": {
     "recipesMealType": {
-      "created": "Utworzono nowy obiekt typu Meal Type z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Meal Type z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Meal Type z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Typ Posiłku z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Typ Posiłku z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Typ Posiłku z identyfikatorem {{ param }}"
     }
   }
 }

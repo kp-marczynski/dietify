@@ -2,36 +2,36 @@
   "gatewayApp": {
     "productsNutritionDefinition": {
       "home": {
-        "title": "Nutrition Definition",
-        "createLabel": "Dodaj Nutrition Definition",
-        "createOrEditLabel": "Dodaj lub edytuj: Nutrition Definition",
-        "search": "Szukaj Nutrition Definition",
-        "notFound": "No Nutrition Definition found"
+        "title": "Definicja wartości odżywczej",
+        "createLabel": "Dodaj definicję wartości odżywczej",
+        "createOrEditLabel": "Dodaj lub edytuj definicję wartości odżywczej",
+        "search": "Szukaj definicję wartości odżywczej",
+        "notFound": "Nie znaleziono żadnej definicji wartości odżywczej"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Nutrition Definition {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć definicję wartości odżywczej {{ id }}?"
       },
       "detail": {
-        "title": "Nutrition Definition"
+        "title": "Definicja wartości odżywczej"
       },
       "tag": "Tag",
-      "description": "Description",
-      "units": "Units",
-      "decimalPlaces": "Decimal Places",
-      "translations": "Translations",
+      "description": "Opis",
+      "units": "Jednostki",
+      "decimalPlaces": "Miejsca dziesiętne",
+      "translations": "Tłumaczenia",
       "help": {
-        "tag": "Short tag name of nutrient",
-        "description": "Short description of nutrient in English",
-        "units": "Unit used for nutrient measurement, e.g. &#34;g&#34;, &#34;kcal&#34;, &#34;ml&#34;",
-        "decimalPlaces": "Decimal places to which nutrient value should be rounded"
+        "tag": "Krótki tag reprezentujący wartość odżywczą",
+        "description": "Krótki opis wartości odżywczej w języku angielskim",
+        "units": "Jednostki wykorzystywane do pomiaru wartości odżywczej, np. g, kcal, ml",
+        "decimalPlaces": "Liczba miejsc dzisiętnych do których wartość odżywcza powinna być zaokrąglana"
       }
     }
   },
   "productsApp": {
     "productsNutritionDefinition": {
-      "created": "Utworzono nowy obiekt typu Nutrition Definition z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Nutrition Definition z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Nutrition Definition z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Definicja Wartości Odżywczej z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Definicja Wartości Odżywczej z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Definicja Wartości Odżywczej z identyfikatorem {{ param }}"
     }
   }
 }

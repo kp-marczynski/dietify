@@ -1,8 +1,11 @@
 package pl.marczynski.dietify.products.repository;
 
-import pl.marczynski.dietify.products.domain.NutritionDefinition;
-import org.springframework.data.jpa.repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pl.marczynski.dietify.products.domain.NutritionDefinition;
+
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -11,5 +14,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface NutritionDefinitionRepository extends JpaRepository<NutritionDefinition, Long> {
+    List<NutritionDefinition> findAllByTagNotIn(Set<String> excludedTags);
 
+    List<NutritionDefinition> findAllByTagIn(Set<String> includedTags);
 }

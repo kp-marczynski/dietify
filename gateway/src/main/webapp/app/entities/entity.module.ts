@@ -17,10 +17,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: './products/product/product.module#ProductsProductModule'
       },
       {
-        path: 'product-basic-nutrition-data',
-        loadChildren: './products/product-basic-nutrition-data/product-basic-nutrition-data.module#ProductsProductBasicNutritionDataModule'
-      },
-      {
         path: 'product-subcategory',
         loadChildren: './products/product-subcategory/product-subcategory.module#ProductsProductSubcategoryModule'
       },
@@ -33,10 +29,6 @@ import { RouterModule } from '@angular/router';
         loadChildren: './products/product-category-translation/product-category-translation.module#ProductsProductCategoryTranslationModule'
       },
       {
-        path: 'household-measure',
-        loadChildren: './products/household-measure/household-measure.module#ProductsHouseholdMeasureModule'
-      },
-      {
         path: 'nutrition-definition',
         loadChildren: './products/nutrition-definition/nutrition-definition.module#ProductsNutritionDefinitionModule'
       },
@@ -44,10 +36,6 @@ import { RouterModule } from '@angular/router';
         path: 'nutrition-definition-translation',
         loadChildren:
           './products/nutrition-definition-translation/nutrition-definition-translation.module#ProductsNutritionDefinitionTranslationModule'
-      },
-      {
-        path: 'nutrition-data',
-        loadChildren: './products/nutrition-data/nutrition-data.module#ProductsNutritionDataModule'
       },
       {
         path: 'diet-type',

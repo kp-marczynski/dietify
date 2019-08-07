@@ -2,30 +2,30 @@
   "gatewayApp": {
     "productsProductSubcategory": {
       "home": {
-        "title": "Product Subcategory",
-        "createLabel": "Dodaj Product Subcategory",
-        "createOrEditLabel": "Dodaj lub edytuj: Product Subcategory",
-        "search": "Szukaj Product Subcategory",
-        "notFound": "No Product Subcategory found"
+        "title": "Podkategoria produktu",
+        "createLabel": "Dodaj podkategorię produktu",
+        "createOrEditLabel": "Dodaj lub edytuj podkategorię produktu",
+        "search": "Szukaj podkategorię produktu",
+        "notFound": "Nie znaleziono żadnej podkategorii produktu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Product Subcategory {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć podkategorię produktu {{ id }}?"
       },
       "detail": {
-        "title": "Product Subcategory"
+        "title": "Podkategoria produktu"
       },
-      "description": "Description",
-      "category": "Category",
+      "description": "Opis",
+      "category": "Kategoria",
       "help": {
-        "description": "Short description of subcategory in language of a product"
+        "description": "Krótki opis podkategorii w języku produktu"
       }
     }
   },
   "productsApp": {
     "productsProductSubcategory": {
-      "created": "Utworzono nowy obiekt typu Product Subcategory z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Product Subcategory z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Product Subcategory z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Podkategoria Produktu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Podkategoria Produktu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Podkategoria Produktu z identyfikatorem {{ param }}"
     }
   }
 }

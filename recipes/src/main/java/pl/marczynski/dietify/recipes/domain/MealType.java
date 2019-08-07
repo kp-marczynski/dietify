@@ -37,7 +37,7 @@ public class MealType implements Serializable {
     @Column(name = "name", length = 255, nullable = false, unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "mealType")
+    @OneToMany(mappedBy = "mealType", fetch = FetchType.EAGER)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealTypeTranslation> translations = new HashSet<>();
 

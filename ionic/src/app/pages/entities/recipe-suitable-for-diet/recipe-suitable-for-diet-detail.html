@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            Recipe Suitable For Diet
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+        <ion-item>
+            <ion-label position="fixed">Diet Type Id</ion-label>
+            <div item-content>
+                <span>{{recipeSuitableForDiet.dietTypeId}}</span>
+            </div>
+        </ion-item>
+        <ion-item>
+            <ion-label>Recipe</ion-label>
+            <div item-content *ngIf="recipeSuitableForDiet.recipe">
+                <a>{{recipeSuitableForDiet.recipe?.id}}</a>
+            </div>
+        </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" color="primary" (click)="open(recipeSuitableForDiet)">{{ 'EDIT_BUTTON' | translate }}</ion-button>
+    <ion-button expand="block" color="danger" (click)="deleteModal(recipeSuitableForDiet)">{{ 'DELETE_BUTTON' | translate }}</ion-button>
+
+</ion-content>

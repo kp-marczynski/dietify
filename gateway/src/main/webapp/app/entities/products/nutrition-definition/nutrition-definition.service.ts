@@ -41,4 +41,8 @@ export class NutritionDefinitionService {
     const options = createRequestOption(req);
     return this.http.get<INutritionDefinition[]>(this.resourceSearchUrl, { params: options, observe: 'response' });
   }
+
+  getBasicDefinitions(): Observable<EntityArrayResponseType> {
+    return this.http.get<INutritionDefinition[]>(`${this.resourceUrl}-basic`, { observe: 'response' });
+  }
 }

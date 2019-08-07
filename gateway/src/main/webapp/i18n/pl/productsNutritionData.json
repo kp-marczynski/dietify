@@ -2,31 +2,31 @@
   "gatewayApp": {
     "productsNutritionData": {
       "home": {
-        "title": "Nutrition Data",
-        "createLabel": "Dodaj Nutrition Data",
-        "createOrEditLabel": "Dodaj lub edytuj: Nutrition Data",
-        "search": "Szukaj Nutrition Data",
-        "notFound": "No Nutrition Data found"
+        "title": "Dane wartości odżywczej",
+        "createLabel": "Dodaj dane wartości odżywczej",
+        "createOrEditLabel": "Dodaj lub edytuj dane wartości odżywczej",
+        "search": "Szukaj dane wartości odżywczej",
+        "notFound": "Nie znaleziono żadnych danych wartości odżywczej"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Nutrition Data {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć dane wartości odżywczej {{ id }}?"
       },
       "detail": {
-        "title": "Nutrition Data"
+        "title": "Dane wartości odżywczej"
       },
-      "nutritionValue": "Nutrition Value",
-      "nutritionDefinition": "Nutrition Definition",
-      "product": "Product",
+      "nutritionValue": "Ilość wartości odżywczej",
+      "nutritionDefinition": "Definicja wartości odżywczej",
+      "product": "Produkt",
       "help": {
-        "nutritionValue": "Nutrition value in units specified in NutritionDefinition"
+        "nutritionValue": "Ilość wartości odżywczej w jednostkach określonych w definicji wartości odżywczej"
       }
     }
   },
   "productsApp": {
     "productsNutritionData": {
-      "created": "Utworzono nowy obiekt typu Nutrition Data z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Nutrition Data z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Nutrition Data z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Dane Wartości Odżywczej z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Dane Wartości Odżywczej z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Dane Wartości Odżywczej z identyfikatorem {{ param }}"
     }
   }
 }

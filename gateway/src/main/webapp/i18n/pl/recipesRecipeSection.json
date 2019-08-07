@@ -2,32 +2,32 @@
   "gatewayApp": {
     "recipesRecipeSection": {
       "home": {
-        "title": "Recipe Section",
-        "createLabel": "Dodaj Recipe Section",
-        "createOrEditLabel": "Dodaj lub edytuj: Recipe Section",
-        "search": "Szukaj Recipe Section",
-        "notFound": "No Recipe Section found"
+        "title": "Sekcja przepisu",
+        "createLabel": "Dodaj sekcję przepisu",
+        "createOrEditLabel": "Dodaj lub edytuj sekcję przepisu",
+        "search": "Szukaj sekcję przepisu",
+        "notFound": "Nie znaleziono żadnej sekcji przepisu"
       },
       "delete": {
-        "question": "Czy na pewno chcesz usunąć Recipe Section {{ id }}?"
+        "question": "Czy na pewno chcesz usunąć sekcję przepisu {{ id }}?"
       },
       "detail": {
-        "title": "Recipe Section"
+        "title": "Sekcja przepisu"
       },
-      "sectionName": "Section Name",
-      "productPortions": "Product Portions",
-      "preparationSteps": "Preparation Steps",
-      "recipe": "Recipe",
+      "sectionName": "Nazwa sekcji",
+      "productPortions": "Porcje produktu",
+      "preparationSteps": "Kroki przygotowania",
+      "recipe": "Przepis",
       "help": {
-        "sectionName": "Name of recipe section in language of a recipe"
+        "sectionName": "Nazwa sekcji przepisu w języku przepisu"
       }
     }
   },
   "recipesApp": {
     "recipesRecipeSection": {
-      "created": "Utworzono nowy obiekt typu Recipe Section z identyfikatorem {{ param }}",
-      "updated": "Uaktualniono obiekt typu Recipe Section z identyfikatorem {{ param }}",
-      "deleted": "Usunięto obiekt typu Recipe Section z identyfikatorem {{ param }}"
+      "created": "Utworzono nowy obiekt typu Sekcja Przepisu z identyfikatorem {{ param }}",
+      "updated": "Uaktualniono obiekt typu Sekcja Przepisu z identyfikatorem {{ param }}",
+      "deleted": "Usunięto obiekt typu Sekcja Przepisu z identyfikatorem {{ param }}"
     }
   }
 }

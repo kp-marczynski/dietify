@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
 import java.util.Optional;
 
@@ -29,9 +30,12 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductSearchRepository productSearchRepository;
 
-    public ProductServiceImpl(ProductRepository productRepository, ProductSearchRepository productSearchRepository) {
+    private final ProductSubcategoryService productSubcategoryService;
+
+    public ProductServiceImpl(ProductRepository productRepository, ProductSearchRepository productSearchRepository, ProductSubcategoryService productSubcategoryService) {
         this.productRepository = productRepository;
         this.productSearchRepository = productSearchRepository;
+        this.productSubcategoryService = productSubcategoryService;
     }
 
     /**
@@ -43,8 +47,12 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
-        Product result = productRepository.save(product);
+        if (product.getSubcategory().getId() == null) {
+            product.setSubcategory(this.productSubcategoryService.save(product.getSubcategory()));
+        }
+        Product result = productRepository.saveAndFlush(product);
         productSearchRepository.save(result);
+        productSubcategoryService.removeOrphans();
         return result;
     }
 
@@ -69,7 +77,7 @@ public class ProductServiceImpl implements ProductService {
     public Page<Product> findAllWithEagerRelationships(Pageable pageable) {
         return productRepository.findAllWithEagerRelationships(pageable);
     }
-    
+
 
     /**
      * Get one product by id.
@@ -94,12 +102,13 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Request to delete Product : {}", id);
         productRepository.deleteById(id);
         productSearchRepository.deleteById(id);
+        productSubcategoryService.removeOrphans();
     }
 
     /**
      * Search for the product corresponding to the query.
      *
-     * @param query the query of the search.
+     * @param query    the query of the search.
      * @param pageable the pagination information.
      * @return the list of entities.
      */
@@ -107,5 +116,6 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public Page<Product> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Products for query {}", query);
-        return productSearchRepository.search(queryStringQuery(query), pageable);    }
+        return productSearchRepository.search(queryStringQuery(query), pageable);
+    }
 }
