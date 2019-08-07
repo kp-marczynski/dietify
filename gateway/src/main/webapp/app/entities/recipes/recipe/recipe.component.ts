@@ -134,14 +134,16 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     this.page = 0;
     this.currentSearch = query;
-    this.router.navigate([
-      '/recipe',
-      {
-        search: this.currentSearch,
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/recipe',
+        {
+          search: this.currentSearch,
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 
