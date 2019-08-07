@@ -119,23 +119,6 @@ export class MealPlanUpdateComponent implements OnInit {
   }
 
   updateForm(mealPlan: IMealPlan) {
-    for (const day of mealPlan.days) {
-      const daysFormGroup = this.getDaysFormGroup();
-      for (const meal of day.meals) {
-        const mealsFormGroup = this.getMealsFormGroup();
-        const mealProductsFormArray = this.getMealProductsFormArray(mealsFormGroup);
-        const mealRecipesFormArray = this.getMealRecipesFormArray(mealsFormGroup);
-        for (const product of meal.mealProducts) {
-          mealProductsFormArray.push(this.getMealProductsFormGroup());
-        }
-        for (const recipe of meal.mealRecipes) {
-          mealRecipesFormArray.push(this.getMealRecipesFormGroup());
-        }
-        this.getMealsFormArray(daysFormGroup).push(mealsFormGroup);
-      }
-      this.getDaysFormArray().push(daysFormGroup);
-    }
-
     this.editForm.patchValue({
       id: mealPlan.id,
       authorId: mealPlan.authorId,
@@ -149,9 +132,49 @@ export class MealPlanUpdateComponent implements OnInit {
       totalDailyEnergy: mealPlan.totalDailyEnergy,
       percentOfProtein: mealPlan.percentOfProtein,
       percentOfFat: mealPlan.percentOfFat,
-      percentOfCarbohydrates: mealPlan.percentOfCarbohydrates,
-      days: mealPlan.days
+      percentOfCarbohydrates: mealPlan.percentOfCarbohydrates
     });
+
+    if (mealPlan.days) {
+      for (const day of mealPlan.days) {
+        const daysFormGroup = this.getDaysFormGroup();
+        if (day.meals) {
+          for (const meal of day.meals) {
+            const mealsFormGroup = this.getMealsFormGroup();
+            const mealProductsFormArray = this.getMealProductsFormArray(mealsFormGroup);
+            const mealRecipesFormArray = this.getMealRecipesFormArray(mealsFormGroup);
+            if (meal.mealProducts) {
+              for (const product of meal.mealProducts) {
+                mealProductsFormArray.push(this.getMealProductsFormGroup());
+              }
+            }
+            if (meal.mealRecipes) {
+              for (const recipe of meal.mealRecipes) {
+                mealRecipesFormArray.push(this.getMealRecipesFormGroup());
+              }
+            }
+            this.getMealsFormArray(daysFormGroup).push(mealsFormGroup);
+          }
+        }
+        this.getDaysFormArray().push(daysFormGroup);
+      }
+      this.getDaysFormArray().patchValue(mealPlan.days);
+    }
+    if (mealPlan.mealDefinitions) {
+      const mealDefinitionsFormArray = this.getMealDefinitionsFormArray();
+      for (const mealDefinition of mealPlan.mealDefinitions) {
+        mealDefinitionsFormArray.push(this.getMealDefinitionsFormGroup());
+      }
+      mealDefinitionsFormArray.patchValue(mealPlan.mealDefinitions);
+    }
+    if (!this.editForm.get('numberOfDays').value) {
+      this.editForm.get('numberOfDays').patchValue(7);
+    }
+    if (!this.editForm.get('numberOfMealsPerDay').value) {
+      this.editForm.get('numberOfMealsPerDay').patchValue(5);
+    }
+    this.numberOfDaysChanged();
+    console.log(this.editForm);
   }
 
   previousState() {
@@ -161,6 +184,8 @@ export class MealPlanUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const mealPlan = this.createFromForm();
+    console.log('saving');
+    console.log(mealPlan);
     if (mealPlan.id !== undefined) {
       this.subscribeToSaveResponse(this.mealPlanService.update(mealPlan));
     } else {
@@ -232,7 +257,6 @@ export class MealPlanUpdateComponent implements OnInit {
           mealDefinitionsFormGroup.patchValue({ ordinalNumber: i + 1 });
           mealDefinitionsFormArray.push(mealDefinitionsFormGroup);
         }
-        console.log(mealDefinitionsFormArray);
       }
 
       if (this.editForm.get('numberOfDays').value) {
@@ -255,7 +279,6 @@ export class MealPlanUpdateComponent implements OnInit {
         }
       }
     }
-    console.log(this.editForm);
   }
 
   editMeal(meal: FormGroup) {
