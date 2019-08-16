@@ -3,7 +3,7 @@
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-meal-plan-heading" jhiTranslate="gatewayApp.mealplansMealPlan.home.createOrEditLabel">Create or edit a Meal Plan</h2>
             <ngb-tabset justify="justified">
-                <ngb-tab title="Settings">
+                <ngb-tab title="{{'gatewayApp.mealplansMealPlan.settings' | translate}}">
                     <ng-template ngbTabContent>
                         <jhi-alert-error></jhi-alert-error>
                         <div class="form-group" [hidden]="!editForm.get('id').value">
@@ -162,7 +162,8 @@
                                     <td>
                                         <input type="number" class="form-control"
                                                formControlName="percentOfEnergy"
-                                               placeholder="Percent of daily energy"/>
+                                               placeholder="Percent of daily energy"
+                                               [placeholder]="'gatewayApp.mealplansMealDefinition.percentOfEnergy' | translate"/>
                                     </td>
                                 </tr>
                             </table>
@@ -258,7 +259,7 @@
 
                     </ng-template>
                 </ngb-tab>
-                <ngb-tab title="Calendar">
+                <ngb-tab title="{{'gatewayApp.mealplansMealPlan.calendar' | translate}}">
                     <ng-template ngbTabContent>
                         <header>
                             <div class="row d-none d-sm-flex p-1 bg-primary text-white">

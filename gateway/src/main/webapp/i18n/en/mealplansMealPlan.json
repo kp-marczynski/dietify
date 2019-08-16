@@ -30,6 +30,8 @@
       "mealDefinitions": "Meal Definitions",
       "suitableForDiet": "Tags Good For",
       "unsuitableForDiet": "Tags Bad For",
+      "calendar": "Calendar",
+      "settings": "Settings",
       "help": {
         "authorId": "Id of author of the plan",
         "creationDate": "Creation date of the plan",

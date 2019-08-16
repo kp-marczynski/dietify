@@ -2,13 +2,13 @@
     <div class="col-8">
         <form name="meal" role="form" novalidate [formGroup]="meal">
             <div class="card jh-card">
-                <h2>Meal {{meal.get('ordinalNumber').value}}
+                <h2>{{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.get('ordinalNumber').value}}
                     <button type="button" id="save-entity" class="btn btn-danger" (click)="passBack()">
                         <fa-icon [icon]="'times'"></fa-icon>&nbsp;<span>Close</span>
                     </button>
                 </h2>
 
-                <h3>Products</h3>
+                <h3 jhiTranslate="gatewayApp.mealplansMeal.mealProducts">Products</h3>
                 <button type="button" class="btn btn-info btn-sm" (click)="addIngredient()">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
@@ -52,7 +52,7 @@
                         </td>
                     </tr>
                 </table>
-                <h3>Recipes</h3>
+                <h3 jhiTranslate="gatewayApp.mealplansMeal.mealRecipes">Recipes</h3>
                 <button type="button" class="btn btn-info btn-sm" (click)="addRecipe()">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Add</span>
