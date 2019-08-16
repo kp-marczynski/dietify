@@ -38,14 +38,10 @@ public class MealPlanDay implements Serializable {
     @Column(name = "ordinal_number", nullable = false)
     private Integer ordinalNumber;
 
-    @OneToMany(mappedBy = "mealPlanDay")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "meal_plan_day_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Meal> meals = new HashSet<>();
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("days")
-    private MealPlan mealPlan;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -72,13 +68,6 @@ public class MealPlanDay implements Serializable {
         this.meals = meals;
     }
 
-    public MealPlan getMealPlan() {
-        return mealPlan;
-    }
-
-    public void setMealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -15,8 +15,8 @@
         "title": "Posiłek"
       },
       "ordinalNumber": "Numer porządkowy",
-      "mealRecipes": "Przepisy w posiłku",
-      "mealProducts": "Produkty w posiłku",
+      "mealRecipes": "Przepisy",
+      "mealProducts": "Produkt",
       "mealPlanDay": "Dzień jadłospisu",
       "help": {
         "ordinalNumber": "Numer porządkowy posiłku"

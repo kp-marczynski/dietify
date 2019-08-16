@@ -30,6 +30,8 @@
       "mealDefinitions": "Definicje posiłków",
       "suitableForDiet": "Odpowiedni dla diet",
       "unsuitableForDiet": "Nieodpowiedni dla diet",
+      "calendar": "Kalendarz",
+      "settings": "Ustawienia",
       "help": {
         "authorId": "Id autora jadłospisu",
         "creationDate": "Data utworzenia jadłospisu",

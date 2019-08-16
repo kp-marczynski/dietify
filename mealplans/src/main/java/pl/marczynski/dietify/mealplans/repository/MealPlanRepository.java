@@ -1,8 +1,11 @@
 package pl.marczynski.dietify.mealplans.repository;
 
+import org.springframework.data.repository.query.Param;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 
 /**
@@ -12,4 +15,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface MealPlanRepository extends JpaRepository<MealPlan, Long> {
 
+    @Query("select mealPlan from MealPlan mealPlan" +
+        " left join fetch mealPlan.suitableForDiets" +
+        " left join fetch mealPlan.unsuitableForDiets" +
+        " left join fetch mealPlan.mealDefinitions" +
+        " left join fetch mealPlan.days" +
+        " where mealPlan.id =:id")
+    Optional<MealPlan> findOneWithEagerRelationships(@Param("id") Long id);
 }
