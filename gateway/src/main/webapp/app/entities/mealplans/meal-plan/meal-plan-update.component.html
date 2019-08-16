@@ -136,6 +136,38 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label>Meals Definitions</label>
+                            <table formArrayName="mealDefinitions">
+                                <tr *ngFor="let mealDefinition of getMealDefinitionsFormArray().controls; let index = index" [formGroupName]="index">
+                                    <td>{{mealDefinition.get('ordinalNumber').value}}</td>
+                                    <td>
+<!--                                        <select class="form-control" name="mealType{{index}}" id="mealType{{index}}"-->
+<!--                                                [(ngModel)]="mealDefinition.mealTypeId" required>-->
+<!--                                            <option id="mealType{{index}}option{{mealType.id}}"-->
+<!--                                                    [ngValue]="mealType.id === mealDefinition.mealTypeId ? mealDefinition.mealTypeId : mealType.id"-->
+<!--                                                    *ngFor="let mealType of mealTypes">{{mealType.nameEnglish}}</option>-->
+<!--                                        </select>-->
+                                        <select class="form-control" id="mealType" name="mealType"
+                                                formControlName="mealTypeId">
+                                            <option
+                                                [ngValue]="mealTypeOption.id === mealDefinition.get('mealTypeId').value ? mealDefinition.get('mealTypeId').value : mealTypeOption.id"
+                                                *ngFor="let mealTypeOption of mealTypes">{{mealTypeOption.name}}</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="time" class="form-control" name="timeOfMeal{{index}}" id="timeOfMeal{{index}}"
+                                               formControlName="timeOfMeal"
+                                               required placeholder="Time of meal"/>
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control"
+                                               formControlName="percentOfEnergy"
+                                               placeholder="Percent of daily energy"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.totalDailyEnergy" for="field_totalDailyEnergy" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.totalDailyEnergy' | translate">Total Daily Energy</label>
                             <input type="number" class="form-control" name="totalDailyEnergy" id="field_totalDailyEnergy"
                                    formControlName="totalDailyEnergy"/>
@@ -252,7 +284,7 @@
                                 <h5 class="row align-items-center">
                                     <small class="col d-sm-none text-center text-muted">{{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.get('ordinalNumber').value}}</small>
                                 </h5>
-                                <h5 class="row align-items-center" *ngIf="meal.get('recipes').controls.length > 0">
+                                <h5 class="row align-items-center" *ngIf="meal.get('mealRecipes').controls.length > 0">
                                     <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealRecipes">Recipes</span>
                                 </h5>
                                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
@@ -264,7 +296,7 @@
                                     </span>
                                     {{recipe.get('recipe').value ? recipe.get('recipe').value.name : recipe.get('recipeId').value}}
                                 </a>
-                                <h5 class="row align-items-center" *ngIf="meal.get('products').controls.length > 0">
+                                <h5 class="row align-items-center" *ngIf="meal.get('mealProducts').controls.length > 0">
                                     <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealProducts">Products</span>
                                 </h5>
                                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"

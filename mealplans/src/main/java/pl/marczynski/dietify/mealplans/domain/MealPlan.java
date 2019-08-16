@@ -135,19 +135,23 @@ public class MealPlan implements Serializable {
     @Column(name = "percent_of_carbohydrates", nullable = false)
     private Integer percentOfCarbohydrates;
 
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealPlanDay> days = new HashSet<>();
 
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealDefinition> mealDefinitions = new HashSet<>();
 
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealPlanSuitableForDiet> suitableForDiets = new HashSet<>();
 
-    @OneToMany(mappedBy = "mealPlan")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "meal_plan_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealPlanUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
 

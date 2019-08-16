@@ -13,7 +13,7 @@
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
                 </button>
-                <table formArrayName="products">
+                <table formArrayName="mealProducts">
                     <tr *ngFor="let mealProduct of getMealProductsFormArray().controls; let portionIndex = index" [formGroupName]="portionIndex">
                         <td>
                             <span *ngIf="mealProduct.get('product').value">{{mealProduct.get('product').value ? mealProduct.get('product').value.description : "Can't find product for id"}}</span>
@@ -57,7 +57,7 @@
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Add</span>
                 </button>
-                <table formArrayName="recipes">
+                <table formArrayName="mealRecipes">
                     <tr *ngFor="let mealRecipe of getMealRecipesFormArray().controls; let portionIndex = index" [formGroupName]="portionIndex">
                         <td>
                         <span *ngIf="mealRecipe.get('recipe').value">

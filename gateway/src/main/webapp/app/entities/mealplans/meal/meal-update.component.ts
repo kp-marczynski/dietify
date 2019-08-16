@@ -41,7 +41,7 @@ export class MealUpdateComponent implements OnInit {
   }
 
   getMealRecipesFormArray() {
-    return this.meal.get('recipes') as FormArray;
+    return this.meal.get('mealRecipes') as FormArray;
   }
 
   getMealRecipesFormGroup() {
@@ -54,7 +54,7 @@ export class MealUpdateComponent implements OnInit {
   }
 
   getMealProductsFormArray() {
-    return this.meal.get('products') as FormArray;
+    return this.meal.get('mealProducts') as FormArray;
   }
 
   getMealProductsFormGroup() {

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators, FormArray, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { IMealPlan, MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
-import { MealPlanService } from './meal-plan.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MealUpdateComponent } from 'app/entities/mealplans/meal';
+import {Component, OnInit} from '@angular/core';
+import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {IMealPlan, MealPlan} from 'app/shared/model/mealplans/meal-plan.model';
+import {MealPlanService} from './meal-plan.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {MealUpdateComponent} from 'app/entities/mealplans/meal';
+import {MealTypeService} from 'app/entities/recipes/meal-type';
+import {IMealType} from 'app/shared/model/recipes/meal-type.model';
+import {JhiAlertService} from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-meal-plan-update',
@@ -16,11 +18,12 @@ import { MealUpdateComponent } from 'app/entities/mealplans/meal';
 export class MealPlanUpdateComponent implements OnInit {
   isSaving: boolean;
   creationDateDp: any;
+  mealTypes: IMealType[];
 
   editForm = this.fb.group({
     id: [],
-    authorId: [null, [Validators.required]],
-    creationDate: [null, [Validators.required]],
+    authorId: [null],
+    creationDate: [null],
     name: [null, [Validators.minLength(1), Validators.maxLength(255)]],
     isVisible: [null, [Validators.required]],
     isLocked: [null, [Validators.required]],
@@ -39,17 +42,27 @@ export class MealPlanUpdateComponent implements OnInit {
     protected mealPlanService: MealPlanService,
     protected activatedRoute: ActivatedRoute,
     protected modalService: NgbModal,
+    protected mealTypeService: MealTypeService,
+    protected jhiAlertService: JhiAlertService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ mealPlan }) => {
+      console.log(mealPlan);
       this.updateForm(mealPlan);
     });
-
+    this.mealTypeService.query().subscribe(
+      (res: HttpResponse<IMealType[]>) => this.mealTypes = res.body,
+      (res: HttpErrorResponse) => this.onError(res.message)
+    );
     this.editForm.get('numberOfMealsPerDay').valueChanges.subscribe(numberOfMeals => this.numberOfMealsPerDayChanged());
     this.editForm.get('numberOfDays').valueChanges.subscribe(numberOfDays => this.numberOfDaysChanged());
+  }
+
+  protected onError(errorMessage: string) {
+    this.jhiAlertService.error(errorMessage, null, null);
   }
 
   getMealDefinitionsFormArray() {
@@ -60,8 +73,8 @@ export class MealPlanUpdateComponent implements OnInit {
     return this.fb.group({
       id: [],
       ordinalNumber: [],
-      mealTypeId: [],
-      timeOfMeal: [null, [Validators.required, Validators.pattern('d{2}:d{2}')]],
+      mealTypeId: [null, [Validators.required]],
+      timeOfMeal: ['12:00', [Validators.required]],
       percentOfEnergy: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
     });
   }
@@ -86,13 +99,13 @@ export class MealPlanUpdateComponent implements OnInit {
     return this.fb.group({
       id: [],
       ordinalNumber: [],
-      recipes: this.fb.array([]),
-      products: this.fb.array([])
+      mealRecipes: this.fb.array([]),
+      mealProducts: this.fb.array([])
     });
   }
 
   getMealRecipesFormArray(meal: FormGroup) {
-    return meal.get('recipes') as FormArray;
+    return meal.get('mealRecipes') as FormArray;
   }
 
   getMealRecipesFormGroup() {
@@ -105,7 +118,7 @@ export class MealPlanUpdateComponent implements OnInit {
   }
 
   getMealProductsFormArray(meal: FormGroup) {
-    return meal.get('products') as FormArray;
+    return meal.get('mealProducts') as FormArray;
   }
 
   getMealProductsFormGroup() {
@@ -209,7 +222,8 @@ export class MealPlanUpdateComponent implements OnInit {
       percentOfProtein: this.editForm.get(['percentOfProtein']).value,
       percentOfFat: this.editForm.get(['percentOfFat']).value,
       percentOfCarbohydrates: this.editForm.get(['percentOfCarbohydrates']).value,
-      days: this.editForm.get(['days']).value
+      days: this.editForm.get(['days']).value,
+      mealDefinitions: this.editForm.get(['mealDefinitions']).value
     };
   }
 
