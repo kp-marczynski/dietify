@@ -8,6 +8,9 @@ import { GatewayTestModule } from '../../../../test.module';
 import { MealPlanUpdateComponent } from 'app/entities/mealplans/meal-plan/meal-plan-update.component';
 import { MealPlanService } from 'app/entities/mealplans/meal-plan/meal-plan.service';
 import { MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
+import {MealPlanDay} from 'app/shared/model/mealplans/meal-plan-day.model';
+import {Meal} from 'app/shared/model/mealplans/meal.model';
+import {MealDefinition} from 'app/shared/model/mealplans/meal-definition.model';
 
 describe('Component Tests', () => {
   describe('MealPlan Management Update Component', () => {
@@ -33,11 +36,16 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new MealPlan(123);
+        entity.numberOfDays = 1;
+        entity.numberOfMealsPerDay = 1;
+
         spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
         comp.save();
         tick(); // simulate async
+        entity.days = [new MealPlanDay(null, 1, [new Meal(null, 1, [], [])])];
+        entity.mealDefinitions = [new MealDefinition(null, 1, null, '12:00', null)];
 
         // THEN
         expect(service.update).toHaveBeenCalledWith(entity);
@@ -47,11 +55,16 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new MealPlan();
+        entity.numberOfDays = 1;
+        entity.numberOfMealsPerDay = 1;
+
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
         // WHEN
         comp.save();
         tick(); // simulate async
+        entity.days = [new MealPlanDay(null, 1, [new Meal(null, 1, [], [])])];
+        entity.mealDefinitions = [new MealDefinition(null, 1, null, '12:00', null)];
 
         // THEN
         expect(service.create).toHaveBeenCalledWith(entity);
