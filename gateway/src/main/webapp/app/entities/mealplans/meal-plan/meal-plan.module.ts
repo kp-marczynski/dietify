@@ -15,7 +15,7 @@ import {
 } from './';
 import { NgbModule, NgbTabsetModule } from '@ng-bootstrap/ng-bootstrap';
 import { MealDetailComponent, MealUpdateComponent} from 'app/entities/mealplans/meal';
-import {MealplansMealModule} from "app/entities/mealplans/meal/meal.module";
+import {MealplansMealModule} from 'app/entities/mealplans/meal/meal.module';
 
 const ENTITY_STATES = [...mealPlanRoute, ...mealPlanPopupRoute];
 
