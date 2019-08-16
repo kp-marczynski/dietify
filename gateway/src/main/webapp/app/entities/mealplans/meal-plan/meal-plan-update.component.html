@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label>Meals Definitions</label>
+                            <label jhiTranslate="gatewayApp.mealplansMealPlan.mealDefinitions">Meals Definitions</label>
                             <table formArrayName="mealDefinitions">
                                 <tr *ngFor="let mealDefinition of getMealDefinitionsFormArray().controls; let index = index" [formGroupName]="index">
                                     <td>{{mealDefinition.get('ordinalNumber').value}}</td>
@@ -262,19 +262,19 @@
                 <ngb-tab title="{{'gatewayApp.mealplansMealPlan.calendar' | translate}}">
                     <ng-template ngbTabContent>
                         <header>
-                            <div class="row d-none d-sm-flex p-1 bg-primary text-white">
-                                <h5 class="col-sm p-1 text-center"></h5>
-                                <h5 class="col-sm p-1 text-center" *ngFor="let meal of getMealDefinitionsFormArray().controls">
+                            <div class="row d-none d-lg-flex p-1 bg-primary text-white">
+                                <h5 class="col-lg p-1 text-center"></h5>
+                                <h5 class="col-lg p-1 text-center" *ngFor="let meal of getMealDefinitionsFormArray().controls">
                                     {{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.get('ordinalNumber').value}}</h5>
-                                <h5 class="col-sm p-1 text-center" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</h5>
+                                <h5 class="col-lg p-1 text-center" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</h5>
                             </div>
                         </header>
                         <div class="row border border-right-0 border-bottom-0"
                              *ngFor="let day of getDaysFormArray().controls; let dayIndex = index" >
-                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate bg-primary text-white">
-                                <h5 class="col-sm p-1 text-center">{{'gatewayApp.mealplansMealPlanDay.detail.title' | translate}} {{day.get('ordinalNumber').value}}</h5>
+                            <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate bg-primary text-white">
+                                <h5 class="col-lg p-1 text-center">{{'gatewayApp.mealplansMealPlanDay.detail.title' | translate}} {{day.get('ordinalNumber').value}}</h5>
                             </div>
-                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate "
+                            <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate "
                                  *ngFor="let meal of getMealsFormArray(day).controls; let mealIndex = index">
                                 <button type="button"
                                         (click)="editMeal(meal)"
@@ -310,7 +310,7 @@
                                     {{product.get('product').value ? product.get('product').value.description : product.get('productId').value}}
                                 </a>
                             </div>
-                            <div class="day col-sm p-2 border border-left-0 border-top-0 text-truncate" >
+                            <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate" >
                                 <h5 class="row align-items-center">
                                     <small class="col d-sm-none text-center text-muted" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</small>
                                 </h5>
