@@ -4,8 +4,8 @@
 </div>
 <div class="main-wrapper">
     <div class="container-fluid">
-        <div class="card jh-card">
-            <router-outlet></router-outlet>
+        <div class="card jh-card" [ngClass]="{'bg-light': !visibility}">
+            <router-outlet (activate)="showMainCardContainer()"></router-outlet>
             <router-outlet name="popup"></router-outlet>
         </div>
     </div>

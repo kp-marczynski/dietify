@@ -13,7 +13,7 @@ describe('LandingPageCard e2e test', () => {
   let landingPageCardUpdatePage: LandingPageCardUpdatePage;
   let landingPageCardComponentsPage: LandingPageCardComponentsPage;
   let landingPageCardDeleteDialog: LandingPageCardDeleteDialog;
-  const fileNameToUpload = 'logo-jhipster.png';
+  const fileNameToUpload = 'logo-dietify.png';
   const fileToUpload = '../../../../../../src/main/webapp/content/images/' + fileNameToUpload;
   const absolutePath = path.resolve(__dirname, fileToUpload);
 

@@ -12,11 +12,12 @@
         "question": "Are you sure you want to delete Meal Plan Day {{ id }}?"
       },
       "detail": {
-        "title": "Meal Plan Day"
+        "title": "Day"
       },
       "ordinalNumber": "Ordinal Number",
       "meals": "Meals",
       "mealPlan": "Meal Plan",
+      "summary": "Summary",
       "help": {
         "ordinalNumber": "Ordinal number of day"
       }

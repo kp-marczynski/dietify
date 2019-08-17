@@ -4,23 +4,18 @@ import { JhiLanguageService } from 'ng-jhipster';
 import { JhiLanguageHelper } from 'app/core';
 
 import { GatewaySharedModule } from 'app/shared';
-import {
-  MealComponent,
-  MealDetailComponent,
-  MealUpdateComponent,
-  MealDeletePopupComponent,
-  MealDeleteDialogComponent,
-  mealRoute,
-  mealPopupRoute
-} from './';
-
-const ENTITY_STATES = [...mealRoute, ...mealPopupRoute];
+import { MealDetailComponent, MealUpdateComponent } from './';
+import { ProductsProductListModule } from 'app/entities/products/product/product-list.module';
+import { RecipesRecipeListModule } from 'app/entities/recipes/recipe/recipe-list.module';
+import { ProductComponent } from 'app/entities/products/product';
+import { RecipeComponent } from 'app/entities/recipes/recipe';
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
-  declarations: [MealComponent, MealDetailComponent, MealUpdateComponent, MealDeleteDialogComponent, MealDeletePopupComponent],
-  entryComponents: [MealComponent, MealUpdateComponent, MealDeleteDialogComponent, MealDeletePopupComponent],
+  imports: [GatewaySharedModule, RouterModule, ProductsProductListModule, RecipesRecipeListModule],
+  declarations: [MealDetailComponent, MealUpdateComponent],
+  entryComponents: [MealUpdateComponent, ProductComponent, RecipeComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+  exports: [MealUpdateComponent, MealDetailComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class MealplansMealModule {

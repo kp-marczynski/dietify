@@ -12,11 +12,12 @@
         "question": "Czy na pewno chcesz usunąć dzień jadłospisu {{ id }}?"
       },
       "detail": {
-        "title": "Dzień jadłospisu"
+        "title": "Dzień"
       },
       "ordinalNumber": "Numer porządkowy",
       "meals": "Posiłki",
       "mealPlan": "Jadłospis",
+      "summary": "Podsumowanie",
       "help": {
         "ordinalNumber": "Numer porządkowy dnia"
       }
