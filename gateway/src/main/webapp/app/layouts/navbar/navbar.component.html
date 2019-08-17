@@ -6,6 +6,7 @@
     <a class="navbar-toggler text-white d-lg-none" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
         <fa-icon icon="bars"></fa-icon>
     </a>
+    <div id="expanded-background" class="d-lg-none" (click)="collapseNavbar()" *ngIf="!isNavbarCollapsed"></div>
     <div class="navbar-collapse collapse bg-primary sidebar flex-column" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">
         <ul class="navbar-nav flex-column">
             <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
