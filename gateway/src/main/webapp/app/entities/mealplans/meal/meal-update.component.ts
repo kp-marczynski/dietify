@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService } from 'ng-jhipster';
-import { IMeal, Meal } from 'app/shared/model/mealplans/meal.model';
-import { MealService } from './meal.service';
-import { IMealPlanDay } from 'app/shared/model/mealplans/meal-plan-day.model';
-import { MealPlanDayService } from 'app/entities/mealplans/meal-plan-day';
+import { ProductComponent, ProductService } from 'app/entities/products/product';
+import { RecipeComponent, RecipeService } from 'app/entities/recipes/recipe';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { IProduct, Product } from 'app/shared/model/products/product.model';
+import { Recipe } from 'app/shared/model/recipes/recipe.model';
 
 @Component({
   selector: 'jhi-meal-update',
@@ -17,84 +18,84 @@ import { MealPlanDayService } from 'app/entities/mealplans/meal-plan-day';
 export class MealUpdateComponent implements OnInit {
   isSaving: boolean;
 
-  mealplandays: IMealPlanDay[];
-
-  editForm = this.fb.group({
-    id: [],
-    ordinalNumber: [null, [Validators.required, Validators.min(1)]],
-    mealPlanDay: [null, Validators.required]
-  });
+  @Input() meal: FormGroup;
+  @Output() passEntry: EventEmitter<FormGroup> = new EventEmitter();
 
   constructor(
     protected jhiAlertService: JhiAlertService,
-    protected mealService: MealService,
-    protected mealPlanDayService: MealPlanDayService,
     protected activatedRoute: ActivatedRoute,
+    protected modalService: NgbModal,
+    protected productService: ProductService,
+    protected recipeService: RecipeService,
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
-    this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ meal }) => {
-      this.updateForm(meal);
-    });
-    this.mealPlanDayService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IMealPlanDay[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IMealPlanDay[]>) => response.body)
-      )
-      .subscribe((res: IMealPlanDay[]) => (this.mealplandays = res), (res: HttpErrorResponse) => this.onError(res.message));
+  ngOnInit() {}
+
+  passBack(): void {
+    this.passEntry.emit(this.meal);
   }
 
-  updateForm(meal: IMeal) {
-    this.editForm.patchValue({
-      id: meal.id,
-      ordinalNumber: meal.ordinalNumber,
-      mealPlanDay: meal.mealPlanDay
-    });
-  }
-
-  previousState() {
-    window.history.back();
-  }
-
-  save() {
-    this.isSaving = true;
-    const meal = this.createFromForm();
-    if (meal.id !== undefined) {
-      this.subscribeToSaveResponse(this.mealService.update(meal));
-    } else {
-      this.subscribeToSaveResponse(this.mealService.create(meal));
-    }
-  }
-
-  private createFromForm(): IMeal {
-    return {
-      ...new Meal(),
-      id: this.editForm.get(['id']).value,
-      ordinalNumber: this.editForm.get(['ordinalNumber']).value,
-      mealPlanDay: this.editForm.get(['mealPlanDay']).value
-    };
-  }
-
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IMeal>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
-  }
-
-  protected onSaveSuccess() {
-    this.isSaving = false;
-    this.previousState();
-  }
-
-  protected onSaveError() {
-    this.isSaving = false;
-  }
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackMealPlanDayById(index: number, item: IMealPlanDay) {
-    return item.id;
+  getMealRecipesFormArray() {
+    return this.meal.get('mealRecipes') as FormArray;
+  }
+
+  getMealRecipesFormGroup() {
+    return this.fb.group({
+      id: [],
+      recipeId: [null, [Validators.required]],
+      recipe: [],
+      amount: [null, [Validators.required, Validators.min(0)]]
+    });
+  }
+
+  getMealProductsFormArray() {
+    return this.meal.get('mealProducts') as FormArray;
+  }
+
+  getMealProductsFormGroup() {
+    return this.fb.group({
+      id: [],
+      productId: [null, [Validators.required]],
+      product: [],
+      householdMeasureId: [],
+      amount: [null, [Validators.required, Validators.min(0)]]
+    });
+  }
+
+  addIngredient() {
+    const modalRef = this.modalService.open(ProductComponent, { windowClass: 'custom-modal' });
+
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry: Product) => {
+      modalRef.close();
+
+      const mealProductsFormGroup = this.getMealProductsFormGroup();
+      mealProductsFormGroup.patchValue({ productId: receivedEntry.id, product: receivedEntry });
+      this.getMealProductsFormArray().push(mealProductsFormGroup);
+    });
+  }
+
+  removeIngredientFromMeal(index: number): void {
+    this.getMealProductsFormArray().removeAt(index);
+  }
+
+  addRecipe() {
+    const modalRef = this.modalService.open(RecipeComponent, { windowClass: 'custom-modal' });
+
+    modalRef.componentInstance.passEntry.subscribe((receivedEntry: Recipe) => {
+      modalRef.close();
+
+      const mealRecipesFormGroup = this.getMealRecipesFormGroup();
+      mealRecipesFormGroup.patchValue({ recipeId: receivedEntry.id, recipe: receivedEntry });
+      this.getMealRecipesFormArray().push(mealRecipesFormGroup);
+    });
+  }
+
+  removeRecipeFromMeal(index: number) {
+    this.getMealRecipesFormArray().removeAt(index);
   }
 }

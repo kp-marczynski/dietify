@@ -2,59 +2,149 @@
     <div class="col-8">
         <div *ngIf="mealPlan">
             <h2><span jhiTranslate="gatewayApp.mealplansMealPlan.detail.title">Meal Plan</span> {{mealPlan.id}}</h2>
-            <hr>
             <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.authorId" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.authorId' | translate">Author Id</span></dt>
-                <dd>
-                    <span>{{mealPlan.authorId}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.creationDate" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationDate' | translate">Creation Date</span></dt>
-                <dd>
-                    <span>{{mealPlan.creationDate}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.name" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.name' | translate">Name</span></dt>
-                <dd>
-                    <span>{{mealPlan.name}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isVisible" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isVisible' | translate">Is Visible</span></dt>
-                <dd>
-                    <span>{{mealPlan.isVisible}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isLocked" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isLocked' | translate">Is Locked</span></dt>
-                <dd>
-                    <span>{{mealPlan.isLocked}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.language" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.language' | translate">Language</span></dt>
-                <dd>
-                    <span>{{mealPlan.language}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfDays" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfDays' | translate">Number Of Days</span></dt>
-                <dd>
-                    <span>{{mealPlan.numberOfDays}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfMealsPerDay" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfMealsPerDay' | translate">Number Of Meals Per Day</span></dt>
-                <dd>
-                    <span>{{mealPlan.numberOfMealsPerDay}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.totalDailyEnergy" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.totalDailyEnergy' | translate">Total Daily Energy</span></dt>
-                <dd>
-                    <span>{{mealPlan.totalDailyEnergy}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfProtein" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfProtein' | translate">Percent Of Protein</span></dt>
-                <dd>
-                    <span>{{mealPlan.percentOfProtein}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfFat" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfFat' | translate">Percent Of Fat</span></dt>
-                <dd>
-                    <span>{{mealPlan.percentOfFat}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfCarbohydrates" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfCarbohydrates' | translate">Percent Of Carbohydrates</span></dt>
-                <dd>
-                    <span>{{mealPlan.percentOfCarbohydrates}}</span>
-                </dd>
-            </dl>
-
+            <ngb-tabset justify="justified">
+                <ngb-tab title="{{'gatewayApp.mealplansMealPlan.settings' | translate}}">
+                    <ng-template ngbTabContent>
+                        <dl class="row-md jh-entity-details">
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.authorId" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.authorId' | translate">Author Id</span></dt>
+                            <dd>
+                                <span>{{mealPlan.authorId}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.creationDate" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationDate' | translate">Creation Date</span></dt>
+                            <dd>
+                                <span>{{mealPlan.creationDate}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.name" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.name' | translate">Name</span></dt>
+                            <dd>
+                                <span>{{mealPlan.name}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isVisible" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isVisible' | translate">Is Visible</span></dt>
+                            <dd>
+                                <span>{{mealPlan.isVisible}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isLocked" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isLocked' | translate">Is Locked</span></dt>
+                            <dd>
+                                <span>{{mealPlan.isLocked}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.language" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.language' | translate">Language</span></dt>
+                            <dd>
+                                <span>{{mealPlan.language}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfDays" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfDays' | translate">Number Of Days</span></dt>
+                            <dd>
+                                <span>{{mealPlan.numberOfDays}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfMealsPerDay" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfMealsPerDay' | translate">Number Of Meals Per Day</span></dt>
+                            <dd>
+                                <span>{{mealPlan.numberOfMealsPerDay}}</span>
+                            </dd>
+                                <dt jhiTranslate="gatewayApp.mealplansMealPlan.mealDefinitions">Meals Definitions</dt>
+                            <dd>
+                                <table>
+                                    <tr *ngFor="let mealDefinition of mealPlan.mealDefinitions">
+                                        <td>{{mealDefinition.ordinalNumber}}</td>
+                                        <td>{{mealDefinition.mealTypeId}}</td>
+                                        <td>{{mealDefinition.timeOfMeal}}</td>
+                                        <td>{{mealDefinition.percentOfEnergy}}</td>
+                                    </tr>
+                                </table>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.totalDailyEnergy" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.totalDailyEnergy' | translate">Total Daily Energy</span></dt>
+                            <dd>
+                                <span>{{mealPlan.totalDailyEnergy}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfProtein" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfProtein' | translate">Percent Of Protein</span></dt>
+                            <dd>
+                                <span>{{mealPlan.percentOfProtein}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfFat" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfFat' | translate">Percent Of Fat</span></dt>
+                            <dd>
+                                <span>{{mealPlan.percentOfFat}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.percentOfCarbohydrates" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.percentOfCarbohydrates' | translate">Percent Of Carbohydrates</span></dt>
+                            <dd>
+                                <span>{{mealPlan.percentOfCarbohydrates}}</span>
+                            </dd>
+                        </dl>
+                    </ng-template>
+                </ngb-tab>
+                <ngb-tab title="{{'gatewayApp.mealplansMealPlan.calendar' | translate}}">
+                    <ng-template ngbTabContent>
+                        <header>
+                            <div class="row d-none d-lg-flex p-1 bg-primary text-white">
+                                <h5 class="col-lg p-1 text-center"></h5>
+                                <h5 class="col-lg p-1 text-center" *ngFor="let meal of mealPlan.mealDefinitions">
+                                    {{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.ordinalNumber}}</h5>
+                                <h5 class="col-lg p-1 text-center" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</h5>
+                            </div>
+                        </header>
+                        <div class="row border border-right-0 border-bottom-0"
+                             *ngFor="let day of mealPlan.days; let dayIndex = index" >
+                            <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate bg-primary text-white">
+                                <h5 class="col-lg p-1 text-center">{{'gatewayApp.mealplansMealPlanDay.detail.title' | translate}} {{day.ordinalNumber}}</h5>
+                            </div>
+                            <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate "
+                                 *ngFor="let meal of day.meals; let mealIndex = index">
+<!--                                <button type="button"-->
+<!--                                        (click)="editMeal(meal)"-->
+<!--                                        class="btn btn-primary btn-sm">-->
+<!--                                    <fa-icon [icon]="'pencil-alt'"></fa-icon>-->
+<!--                                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>-->
+<!--                                </button>-->
+                                <h5 class="row align-items-center">
+                                    <small class="col d-sm-none text-center text-muted">{{'gatewayApp.mealplansMeal.detail.title' | translate}} {{meal.ordinalNumber}}</small>
+                                </h5>
+                                <h5 class="row align-items-center" *ngIf="meal.mealRecipes.length > 0">
+                                    <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealRecipes">Recipes</span>
+                                </h5>
+                                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
+                                   title="{{recipe.recipe? recipe.recipe.name : recipe.recipeId}}"
+                                   *ngFor="let recipe of meal.mealRecipes; let recipeIndex = index"
+                                   routerLink="/recipe/{{recipe.recipeId}}/view">
+                                    <span class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">
+                                        {{recipe.amount}}x g
+                                    </span>
+                                    {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}
+                                </a>
+                                <h5 class="row align-items-center" *ngIf="meal.mealProducts.length > 0">
+                                    <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealProducts">Products</span>
+                                </h5>
+                                <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
+                                   title="{{product.product ? product.product.description : product.productId}}"
+                                   *ngFor="let product of meal.mealProducts; let productIndex = index"
+                                   routerLink="/product/{{product.productId}}/view">
+                                    <span class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">
+                                        {{product.amount}}x {{product.householdMeasureId ? product.householdMeasureId : 'g'}}
+                                    </span>
+                                    {{product.product ? product.product.description : product.productId}}
+                                </a>
+                            </div>
+                            <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate" >
+                                <h5 class="row align-items-center">
+                                    <small class="col d-sm-none text-center text-muted" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</small>
+                                </h5>
+                                <!--                                <div *ngIf="day.nutritionData">-->
+                                <!--                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">-->
+                                <!--                                    <h5>{{nutritionKey}}</h5>-->
+                                <!--                                    <div-->
+                                <!--                                        class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">-->
+                                <!--                                        <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;-->
+                                <!--                                        <span>-->
+                                <!--                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%-->
+                                <!--                            </span><br/>-->
+                                <!--                                        <span>-->
+                                <!--                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}-->
+                                <!--                        </span>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+                        <div class="w-100"></div>
+                    </ng-template>
+                </ngb-tab>
+            </ngb-tabset>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

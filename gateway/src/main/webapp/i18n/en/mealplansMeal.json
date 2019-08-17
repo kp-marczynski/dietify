@@ -15,8 +15,8 @@
         "title": "Meal"
       },
       "ordinalNumber": "Ordinal Number",
-      "mealRecipes": "Meal Recipes",
-      "mealProducts": "Meal Products",
+      "mealRecipes": "Recipes",
+      "mealProducts": "Products",
       "mealPlanDay": "Meal Plan Day",
       "help": {
         "ordinalNumber": "Ordinal number of meal"

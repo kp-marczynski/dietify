@@ -1,13 +1,13 @@
 package pl.marczynski.dietify.mealplans.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -38,18 +38,15 @@ public class Meal implements Serializable {
     @Column(name = "ordinal_number", nullable = false)
     private Integer ordinalNumber;
 
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "meal_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealRecipe> mealRecipes = new HashSet<>();
 
-    @OneToMany(mappedBy = "meal")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "meal_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealProduct> mealProducts = new HashSet<>();
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("meals")
-    private MealPlanDay mealPlanDay;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -84,13 +81,6 @@ public class Meal implements Serializable {
         this.mealProducts = mealProducts;
     }
 
-    public MealPlanDay getMealPlanDay() {
-        return mealPlanDay;
-    }
-
-    public void setMealPlanDay(MealPlanDay mealPlanDay) {
-        this.mealPlanDay = mealPlanDay;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
