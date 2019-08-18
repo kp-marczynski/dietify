@@ -55,8 +55,8 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.nutritionData">Nutritions</span></dt>
                 <dd>
-                    <div>
-                        <canvas id="canvas">{{ chart }}</canvas>
+                    <div class="canvas-wrapper">
+                        <canvas id="canvas" width="300px" height="300px">{{ chart }}</canvas>
                     </div>
                     <table>
                         <tr *ngFor="let nutritionData of product.nutritionData">
