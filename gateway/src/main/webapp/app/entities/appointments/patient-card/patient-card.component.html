@@ -28,58 +28,183 @@
     <div class="alert alert-warning" *ngIf="patientCards?.length === 0">
         <span jhiTranslate="gatewayApp.appointmentsPatientCard.home.notFound">No patientCards found</span>
     </div>
-    <div class="table-responsive" *ngIf="patientCards?.length > 0">
-        <table class="table table-striped">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="dietitianId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.dietitianId">Dietitian Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="patientId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId">Patient Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let patientCard of patientCards ;trackBy: trackId">
-                <td><a [routerLink]="['/patient-card', patientCard.id, 'view' ]">{{patientCard.id}}</a></td>
-                <td>{{patientCard.creationDate | date:'mediumDate'}}</td>
-                <td>{{patientCard.dietitianId}}</td>
-                <td>{{patientCard.patientId}}</td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/patient-card', patientCard.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/patient-card', patientCard.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/', 'patient-card', { outlets: { popup: patientCard.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
+    <div class="row">
+        <div class="col-lg-4 col-lg-offset-2">
+            <div class="card jh-card">
+                <h3>All patients</h3>
+                <div class="table-responsive" *ngIf="patientCards?.length > 0">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="dietitianId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.dietitianId">Dietitian Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="patientId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId">Patient Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let patientCard of patientCards ;trackBy: trackId">
+                            <td><a [routerLink]="['/patient-card', patientCard.id, 'view' ]">{{patientCard.id}}</a></td>
+                            <td>{{patientCard.creationDate | date:'mediumDate'}}</td>
+                            <td>{{patientCard.dietitianId}}</td>
+                            <td>{{patientCard.patientId}}</td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <button type="submit"
+                                            [routerLink]="['/patient-card', patientCard.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/patient-card', patientCard.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'patient-card', { outlets: { popup: patientCard.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pager is not implemented yet, so this is normal pagination instead -->
+                <div [hidden]="patientCards?.length === 0">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <!-- Pager is not implemented yet, so this is normal pagination instead -->
-    <div [hidden]="patientCards?.length === 0">
-        <div class="row justify-content-center">
-            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false"> (pageChange)="loadPage(page)"></ngb-pagination>
+        <div class="col-lg-4 col-lg-offset-2">
+            <div class="card jh-card">
+                <h3>Appointments</h3>
+                <div class="table-responsive" *ngIf="patientCards?.length > 0">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="dietitianId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.dietitianId">Dietitian Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="patientId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId">Patient Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let patientCard of patientCards ;trackBy: trackId">
+                            <td><a [routerLink]="['/patient-card', patientCard.id, 'view' ]">{{patientCard.id}}</a></td>
+                            <td>{{patientCard.creationDate | date:'mediumDate'}}</td>
+                            <td>{{patientCard.dietitianId}}</td>
+                            <td>{{patientCard.patientId}}</td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <button type="submit"
+                                            [routerLink]="['/patient-card', patientCard.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/patient-card', patientCard.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'patient-card', { outlets: { popup: patientCard.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pager is not implemented yet, so this is normal pagination instead -->
+                <div [hidden]="patientCards?.length === 0">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-4 col-lg-offset-2">
+            <div class="card jh-card">
+                <h3>Consultations</h3>
+                <div class="table-responsive" *ngIf="patientCards?.length > 0">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
+                            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="dietitianId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.dietitianId">Dietitian Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th jhiSortBy="patientId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId">Patient Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let patientCard of patientCards ;trackBy: trackId">
+                            <td><a [routerLink]="['/patient-card', patientCard.id, 'view' ]">{{patientCard.id}}</a></td>
+                            <td>{{patientCard.creationDate | date:'mediumDate'}}</td>
+                            <td>{{patientCard.dietitianId}}</td>
+                            <td>{{patientCard.patientId}}</td>
+                            <td class="text-right">
+                                <div class="btn-group">
+                                    <button type="submit"
+                                            [routerLink]="['/patient-card', patientCard.id, 'view' ]"
+                                            class="btn btn-info btn-sm">
+                                        <fa-icon [icon]="'eye'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/patient-card', patientCard.id, 'edit']"
+                                            class="btn btn-primary btn-sm">
+                                        <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                                    </button>
+                                    <button type="submit"
+                                            [routerLink]="['/', 'patient-card', { outlets: { popup: patientCard.id + '/delete'} }]"
+                                            replaceUrl="true"
+                                            queryParamsHandling="merge"
+                                            class="btn btn-danger btn-sm">
+                                        <fa-icon [icon]="'times'"></fa-icon>
+                                        <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pager is not implemented yet, so this is normal pagination instead -->
+                <div [hidden]="patientCards?.length === 0">
+                    <div class="row justify-content-center">
+                        <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+                    </div>
+                    <div class="row justify-content-center">
+                        <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false" (pageChange)="loadPage(page)"></ngb-pagination>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
