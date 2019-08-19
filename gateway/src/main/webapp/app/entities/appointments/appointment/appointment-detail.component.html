@@ -16,7 +16,7 @@
 <div class="row">
     <div class="col-lg-4 col-lg-offset-2">
         <div class="card jh-card">
-            <h3>Appointment details</h3>
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.details">Appointment details</h3>
             <dl *ngIf="appointment" class="row-md jh-entity-details">
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentDate' | translate">Appointment Date</span></dt>
                 <dd>
@@ -57,7 +57,7 @@
     </div>
     <div class="col-lg-4 col-lg-offset-2">
         <div class="card jh-card">
-            <h3>Nutritional interview</h3>
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional interview</h3>
             <hr>
             <button *ngIf="!appointment.nutritionalInterview" id="jh-create-nutritional-interview" class="btn btn-primary float-right jh-create-entity" [routerLink]="['/nutritional-interview/new']">
                 <fa-icon [icon]="'plus'"></fa-icon>
@@ -70,7 +70,7 @@
             </div>
         </div>
         <div class="card jh-card">
-            <h3>Body measurement</h3>
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body measurement</h3>
             <hr>
             <button *ngIf="!appointment.bodyMeasurement" id="jh-create-entity-body-measurment" class="btn btn-primary float-right jh-create-entity" [routerLink]="['/body-measurement/new']">
                 <fa-icon [icon]="'plus'"></fa-icon>
@@ -86,7 +86,7 @@
     <div class="col-lg-4 col-lg-offset-2">
         <div class="card jh-card">
             <h3>
-                MealPlan
+                <span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlans">Meal Plans</span>
                 <button type="button" id="jh-create-entity-assigned-meal-plan" class="btn btn-primary float-right jh-create-entity" (click)="addMealPlan()">
                     <fa-icon [icon]="'plus'"></fa-icon>
                     <span class="hidden-sm-down">
@@ -104,7 +104,7 @@
             </table>
         </div>
         <div class="card jh-card">
-            <h3>Advice</h3>
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">Advice</h3>
             <hr>
             <span *ngIf="appointment.generalAdvice">{{appointment.generalAdvice}}</span>
         </div>

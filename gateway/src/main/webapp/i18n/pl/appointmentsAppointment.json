@@ -22,6 +22,7 @@
       "nutritionalInterview": "Wywiad żywieniowy",
       "mealPlans": "Jadłospisy",
       "patientCard": "Karta pacjenta",
+      "details": "Szczegóły wizyty",
       "help": {
         "appointmentDate": "Data i godzina wizyty",
         "appointmentState": "Stan wizyty",

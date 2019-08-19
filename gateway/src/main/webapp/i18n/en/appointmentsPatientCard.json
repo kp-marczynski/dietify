@@ -18,10 +18,13 @@
       "dietitianId": "Dietitian Id",
       "patientId": "Patient Id",
       "appointments": "Appointments",
+      "bmi": "BMI",
+      "details": "Patient details",
       "help": {
         "creationDate": "Date when patient registered to dietitian",
         "dietitianId": "Dietitian to which patient has signed. Id of User entity retrieved from gateway service.",
-        "patientId": "Patient of dietitian. Id of User entity retrieved from gateway service."
+        "patientId": "Patient of dietitian. Id of User entity retrieved from gateway service.",
+        "bmi": "Body Mass Index"
       }
     }
   },

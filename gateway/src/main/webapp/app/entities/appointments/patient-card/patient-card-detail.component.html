@@ -17,7 +17,7 @@
 <div class="row">
     <div class="col-lg-4 col-lg-offset-2">
         <div class="card jh-card">
-            <h3>Patient details</h3>
+            <h3 jhiTranslate="gatewayApp.appointmentsPatientCard.details">Patient details</h3>
             <dl *ngIf="patientCard" class="row-md jh-entity-details">
                 <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.creationDate' | translate">Creation Date</span></dt>
                 <dd>
@@ -34,7 +34,10 @@
             </dl>
         </div>
         <div class="card jh-card">
-            <h3>BMI</h3>
+            <h3 jhiTranslate="gatewayApp.appointmentsPatientCard.bmi" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.bmi' | translate">BMI</h3>
+            <div class="canvas-wrapper">
+                <canvas id="canvas" width="300px" height="300px">{{ chart }}</canvas>
+            </div>
         </div>
     </div>
     <div class="col-lg-4 col-lg-offset-2">
