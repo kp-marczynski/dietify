@@ -59,10 +59,28 @@
         <div class="card jh-card">
             <h3>Nutritional interview</h3>
             <hr>
+            <button *ngIf="!appointment.nutritionalInterview" id="jh-create-nutritional-interview" class="btn btn-primary float-right jh-create-entity create-nutritional-interview" [routerLink]="['/nutritional-interview/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.createLabel">
+                    Create new Nutritional Interview
+                </span>
+            </button>
+            <div *ngIf="appointment.nutritionalInterview">
+                <a [routerLink]="['/nutritional-interview', appointment.nutritionalInterview?.id, 'view']">{{appointment.nutritionalInterview?.id}}</a>
+            </div>
         </div>
         <div class="card jh-card">
             <h3>Body measurement</h3>
             <hr>
+            <button *ngIf="!appointment.bodyMeasurement" id="jh-create-entity-body-measurment" class="btn btn-primary float-right jh-create-entity create-body-measurement" [routerLink]="['/body-measurement/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsBodyMeasurement.home.createLabel">
+                    Create new Body Measurement
+                </span>
+            </button>
+            <div *ngIf="appointment.bodyMeasurement">
+                <a [routerLink]="['/body-measurement', appointment.bodyMeasurement?.id, 'view']">{{appointment.bodyMeasurement?.id}}</a>
+            </div>
         </div>
     </div>
     <div class="col-lg-4 col-lg-offset-2">
@@ -71,8 +89,9 @@
             <hr>
         </div>
         <div class="card jh-card">
-            <h3>Comment</h3>
+            <h3>Advice</h3>
             <hr>
+            <span *ngIf="appointment.generalAdvice">{{appointment.generalAdvice}}</span>
         </div>
     </div>
 </div>
