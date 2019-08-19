@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError} from '@angular/router';
 
-import { JhiLanguageHelper } from 'app/core';
+import {JhiLanguageHelper} from 'app/core';
 import {MainLayoutCardService} from 'app/layouts/main/main-layout-card.service';
 
 @Component({
@@ -15,7 +15,9 @@ export class JhiMainComponent implements OnInit {
   constructor(private jhiLanguageHelper: JhiLanguageHelper,
               private router: Router,
               private layoutCardService: MainLayoutCardService) {
-    layoutCardService.visibilityMainCardContainer$.subscribe(val => this.visibility = val);
+    layoutCardService.visibilityMainCardContainer$.subscribe(val => {
+      setTimeout(() => this.visibility = val);
+    });
   }
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {

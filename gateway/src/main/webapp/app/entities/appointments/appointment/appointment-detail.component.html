@@ -1,10 +1,23 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="appointment">
-            <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> {{appointment.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
+<div *ngIf="appointment">
+    <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> {{appointment.id}}</h2>
+    <jhi-alert-error></jhi-alert-error>
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/appointment', appointment.id, 'edit']"
+            class="btn btn-primary">
+        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-2">
+        <div class="card jh-card">
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.details">Appointment details</h3>
+            <dl *ngIf="appointment" class="row-md jh-entity-details">
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentDate' | translate">Appointment Date</span></dt>
                 <dd>
                     <span>{{appointment.appointmentDate}}</span>
@@ -40,18 +53,60 @@
                     </div>
                 </dd>
             </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-2">
+        <div class="card jh-card">
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional interview</h3>
+            <hr>
+            <button *ngIf="!appointment.nutritionalInterview" id="jh-create-nutritional-interview" class="btn btn-primary float-right jh-create-entity" [routerLink]="['/nutritional-interview/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.createLabel">
+                    Create new Nutritional Interview
+                </span>
             </button>
-
-            <button type="button"
-                    [routerLink]="['/appointment', appointment.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            <div *ngIf="appointment.nutritionalInterview">
+                <a [routerLink]="['/nutritional-interview', appointment.nutritionalInterview?.id, 'view']">{{appointment.nutritionalInterview?.id}}</a>
+            </div>
+        </div>
+        <div class="card jh-card">
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body measurement</h3>
+            <hr>
+            <button *ngIf="!appointment.bodyMeasurement" id="jh-create-entity-body-measurment" class="btn btn-primary float-right jh-create-entity" [routerLink]="['/body-measurement/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsBodyMeasurement.home.createLabel">
+                    Create new Body Measurement
+                </span>
             </button>
+            <div *ngIf="appointment.bodyMeasurement">
+                <a [routerLink]="['/body-measurement', appointment.bodyMeasurement?.id, 'view']">{{appointment.bodyMeasurement?.id}}</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-2">
+        <div class="card jh-card">
+            <h3>
+                <span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlans">Meal Plans</span>
+                <button type="button" id="jh-create-entity-assigned-meal-plan" class="btn btn-primary float-right jh-create-entity" (click)="addMealPlan()">
+                    <fa-icon [icon]="'plus'"></fa-icon>
+                    <span class="hidden-sm-down">
+                    Add
+                </span>
+                </button>
+            </h3>
+            <hr>
+            <table class="table table-striped">
+                <tbody>
+                <tr *ngFor="let mealPlan of appointment.mealPlans">
+                    <td>{{mealPlan.mealPlanId}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="card jh-card">
+            <h3 jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">Advice</h3>
+            <hr>
+            <span *ngIf="appointment.generalAdvice">{{appointment.generalAdvice}}</span>
         </div>
     </div>
 </div>

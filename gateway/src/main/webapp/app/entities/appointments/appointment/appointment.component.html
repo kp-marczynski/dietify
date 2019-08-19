@@ -1,5 +1,5 @@
 <div>
-    <h2 id="page-heading">
+    <h3 id="page-heading">
         <span jhiTranslate="gatewayApp.appointmentsAppointment.home.title">Appointments</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appointment" [routerLink]="['/appointment/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
@@ -7,24 +7,24 @@
             Create new Appointment
             </span>
         </button>
-    </h2>
-    <jhi-alert></jhi-alert>
-    <div class="row">
-        <div class="col-sm-12">
-            <form name="searchForm" class="form-inline">
-                <div class="input-group w-100 mt-3">
-                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.appointmentsAppointment.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
-                        <fa-icon [icon]="'search'"></fa-icon>
-                    </button>
-                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
-                        <fa-icon [icon]="'trash-alt'"></fa-icon>
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <br/>
+    </h3>
+<!--    <jhi-alert></jhi-alert>-->
+<!--    <div class="row">-->
+<!--        <div class="col-sm-12">-->
+<!--            <form name="searchForm" class="form-inline">-->
+<!--                <div class="input-group w-100 mt-3">-->
+<!--                    <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.appointmentsAppointment.home.search' | translate }}">-->
+<!--                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">-->
+<!--                        <fa-icon [icon]="'search'"></fa-icon>-->
+<!--                    </button>-->
+<!--                    <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">-->
+<!--                        <fa-icon [icon]="'trash-alt'"></fa-icon>-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <br/>-->
     <div class="alert alert-warning" *ngIf="appointments?.length === 0">
         <span jhiTranslate="gatewayApp.appointmentsAppointment.home.notFound">No appointments found</span>
     </div>
@@ -35,11 +35,11 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="appointmentDate"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate">Appointment Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="appointmentState"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState">Appointment State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="mealPlanId"><span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId">Meal Plan Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="generalAdvice"><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="bodyMeasurement.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="nutritionalInterview.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional Interview</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="patientCard.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.patientCard">Patient Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--            <th jhiSortBy="mealPlanId"><span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId">Meal Plan Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="generalAdvice"><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="bodyMeasurement.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="nutritionalInterview.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional Interview</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--            <th jhiSortBy="patientCard.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.patientCard">Patient Card</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
             <th></th>
             </tr>
             </thead>
@@ -48,23 +48,23 @@
                 <td><a [routerLink]="['/appointment', appointment.id, 'view' ]">{{appointment.id}}</a></td>
                 <td>{{appointment.appointmentDate | date:'medium'}}</td>
                 <td jhiTranslate="{{'gatewayApp.AppointmentState.' + appointment.appointmentState}}">{{appointment.appointmentState}}</td>
-                <td>{{appointment.mealPlanId}}</td>
-                <td>{{appointment.generalAdvice}}</td>
-                <td>
-                    <div *ngIf="appointment.bodyMeasurement">
-                        <a [routerLink]="['../body-measurement', appointment.bodyMeasurement?.id, 'view' ]" >{{appointment.bodyMeasurement?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="appointment.nutritionalInterview">
-                        <a [routerLink]="['../nutritional-interview', appointment.nutritionalInterview?.id, 'view' ]" >{{appointment.nutritionalInterview?.id}}</a>
-                    </div>
-                </td>
-                <td>
-                    <div *ngIf="appointment.patientCard">
-                        <a [routerLink]="['../patient-card', appointment.patientCard?.id, 'view' ]" >{{appointment.patientCard?.id}}</a>
-                    </div>
-                </td>
+<!--                <td>{{appointment.mealPlanId}}</td>-->
+<!--                <td>{{appointment.generalAdvice}}</td>-->
+<!--                <td>-->
+<!--                    <div *ngIf="appointment.bodyMeasurement">-->
+<!--                        <a [routerLink]="['../body-measurement', appointment.bodyMeasurement?.id, 'view' ]" >{{appointment.bodyMeasurement?.id}}</a>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <div *ngIf="appointment.nutritionalInterview">-->
+<!--                        <a [routerLink]="['../nutritional-interview', appointment.nutritionalInterview?.id, 'view' ]" >{{appointment.nutritionalInterview?.id}}</a>-->
+<!--                    </div>-->
+<!--                </td>-->
+<!--                <td>-->
+<!--                    <div *ngIf="appointment.patientCard">-->
+<!--                        <a [routerLink]="['../patient-card', appointment.patientCard?.id, 'view' ]" >{{appointment.patientCard?.id}}</a>-->
+<!--                    </div>-->
+<!--                </td>-->
                 <td class="text-right">
                     <div class="btn-group">
                         <button type="submit"

@@ -13,13 +13,15 @@ import { AppointmentService } from 'app/entities/appointments/appointment';
 
 @Component({
   selector: 'jhi-nutritional-interview-update',
-  templateUrl: './nutritional-interview-update.component.html'
+  templateUrl: './nutritional-interview-update.component.html',
+  styleUrls: ['./nutritional-interview-update.component.scss']
 })
 export class NutritionalInterviewUpdateComponent implements OnInit {
   isSaving: boolean;
 
   appointments: IAppointment[];
   completionDateDp: any;
+  currentTabIndex = 2;
 
   editForm = this.fb.group({
     id: [],
