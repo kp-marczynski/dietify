@@ -13,13 +13,13 @@ import {
   appointmentRoute,
   appointmentPopupRoute
 } from './';
+import {AppointmentsAppointmentListModule} from 'app/entities/appointments/appointment/appointment-list.module';
 
 const ENTITY_STATES = [...appointmentRoute, ...appointmentPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), AppointmentsAppointmentListModule],
   declarations: [
-    AppointmentComponent,
     AppointmentDetailComponent,
     AppointmentUpdateComponent,
     AppointmentDeleteDialogComponent,

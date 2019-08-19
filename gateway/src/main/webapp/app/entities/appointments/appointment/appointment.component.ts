@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils} from 'ng-jhipster';
 
-import { IAppointment } from 'app/shared/model/appointments/appointment.model';
-import { AccountService } from 'app/core';
+import {IAppointment} from 'app/shared/model/appointments/appointment.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { AppointmentService } from './appointment.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {AppointmentService} from './appointment.service';
 
 @Component({
   selector: 'jhi-appointment',
@@ -30,6 +30,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  standaloneView: boolean;
 
   constructor(
     protected appointmentService: AppointmentService,
@@ -43,10 +44,19 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
-      this.page = data.pagingParams.page;
-      this.previousPage = data.pagingParams.page;
-      this.reverse = data.pagingParams.ascending;
-      this.predicate = data.pagingParams.predicate;
+      if (data.pagingParams) {
+        this.standaloneView = true;
+        this.page = data.pagingParams.page;
+        this.previousPage = data.pagingParams.page;
+        this.reverse = data.pagingParams.ascending;
+        this.predicate = data.pagingParams.predicate;
+      } else {
+        this.standaloneView = false;
+        this.page = 1;
+        this.previousPage = 1;
+        this.reverse = true;
+        this.predicate = 'id';
+      }
     });
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
@@ -87,27 +97,31 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/appointment'], {
-      queryParams: {
-        page: this.page,
-        size: this.itemsPerPage,
-        search: this.currentSearch,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    });
+    if (this.standaloneView) {
+      this.router.navigate(['/appointment'], {
+        queryParams: {
+          page: this.page,
+          size: this.itemsPerPage,
+          search: this.currentSearch,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      });
+    }
     this.loadAll();
   }
 
   clear() {
     this.page = 0;
     this.currentSearch = '';
-    this.router.navigate([
-      '/appointment',
-      {
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/appointment',
+        {
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 
@@ -117,14 +131,16 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     }
     this.page = 0;
     this.currentSearch = query;
-    this.router.navigate([
-      '/appointment',
-      {
-        search: this.currentSearch,
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/appointment',
+        {
+          search: this.currentSearch,
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 

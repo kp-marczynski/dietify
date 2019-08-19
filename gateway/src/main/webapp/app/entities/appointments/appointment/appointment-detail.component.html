@@ -1,10 +1,23 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="appointment">
-            <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> {{appointment.id}}</h2>
-            <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
+<div *ngIf="appointment">
+    <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> {{appointment.id}}</h2>
+    <jhi-alert-error></jhi-alert-error>
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/appointment', appointment.id, 'edit']"
+            class="btn btn-primary">
+        <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-lg-offset-2">
+        <div class="card jh-card">
+            <h3>Appointment details</h3>
+            <dl *ngIf="appointment" class="row-md jh-entity-details">
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentDate' | translate">Appointment Date</span></dt>
                 <dd>
                     <span>{{appointment.appointmentDate}}</span>
@@ -40,18 +53,26 @@
                     </div>
                 </dd>
             </dl>
-
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/appointment', appointment.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-2">
+        <div class="card jh-card">
+            <h3>Nutritional interview</h3>
+            <hr>
+        </div>
+        <div class="card jh-card">
+            <h3>Body measurement</h3>
+            <hr>
+        </div>
+    </div>
+    <div class="col-lg-4 col-lg-offset-2">
+        <div class="card jh-card">
+            <h3>MealPlan</h3>
+            <hr>
+        </div>
+        <div class="card jh-card">
+            <h3>Comment</h3>
+            <hr>
         </div>
     </div>
 </div>
