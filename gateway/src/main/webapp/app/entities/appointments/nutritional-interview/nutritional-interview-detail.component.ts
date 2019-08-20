@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {JhiDataUtils} from 'ng-jhipster';
 
@@ -10,20 +10,21 @@ import {INutritionalInterview} from 'app/shared/model/appointments/nutritional-i
 })
 export class NutritionalInterviewDetailComponent implements OnInit {
   @Input() nutritionalInterview: INutritionalInterview;
-  standaloneView: boolean;
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
+  showHeader: boolean;
 
   constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
-    if (!this.nutritionalInterview) {
-      this.activatedRoute.data.subscribe(({nutritionalInterview}) => {
-        this.nutritionalInterview = nutritionalInterview;
-      });
-      this.standaloneView = true;
-    } else {
-      this.standaloneView = false;
-    }
+    // if (!this.nutritionalInterview) {
+    //   this.activatedRoute.data.subscribe(({nutritionalInterview}) => {
+    //     this.nutritionalInterview = nutritionalInterview;
+    //   });
+    //   this.standaloneView = true;
+    // } else {
+    //   this.standaloneView = false;
+    // }
   }
 
   byteSize(field) {
@@ -35,6 +36,6 @@ export class NutritionalInterviewDetailComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    this.cancel.emit(true);
   }
 }

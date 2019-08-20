@@ -64,7 +64,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional(readOnly = true)
     public Optional<Appointment> findOne(Long id) {
         log.debug("Request to get Appointment : {}", id);
-        return appointmentRepository.findById(id);
+        return appointmentRepository.findOneWithEagerRelationships(id);
     }
 
     /**

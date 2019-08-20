@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {FormBuilder, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService } from 'ng-jhipster';
-import { IBodyMeasurement, BodyMeasurement } from 'app/shared/model/appointments/body-measurement.model';
-import { BodyMeasurementService } from './body-measurement.service';
-import { IAppointment } from 'app/shared/model/appointments/appointment.model';
-import { AppointmentService } from 'app/entities/appointments/appointment';
+import {JhiAlertService} from 'ng-jhipster';
+import {IBodyMeasurement, BodyMeasurement} from 'app/shared/model/appointments/body-measurement.model';
+import {BodyMeasurementService} from './body-measurement.service';
+import {IAppointment} from 'app/shared/model/appointments/appointment.model';
+import {AppointmentService} from 'app/entities/appointments/appointment';
 
 @Component({
   selector: 'jhi-body-measurement-update',
   templateUrl: './body-measurement-update.component.html'
 })
 export class BodyMeasurementUpdateComponent implements OnInit {
+  @Output() passEntry: EventEmitter<BodyMeasurement> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
+
   isSaving: boolean;
 
   appointments: IAppointment[];
@@ -39,24 +42,18 @@ export class BodyMeasurementUpdateComponent implements OnInit {
 
   constructor(
     protected jhiAlertService: JhiAlertService,
-    protected bodyMeasurementService: BodyMeasurementService,
-    protected appointmentService: AppointmentService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ bodyMeasurement }) => {
-      this.updateForm(bodyMeasurement);
+    this.activatedRoute.data.subscribe(({bodyMeasurement}) => {
+      if (bodyMeasurement) {
+        this.updateForm(bodyMeasurement);
+      }
     });
-    this.appointmentService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppointment[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppointment[]>) => response.body)
-      )
-      .subscribe((res: IAppointment[]) => (this.appointments = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(bodyMeasurement: IBodyMeasurement) {
@@ -78,17 +75,13 @@ export class BodyMeasurementUpdateComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    this.cancel.emit(true);
   }
 
   save() {
     this.isSaving = true;
     const bodyMeasurement = this.createFromForm();
-    if (bodyMeasurement.id !== undefined) {
-      this.subscribeToSaveResponse(this.bodyMeasurementService.update(bodyMeasurement));
-    } else {
-      this.subscribeToSaveResponse(this.bodyMeasurementService.create(bodyMeasurement));
-    }
+    this.passBack(bodyMeasurement);
   }
 
   private createFromForm(): IBodyMeasurement {
@@ -122,11 +115,12 @@ export class BodyMeasurementUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
+
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackAppointmentById(index: number, item: IAppointment) {
-    return item.id;
+  passBack(bodyMeasurment: BodyMeasurement): void {
+    this.passEntry.emit(bodyMeasurment);
   }
 }
