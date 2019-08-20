@@ -16,7 +16,6 @@
       },
       "appointmentDate": "Data wizyty",
       "appointmentState": "Stan wizyty",
-      "mealPlanId": "Id jadłospisu",
       "generalAdvice": "Ogólna porada",
       "bodyMeasurement": "Pomiary ciała",
       "nutritionalInterview": "Wywiad żywieniowy",
@@ -25,7 +24,6 @@
       "help": {
         "appointmentDate": "Data i godzina wizyty",
         "appointmentState": "Stan wizyty",
-        "mealPlanId": "Jadłospis ułożony dla pacjenta. Id jadłospisu pobrane z serwisu mealplans",
         "generalAdvice": "Ogólna porada po wizycie"
       }
     }

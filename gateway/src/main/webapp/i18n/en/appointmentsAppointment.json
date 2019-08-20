@@ -16,7 +16,6 @@
       },
       "appointmentDate": "Appointment Date",
       "appointmentState": "Appointment State",
-      "mealPlanId": "Meal Plan Id",
       "generalAdvice": "General Advice",
       "bodyMeasurement": "Body Measurement",
       "nutritionalInterview": "Nutritional Interview",
@@ -25,7 +24,6 @@
       "help": {
         "appointmentDate": "Date and time of the appointment",
         "appointmentState": "Current appointment state",
-        "mealPlanId": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
         "generalAdvice": "General advice after appointment"
       }
     }

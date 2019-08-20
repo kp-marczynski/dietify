@@ -23,10 +23,6 @@
                 <constraints nullable="false" />
             </column>
 
-            <column name="meal_plan_id" type="bigint" remarks="Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service">
-                <constraints nullable="true" />
-            </column>
-
             <column name="general_advice" type="${clobType}" remarks="General advice after appointment">
                 <constraints nullable="true" />
             </column>

@@ -48,13 +48,6 @@ public class Appointment implements Serializable {
     private AppointmentState appointmentState;
 
     /**
-     * Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service
-     */
-    @ApiModelProperty(value = "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service")
-    @Column(name = "meal_plan_id")
-    private Long mealPlanId;
-
-    /**
      * General advice after appointment
      */
     @ApiModelProperty(value = "General advice after appointment")
@@ -103,14 +96,6 @@ public class Appointment implements Serializable {
 
     public void setAppointmentState(AppointmentState appointmentState) {
         this.appointmentState = appointmentState;
-    }
-
-    public Long getMealPlanId() {
-        return mealPlanId;
-    }
-
-    public void setMealPlanId(Long mealPlanId) {
-        this.mealPlanId = mealPlanId;
     }
 
     public String getGeneralAdvice() {
@@ -176,7 +161,6 @@ public class Appointment implements Serializable {
             "id=" + getId() +
             ", appointmentDate='" + getAppointmentDate() + "'" +
             ", appointmentState='" + getAppointmentState() + "'" +
-            ", mealPlanId=" + getMealPlanId() +
             ", generalAdvice='" + getGeneralAdvice() + "'" +
             "}";
     }

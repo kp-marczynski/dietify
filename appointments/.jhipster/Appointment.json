@@ -19,11 +19,6 @@
             ]
         },
         {
-            "fieldName": "mealPlanId",
-            "javadoc": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
-            "fieldType": "Long"
-        },
-        {
             "fieldName": "generalAdvice",
             "javadoc": "General advice after appointment",
             "fieldType": "byte[]",

@@ -33,7 +33,6 @@ export class AppointmentUpdateComponent implements OnInit {
     id: [],
     appointmentDate: [null, [Validators.required]],
     appointmentState: [null, [Validators.required]],
-    mealPlanId: [],
     generalAdvice: [],
     bodyMeasurement: [],
     nutritionalInterview: [],
@@ -120,7 +119,6 @@ export class AppointmentUpdateComponent implements OnInit {
       id: appointment.id,
       appointmentDate: appointment.appointmentDate != null ? appointment.appointmentDate.format(DATE_TIME_FORMAT) : null,
       appointmentState: appointment.appointmentState,
-      mealPlanId: appointment.mealPlanId,
       generalAdvice: appointment.generalAdvice,
       bodyMeasurement: appointment.bodyMeasurement,
       nutritionalInterview: appointment.nutritionalInterview,
@@ -183,7 +181,6 @@ export class AppointmentUpdateComponent implements OnInit {
           ? moment(this.editForm.get(['appointmentDate']).value, DATE_TIME_FORMAT)
           : undefined,
       appointmentState: this.editForm.get(['appointmentState']).value,
-      mealPlanId: this.editForm.get(['mealPlanId']).value,
       generalAdvice: this.editForm.get(['generalAdvice']).value,
       bodyMeasurement: this.editForm.get(['bodyMeasurement']).value,
       nutritionalInterview: this.editForm.get(['nutritionalInterview']).value,

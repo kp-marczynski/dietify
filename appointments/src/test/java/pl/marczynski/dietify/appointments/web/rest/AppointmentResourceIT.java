@@ -45,9 +45,6 @@ public class AppointmentResourceIT {
     private static final AppointmentState DEFAULT_APPOINTMENT_STATE = AppointmentState.PLANNED;
     private static final AppointmentState UPDATED_APPOINTMENT_STATE = AppointmentState.CANCELED;
 
-    private static final Long DEFAULT_MEAL_PLAN_ID = 1L;
-    private static final Long UPDATED_MEAL_PLAN_ID = 2L;
-
     private static final String DEFAULT_GENERAL_ADVICE = "AAAAAAAAAA";
     private static final String UPDATED_GENERAL_ADVICE = "BBBBBBBBBB";
 
@@ -98,7 +95,6 @@ public class AppointmentResourceIT {
         Appointment appointment = new Appointment();
         appointment.setAppointmentDate(DEFAULT_APPOINTMENT_DATE);
         appointment.setAppointmentState(DEFAULT_APPOINTMENT_STATE);
-        appointment.setMealPlanId(DEFAULT_MEAL_PLAN_ID);
         appointment.setGeneralAdvice(DEFAULT_GENERAL_ADVICE);
         // Add required entity
         PatientCard patientCard;
@@ -122,7 +118,6 @@ public class AppointmentResourceIT {
         Appointment appointment = new Appointment();
         appointment.setAppointmentDate(UPDATED_APPOINTMENT_DATE);
         appointment.setAppointmentState(UPDATED_APPOINTMENT_STATE);
-        appointment.setMealPlanId(UPDATED_MEAL_PLAN_ID);
         appointment.setGeneralAdvice(UPDATED_GENERAL_ADVICE);
         // Add required entity
         PatientCard patientCard;
@@ -159,7 +154,6 @@ public class AppointmentResourceIT {
         Appointment testAppointment = appointmentList.get(appointmentList.size() - 1);
         assertThat(testAppointment.getAppointmentDate()).isEqualTo(DEFAULT_APPOINTMENT_DATE);
         assertThat(testAppointment.getAppointmentState()).isEqualTo(DEFAULT_APPOINTMENT_STATE);
-        assertThat(testAppointment.getMealPlanId()).isEqualTo(DEFAULT_MEAL_PLAN_ID);
         assertThat(testAppointment.getGeneralAdvice()).isEqualTo(DEFAULT_GENERAL_ADVICE);
     }
 
@@ -232,7 +226,6 @@ public class AppointmentResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(appointment.getId().intValue())))
             .andExpect(jsonPath("$.[*].appointmentDate").value(hasItem(DEFAULT_APPOINTMENT_DATE.toString())))
             .andExpect(jsonPath("$.[*].appointmentState").value(hasItem(DEFAULT_APPOINTMENT_STATE.toString())))
-            .andExpect(jsonPath("$.[*].mealPlanId").value(hasItem(DEFAULT_MEAL_PLAN_ID.intValue())))
             .andExpect(jsonPath("$.[*].generalAdvice").value(hasItem(DEFAULT_GENERAL_ADVICE.toString())));
     }
     
@@ -249,7 +242,6 @@ public class AppointmentResourceIT {
             .andExpect(jsonPath("$.id").value(appointment.getId().intValue()))
             .andExpect(jsonPath("$.appointmentDate").value(DEFAULT_APPOINTMENT_DATE.toString()))
             .andExpect(jsonPath("$.appointmentState").value(DEFAULT_APPOINTMENT_STATE.toString()))
-            .andExpect(jsonPath("$.mealPlanId").value(DEFAULT_MEAL_PLAN_ID.intValue()))
             .andExpect(jsonPath("$.generalAdvice").value(DEFAULT_GENERAL_ADVICE.toString()));
     }
 
@@ -275,7 +267,6 @@ public class AppointmentResourceIT {
         em.detach(updatedAppointment);
         updatedAppointment.setAppointmentDate(UPDATED_APPOINTMENT_DATE);
         updatedAppointment.setAppointmentState(UPDATED_APPOINTMENT_STATE);
-        updatedAppointment.setMealPlanId(UPDATED_MEAL_PLAN_ID);
         updatedAppointment.setGeneralAdvice(UPDATED_GENERAL_ADVICE);
 
         restAppointmentMockMvc.perform(put("/api/appointments")
@@ -289,7 +280,6 @@ public class AppointmentResourceIT {
         Appointment testAppointment = appointmentList.get(appointmentList.size() - 1);
         assertThat(testAppointment.getAppointmentDate()).isEqualTo(UPDATED_APPOINTMENT_DATE);
         assertThat(testAppointment.getAppointmentState()).isEqualTo(UPDATED_APPOINTMENT_STATE);
-        assertThat(testAppointment.getMealPlanId()).isEqualTo(UPDATED_MEAL_PLAN_ID);
         assertThat(testAppointment.getGeneralAdvice()).isEqualTo(UPDATED_GENERAL_ADVICE);
     }
 

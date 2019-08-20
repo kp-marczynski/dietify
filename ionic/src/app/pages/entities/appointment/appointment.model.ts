@@ -15,7 +15,6 @@ export class Appointment implements BaseEntity {
         public id?: number,
         public appointmentDate?: any,
         public appointmentState?: AppointmentState,
-        public mealPlanId?: number,
         public generalAdvice?: any,
         public bodyMeasurement?: BodyMeasurement,
         public nutritionalInterview?: NutritionalInterview,

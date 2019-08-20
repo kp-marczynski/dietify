@@ -86,8 +86,6 @@ entity Appointment {
 	appointmentDate Instant required
     /** Current appointment state */
     appointmentState AppointmentState required
-    /** Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service */
-	mealPlanId Long
     /** General advice after appointment */
 	generalAdvice TextBlob
 }
