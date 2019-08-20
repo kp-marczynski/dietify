@@ -1,9 +1,9 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { JhiLanguageService } from 'ng-jhipster';
-import { JhiLanguageHelper } from 'app/core';
+import {NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {RouterModule} from '@angular/router';
+import {JhiLanguageService} from 'ng-jhipster';
+import {JhiLanguageHelper} from 'app/core';
 
-import { GatewaySharedModule } from 'app/shared';
+import {GatewaySharedModule} from 'app/shared';
 import {
   NutritionalInterviewComponent,
   NutritionalInterviewDetailComponent,
@@ -14,10 +14,8 @@ import {
   nutritionalInterviewPopupRoute
 } from './';
 
-const ENTITY_STATES = [...nutritionalInterviewRoute, ...nutritionalInterviewPopupRoute];
-
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule],
   declarations: [
     NutritionalInterviewComponent,
     NutritionalInterviewDetailComponent,
@@ -31,7 +29,7 @@ const ENTITY_STATES = [...nutritionalInterviewRoute, ...nutritionalInterviewPopu
     NutritionalInterviewDeleteDialogComponent,
     NutritionalInterviewDeletePopupComponent
   ],
-  providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
+  providers: [{provide: JhiLanguageService, useClass: JhiLanguageService}],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppointmentsNutritionalInterviewModule {

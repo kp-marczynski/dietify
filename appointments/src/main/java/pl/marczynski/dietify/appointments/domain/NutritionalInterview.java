@@ -137,10 +137,6 @@ public class NutritionalInterview implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CustomNutritionalInterviewQuestion> customQuestions = new HashSet<>();
 
-    @OneToOne(mappedBy = "nutritionalInterview")
-    @JsonIgnore
-    private Appointment appointment;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -254,13 +250,6 @@ public class NutritionalInterview implements Serializable {
         this.customQuestions = customNutritionalInterviewQuestions;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

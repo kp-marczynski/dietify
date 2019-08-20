@@ -56,15 +56,16 @@ public class Appointment implements Serializable {
     @Column(name = "general_advice")
     private String generalAdvice;
 
-    @OneToOne
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(unique = true)
     private BodyMeasurement bodyMeasurement;
 
-    @OneToOne
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(unique = true)
     private NutritionalInterview nutritionalInterview;
 
-    @OneToMany(mappedBy = "appointment")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "appointment_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<AssignedMealPlan> mealPlans = new HashSet<>();
 

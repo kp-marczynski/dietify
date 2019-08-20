@@ -1,8 +1,11 @@
 package pl.marczynski.dietify.appointments.repository;
 
+import org.springframework.data.repository.query.Param;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 
 /**
@@ -12,4 +15,10 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
 
+    @Query("select appointment from Appointment appointment" +
+        " left join fetch appointment.nutritionalInterview" +
+        " left join fetch appointment.bodyMeasurement" +
+        " left join fetch appointment.mealPlans" +
+        " where appointment.id =:id")
+    Optional<Appointment> findOneWithEagerRelationships(@Param("id") Long id);
 }
