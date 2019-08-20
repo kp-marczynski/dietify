@@ -35,7 +35,6 @@
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="appointmentDate"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate">Appointment Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="appointmentState"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState">Appointment State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-<!--            <th jhiSortBy="mealPlanId"><span jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId">Meal Plan Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
 <!--            <th jhiSortBy="generalAdvice"><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
 <!--            <th jhiSortBy="bodyMeasurement.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
 <!--            <th jhiSortBy="nutritionalInterview.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview">Nutritional Interview</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
@@ -48,7 +47,6 @@
                 <td><a [routerLink]="['/appointment', appointment.id, 'view' ]">{{appointment.id}}</a></td>
                 <td>{{appointment.appointmentDate | date:'medium'}}</td>
                 <td jhiTranslate="{{'gatewayApp.AppointmentState.' + appointment.appointmentState}}">{{appointment.appointmentState}}</td>
-<!--                <td>{{appointment.mealPlanId}}</td>-->
 <!--                <td>{{appointment.generalAdvice}}</td>-->
 <!--                <td>-->
 <!--                    <div *ngIf="appointment.bodyMeasurement">-->
