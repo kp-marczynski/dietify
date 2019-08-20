@@ -1,17 +1,17 @@
     <div class="progressbar-container">
         <ul class="progressbar">
-            <li [ngClass]="{'active': currentTabIndex >= 0}">Basic info</li>
-            <li [ngClass]="{'active': currentTabIndex >= 1}">Health</li>
-            <li [ngClass]="{'active': currentTabIndex >= 2}">Eating habits</li>
-            <li [ngClass]="{'active': currentTabIndex >= 3}">Summary</li>
+            <li [ngClass]="{'active': currentTabIndex >= 0}" (click)="goToSection(0)">Basic info</li>
+            <li [ngClass]="{'active': currentTabIndex >= 1}" (click)="goToSection(1)">Health</li>
+            <li [ngClass]="{'active': currentTabIndex >= 2}" (click)="goToSection(2)">Eating habits</li>
+            <li [ngClass]="{'active': currentTabIndex >= 3}" (click)="goToSection(3)">Summary</li>
         </ul>
     </div>
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-nutritional-interview-heading" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.home.createOrEditLabel">Create or edit a Nutritional Interview</h2>
-            <div>
-                <jhi-alert-error></jhi-alert-error>
+            <jhi-alert-error></jhi-alert-error>
+            <div *ngIf="currentTabIndex == 0">
                 <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
@@ -59,6 +59,16 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.jobType" for="field_jobType" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.jobType' | translate">Job Type</label>
+                    <select class="form-control" name="jobType" formControlName="jobType" id="field_jobType">
+                        <option value="SITTING">{{'gatewayApp.JobType.SITTING' | translate}}</option>
+                        <option value="STANDING">{{'gatewayApp.JobType.STANDING' | translate}}</option>
+                        <option value="MIXED">{{'gatewayApp.JobType.MIXED' | translate}}</option>
+                    </select>
+                </div>
+            </div>
+            <div *ngIf="currentTabIndex == 1">
+                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.physicalActivity" for="field_physicalActivity" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.physicalActivity' | translate">Physical Activity</label>
                     <select class="form-control" name="physicalActivity" formControlName="physicalActivity" id="field_physicalActivity">
                         <option value="EXTREMELY_INACTIVE">{{'gatewayApp.PhysicalActivity.EXTREMELY_INACTIVE' | translate}}</option>
@@ -70,7 +80,7 @@
                     <div *ngIf="editForm.get('physicalActivity').invalid && (editForm.get('physicalActivity').dirty || editForm.get('physicalActivity').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('physicalActivity').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
+                            This field is required.
                         </small>
                     </div>
                 </div>
@@ -84,14 +94,8 @@
                     <textarea class="form-control" name="medicines" id="field_medicines"
                               formControlName="medicines"></textarea>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.jobType" for="field_jobType" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.jobType' | translate">Job Type</label>
-                    <select class="form-control" name="jobType" formControlName="jobType" id="field_jobType">
-                        <option value="SITTING">{{'gatewayApp.JobType.SITTING' | translate}}</option>
-                        <option value="STANDING">{{'gatewayApp.JobType.STANDING' | translate}}</option>
-                        <option value="MIXED">{{'gatewayApp.JobType.MIXED' | translate}}</option>
-                    </select>
-                </div>
+            </div>
+            <div *ngIf="currentTabIndex == 2">
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.likedProducts" for="field_likedProducts" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.likedProducts' | translate">Liked Products</label>
                     <textarea class="form-control" name="likedProducts" id="field_likedProducts"
@@ -112,7 +116,10 @@
                     <textarea class="form-control" name="foodIntolerances" id="field_foodIntolerances"
                               formControlName="foodIntolerances"></textarea>
                 </div>
-
+            </div>
+            <div *ngIf="currentTabIndex == 3">
+                <jhi-nutritional-interview-detail
+                    [nutritionalInterview]="createFromForm()"></jhi-nutritional-interview-detail>
             </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
