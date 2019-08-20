@@ -21,7 +21,7 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
 
   appointments: IAppointment[];
   completionDateDp: any;
-  currentTabIndex = 2;
+  currentTabIndex = 0;
 
   editForm = this.fb.group({
     id: [],
@@ -124,7 +124,7 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
     }
   }
 
-  private createFromForm(): INutritionalInterview {
+  createFromForm(): INutritionalInterview {
     return {
       ...new NutritionalInterview(),
       id: this.editForm.get(['id']).value,
@@ -160,5 +160,9 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
 
   trackAppointmentById(index: number, item: IAppointment) {
     return item.id;
+  }
+
+  goToSection(number: number) {
+    this.currentTabIndex = number;
   }
 }

@@ -1,22 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { JhiDataUtils } from 'ng-jhipster';
+import {Component, OnInit, Input} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {JhiDataUtils} from 'ng-jhipster';
 
-import { INutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
+import {INutritionalInterview} from 'app/shared/model/appointments/nutritional-interview.model';
 
 @Component({
   selector: 'jhi-nutritional-interview-detail',
   templateUrl: './nutritional-interview-detail.component.html'
 })
 export class NutritionalInterviewDetailComponent implements OnInit {
-  nutritionalInterview: INutritionalInterview;
+  @Input() nutritionalInterview: INutritionalInterview;
+  standaloneView: boolean;
 
-  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {}
+  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute) {
+  }
 
   ngOnInit() {
-    this.activatedRoute.data.subscribe(({ nutritionalInterview }) => {
-      this.nutritionalInterview = nutritionalInterview;
-    });
+    if (!this.nutritionalInterview) {
+      this.activatedRoute.data.subscribe(({nutritionalInterview}) => {
+        this.nutritionalInterview = nutritionalInterview;
+      });
+      this.standaloneView = true;
+    } else {
+      this.standaloneView = false;
+    }
   }
 
   byteSize(field) {
@@ -26,6 +33,7 @@ export class NutritionalInterviewDetailComponent implements OnInit {
   openFile(contentType, field) {
     return this.dataUtils.openFile(contentType, field);
   }
+
   previousState() {
     window.history.back();
   }
