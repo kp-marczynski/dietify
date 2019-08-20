@@ -13,11 +13,13 @@ import {
   patientCardRoute,
   patientCardPopupRoute
 } from './';
+import {AppointmentsAppointmentListModule} from 'app/entities/appointments/appointment/appointment-list.module';
+import {AppointmentComponent} from 'app/entities/appointments/appointment';
 
 const ENTITY_STATES = [...patientCardRoute, ...patientCardPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), AppointmentsAppointmentListModule],
   declarations: [
     PatientCardComponent,
     PatientCardDetailComponent,
@@ -25,7 +27,7 @@ const ENTITY_STATES = [...patientCardRoute, ...patientCardPopupRoute];
     PatientCardDeleteDialogComponent,
     PatientCardDeletePopupComponent
   ],
-  entryComponents: [PatientCardComponent, PatientCardUpdateComponent, PatientCardDeleteDialogComponent, PatientCardDeletePopupComponent],
+  entryComponents: [PatientCardComponent, PatientCardUpdateComponent, PatientCardDeleteDialogComponent, PatientCardDeletePopupComponent, AppointmentComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

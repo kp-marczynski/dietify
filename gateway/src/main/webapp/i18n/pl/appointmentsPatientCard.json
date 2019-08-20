@@ -18,10 +18,13 @@
       "dietitianId": "Id dietetyka",
       "patientId": "Id pacjenta",
       "appointments": "Wizyty",
+      "bmi": "BMI",
+      "details": "Szczegóły pacjenta",
       "help": {
         "creationDate": "Data kiedy pacjent po raz pierwszy zarejestrował się do dietetyka",
         "dietitianId": "Dietetyk do którego pacjent się zapisał. Id użytkownika pobierane z serwisu gateway.",
-        "patientId": "Pacjent dietetyka. Id użytkownika pobierane z serwisu gateway."
+        "patientId": "Pacjent dietetyka. Id użytkownika pobierane z serwisu gateway.",
+        "bmi": "Wskaźnik masy ciała"
       }
     }
   },

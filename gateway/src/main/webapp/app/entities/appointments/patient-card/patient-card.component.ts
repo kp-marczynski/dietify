@@ -10,6 +10,7 @@ import { AccountService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { PatientCardService } from './patient-card.service';
+import {MainLayoutCardService} from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-patient-card',
@@ -38,7 +39,8 @@ export class PatientCardComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected layoutCardService: MainLayoutCardService
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -128,6 +130,7 @@ export class PatientCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;

@@ -21,6 +21,7 @@
       "nutritionalInterview": "Nutritional Interview",
       "mealPlans": "Meal Plans",
       "patientCard": "Patient Card",
+      "details": "Appointment details",
       "help": {
         "appointmentDate": "Date and time of the appointment",
         "appointmentState": "Current appointment state",

@@ -13,19 +13,21 @@ import {
   appointmentRoute,
   appointmentPopupRoute
 } from './';
+import {AppointmentsAppointmentListModule} from 'app/entities/appointments/appointment/appointment-list.module';
+import {MealPlansMealPlanListModule} from 'app/entities/mealplans/meal-plan/meal-plan-list.module';
+import {MealPlanComponent} from 'app/entities/mealplans/meal-plan';
 
 const ENTITY_STATES = [...appointmentRoute, ...appointmentPopupRoute];
 
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES), AppointmentsAppointmentListModule, MealPlansMealPlanListModule],
   declarations: [
-    AppointmentComponent,
     AppointmentDetailComponent,
     AppointmentUpdateComponent,
     AppointmentDeleteDialogComponent,
     AppointmentDeletePopupComponent
   ],
-  entryComponents: [AppointmentComponent, AppointmentUpdateComponent, AppointmentDeleteDialogComponent, AppointmentDeletePopupComponent],
+  entryComponents: [AppointmentComponent, AppointmentUpdateComponent, AppointmentDeleteDialogComponent, AppointmentDeletePopupComponent, MealPlanComponent],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
