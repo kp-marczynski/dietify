@@ -27,4 +27,8 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     Optional<Appointment> findOneWithEagerRelationships(@Param("id") Long id);
 
     Page<Appointment> findAllByAppointmentState(@NotNull AppointmentState appointmentState, Pageable pageable);
+
+    Page<Appointment> findAllByAppointmentStateAndPatientCardPatientId(@NotNull AppointmentState appointmentState, @NotNull Long patientCard_patientId, Pageable pageable);
+
+    Page<Appointment> findAllByPatientCardPatientId(@NotNull Long patientCard_patientId, Pageable pageable);
 }

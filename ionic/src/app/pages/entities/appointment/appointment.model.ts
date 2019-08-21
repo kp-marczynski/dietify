@@ -7,6 +7,7 @@ import { PatientCard } from '../patient-card/patient-card.model';
 export const enum AppointmentState {
     'PLANNED',
     'CANCELED',
+    'TOOK_PLACE',
     'COMPLETED'
 }
 

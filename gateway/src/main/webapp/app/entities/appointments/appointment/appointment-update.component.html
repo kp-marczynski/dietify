@@ -30,6 +30,7 @@
                     <select class="form-control" name="appointmentState" formControlName="appointmentState" id="field_appointmentState">
                         <option value="PLANNED">{{'gatewayApp.AppointmentState.PLANNED' | translate}}</option>
                         <option value="CANCELED">{{'gatewayApp.AppointmentState.CANCELED' | translate}}</option>
+                        <option value="TOOK_PLACE">{{'gatewayApp.AppointmentState.TOOK_PLACE' | translate}}</option>
                         <option value="COMPLETED">{{'gatewayApp.AppointmentState.COMPLETED' | translate}}</option>
                     </select>
                     <div *ngIf="editForm.get('appointmentState').invalid && (editForm.get('appointmentState').dirty || editForm.get('appointmentState').touched)">

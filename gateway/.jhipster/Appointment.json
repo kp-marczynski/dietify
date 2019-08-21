@@ -13,7 +13,7 @@
             "fieldName": "appointmentState",
             "javadoc": "Current appointment state",
             "fieldType": "AppointmentState",
-            "fieldValues": "PLANNED,CANCELED,COMPLETED",
+            "fieldValues": "PLANNED,CANCELED,TOOK_PLACE,COMPLETED",
             "fieldValidateRules": [
                 "required"
             ]
