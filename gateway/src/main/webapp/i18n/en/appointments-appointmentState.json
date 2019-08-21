@@ -4,6 +4,7 @@
       "null": "",
       "PLANNED": "Planned",
       "CANCELED": "Canceled",
+      "TOOK_PLACE": "Took place",
       "COMPLETED": "Completed"
     }
   }
