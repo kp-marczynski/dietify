@@ -1,10 +1,14 @@
 package pl.marczynski.dietify.appointments.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
 
@@ -21,4 +25,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         " left join fetch appointment.mealPlans" +
         " where appointment.id =:id")
     Optional<Appointment> findOneWithEagerRelationships(@Param("id") Long id);
+
+    Page<Appointment> findAllByAppointmentState(@NotNull AppointmentState appointmentState, Pageable pageable);
 }
