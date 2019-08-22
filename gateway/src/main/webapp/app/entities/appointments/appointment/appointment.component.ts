@@ -1,21 +1,24 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
-import {IAppointment} from 'app/shared/model/appointments/appointment.model';
-import {AccountService} from 'app/core';
+import { IAppointment } from 'app/shared/model/appointments/appointment.model';
+import { AccountService } from 'app/core';
 
-import {ITEMS_PER_PAGE} from 'app/shared';
-import {AppointmentService} from './appointment.service';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { AppointmentService } from './appointment.service';
 
 @Component({
   selector: 'jhi-appointment',
   templateUrl: './appointment.component.html'
 })
 export class AppointmentComponent implements OnInit, OnDestroy {
+  @Input() isWaitingForConsultation: boolean;
+  @Input() patientId: number;
+
   currentAccount: any;
   appointments: IAppointment[];
   error: any;
@@ -54,8 +57,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
         this.standaloneView = false;
         this.page = 1;
         this.previousPage = 1;
-        this.reverse = true;
-        this.predicate = 'id';
+        this.reverse = false;
+        this.predicate = 'appointmentDate';
       }
     });
     this.currentSearch =
@@ -63,30 +66,63 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    if (this.currentSearch) {
+    if (this.patientId) {
+      if (this.currentSearch) {
+        this.appointmentService
+          .search({
+            page: this.page - 1,
+            query: this.currentSearch,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            isWaitingForConsultation: this.isWaitingForConsultation,
+            patientId: this.patientId
+          })
+          .subscribe(
+            (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        return;
+      }
       this.appointmentService
-        .search({
+        .query({
           page: this.page - 1,
-          query: this.currentSearch,
           size: this.itemsPerPage,
-          sort: this.sort()
+          sort: this.sort(),
+          isWaitingForConsultation: this.isWaitingForConsultation,
+          patientId: this.patientId
         })
         .subscribe(
           (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
-      return;
+    } else {
+      if (this.currentSearch) {
+        this.appointmentService
+          .search({
+            page: this.page - 1,
+            query: this.currentSearch,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            isWaitingForConsultation: this.isWaitingForConsultation
+          })
+          .subscribe(
+            (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        return;
+      }
+      this.appointmentService
+        .query({
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+          isWaitingForConsultation: this.isWaitingForConsultation
+        })
+        .subscribe(
+          (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
-    this.appointmentService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
   loadPage(page: number) {

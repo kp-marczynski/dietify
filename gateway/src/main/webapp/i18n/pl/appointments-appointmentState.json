@@ -4,6 +4,7 @@
       "null": "",
       "PLANNED": "Zaplanowana",
       "CANCELED": "Anulowana",
+      "TOOK_PLACE": "Odbyła się",
       "COMPLETED": "Zakończona"
     }
   }
