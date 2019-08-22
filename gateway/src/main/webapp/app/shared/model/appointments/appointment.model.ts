@@ -7,7 +7,7 @@ import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
 export const enum AppointmentState {
   PLANNED = 'PLANNED',
   CANCELED = 'CANCELED',
-  TOOK_PLACE = 'TOOK PLACE',
+  TOOK_PLACE = 'TOOK_PLACE',
   COMPLETED = 'COMPLETED'
 }
 

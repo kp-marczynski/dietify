@@ -5,7 +5,12 @@
       "PLANNED": "Planned",
       "CANCELED": "Canceled",
       "TOOK_PLACE": "Took place",
-      "COMPLETED": "Completed"
+      "COMPLETED": "Completed",
+      "action": {
+        "cancel": "Cancel appointment",
+        "acknowledge": "Appointment Took place",
+        "complete": "Consultation completed"
+      }
     }
   }
 }
