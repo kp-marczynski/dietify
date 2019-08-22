@@ -1,9 +1,9 @@
     <div class="progressbar-container">
         <ul class="progressbar">
-            <li [ngClass]="{'active': currentTabIndex >= 0}" (click)="goToSection(0)">Basic info</li>
-            <li [ngClass]="{'active': currentTabIndex >= 1}" (click)="goToSection(1)">Health</li>
-            <li [ngClass]="{'active': currentTabIndex >= 2}" (click)="goToSection(2)">Eating habits</li>
-            <li [ngClass]="{'active': currentTabIndex >= 3}" (click)="goToSection(3)">Summary</li>
+            <li [ngClass]="{'active': currentTabIndex >= 0}" (click)="goToSection(0)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.basic">Basic info</li>
+            <li [ngClass]="{'active': currentTabIndex >= 1}" (click)="goToSection(1)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.health">Health</li>
+            <li [ngClass]="{'active': currentTabIndex >= 2}" (click)="goToSection(2)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.eatingHabits">Eating habits</li>
+            <li [ngClass]="{'active': currentTabIndex >= 3}" (click)="goToSection(3)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.summary">Summary</li>
         </ul>
     </div>
 <div class="row justify-content-center">

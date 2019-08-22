@@ -14,6 +14,12 @@
       "detail": {
         "title": "Wywiad żywieniowy"
       },
+      "section": {
+        "basic": "Podstawowe informacje",
+        "health": "Zdrowie",
+        "eatingHabits": "Nawyki żywieniowe",
+        "summary": "Podsumowanie"
+      },
       "completionDate": "Data wypełnienia",
       "targetWeight": "Docelowa waga",
       "advicePurpose": "Cel wizyty",

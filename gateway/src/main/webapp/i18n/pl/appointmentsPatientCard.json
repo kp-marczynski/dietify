@@ -12,7 +12,8 @@
         "question": "Czy na pewno chcesz usunąć kartę pacjenta {{ id }}?"
       },
       "detail": {
-        "title": "Karta pacjenta"
+        "title": "Karta pacjenta",
+        "allPatients": "Wszyscy pacjenci"
       },
       "creationDate": "Data utworzenia",
       "dietitianId": "Id dietetyka",

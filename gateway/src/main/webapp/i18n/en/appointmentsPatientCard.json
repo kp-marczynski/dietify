@@ -12,7 +12,8 @@
         "question": "Are you sure you want to delete Patient Card {{ id }}?"
       },
       "detail": {
-        "title": "Patient Card"
+        "title": "Patient Card",
+        "allPatients": "All Patients"
       },
       "creationDate": "Creation Date",
       "dietitianId": "Dietitian Id",

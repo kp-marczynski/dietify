@@ -3,6 +3,7 @@
     "appointmentsAppointment": {
       "home": {
         "title": "Appointments",
+        "consultationsTitle": "Consultations",
         "createLabel": "Create a new Appointment",
         "createOrEditLabel": "Create or edit an Appointment",
         "search": "Search for Appointment",

@@ -14,6 +14,12 @@
       "detail": {
         "title": "Nutritional Interview"
       },
+      "section": {
+        "basic": "Basic info",
+        "health": "Health",
+        "eatingHabits": "Eating Habits",
+        "summary": "Summary"
+      },
       "completionDate": "Completion Date",
       "targetWeight": "Target Weight",
       "advicePurpose": "Advice Purpose",

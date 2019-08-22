@@ -1,8 +1,8 @@
 <div>
     <h3 id="page-heading">
         <span [ngSwitch]="isWaitingForConsultation">
-            <span *ngSwitchCase="true">Consultation</span>
-            <span *ngSwitchCase="false">Appointment</span>
+            <span *ngSwitchCase="false" jhiTranslate="gatewayApp.appointmentsAppointment.home.title">Appointment</span>
+            <span *ngSwitchCase="true" jhiTranslate="gatewayApp.appointmentsAppointment.home.consultationsTitle">Consultation</span>
         </span>
 <!--        <span jhiTranslate="gatewayApp.appointmentsAppointment.home.title">Appointments</span>-->
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appointment" [routerLink]="['/appointment/new']">

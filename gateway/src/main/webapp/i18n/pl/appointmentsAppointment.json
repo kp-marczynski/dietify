@@ -3,6 +3,7 @@
     "appointmentsAppointment": {
       "home": {
         "title": "Wizyta",
+        "consultationsTitle": "Konsultacje",
         "createLabel": "Dodaj wizytę",
         "createOrEditLabel": "Dodaj lub edytuj wizytę",
         "search": "Szukaj wizytę",
