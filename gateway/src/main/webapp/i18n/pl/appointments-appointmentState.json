@@ -5,7 +5,12 @@
       "PLANNED": "Zaplanowana",
       "CANCELED": "Anulowana",
       "TOOK_PLACE": "Odbyła się",
-      "COMPLETED": "Zakończona"
+      "COMPLETED": "Zakończona",
+      "action": {
+        "cancel": "Odwołaj wizytę",
+        "acknowledge": "Wizyta się odbyła",
+        "complete": "Porada zakończona"
+      }
     }
   }
 }

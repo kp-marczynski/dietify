@@ -14,6 +14,14 @@
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentState' | translate">Appointment State</span></dt>
                 <dd>
                     <span jhiTranslate="{{'gatewayApp.AppointmentState.' + appointment.appointmentState}}">{{appointment.appointmentState}}</span>
+                    <br>
+                    <div *ngIf="appointment.appointmentState != 'CANCELED' && appointment.appointmentState != 'COMPLETED'">
+                        <div *ngIf="appointment.appointmentState == 'PLANNED'">
+                            <button type="button" class="btn btn-danger" (click)="cancelAppointment()" jhiTranslate="gatewayApp.AppointmentState.action.cancel">Cancel Appointment</button>
+                            <button type="button" class="btn btn-secondary" (click)="appointmentTookPlace()" jhiTranslate="gatewayApp.AppointmentState.action.acknowledge">Visit took place</button>
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="consultationCompleted()" jhiTranslate="gatewayApp.AppointmentState.action.complete">Consultation completed</button>
+                    </div>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</span></dt>
                 <dd>
