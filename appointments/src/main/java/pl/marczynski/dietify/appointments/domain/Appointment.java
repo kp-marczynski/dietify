@@ -56,11 +56,11 @@ public class Appointment implements Serializable {
     @Column(name = "general_advice")
     private String generalAdvice;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(unique = true)
     private BodyMeasurement bodyMeasurement;
 
-    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(unique = true)
     private NutritionalInterview nutritionalInterview;
 
