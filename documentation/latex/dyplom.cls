@@ -72,7 +72,7 @@
 \RequirePackage[hidelinks]{hyperref}
 \RequirePackage{afterpage}
 \RequirePackage{multirow}
-\RequirePackage{enumitem}
+\RequirePackage{enumitem,etoolbox}
 \RequirePackage{array}
 \RequirePackage{float}
 \RequirePackage{xstring,xifthen}
@@ -821,7 +821,7 @@ fontsize=\small,
 \RequirePackage{chngcntr}
 \counterwithin{listing}{chapter}
 
-% patch wyrównujący spis listingów do lewego marginesu 
+% patch wyrównujący spis listingów do lewego marginesu
 %https://tex.stackexchange.com/questions/58469/why-are-listof-and-listoffigures-styled-differently
 \makeatletter
 \renewcommand*{\listof}[2]{%
@@ -857,8 +857,17 @@ fontsize=\small,
 
 \renewcommand{\arraystretch}{2}
 
-\def\threedigits#1{% 
+\def\threedigits#1{%
 \ifnum#1<100 0\fi
 \ifnum#1<10 0\fi
 \number#1}
+
+%https://tex.stackexchange.com/questions/120756/referencing-enumeration-items-by-number-and-name
+\makeatletter
+\newcommand*{\req}[1]{%
+\item
+\appto\@currentlabel{\textbf{~#1}}%
+#1\quad}
+\makeatother
+
 \endinput % dla porządku
