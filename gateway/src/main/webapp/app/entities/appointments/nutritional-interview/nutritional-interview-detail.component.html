@@ -1,7 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="nutritionalInterview">
-            <h2><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.detail.title">Nutritional Interview</span> {{nutritionalInterview.id}}</h2>
+            <h2 *ngIf="showHeader">
+                <span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.detail.title">Nutritional Interview</span> {{nutritionalInterview.id}}
+                <button type="submit"
+                        (click)="previousState()"
+                        class="btn btn-danger">
+                    <fa-icon [icon]="'times'"></fa-icon>
+                </button>
+            </h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -18,7 +25,7 @@
                     <span>{{nutritionalInterview.advicePurpose}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.physicalActivity" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.physicalActivity' | translate">Physical Activity</span></dt>
-                <dd>
+                <dd *ngIf="nutritionalInterview.physicalActivity">
                     <span jhiTranslate="{{'gatewayApp.PhysicalActivity.' + nutritionalInterview.physicalActivity}}">{{nutritionalInterview.physicalActivity}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.diseases" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.diseases' | translate">Diseases</span></dt>
@@ -30,7 +37,7 @@
                     <span>{{nutritionalInterview.medicines}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.jobType" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.jobType' | translate">Job Type</span></dt>
-                <dd>
+                <dd *ngIf="nutritionalInterview.jobType">
                     <span jhiTranslate="{{'gatewayApp.JobType.' + nutritionalInterview.jobType}}">{{nutritionalInterview.jobType}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsNutritionalInterview.likedProducts" [ngbTooltip]="'gatewayApp.appointmentsNutritionalInterview.help.likedProducts' | translate">Liked Products</span></dt>
@@ -50,18 +57,19 @@
                     <span>{{nutritionalInterview.foodIntolerances}}</span>
                 </dd>
             </dl>
+<!--            <div *ngIf="standaloneView">-->
+<!--                <button type="submit"-->
+<!--                        (click)="previousState()"-->
+<!--                        class="btn btn-info">-->
+<!--                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>-->
+<!--                </button>-->
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/nutritional-interview', nutritionalInterview.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+<!--                <button type="button"-->
+<!--                        [routerLink]="['/nutritional-interview', nutritionalInterview.id, 'edit']"-->
+<!--                        class="btn btn-primary">-->
+<!--                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>-->
+<!--                </button>-->
+<!--            </div>-->
         </div>
     </div>
 </div>

@@ -30,6 +30,7 @@
                     <select class="form-control" name="appointmentState" formControlName="appointmentState" id="field_appointmentState">
                         <option value="PLANNED">{{'gatewayApp.AppointmentState.PLANNED' | translate}}</option>
                         <option value="CANCELED">{{'gatewayApp.AppointmentState.CANCELED' | translate}}</option>
+                        <option value="TOOK_PLACE">{{'gatewayApp.AppointmentState.TOOK_PLACE' | translate}}</option>
                         <option value="COMPLETED">{{'gatewayApp.AppointmentState.COMPLETED' | translate}}</option>
                     </select>
                     <div *ngIf="editForm.get('appointmentState').invalid && (editForm.get('appointmentState').dirty || editForm.get('appointmentState').touched)">
@@ -38,11 +39,6 @@
                         This field is required.
                         </small>
                     </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.mealPlanId" for="field_mealPlanId" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.mealPlanId' | translate">Meal Plan Id</label>
-                    <input type="number" class="form-control" name="mealPlanId" id="field_mealPlanId"
-                           formControlName="mealPlanId"/>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" for="field_generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</label>

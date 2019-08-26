@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -16,6 +16,9 @@ import { AppointmentService } from './appointment.service';
   templateUrl: './appointment.component.html'
 })
 export class AppointmentComponent implements OnInit, OnDestroy {
+  @Input() isWaitingForConsultation: boolean;
+  @Input() patientId: number;
+
   currentAccount: any;
   appointments: IAppointment[];
   error: any;
@@ -30,6 +33,7 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  standaloneView: boolean;
 
   constructor(
     protected appointmentService: AppointmentService,
@@ -43,40 +47,82 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
-      this.page = data.pagingParams.page;
-      this.previousPage = data.pagingParams.page;
-      this.reverse = data.pagingParams.ascending;
-      this.predicate = data.pagingParams.predicate;
+      if (data.pagingParams) {
+        this.standaloneView = true;
+        this.page = data.pagingParams.page;
+        this.previousPage = data.pagingParams.page;
+        this.reverse = data.pagingParams.ascending;
+        this.predicate = data.pagingParams.predicate;
+      } else {
+        this.standaloneView = false;
+        this.page = 1;
+        this.previousPage = 1;
+        this.reverse = false;
+        this.predicate = 'appointmentDate';
+      }
     });
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
   loadAll() {
-    if (this.currentSearch) {
+    if (this.patientId) {
+      if (this.currentSearch) {
+        this.appointmentService
+          .search({
+            page: this.page - 1,
+            query: this.currentSearch,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            isWaitingForConsultation: this.isWaitingForConsultation,
+            patientId: this.patientId
+          })
+          .subscribe(
+            (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        return;
+      }
       this.appointmentService
-        .search({
+        .query({
           page: this.page - 1,
-          query: this.currentSearch,
           size: this.itemsPerPage,
-          sort: this.sort()
+          sort: this.sort(),
+          isWaitingForConsultation: this.isWaitingForConsultation,
+          patientId: this.patientId
         })
         .subscribe(
           (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
           (res: HttpErrorResponse) => this.onError(res.message)
         );
-      return;
+    } else {
+      if (this.currentSearch) {
+        this.appointmentService
+          .search({
+            page: this.page - 1,
+            query: this.currentSearch,
+            size: this.itemsPerPage,
+            sort: this.sort(),
+            isWaitingForConsultation: this.isWaitingForConsultation
+          })
+          .subscribe(
+            (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
+          );
+        return;
+      }
+      this.appointmentService
+        .query({
+          page: this.page - 1,
+          size: this.itemsPerPage,
+          sort: this.sort(),
+          isWaitingForConsultation: this.isWaitingForConsultation
+        })
+        .subscribe(
+          (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
     }
-    this.appointmentService
-      .query({
-        page: this.page - 1,
-        size: this.itemsPerPage,
-        sort: this.sort()
-      })
-      .subscribe(
-        (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
   loadPage(page: number) {
@@ -87,27 +133,31 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/appointment'], {
-      queryParams: {
-        page: this.page,
-        size: this.itemsPerPage,
-        search: this.currentSearch,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    });
+    if (this.standaloneView) {
+      this.router.navigate(['/appointment'], {
+        queryParams: {
+          page: this.page,
+          size: this.itemsPerPage,
+          search: this.currentSearch,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      });
+    }
     this.loadAll();
   }
 
   clear() {
     this.page = 0;
     this.currentSearch = '';
-    this.router.navigate([
-      '/appointment',
-      {
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/appointment',
+        {
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 
@@ -117,14 +167,16 @@ export class AppointmentComponent implements OnInit, OnDestroy {
     }
     this.page = 0;
     this.currentSearch = query;
-    this.router.navigate([
-      '/appointment',
-      {
-        search: this.currentSearch,
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/appointment',
+        {
+          search: this.currentSearch,
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 

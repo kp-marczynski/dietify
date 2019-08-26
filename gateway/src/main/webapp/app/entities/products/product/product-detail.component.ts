@@ -12,7 +12,8 @@ import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-product-detail',
-  templateUrl: './product-detail.component.html'
+  templateUrl: './product-detail.component.html',
+  styles: ['.canvas-wrapper {max-width: 300px; max-height: 300px;}']
 })
 export class ProductDetailComponent implements OnInit, AfterViewInit {
   product: IProduct;

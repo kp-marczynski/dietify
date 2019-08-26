@@ -28,7 +28,6 @@ export class AppointmentUpdatePage {
   cancelButton = element(by.id('cancel-save'));
   appointmentDateInput = element(by.id('field_appointmentDate'));
   appointmentStateSelect = element(by.id('field_appointmentState'));
-  mealPlanIdInput = element(by.id('field_mealPlanId'));
   generalAdviceInput = element(by.id('field_generalAdvice'));
   bodyMeasurementSelect = element(by.id('field_bodyMeasurement'));
   nutritionalInterviewSelect = element(by.id('field_nutritionalInterview'));
@@ -59,14 +58,6 @@ export class AppointmentUpdatePage {
       .all(by.tagName('option'))
       .last()
       .click();
-  }
-
-  async setMealPlanIdInput(mealPlanId) {
-    await this.mealPlanIdInput.sendKeys(mealPlanId);
-  }
-
-  async getMealPlanIdInput() {
-    return await this.mealPlanIdInput.getAttribute('value');
   }
 
   async setGeneralAdviceInput(generalAdvice) {

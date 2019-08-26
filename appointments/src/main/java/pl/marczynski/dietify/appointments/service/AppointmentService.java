@@ -43,4 +43,10 @@ public interface AppointmentService {
      * @param id the id of the entity.
      */
     void delete(Long id);
+
+    Page<Appointment> findAllWaitingForConsultation(Pageable pageable);
+
+    Page<Appointment> findAllByPatientWaitingForConsultation(Long patientId, Pageable pageable);
+
+    Page<Appointment> findAllByPatient(Long patientId, Pageable pageable);
 }

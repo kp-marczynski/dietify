@@ -67,18 +67,18 @@ export const appointmentRoute: Routes = [
     },
     canActivate: [UserRouteAccessService]
   },
-  {
-    path: ':id/edit',
-    component: AppointmentUpdateComponent,
-    resolve: {
-      appointment: AppointmentResolve
-    },
-    data: {
-      authorities: ['ROLE_USER'],
-      pageTitle: 'gatewayApp.appointmentsAppointment.home.title'
-    },
-    canActivate: [UserRouteAccessService]
-  }
+  // {
+  //   path: ':id/edit',
+  //   component: AppointmentUpdateComponent,
+  //   resolve: {
+  //     appointment: AppointmentResolve
+  //   },
+  //   data: {
+  //     authorities: ['ROLE_USER'],
+  //     pageTitle: 'gatewayApp.appointmentsAppointment.home.title'
+  //   },
+  //   canActivate: [UserRouteAccessService]
+  // }
 ];
 
 export const appointmentPopupRoute: Routes = [

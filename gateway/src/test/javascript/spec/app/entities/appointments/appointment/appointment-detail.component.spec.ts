@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { GatewayTestModule } from '../../../../test.module';
 import { AppointmentDetailComponent } from 'app/entities/appointments/appointment/appointment-detail.component';
 import { Appointment } from 'app/shared/model/appointments/appointment.model';
-
+import { FormBuilder } from '@angular/forms';
 describe('Component Tests', () => {
   describe('Appointment Management Detail Component', () => {
     let comp: AppointmentDetailComponent;
@@ -17,7 +17,7 @@ describe('Component Tests', () => {
       TestBed.configureTestingModule({
         imports: [GatewayTestModule],
         declarations: [AppointmentDetailComponent],
-        providers: [{ provide: ActivatedRoute, useValue: route }]
+        providers: [{ provide: ActivatedRoute, useValue: route }, FormBuilder]
       })
         .overrideTemplate(AppointmentDetailComponent, '')
         .compileComponents();

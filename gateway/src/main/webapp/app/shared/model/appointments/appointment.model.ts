@@ -7,6 +7,7 @@ import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
 export const enum AppointmentState {
   PLANNED = 'PLANNED',
   CANCELED = 'CANCELED',
+  TOOK_PLACE = 'TOOK_PLACE',
   COMPLETED = 'COMPLETED'
 }
 
@@ -14,7 +15,6 @@ export interface IAppointment {
   id?: number;
   appointmentDate?: Moment;
   appointmentState?: AppointmentState;
-  mealPlanId?: number;
   generalAdvice?: any;
   bodyMeasurement?: IBodyMeasurement;
   nutritionalInterview?: INutritionalInterview;
@@ -27,7 +27,6 @@ export class Appointment implements IAppointment {
     public id?: number,
     public appointmentDate?: Moment,
     public appointmentState?: AppointmentState,
-    public mealPlanId?: number,
     public generalAdvice?: any,
     public bodyMeasurement?: IBodyMeasurement,
     public nutritionalInterview?: INutritionalInterview,

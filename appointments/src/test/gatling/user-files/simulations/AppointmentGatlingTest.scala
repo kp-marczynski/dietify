@@ -74,7 +74,6 @@ class AppointmentGatlingTest extends Simulation {
                 "id":null
                 , "appointmentDate":"2020-01-01T00:00:00.000Z"
                 , "appointmentState":"PLANNED"
-                , "mealPlanId":null
                 , "generalAdvice":null
                 }""")).asJson
             .check(status.is(201))

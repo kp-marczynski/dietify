@@ -117,10 +117,6 @@ public class BodyMeasurement implements Serializable {
     @Column(name = "visceral_fat_level")
     private Double visceralFatLevel;
 
-    @OneToOne(mappedBy = "bodyMeasurement")
-    @JsonIgnore
-    private Appointment appointment;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -226,13 +222,6 @@ public class BodyMeasurement implements Serializable {
         this.visceralFatLevel = visceralFatLevel;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

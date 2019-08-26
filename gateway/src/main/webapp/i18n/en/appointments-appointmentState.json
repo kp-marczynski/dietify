@@ -4,7 +4,13 @@
       "null": "",
       "PLANNED": "Planned",
       "CANCELED": "Canceled",
-      "COMPLETED": "Completed"
+      "TOOK_PLACE": "Took place",
+      "COMPLETED": "Completed",
+      "action": {
+        "cancel": "Cancel appointment",
+        "acknowledge": "Appointment Took place",
+        "complete": "Consultation completed"
+      }
     }
   }
 }

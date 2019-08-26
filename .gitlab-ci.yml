@@ -206,7 +206,7 @@ mealplans-gradle-test:
 mealplans-gradle-integration-test:
     stage: test
     script:
-        - cd /builds/kp.marczynski/dietify/appointments
+        - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew integrationTest -PnodeInstall --no-daemon
     artifacts:
         reports:
