@@ -1,53 +1,260 @@
-\chapter{Stan wiedzy i techniki w zakresie tematyki pracy}
-\section{Przegląd istniejących rozwiązań konkurencyjnych}
-\todo{opisać rozwiązania konkurencyjne}
+\chapter{Założenia projektowe}
+
+\section{Słownik}
+\todo{uzupełnić słownik}
 \begin{itemize}
-    \item Dietico
-    \item TiqDiet
-    \item Kcalmar PRO
-    \item Dietetyk Pro
+    \item Administrator – użytkownik posiadający uprawnienia do zarządzania uprawnieniami użytkowników
+    \item Dietetyk – specjalista w dziedzinie dietetyki
+    \item Jadłospis – plan posiłków zdefiniowany na określoną liczbę dni z uwzględnieniem określonych wymagań
+    \item Karta pacjenta – karta przedstawiająca przebieg współpracy dietetyka z pacjentem
+    \item Miara domowa – definicja pospolitej miary, takiej jak np. łyżeczka w gramach
+    \item Pacjent – klient dietetyka
+    \item Pomiary ciała – pomiary ciała pacjenta przeprowadzane przez dietetyka
+    \item Posiłek – posiłek jest przydzielany do jadłospisu; zawiera produkty i przepisy
+    \item Produkt – produkt spożywczy, dla którego specyfikowane są wartości odżywcze i miary domowe
+    \item Przepis – opis składników i kroków przygotowania dania
+    \item Sekcja przepisu – semantyczny podział przepisu, np. sernik może mieć sekcje związane z przygotowaniem ciasta, nadzienia i polewy
+    \item Wartość odżywcza – ilość elementu takiego jak np. węglowodanów albo białka w 100g produktu
+    \item Wizyta – konkretna wizyta pacjenta
+    \item Wywiad żywieniowy – wywiad przeprowadzany z pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
 \end{itemize}
 
+\section{Sformułowanie problemu}
+\todo{sformułowanie problemu}
+Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wizyty
+
+\section{Pozycjonowanie produktu}
+\todo{pozycjonowanie produktu}
+
+\section{Opis udziałowców i użytkowników}
+\subsection{Podsumowanie udziałowców}
+\todo{opis udziałowców}
+
+\subsection{Podsumowanie użytkowników}
+\todo{poprawić użytkowników}
+
 \begin{minipage}{\textwidth}
     \begin{table}[H]
-        \centering\caption{Rozwiązania konkurencyjne - cechy funkcjonalne (opr.wł)\label{tabela:rozwiazania-konkurencyjne-funkcjonalne}}
-        \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
+        \centering\caption{Użytkownicy (opr.wł)\label{tabela:uzytkownicy}}
+        \begin{tabular}{|P{.2\textwidth}|P{.25\textwidth}|P{.45\textwidth}|}
+
             \hline
-                                                & Tiqdiet   & Kcalmar Pro   & Dietetyk Pro & Aliant         & Dietico   & Vitme   \\ \hline
-            Tworzenie jadłospisów               & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Gotowe szablony diet                & TAK       & TAK           & TAK          & TAK            & NIE       & NIE     \\ \hline
-            Zapis diety do pliku                & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Wysyłanie diet do pacjenta          & TAK       & TAK           & TAK          & TAK            & NIE       & TAK     \\ \hline
-            Komunikacja z pacjentem             & TAK       & TAK           & TAK          & NIE            & NIE       & TAK     \\ \hline
-            Karta pacjenta                      & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Wywiad żywieniowy                   & TAK       & TAK           & TAK          & NIE            & TAK       & TAK     \\ \hline
-            Lista zakupów                       & TAK       & TAK           & TAK          & TAK            & TAK       & NIE     \\ \hline
-            Dodawanie własnych produktów        & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Dodawanie własnych przepisów        & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
+            Nazwa & Opis & Odpowiedzialności\\
+
+            \hline
+            Administrator &
+            Osoba zarządzająca działaniem aplikacji &
+            \begin{itemize}
+                \item Przydzielanie i odbieranie użytkownikom uprawnień
+                \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i wyposażeniem kuchennym
+            \end{itemize} \\
+            \hline
+            Dietetyk &
+            Specjalista w dziedzinie dietetyki &
+            \begin{itemize}
+                \item Używa założonego konta
+                \item Wprowadza, edytuje i usuwa produkty, przepisy i jadłospisy
+            \end{itemize} \\
+            \hline
+            Pacjent &
+            Klient dietetyka &
+            \begin{itemize}
+                \item Otrzymuje ułożony jadłospis
+            \end{itemize} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
+
+\section{Wymagania funkcjonalne}
+\todo{uzupełnić wymagania funkcjonalne}
+
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Wymagania funkcjonalne ogólne (opr.wł)\label{tabela:wymaganiaFunkcjonalneOgolne}}
+        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
+            \hline
+            Potrzeby & Cechy \\
+
+            \hline
+            Administrator potrzebuje widzieć listę użytkowników &
+            \begin{itemize}
+                \item Przydzielanie i odbieranie użytkownikom uprawnień
+            \end{itemize} \\
+            \hline
         \end{tabular}
     \end{table}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
     \begin{table}[H]
-        \centering\caption{Rozwiązania konkurencyjne - cechy niefunkcjonalne (opr.wł)\label{tabela:rozwiazania-konkurencyjne-niefunkcjonalne}}
-        \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
+        \centering\caption{Wymagania funkcjonalne dla produktów (opr.wł)\label{tabela:wymaganiaFunkcjonalneProdukty}}
+        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
             \hline
-                                                & Tiqdiet   & Kcalmar Pro   & Dietetyk Pro & Aliant         & Dietico   & Vitme   \\ \hline
-            Liczba produktów w bazie            & 1000      & 1400          & 6000         & 3500           & 900       & 5000    \\ \hline
-            Liczba gotowych przepisów           & 200       & 800           & 2800         & 1700           & 1900      & 400     \\ \hline
-            Praca offline                       & NIE       & NIE           & NIE          & TAK            & NIE       & NIE     \\ \hline
-            Praca online                        & TAK       & TAK           & TAK          & NIE            & TAK       & TAK     \\ \hline
-            Aplikacja mobilna dla dietetyka     & TAK       & TAK           & TAK          & NIE            & NIE       & NIE     \\ \hline
-            Aplikacja mobilna dla pacjenta      & TAK       & TAK           & NIE          & NIE            & NIE       & TAK     \\ \hline
-            Dostęp dla pacjenta przez przeglądarkę internetową       & TAK       & TAK           & TAK          & NIE            & NIE       & TAK     \\ \hline
-            Darmowy okres testowy               & 14dni     & 14dni         & 7dni         & bezter- minowo & 14dni     & 14dni   \\ \hline
-            Cena w abonamencie rocznym          & 199       & 1188          & 246          & 699            & 546       & 219     \\ \hline
+            Potrzeby & Cechy \\
+
+            \hline
+            Administrator potrzebuje zarządzać definicjami potrzebnymi w produktach &
+            \begin{itemize}
+                \item Zarządzanie definicjami wartości odżywczych
+                \item Zarządzanie kategoriami produktów
+                \item Zarządzanie rodzajami diet
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje widzieć listę produktów &
+            \begin{itemize}
+                \item Wyszukiwanie produktów
+                \item Filtrowanie produktów
+                \item Dodawanie nowych produktów
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje zarządzać szczegółami produktu &
+            \begin{itemize}
+                \item Edytowanie i usuwanie produktów
+                \item Definiowanie wartości odżywczych dla produktu
+                \item Definiowanie miar domowych dla produktu
+                \item Przypisywanie produktu do kategorii i podkategorii
+                \item Definiowanie do jakich typów diet produkt nadaje się a do jakich nie
+            \end{itemize} \\
+            \hline
         \end{tabular}
     \end{table}
 \end{minipage}
 
-\section{Przegląd przydatnych technologii i technik}
-\todo{Tutaj opisać architekturę aplikacji webowych. Porównać monolit, soa i mikroserwisy}
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Wymagania funkcjonalne dla przepisów (opr.wł)\label{tabela:wymaganiaFunkcjonalnePrzepisy}}
+        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
+            \hline
+            Potrzeby & Cechy \\
 
+            \hline
+            Administrator potrzebuje zarządzać definicjami potrzebnymi w przepisach &
+            \begin{itemize}
+                \item Zarządzanie typami posiłków
+                \item Zarządzanie typami dań
+                \item Zarządzanie definicjami wyposażenia kuchennego
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje widzieć listę przepisów &
+            \begin{itemize}
+                \item Wyszukiwanie przepisów
+                \item Filtrowanie przepisów
+                \item Dodawanie nowych przepisów
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje zarządzać szczegółami przepisu &
+            \begin{itemize}
+                \item Edytowanie i usuwanie przepisów
+                \item Dodawanie wielu sekcji do przepisu
+                \item Dodawanie do każdej sekcji listy składników
+                \item Dodawanie do każdej sekcji sposobu przygotowania
+                \item Dodawanie zdjęcia dania do przepisu
+                \item Definiowanie czasu przygotowania posiłku
+            \end{itemize} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Wymagania funkcjonalne dla jadłospisów (opr.wł)\label{tabela:wymaganiaFunkcjonalneJadlospisy}}
+        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
+            \hline
+            Potrzeby & Cechy \\
+
+            \hline
+            Dietetyk potrzebuje widzieć listę jadłospisów &
+            \begin{itemize}
+                \item Wyszukiwanie jadłospisów
+                \item Filtrowanie jadłospisów
+                \item Dodawanie nowych jadłospisów
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje zarządzać szczegółami jadłospisu &
+            \begin{itemize}
+                \item Dodawanie, edytowanie i usuwanie jadłospisów
+                \item Definiowanie liczby dni na które będzie układany jadłospis
+                \item Definiowanie liczby posiłków dziennie
+                \item Definiowanie planowanego czasu każdego z posiłków
+                \item Definiowanie procentowego udziału podstawowych wartości odżywczych w każdym posiłku
+                \item Definiowanie posiłków w jadłospisie
+                \item Dodawanie produktów i przepisów do posiłków
+            \end{itemize} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Wymagania funkcjonalne dla wizyt (opr.wł)\label{tabela:wymaganiaFunkcjonalneWizyty}}
+        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
+            \hline
+            Potrzeby & Cechy \\
+
+            \hline
+            Dietetyk potrzebuje wyświetlać listę swoich pacjentów &
+            \begin{itemize}
+                \item Wyszukiwanie pacjentów
+                \item Wyświetlanie listy znalezionych pacjentów
+                \item Wyświetlanie listy umówionych wizyt
+                \item Wyświetlanie listy oczekujących porad
+                \item Dodawanie nowych pacjentów
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje zarządzać kartą pacjenta &
+            \begin{itemize}
+                \item Wyświetlanie i edytowanie podstawowych informacji pacjenta
+                \item Wyświetlanie listy wizyt pacjenta
+                \item Wyświetlanie listy oczekujących porad pacjenta
+                \item Dodawanie nowej wizyty pacjenta
+            \end{itemize} \\
+            \hline
+            Dietetyk potrzebuje wyświetlać szczegóły wizyty pacjenta &
+            \begin{itemize}
+                \item Wyświetlanie i edytowanie szczegółów wizyty pacjenta
+                \item Zarządzanie pomiarami ciała pacjenta przypisanymi do wizyty
+                \item Zarządzanie wywiadem żywieniowym przypisanym do wizyty
+                \item Zarządzanie jadłospisem przydzielonym do wizyty
+            \end{itemize} \\
+            \hline
+            Pacjent potrzebuje otrzymywać dietę &
+            \begin{itemize}
+                \item Automatyczne wysyłanie do pacjenta diety mailem po zatwierdzeniu jadłospisu przez dietetyka
+            \end{itemize} \\
+            \hline
+            Pacjent chce mieć wgląd w swoją kartę &
+            \begin{itemize}
+                \item Logowanie do konta utworzonego w serwisie
+                \item Dodawanie kart pacjenta do swojego konta po udostępnieniu ich przez dietetyka
+            \end{itemize} \\
+            \hline
+            Pacjent zarządza dietą za pomocą asystenta głosowego &
+            \begin{itemize}
+                \item Wydawanie w języku naturalnym poleceń dotyczących diety
+            \end{itemize} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
+
+\newpage
+
+\section{Wymagania niefunkcjonalne}
+\todo{uzupełnić wymagania niefunkcjonalne}
+\begin{itemize}
+    \item System działa poprawnie w przeglądarce Google Chrome i Firefox
+    \item System działa poprawnie w przeglądarce Edge i Opera
+    \item System działa poprawnie w przeglądarce Internet Explorer i Safari
+    \item System działa na urządzenia mobilnych Android
+    \item System działa na urządzeniach mobilnych iOS
+    \item System jest dostępny w polskiej wersji językowej
+    \item System ma czytelny i ładny interfejs
+    \item Aplikacja webowa jest w pełni responsywna i wygodna do używania niezależnie od wielkości ekranu urządzenia klienckiego
+    \item Aplikacja webowa udostępnia część funkcji offline
+    \item Aplikacja ma być oparta na architekturze mikroserwisów
+\end{itemize}
 \thispagestyle{normal}
+

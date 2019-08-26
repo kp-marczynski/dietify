@@ -1,194 +1,237 @@
-\chapter{Założenia projektowe}
-\section{Wymagania funkcjonalne}
-\todo{uzupełnić wymagania funkcjonalne}
+\chapter{Projekt}
+
+\section{Przypadki użycia}
+\todo{diagram przypadków użycia}
 
 \begin{minipage}{\textwidth}
-    \begin{table}[H]
-        \centering\caption{Wymagania funkcjonalne ogólne (opr.wł)\label{tabela:wymaganiaFunkcjonalneOgolne}}
-        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
-            \hline
-            Potrzeby & Cechy \\
-
-            \hline
-            Administrator potrzebuje widzieć listę użytkowników &
-            \begin{itemize}
-                \item Przydzielanie i odbieranie użytkownikom uprawnień
-            \end{itemize} \\
-            \hline
-        \end{tabular}
-    \end{table}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.55]{../uml/use_case_diagrams/users.png}
+        \caption{Użytkownicy - diagram przypadków użycia (opr.wł).}\label{rysunek:use-case-diagram-users}
+    \end{figure}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-    \begin{table}[H]
-        \centering\caption{Wymagania funkcjonalne dla produktów (opr.wł)\label{tabela:wymaganiaFunkcjonalneProdukty}}
-        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
-            \hline
-            Potrzeby & Cechy \\
-
-            \hline
-            Administrator potrzebuje zarządzać definicjami potrzebnymi w produktach &
-            \begin{itemize}
-                \item Zarządzanie definicjami wartości odżywczych
-                \item Zarządzanie kategoriami produktów
-                \item Zarządzanie rodzajami diet
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje widzieć listę produktów &
-            \begin{itemize}
-                \item Wyszukiwanie produktów
-                \item Filtrowanie produktów
-                \item Dodawanie nowych produktów
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje zarządzać szczegółami produktu &
-            \begin{itemize}
-                \item Edytowanie i usuwanie produktów
-                \item Definiowanie wartości odżywczych dla produktu
-                \item Definiowanie miar domowych dla produktu
-                \item Przypisywanie produktu do kategorii i podkategorii
-                \item Definiowanie do jakich typów diet produkt nadaje się a do jakich nie
-            \end{itemize} \\
-            \hline
-        \end{tabular}
-    \end{table}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.55]{../uml/use_case_diagrams/gateway.png}
+        \caption{Gateway - diagram przypadków użycia (opr.wł).}\label{rysunek:use-case-diagram-gateway}
+    \end{figure}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-    \begin{table}[H]
-        \centering\caption{Wymagania funkcjonalne dla przepisów (opr.wł)\label{tabela:wymaganiaFunkcjonalnePrzepisy}}
-        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
-            \hline
-            Potrzeby & Cechy \\
-
-            \hline
-            Administrator potrzebuje zarządzać definicjami potrzebnymi w przepisach &
-            \begin{itemize}
-                \item Zarządzanie typami posiłków
-                \item Zarządzanie typami dań
-                \item Zarządzanie definicjami wyposażenia kuchennego
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje widzieć listę przepisów &
-            \begin{itemize}
-                \item Wyszukiwanie przepisów
-                \item Filtrowanie przepisów
-                \item Dodawanie nowych przepisów
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje zarządzać szczegółami przepisu &
-            \begin{itemize}
-                \item Edytowanie i usuwanie przepisów
-                \item Dodawanie wielu sekcji do przepisu
-                \item Dodawanie do każdej sekcji listy składników
-                \item Dodawanie do każdej sekcji sposobu przygotowania
-                \item Dodawanie zdjęcia dania do przepisu
-                \item Definiowanie czasu przygotowania posiłku
-            \end{itemize} \\
-            \hline
-        \end{tabular}
-    \end{table}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.55]{../uml/use_case_diagrams/products.png}
+        \caption{Produkty - diagram przypadków użycia (opr.wł).}\label{rysunek:use-case-diagram-products}
+    \end{figure}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-    \begin{table}[H]
-        \centering\caption{Wymagania funkcjonalne dla jadłospisów (opr.wł)\label{tabela:wymaganiaFunkcjonalneJadlospisy}}
-        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
-            \hline
-            Potrzeby & Cechy \\
-
-            \hline
-            Dietetyk potrzebuje widzieć listę jadłospisów &
-            \begin{itemize}
-                \item Wyszukiwanie jadłospisów
-                \item Filtrowanie jadłospisów
-                \item Dodawanie nowych jadłospisów
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje zarządzać szczegółami jadłospisu &
-            \begin{itemize}
-                \item Dodawanie, edytowanie i usuwanie jadłospisów
-                \item Definiowanie liczby dni na które będzie układany jadłospis
-                \item Definiowanie liczby posiłków dziennie
-                \item Definiowanie planowanego czasu każdego z posiłków
-                \item Definiowanie procentowego udziału podstawowych wartości odżywczych w każdym posiłku
-                \item Definiowanie posiłków w jadłospisie
-                \item Dodawanie produktów i przepisów do posiłków
-            \end{itemize} \\
-            \hline
-        \end{tabular}
-    \end{table}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.55]{../uml/use_case_diagrams/recipes.png}
+        \caption{Przepisy - diagram przypadków użycia (opr.wł).}\label{rysunek:use-case-diagram-recipes}
+    \end{figure}
 \end{minipage}
 
 \begin{minipage}{\textwidth}
-    \begin{table}[H]
-        \centering\caption{Wymagania funkcjonalne dla wizyt (opr.wł)\label{tabela:wymaganiaFunkcjonalneWizyty}}
-        \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
-            \hline
-            Potrzeby & Cechy \\
-
-            \hline
-            Dietetyk potrzebuje wyświetlać listę swoich pacjentów &
-            \begin{itemize}
-                \item Wyszukiwanie pacjentów
-                \item Wyświetlanie listy znalezionych pacjentów
-                \item Wyświetlanie listy umówionych wizyt
-                \item Wyświetlanie listy oczekujących porad
-                \item Dodawanie nowych pacjentów
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje zarządzać kartą pacjenta &
-            \begin{itemize}
-                \item Wyświetlanie i edytowanie podstawowych informacji pacjenta
-                \item Wyświetlanie listy wizyt pacjenta
-                \item Wyświetlanie listy oczekujących porad pacjenta
-                \item Dodawanie nowej wizyty pacjenta
-            \end{itemize} \\
-            \hline
-            Dietetyk potrzebuje wyświetlać szczegóły wizyty pacjenta &
-            \begin{itemize}
-                \item Wyświetlanie i edytowanie szczegółów wizyty pacjenta
-                \item Zarządzanie pomiarami ciała pacjenta przypisanymi do wizyty
-                \item Zarządzanie wywiadem żywieniowym przypisanym do wizyty
-                \item Zarządzanie jadłospisem przydzielonym do wizyty
-            \end{itemize} \\
-            \hline
-            Pacjent potrzebuje otrzymywać dietę &
-            \begin{itemize}
-                \item Automatyczne wysyłanie do pacjenta diety mailem po zatwierdzeniu jadłospisu przez dietetyka
-            \end{itemize} \\
-            \hline
-            Pacjent chce mieć wgląd w swoją kartę &
-            \begin{itemize}
-                \item Logowanie do konta utworzonego w serwisie
-                \item Dodawanie kart pacjenta do swojego konta po udostępnieniu ich przez dietetyka
-            \end{itemize} \\
-            \hline
-            Pacjent zarządza dietą za pomocą asystenta głosowego &
-            \begin{itemize}
-                \item Wydawanie w języku naturalnym poleceń dotyczących diety
-            \end{itemize} \\
-            \hline
-        \end{tabular}
-    \end{table}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.55]{../uml/use_case_diagrams/mealplans.png}
+        \caption{Jadłospisy - diagram przypadków użycia (opr.wł).}\label{rysunek:use-case-diagram-mealplans}
+    \end{figure}
 \end{minipage}
 
-\newpage
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.55]{../uml/use_case_diagrams/appointments.png}
+        \caption{Wizyty - diagram przypadków użycia (opr.wł).}\label{rysunek:use-case-diagram-appointments}
+    \end{figure}
+\end{minipage}
 
-\section{Wymagania niefunkcjonalne}
-\todo{uzupełnić wymagania niefunkcjonalne}
-\begin{itemize}
-    \item System działa poprawnie w przeglądarce Google Chrome i Firefox
-    \item System działa poprawnie w przeglądarce Edge i Opera
-    \item System działa poprawnie w przeglądarce Internet Explorer i Safari
-    \item System działa na urządzenia mobilnych Android
-    \item System działa na urządzeniach mobilnych iOS
-    \item System jest dostępny w polskiej wersji językowej
-    \item System ma czytelny i ładny interfejs
-    \item Aplikacja webowa jest w pełni responsywna i wygodna do używania niezależnie od wielkości ekranu urządzenia klienckiego
-    \item Aplikacja webowa udostępnia część funkcji offline
-    \item Aplikacja ma być oparta na architekturze mikroserwisów
-\end{itemize}
+\section{Prototyp interfejsu}
+\todo{mockupy}
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup1.png}
+        \caption{Mockup1 (opr.wł).}\label{rysunek:mockup1}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup2.png}
+        \caption{Mockup2 (opr.wł).}\label{rysunek:mockup2}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup3.png}
+        \caption{Mockup3 (opr.wł).}\label{rysunek:mockup3}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup4.png}
+        \caption{Mockup4 (opr.wł).}\label{rysunek:mockup4}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup5.png}
+        \caption{Mockup5 (opr.wł).}\label{rysunek:mockup5}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup6.png}
+        \caption{Mockup6 (opr.wł).}\label{rysunek:mockup6}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup7.png}
+        \caption{Mockup7 (opr.wł).}\label{rysunek:mockup7}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup8.png}
+        \caption{Mockup8 (opr.wł).}\label{rysunek:mockup8}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup9.png}
+        \caption{Mockup9 (opr.wł).}\label{rysunek:mockup9}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup10.png}
+        \caption{Mockup10 (opr.wł).}\label{rysunek:mockup10}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup11.png}
+        \caption{Mockup11 (opr.wł).}\label{rysunek:mockup11}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup12.png}
+        \caption{Mockup12 (opr.wł).}\label{rysunek:mockup12}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup13.png}
+        \caption{Mockup13 (opr.wł).}\label{rysunek:mockup13}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup14.png}
+        \caption{Mockup14 (opr.wł).}\label{rysunek:mockup14}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup15.png}
+        \caption{Mockup15 (opr.wł).}\label{rysunek:mockup15}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=0.9\textwidth]{img/mockups/mockup16.png}
+        \caption{Mockup16 (opr.wł).}\label{rysunek:mockup16}
+    \end{figure}
+\end{minipage}
+
+\section{Baza danych}
+
+\subsection{Kategorie}
+\todo{uzupełnić kategorie}
+
+\begin{enumerate}[label={\textbf{KAT/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt]
+    \item \label{Product_Category} Product
+    \item Language
+    \item test22
+    \item test3
+\end{enumerate}
+
+\subsection {Reguły funkcjonowania}
+\todo{uzupełnić reguły funkcjonowania}
+
+\begin{enumerate}[label={\textbf{REG/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt]
+    \item test1
+    \item test2
+    \item test22
+    \item test3
+\end{enumerate}
+
+\subsection{Ograniczenia dziedzinowe}
+\todo{uzupełnić ograniczenia dziedzionowe}
+
+\section{Model domenowy}
+\todo{diagram klas}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.7]{../uml/class_diagrams/dataTypes.png}
+        \caption{Typy danych - diagram klas (opr.wł).}\label{rysunek:class-diagram-data-types}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.7]{../uml/class_diagrams/gateway.png}
+        \caption{Gateway - diagram klas (opr.wł).}\label{rysunek:class-diagram-gateway}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.7]{../uml/class_diagrams/products.png}
+        \caption{Produkty - diagram klas (opr.wł).}\label{rysunek:class-diagram-products}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.7]{../uml/class_diagrams/recipes.png}
+        \caption{Przepisy - diagram klas (opr.wł).}\label{rysunek:class-diagram-recipes}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.7]{../uml/class_diagrams/mealplans.png}
+        \caption{Jadłospisy - diagram klas (opr.wł).}\label{rysunek:class-diagram-mealplans}
+    \end{figure}
+\end{minipage}
+
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=0.7]{../uml/class_diagrams/appointments.png}
+        \caption{Wizyty - diagram klas (opr.wł).}\label{rysunek:class-diagram-appointments}
+    \end{figure}
+\end{minipage}
+
+
+
+\thispagestyle{normal}
 
 \section{Opis podstawowej architektury systemu}
 \todo{Opisać, że to aplikacja webowa w architekturze mikroserwisów

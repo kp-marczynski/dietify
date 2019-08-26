@@ -1,63 +1,53 @@
-\chapter{Wymagania projektowe}
-\section{Sformułowanie problemu}
-\todo{sformułowanie problemu}
-\section{Pozycjonowanie produktu}
-\todo{pozycjonowanie produktu}
-\section{Opis udziałowców i użytkowników}
-\subsection{Podsumowanie udziałowców}
-\todo{opis udziałowców}
-\subsection{Podsumowanie użytkowników}
-\todo{poprawić użytkowników}
+\chapter{Stan wiedzy i techniki w zakresie tematyki pracy}
+\section{Przegląd istniejących rozwiązań konkurencyjnych}
+\todo{opisać rozwiązania konkurencyjne}
+\begin{itemize}
+    \item Dietico
+    \item TiqDiet
+    \item Kcalmar PRO
+    \item Dietetyk Pro
+\end{itemize}
 
 \begin{minipage}{\textwidth}
     \begin{table}[H]
-        \centering\caption{Użytkownicy (opr.wł)\label{tabela:uzytkownicy}}
-        \begin{tabular}{|P{.2\textwidth}|P{.25\textwidth}|P{.45\textwidth}|}
-
+        \centering\caption{Rozwiązania konkurencyjne - cechy funkcjonalne (opr.wł)\label{tabela:rozwiazania-konkurencyjne-funkcjonalne}}
+        \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
             \hline
-            Nazwa & Opis & Odpowiedzialności\\
-
-            \hline
-            Administrator &
-            Osoba zarządzająca działaniem aplikacji &
-            \begin{itemize}
-                \item Przydzielanie i odbieranie użytkownikom uprawnień
-                \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i wyposażeniem kuchennym
-            \end{itemize} \\
-            \hline
-            Dietetyk &
-            Specjalista w dziedzinie dietetyki &
-            \begin{itemize}
-                \item Używa założonego konta
-                \item Wprowadza, edytuje i usuwa produkty, przepisy i jadłospisy
-            \end{itemize} \\
-            \hline
-            Pacjent &
-            Klient dietetyka &
-            \begin{itemize}
-                \item Otrzymuje ułożony jadłospis
-            \end{itemize} \\
-            \hline
+                                                & Tiqdiet   & Kcalmar Pro   & Dietetyk Pro & Aliant         & Dietico   & Vitme   \\ \hline
+            Tworzenie jadłospisów               & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
+            Gotowe szablony diet                & TAK       & TAK           & TAK          & TAK            & NIE       & NIE     \\ \hline
+            Zapis diety do pliku                & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
+            Wysyłanie diet do pacjenta          & TAK       & TAK           & TAK          & TAK            & NIE       & TAK     \\ \hline
+            Komunikacja z pacjentem             & TAK       & TAK           & TAK          & NIE            & NIE       & TAK     \\ \hline
+            Karta pacjenta                      & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
+            Wywiad żywieniowy                   & TAK       & TAK           & TAK          & NIE            & TAK       & TAK     \\ \hline
+            Lista zakupów                       & TAK       & TAK           & TAK          & TAK            & TAK       & NIE     \\ \hline
+            Dodawanie własnych produktów        & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
+            Dodawanie własnych przepisów        & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
         \end{tabular}
     \end{table}
 \end{minipage}
 
-\section{Słownik}
-\todo{uzupełnić słownik}
-\begin{itemize}
-    \item Administrator – użytkownik posiadający uprawnienia do zarządzania uprawnieniami użytkowników
-    \item Dietetyk – specjalista w dziedzinie dietetyki
-    \item Jadłospis – plan posiłków zdefiniowany na określoną liczbę dni z uwzględnieniem określonych wymagań
-    \item Karta pacjenta – karta przedstawiająca przebieg współpracy dietetyka z pacjentem
-    \item Miara domowa – definicja pospolitej miary, takiej jak np. łyżeczka w gramach
-    \item Pacjent – klient dietetyka
-    \item Pomiary ciała – pomiary ciała pacjenta przeprowadzane przez dietetyka
-    \item Posiłek – posiłek jest przydzielany do jadłospisu; zawiera produkty i przepisy
-    \item Produkt – produkt spożywczy, dla którego specyfikowane są wartości odżywcze i miary domowe
-    \item Przepis – opis składników i kroków przygotowania dania
-    \item Sekcja przepisu – semantyczny podział przepisu, np. sernik może mieć sekcje związane z przygotowaniem ciasta, nadzienia i polewy
-    \item Wartość odżywcza – ilość elementu takiego jak np. węglowodanów albo białka w 100g produktu
-    \item Wizyta – konkretna wizyta pacjenta
-    \item Wywiad żywieniowy – wywiad przeprowadzany z pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
-\end{itemize}
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Rozwiązania konkurencyjne - cechy niefunkcjonalne (opr.wł)\label{tabela:rozwiazania-konkurencyjne-niefunkcjonalne}}
+        \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
+            \hline
+                                                & Tiqdiet   & Kcalmar Pro   & Dietetyk Pro & Aliant         & Dietico   & Vitme   \\ \hline
+            Liczba produktów w bazie            & 1000      & 1400          & 6000         & 3500           & 900       & 5000    \\ \hline
+            Liczba gotowych przepisów           & 200       & 800           & 2800         & 1700           & 1900      & 400     \\ \hline
+            Praca offline                       & NIE       & NIE           & NIE          & TAK            & NIE       & NIE     \\ \hline
+            Praca online                        & TAK       & TAK           & TAK          & NIE            & TAK       & TAK     \\ \hline
+            Aplikacja mobilna dla dietetyka     & TAK       & TAK           & TAK          & NIE            & NIE       & NIE     \\ \hline
+            Aplikacja mobilna dla pacjenta      & TAK       & TAK           & NIE          & NIE            & NIE       & TAK     \\ \hline
+            Dostęp dla pacjenta przez przeglądarkę internetową       & TAK       & TAK           & TAK          & NIE            & NIE       & TAK     \\ \hline
+            Darmowy okres testowy               & 14dni     & 14dni         & 7dni         & bezter- minowo & 14dni     & 14dni   \\ \hline
+            Cena w abonamencie rocznym          & 199       & 1188          & 246          & 699            & 546       & 219     \\ \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
+
+\section{Przegląd przydatnych technologii i technik}
+\todo{Tutaj opisać architekturę aplikacji webowych. Porównać monolit, soa i mikroserwisy}
+
 \thispagestyle{normal}
