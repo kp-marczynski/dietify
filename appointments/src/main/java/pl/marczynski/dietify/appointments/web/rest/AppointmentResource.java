@@ -23,6 +23,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -89,15 +90,29 @@ public class AppointmentResource {
     /**
      * {@code GET  /appointments} : get all the appointments.
      *
-     * @param pageable the pagination information.
+     * @param pageable    the pagination information.
      * @param queryParams a {@link MultiValueMap} query parameters.
-     * @param uriBuilder a {@link UriComponentsBuilder} URI builder.
+     * @param uriBuilder  a {@link UriComponentsBuilder} URI builder.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of appointments in body.
      */
     @GetMapping("/appointments")
     public ResponseEntity<List<Appointment>> getAllAppointments(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of Appointments");
-        Page<Appointment> page = appointmentService.findAll(pageable);
+        Page<Appointment> page;
+        boolean waitingForConsultation = Boolean.parseBoolean(queryParams.getOrDefault("isWaitingForConsultation", Collections.singletonList("false")).get(0));
+        String patientIdString = queryParams.getOrDefault("patientId", Collections.singletonList(null)).get(0);
+        Long patientId = patientIdString != null ? Long.valueOf(patientIdString) : null;
+        if (waitingForConsultation) {
+            if (patientId != null) {
+                page = appointmentService.findAllByPatientWaitingForConsultation(patientId, pageable);
+            } else {
+                page = appointmentService.findAllWaitingForConsultation(pageable);
+            }
+        } else if (patientId != null) {
+            page = appointmentService.findAllByPatient(patientId, pageable);
+        } else {
+            page = appointmentService.findAll(pageable);
+        }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

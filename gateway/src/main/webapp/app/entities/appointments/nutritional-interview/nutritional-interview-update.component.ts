@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
+import {Component, OnInit, Output, EventEmitter} from '@angular/core';
+import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
+import {FormBuilder, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
 import * as moment from 'moment';
-import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { INutritionalInterview, NutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
-import { NutritionalInterviewService } from './nutritional-interview.service';
-import { IAppointment } from 'app/shared/model/appointments/appointment.model';
-import { AppointmentService } from 'app/entities/appointments/appointment';
+import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
+import {INutritionalInterview, NutritionalInterview} from 'app/shared/model/appointments/nutritional-interview.model';
+import {NutritionalInterviewService} from './nutritional-interview.service';
 
 @Component({
   selector: 'jhi-nutritional-interview-update',
-  templateUrl: './nutritional-interview-update.component.html'
+  templateUrl: './nutritional-interview-update.component.html',
+  styleUrls: ['./nutritional-interview-update.component.scss']
 })
 export class NutritionalInterviewUpdateComponent implements OnInit {
+  @Output() passEntry: EventEmitter<NutritionalInterview> = new EventEmitter();
+  @Output() cancel: EventEmitter<boolean> = new EventEmitter();
   isSaving: boolean;
 
-  appointments: IAppointment[];
   completionDateDp: any;
+  currentTabIndex = 0;
 
   editForm = this.fb.group({
     id: [],
@@ -39,24 +40,18 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
   constructor(
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
-    protected nutritionalInterviewService: NutritionalInterviewService,
-    protected appointmentService: AppointmentService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({ nutritionalInterview }) => {
-      this.updateForm(nutritionalInterview);
+    this.activatedRoute.data.subscribe(({nutritionalInterview}) => {
+      if (nutritionalInterview) {
+        this.updateForm(nutritionalInterview);
+      }
     });
-    this.appointmentService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IAppointment[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IAppointment[]>) => response.body)
-      )
-      .subscribe((res: IAppointment[]) => (this.appointments = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(nutritionalInterview: INutritionalInterview) {
@@ -109,20 +104,16 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
   }
 
   previousState() {
-    window.history.back();
+    this.cancel.emit(true);
   }
 
   save() {
     this.isSaving = true;
     const nutritionalInterview = this.createFromForm();
-    if (nutritionalInterview.id !== undefined) {
-      this.subscribeToSaveResponse(this.nutritionalInterviewService.update(nutritionalInterview));
-    } else {
-      this.subscribeToSaveResponse(this.nutritionalInterviewService.create(nutritionalInterview));
-    }
+    this.passBack(nutritionalInterview);
   }
 
-  private createFromForm(): INutritionalInterview {
+  createFromForm(): INutritionalInterview {
     return {
       ...new NutritionalInterview(),
       id: this.editForm.get(['id']).value,
@@ -152,11 +143,16 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
   protected onSaveError() {
     this.isSaving = false;
   }
+
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
   }
 
-  trackAppointmentById(index: number, item: IAppointment) {
-    return item.id;
+  goToSection(number: number) {
+    this.currentTabIndex = number;
+  }
+
+  passBack(nutritionalInterview: NutritionalInterview): void {
+    this.passEntry.emit(nutritionalInterview);
   }
 }

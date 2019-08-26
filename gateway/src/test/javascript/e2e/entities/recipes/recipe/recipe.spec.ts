@@ -13,7 +13,7 @@ describe('Recipe e2e test', () => {
   let recipeUpdatePage: RecipeUpdatePage;
   let recipeComponentsPage: RecipeComponentsPage;
   /*let recipeDeleteDialog: RecipeDeleteDialog;*/
-  const fileNameToUpload = 'logo-jhipster.png';
+  const fileNameToUpload = 'logo-dietify.png';
   const fileToUpload = '../../../../../../../src/main/webapp/content/images/' + fileNameToUpload;
   const absolutePath = path.resolve(__dirname, fileToUpload);
 

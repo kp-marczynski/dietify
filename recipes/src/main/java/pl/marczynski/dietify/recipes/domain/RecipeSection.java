@@ -37,18 +37,15 @@ public class RecipeSection implements Serializable {
     @Column(name = "section_name", length = 255)
     private String sectionName;
 
-    @OneToMany(mappedBy = "recipeSection")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "recipe_section_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<ProductPortion> productPortions = new HashSet<>();
 
-    @OneToMany(mappedBy = "recipeSection")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "recipe_section_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<PreparationStep> preparationSteps = new HashSet<>();
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("recipeSections")
-    private Recipe recipe;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -83,13 +80,6 @@ public class RecipeSection implements Serializable {
         this.preparationSteps = preparationSteps;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -35,7 +35,8 @@
     "webstomp-client": "1.2.6",
     "tslib": "1.10.0",
     "zone.js": "0.9.1",
-    "chart.js": "2.8.0"
+    "chart.js": "2.8.0",
+    "chartjs-plugin-annotation": "0.5.7"
   },
   "devDependencies": {
     "@angular/cli": "8.0.2",

@@ -3,6 +3,7 @@
     "appointmentsAppointment": {
       "home": {
         "title": "Wizyta",
+        "consultationsTitle": "Konsultacje",
         "createLabel": "Dodaj wizytę",
         "createOrEditLabel": "Dodaj lub edytuj wizytę",
         "search": "Szukaj wizytę",
@@ -16,16 +17,15 @@
       },
       "appointmentDate": "Data wizyty",
       "appointmentState": "Stan wizyty",
-      "mealPlanId": "Id jadłospisu",
       "generalAdvice": "Ogólna porada",
       "bodyMeasurement": "Pomiary ciała",
       "nutritionalInterview": "Wywiad żywieniowy",
       "mealPlans": "Jadłospisy",
       "patientCard": "Karta pacjenta",
+      "details": "Szczegóły wizyty",
       "help": {
         "appointmentDate": "Data i godzina wizyty",
         "appointmentState": "Stan wizyty",
-        "mealPlanId": "Jadłospis ułożony dla pacjenta. Id jadłospisu pobrane z serwisu mealplans",
         "generalAdvice": "Ogólna porada po wizycie"
       }
     }

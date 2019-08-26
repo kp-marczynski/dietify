@@ -32,11 +32,6 @@ public class AssignedMealPlan implements Serializable {
     @Column(name = "meal_plan_id", nullable = false)
     private Long mealPlanId;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("mealPlans")
-    private Appointment appointment;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -54,13 +49,6 @@ public class AssignedMealPlan implements Serializable {
         this.mealPlanId = mealPlanId;
     }
 
-    public Appointment getAppointment() {
-        return appointment;
-    }
-
-    public void setAppointment(Appointment appointment) {
-        this.appointment = appointment;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

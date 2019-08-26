@@ -42,14 +42,12 @@ describe('Appointment e2e test', () => {
         await promise.all([
             appointmentUpdatePage.setAppointmentDateInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
             appointmentUpdatePage.appointmentStateSelectLastOption(),
-            appointmentUpdatePage.setMealPlanIdInput('5'),
             appointmentUpdatePage.setGeneralAdviceInput('generalAdvice'),
             appointmentUpdatePage.bodyMeasurementSelectLastOption(),
             appointmentUpdatePage.nutritionalInterviewSelectLastOption(),
             appointmentUpdatePage.patientCardSelectLastOption(),
         ]);
         expect(await appointmentUpdatePage.getAppointmentDateInput()).to.contain('2001-01-01T02:30', 'Expected appointmentDate value to be equals to 2000-12-31');
-        expect(await appointmentUpdatePage.getMealPlanIdInput()).to.eq('5', 'Expected mealPlanId value to be equals to 5');
         expect(await appointmentUpdatePage.getGeneralAdviceInput()).to.eq('generalAdvice', 'Expected GeneralAdvice value to be equals to generalAdvice');
         await appointmentUpdatePage.save();
         expect(await appointmentUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;

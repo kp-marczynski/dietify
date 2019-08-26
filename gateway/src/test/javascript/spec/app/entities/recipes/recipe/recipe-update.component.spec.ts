@@ -1,13 +1,14 @@
 /* tslint:disable max-line-length */
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { HttpResponse } from '@angular/common/http';
-import { FormBuilder } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import {ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
+import {HttpResponse} from '@angular/common/http';
+import {FormBuilder} from '@angular/forms';
+import {of} from 'rxjs';
 
-import { GatewayTestModule } from '../../../../test.module';
-import { RecipeUpdateComponent } from 'app/entities/recipes/recipe/recipe-update.component';
-import { RecipeService } from 'app/entities/recipes/recipe/recipe.service';
-import { Recipe } from 'app/shared/model/recipes/recipe.model';
+import {GatewayTestModule} from '../../../../test.module';
+import {RecipeUpdateComponent} from 'app/entities/recipes/recipe/recipe-update.component';
+import {RecipeService} from 'app/entities/recipes/recipe/recipe.service';
+import {Recipe} from 'app/shared/model/recipes/recipe.model';
+import {RecipeBasicNutritionData} from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
 
 describe('Component Tests', () => {
   describe('Recipe Management Update Component', () => {
@@ -33,7 +34,9 @@ describe('Component Tests', () => {
       it('Should call update service on save for existing entity', fakeAsync(() => {
         // GIVEN
         const entity = new Recipe(123);
-        spyOn(service, 'update').and.returnValue(of(new HttpResponse({ body: entity })));
+        entity.basicNutritionData = new RecipeBasicNutritionData();
+        entity.recipeSections = [];
+        spyOn(service, 'update').and.returnValue(of(new HttpResponse({body: entity})));
         comp.updateForm(entity);
         // WHEN
         comp.save();
@@ -47,7 +50,9 @@ describe('Component Tests', () => {
       it('Should call create service on save for new entity', fakeAsync(() => {
         // GIVEN
         const entity = new Recipe();
-        spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
+        entity.basicNutritionData = new RecipeBasicNutritionData();
+        entity.recipeSections = [];
+        spyOn(service, 'create').and.returnValue(of(new HttpResponse({body: entity})));
         comp.updateForm(entity);
         // WHEN
         comp.save();

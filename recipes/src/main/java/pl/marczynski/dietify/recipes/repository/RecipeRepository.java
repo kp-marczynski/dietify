@@ -16,14 +16,23 @@ import java.util.Optional;
 @Repository
 public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
-    @Query(value = "select distinct recipe from Recipe recipe left join fetch recipe.kitchenAppliances left join fetch recipe.dishTypes left join fetch recipe.mealTypes",
+    @Query(value = "select distinct recipe from Recipe recipe" +
+        " left join fetch recipe.kitchenAppliances" +
+        " left join fetch recipe.dishTypes" +
+        " left join fetch recipe.mealTypes" +
+        " left join fetch recipe.recipeSections",
         countQuery = "select count(distinct recipe) from Recipe recipe")
     Page<Recipe> findAllWithEagerRelationships(Pageable pageable);
 
     @Query("select distinct recipe from Recipe recipe left join fetch recipe.kitchenAppliances left join fetch recipe.dishTypes left join fetch recipe.mealTypes")
     List<Recipe> findAllWithEagerRelationships();
 
-    @Query("select recipe from Recipe recipe left join fetch recipe.kitchenAppliances left join fetch recipe.dishTypes left join fetch recipe.mealTypes where recipe.id =:id")
+    @Query("select recipe from Recipe recipe" +
+        " left join fetch recipe.kitchenAppliances" +
+        " left join fetch recipe.dishTypes" +
+        " left join fetch recipe.mealTypes" +
+        " left join fetch recipe.recipeSections" +
+        " where recipe.id =:id")
     Optional<Recipe> findOneWithEagerRelationships(@Param("id") Long id);
 
 }

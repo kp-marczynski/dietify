@@ -13,15 +13,10 @@
             "fieldName": "appointmentState",
             "javadoc": "Current appointment state",
             "fieldType": "AppointmentState",
-            "fieldValues": "PLANNED,CANCELED,COMPLETED",
+            "fieldValues": "PLANNED,CANCELED,TOOK_PLACE,COMPLETED",
             "fieldValidateRules": [
                 "required"
             ]
-        },
-        {
-            "fieldName": "mealPlanId",
-            "javadoc": "Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service",
-            "fieldType": "Long"
         },
         {
             "fieldName": "generalAdvice",

@@ -4,25 +4,25 @@ application {
 	config {
         baseName appointments
         packageName pl.marczynski.dietify.appointments
-        
+
         applicationType microservice
         serverPort 8084
-        
+
         authenticationType jwt
         buildTool gradle
         serviceDiscoveryType eureka
-        
+
         databaseType sql
         devDatabaseType h2Disk
     	prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
         searchEngine false
-        
+
         enableTranslation true
         nativeLanguage en
         languages [en, pl]
-        
+
         testFrameworks [gatling, cucumber]
     }
     entities Appointment, BodyMeasurement, PatientCard, NutritionalInterview, AssignedMealPlan, OwnedKitchenAppliance, CustomNutritionalInterviewQuestion, CustomNutritionalInterviewQuestionTemplate, AppointmentEvaluation
@@ -33,7 +33,7 @@ application {
  * @author Krzysztof Marczyński
  */
 enum AppointmentState {
-	PLANNED, CANCELED, COMPLETED
+	PLANNED, CANCELED, TOOK_PLACE, COMPLETED
 }
 
 /**
@@ -86,8 +86,6 @@ entity Appointment {
 	appointmentDate Instant required
     /** Current appointment state */
     appointmentState AppointmentState required
-    /** Meal plan designed for patient. Id of MealPlan entity retrieved from mealplans service */
-	mealPlanId Long
     /** General advice after appointment */
 	generalAdvice TextBlob
 }
@@ -141,7 +139,7 @@ entity NutritionalInterview {
     /** Patient's diseases */
     diseases TextBlob
     /** Patient's medicines */
-    medicines TextBlob 
+    medicines TextBlob
     /** Patient's job type */
     jobType JobType
     /** Food products that patient likes */
@@ -231,25 +229,25 @@ entity AppointmentEvaluation {
 
 relationship OneToOne {
     Appointment{bodyMeasurement}
-    	to BodyMeasurement{appointment required} 
-    
+    	to BodyMeasurement{appointment required}
+
     Appointment{nutritionalInterview}
     	to NutritionalInterview{appointment required}
-    
+
     AppointmentEvaluation{appointment required}
     	to Appointment
 }
 
 relationship OneToMany {
 	PatientCard{appointments}
-		to Appointment{patientCard required} 
-    
+		to Appointment{patientCard required}
+
     Appointment{mealPlans}
     	to AssignedMealPlan{appointment required}
-        
+
     NutritionalInterview{ownedKitchenAppliances}
     	to OwnedKitchenAppliance{nutritionalInterview required}
-    
+
     NutritionalInterview{customQuestions}
     	to CustomNutritionalInterviewQuestion{nutritionalInterview required}
 }

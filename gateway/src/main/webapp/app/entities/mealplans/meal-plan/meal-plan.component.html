@@ -1,7 +1,7 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="gatewayApp.mealplansMealPlan.home.title">Meal Plans</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-meal-plan" [routerLink]="['/meal-plan/new']">
+        <button *ngIf="standaloneView" id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-meal-plan" [routerLink]="['/meal-plan/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
             <span class="hidden-sm-down"  jhiTranslate="gatewayApp.mealplansMealPlan.home.createLabel">
             Create new Meal Plan
@@ -64,7 +64,7 @@
                 <td>{{mealPlan.percentOfFat}}</td>
                 <td>{{mealPlan.percentOfCarbohydrates}}</td>
                 <td class="text-right">
-                    <div class="btn-group">
+                    <div class="btn-group" *ngIf="standaloneView">
                         <button type="submit"
                                 [routerLink]="['/meal-plan', mealPlan.id, 'view' ]"
                                 class="btn btn-info btn-sm">
@@ -86,6 +86,12 @@
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
+                    <div class="btn-group flex-btn-group-container" *ngIf="!standaloneView">
+                        <button type="submit" class="btn btn-info btn-sm" (click)="passBack(mealPlan)">
+                            <fa-icon [icon]="'plus'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.add">Add</span>
+                        </button>
+                    </div>
                 </td>
             </tr>
             </tbody>
@@ -97,7 +103,7 @@
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
         <div class="row justify-content-center">
-            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false"> (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>

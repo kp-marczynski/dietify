@@ -1,21 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import {Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter} from '@angular/core';
+import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Subscription} from 'rxjs';
+import {filter, map} from 'rxjs/operators';
+import {JhiEventManager, JhiParseLinks, JhiAlertService} from 'ng-jhipster';
 
-import { IProduct } from 'app/shared/model/products/product.model';
-import { AccountService } from 'app/core';
+import {IProduct, Product} from 'app/shared/model/products/product.model';
+import {AccountService} from 'app/core';
 
-import { ITEMS_PER_PAGE } from 'app/shared';
-import { ProductService } from './product.service';
+import {ITEMS_PER_PAGE} from 'app/shared';
+import {ProductService} from './product.service';
 
 @Component({
   selector: 'jhi-product',
   templateUrl: './product.component.html'
 })
-export class ProductComponent implements OnInit, OnDestroy {
+export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
+  @Output() passEntry: EventEmitter<Product> = new EventEmitter();
+  standaloneView: boolean;
+
   currentAccount: any;
   products: IProduct[];
   error: any;
@@ -42,10 +45,19 @@ export class ProductComponent implements OnInit, OnDestroy {
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
-      this.page = data.pagingParams.page;
-      this.previousPage = data.pagingParams.page;
-      this.reverse = data.pagingParams.ascending;
-      this.predicate = data.pagingParams.predicate;
+      if (data.pagingParams) {
+        this.standaloneView = true;
+        this.page = data.pagingParams.page;
+        this.previousPage = data.pagingParams.page;
+        this.reverse = data.pagingParams.ascending;
+        this.predicate = data.pagingParams.predicate;
+      } else {
+        this.standaloneView = false;
+        this.page = 1;
+        this.previousPage = 1;
+        this.reverse = true;
+        this.predicate = 'id';
+      }
     });
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
@@ -86,27 +98,31 @@ export class ProductComponent implements OnInit, OnDestroy {
   }
 
   transition() {
-    this.router.navigate(['/product'], {
-      queryParams: {
-        page: this.page,
-        size: this.itemsPerPage,
-        search: this.currentSearch,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    });
+    if (this.standaloneView) {
+      this.router.navigate(['/product'], {
+        queryParams: {
+          page: this.page,
+          size: this.itemsPerPage,
+          search: this.currentSearch,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      });
+    }
     this.loadAll();
   }
 
   clear() {
     this.page = 0;
     this.currentSearch = '';
-    this.router.navigate([
-      '/product',
-      {
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/product',
+        {
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 
@@ -116,14 +132,16 @@ export class ProductComponent implements OnInit, OnDestroy {
     }
     this.page = 0;
     this.currentSearch = query;
-    this.router.navigate([
-      '/product',
-      {
-        search: this.currentSearch,
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
+    if (this.standaloneView) {
+      this.router.navigate([
+        '/product',
+        {
+          search: this.currentSearch,
+          page: this.page,
+          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+        }
+      ]);
+    }
     this.loadAll();
   }
 
@@ -163,5 +181,15 @@ export class ProductComponent implements OnInit, OnDestroy {
 
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.standaloneView) {
+      document.getElementById('product-list-wrapper').style.padding = '2rem';
+    }
+  }
+
+  passBack(product: Product): void {
+    this.passEntry.emit(product);
   }
 }

@@ -4,7 +4,13 @@
       "null": "",
       "PLANNED": "Zaplanowana",
       "CANCELED": "Anulowana",
-      "COMPLETED": "Zakończona"
+      "TOOK_PLACE": "Odbyła się",
+      "COMPLETED": "Zakończona",
+      "action": {
+        "cancel": "Odwołaj wizytę",
+        "acknowledge": "Wizyta się odbyła",
+        "complete": "Porada zakończona"
+      }
     }
   }
 }

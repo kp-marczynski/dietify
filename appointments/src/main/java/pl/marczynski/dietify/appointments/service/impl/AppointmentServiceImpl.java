@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.service.impl;
 
+import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
 import pl.marczynski.dietify.appointments.service.AppointmentService;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import pl.marczynski.dietify.appointments.repository.AppointmentRepository;
@@ -64,7 +65,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Transactional(readOnly = true)
     public Optional<Appointment> findOne(Long id) {
         log.debug("Request to get Appointment : {}", id);
-        return appointmentRepository.findById(id);
+        return appointmentRepository.findOneWithEagerRelationships(id);
     }
 
     /**
@@ -76,5 +77,41 @@ public class AppointmentServiceImpl implements AppointmentService {
     public void delete(Long id) {
         log.debug("Request to delete Appointment : {}", id);
         appointmentRepository.deleteById(id);
+    }
+
+    /**
+     * Get all the appointments waiting for consultation.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    public Page<Appointment> findAllWaitingForConsultation(Pageable pageable) {
+        log.debug("Request to get all Appointments waiting for consultation");
+        return appointmentRepository.findAllByAppointmentState(AppointmentState.TOOK_PLACE, pageable);
+    }
+
+    /**
+     * Get all the patient appointments waiting for consultation.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    public Page<Appointment> findAllByPatientWaitingForConsultation(Long patientId, Pageable pageable) {
+        log.debug("Request to get all patient's Appointments waiting for consultation");
+        return appointmentRepository.findAllByAppointmentStateAndPatientCardPatientId(AppointmentState.TOOK_PLACE, patientId, pageable);
+    }
+
+    /**
+     * Get all the appointments waiting for consultation.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Override
+    public Page<Appointment> findAllByPatient(Long patientId, Pageable pageable) {
+        log.debug("Request to get all Appointments waiting for consultation");
+        return appointmentRepository.findAllByPatientCardPatientId(patientId, pageable);
     }
 }

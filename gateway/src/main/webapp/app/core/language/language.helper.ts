@@ -1,15 +1,19 @@
-import { Injectable, RendererFactory2, Renderer2 } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
-import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable, RendererFactory2, Renderer2} from '@angular/core';
+import {Title} from '@angular/platform-browser';
+import {Router, ActivatedRouteSnapshot} from '@angular/router';
+import {TranslateService, LangChangeEvent} from '@ngx-translate/core';
+import {BehaviorSubject, Observable} from 'rxjs';
 
-import { LANGUAGES } from 'app/core/language/language.constants';
+import {LANGUAGES} from 'app/core/language/language.constants';
+import {Subject} from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class JhiLanguageHelper {
   renderer: Renderer2 = null;
   private _language: BehaviorSubject<string>;
+
+  private title = new Subject<string>();
+  title$ = this.title.asObservable();
 
   constructor(
     private translateService: TranslateService,
@@ -43,7 +47,8 @@ export class JhiLanguageHelper {
     }
 
     this.translateService.get(titleKey).subscribe(title => {
-      this.titleService.setTitle(title);
+      this.titleService.setTitle('Dietify | ' + title);
+      this.title.next(title);
     });
   }
 

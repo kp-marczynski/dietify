@@ -10,14 +10,10 @@ import {
   BodyMeasurementUpdateComponent,
   BodyMeasurementDeletePopupComponent,
   BodyMeasurementDeleteDialogComponent,
-  bodyMeasurementRoute,
-  bodyMeasurementPopupRoute
 } from './';
 
-const ENTITY_STATES = [...bodyMeasurementRoute, ...bodyMeasurementPopupRoute];
-
 @NgModule({
-  imports: [GatewaySharedModule, RouterModule.forChild(ENTITY_STATES)],
+  imports: [GatewaySharedModule, RouterModule],
   declarations: [
     BodyMeasurementComponent,
     BodyMeasurementDetailComponent,

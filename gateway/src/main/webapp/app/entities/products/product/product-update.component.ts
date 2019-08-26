@@ -102,16 +102,6 @@ export class ProductUpdateComponent implements OnInit {
       if (!product.basicNutritionData) {
         product.basicNutritionData = new ProductBasicNutritionData();
       }
-      if (product.nutritionData) {
-        for (let nutritionDataIndex = 0; nutritionDataIndex < product.nutritionData.length; ++nutritionDataIndex) {
-          this.getNutritionDataFormArray().push(this.getNutritionDataFormGroup());
-        }
-      }
-      if (product.housholdMeasures) {
-        for (let householdMeasuresIndex = 0; householdMeasuresIndex < product.householdMeasures.length; ++householdMeasuresIndex) {
-          this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
-        }
-      }
       this.updateForm(product);
       this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
 
@@ -222,9 +212,15 @@ export class ProductUpdateComponent implements OnInit {
       unsuitableDiets: product.unsuitableDiets
     });
     if (product.nutritionData) {
+      for (let nutritionDataIndex = 0; nutritionDataIndex < product.nutritionData.length; ++nutritionDataIndex) {
+        this.getNutritionDataFormArray().push(this.getNutritionDataFormGroup());
+      }
       this.getNutritionDataFormArray().patchValue(product.nutritionData);
     }
     if (product.householdMeasures) {
+      for (let householdMeasuresIndex = 0; householdMeasuresIndex < product.householdMeasures.length; ++householdMeasuresIndex) {
+        this.getHouseholdMeasuresFormArray().push(this.getHouseholdMeasuresFormGroup());
+      }
       this.getHouseholdMeasuresFormArray().patchValue(product.householdMeasures);
     }
     if (product.subcategory) {

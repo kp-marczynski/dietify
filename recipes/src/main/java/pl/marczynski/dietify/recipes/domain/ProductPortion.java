@@ -51,11 +51,6 @@ public class ProductPortion implements Serializable {
     @Column(name = "household_measure_id")
     private Long householdMeasureId;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("productPortions")
-    private RecipeSection recipeSection;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -89,13 +84,6 @@ public class ProductPortion implements Serializable {
         this.householdMeasureId = householdMeasureId;
     }
 
-    public RecipeSection getRecipeSection() {
-        return recipeSection;
-    }
-
-    public void setRecipeSection(RecipeSection recipeSection) {
-        this.recipeSection = recipeSection;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

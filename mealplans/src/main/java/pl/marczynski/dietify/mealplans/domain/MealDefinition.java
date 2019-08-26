@@ -1,13 +1,15 @@
 package pl.marczynski.dietify.mealplans.domain;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
-
-import org.springframework.data.elasticsearch.annotations.FieldType;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -63,11 +65,6 @@ public class MealDefinition implements Serializable {
     @Column(name = "percent_of_energy", nullable = false)
     private Integer percentOfEnergy;
 
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("mealDefinitions")
-    private MealPlan mealPlan;
-
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -109,13 +106,6 @@ public class MealDefinition implements Serializable {
         this.percentOfEnergy = percentOfEnergy;
     }
 
-    public MealPlan getMealPlan() {
-        return mealPlan;
-    }
-
-    public void setMealPlan(MealPlan mealPlan) {
-        this.mealPlan = mealPlan;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override
