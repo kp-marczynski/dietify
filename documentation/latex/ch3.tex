@@ -159,43 +159,41 @@
     \end{figure}
 \end{minipage}
 
-\section{Baza danych}
-
-\subsection{Kategorie}
+\section{Kategorie}
 \todo{uzupełnić kategorie}
 
 \begin{enumerate}[label={\textbf{KAT/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1em}
-    \req{User} \label{kat:user} (Użytkownik)
+    \req{User} \label{kat:User} (Użytkownik)
 
     Opis: \lipsum[1]
     \par
     Atrybuty:
     \begin{itemize}[series=atr]
-        \atr{id} \label{kat:user:id}
-        \atr{login} \label{kat:user:login}
-        \atr{passwordHash} \label{kat:user:passwordHash}
-        \atr{firstName} \label{kat:user:firstName}
-        \atr{lastName} \label{kat:user:lastName}
-        \atr{email} \label{kat:user:email}
-        \atr{image} \label{kat:user:image}
-        \atr{activated} \label{kat:user:activated}
-        \atr{langKey} \label{kat:user:langKey}
-        \atr{activationKey} \label{kat:user:activationKey}
-        \atr{createdBy} \label{kat:user:createdBy}
-        \atr{createdDate} \label{kat:user:createdDate}
-        \atr{resetDate} \label{kat:user:resetDate}
-        \atr{lastModifiedBy} \label{kat:user:lastModifiedBy}
-        \atr{lastModifiedDate} \label{kat:user:lastModifiedDate}
+        \atr{id} \label{kat:User:id}
+        \atr{login} \label{kat:User:login}
+        \atr{passwordHash} \label{kat:User:passwordHash}
+        \atr{firstName} \label{kat:User:firstName}
+        \atr{lastName} \label{kat:User:lastName}
+        \atr{email} \label{kat:User:email}
+        \atr{image} \label{kat:User:image}
+        \atr{activated} \label{kat:User:activated}
+        \atr{langKey} \label{kat:User:langKey}
+        \atr{activationKey} \label{kat:User:activationKey}
+        \atr{createdBy} \label{kat:User:createdBy}
+        \atr{createdDate} \label{kat:User:createdDate}
+        \atr{resetDate} \label{kat:User:resetDate}
+        \atr{lastModifiedBy} \label{kat:User:lastModifiedBy}
+        \atr{lastModifiedDate} \label{kat:User:lastModifiedDate}
     \end{itemize}
 
-    \req{Authority} \label{kat:authority} (Rola)
+    \req{Authority} \label{kat:Authority} (Rola)
 
     Opis: \lipsum[1]
     \par
     Atrybuty:
     \begin{itemize}[series=atr]
-        \atr{name} \label{kat:authority:name}
+        \atr{name} \label{kat:Authority:name}
     \end{itemize}
 
     \req{UserExtraInfo} \label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)
@@ -733,34 +731,34 @@
 
 \end{enumerate}
 
-\subsection {Reguły funkcjonowania}
+\section {Reguły funkcjonowania}
 \todo{uzupełnić reguły funkcjonowania, i.e. związki pomiędzy encjami}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1em}
-    \item\ref{kat:user}
+    \item\ref{kat:User}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
-        \item Użytkownik (\ref{kat:user}) nie musi mieć musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
-        \item Użytkownik (\ref{kat:user}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
-        \item Użytkownik (\ref{kat:user}) musi mieć musi mieć przynajmniej jedną rolę (\ref{kat:authority})
-        \item Użytkownik (\ref{kat:user}) może mieć wiele ról (\ref{kat:authority})
+        \item Użytkownik (\ref{kat:User}) nie musi mieć musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
+        \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
+        \item Użytkownik (\ref{kat:User}) musi mieć musi mieć przynajmniej jedną rolę (\ref{kat:Authority})
+        \item Użytkownik (\ref{kat:User}) może mieć wiele ról (\ref{kat:Authority})
         %CRUD
-        \item \role{Gość} może dodawać nowego użytkownika (\ref{kat:user})
-        \item \role{Użytkownik} może wyświetlać, edytować i usuwać swoje dane użytkownika (\ref{kat:user})
-        \item \role{Dietetyk} może wyświetlać podstawowe dane (\ref{kat:user}) \role{Pacjenta}, którego kartotekę prowadzi
-        \item \role{Administrator} może wyświetlać i usuwać dane użytkownika (\ref{kat:user})
+        \item \role{Gość} może dodawać nowego użytkownika (\ref{kat:User})
+        \item \role{Użytkownik} może wyświetlać, edytować i usuwać swoje dane użytkownika (\ref{kat:User})
+        \item \role{Dietetyk} może wyświetlać podstawowe dane (\ref{kat:User}) \role{Pacjenta}, którego kartotekę prowadzi
+        \item \role{Administrator} może wyświetlać i usuwać dane użytkownika (\ref{kat:User})
     \end{enumerate}
-    \item\ref{kat:authority}
+    \item\ref{kat:Authority}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         %CRUD
-        \item \role{Administrator} może dodawać, wyświetlać, edytować i usuwać dane roli (\ref{kat:authority})
+        \item \role{Administrator} może dodawać, wyświetlać, edytować i usuwać dane roli (\ref{kat:Authority})
     \end{enumerate}
     \item\ref{kat:UserExtraInfo}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:user})
+        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:User})
         %CRUD
         \item \role{Użytkownik} może dodawać, wyświetlać, edytować i usuwać swoje dodatkowe informacje (\ref{kat:UserExtraInfo})
         \item \role{Użytkownik} może wyświetlać dodatkowe informacje (\ref{kat:UserExtraInfo}) \role{Dietetyka}
@@ -814,66 +812,66 @@
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Produkt musi mieć przynajmniej jedną wersję
-        \item Produkt może mieć wiele wersji
-        \item Produkt nie musi mieć zdefiniowanego autora
-        \item Produkt może mieć maksymalnie jednego autora
+        \item Produkt (\ref{kat:Product}) musi mieć przynajmniej jedną wersję (\ref{kat:ProductVersion})
+        \item Produkt (\ref{kat:Product}) może mieć wiele wersji (\ref{kat:ProductVersion})
+        \item Produkt (\ref{kat:Product}) nie musi mieć zdefiniowanego autora (\ref{kat:User})
+        \item Produkt (\ref{kat:Product}) może mieć maksymalnie jednego autora (\ref{kat:User})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductVersion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Wersja produktu musi być przypisana do dokładnie jednego produktu
-        \item Wersja produktu musi być przypisana do dokładnie jednych podstawowych wartości odżywczych
-        \item Wersja produktu nie musi mieć zdefiniowanych żadnych wartości odżywczych
-        \item Wersja produktu może mieć zdefiniowane wiele wartości odżywczych
-        \item Wersja produktu nie musi mieć zdefiniowanych żadnych miar domowych
-        \item Wersja produktu może mieć zdefiniowane wiele miar domowych
-        \item Wersja produktu musi należeć do dokładnie jednej podkategorii
-        \item Wersja produktu nie musi mieć przypisanego żadnego odpowiedniego typu diety
-        \item Wersja produktu może mieć przypisanych wiele odpowiednich typów diety
-        \item Wersja produktu nie musi mieć przypisanego żadnego nieodpowiedniego typu diety
-        \item Wersja produktu może mieć przypisanych wiele nieodpowiednich typów diety
+        \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednego produktu  (\ref{kat:Product})
+        \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednych podstawowych wartości odżywczych (\ref{kat:ProductBasicNutritionData})
+        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć zdefiniowanych żadnych wartości odżywczych (\ref{kat:NutritionData})
+        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć zdefiniowane wiele wartości odżywczych (\ref{kat:NutritionData})
+        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć zdefiniowanych żadnych miar domowych (\ref{kat:HouseholdMeasure})
+        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć zdefiniowane wiele miar domowych (\ref{kat:HouseholdMeasure})
+        \item Wersja produktu (\ref{kat:ProductVersion}) musi należeć do dokładnie jednej podkategorii (\ref{kat:ProductSubcategory})
+        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
+        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć przypisanych wiele odpowiednich typów diety (\ref{kat:DietType})
+        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
+        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podstawowe wartości odżywcze produktu muszą być przypisane do dokladnie jednej wersji produktu
+        \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokladnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Wartość odżywcza musi być przypisana do dokładnie jednej wersji produktu
-        \item Wartość odżywcza musi być przypisana do dokładnie jednej definicji wartości odżywczej
+        \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
+        \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej definicji wartości odżywczej (\ref{kat:NutritionDefinition})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionDefinition}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Definicja wartości odżywczej nie musi mieć zdefiniowanego żadnego tłumaczenia
-        \item Definicja wartości odżywczej może mieć zdefiniowanych wiele tłumaczeń
+        \item Definicja wartości odżywczej (\ref{kat:NutritionDefinition}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:NutritionDefinitionTranslation})
+        \item Definicja wartości odżywczej (\ref{kat:NutritionDefinition}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:NutritionDefinitionTranslation})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionDefinitionTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie definicji wartości odżywczej musi być przypisane do dokładnie jednej definicji wartości odżywczej
+        \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) musi być przypisane do dokładnie jednej definicji wartości odżywczej  (\ref{kat:NutritionDefinition})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:HouseholdMeasure}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Miara domowa musi być przypisana do dokładnie jednej wersji produktu
+        \item Miara domowa (\ref{kat:HouseholdMeasure}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductSubcategory}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -882,7 +880,7 @@
         \item Podkategoria produktu może być przypisana do wielu wersji produktu
         \item Podktagoria produktu musi być przypisana do dokładnie jednej kategorii
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategory}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -890,14 +888,14 @@
         \item Kategoria produktu nie musi mieć przypisanego żadnego tłumaczenia
         \item Kategoria produktu może mieć przypisanych wiele tłumaczeń
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategoryTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie kategorii produktu musi być przypisane do dokładnie jednej kategorii
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DietType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -905,14 +903,14 @@
         \item Typ diety nie musi mieć zdefiniowanego żadnego tłumaczenia
         \item Typ diety może mieć zdefiniowanych wiele tłumaczeń
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DietTypeTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu diety musi być przypisane do dokładnie jednego typu diety
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Recipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -924,7 +922,7 @@
         \item Przepis nie musi mieć zdefiniowanego autora
         \item Przepis może mieć maksymalnie jednego autora
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:RecipeVersion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -943,14 +941,14 @@
         \item Wersja przepisu nie musi mieć przypisanego żadnego nieodpowiedniego typu diety
         \item Wersja przepisu może mieć przypisanych wiele nieodpowiednich typów diety
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze przepisu muszą być przypisane do dokładnie jednej wersji przepisu
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:RecipeSection}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -961,7 +959,7 @@
         \item Sekcja przepisu musi mieć przypisany przynajmniej jeden krok przygotowania
         \item Sekcja przepisu może mieć zdefiniowanych wiele kroków przygotowania
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductPortion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -971,14 +969,14 @@
         \item Porcja produktu nie musi mieć przypisanej miary domowej
         \item Porcja produktu może mieć przypisaną maksymalnie jedną miarę produktu
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:PreparationStep}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Krok przygotowania musi być przypisany do dokładnie jednej sekcji przepisu
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:KitchenAppliance}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -986,14 +984,14 @@
         \item Sprzęt kuchenny nie musi mieć zdefiniowanego żadnego tlumaczenia
         \item Sprzęt kuchenny może mieć zdefiniowanych wiele tlumaczeń
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:KitchenApplianceTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie sprzetu kuchennego musi być przypisane do dokaldnie jednego sprzetu kuchennego
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DishType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1001,14 +999,14 @@
         \item Typ dania nie musi mieć zdefiniowanego żadnego tłumaczenia
         \item Typ dania może mieć zdefiniowanych wiele tłumaczeń
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DishTypeTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu dania musi być przypisane do dokładnie jednego typu dania
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1016,14 +1014,14 @@
         \item Typ posiłku nie musi mieć zdefiniowanego żadnego tłumaczenia
         \item Typ posiłku może mieć zdefiniowanych wiele tłumaczeń
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealTypeTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu posiłku musi być przypisane do dokładnie jednego typu posiłku
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealPlan}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1038,7 +1036,7 @@
         \item Jadłospis może mieć przypisanych wiele nieodpowiednich typów diety
         \item Jadłospis musi mieć dokładnie jednego autora
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealPlanDay}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1047,7 +1045,7 @@
         \item Dzień jadłospisu nie musi mieć przypisanego żadnego posiłku
         \item Dzień jadłospisu może mieć przypisanych maksymalnie 10 posiłków
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Meal}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1058,7 +1056,7 @@
         \item Posiłek nie musi mieć przypisanego żadnego przepisu
         \item Posiłek może mieć przypisanych wiele przepisów
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1066,7 +1064,7 @@
         \item Przepis posiłku musi być przypisany do dokladnie jednego posiłku
         \item Przepis posiłku musi mieć przypisany dokładnie jeden przepis
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealProduct}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1076,7 +1074,7 @@
         \item Produkt posiłku nie musi mieć przypisanej żadnej miary domowej
         \item Produkt posiłku musi mieć przypisaną maksymalnie jedną miarę domową
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealDefinition}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1084,7 +1082,7 @@
         \item Definicja posiłku musi być przypisana do dokładnie jednego jadłospisu
         \item Definicja posiłku musi mieć przypisany dokładnie jeden typo posiłku
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Appointment}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1099,7 +1097,7 @@
         \item Wizyta nie musi mieć przypisanego żadnego jadłospisu
         \item Wizyta może mieć przypisanych wiele jadłospisów
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:PatientCard}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1109,21 +1107,21 @@
         \item Karta pacjenta musi mieć przypisanego dokładnie jednego pacjenta
         \item Karta pacjenta musi mieć przypisanego dokładnie jednego dietetyka
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:AppointmentEvaluation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Ewaluacja wizyty musi być przypisana do dokładnie jednej wizyty
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:BodyMeasurement}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Pomiary ciała muszą być przypisane do dokładnie jednej wizyty
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionalInterview}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1134,21 +1132,21 @@
         \item Wywiad żywieniowy nie musi mieć przypisanych żadnych posiadanych sprzętów kuchennych
         \item Wywiad żywieniowy może mieć przypisanych wiele posiadanych sprzętów kuchennych
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Niestandardowe pytanie żywieniowe musi być przypisane do dokładnie jednego wywiadu żywieniowego
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Szablon niestandardowego pytania żywieniowego musi mieć dokaldnie jednego autora
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1156,329 +1154,329 @@
         \item Przypisany jadłospis musi mieć przydzieloną dokładnie jedną wizytę
         \item Przypisany jadłospis musi mieć przydzielony dokładnie jeden jadłospis
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
 \end{itemize}
 
-\subsection{Ograniczenia dziedzinowe}
+\section{Ograniczenia dziedzinowe}
 \todo{uzupełnić ograniczenia dziedzionowe}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1em}
-    \item\ref{kat:user}
+    \item\ref{kat:User}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:UserExtraInfo}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:SiteContent}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:SiteContentTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ContactInfo}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Pricing}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:PricingTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionDefinition}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionDefinitionTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:HouseholdMeasure}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductSubcategory}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategory}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategoryTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DietType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DietTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Recipe}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:RecipeVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:RecipeSection}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:ProductPortion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:PreparationStep}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:KitchenAppliance}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:KitchenApplianceTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DishType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:DishTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealPlanDay}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Meal}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealProduct}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:MealDefinition}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:Appointment}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:PatientCard}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:AppointmentEvaluation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:BodyMeasurement}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:NutritionalInterview}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item test1
         %CRUD
-        \item test2
+        \item todo
     \end{enumerate}
 \end{itemize}
 
