@@ -870,4 +870,15 @@ fontsize=\small,
 #1\quad}
 \makeatother
 
+\newcommand\capmystring[1]{\capmystringaux#1\relax}
+\def\capmystringaux#1#2\relax{\uppercase{#1}#2}
+
+\makeatletter
+\newcommand*{\atr}[1]{%
+\item
+\def\@currentlabel{\textbf{~\capmystring{#1}}}%
+#1\quad}
+\makeatother
+
+\newcommand{\role}[1]{\emph{#1}}
 \endinput % dla porządku
