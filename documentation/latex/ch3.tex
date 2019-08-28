@@ -294,7 +294,7 @@
     Atrybuty:
     \begin{itemize}[series=atr]
         \atr{id} \label{kat:ProductVersion:id}
-        \atr{editTimestamp} \label{kat:ProductVersion:editTimestamp}
+        \atr{createdDate} \label{kat:ProductVersion:createdDate}
         \atr{description} \label{kat:ProductVersion:description}
     \end{itemize}
 
@@ -1255,14 +1255,16 @@
     \end{enumerate}
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item todo
+        \item Produkt musi mieć flagę \ref{kat:Product:isPublic}
+        \item \ref{kat:Product:source} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item \ref{kat:Product:isPublic} jest typu logicznego
     \end{enumerate}
     \item\ref{kat:ProductVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-
-        \item test1
-
-        \item todo
+        \item Wersja produktu musi mieć \ref{kat:ProductVersion:createdDate}
+        \item Wersja produktu musi mieć \ref{kat:ProductVersion:description}
+        \item \ref{kat:ProductVersion:createdDate} jest stemplem czasowym
+        \item \ref{kat:ProductVersion:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
