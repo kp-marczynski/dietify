@@ -1,6 +1,6 @@
-\chapter{Projekt}
+\chapter{Projekt}\label{ch:project}
 
-\section{Przypadki użycia}
+\section{Przypadki użycia}\label{sec:usecase}
 \todo{diagram przypadków użycia}
 \todo{scenariusze przypadków użycia}
 
@@ -160,7 +160,7 @@
     \end{figure}
 \end{minipage}
 
-\section{Kategorie}
+\section{Kategorie}\label{sec:categories}
 \todo{uzupełnić kategorie}
 
 \begin{enumerate}[label={\textbf{KAT/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
@@ -731,13 +731,17 @@
 
 \end{enumerate}
 
-\section {Reguły funkcjonowania}
+\section {Reguły funkcjonowania}\label{sec:functionalRules}
 \todo{uzupełnić reguły funkcjonowania, i.e. związki pomiędzy encjami}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1em}
-    \item\ref{kat:User}
+    \item[\textbf{Reguły}] \textbf{ogólne}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+        \item Przedmiot kompozycji podlega takim samym zasadom dostępu co właściciel kompozycji pod warunkiem, że przedmiot kompozycji nie definuje własnych reguł dopstepu
+    \end{enumerate}
+    \item\ref{kat:User}
+    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Użytkownik (\ref{kat:User}) nie musi mieć musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
         \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
@@ -764,9 +768,7 @@
         %Relacje
         \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:User})
         %CRUD
-        \item \role{Użytkownik} może dodawać, wyświetlać, edytować i usuwać swoje dodatkowe informacje (\ref{kat:UserExtraInfo})
-        \item \role{Użytkownik} może wyświetlać dodatkowe informacje (\ref{kat:UserExtraInfo}) \role{Dietetyka}
-        \item \role{Dietetyk} może wyświetlać dodatkowe dane (\ref{kat:UserExtraInfo}) \role{Pacjenta}, którego kartotekę prowadzi
+        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) są przedmiotem kompozycji ze strony użytkownika (\ref{kat:User})
     \end{enumerate}
     \item\ref{kat:SiteContent}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -783,9 +785,7 @@
         %Relacje
         \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) musi być przypisane do dokładnie jednej treści strony (\ref{kat:SiteContent})
         %CRUD
-        \item \role{Gość} może wyświetlać dane tłumaczenia treści strony (\ref{kat:SiteContentTranslation})
-        \item \role{Użytkownik} może wyświetlać dane tłumaczenia treści strony (\ref{kat:SiteContentTranslation})
-        \item \role{Administrator} może dodawać, edytować i usuwać dane tłumaczenia treści strony (\ref{kat:SiteContentTranslation})
+        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) jest przedmiotem kompozycji ze strony treści strony (\ref{kat:SiteContent})
     \end{enumerate}
     \item\ref{kat:ContactInfo}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -809,9 +809,7 @@
         %Relacje
         \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) musi być przypisane do dokładnie jednego cennika (\ref{kat:Pricing})
         %CRUD
-        \item \role{Gość} może wyświetlać dane tłumaczenia cennika (\ref{kat:PricingTranslation})
-        \item \role{Użytkownik} może wyświetlać dane tłumaczenia cennika (\ref{kat:PricingTranslation})
-        \item \role{Administrator} może dodawać, edytować i usuwać dane tłumaczenia cennika (\ref{kat:PricingTranslation})
+        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) jest przedmiotem kompozycji ze strony cennika (\ref{kat:Pricing})
     \end{enumerate}
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -838,14 +836,14 @@
         \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
         \item Wersja produktu (\ref{kat:ProductVersion}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
         %CRUD
-        \item todo
+        \item Wersja produktu (\ref{kat:ProductVersion}) jest przedmiotem kompozycji ze strony produktu (\ref{kat:Product})
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokladnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
-        \item todo
+        \item Podstawowe wartości odżywcze produktu (\ref{kat:ProductBasicNutritionData}) są przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
     \item\ref{kat:NutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -853,7 +851,7 @@
         \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej definicji wartości odżywczej (\ref{kat:NutritionDefinition})
         %CRUD
-        \item todo
+        \item Wartość odżywcza (\ref{kat:NutritionData}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
     \item\ref{kat:NutritionDefinition}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -868,14 +866,14 @@
         %Relacje
         \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) musi być przypisane do dokładnie jednej definicji wartości odżywczej  (\ref{kat:NutritionDefinition})
         %CRUD
-        \item todo
+        \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) jest przedmiotem kompozycji ze strony definicji wartości odżywczej (\ref{kat:NutritionDefinition})
     \end{enumerate}
     \item\ref{kat:HouseholdMeasure}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Miara domowa (\ref{kat:HouseholdMeasure}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
-        \item todo
+        \item Miara domowa (\ref{kat:HouseholdMeasure}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
     \item\ref{kat:ProductSubcategory}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -899,7 +897,7 @@
         %Relacje
         \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) musi być przypisane do dokładnie jednej kategorii (\ref{kat:ProductCategory})
         %CRUD
-        \item todo
+        \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) jest przedmiotem kompozycji ze strony kategorii (\ref{kat:ProductCategory})
     \end{enumerate}
     \item\ref{kat:DietType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -914,7 +912,7 @@
         %Relacje
         \item Tłumaczenie typu diety (\ref{kat:DietTypeTranslation}) musi być przypisane do dokładnie jednego typu diety (\ref{kat:DietType})
         %CRUD
-        \item todo
+        \item Tłumaczenie typu diety (\ref{kat:DietTypeTranslation}) jest przedmiotem kompozycji ze strony typu diety (\ref{kat:DietType})
     \end{enumerate}
     \item\ref{kat:Recipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -945,14 +943,14 @@
         \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
         \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
         %CRUD
-        \item todo
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) jest przedmiotem kompozycji ze strony przepisu (\ref{kat:Recipe})
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji przepisu (\ref{kat:RecipeVersion})
         %CRUD
-        \item todo
+        \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) są przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
     \end{enumerate}
     \item\ref{kat:RecipeSection}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -963,7 +961,7 @@
         \item Sekcja przepisu (\ref{kat:RecipeSection}) musi mieć przypisany przynajmniej jeden krok przygotowania (\ref{kat:PreparationStep})
         \item Sekcja przepisu (\ref{kat:RecipeSection}) może mieć zdefiniowanych wiele kroków przygotowania (\ref{kat:PreparationStep})
         %CRUD
-        \item todo
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) jest przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
     \end{enumerate}
     \item\ref{kat:ProductPortion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -973,14 +971,14 @@
         \item Porcja produktu (\ref{kat:ProductPortion}) nie musi mieć przypisanej miary domowej (\ref{kat:HouseholdMeasure})
         \item Porcja produktu (\ref{kat:ProductPortion}) może mieć przypisaną maksymalnie jedną miarę domową (\ref{kat:HouseholdMeasure})
         %CRUD
-        \item todo
+        \item Porcja produktu (\ref{kat:ProductPortion}) jest przedmiotem kompozycji ze strony sekcji przepisu (\ref{kat:RecipeSection})
     \end{enumerate}
     \item\ref{kat:PreparationStep}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Krok przygotowania (\ref{kat:PreparationStep}) musi być przypisany do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
         %CRUD
-        \item todo
+        \item Krok przygotowania (\ref{kat:PreparationStep}) jest przedmiotem kompozycji ze strony sekcji przepisu (\ref{kat:RecipeSection})
     \end{enumerate}
     \item\ref{kat:KitchenAppliance}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -995,7 +993,7 @@
         %Relacje
         \item Tłumaczenie sprzetu kuchennego (\ref{kat:KitchenApplianceTranslation}) musi być przypisane do dokaldnie jednego sprzetu kuchennego (\ref{kat:KitchenAppliance})
         %CRUD
-        \item todo
+        \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) jest przedmiotem kompozycji ze strony sprzętu kuchennego (\ref{kat:KitchenAppliance})
     \end{enumerate}
     \item\ref{kat:DishType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1010,7 +1008,7 @@
         %Relacje
         \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) musi być przypisane do dokładnie jednego typu dania (\ref{kat:DishType})
         %CRUD
-        \item todo
+        \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) jest przedmiotem kompozycji ze strony typu dania (\ref{kat:DishType})
     \end{enumerate}
     \item\ref{kat:MealType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1025,7 +1023,7 @@
         %Relacje
         \item Tłumaczenie typu posiłku (\ref{kat:MealTypeTranslation}) musi być przypisane do dokładnie jednego typu posiłku (\ref{kat:MealType})
         %CRUD
-        \item todo
+        \item Tłumaczenie typu posiłku (\ref{kat:MealTypeTranslation}) jest przedmiotem kompozycji ze strony typu posiłku (\ref{kat:MealType})
     \end{enumerate}
     \item\ref{kat:MealPlan}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1049,7 +1047,7 @@
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) nie musi mieć przypisanego żadnego posiłku (\ref{kat:Meal})
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) może mieć przypisanych maksymalnie 10 posiłków (\ref{kat:Meal})
         %CRUD
-        \item todo
+        \item Dzień jadłospisu (\ref{kat:MealPlanDay}) jest przedmiotem kompozycji ze strony jadłospisu (\ref{kat:MealPlan})
     \end{enumerate}
     \item\ref{kat:Meal}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1060,7 +1058,7 @@
         \item Posiłek (\ref{kat:Meal}) nie musi mieć przypisanego żadnego przepisu (\ref{kat:MealRecipe})
         \item Posiłek (\ref{kat:Meal}) może mieć przypisanych wiele przepisów (\ref{kat:MealRecipe})
         %CRUD
-        \item todo
+        \item Posiłek (\ref{kat:Meal}) jest przedmiotem kompozycji ze strony dnia jadłospisu (\ref{kat:MealPlanDay})
     \end{enumerate}
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1068,7 +1066,7 @@
         \item Przepis posiłku (\ref{kat:MealRecipe}) musi być przypisany do dokladnie jednego posiłku (\ref{kat:Meal})
         \item Przepis posiłku (\ref{kat:MealRecipe}) musi mieć przypisany dokładnie jeden przepis (\ref{kat:Recipe})
         %CRUD
-        \item todo
+        \item Przepis posiłku (\ref{kat:MealRecipe}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
     \end{enumerate}
     \item\ref{kat:MealProduct}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1078,7 +1076,7 @@
         \item Produkt posiłku (\ref{kat:MealProduct}) nie musi mieć przypisanej żadnej miary domowej (\ref{kat:HouseholdMeasure})
         \item Produkt posiłku (\ref{kat:MealProduct}) musi mieć przypisaną maksymalnie jedną miarę domową (\ref{kat:HouseholdMeasure})
         %CRUD
-        \item todo
+        \item Produkt posiłku (\ref{kat:MealProduct}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
     \end{enumerate}
     \item\ref{kat:MealDefinition}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1086,7 +1084,7 @@
         \item Definicja posiłku (\ref{kat:MealDefinition}) musi być przypisana do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
         \item Definicja posiłku (\ref{kat:MealDefinition}) musi mieć przypisany dokładnie jeden typ posiłku (\ref{kat:MealType})
         %CRUD
-        \item todo
+        \item Definicja posiłku (\ref{kat:MealDefinition}) jest przedmiotem kompozycji ze strony jadłospisu (\ref{kat:MealPlan})
     \end{enumerate}
     \item\ref{kat:Appointment}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1125,7 +1123,7 @@
         %Relacje
         \item Pomiary ciała (\ref{kat:BodyMeasurement}) muszą być przypisane do dokładnie jednej wizyty (\ref{kat:Appointment})
         %CRUD
-        \item todo
+        \item Pomiary ciała (\ref{kat:BodyMeasurement}) są przedmiotem kompozycji ze strony wizyty (\ref{kat:Appointment})
     \end{enumerate}
     \item\ref{kat:NutritionalInterview}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1136,14 +1134,14 @@
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) nie musi mieć przypisanych żadnych posiadanych sprzętów kuchennych (\ref{kat:KitchenAppliance})
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) może mieć przypisanych wiele posiadanych sprzętów kuchennych (\ref{kat:KitchenAppliance})
         %CRUD
-        \item todo
+        \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) jest przedmiotem kompozycji ze strony wizyty (\ref{kat:Appointment})
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) musi być przypisane do dokładnie jednego wywiadu żywieniowego (\ref{kat:NutritionalInterview})
         %CRUD
-        \item todo
+        \item  Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) jest przedmiotem kompozycji ze strony wywiadu żywieniowego (\ref{kat:NutritionalInterview})
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1162,7 +1160,7 @@
     \end{enumerate}
 \end{itemize}
 
-\section{Ograniczenia dziedzinowe}
+\section{Ograniczenia dziedzinowe}\label{sec:restrictions}
 \todo{uzupełnić ograniczenia dziedzionowe}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
@@ -1178,7 +1176,7 @@
         \item Wszystkie \textbf{daty} są w formacie YYYY:MM:DD
     \end{enumerate}
     \item\ref{kat:User}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Required
         \item Użytkownik musi mieć \ref{kat:User:login}
         \item Użytkownik musi mieć \ref{kat:User:passwordHash}
@@ -1233,7 +1231,7 @@
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Informacja kontaktowa musi mieć \ref{kat:ContactInfo:contactInfoType}
         \item Informacja kontaktowa musi mieć \ref{kat:ContactInfo:description}
-        \item \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING_HOURS", "OTHER"
+        \item \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING\_HOURS", "OTHER"
         \item \ref{kat:ContactInfo:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
     \item\ref{kat:Pricing}
@@ -1520,7 +1518,7 @@
     \end{enumerate}
 \end{itemize}
 
-\section{Model domenowy}
+\section{Model domenowy}\label{sec:domainModel}
 \todo{diagram klas}
 
 \begin{minipage}{\textwidth}
@@ -1565,7 +1563,7 @@
     \end{figure}
 \end{minipage}
 
-\section{Opis podstawowej architektury systemu}
+\section{Opis podstawowej architektury systemu}\label{sec:basicArchitecture}
 \todo{Opisać, że to aplikacja webowa w architekturze mikroserwisów
 Wyszczególnienie modułów;
 Diagram rozmieszczenia, wzorce projektowe}

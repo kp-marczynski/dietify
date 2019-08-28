@@ -866,7 +866,7 @@ fontsize=\small,
 \makeatletter
 \newcommand*{\req}[1]{%
 \item
-\appto\@currentlabel{\textbf{~#1}}%
+\appto\@currentlabel{\textbf{ #1}}%
 #1\quad}
 \makeatother
 
@@ -876,7 +876,7 @@ fontsize=\small,
 \makeatletter
 \newcommand*{\atr}[1]{%
 \item
-\def\@currentlabel{\textbf{~\capmystring{#1}}}%
+\def\@currentlabel{\textbf{#1}}%
 #1\quad}
 \makeatother
 
