@@ -876,283 +876,283 @@
     \item\ref{kat:ProductSubcategory}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podkategoria produktu musi być przypisana do conajmniej jednej wersji produktu
-        \item Podkategoria produktu może być przypisana do wielu wersji produktu
-        \item Podktagoria produktu musi być przypisana do dokładnie jednej kategorii
+        \item Podkategoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do conajmniej jednej wersji produktu (\ref{kat:ProductVersion})
+        \item Podkategoria produktu (\ref{kat:ProductSubcategory}) może być przypisana do wielu wersji produktu (\ref{kat:ProductVersion})
+        \item Podktagoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do dokładnie jednej kategorii (\ref{kat:ProductCategory})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategory}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Kategoria produktu nie musi mieć przypisanego żadnego tłumaczenia
-        \item Kategoria produktu może mieć przypisanych wiele tłumaczeń
+        \item Kategoria produktu (\ref{kat:ProductCategory}) nie musi mieć przypisanego żadnego tłumaczenia (\ref{kat:ProductCategoryTranslation})
+        \item Kategoria produktu (\ref{kat:ProductCategory}) może mieć przypisanych wiele tłumaczeń (\ref{kat:ProductCategoryTranslation})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategoryTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie kategorii produktu musi być przypisane do dokładnie jednej kategorii
+        \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) musi być przypisane do dokładnie jednej kategorii (\ref{kat:ProductCategory})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:DietType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Typ diety nie musi mieć zdefiniowanego żadnego tłumaczenia
-        \item Typ diety może mieć zdefiniowanych wiele tłumaczeń
+        \item Typ diety (\ref{kat:DietType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:DietTypeTranslation})
+        \item Typ diety (\ref{kat:DietType}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:DietTypeTranslation})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:DietTypeTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie typu diety musi być przypisane do dokładnie jednego typu diety
+        \item Tłumaczenie typu diety (\ref{kat:DietTypeTranslation}) musi być przypisane do dokładnie jednego typu diety (\ref{kat:DietType})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:Recipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Przepis nie musi mieć zdefiniowanego żadnego przepisu źródłowego
-        \item Przepis może mieć zdefiniowany maksymalnie jeden przepis źródłowy
-        \item Przepis musi mieć przynajmniej jedną wersję
-        \item Przepis może mieć wiele wersji
-        \item Przepis nie musi mieć zdefiniowanego autora
-        \item Przepis może mieć maksymalnie jednego autora
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć zdefiniowanego żadnego przepisu źródłowego (\ref{kat:Recipe})
+        \item Przepis (\ref{kat:Recipe}) może mieć zdefiniowany maksymalnie jeden przepis źródłowy (\ref{kat:Recipe})
+        \item Przepis (\ref{kat:Recipe}) musi mieć przynajmniej jedną wersję (\ref{kat:RecipeVersion})
+        \item Przepis (\ref{kat:Recipe}) może mieć wiele wersji (\ref{kat:RecipeVersion})
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć zdefiniowanego autora (\ref{kat:User})
+        \item Przepis (\ref{kat:Recipe}) może mieć maksymalnie jednego autora (\ref{kat:User})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:RecipeVersion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Wersja przepisu musi mieć dokładnie jedne podstawowe wartości odżywcze przepisu
-        \item Wersja przepisu musi mieć przynajmniej jedną sekcję
-        \item Wersja przepisu może mieć wiele sekcji
-        \item Wersja przepisu nie musi mieć przypisanego żadnego sprzętu kuchennego
-        \item Wersja przepisu może mieć przypisanych wiele sprzętów kuchennych
-        \item Wersja przepisu nie musi mieć przypisanego żadnego typu dania
-        \item Wersja przepisu może mieć przypisanych wiele typów dań
-        \item Wersja przepisu nie musi mieć przypisanego żadnego typu posiłku
-        \item Wersja przepisu może mieć przypisanych wiele typów posiłków
-        \item Wersja przepisu nie musi mieć przypisanego żadnego odpowiedniego typu diety
-        \item Wersja przepisu może mieć przypisanych wiele odpowiednich typów diety
-        \item Wersja przepisu nie musi mieć przypisanego żadnego nieodpowiedniego typu diety
-        \item Wersja przepisu może mieć przypisanych wiele nieodpowiednich typów diety
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć dokładnie jedne podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć przynajmniej jedną sekcję (\ref{kat:RecipeSection})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć wiele sekcji (\ref{kat:RecipeSection})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego sprzętu kuchennego (\ref{kat:KitchenAppliance})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele sprzętów kuchennych (\ref{kat:KitchenAppliance})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego typu dania (\ref{kat:DishType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele typów dań (\ref{kat:DishType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego typu posiłku (\ref{kat:MealType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele typów posiłków (\ref{kat:MealType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele odpowiednich typów diety  (\ref{kat:DietType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
+        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podstawowe wartości odżywcze przepisu muszą być przypisane do dokładnie jednej wersji przepisu
+        \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji przepisu (\ref{kat:RecipeVersion})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:RecipeSection}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Sekcja przepisu musi być przypisana do dokładniej jednej wersji przepisu
-        \item Sekcja przepisu musi mieć przypisaną przynajmniej jedną porcję produktu
-        \item Sekcja przepisu może mieć przypisanych wiele porcji produktu
-        \item Sekcja przepisu musi mieć przypisany przynajmniej jeden krok przygotowania
-        \item Sekcja przepisu może mieć zdefiniowanych wiele kroków przygotowania
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) musi być przypisana do dokładniej jednej wersji przepisu (\ref{kat:RecipeVersion})
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) musi mieć przypisaną przynajmniej jedną porcję produktu (\ref{kat:ProductPortion})
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) może mieć przypisanych wiele porcji produktu (\ref{kat:ProductPortion})
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) musi mieć przypisany przynajmniej jeden krok przygotowania (\ref{kat:PreparationStep})
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) może mieć zdefiniowanych wiele kroków przygotowania (\ref{kat:PreparationStep})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductPortion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Porcja produktu musi być przypisana do dokładnie jednej sekcji przepisu
-        \item Porcja produktu musi mieć przypisany dokładnie jeden produkt
-        \item Porcja produktu nie musi mieć przypisanej miary domowej
-        \item Porcja produktu może mieć przypisaną maksymalnie jedną miarę produktu
+        \item Porcja produktu (\ref{kat:ProductPortion}) musi być przypisana do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
+        \item Porcja produktu (\ref{kat:ProductPortion}) musi mieć przypisany dokładnie jeden produkt (\ref{kat:Product})
+        \item Porcja produktu (\ref{kat:ProductPortion}) nie musi mieć przypisanej miary domowej (\ref{kat:HouseholdMeasure})
+        \item Porcja produktu (\ref{kat:ProductPortion}) może mieć przypisaną maksymalnie jedną miarę domową (\ref{kat:HouseholdMeasure})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:PreparationStep}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Krok przygotowania musi być przypisany do dokładnie jednej sekcji przepisu
+        \item Krok przygotowania (\ref{kat:PreparationStep}) musi być przypisany do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:KitchenAppliance}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Sprzęt kuchenny nie musi mieć zdefiniowanego żadnego tlumaczenia
-        \item Sprzęt kuchenny może mieć zdefiniowanych wiele tlumaczeń
+        \item Sprzęt kuchenny (\ref{kat:KitchenAppliance}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:KitchenApplianceTranslation})
+        \item Sprzęt kuchenny (\ref{kat:KitchenAppliance}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:KitchenApplianceTranslation})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:KitchenApplianceTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie sprzetu kuchennego musi być przypisane do dokaldnie jednego sprzetu kuchennego
+        \item Tłumaczenie sprzetu kuchennego (\ref{kat:KitchenApplianceTranslation}) musi być przypisane do dokaldnie jednego sprzetu kuchennego (\ref{kat:KitchenAppliance})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:DishType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Typ dania nie musi mieć zdefiniowanego żadnego tłumaczenia
-        \item Typ dania może mieć zdefiniowanych wiele tłumaczeń
+        \item Typ dania (\ref{kat:DishType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:DishTypeTranslation})
+        \item Typ dania (\ref{kat:DishType}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:DishTypeTranslation})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:DishTypeTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie typu dania musi być przypisane do dokładnie jednego typu dania
+        \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) musi być przypisane do dokładnie jednego typu dania (\ref{kat:DishType})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealType}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Typ posiłku nie musi mieć zdefiniowanego żadnego tłumaczenia
-        \item Typ posiłku może mieć zdefiniowanych wiele tłumaczeń
+        \item Typ posiłku (\ref{kat:MealType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:MealTypeTranslation})
+        \item Typ posiłku (\ref{kat:MealType}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:MealTypeTranslation})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealTypeTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie typu posiłku musi być przypisane do dokładnie jednego typu posiłku
+        \item Tłumaczenie typu posiłku (\ref{kat:MealTypeTranslation}) musi być przypisane do dokładnie jednego typu posiłku (\ref{kat:MealType})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealPlan}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Jadłospis musi mieć przypisany przynajmniej jeden dzień
-        \item Jadłospis może mieć przypisanych maksymalnie 31 dni
-        \item Jadłospis musi mieć przypisaną przynajmniej jedną definicję posiłku
-        \item Jadłospis może mieć przypisanych maksymalnie 10 definicji posiłków
-        \item Jadłospis nie musi mieć przypisanego żadnego odpowiedniego typu diety
-        \item Jadłospis może mieć przypisanych wiele odpowiednich typów diety
-        \item Jadłospis nie musi mieć przypisanego żadnego nieodpowiedniego typu diety
-        \item Jadłospis może mieć przypisanych wiele nieodpowiednich typów diety
-        \item Jadłospis musi mieć dokładnie jednego autora
+        \item Jadłospis (\ref{kat:MealPlan}) musi mieć przypisany przynajmniej jeden dzień (\ref{kat:MealPlanDay})
+        \item Jadłospis (\ref{kat:MealPlan}) może mieć przypisanych maksymalnie 31 dni (\ref{kat:MealPlanDay})
+        \item Jadłospis (\ref{kat:MealPlan}) musi mieć przypisaną przynajmniej jedną definicję posiłku (\ref{kat:MealDefinition})
+        \item Jadłospis (\ref{kat:MealPlan}) może mieć przypisanych maksymalnie 10 definicji posiłków (\ref{kat:MealDefinition})
+        \item Jadłospis (\ref{kat:MealPlan}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
+        \item Jadłospis (\ref{kat:MealPlan}) może mieć przypisanych wiele odpowiednich typów diety (\ref{kat:DietType})
+        \item Jadłospis (\ref{kat:MealPlan}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
+        \item Jadłospis (\ref{kat:MealPlan}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
+        \item Jadłospis (\ref{kat:MealPlan}) musi mieć dokładnie jednego autora (\ref{kat:User})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealPlanDay}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Dzień jadłospisu musi być przypisany do dokładnie jednego jadłospisu
-        \item Dzień jadłospisu nie musi mieć przypisanego żadnego posiłku
-        \item Dzień jadłospisu może mieć przypisanych maksymalnie 10 posiłków
+        \item Dzień jadłospisu (\ref{kat:MealPlanDay}) musi być przypisany do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
+        \item Dzień jadłospisu (\ref{kat:MealPlanDay}) nie musi mieć przypisanego żadnego posiłku (\ref{kat:Meal})
+        \item Dzień jadłospisu (\ref{kat:MealPlanDay}) może mieć przypisanych maksymalnie 10 posiłków (\ref{kat:Meal})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:Meal}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Posiłek musi być przypisany do dokładnie jednego dnia jadłospisu
-        \item Posiłek nie musi mieć przypisanego żadnego produktu
-        \item Posiłek może mieć przypisanych wiele produktów
-        \item Posiłek nie musi mieć przypisanego żadnego przepisu
-        \item Posiłek może mieć przypisanych wiele przepisów
+        \item Posiłek (\ref{kat:Meal}) musi być przypisany do dokładnie jednego dnia jadłospisu (\ref{kat:MealPlanDay})
+        \item Posiłek (\ref{kat:Meal}) nie musi mieć przypisanego żadnego produktu (\ref{kat:MealProduct})
+        \item Posiłek (\ref{kat:Meal}) może mieć przypisanych wiele produktów (\ref{kat:MealProduct})
+        \item Posiłek (\ref{kat:Meal}) nie musi mieć przypisanego żadnego przepisu (\ref{kat:MealRecipe})
+        \item Posiłek (\ref{kat:Meal}) może mieć przypisanych wiele przepisów (\ref{kat:MealRecipe})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Przepis posiłku musi być przypisany do dokladnie jednego posiłku
-        \item Przepis posiłku musi mieć przypisany dokładnie jeden przepis
+        \item Przepis posiłku (\ref{kat:MealRecipe}) musi być przypisany do dokladnie jednego posiłku (\ref{kat:Meal})
+        \item Przepis posiłku (\ref{kat:MealRecipe}) musi mieć przypisany dokładnie jeden przepis (\ref{kat:Recipe})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealProduct}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Produkt posiłku musi być przypisany do dokładnie jednego posiłku
-        \item Produkt posiłku musi mieć przypisany dokładnie jeden produkt
-        \item Produkt posiłku nie musi mieć przypisanej żadnej miary domowej
-        \item Produkt posiłku musi mieć przypisaną maksymalnie jedną miarę domową
+        \item Produkt posiłku (\ref{kat:MealProduct}) musi być przypisany do dokładnie jednego posiłku (\ref{kat:Meal})
+        \item Produkt posiłku (\ref{kat:MealProduct}) musi mieć przypisany dokładnie jeden produkt (\ref{kat:Product})
+        \item Produkt posiłku (\ref{kat:MealProduct}) nie musi mieć przypisanej żadnej miary domowej (\ref{kat:HouseholdMeasure})
+        \item Produkt posiłku (\ref{kat:MealProduct}) musi mieć przypisaną maksymalnie jedną miarę domową (\ref{kat:HouseholdMeasure})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:MealDefinition}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Definicja posiłku musi być przypisana do dokładnie jednego jadłospisu
-        \item Definicja posiłku musi mieć przypisany dokładnie jeden typo posiłku
+        \item Definicja posiłku (\ref{kat:MealDefinition}) musi być przypisana do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
+        \item Definicja posiłku (\ref{kat:MealDefinition}) musi mieć przypisany dokładnie jeden typ posiłku (\ref{kat:MealType})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:Appointment}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Wizyta musi być przypisana do dokładnie jednej karty pacjenta
-        \item Wizyta nie musi mieć przypisanej żadnej ewaluacji
-        \item Wizyta może mieć przypisaną maksymalnie jedną ewaluację
-        \item Wizyta nie musi mieć przypisanego żadnych pomiarów ciała
-        \item Wizyta może mieć przypisane maksymalnie jedne pomiary ciała
-        \item Wizyta nie musi mieć przypisanego żadnego wywiadu żywieniowego
-        \item Wizyta może mieć przypisany maksymalnie jeden wywiad żywieniowy
-        \item Wizyta nie musi mieć przypisanego żadnego jadłospisu
-        \item Wizyta może mieć przypisanych wiele jadłospisów
+        \item Wizyta (\ref{kat:Appointment}) musi być przypisana do dokładnie jednej karty pacjenta (\ref{kat:PatientCard})
+        \item Wizyta (\ref{kat:Appointment}) nie musi mieć przypisanej żadnej ewaluacji (\ref{kat:AppointmentEvaluation})
+        \item Wizyta (\ref{kat:Appointment}) może mieć przypisaną maksymalnie jedną ewaluację (\ref{kat:AppointmentEvaluation})
+        \item Wizyta (\ref{kat:Appointment}) nie musi mieć przypisanego żadnych pomiarów ciała (\ref{kat:BodyMeasurement})
+        \item Wizyta (\ref{kat:Appointment}) może mieć przypisane maksymalnie jedne pomiary ciała (\ref{kat:BodyMeasurement})
+        \item Wizyta (\ref{kat:Appointment}) nie musi mieć przypisanego żadnego wywiadu żywieniowego (\ref{kat:NutritionalInterview})
+        \item Wizyta (\ref{kat:Appointment}) może mieć przypisany maksymalnie jeden wywiad żywieniowy (\ref{kat:NutritionalInterview})
+        \item Wizyta (\ref{kat:Appointment}) nie musi mieć przypisanego żadnego jadłospisu (\ref{kat:AssignedMealPlan})
+        \item Wizyta (\ref{kat:Appointment}) może mieć przypisanych wiele jadłospisów (\ref{kat:AssignedMealPlan})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:PatientCard}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Karta pacjenta nie musi mieć przypisanej żadnej wizyty
-        \item Karta pacjenta może mieć przypisanych wiele wizyt
-        \item Karta pacjenta musi mieć przypisanego dokładnie jednego pacjenta
-        \item Karta pacjenta musi mieć przypisanego dokładnie jednego dietetyka
+        \item Karta pacjenta (\ref{kat:PatientCard}) nie musi mieć przypisanej żadnej wizyty (\ref{kat:Appointment})
+        \item Karta pacjenta (\ref{kat:PatientCard}) może mieć przypisanych wiele wizyt (\ref{kat:Appointment})
+        \item Karta pacjenta (\ref{kat:PatientCard}) musi mieć przypisanego dokładnie jednego pacjenta (\ref{kat:User})
+        \item Karta pacjenta (\ref{kat:PatientCard}) musi mieć przypisanego dokładnie jednego dietetyka (\ref{kat:User})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:AppointmentEvaluation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Ewaluacja wizyty musi być przypisana do dokładnie jednej wizyty
+        \item Ewaluacja wizyty (\ref{kat:AppointmentEvaluation}) musi być przypisana do dokładnie jednej wizyty (\ref{kat:Appointment})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:BodyMeasurement}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Pomiary ciała muszą być przypisane do dokładnie jednej wizyty
+        \item Pomiary ciała (\ref{kat:BodyMeasurement}) muszą być przypisane do dokładnie jednej wizyty (\ref{kat:Appointment})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:NutritionalInterview}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Wywiad żywieniowy musi być przypisany do dokładnie jednej wizyty
-        \item Wywiad żywieniowy nie musi mieć przypisanego żadnego niestandardowego pytania
-        \item Wywiad żywiniowy może mieć przypisanych wiele niestandardowych pytań
-        \item Wywiad żywieniowy nie musi mieć przypisanych żadnych posiadanych sprzętów kuchennych
-        \item Wywiad żywieniowy może mieć przypisanych wiele posiadanych sprzętów kuchennych
+        \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) musi być przypisany do dokładnie jednej wizyty (\ref{kat:Appointment})
+        \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) nie musi mieć przypisanego żadnego niestandardowego pytania (\ref{kat:CustomNutritionalInterviewQuestion})
+        \item Wywiad żywiniowy (\ref{kat:NutritionalInterview}) może mieć przypisanych wiele niestandardowych pytań (\ref{kat:CustomNutritionalInterviewQuestion})
+        \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) nie musi mieć przypisanych żadnych posiadanych sprzętów kuchennych (\ref{kat:KitchenAppliance})
+        \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) może mieć przypisanych wiele posiadanych sprzętów kuchennych (\ref{kat:KitchenAppliance})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestion}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Niestandardowe pytanie żywieniowe musi być przypisane do dokładnie jednego wywiadu żywieniowego
+        \item Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) musi być przypisane do dokładnie jednego wywiadu żywieniowego (\ref{kat:NutritionalInterview})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Szablon niestandardowego pytania żywieniowego musi mieć dokaldnie jednego autora
+        \item Szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate}) musi mieć dokaldnie jednego autora (\ref{kat:User})
         %CRUD
         \item todo
     \end{enumerate}
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Przypisany jadłospis musi mieć przydzieloną dokładnie jedną wizytę
-        \item Przypisany jadłospis musi mieć przydzielony dokładnie jeden jadłospis
+        \item Przypisany jadłospis (\ref{kat:AssignedMealPlan}) musi mieć przydzieloną dokładnie jedną wizytę (\ref{kat:Appointment})
+        \item Przypisany jadłospis (\ref{kat:AssignedMealPlan}) musi mieć przydzielony dokładnie jeden jadłospis (\ref{kat:MealPlan})
         %CRUD
         \item todo
     \end{enumerate}
