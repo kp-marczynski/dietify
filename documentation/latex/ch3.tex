@@ -2,6 +2,7 @@
 
 \section{Przypadki użycia}
 \todo{diagram przypadków użycia}
+\todo{scenariusze przypadków użycia}
 
 \begin{minipage}{\textwidth}
     \begin{figure}[H]
@@ -180,10 +181,9 @@
         \atr{activated} \label{kat:User:activated}
         \atr{langKey} \label{kat:User:langKey}
         \atr{activationKey} \label{kat:User:activationKey}
-        \atr{createdBy} \label{kat:User:createdBy}
+        \atr{resetKey} \label{kat:User:resetKey}
         \atr{createdDate} \label{kat:User:createdDate}
         \atr{resetDate} \label{kat:User:resetDate}
-        \atr{lastModifiedBy} \label{kat:User:lastModifiedBy}
         \atr{lastModifiedDate} \label{kat:User:lastModifiedDate}
     \end{itemize}
 
@@ -743,6 +743,10 @@
         \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
         \item Użytkownik (\ref{kat:User}) musi mieć musi mieć przynajmniej jedną rolę (\ref{kat:Authority})
         \item Użytkownik (\ref{kat:User}) może mieć wiele ról (\ref{kat:Authority})
+        \item Użytkownik (\ref{kat:User}) nie musi mieć autora (\ref{kat:User})
+        \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jednego autora (\ref{kat:User})
+        \item Użytkownik (\ref{kat:User}) nie musi mieć ostatniego edytora (\ref{kat:User})
+        \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jednego ostatniego edytora (\ref{kat:User})
         %CRUD
         \item \role{Gość} może dodawać nowego użytkownika (\ref{kat:User})
         \item \role{Użytkownik} może wyświetlać, edytować i usuwać swoje dane użytkownika (\ref{kat:User})
@@ -1163,319 +1167,355 @@
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1em}
+    \item[\textbf{Ograniczenia}] \textbf{ogólne}
+    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+        \item Wszystkie \textbf{id} muszą być być unikalne
+        \item Wszystkie \textbf{id} są wymagane
+        \item Wszystkie \textbf{id} są liczbami całkowitymi dodatnimi tworzonymi przez SZBD za pomocą autonumerowania
+        \item Wszystkie atrybuty \textbf{language} są wymagane
+        \item Wszystkie \textbf{language} są ciągami znaków o długości 2 znaków spełniającymi normę ISO 639-1
+        \item Wszystkie \textbf{stemple czasowe} są w formacie YYYY:MM:DD HH:MI:SS
+        \item Wszystkie \textbf{daty} są w formacie YYYY:MM:DD
+    \end{enumerate}
     \item\ref{kat:User}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        %Required
+        \item Użytkownik musi mieć \ref{kat:User:login}
+        \item Użytkownik musi mieć \ref{kat:User:passwordHash}
+        \item Użytkownik musi mieć flagę \ref{kat:User:activated}
+        \item Użytkownik musi mieć \ref{kat:User:createdDate}
+        %Unique
+        \item \ref{kat:User:login} musi być unikalny
+        \item \ref{kat:User:email} musi być unikalny
+        %Type
+        \item \ref{kat:User:login} jest ciągiem znaków składającym się z liter, cyfr i dodatkowo mogącym zawierać znaki ".", "\_", "-", "@" o długości od 1 do 50 znaków
+        \item \ref{kat:User:passwordHash} jest ciągiem znaków o długości 60 znaków
+        \item \ref{kat:User:firstName} jest ciagiem znaków o długości do 50 znaków
+        \item \ref{kat:User:lastName} jest ciagiem znaków o długości do 50 znaków
+        \item \ref{kat:User:email} jest ciagiem znaków o długości od 5 do 254 znaków
+        \item \ref{kat:User:activated} jest typem logicznym
+        \item \ref{kat:User:image} jest ciągiem znaków o długości do 256 znaków tworzącym poprawny adres URL
+        \item \ref{kat:User:activationKey} jest ciągiem znaków o długości 20 znaków
+        \item \ref{kat:User:resetKey} jest ciągiem znaków o długości 20 znaków
+        \item \ref{kat:User:resetDate} jest stemplem czasowym
+        \item \ref{kat:User:createdDate} jest stemplem czasowym
+        \item \ref{kat:User:lastModifiedDate} jest stemplem czasowym
     \end{enumerate}
     \item\ref{kat:UserExtraInfo}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        \item \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i może przyjmować wartości "FAMALE", "MALE", "OTHER"
+        \item \ref{kat:UserExtraInfo:dateOfBirth} jest datą
+        \item \ref{kat:UserExtraInfo:phoneNumber} jest ciągiem znaków o długości od 1 do 60 znaków
+        \item \ref{kat:UserExtraInfo:streetAddress} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item \ref{kat:UserExtraInfo:postalCode} jest ciągiem znaków o długości od 1 do 20 znaków
+        \item \ref{kat:UserExtraInfo:city} jest ciągiem znaków o długości od 1 do 50 znaków
+        \item \ref{kat:UserExtraInfo:country} jest ciągiem znaków o długości od 1 do 50 znaków
+        \item \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
+        \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w systemie kodowania UTF-8
     \end{enumerate}
     \item\ref{kat:SiteContent}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        \item Treść strony musi mieć \ref{kat:SiteContent:ordinalNumber}
+        \item Treść strony musi mieć \ref{kat:SiteContent:siteContentType}
+        \item Treść strony musi mieć \ref{kat:SiteContent:description}
+        \item \ref{kat:SiteContent:ordinalNumber} jest liczbą całkowitą dodatnią
+        \item \ref{kat:SiteContent:siteContentType} jest typu wyliczeniowego i może przyjmować wartości "LANDING\_PAGE\_CARD", "TERMS\_OF\_SERVICE", "PRIVACY\_POLICY", "FREQUENTLY\_ASKED\_QUESTION"
+        \item \ref{kat:SiteContent:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item \ref{kat:SiteContent:description} jest ciągiem znaków
     \end{enumerate}
     \item\ref{kat:SiteContentTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        \item Tłumaczenie treści strony musi mieć \ref{kat:SiteContentTranslation:description}
+        \item \ref{kat:SiteContentTranslation:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item \ref{kat:SiteContentTranslation:description} jest ciągiem znaków
     \end{enumerate}
     \item\ref{kat:ContactInfo}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        \item Informacja kontaktowa musi mieć \ref{kat:ContactInfo:contactInfoType}
+        \item Informacja kontaktowa musi mieć \ref{kat:ContactInfo:description}
+        \item \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING_HOURS", "OTHER"
+        \item \ref{kat:ContactInfo:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
     \item\ref{kat:Pricing}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        \item Cennik musi mieć \ref{kat:Pricing:ordinalNumber}
+        \item Cennik musi mieć \ref{kat:Pricing:description}
+        \item Cennik musi mieć \ref{kat:Pricing:price}
+        \item Cennik musi mieć \ref{kat:Pricing:currency}
+        \item \ref{kat:Pricing:ordinalNumber} jest dodatnią liczbą całkowitą
+        \item \ref{kat:Pricing:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item \ref{kat:Pricing:description} jest ciągiem znaków
+        \item \ref{kat:Pricing:price} jest ciągiem znaków skladającym się z cyfr i znaku "." o długości od 1 do 8 znaków
+        \item Jeżeli w \ref{kat:Pricing:price} występuje znak "." to muszą po nim wystepować dokładnie 2 cyfry
+        \item \ref{kat:Pricing:currency} jest ciągiem znaków o długości 3 znaków spełniającym normę ISO 4217
     \end{enumerate}
     \item\ref{kat:PricingTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
         \item test1
-        %CRUD
-        \item todo
     \end{enumerate}
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item test1
-        %CRUD
-        \item todo
+        \item Tłumaczenie cennika musi mieć \ref{kat:PricingTranslation:description}
+        \item \ref{kat:PricingTranslation:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item \ref{kat:PricingTranslation:description} jest ciągiem znaków
     \end{enumerate}
     \item\ref{kat:ProductVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:NutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:NutritionDefinition}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:NutritionDefinitionTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:HouseholdMeasure}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductSubcategory}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategory}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductCategoryTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:DietType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:DietTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:Recipe}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:RecipeVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:RecipeSection}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:ProductPortion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:PreparationStep}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:KitchenAppliance}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:KitchenApplianceTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:DishType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:DishTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealPlanDay}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:Meal}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealProduct}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:MealDefinition}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:Appointment}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:PatientCard}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:AppointmentEvaluation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:BodyMeasurement}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:NutritionalInterview}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
+
         \item test1
-        %CRUD
+
         \item todo
     \end{enumerate}
 \end{itemize}
@@ -1524,10 +1564,6 @@
         \caption{Wizyty - diagram klas (opr.wł).}\label{rysunek:class-diagram-appointments}
     \end{figure}
 \end{minipage}
-
-
-
-\thispagestyle{normal}
 
 \section{Opis podstawowej architektury systemu}
 \todo{Opisać, że to aplikacja webowa w architekturze mikroserwisów
