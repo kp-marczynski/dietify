@@ -167,112 +167,113 @@
     \setlength\itemsep{1em}
     \req{User} \label{kat:User} (Użytkownik)
 
-    Opis: \lipsum[1]
+    Opis: Konto użytkownika aplikacji. Każdy zalogowany użytkownik musi mieć konto użytkownika
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:User:id}
-        \atr{login} \label{kat:User:login}
-        \atr{passwordHash} \label{kat:User:passwordHash}
-        \atr{firstName} \label{kat:User:firstName}
-        \atr{lastName} \label{kat:User:lastName}
-        \atr{email} \label{kat:User:email}
-        \atr{image} \label{kat:User:image}
-        \atr{activated} \label{kat:User:activated}
-        \atr{langKey} \label{kat:User:langKey}
-        \atr{activationKey} \label{kat:User:activationKey}
-        \atr{resetKey} \label{kat:User:resetKey}
-        \atr{createdDate} \label{kat:User:createdDate}
-        \atr{resetDate} \label{kat:User:resetDate}
-        \atr{lastModifiedDate} \label{kat:User:lastModifiedDate}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:User:id} - identyfikator
+        \atr{login} \label{kat:User:login} - login użytkownika
+        \atr{passwordHash} \label{kat:User:passwordHash} - reprezentacja hasła stworzona przez nałożenie na hasło funkcji skrótu
+        \atr{firstName} \label{kat:User:firstName} - imię użytkownika
+        \atr{lastName} \label{kat:User:lastName} - nazwisko użytkownika
+        \atr{email} \label{kat:User:email} - adres email
+        \atr{image} \label{kat:User:image} - zdjęcie profilowe użytkownika
+        \atr{activated} \label{kat:User:activated} - flaga pokazująca czy konto użytkownika zostało aktywowane
+        \atr{language} \label{kat:User:language} - język użytkownika w postaci kodu ISO 639-1
+        \atr{activationKey} \label{kat:User:activationKey} - klucz wymagany podczas aktywacji konta użytkownika
+        \atr{resetKey} \label{kat:User:resetKey} - klucz wymagany podczas resetowania hasła do konta użytkownika
+        \atr{createdDate} \label{kat:User:createdDate} - data utworzenia konta
+        \atr{resetDate} \label{kat:User:resetDate} - data ostatniego resetowania hasła do konta
+        \atr{lastModifiedDate} \label{kat:User:lastModifiedDate} - data ostatniej modyfikacji konta
     \end{itemize}
 
     \req{Authority} \label{kat:Authority} (Rola)
 
-    Opis: \lipsum[1]
+    Opis: Rola użytkownika od której zależy zakres uprawnień użytkownika
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{name} \label{kat:Authority:name}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{name} \label{kat:Authority:name} - nazwa roli
     \end{itemize}
 
     \req{UserExtraInfo} \label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)
 
-    Opis: \lipsum[1]
+    Opis: Dodatkowe informacje o użytkowniku
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:UserExtraInfo:id}
-        \atr{gender} \label{kat:UserExtraInfo:gender}
-        \atr{dateOfBirth} \label{kat:UserExtraInfo:dateOfBirth}
-        \atr{phoneNumber} \label{kat:UserExtraInfo:phoneNumber}
-        \atr{streetAddress} \label{kat:UserExtraInfo:streetAddress}
-        \atr{postalCode} \label{kat:UserExtraInfo:postalCode}
-        \atr{city} \label{kat:UserExtraInfo:city}
-        \atr{country} \label{kat:UserExtraInfo:country}
-        \atr{personalDescription} \label{kat:UserExtraInfo:personalDescription}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:UserExtraInfo:id} - identyfikator
+        \atr{gender} \label{kat:UserExtraInfo:gender} - płeć
+        \atr{dateOfBirth} \label{kat:UserExtraInfo:dateOfBirth} - data urodzenia
+        \atr{phoneNumber} \label{kat:UserExtraInfo:phoneNumber} - numer telefonu, najlepiej w formacie (+00) 000-000-000
+        \atr{streetAddress} \label{kat:UserExtraInfo:streetAddress} - adres zamieszkania
+        \atr{postalCode} \label{kat:UserExtraInfo:postalCode} - kod pocztowy
+        \atr{city} \label{kat:UserExtraInfo:city} - miasto
+        \atr{country} \label{kat:UserExtraInfo:country} - państwo
+        \atr{personalDescription} \label{kat:UserExtraInfo:personalDescription} - krótki opis osobisty. W przypadku dietyka może zawierać dodatkowe informacje o prowadzonej praktyce dietetycznej
     \end{itemize}
 
     \req{SiteContent} \label{kat:SiteContent} (Treść Strony)
 
-    Opis: \lipsum[1]
+    Opis: Treść strony definiowana przez administratora
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:SiteContent:id}
-        \atr{ordinalNumber} \label{kat:SiteContent:ordinalNumber}
-        \atr{siteContentType} \label{kat:SiteContent:siteContentType}
-        \atr{title} \label{kat:SiteContent:title}
-        \atr{description} \label{kat:SiteContent:description}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:SiteContent:id} - identyfikator
+        \atr{ordinalNumber} \label{kat:SiteContent:ordinalNumber} - numer porządkowy definiujący kolejność w jakim dane powinny być wyświetlane
+        \atr{siteContentType} \label{kat:SiteContent:siteContentType} - typ treści strony
+        \atr{title} \label{kat:SiteContent:title} - tytuł treści stron
+        \atr{description} \label{kat:SiteContent:description} - opis treści strony
+        \atr{image} \label{kat:SiteContent:image} - opcjonalny obrazek, który powinien zostać wyświetlony obok treści strony
     \end{itemize}
 
     \req{SiteContentTranslation} \label{kat:SiteContentTranslation} (Tłumaczenie Treści Strony)
 
-    Opis: \lipsum[1]
+    Opis: Tłumaczenie treści strony
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:SiteContentTranslation:id}
-        \atr{title} \label{kat:SiteContentTranslation:title}
-        \atr{description} \label{kat:SiteContentTranslation:description}
-        \atr{language} \label{kat:SiteContentTranslation:language}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:SiteContentTranslation:id} - identyfikator
+        \atr{title} \label{kat:SiteContentTranslation:title} - tłumaczenie tytułu
+        \atr{description} \label{kat:SiteContentTranslation:description} - tłumaczenie opisu
+        \atr{language} \label{kat:SiteContentTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
     \req{ContactInfo} \label{kat:ContactInfo} (Informacje Kontaktowe)
 
-    Opis: \lipsum[1]
+    Opis: Informacje kontaktowe witryny
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:ContactInfo:id}
-        \atr{contactInfoType} \label{kat:ContactInfo:contactInfoType}
-        \atr{description} \label{kat:ContactInfo:description}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:ContactInfo:id} - identyfikator
+        \atr{contactInfoType} \label{kat:ContactInfo:contactInfoType} - typ informacji kontaktowej
+        \atr{description} \label{kat:ContactInfo:description} - opis
     \end{itemize}
 
     \req{Pricing} \label{kat:Pricing} (Cennik)
 
-    Opis: \lipsum[1]
+    Opis: Pozycja cennika dostępu do usług oferowanych przez system
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:Pricing:id}
-        \atr{ordinalNumber} \label{kat:Pricing:ordinalNumber}
-        \atr{title} \label{kat:Pricing:title}
-        \atr{description} \label{kat:Pricing:description}
-        \atr{price} \label{kat:Pricing:price}
-        \atr{currency} \label{kat:Pricing:currency}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:Pricing:id} - identyfikator
+        \atr{ordinalNumber} \label{kat:Pricing:ordinalNumber} - numer porządkowy warunkujący kolejność wyswietlania pozycji w cenniku
+        \atr{title} \label{kat:Pricing:title} - nazwa pozycji cennika
+        \atr{description} \label{kat:Pricing:description} - opis pozycji cennika
+        \atr{price} \label{kat:Pricing:price} - cena
+        \atr{currency} \label{kat:Pricing:currency} - waluta przedstawiona jako kod ISO 4217
     \end{itemize}
 
     \req{PricingTranslation} \label{kat:PricingTranslation} (Tłumaczenie Cennika)
 
-    Opis: \lipsum[1]
+    Opis: Tłumaczenie pozycji cennika
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
-        \atr{id} \label{kat:PricingTranslation:id}
-        \atr{title} \label{kat:PricingTranslation:title}
-        \atr{description} \label{kat:PricingTranslation:description}
-        \atr{language} \label{kat:PricingTranslation:language}
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
+        \atr{id} \label{kat:PricingTranslation:id} - identyfikator
+        \atr{title} \label{kat:PricingTranslation:title} - tłumaczenie nazwy
+        \atr{description} \label{kat:PricingTranslation:description} - tłumaczenie opisu
+        \atr{language} \label{kat:PricingTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
     \req{Product} \label{kat:Product} (Produkt)
@@ -280,7 +281,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:Product:id}
         \atr{source} \label{kat:Product:source}
         \atr{isPublic} \label{kat:Product:isPublic}
@@ -292,7 +293,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:ProductVersion:id}
         \atr{createdDate} \label{kat:ProductVersion:createdDate}
         \atr{description} \label{kat:ProductVersion:description}
@@ -303,7 +304,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:ProductBasicNutritionData:id}
         \atr{energy} \label{kat:ProductBasicNutritionData:energy}
         \atr{protein} \label{kat:ProductBasicNutritionData:protein}
@@ -316,7 +317,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:NutritionData:id}
         \atr{nutritionValue} \label{kat:NutritionData:nutritionValue}
     \end{itemize}
@@ -326,7 +327,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:NutritionDefinition:id}
         \atr{tag} \label{kat:NutritionDefinition:tag}
         \atr{description} \label{kat:NutritionDefinition:description}
@@ -339,7 +340,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:NutritionDefinitionTranslation:id}
         \atr{translation} \label{kat:NutritionDefinitionTranslation:translation}
         \atr{language} \label{kat:NutritionDefinitionTranslation:language}
@@ -350,7 +351,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:HouseholdMeasure:id}
         \atr{description} \label{kat:HouseholdMeasure:description}
         \atr{gramsWeight} \label{kat:HouseholdMeasure:gramsWeight}
@@ -362,7 +363,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:ProductSubcategory:id}
         \atr{description} \label{kat:ProductSubcategory:description}
     \end{itemize}
@@ -372,7 +373,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:ProductCategory:id}
         \atr{description} \label{kat:ProductCategory:description}
     \end{itemize}
@@ -382,7 +383,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:ProductCategoryTranslation:id}
         \atr{translation} \label{kat:ProductCategoryTranslation:translation}
         \atr{language} \label{kat:ProductCategoryTranslation:language}
@@ -393,7 +394,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:DietType:id}
         \atr{name} \label{kat:DietType:name}
     \end{itemize}
@@ -403,7 +404,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:DietTypeTranslation:id}
         \atr{translation} \label{kat:DietTypeTranslation:translation}
         \atr{language} \label{kat:DietTypeTranslation:language}
@@ -414,7 +415,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:Recipe:id}
         \atr{isPublic} \label{kat:Recipe:isPublic}
         \atr{language} \label{kat:Recipe:language}
@@ -425,7 +426,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:RecipeVersion:id}
         \atr{editTimestamp} \label{kat:RecipeVersion:editTimestamp}
         \atr{name} \label{kat:RecipeVersion:name}
@@ -440,7 +441,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:RecipeBasicNutritionData:id}
         \atr{energy} \label{kat:RecipeBasicNutritionData:energy}
         \atr{protein} \label{kat:RecipeBasicNutritionData:protein}
@@ -453,7 +454,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:RecipeSection:id}
         \atr{sectionName} \label{kat:RecipeSection:sectionName}
     \end{itemize}
@@ -463,7 +464,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:ProductPortion:id}
         \atr{amount} \label{kat:ProductPortion:amount}
     \end{itemize}
@@ -473,7 +474,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:PreparationStep:id}
         \atr{ordinalNumber} \label{kat:PreparationStep:ordinalNumber}
         \atr{stepDescription} \label{kat:PreparationStep:stepDescription}
@@ -484,7 +485,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:KitchenAppliance:id}
         \atr{name} \label{kat:KitchenAppliance:name}
     \end{itemize}
@@ -494,7 +495,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:KitchenApplianceTranslation:id}
         \atr{translation} \label{kat:KitchenApplianceTranslation:translation}
         \atr{language} \label{kat:KitchenApplianceTranslation:language}
@@ -505,7 +506,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:DishType:id}
         \atr{description} \label{kat:DishType:description}
     \end{itemize}
@@ -515,7 +516,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:DishTypeTranslation:id}
         \atr{translation} \label{kat:DishTypeTranslation:translation}
         \atr{language} \label{kat:DishTypeTranslation:language}
@@ -526,7 +527,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealType:id}
         \atr{name} \label{kat:MealType:name}
     \end{itemize}
@@ -536,7 +537,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealTypeTranslation:id}
         \atr{translation} \label{kat:MealTypeTranslation:translation}
         \atr{language} \label{kat:MealTypeTranslation:language}
@@ -548,7 +549,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealPlan:id}
         \atr{creationTimestamp} \label{kat:MealPlan:creationTimestamp}
         \atr{editTimestamp} \label{kat:MealPlan:editTimestamp}
@@ -568,7 +569,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealPlanDay:id}
         \atr{ordinalNumber} \label{kat:MealPlanDay:ordinalNumber}
     \end{itemize}
@@ -578,7 +579,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:Meal:id}
         \atr{ordinalNumber} \label{kat:Meal:ordinalNumber}
     \end{itemize}
@@ -588,7 +589,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealRecipe:id}
         \atr{amount} \label{kat:MealRecipe:amount}
     \end{itemize}
@@ -598,7 +599,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealProduct:id}
         \atr{amount} \label{kat:MealProduct:amount}
     \end{itemize}
@@ -608,7 +609,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:MealDefinition:id}
         \atr{ordinalNumber} \label{kat:MealDefinition:ordinalNumber}
         \atr{timeOfMeal} \label{kat:MealDefinition:timeOfMeal}
@@ -620,7 +621,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:Appointment:id}
         \atr{appointmentDate} \label{kat:Appointment:appointmentDate}
         \atr{appointmentState} \label{kat:Appointment:appointmentState}
@@ -632,7 +633,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:PatientCard:id}
         \atr{creationDate} \label{kat:PatientCard:creationDate}
     \end{itemize}
@@ -642,7 +643,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:AppointmentEvaluation:id}
         \atr{overallSatisfaction} \label{kat:AppointmentEvaluation:overallSatisfaction}
         \atr{dietitianServiceSatisfaction} \label{kat:AppointmentEvaluation:dietitianServiceSatisfaction}
@@ -660,7 +661,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:BodyMeasurement:id}
         \atr{completionDate} \label{kat:BodyMeasurement:completionDate}
         \atr{height} \label{kat:BodyMeasurement:height}
@@ -681,7 +682,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:NutritionalInterview:id}
         \atr{completionDate} \label{kat:NutritionalInterview:completionDate}
         \atr{targetWeight} \label{kat:NutritionalInterview:targetWeight}
@@ -701,7 +702,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:CustomNutritionalInterviewQuestion:id}
         \atr{ordinalNumber} \label{kat:CustomNutritionalInterviewQuestion:ordinalNumber}
         \atr{question} \label{kat:CustomNutritionalInterviewQuestion:question}
@@ -713,7 +714,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:CustomNutritionalInterviewQuestionTemplate:id}
         \atr{question} \label{kat:CustomNutritionalInterviewQuestionTemplate:question}
         \atr{language} \label{kat:CustomNutritionalInterviewQuestionTemplate:language}
@@ -724,7 +725,7 @@
     Opis: \lipsum[1]
     \par
     Atrybuty:
-    \begin{itemize}[series=atr]
+    \begin{itemize}[series=atr, wide, align=left, leftmargin=5cm]
         \atr{id} \label{kat:AssignedMealPlan:id}
         \atr{assigmentTime} \label{kat:AssignedMealPlan:assigmentTime}
     \end{itemize}
@@ -1227,6 +1228,7 @@
         \item Atrybut \ref{kat:SiteContent:siteContentType} jest typu wyliczeniowego i może przyjmować wartości "LANDING\_PAGE\_CARD", "TERMS\_OF\_SERVICE", "PRIVACY\_POLICY", "FREQUENTLY\_ASKED\_QUESTION"
         \item Atrybut \ref{kat:SiteContent:title} jest ciągiem znaków o długości od 1 do 255 znaków
         \item Atrybut \ref{kat:SiteContent:description} jest ciągiem znaków
+        \item Atrybut \ref{kat:SiteContent:image} jest zdjęciem o maksymalnym rozmiarze 5000000 bajtów
     \end{enumerate}
 
     \item\ref{kat:SiteContentTranslation}

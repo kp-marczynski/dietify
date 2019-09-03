@@ -867,17 +867,17 @@ fontsize=\small,
 \newcommand*{\req}[1]{%
 \item
 \appto\@currentlabel{\textbf{ #1}}%
-#1\quad}
+~#1}
 \makeatother
 
 \newcommand\capmystring[1]{\capmystringaux#1\relax}
 \def\capmystringaux#1#2\relax{\uppercase{#1}#2}
-
+\RequirePackage{truncate}
 \makeatletter
 \newcommand*{\atr}[1]{%
 \item
 \def\@currentlabel{\textbf{#1}}%
-#1\quad}
+\truncate{100}{~#1}}
 \makeatother
 
 \newcommand{\role}[1]{\emph{#1}}
