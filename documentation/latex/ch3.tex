@@ -673,7 +673,7 @@
         \atr{calciumInBones} \label{kat:BodyMeasurement:calciumInBones}
         \atr{basicMetabolism} \label{kat:BodyMeasurement:basicMetabolism}
         \atr{metabolicAge} \label{kat:BodyMeasurement:metabolicAge}
-        \atr{visceralDatLevel} \label{kat:BodyMeasurement:visceralDatLevel}
+        \atr{visceralFatLevel} \label{kat:BodyMeasurement:visceralFatLevel}
     \end{itemize}
 
     \req{NutritionalInterview} \label{kat:NutritionalInterview} (Wywiad Żywieniowy)
@@ -732,7 +732,7 @@
 \end{enumerate}
 
 \section {Reguły funkcjonowania}\label{sec:functionalRules}
-\todo{uzupełnić reguły funkcjonowania, i.e. związki pomiędzy encjami}
+\todo{uzupełnić uprawnienia użytkowników w regułach}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1em}
@@ -1161,7 +1161,6 @@
 \end{itemize}
 
 \section{Ograniczenia dziedzinowe}\label{sec:restrictions}
-\todo{uzupełnić ograniczenia dziedzionowe}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1em}
@@ -1174,349 +1173,478 @@
         \item Wszystkie \textbf{language} są ciągami znaków o długości 2 znaków spełniającymi normę ISO 639-1
         \item Wszystkie \textbf{stemple czasowe} są w formacie YYYY:MM:DD HH:MI:SS
         \item Wszystkie \textbf{daty} są w formacie YYYY:MM:DD
+        \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w systemie kodowania UTF-8
     \end{enumerate}
     \item\ref{kat:User}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Required
-        \item Użytkownik musi mieć \ref{kat:User:login}
-        \item Użytkownik musi mieć \ref{kat:User:passwordHash}
-        \item Użytkownik musi mieć flagę \ref{kat:User:activated}
-        \item Użytkownik musi mieć \ref{kat:User:createdDate}
+        \item Atrybut \ref{kat:User:login} jest wymagany
+        \item Atrybut \ref{kat:User:passwordHash} jest wymagany
+        \item Atrybut flagę \ref{kat:User:activated} jest wymagany
+        \item Atrybut \ref{kat:User:createdDate} jest wymagany
         %Unique
-        \item \ref{kat:User:login} musi być unikalny
-        \item \ref{kat:User:email} musi być unikalny
+        \item Atrybut \ref{kat:User:login} ma unikalną wartość
+        \item Atrybut \ref{kat:User:email} ma unikalną wartość
         %Type
-        \item \ref{kat:User:login} jest ciągiem znaków składającym się z liter, cyfr i dodatkowo mogącym zawierać znaki ".", "\_", "-", "@" o długości od 1 do 50 znaków
-        \item \ref{kat:User:passwordHash} jest ciągiem znaków o długości 60 znaków
-        \item \ref{kat:User:firstName} jest ciagiem znaków o długości do 50 znaków
-        \item \ref{kat:User:lastName} jest ciagiem znaków o długości do 50 znaków
-        \item \ref{kat:User:email} jest ciagiem znaków o długości od 5 do 254 znaków
-        \item \ref{kat:User:activated} jest typem logicznym
-        \item \ref{kat:User:image} jest ciągiem znaków o długości do 256 znaków tworzącym poprawny adres URL
-        \item \ref{kat:User:activationKey} jest ciągiem znaków o długości 20 znaków
-        \item \ref{kat:User:resetKey} jest ciągiem znaków o długości 20 znaków
-        \item \ref{kat:User:resetDate} jest stemplem czasowym
-        \item \ref{kat:User:createdDate} jest stemplem czasowym
-        \item \ref{kat:User:lastModifiedDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:User:login} jest ciągiem znaków składającym się z liter, cyfr i dodatkowo mogącym zawierać znaki ".", "\_", "-", "@" o długości od 1 do 50 znaków
+        \item Atrybut \ref{kat:User:passwordHash} jest ciągiem znaków o długości 60 znaków
+        \item Atrybut \ref{kat:User:firstName} jest ciagiem znaków o długości do 50 znaków
+        \item Atrybut \ref{kat:User:lastName} jest ciagiem znaków o długości do 50 znaków
+        \item Atrybut \ref{kat:User:email} jest ciagiem znaków o długości od 5 do 254 znaków
+        \item Atrybut \ref{kat:User:activated} jest typem logicznym
+        \item Atrybut \ref{kat:User:image} jest ciągiem znaków o długości do 256 znaków tworzącym poprawny adres URL
+        \item Atrybut \ref{kat:User:activationKey} jest ciągiem znaków o długości 20 znaków
+        \item Atrybut \ref{kat:User:resetKey} jest ciągiem znaków o długości 20 znaków
+        \item Atrybut \ref{kat:User:resetDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:User:createdDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:User:lastModifiedDate} jest stemplem czasowym
+    \end{enumerate}
+    \item\ref{kat:Authority}
+    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:Authority:name} jest wymagany
+        \item Atrybut \ref{kat:Authority:name} ma unikalną wartość
+        \item Atrybut \ref{kat:Authority:name} jest ciągiem znaków składającym się z liter i znaków "\_" o długości od 1 do 255 znaków
     \end{enumerate}
     \item\ref{kat:UserExtraInfo}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i może przyjmować wartości "FAMALE", "MALE", "OTHER"
-        \item \ref{kat:UserExtraInfo:dateOfBirth} jest datą
-        \item \ref{kat:UserExtraInfo:phoneNumber} jest ciągiem znaków o długości od 1 do 60 znaków
-        \item \ref{kat:UserExtraInfo:streetAddress} jest ciągiem znaków o długości od 1 do 255 znaków
-        \item \ref{kat:UserExtraInfo:postalCode} jest ciągiem znaków o długości od 1 do 20 znaków
-        \item \ref{kat:UserExtraInfo:city} jest ciągiem znaków o długości od 1 do 50 znaków
-        \item \ref{kat:UserExtraInfo:country} jest ciągiem znaków o długości od 1 do 50 znaków
-        \item \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
-        \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w systemie kodowania UTF-8
+        \item Atrybut \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i może przyjmować wartości "FEMALE", "MALE", "OTHER"
+        \item Atrybut \ref{kat:UserExtraInfo:dateOfBirth} jest datą
+        \item Atrybut \ref{kat:UserExtraInfo:phoneNumber} jest ciągiem znaków o długości od 1 do 50 znaków
+        \item Atrybut \ref{kat:UserExtraInfo:streetAddress} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:UserExtraInfo:postalCode} jest ciągiem znaków o długości od 1 do 20 znaków
+        \item Atrybut \ref{kat:UserExtraInfo:city} jest ciągiem znaków o długości od 1 do 50 znaków
+        \item Atrybut \ref{kat:UserExtraInfo:country} jest ciągiem znaków o długości od 1 do 50 znaków
+        \item Atrybut \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:SiteContent}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Treść strony musi mieć \ref{kat:SiteContent:ordinalNumber}
-        \item Treść strony musi mieć \ref{kat:SiteContent:siteContentType}
-        \item Treść strony musi mieć \ref{kat:SiteContent:description}
-        \item \ref{kat:SiteContent:ordinalNumber} jest liczbą całkowitą dodatnią
-        \item \ref{kat:SiteContent:siteContentType} jest typu wyliczeniowego i może przyjmować wartości "LANDING\_PAGE\_CARD", "TERMS\_OF\_SERVICE", "PRIVACY\_POLICY", "FREQUENTLY\_ASKED\_QUESTION"
-        \item \ref{kat:SiteContent:title} jest ciągiem znaków o długości od 1 do 255 znaków
-        \item \ref{kat:SiteContent:description} jest ciągiem znaków
+        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest wymagany
+        \item Atrybut \ref{kat:SiteContent:siteContentType} jest wymagany
+        \item Atrybut \ref{kat:SiteContent:description} jest wymagany
+
+        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest liczbą całkowitą
+        \item Atrybut \ref{kat:SiteContent:siteContentType} jest typu wyliczeniowego i może przyjmować wartości "LANDING\_PAGE\_CARD", "TERMS\_OF\_SERVICE", "PRIVACY\_POLICY", "FREQUENTLY\_ASKED\_QUESTION"
+        \item Atrybut \ref{kat:SiteContent:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:SiteContent:description} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:SiteContentTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Tłumaczenie treści strony musi mieć \ref{kat:SiteContentTranslation:description}
-        \item \ref{kat:SiteContentTranslation:title} jest ciągiem znaków o długości od 1 do 255 znaków
-        \item \ref{kat:SiteContentTranslation:description} jest ciągiem znaków
+        \item Atrybut \ref{kat:SiteContentTranslation:description} jest wymagany
+
+        \item Atrybut \ref{kat:SiteContentTranslation:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:SiteContentTranslation:description} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:ContactInfo}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Informacja kontaktowa musi mieć \ref{kat:ContactInfo:contactInfoType}
-        \item Informacja kontaktowa musi mieć \ref{kat:ContactInfo:description}
-        \item \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING\_HOURS", "OTHER"
-        \item \ref{kat:ContactInfo:description} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest wymagany
+        \item Atrybut \ref{kat:ContactInfo:description} jest wymagany
+
+        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING\_HOURS", "OTHER"
+        \item Atrybut \ref{kat:ContactInfo:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:Pricing}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Cennik musi mieć \ref{kat:Pricing:ordinalNumber}
-        \item Cennik musi mieć \ref{kat:Pricing:description}
-        \item Cennik musi mieć \ref{kat:Pricing:price}
-        \item Cennik musi mieć \ref{kat:Pricing:currency}
-        \item \ref{kat:Pricing:ordinalNumber} jest dodatnią liczbą całkowitą
-        \item \ref{kat:Pricing:title} jest ciągiem znaków o długości od 1 do 255 znaków
-        \item \ref{kat:Pricing:description} jest ciągiem znaków
-        \item \ref{kat:Pricing:price} jest ciągiem znaków skladającym się z cyfr i znaku "." o długości od 1 do 8 znaków
+        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest wymagany
+        \item Atrybut \ref{kat:Pricing:description} jest wymagany
+        \item Atrybut \ref{kat:Pricing:price} jest wymagany
+        \item Atrybut \ref{kat:Pricing:currency} jest wymagany
+
+        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest liczbą całkowitą większą od 0
+        \item Atrybut \ref{kat:Pricing:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:Pricing:description} jest ciągiem znaków
+        \item Atrybut \ref{kat:Pricing:price} jest ciągiem znaków o długości od 1 do 8 znaków
+        \item Atrybut \ref{kat:Pricing:currency} jest ciągiem znaków o długości 3 znaków spełniającym normę ISO 4217
         \item Jeżeli w \ref{kat:Pricing:price} występuje znak "." to muszą po nim wystepować dokładnie 2 cyfry
-        \item \ref{kat:Pricing:currency} jest ciągiem znaków o długości 3 znaków spełniającym normę ISO 4217
     \end{enumerate}
+
     \item\ref{kat:PricingTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Tłumaczenie cennika musi mieć \ref{kat:PricingTranslation:description}
-        \item \ref{kat:PricingTranslation:title} jest ciągiem znaków o długości od 1 do 255 znaków
-        \item \ref{kat:PricingTranslation:description} jest ciągiem znaków
+        \item Atrybut \ref{kat:PricingTranslation:description} jest wymagany
+
+        \item Atrybut \ref{kat:PricingTranslation:title} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:PricingTranslation:description} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Produkt musi mieć flagę \ref{kat:Product:isPublic}
-        \item \ref{kat:Product:source} jest ciągiem znaków o długości od 1 do 255 znaków
-        \item \ref{kat:Product:isPublic} jest typu logicznego
+        \item Atrybut \ref{kat:Product:isPublic} jest wymagany
+
+        \item Atrybut \ref{kat:Product:source} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:Product:isPublic} jest typu logicznego
     \end{enumerate}
+
     \item\ref{kat:ProductVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Wersja produktu musi mieć \ref{kat:ProductVersion:createdDate}
-        \item Wersja produktu musi mieć \ref{kat:ProductVersion:description}
-        \item \ref{kat:ProductVersion:createdDate} jest stemplem czasowym
-        \item \ref{kat:ProductVersion:description} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:ProductVersion:createdDate} jest wymagany
+        \item Atrybut \ref{kat:ProductVersion:description} jest wymagany
+
+        \item Atrybut \ref{kat:ProductVersion:createdDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:ProductVersion:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:ProductBasicNutritionData:energy} jest wymagany
+        \item Atrybut \ref{kat:ProductBasicNutritionData:protein} jest wymagany
+        \item Atrybut \ref{kat:ProductBasicNutritionData:fat} jest wymagany
+        \item Atrybut \ref{kat:ProductBasicNutritionData:carbohydrates} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:ProductBasicNutritionData:energy} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:ProductBasicNutritionData:protein} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:ProductBasicNutritionData:fat} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:ProductBasicNutritionData:carbohydrates} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:NutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:NutritionData:nutritionValue} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:NutritionData:nutritionValue} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:NutritionDefinition}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:NutritionDefinition:tag} jest wymagany
+        \item Atrybut \ref{kat:NutritionDefinition:description} jest wymagany
+        \item Atrybut \ref{kat:NutritionDefinition:units} jest wymagany
+        \item Atrybut \ref{kat:NutritionDefinition:decimalPlaces} jest wymagany
 
-        \item test1
+        \item Atrybut \ref{kat:NutritionDefinition:tag} ma unikalną wartość
 
-        \item todo
+        \item Atrybut \ref{kat:NutritionDefinition:tag} jest ciągiem znaków o długości od 1 do 20 znaków
+        \item Atrybut \ref{kat:NutritionDefinition:description} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:NutritionDefinition:units} jest ciągiem znaków o długości od 1 do 10 znaków
+        \item Atrybut \ref{kat:NutritionDefinition:decimalPlaces} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:NutritionDefinitionTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:NutritionDefinitionTranslation:translation} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:NutritionDefinitionTranslation:translation} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:HouseholdMeasure}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:HouseholdMeasure:description} jest wymagany
+        \item Atrybut \ref{kat:HouseholdMeasure:gramsWeight} jest wymagany
+        \item Atrybut \ref{kat:HouseholdMeasure:isVisible} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:HouseholdMeasure:description} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:HouseholdMeasure:gramsWeight} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:HouseholdMeasure:isVisible} jest typu logicznego
     \end{enumerate}
+
     \item\ref{kat:ProductSubcategory}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:ProductSubcategory:description} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:ProductSubcategory:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:ProductCategory}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:ProductCategory:description} jest wymagany
 
-        \item test1
+        \item Atrybut \ref{kat:ProductCategory:description} ma unikalną wartość
 
-        \item todo
+        \item Atrybut \ref{kat:ProductCategory:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:ProductCategoryTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:ProductCategoryTranslation:translation} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:ProductCategoryTranslation:translation} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:DietType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:DietType:name} jest wymagany
 
-        \item test1
+        \item Atrybut \ref{kat:DietType:name} ma unikalną wartość
 
-        \item todo
+        \item Atrybut \ref{kat:DietType:name} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:DietTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:DietTypeTranslation:translation} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:DietTypeTranslation:translation} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:Recipe}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:Recipe:isPublic} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:Recipe:isPublic} jest typu logicznego
     \end{enumerate}
+
     \item\ref{kat:RecipeVersion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:RecipeVersion:name} jest wymagany
+        \item Atrybut \ref{kat:RecipeVersion:preparationTimeMinutes} jest wymagany
+        \item Atrybut \ref{kat:RecipeVersion:numberOfPortions} jest wymagany
+        \item Atrybut \ref{kat:RecipeVersion:totalGramsWeight} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:RecipeVersion:editTimestamp} jest stemplem czasowym
+        \item Atrybut \ref{kat:RecipeVersion:name} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:RecipeVersion:preparationTimeMinutes} jest liczbą całkowitą nie mniejszą niż 0
+        \item Atrybut \ref{kat:RecipeVersion:numberOfPortions} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:RecipeVersion:image} jest zdjęciem o maksymalnym rozmiarze 5000000 bajtów
+        \item Atrybut \ref{kat:RecipeVersion:totalGramsWeight} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:RecipeBasicNutritionData}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:energy} jest wymagany
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:protein} jest wymagany
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:fat} jest wymagany
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:carbohydrates} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:energy} jest liczbą całkowitą nie mniejszą niż 0
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:protein} jest liczbą całkowitą nie mniejszą niż 0
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:fat} jest liczbą całkowitą nie mniejszą niż 0
+        \item Atrybut \ref{kat:RecipeBasicNutritionData:carbohydrates} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:RecipeSection}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:RecipeSection:sectionName} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:ProductPortion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:ProductPortion:amount} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:ProductPortion:amount} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:PreparationStep}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:PreparationStep:ordinalNumber} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:PreparationStep:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
+        \item Atrybut \ref{kat:PreparationStep:stepDescription} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:KitchenAppliance}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:KitchenAppliance:name} jest wymagany
 
-        \item test1
+        \item Atrybut \ref{kat:KitchenAppliance:name} ma unikalną wartość
 
-        \item todo
+        \item Atrybut \ref{kat:KitchenAppliance:name} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:KitchenApplianceTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:KitchenApplianceTranslation:translation} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:KitchenApplianceTranslation:translation} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:DishType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:DishType:description} jest wymagany
 
-        \item test1
+        \item Atrybut \ref{kat:DishType:description} ma unikalną wartość
 
-        \item todo
+        \item Atrybut \ref{kat:DishType:description} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:DishTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:DishTypeTranslation:translation} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:DishTypeTranslation:translation} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:MealType}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealType:name} jest wymagany
 
-        \item test1
+        \item Atrybut \ref{kat:MealType:name} ma unikalną wartość
 
-        \item todo
+        \item Atrybut \ref{kat:MealType:name} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:MealTypeTranslation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealTypeTranslation:translation} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:MealTypeTranslation:translation} jest ciągiem znaków o długości od 1 do 255 znaków
     \end{enumerate}
+
     \item\ref{kat:MealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:editTimestamp} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:isVisible} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:numberOfDays}  jest wymagany
+        \item Atrybut \ref{kat:MealPlan:numberOfMealsPerDay} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:totalDailyEnergy} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:percentOfProtein} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:percentOfFat} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:percentOfCarbohydrates} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest stemplem czasowym
+        \item Atrybut \ref{kat:MealPlan:editTimestamp} jest stemplem czasowym
+        \item Atrybut \ref{kat:MealPlan:name} jest ciągiem znaków o długości od 1 do 255 znaków
+        \item Atrybut \ref{kat:MealPlan:isVisible} jest typu logicznego
+        \item Atrybut \ref{kat:MealPlan:numberOfDays} jest liczbą całkowitą nie mniejszą niż 1 i nie większą niż 30
+        \item Atrybut \ref{kat:MealPlan:numberOfMealsPerDay} jest liczbą całkowitą nie mniejszą niż 1 i nie większą niż 10
+        \item Atrybut \ref{kat:MealPlan:totalDailyEnergy} jest liczbą całkowitą nie mniejszą niż 1
+        \item Atrybut \ref{kat:MealPlan:percentOfProtein} jest liczbą całkowitą nie mniejszą niż 0 i nie większą niż 100
+        \item Atrybut \ref{kat:MealPlan:percentOfFat} jest liczbą całkowitą nie mniejszą niż 0 i nie większą niż 100
+        \item Atrybut \ref{kat:MealPlan:percentOfCarbohydrates} jest liczbą całkowitą nie mniejszą niż 0 i nie większą niż 100
     \end{enumerate}
+
     \item\ref{kat:MealPlanDay}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealPlanDay:ordinalNumber} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:MealPlanDay:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
     \end{enumerate}
+
     \item\ref{kat:Meal}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:Meal:ordinalNumber} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:Meal:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
     \end{enumerate}
+
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealRecipe:amount} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:MealRecipe:amount} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:MealProduct}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealProduct:amount} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:MealProduct:amount} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
+
     \item\ref{kat:MealDefinition}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:MealDefinition:ordinalNumber} jest wymagany
+        \item Atrybut \ref{kat:MealDefinition:timeOfMeal} jest wymagany
+        \item Atrybut \ref{kat:MealDefinition:percentOfEnergy} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:MealDefinition:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
+        \item Atrybut \ref{kat:MealDefinition:timeOfMeal} jest ciągiem znaków w postaci HH:MI
+        \item Atrybut \ref{kat:MealDefinition:percentOfEnergy} jest liczbą całkowitą nie mniejszą niż 0 i nie większą niż 100
     \end{enumerate}
+
     \item\ref{kat:Appointment}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:Appointment:appointmentDate} jest wymagany
+        \item Atrybut \ref{kat:Appointment:appointmentState} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:Appointment:appointmentDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:Appointment:appointmentState} jest typu wyliczeniowego i może przyjmować wartości "PLANNED", "CANCELED", "TOOK\_PLACE", "COMPLETED"
+        \item Atrybut \ref{kat:Appointment:generalAdvice} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:PatientCard}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:PatientCard:creationDate} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:PatientCard:creationDate} jest stemplem czasowym
     \end{enumerate}
+
     \item\ref{kat:AppointmentEvaluation}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:AppointmentEvaluation:overallSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:dietitianServiceSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealPlanOverallSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealCostSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealPreparationTimeSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealComplexityLevelSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealTastefulnessSatisfaction} jest wymagany
+        \item Atrybut \ref{kat:AppointmentEvaluation:dietaryResultSatisfaction} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:AppointmentEvaluation:overallSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:dietitianServiceSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealPlanOverallSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealCostSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealPreparationTimeSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealComplexityLevelSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:mealTastefulnessSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:dietaryResultSatisfaction} jest typu wyliczeniowego i może przyjmować wartości "VERY\_DISSATISFIED", "DISSATISFIED", "NEUTRAL", "SATISFIED", "VERY\_SATISFIED"
+        \item Atrybut \ref{kat:AppointmentEvaluation:comment} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:BodyMeasurement}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:BodyMeasurement:completionDate} jest wymagany
+        \item Atrybut \ref{kat:BodyMeasurement:height} jest wymagany
+        \item Atrybut \ref{kat:BodyMeasurement:weight} jest wymagany
+        \item Atrybut \ref{kat:BodyMeasurement:waist} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:BodyMeasurement:completionDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:BodyMeasurement:height} jest liczbą całkowitą
+        \item Atrybut \ref{kat:BodyMeasurement:weight} jest liczbą całkowitą
+        \item Atrybut \ref{kat:BodyMeasurement:waist} jest liczbą rzeczywistą
+        \item Atrybut \ref{kat:BodyMeasurement:percentOfFatTissue} jest liczbą rzeczywistą nie mniejszą niż 0 i nie większą niż 100
+        \item Atrybut \ref{kat:BodyMeasurement:percentOfWater} jest liczbą rzeczywistą nie mniejszą niż 0 i nie większą niż 100
+        \item Atrybut \ref{kat:BodyMeasurement:muscleMass} jest liczbą rzeczywistą
+        \item Atrybut \ref{kat:BodyMeasurement:physicalMark} jest liczbą rzeczywistą
+        \item Atrybut \ref{kat:BodyMeasurement:calciumInBones} jest liczbą rzeczywistą
+        \item Atrybut \ref{kat:BodyMeasurement:basicMetabolism} jest liczbą całkowitą
+        \item Atrybut \ref{kat:BodyMeasurement:metabolicAge} jest liczbą rzeczywistą
+        \item Atrybut \ref{kat:BodyMeasurement:visceralFatLevel} jest liczbą rzeczywistą
     \end{enumerate}
+
     \item\ref{kat:NutritionalInterview}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:NutritionalInterview:completionDate} jest wymagany
+        \item Atrybut \ref{kat:NutritionalInterview:targetWeight} jest wymagany
+        \item Atrybut \ref{kat:NutritionalInterview:advicePurpose} jest wymagany
+        \item Atrybut \ref{kat:NutritionalInterview:physicalActivity} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:NutritionalInterview:completionDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:NutritionalInterview:targetWeight} jest liczbą całkowitą
+        \item Atrybut \ref{kat:NutritionalInterview:advicePurpose} jest ciągiem znaków
+        \item Atrybut \ref{kat:NutritionalInterview:physicalActivity} jest typu wyliczeniowego i może przyjmować wartości "EXTREMELY\_INACTIVE", "SEDENTARY", "MODERATELY\_ACTIVE", "VIGOROUSLY\_ACTIVE", "EXTREMELY\_ACTIVE"
+        \item Atrybut \ref{kat:NutritionalInterview:diseases} jest ciągiem znaków
+        \item Atrybut \ref{kat:NutritionalInterview:medicines} jest ciągiem znaków
+        \item Atrybut \ref{kat:NutritionalInterview:jobType} jest typu wyliczeniowego i może przyjmować wartości "SITTING", "STANDING", "MIXED"
+        \item Atrybut \ref{kat:NutritionalInterview:likedProducts} jest ciągiem znaków
+        \item Atrybut \ref{kat:NutritionalInterview:dislikedProducts} jest ciągiem znaków
+        \item Atrybut \ref{kat:NutritionalInterview:foodAllergies} jest ciągiem znaków
+        \item Atrybut \ref{kat:NutritionalInterview:foodIntolerances} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:CustomNutritionalInterviewQuestion}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:question} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
+        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:question} jest ciągiem znaków
+        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:answer} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest ciągiem znaków
     \end{enumerate}
+
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+        \item Atrybut \ref{kat:AssignedMealPlan:assigmentTime} jest wymagany
 
-        \item test1
-
-        \item todo
+        \item Atrybut \ref{kat:AssignedMealPlan:assigmentTime} jest stemplem czasowym
     \end{enumerate}
 \end{itemize}
 
