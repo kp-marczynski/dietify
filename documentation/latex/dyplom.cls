@@ -811,7 +811,7 @@ frame=lines,
 framesep=5mm,
 baselinestretch=1,
 fontsize=\small,
-%linenos
+linenos
 }
 
 % nowe otoczenie do składania listingów
