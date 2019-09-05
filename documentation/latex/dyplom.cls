@@ -881,4 +881,6 @@ linenos
 \makeatother
 
 \newcommand{\role}[1]{\emph{#1}}
+
+\RequirePackage{bookmark}
 \endinput % dla porządku
