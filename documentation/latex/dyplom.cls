@@ -883,4 +883,9 @@ linenos
 \newcommand{\role}[1]{\emph{#1}}
 
 \RequirePackage{bookmark}
+
+\RequirePackage{tocloft}
+\renewcommand\cftloftitlefont{\fontsize{14pt}{14pt}\bfseries}
+\renewcommand\cftlottitlefont{\fontsize{14pt}{14pt}\bfseries}
+
 \endinput % dla porządku
