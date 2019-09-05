@@ -877,7 +877,7 @@ linenos
 \newcommand*{\atr}[1]{%
 \item
 \def\@currentlabel{\textbf{#1}}%
-\truncate{100pt}{~#1}}
+\truncate{160pt}{~#1}}
 \makeatother
 
 \newcommand{\role}[1]{\emph{#1}}

@@ -22,27 +22,26 @@
 
     \maketitle
     \pagenumbering{gobble}
-    \input{ch0.1_streszczenie}
+    \input{ch_streszczenie}
     \cleardoublepage
 
     \tableofcontents
     \cleardoublepage
 
     \pagenumbering{arabic}
-    \todo{uzupełnić streszczenie i słowa kluczowe na stronie tytułowej}
-    \input{ch0.2_wstep}
+%    \todo{uzupełnić streszczenie i słowa kluczowe na stronie tytułowej}
+    \input{ch_wstep}
 
-    \input{ch1}
-    \input{ch2}
-    \input{ch3}
-    \input{ch4}
-    \input{ch5}
-    %    \input{ch6}
+    \input{ch_stan-wiedzy}
+    \input{ch_zalozenia-projektowe}
+    \input{ch_projekt}
+    \input{ch_implementacja}
+    \input{ch_testy}
 
-    \input{instrukcja}
-    \input{demo}
+%    \input{instrukcja}
+%    \input{demo}
 
-    \input{ch7_zakonczenie}
+    \input{ch_zakonczenie}
 
     % W pracy pojawią się tylko prace naprawdę cytowane.
     % \nocite{*}
@@ -61,6 +60,6 @@
     \newpage
     \listof{listing}{Spis kodów źródłowych}
 
-    \input{ch8_dodatki}
+    \input{ch_dodatki}
 
 \end{document}
