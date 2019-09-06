@@ -888,4 +888,13 @@ linenos
 \renewcommand\cftloftitlefont{\fontsize{14pt}{14pt}\bfseries}
 \renewcommand\cftlottitlefont{\fontsize{14pt}{14pt}\bfseries}
 
+%\image[source]{scale}{file path}{caption}{label}
+\newcommand{\image}[5][(opr.wł)]{
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[scale=#2]{#3}
+        \caption{#4 #1}\label{fig:#5}
+    \end{figure}
+\end{minipage}
+}
 \endinput % dla porządku
