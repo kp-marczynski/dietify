@@ -46,569 +46,569 @@
 
 \begin{enumerate}[label={\textbf{KAT/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1em}
-    \req{User} \label{kat:User} (Użytkownik)
+    \req{User}\label{kat:User} (Użytkownik)
 
     \textbf{Opis}: Konto użytkownika aplikacji. Każdy zalogowany użytkownik musi mieć konto użytkownika
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:User:id} - identyfikator
-        \atr{login} \label{kat:User:login} - login użytkownika
-        \atr{passwordHash} \label{kat:User:passwordHash} - reprezentacja hasła stworzona przez nałożenie na hasło funkcji skrótu
-        \atr{firstName} \label{kat:User:firstName} - imię użytkownika
-        \atr{lastName} \label{kat:User:lastName} - nazwisko użytkownika
-        \atr{email} \label{kat:User:email} - adres email
-        \atr{image} \label{kat:User:image} - zdjęcie profilowe użytkownika
-        \atr{activated} \label{kat:User:activated} - flaga pokazująca czy konto użytkownika zostało aktywowane
-        \atr{language} \label{kat:User:language} - język użytkownika w postaci kodu ISO 639-1
-        \atr{activationKey} \label{kat:User:activationKey} - klucz wymagany podczas aktywacji konta użytkownika
-        \atr{resetKey} \label{kat:User:resetKey} - klucz wymagany podczas resetowania hasła do konta użytkownika
-        \atr{createdDate} \label{kat:User:createdDate} - data utworzenia konta
-        \atr{resetDate} \label{kat:User:resetDate} - data ostatniego resetowania hasła do konta
-        \atr{lastModifiedDate} \label{kat:User:lastModifiedDate} - data ostatniej modyfikacji konta
+        \atr{id}\label{kat:User:id}- identyfikator
+        \atr{login}\label{kat:User:login}- login użytkownika
+        \atr{passwordHash}\label{kat:User:passwordHash}- reprezentacja hasła stworzona przez nałożenie na hasło funkcji skrótu
+        \atr{firstName}\label{kat:User:firstName}- imię użytkownika
+        \atr{lastName}\label{kat:User:lastName}- nazwisko użytkownika
+        \atr{email}\label{kat:User:email}- adres email
+        \atr{image}\label{kat:User:image}- zdjęcie profilowe użytkownika
+        \atr{activated}\label{kat:User:activated}- flaga pokazująca czy konto użytkownika zostało aktywowane
+        \atr{language}\label{kat:User:language}- język użytkownika w postaci kodu ISO 639-1
+        \atr{activationKey}\label{kat:User:activationKey}- klucz wymagany podczas aktywacji konta użytkownika
+        \atr{resetKey}\label{kat:User:resetKey}- klucz wymagany podczas resetowania hasła do konta użytkownika
+        \atr{createdDate}\label{kat:User:createdDate}- data utworzenia konta
+        \atr{resetDate}\label{kat:User:resetDate}- data ostatniego resetowania hasła do konta
+        \atr{lastModifiedDate}\label{kat:User:lastModifiedDate}- data ostatniej modyfikacji konta
     \end{itemize}
 
-    \req{Authority} \label{kat:Authority} (Rola)
+    \req{Authority}\label{kat:Authority} (Rola)
 
     \textbf{Opis}: Rola użytkownika od której zależy zakres uprawnień użytkownika
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{name} \label{kat:Authority:name} - nazwa roli
+        \atr{name}\label{kat:Authority:name}- nazwa roli
     \end{itemize}
 
-    \req{UserExtraInfo} \label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)
+    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)
 
     \textbf{Opis}: Dodatkowe informacje o użytkowniku
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:UserExtraInfo:id} - identyfikator
-        \atr{gender} \label{kat:UserExtraInfo:gender} - płeć
-        \atr{dateOfBirth} \label{kat:UserExtraInfo:dateOfBirth} - data urodzenia
-        \atr{phoneNumber} \label{kat:UserExtraInfo:phoneNumber} - numer telefonu, najlepiej w formacie (+00) 000-000-000
-        \atr{streetAddress} \label{kat:UserExtraInfo:streetAddress} - adres zamieszkania
-        \atr{postalCode} \label{kat:UserExtraInfo:postalCode} - kod pocztowy
-        \atr{city} \label{kat:UserExtraInfo:city} - miasto
-        \atr{country} \label{kat:UserExtraInfo:country} - państwo
-        \atr{personalDescription} \label{kat:UserExtraInfo:personalDescription} - krótki opis osobisty. W przypadku dietyka może zawierać dodatkowe informacje o prowadzonej praktyce dietetycznej
+        \atr{id}\label{kat:UserExtraInfo:id}- identyfikator
+        \atr{gender}\label{kat:UserExtraInfo:gender}- płeć
+        \atr{dateOfBirth}\label{kat:UserExtraInfo:dateOfBirth}- data urodzenia
+        \atr{phoneNumber}\label{kat:UserExtraInfo:phoneNumber}- numer telefonu, najlepiej w formacie (+00) 000-000-000
+        \atr{streetAddress}\label{kat:UserExtraInfo:streetAddress}- adres zamieszkania
+        \atr{postalCode}\label{kat:UserExtraInfo:postalCode}- kod pocztowy
+        \atr{city}\label{kat:UserExtraInfo:city}- miasto
+        \atr{country}\label{kat:UserExtraInfo:country}- państwo
+        \atr{personalDescription}\label{kat:UserExtraInfo:personalDescription}- krótki opis osobisty. W przypadku dietyka może zawierać dodatkowe informacje o prowadzonej praktyce dietetycznej
     \end{itemize}
 
-    \req{SiteContent} \label{kat:SiteContent} (Treść Strony)
+    \req{SiteContent}\label{kat:SiteContent} (Treść Strony)
 
     \textbf{Opis}: Treść strony definiowana przez administratora
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:SiteContent:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:SiteContent:ordinalNumber} - numer porządkowy definiujący kolejność w jakim dane powinny być wyświetlane
-        \atr{siteContentType} \label{kat:SiteContent:siteContentType} - typ treści strony
-        \atr{title} \label{kat:SiteContent:title} - tytuł treści stron
-        \atr{description} \label{kat:SiteContent:description} - opis treści strony
-        \atr{image} \label{kat:SiteContent:image} - opcjonalny obrazek, który powinien zostać wyświetlony obok treści strony
+        \atr{id}\label{kat:SiteContent:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:SiteContent:ordinalNumber}- numer porządkowy definiujący kolejność w jakim dane powinny być wyświetlane
+        \atr{siteContentType}\label{kat:SiteContent:siteContentType}- typ treści strony
+        \atr{title}\label{kat:SiteContent:title}- tytuł treści stron
+        \atr{description}\label{kat:SiteContent:description}- opis treści strony
+        \atr{image}\label{kat:SiteContent:image}- opcjonalny obrazek, który powinien zostać wyświetlony obok treści strony
     \end{itemize}
 
-    \req{SiteContentTranslation} \label{kat:SiteContentTranslation} (Tłumaczenie Treści Strony)
+    \req{SiteContentTranslation}\label{kat:SiteContentTranslation} (Tłumaczenie Treści Strony)
 
     \textbf{Opis}: Tłumaczenie treści strony
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:SiteContentTranslation:id} - identyfikator
-        \atr{title} \label{kat:SiteContentTranslation:title} - tłumaczenie tytułu
-        \atr{description} \label{kat:SiteContentTranslation:description} - tłumaczenie opisu
-        \atr{language} \label{kat:SiteContentTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:SiteContentTranslation:id}- identyfikator
+        \atr{title}\label{kat:SiteContentTranslation:title}- tłumaczenie tytułu
+        \atr{description}\label{kat:SiteContentTranslation:description}- tłumaczenie opisu
+        \atr{language}\label{kat:SiteContentTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{ContactInfo} \label{kat:ContactInfo} (Informacje Kontaktowe)
+    \req{ContactInfo}\label{kat:ContactInfo} (Informacje Kontaktowe)
 
     \textbf{Opis}: Informacje kontaktowe witryny
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ContactInfo:id} - identyfikator
-        \atr{contactInfoType} \label{kat:ContactInfo:contactInfoType} - typ informacji kontaktowej
-        \atr{description} \label{kat:ContactInfo:description} - opis
+        \atr{id}\label{kat:ContactInfo:id}- identyfikator
+        \atr{contactInfoType}\label{kat:ContactInfo:contactInfoType}- typ informacji kontaktowej
+        \atr{description}\label{kat:ContactInfo:description}- opis
     \end{itemize}
 
-    \req{Pricing} \label{kat:Pricing} (Cennik)
+    \req{Pricing}\label{kat:Pricing} (Cennik)
 
     \textbf{Opis}: Pozycja cennika dostępu do usług oferowanych przez system
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:Pricing:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:Pricing:ordinalNumber} - numer porządkowy warunkujący kolejność wyswietlania pozycji w cenniku
-        \atr{title} \label{kat:Pricing:title} - nazwa pozycji cennika
-        \atr{description} \label{kat:Pricing:description} - opis pozycji cennika
-        \atr{price} \label{kat:Pricing:price} - cena
-        \atr{currency} \label{kat:Pricing:currency} - waluta przedstawiona jako kod ISO 4217
+        \atr{id}\label{kat:Pricing:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:Pricing:ordinalNumber}- numer porządkowy warunkujący kolejność wyswietlania pozycji w cenniku
+        \atr{title}\label{kat:Pricing:title}- nazwa pozycji cennika
+        \atr{description}\label{kat:Pricing:description}- opis pozycji cennika
+        \atr{price}\label{kat:Pricing:price}- cena
+        \atr{currency}\label{kat:Pricing:currency}- waluta przedstawiona jako kod ISO 4217
     \end{itemize}
 
-    \req{PricingTranslation} \label{kat:PricingTranslation} (Tłumaczenie Cennika)
+    \req{PricingTranslation}\label{kat:PricingTranslation} (Tłumaczenie Cennika)
 
     \textbf{Opis}: Tłumaczenie pozycji cennika
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:PricingTranslation:id} - identyfikator
-        \atr{title} \label{kat:PricingTranslation:title} - tłumaczenie nazwy
-        \atr{description} \label{kat:PricingTranslation:description} - tłumaczenie opisu
-        \atr{language} \label{kat:PricingTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:PricingTranslation:id}- identyfikator
+        \atr{title}\label{kat:PricingTranslation:title}- tłumaczenie nazwy
+        \atr{description}\label{kat:PricingTranslation:description}- tłumaczenie opisu
+        \atr{language}\label{kat:PricingTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{Product} \label{kat:Product} (Produkt)
+    \req{Product}\label{kat:Product} (Produkt)
 
     \textbf{Opis}: Produkt żywieniowy
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:Product:id} - identyfikator
-        \atr{source} \label{kat:Product:source} - źródło produktu, jeśli produkt jest importowany; preferowany format adresu URL
-        \atr{isPublic} \label{kat:Product:isPublic} - flaga określająca czy produkt jest widoczny publicznie
-        \atr{language} \label{kat:Product:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:Product:id}- identyfikator
+        \atr{source}\label{kat:Product:source}- źródło produktu, jeśli produkt jest importowany; preferowany format adresu URL
+        \atr{isPublic}\label{kat:Product:isPublic}- flaga określająca czy produkt jest widoczny publicznie
+        \atr{language}\label{kat:Product:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{ProductVersion} \label{kat:ProductVersion} (Wersja Produktu)
+    \req{ProductVersion}\label{kat:ProductVersion} (Wersja Produktu)
 
     \textbf{Opis}: Wersja produktu. Podczas kazdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ProductVersion:id} - identyfikator
-        \atr{createdDate} \label{kat:ProductVersion:createdDate} - czas utworzenia wersji
-        \atr{description} \label{kat:ProductVersion:description} - krótki opis produktu w języku produktu
+        \atr{id}\label{kat:ProductVersion:id}- identyfikator
+        \atr{createdDate}\label{kat:ProductVersion:createdDate}- czas utworzenia wersji
+        \atr{description}\label{kat:ProductVersion:description}- krótki opis produktu w języku produktu
     \end{itemize}
 
-    \req{ProductBasicNutritionData} \label{kat:ProductBasicNutritionData} (Podstawowe Składniki Odżywcze Produktu)
+    \req{ProductBasicNutritionData}\label{kat:ProductBasicNutritionData} (Podstawowe Składniki Odżywcze Produktu)
 
     \textbf{Opis}: Podstawowe składniki odżywcze produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ProductBasicNutritionData:id} - identyfikator
-        \atr{energy} \label{kat:ProductBasicNutritionData:energy} - energia w kilokaloriach (kcal) na 100 gramów produktu
-        \atr{protein} \label{kat:ProductBasicNutritionData:protein} - białko w gramach na 100 gramów produktu
-        \atr{fat} \label{kat:ProductBasicNutritionData:fat} - tłuszcz w gramach na 100 gramów produktu
-        \atr{carbohydrates} \label{kat:ProductBasicNutritionData:carbohydrates} - węglowodany w gramach na 100 gramów produktu
+        \atr{id}\label{kat:ProductBasicNutritionData:id}- identyfikator
+        \atr{energy}\label{kat:ProductBasicNutritionData:energy}- energia w kilokaloriach (kcal) na 100 gramów produktu
+        \atr{protein}\label{kat:ProductBasicNutritionData:protein}- białko w gramach na 100 gramów produktu
+        \atr{fat}\label{kat:ProductBasicNutritionData:fat}- tłuszcz w gramach na 100 gramów produktu
+        \atr{carbohydrates}\label{kat:ProductBasicNutritionData:carbohydrates}- węglowodany w gramach na 100 gramów produktu
     \end{itemize}
 
-    \req{NutritionData} \label{kat:NutritionData} (Wartość Odżywcza)
+    \req{NutritionData}\label{kat:NutritionData} (Wartość Odżywcza)
 
     \textbf{Opis}: Wartość wartości odżywczej dla konkretnego produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:NutritionData:id} - identyfikator
-        \atr{nutritionValue} \label{kat:NutritionData:nutritionValue} - ilość składnika odżywczego w jednostkach wyspecyfikowanych w definicji wartości odżywczej
+        \atr{id}\label{kat:NutritionData:id}- identyfikator
+        \atr{nutritionValue}\label{kat:NutritionData:nutritionValue}- ilość składnika odżywczego w jednostkach wyspecyfikowanych w definicji wartości odżywczej
     \end{itemize}
 
-    \req{NutritionDefinition} \label{kat:NutritionDefinition} (Definicja Wartości Odżywczej)
+    \req{NutritionDefinition}\label{kat:NutritionDefinition} (Definicja Wartości Odżywczej)
 
     \textbf{Opis}: Definicja wartości odżywczej
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:NutritionDefinition:id} - identyfikator
-        \atr{tag} \label{kat:NutritionDefinition:tag} - krótki znacznik reprezentujący wartość odżywczą
-        \atr{description} \label{kat:NutritionDefinition:description} - krótki opis wartości odżywczej w języku angielskim
-        \atr{units} \label{kat:NutritionDefinition:units} - jednostki wykorzystywane do pomiaru wartości odżywczej, np. "g", "kcal", "ml"
-        \atr{decimalPlaces} \label{kat:NutritionDefinition:decimalPlaces} - liczba miejsc dziesiętnych do ktorych wartość składnika odżywczego powinna być zaokrąglana
+        \atr{id}\label{kat:NutritionDefinition:id}- identyfikator
+        \atr{tag}\label{kat:NutritionDefinition:tag}- krótki znacznik reprezentujący wartość odżywczą
+        \atr{description}\label{kat:NutritionDefinition:description}- krótki opis wartości odżywczej w języku angielskim
+        \atr{units}\label{kat:NutritionDefinition:units}- jednostki wykorzystywane do pomiaru wartości odżywczej, np. "g", "kcal", "ml"
+        \atr{decimalPlaces}\label{kat:NutritionDefinition:decimalPlaces}- liczba miejsc dziesiętnych do ktorych wartość składnika odżywczego powinna być zaokrąglana
     \end{itemize}
 
-    \req{NutritionDefinitionTranslation} \label{kat:NutritionDefinitionTranslation} (Tłumaczenie Definicji Wartości Odżywczej)
+    \req{NutritionDefinitionTranslation}\label{kat:NutritionDefinitionTranslation} (Tłumaczenie Definicji Wartości Odżywczej)
 
     \textbf{Opis}: Tłumaczenie definicji wartości odżywczej
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:NutritionDefinitionTranslation:id} - identyfikator
-        \atr{translation} \label{kat:NutritionDefinitionTranslation:translation} - przetłumaczony opis definicji wartości odżywczej
-        \atr{language} \label{kat:NutritionDefinitionTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:NutritionDefinitionTranslation:id}- identyfikator
+        \atr{translation}\label{kat:NutritionDefinitionTranslation:translation}- przetłumaczony opis definicji wartości odżywczej
+        \atr{language}\label{kat:NutritionDefinitionTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{HouseholdMeasure} \label{kat:HouseholdMeasure} (Miara Domowa)
+    \req{HouseholdMeasure}\label{kat:HouseholdMeasure} (Miara Domowa)
 
     \textbf{Opis}: Miara domowa produktu z masą w gramach
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:HouseholdMeasure:id} - identyfikator
-        \atr{description} \label{kat:HouseholdMeasure:description} - krótki opis miary domowej w języku produktu, np. "cup" or "tea spoon"
-        \atr{gramsWeight} \label{kat:HouseholdMeasure:gramsWeight} - masa w gramach 1 jednostki miary domowej
-        \atr{isVisible} \label{kat:HouseholdMeasure:isVisible} - flaga określająca czy miara jest widoczna podczas wyświetlania produktu
+        \atr{id}\label{kat:HouseholdMeasure:id}- identyfikator
+        \atr{description}\label{kat:HouseholdMeasure:description}- krótki opis miary domowej w języku produktu, np. "cup" or "tea spoon"
+        \atr{gramsWeight}\label{kat:HouseholdMeasure:gramsWeight}- masa w gramach 1 jednostki miary domowej
+        \atr{isVisible}\label{kat:HouseholdMeasure:isVisible}- flaga określająca czy miara jest widoczna podczas wyświetlania produktu
     \end{itemize}
 
-    \req{ProductSubcategory} \label{kat:ProductSubcategory} (Podkategoria Produktu)
+    \req{ProductSubcategory}\label{kat:ProductSubcategory} (Podkategoria Produktu)
 
     \textbf{Opis}: Podkategoria produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ProductSubcategory:id} - identyfikator
-        \atr{description} \label{kat:ProductSubcategory:description} - krótki opis podkategorii w języku produktu
+        \atr{id}\label{kat:ProductSubcategory:id}- identyfikator
+        \atr{description}\label{kat:ProductSubcategory:description}- krótki opis podkategorii w języku produktu
     \end{itemize}
 
-    \req{ProductCategory} \label{kat:ProductCategory} (Kategoria Produktu)
+    \req{ProductCategory}\label{kat:ProductCategory} (Kategoria Produktu)
 
     \textbf{Opis}: Główna kategoria produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ProductCategory:id} - identyfikator
-        \atr{description} \label{kat:ProductCategory:description} - krótki opis kategorii produktu w języku angielskim
+        \atr{id}\label{kat:ProductCategory:id}- identyfikator
+        \atr{description}\label{kat:ProductCategory:description}- krótki opis kategorii produktu w języku angielskim
     \end{itemize}
 
-    \req{ProductCategoryTranslation} \label{kat:ProductCategoryTranslation} (Tłumaczenie Kategorii Produktu)
+    \req{ProductCategoryTranslation}\label{kat:ProductCategoryTranslation} (Tłumaczenie Kategorii Produktu)
 
     \textbf{Opis}: Tłumaczenie kategorii produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ProductCategoryTranslation:id} - identyfikator
-        \atr{translation} \label{kat:ProductCategoryTranslation:translation} - przetłumaczona nazwa kategorii produktu
-        \atr{language} \label{kat:ProductCategoryTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:ProductCategoryTranslation:id}- identyfikator
+        \atr{translation}\label{kat:ProductCategoryTranslation:translation}- przetłumaczona nazwa kategorii produktu
+        \atr{language}\label{kat:ProductCategoryTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{DietType} \label{kat:DietType} (Typ Diety)
+    \req{DietType}\label{kat:DietType} (Typ Diety)
 
     \textbf{Opis}: A tag specifying characteristic feature of object to which it is applied
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:DietType:id} - identyfikator
-        \atr{name} \label{kat:DietType:name} - Short description of diet type in English
+        \atr{id}\label{kat:DietType:id}- identyfikator
+        \atr{name}\label{kat:DietType:name}- Short description of diet type in English
     \end{itemize}
 
-    \req{DietTypeTranslation} \label{kat:DietTypeTranslation} (Tłumaczenie Typu Diety)
+    \req{DietTypeTranslation}\label{kat:DietTypeTranslation} (Tłumaczenie Typu Diety)
 
     \textbf{Opis}: Diet type translation
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:DietTypeTranslation:id} - identyfikator
-        \atr{translation} \label{kat:DietTypeTranslation:translation} - Translated name of diet type
-        \atr{language} \label{kat:DietTypeTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:DietTypeTranslation:id}- identyfikator
+        \atr{translation}\label{kat:DietTypeTranslation:translation}- Translated name of diet type
+        \atr{language}\label{kat:DietTypeTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{Recipe} \label{kat:Recipe} (Przepis)
+    \req{Recipe}\label{kat:Recipe} (Przepis)
 
     \textbf{Opis}: Przepis
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:Recipe:id} - identyfikator
-        \atr{isPublic} \label{kat:Recipe:isPublic} - flaga określająca czy przepis jest widoczny publicznie
-        \atr{language} \label{kat:Recipe:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:Recipe:id}- identyfikator
+        \atr{isPublic}\label{kat:Recipe:isPublic}- flaga określająca czy przepis jest widoczny publicznie
+        \atr{language}\label{kat:Recipe:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{RecipeVersion} \label{kat:RecipeVersion} (Wersja Przepisu)
+    \req{RecipeVersion}\label{kat:RecipeVersion} (Wersja Przepisu)
 
     \textbf{Opis}: Wersja przepisu. Podczas kazdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:RecipeVersion:id} - identyfikator
-        \atr{editTimestamp} \label{kat:RecipeVersion:editTimestamp} - czas utworzenia wersji
-        \atr{name} \label{kat:RecipeVersion:name} - nazwa przepisu w języku przepisu
-        \atr{preparationTimeMinutes} \label{kat:RecipeVersion:preparationTimeMinutes} - średni czas potrzebny na całkowite przygotowanie przepisu, zdefiniowany w minutach
-        \atr{numberOfPortions} \label{kat:RecipeVersion:numberOfPortions} - liczba porcji dla których przepis jest zdefiniowany
-        \atr{image} \label{kat:RecipeVersion:image} - opcjonalne zdjęcie dania przygotowanego na podstawie przepisu
-        \atr{totalGramsWeight} \label{kat:RecipeVersion:totalGramsWeight} - całkowita masa w gramach dania przygotowanego z przepisu
+        \atr{id}\label{kat:RecipeVersion:id}- identyfikator
+        \atr{editTimestamp}\label{kat:RecipeVersion:editTimestamp}- czas utworzenia wersji
+        \atr{name}\label{kat:RecipeVersion:name}- nazwa przepisu w języku przepisu
+        \atr{preparationTimeMinutes}\label{kat:RecipeVersion:preparationTimeMinutes}- średni czas potrzebny na całkowite przygotowanie przepisu, zdefiniowany w minutach
+        \atr{numberOfPortions}\label{kat:RecipeVersion:numberOfPortions}- liczba porcji dla których przepis jest zdefiniowany
+        \atr{image}\label{kat:RecipeVersion:image}- opcjonalne zdjęcie dania przygotowanego na podstawie przepisu
+        \atr{totalGramsWeight}\label{kat:RecipeVersion:totalGramsWeight}- całkowita masa w gramach dania przygotowanego z przepisu
     \end{itemize}
 
-    \req{RecipeBasicNutritionData} \label{kat:RecipeBasicNutritionData} (Podstawowe Wartości Odżywcze Przepisu)
+    \req{RecipeBasicNutritionData}\label{kat:RecipeBasicNutritionData} (Podstawowe Wartości Odżywcze Przepisu)
 
     \textbf{Opis}: Podstawowe wartości odżywcze przepisu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:RecipeBasicNutritionData:id} - identyfikator
-        \atr{energy} \label{kat:RecipeBasicNutritionData:energy} - energia w kilokaloriach (kcal) na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
-        \atr{protein} \label{kat:RecipeBasicNutritionData:protein} - białko w gramach na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
-        \atr{fat} \label{kat:RecipeBasicNutritionData:fat} - tłuszcz w gramach na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
-        \atr{carbohydrates} \label{kat:RecipeBasicNutritionData:carbohydrates} - węglowodany w gramach na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
+        \atr{id}\label{kat:RecipeBasicNutritionData:id}- identyfikator
+        \atr{energy}\label{kat:RecipeBasicNutritionData:energy}- energia w kilokaloriach (kcal) na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
+        \atr{protein}\label{kat:RecipeBasicNutritionData:protein}- białko w gramach na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
+        \atr{fat}\label{kat:RecipeBasicNutritionData:fat}- tłuszcz w gramach na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
+        \atr{carbohydrates}\label{kat:RecipeBasicNutritionData:carbohydrates}- węglowodany w gramach na 100 gramów posiłku przygotowanego z użyciem produktów w przepisie
     \end{itemize}
 
-    \req{RecipeSection} \label{kat:RecipeSection} (Sekcja Przepisu)
+    \req{RecipeSection}\label{kat:RecipeSection} (Sekcja Przepisu)
 
     \textbf{Opis}: Sekcja przepisu, np. sernik może mieć 3 sekcje odpowiednio dla ciasta, masy i polewy
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:RecipeSection:id} - identyfikator
-        \atr{sectionName} \label{kat:RecipeSection:sectionName} - nazwa przepisu w języku przepisu
+        \atr{id}\label{kat:RecipeSection:id}- identyfikator
+        \atr{sectionName}\label{kat:RecipeSection:sectionName}- nazwa przepisu w języku przepisu
     \end{itemize}
 
-    \req{ProductPortion} \label{kat:ProductPortion} (Porcja Produktu)
+    \req{ProductPortion}\label{kat:ProductPortion} (Porcja Produktu)
 
     \textbf{Opis}: A portion of product used in recipe
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:ProductPortion:id} - identyfikator
-        \atr{amount} \label{kat:ProductPortion:amount} - ilość produktu w jednostkach miary domowej lub w gramach jeśli miara domowa nie jest zdefiniowana
+        \atr{id}\label{kat:ProductPortion:id}- identyfikator
+        \atr{amount}\label{kat:ProductPortion:amount}- ilość produktu w jednostkach miary domowej lub w gramach jeśli miara domowa nie jest zdefiniowana
     \end{itemize}
 
-    \req{PreparationStep} \label{kat:PreparationStep} (Krok Przygotowania)
+    \req{PreparationStep}\label{kat:PreparationStep} (Krok Przygotowania)
 
     \textbf{Opis}: A preparation step in recipe
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:PreparationStep:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:PreparationStep:ordinalNumber} - liczba porządkowa kroku przygotowania
-        \atr{stepDescription} \label{kat:PreparationStep:stepDescription} - w miarę możliwości krótki opis kroku przygotwania
+        \atr{id}\label{kat:PreparationStep:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:PreparationStep:ordinalNumber}- liczba porządkowa kroku przygotowania
+        \atr{stepDescription}\label{kat:PreparationStep:stepDescription}- w miarę możliwości krótki opis kroku przygotwania
     \end{itemize}
 
-    \req{KitchenAppliance} \label{kat:KitchenAppliance} (Sprzęt Kuchenny)
+    \req{KitchenAppliance}\label{kat:KitchenAppliance} (Sprzęt Kuchenny)
 
     \textbf{Opis}: Definicja sprzętu kuchennego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:KitchenAppliance:id} - identyfikator
-        \atr{name} \label{kat:KitchenAppliance:name} - nazwa sprzętu kuchennego w języku angielskim
+        \atr{id}\label{kat:KitchenAppliance:id}- identyfikator
+        \atr{name}\label{kat:KitchenAppliance:name}- nazwa sprzętu kuchennego w języku angielskim
     \end{itemize}
 
-    \req{KitchenApplianceTranslation} \label{kat:KitchenApplianceTranslation} (Tłumaczenie Sprzętu Kuchennego)
+    \req{KitchenApplianceTranslation}\label{kat:KitchenApplianceTranslation} (Tłumaczenie Sprzętu Kuchennego)
 
     \textbf{Opis}: Tłumaczenie sprzętu kuchennego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:KitchenApplianceTranslation:id} - identyfikator
-        \atr{translation} \label{kat:KitchenApplianceTranslation:translation} - przetłumaczona nazwa sprzętu kuchennego
-        \atr{language} \label{kat:KitchenApplianceTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:KitchenApplianceTranslation:id}- identyfikator
+        \atr{translation}\label{kat:KitchenApplianceTranslation:translation}- przetłumaczona nazwa sprzętu kuchennego
+        \atr{language}\label{kat:KitchenApplianceTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{DishType} \label{kat:DishType} (Typ Dania)
+    \req{DishType}\label{kat:DishType} (Typ Dania)
 
     \textbf{Opis}: Typ dania, np. sałatka lub zupa
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:DishType:id} - identyfikator
-        \atr{description} \label{kat:DishType:description} - opis typu dania w języku angielskim
+        \atr{id}\label{kat:DishType:id}- identyfikator
+        \atr{description}\label{kat:DishType:description}- opis typu dania w języku angielskim
     \end{itemize}
 
-    \req{DishTypeTranslation} \label{kat:DishTypeTranslation} (Tłumaczenie Typu Dania)
+    \req{DishTypeTranslation}\label{kat:DishTypeTranslation} (Tłumaczenie Typu Dania)
 
     \textbf{Opis}: Tłumaczenie typu dania
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:DishTypeTranslation:id} - identyfikator
-        \atr{translation} \label{kat:DishTypeTranslation:translation} - przetłumaczona nazwa typu dania
-        \atr{language} \label{kat:DishTypeTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:DishTypeTranslation:id}- identyfikator
+        \atr{translation}\label{kat:DishTypeTranslation:translation}- przetłumaczona nazwa typu dania
+        \atr{language}\label{kat:DishTypeTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{MealType} \label{kat:MealType} (Typ Posiłku)
+    \req{MealType}\label{kat:MealType} (Typ Posiłku)
 
     \textbf{Opis}: Typ posiłku, np. śniadanie lub obiad
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealType:id} - identyfikator
-        \atr{name} \label{kat:MealType:name} - nazwa typu posiłku w języku angielskim
+        \atr{id}\label{kat:MealType:id}- identyfikator
+        \atr{name}\label{kat:MealType:name}- nazwa typu posiłku w języku angielskim
     \end{itemize}
 
-    \req{MealTypeTranslation} \label{kat:MealTypeTranslation} (Tłumaczenie Typu Posiłku)
+    \req{MealTypeTranslation}\label{kat:MealTypeTranslation} (Tłumaczenie Typu Posiłku)
 
     \textbf{Opis}: Meal type translation
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealTypeTranslation:id} - identyfikator
-        \atr{translation} \label{kat:MealTypeTranslation:translation} - przetłumaczona nazwa typu posiłku
-        \atr{language} \label{kat:MealTypeTranslation:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:MealTypeTranslation:id}- identyfikator
+        \atr{translation}\label{kat:MealTypeTranslation:translation}- przetłumaczona nazwa typu posiłku
+        \atr{language}\label{kat:MealTypeTranslation:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
 
-    \req{MealPlan} \label{kat:MealPlan} (Jadłospis)
+    \req{MealPlan}\label{kat:MealPlan} (Jadłospis)
 
     \textbf{Opis}: Jadłospis; plan posiłków z podziałem na dnie i posiłki
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealPlan:id} - identyfikator
-        \atr{creationTimestamp} \label{kat:MealPlan:creationTimestamp} - czas utworzenia jadłospisu
-        \atr{editTimestamp} \label{kat:MealPlan:editTimestamp} - czas ostatniej edycji jadłospisu
-        \atr{name} \label{kat:MealPlan:name} - nazwa jadłospisu
-        \atr{isVisible} \label{kat:MealPlan:isVisible} - flaga określająca czy jadłospis jest widoczny na liście jadłospisów autora
-        \atr{language} \label{kat:MealPlan:language} - język tłumaczenia w postaci kodu ISO 639-1
-        \atr{numberOfDays} \label{kat:MealPlan:numberOfDays} - liczba dni planu
-        \atr{numberOfMealsPerDay} \label{kat:MealPlan:numberOfMealsPerDay} - liczba posiłków w ciągu dnia
-        \atr{totalDailyEnergy} \label{kat:MealPlan:totalDailyEnergy} - całkowita oczekiwana energia w ciągu dnia w kilokaloriach
-        \atr{percentOfProtein} \label{kat:MealPlan:percentOfProtein} - procent białka w całkowitej dziennej energii
-        \atr{percentOfFat} \label{kat:MealPlan:percentOfFat} - procent tłuszczu w całkowitej dziennej energii
-        \atr{percentOfCarbohydrates} \label{kat:MealPlan:percentOfCarbohydrates} - procent węglowodanów w całkowitej dziennej energii
+        \atr{id}\label{kat:MealPlan:id}- identyfikator
+        \atr{creationTimestamp}\label{kat:MealPlan:creationTimestamp}- czas utworzenia jadłospisu
+        \atr{editTimestamp}\label{kat:MealPlan:editTimestamp}- czas ostatniej edycji jadłospisu
+        \atr{name}\label{kat:MealPlan:name}- nazwa jadłospisu
+        \atr{isVisible}\label{kat:MealPlan:isVisible}- flaga określająca czy jadłospis jest widoczny na liście jadłospisów autora
+        \atr{language}\label{kat:MealPlan:language}- język tłumaczenia w postaci kodu ISO 639-1
+        \atr{numberOfDays}\label{kat:MealPlan:numberOfDays}- liczba dni planu
+        \atr{numberOfMealsPerDay}\label{kat:MealPlan:numberOfMealsPerDay}- liczba posiłków w ciągu dnia
+        \atr{totalDailyEnergy}\label{kat:MealPlan:totalDailyEnergy}- całkowita oczekiwana energia w ciągu dnia w kilokaloriach
+        \atr{percentOfProtein}\label{kat:MealPlan:percentOfProtein}- procent białka w całkowitej dziennej energii
+        \atr{percentOfFat}\label{kat:MealPlan:percentOfFat}- procent tłuszczu w całkowitej dziennej energii
+        \atr{percentOfCarbohydrates}\label{kat:MealPlan:percentOfCarbohydrates}- procent węglowodanów w całkowitej dziennej energii
     \end{itemize}
 
-    \req{MealPlanDay} \label{kat:MealPlanDay} (Dzień Jadłospisu)
+    \req{MealPlanDay}\label{kat:MealPlanDay} (Dzień Jadłospisu)
 
     \textbf{Opis}: Dzień w jadłospisie
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealPlanDay:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:MealPlanDay:ordinalNumber} - numer porządkowy dnia
+        \atr{id}\label{kat:MealPlanDay:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:MealPlanDay:ordinalNumber}- numer porządkowy dnia
     \end{itemize}
 
-    \req{Meal} \label{kat:Meal} (Posiłek)
+    \req{Meal}\label{kat:Meal} (Posiłek)
 
     \textbf{Opis}: A Meal
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:Meal:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:Meal:ordinalNumber} - numer porządkowy posiłku
+        \atr{id}\label{kat:Meal:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:Meal:ordinalNumber}- numer porządkowy posiłku
     \end{itemize}
 
-    \req{MealRecipe} \label{kat:MealRecipe} (Przepis Posiłku)
+    \req{MealRecipe}\label{kat:MealRecipe} (Przepis Posiłku)
 
     \textbf{Opis}: A Recipe assigned to a meal
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealRecipe:id} - identyfikator
-        \atr{amount} \label{kat:MealRecipe:amount} - ilość przepisu w gramach
+        \atr{id}\label{kat:MealRecipe:id}- identyfikator
+        \atr{amount}\label{kat:MealRecipe:amount}- ilość przepisu w gramach
     \end{itemize}
 
-    \req{MealProduct} \label{kat:MealProduct} (Produkt Posiłku)
+    \req{MealProduct}\label{kat:MealProduct} (Produkt Posiłku)
 
     \textbf{Opis}: A Product assigned to a meal
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealProduct:id} - identyfikator
-        \atr{amount} \label{kat:MealProduct:amount} - ilość produktu w jednostkach miary domowej lub w gramach jeśli miara domowa nie jest zdefiniowana
+        \atr{id}\label{kat:MealProduct:id}- identyfikator
+        \atr{amount}\label{kat:MealProduct:amount}- ilość produktu w jednostkach miary domowej lub w gramach jeśli miara domowa nie jest zdefiniowana
     \end{itemize}
 
-    \req{MealDefinition} \label{kat:MealDefinition} (Definicja Posiłku)
+    \req{MealDefinition}\label{kat:MealDefinition} (Definicja Posiłku)
 
     \textbf{Opis}: A Meal Definition used for specifying basic properties of each daily meal
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:MealDefinition:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:MealDefinition:ordinalNumber} - dzienny numer porządkowy posiłku
-        \atr{timeOfMeal} \label{kat:MealDefinition:timeOfMeal} - typowy czas posiłku w formacie 24h w postaci: HH:mm
-        \atr{percentOfEnergy} \label{kat:MealDefinition:percentOfEnergy} - część dziennej całkowitej dziennej energii w procentach
+        \atr{id}\label{kat:MealDefinition:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:MealDefinition:ordinalNumber}- dzienny numer porządkowy posiłku
+        \atr{timeOfMeal}\label{kat:MealDefinition:timeOfMeal}- typowy czas posiłku w formacie 24h w postaci: HH:mm
+        \atr{percentOfEnergy}\label{kat:MealDefinition:percentOfEnergy}- część dziennej całkowitej dziennej energii w procentach
     \end{itemize}
 
-    \req{Appointment} \label{kat:Appointment} (Wizyta)
+    \req{Appointment}\label{kat:Appointment} (Wizyta)
 
     \textbf{Opis}: Wizyta dietetyczna
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:Appointment:id} - identyfikator
-        \atr{appointmentDate} \label{kat:Appointment:appointmentDate} - data i godzina wizyty
-        \atr{appointmentState} \label{kat:Appointment:appointmentState} - stan wizyty
-        \atr{generalAdvice} \label{kat:Appointment:generalAdvice} - ogólna porada po wizycie
+        \atr{id}\label{kat:Appointment:id}- identyfikator
+        \atr{appointmentDate}\label{kat:Appointment:appointmentDate}- data i godzina wizyty
+        \atr{appointmentState}\label{kat:Appointment:appointmentState}- stan wizyty
+        \atr{generalAdvice}\label{kat:Appointment:generalAdvice}- ogólna porada po wizycie
     \end{itemize}
 
-    \req{PatientCard} \label{kat:PatientCard} (Karta Pacjenta)
+    \req{PatientCard}\label{kat:PatientCard} (Karta Pacjenta)
 
     \textbf{Opis}: Karta pacjenta
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:PatientCard:id} - identyfikator
-        \atr{creationDate} \label{kat:PatientCard:creationDate} - data rejestracji pacjenta do dietetyka
+        \atr{id}\label{kat:PatientCard:id}- identyfikator
+        \atr{creationDate}\label{kat:PatientCard:creationDate}- data rejestracji pacjenta do dietetyka
     \end{itemize}
 
-    \req{AppointmentEvaluation} \label{kat:AppointmentEvaluation} (Ewaluacja Wizyty)
+    \req{AppointmentEvaluation}\label{kat:AppointmentEvaluation} (Ewaluacja Wizyty)
 
     \textbf{Opis}: Ocena wizyty przez pacjenta
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:AppointmentEvaluation:id} - identyfikator
-        \atr{overallSatisfaction} \label{kat:AppointmentEvaluation:overallSatisfaction} - ogólne zadowolenie z wizyty
-        \atr{dietitianServiceSatisfaction} \label{kat:AppointmentEvaluation:dietitianServiceSatisfaction} - zadowolenie z obsługi dietetyka
-        \atr{mealPlanOverallSatisfaction} \label{kat:AppointmentEvaluation:mealPlanOverallSatisfaction} - ogólne zadowolenie z jadłospisu
-        \atr{mealCostSatisfaction} \label{kat:AppointmentEvaluation:mealCostSatisfaction} - zadowolenie z kosztów posiłków
-        \atr{mealPreparationTimeSatisfaction} \label{kat:AppointmentEvaluation:mealPreparationTimeSatisfaction} - zadowolenie z czasu przygotowania posiłków
-        \atr{mealComplexityLevelSatisfaction} \label{kat:AppointmentEvaluation:mealComplexityLevelSatisfaction} - zadowolenie z poziomu skomplikowania posiłków
-        \atr{mealTastefulnessSatisfaction} \label{kat:AppointmentEvaluation:mealTastefulnessSatisfaction} - zadowolenie ze smaku posiłków
-        \atr{dietaryResultSatisfaction} \label{kat:AppointmentEvaluation:dietaryResultSatisfaction} - zadowolenie z rezultatów dietetycznych
-        \atr{comment} \label{kat:AppointmentEvaluation:comment} - opcjonalny komentarz do wizyty
+        \atr{id}\label{kat:AppointmentEvaluation:id}- identyfikator
+        \atr{overallSatisfaction}\label{kat:AppointmentEvaluation:overallSatisfaction}- ogólne zadowolenie z wizyty
+        \atr{dietitianServiceSatisfaction}\label{kat:AppointmentEvaluation:dietitianServiceSatisfaction}- zadowolenie z obsługi dietetyka
+        \atr{mealPlanOverallSatisfaction}\label{kat:AppointmentEvaluation:mealPlanOverallSatisfaction}- ogólne zadowolenie z jadłospisu
+        \atr{mealCostSatisfaction}\label{kat:AppointmentEvaluation:mealCostSatisfaction}- zadowolenie z kosztów posiłków
+        \atr{mealPreparationTimeSatisfaction}\label{kat:AppointmentEvaluation:mealPreparationTimeSatisfaction}- zadowolenie z czasu przygotowania posiłków
+        \atr{mealComplexityLevelSatisfaction}\label{kat:AppointmentEvaluation:mealComplexityLevelSatisfaction}- zadowolenie z poziomu skomplikowania posiłków
+        \atr{mealTastefulnessSatisfaction}\label{kat:AppointmentEvaluation:mealTastefulnessSatisfaction}- zadowolenie ze smaku posiłków
+        \atr{dietaryResultSatisfaction}\label{kat:AppointmentEvaluation:dietaryResultSatisfaction}- zadowolenie z rezultatów dietetycznych
+        \atr{comment}\label{kat:AppointmentEvaluation:comment}- opcjonalny komentarz do wizyty
     \end{itemize}
 
-    \req{BodyMeasurement} \label{kat:BodyMeasurement} (Pomiar Ciała)
+    \req{BodyMeasurement}\label{kat:BodyMeasurement} (Pomiar Ciała)
 
     \textbf{Opis}: Pomiar ciała
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:BodyMeasurement:id} - identyfikator
-        \atr{completionDate} \label{kat:BodyMeasurement:completionDate} - data przeprowadzenia pomiaru
-        \atr{height} \label{kat:BodyMeasurement:height} - wzrost pacjenta; razem z wagą wykorzystywany do obliczania współczynnika BMI
-        \atr{weight} \label{kat:BodyMeasurement:weight} - waga pacjenta; razem z wzrostem wykorzystywany do obliczania współczynnika BMI
-        \atr{waist} \label{kat:BodyMeasurement:waist} - obwód pasa pacjenta
-        \atr{percentOfFatTissue} \label{kat:BodyMeasurement:percentOfFatTissue} - procent tkanki tłuszczowej w ciele pacjenta; norma dla kobiet: 16-20; norma dla mężczyzn: 15-18
-        \atr{percentOfWater} \label{kat:BodyMeasurement:percentOfWater} - procent wody w ciele pacjenta; norma dla kobiet: 45-60; norma dla mężczyzn: 50-65
-        \atr{muscleMass} \label{kat:BodyMeasurement:muscleMass} - masa tkanki mięśniowej w ciele pacjenta w kilogramach
-        \atr{physicalMark} \label{kat:BodyMeasurement:physicalMark} - ocena fizyczna; norma: 5
-        \atr{calciumInBones} \label{kat:BodyMeasurement:calciumInBones} - poziom wapnia w kościach pacjenta w kilogramach; norma: ~2.4kg
-        \atr{basicMetabolism} \label{kat:BodyMeasurement:basicMetabolism} - podstawowy metabolizm w kilokaloriach
-        \atr{metabolicAge} \label{kat:BodyMeasurement:metabolicAge} - wiek metaboliczny w latach
-        \atr{visceralFatLevel} \label{kat:BodyMeasurement:visceralFatLevel} - poziom tłuszczu trzewnego; norma: 1-12
+        \atr{id}\label{kat:BodyMeasurement:id}- identyfikator
+        \atr{completionDate}\label{kat:BodyMeasurement:completionDate}- data przeprowadzenia pomiaru
+        \atr{height}\label{kat:BodyMeasurement:height}- wzrost pacjenta; razem z wagą wykorzystywany do obliczania współczynnika BMI
+        \atr{weight}\label{kat:BodyMeasurement:weight}- waga pacjenta; razem z wzrostem wykorzystywany do obliczania współczynnika BMI
+        \atr{waist}\label{kat:BodyMeasurement:waist}- obwód pasa pacjenta
+        \atr{percentOfFatTissue}\label{kat:BodyMeasurement:percentOfFatTissue}- procent tkanki tłuszczowej w ciele pacjenta; norma dla kobiet: 16-20; norma dla mężczyzn: 15-18
+        \atr{percentOfWater}\label{kat:BodyMeasurement:percentOfWater}- procent wody w ciele pacjenta; norma dla kobiet: 45-60; norma dla mężczyzn: 50-65
+        \atr{muscleMass}\label{kat:BodyMeasurement:muscleMass}- masa tkanki mięśniowej w ciele pacjenta w kilogramach
+        \atr{physicalMark}\label{kat:BodyMeasurement:physicalMark}- ocena fizyczna; norma: 5
+        \atr{calciumInBones}\label{kat:BodyMeasurement:calciumInBones}- poziom wapnia w kościach pacjenta w kilogramach; norma: ~2.4kg
+        \atr{basicMetabolism}\label{kat:BodyMeasurement:basicMetabolism}- podstawowy metabolizm w kilokaloriach
+        \atr{metabolicAge}\label{kat:BodyMeasurement:metabolicAge}- wiek metaboliczny w latach
+        \atr{visceralFatLevel}\label{kat:BodyMeasurement:visceralFatLevel}- poziom tłuszczu trzewnego; norma: 1-12
     \end{itemize}
 
-    \req{NutritionalInterview} \label{kat:NutritionalInterview} (Wywiad Żywieniowy)
+    \req{NutritionalInterview}\label{kat:NutritionalInterview} (Wywiad Żywieniowy)
 
     \textbf{Opis}: Wywiad żywieniowy
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:NutritionalInterview:id} - identyfikator
-        \atr{completionDate} \label{kat:NutritionalInterview:completionDate} - czas przeprowadzenia wywiadu
-        \atr{targetWeight} \label{kat:NutritionalInterview:targetWeight} - docelowa waga pacjenta w kilogramach
-        \atr{advicePurpose} \label{kat:NutritionalInterview:advicePurpose} - cel wizyty podsumowujący co pacjent pragnie osiągnąć poprzez terapię dietetyczną
-        \atr{physicalActivity} \label{kat:NutritionalInterview:physicalActivity} - poziom aktywności fizycznej pacjenta
-        \atr{diseases} \label{kat:NutritionalInterview:diseases} - choroby pacjenta
-        \atr{medicines} \label{kat:NutritionalInterview:medicines} - leki przyjmowane przez pacjenta
-        \atr{jobType} \label{kat:NutritionalInterview:jobType} - typ pracy pacjenta
-        \atr{likedProducts} \label{kat:NutritionalInterview:likedProducts} - produkty spożywcze, które pacjent lubi
-        \atr{dislikedProducts} \label{kat:NutritionalInterview:dislikedProducts} - produkty spożywcze, których pacjent nie lubi
-        \atr{foodAllergies} \label{kat:NutritionalInterview:foodAllergies} - produkty spożywcze na które pacjent jest uczulony
-        \atr{foodIntolerances} \label{kat:NutritionalInterview:foodIntolerances} - nietolerancje pokarmowe pacjenta
+        \atr{id}\label{kat:NutritionalInterview:id}- identyfikator
+        \atr{completionDate}\label{kat:NutritionalInterview:completionDate}- czas przeprowadzenia wywiadu
+        \atr{targetWeight}\label{kat:NutritionalInterview:targetWeight}- docelowa waga pacjenta w kilogramach
+        \atr{advicePurpose}\label{kat:NutritionalInterview:advicePurpose}- cel wizyty podsumowujący co pacjent pragnie osiągnąć poprzez terapię dietetyczną
+        \atr{physicalActivity}\label{kat:NutritionalInterview:physicalActivity}- poziom aktywności fizycznej pacjenta
+        \atr{diseases}\label{kat:NutritionalInterview:diseases}- choroby pacjenta
+        \atr{medicines}\label{kat:NutritionalInterview:medicines}- leki przyjmowane przez pacjenta
+        \atr{jobType}\label{kat:NutritionalInterview:jobType}- typ pracy pacjenta
+        \atr{likedProducts}\label{kat:NutritionalInterview:likedProducts}- produkty spożywcze, które pacjent lubi
+        \atr{dislikedProducts}\label{kat:NutritionalInterview:dislikedProducts}- produkty spożywcze, których pacjent nie lubi
+        \atr{foodAllergies}\label{kat:NutritionalInterview:foodAllergies}- produkty spożywcze na które pacjent jest uczulony
+        \atr{foodIntolerances}\label{kat:NutritionalInterview:foodIntolerances}- nietolerancje pokarmowe pacjenta
     \end{itemize}
 
-    \req{CustomNutritionalInterviewQuestion} \label{kat:CustomNutritionalInterviewQuestion} (Niestandardowe Pytanie Wywiadu Żywieniowego)
+    \req{CustomNutritionalInterviewQuestion}\label{kat:CustomNutritionalInterviewQuestion} (Niestandardowe Pytanie Wywiadu Żywieniowego)
 
     \textbf{Opis}: Niestandardowe pytanie wywiadu żywieniowego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:CustomNutritionalInterviewQuestion:id} - identyfikator
-        \atr{ordinalNumber} \label{kat:CustomNutritionalInterviewQuestion:ordinalNumber} - numer porządkowy pytania
-        \atr{question} \label{kat:CustomNutritionalInterviewQuestion:question} - pytanie
-        \atr{answer} \label{kat:CustomNutritionalInterviewQuestion:answer} - odpowiedź na pytanie
+        \atr{id}\label{kat:CustomNutritionalInterviewQuestion:id}- identyfikator
+        \atr{ordinalNumber}\label{kat:CustomNutritionalInterviewQuestion:ordinalNumber}- numer porządkowy pytania
+        \atr{question}\label{kat:CustomNutritionalInterviewQuestion:question}- pytanie
+        \atr{answer}\label{kat:CustomNutritionalInterviewQuestion:answer}- odpowiedź na pytanie
     \end{itemize}
 
-    \req{CustomNutritionalInterviewQuestionTemplate} \label{kat:CustomNutritionalInterviewQuestionTemplate} (Szablon Niestandardowego Pytania Wywiadu Żywieniowego)
+    \req{CustomNutritionalInterviewQuestionTemplate}\label{kat:CustomNutritionalInterviewQuestionTemplate} (Szablon Niestandardowego Pytania Wywiadu Żywieniowego)
 
     \textbf{Opis}: Szablon niestandardowego pytania do wywiadu żywieniowego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:CustomNutritionalInterviewQuestionTemplate:id} - identyfikator
-        \atr{question} \label{kat:CustomNutritionalInterviewQuestionTemplate:question} - pytanie
-        \atr{language} \label{kat:CustomNutritionalInterviewQuestionTemplate:language} - język tłumaczenia w postaci kodu ISO 639-1
+        \atr{id}\label{kat:CustomNutritionalInterviewQuestionTemplate:id}- identyfikator
+        \atr{question}\label{kat:CustomNutritionalInterviewQuestionTemplate:question}- pytanie
+        \atr{language}\label{kat:CustomNutritionalInterviewQuestionTemplate:language}- język tłumaczenia w postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{AssignedMealPlan} \label{kat:AssignedMealPlan} (Przypisany Jadłospis)
+    \req{AssignedMealPlan}\label{kat:AssignedMealPlan} (Przypisany Jadłospis)
 
     \textbf{Opis}: An assigned meal plan
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id} \label{kat:AssignedMealPlan:id} - identyfikator
-        \atr{assigmentTime} \label{kat:AssignedMealPlan:assigmentTime} - czas przypisania jadłospisu
+        \atr{id}\label{kat:AssignedMealPlan:id}- identyfikator
+        \atr{assigmentTime}\label{kat:AssignedMealPlan:assigmentTime}- czas przypisania jadłospisu
     \end{itemize}
 
 \end{enumerate}
