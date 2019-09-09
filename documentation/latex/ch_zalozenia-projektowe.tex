@@ -1,38 +1,46 @@
-\chapter{Założenia projektowe}
+\chapter{Założenia projektowe}\label{ch:design-assumptions}
 
-\section{Słownik}
-\todo{uzupełnić słownik}
-\begin{itemize}
-    \item Administrator – użytkownik posiadający uprawnienia do zarządzania uprawnieniami użytkowników
-    \item Dietetyk – specjalista w dziedzinie dietetyki
-    \item Jadłospis – plan posiłków zdefiniowany na określoną liczbę dni z uwzględnieniem określonych wymagań
-    \item Karta pacjenta – karta przedstawiająca przebieg współpracy dietetyka z pacjentem
-    \item Miara domowa – definicja pospolitej miary, takiej jak np. łyżeczka w gramach
-    \item Pacjent – klient dietetyka
-    \item Pomiary ciała – pomiary ciała pacjenta przeprowadzane przez dietetyka
-    \item Posiłek – posiłek jest przydzielany do jadłospisu; zawiera produkty i przepisy
-    \item Produkt – produkt spożywczy, dla którego specyfikowane są wartości odżywcze i miary domowe
-    \item Przepis – opis składników i kroków przygotowania dania
-    \item Sekcja przepisu – semantyczny podział przepisu, np. sernik może mieć sekcje związane z przygotowaniem ciasta, nadzienia i polewy
-    \item Wartość odżywcza – ilość elementu takiego jak np. węglowodanów albo białka w 100g produktu
-    \item Wizyta – konkretna wizyta pacjenta
-    \item Wywiad żywieniowy – wywiad przeprowadzany z pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
+\section{Słownik pojęć domenowych}\label{sec:dictionary}
+%\todo{uzupełnić słownik}
+\begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+    \atr{Administrator}- użytkownik posiadający uprawnienia do zarządzania uprawnieniami użytkowników
+    \atr{BIA}- metoda impedancji bioelektrycznej wykorzystywana do analizy składu ciała%todo metoda pomiaru ciała
+    \atr{BMI}- wskaźnik masy ciała% todo
+    \atr{CPM}- całkowita przemiana materii %todo source
+    \atr{Dieta}- sposób odżywiania% todo
+    \atr{Dietetyk}- specjalista w dziedzinie dietetyki
+    \atr{Jadłospis}- plan posiłków zdefiniowany na określoną liczbę dni z uwzględnieniem określonych wymagań
+    \atr{Karta pacjenta}- karta przedstawiająca przebieg współpracy dietetyka z pacjentem
+    \atr{MET}- ekwiwalent metaboliczny%todo
+    \atr{Miara domowa}- definicja pospolitej miary, takiej jak np. łyżeczka w gramach
+    \atr{Pacjent}- klient dietetyka
+    \atr{PAL}- współczynnik aktywności fizycznej
+    \atr{Podstawowe wartości odżywcze}- energia, białko, tłuszcz, węglowodany%todo
+    \atr{Pomiary ciała}- pomiary ciała pacjenta przeprowadzane przez dietetyka
+    \atr{Posiłek}- posiłek jest przydzielany do jadłospisu; zawiera produkty i przepisy
+    \atr{PPM}- podstawowa przemiana materii %todo source
+    \atr{Produkt}- produkt spożywczy, dla którego specyfikowane są wartości odżywcze i miary domowe
+    \atr{Przepis}- opis składników i kroków przygotowania dania
+    \atr{Sekcja przepisu}- semantyczny podział przepisu, np. sernik może mieć sekcje związane z przygotowaniem ciasta, nadzienia i polewy
+    \atr{USDA}- Departament Rolnictwa Stanów Zjednoczonych% todo
+    \atr{Wartość odżywcza}- ilość elementu takiego jak np. węglowodanów albo białka w 100g produktu
+    \atr{Wizyta}- konkretna wizyta pacjenta
+    \atr{Wywiad żywieniowy}- wywiad przeprowadzany z pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
 \end{itemize}
 
-\section{Sformułowanie problemu}
+\section{Sformułowanie problemu}\label{sec:problem-specification}
 \todo{sformułowanie problemu}
 Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wizyty
 
-\section{Pozycjonowanie produktu}
+\section{Pozycjonowanie produktu}\label{sec:product-positioning}
 \todo{pozycjonowanie produktu}
 
-\section{Opis udziałowców i użytkowników}
-\subsection{Podsumowanie udziałowców}
-\todo{opis udziałowców}
+%\section{Opis udziałowców i użytkowników}
+%\subsection{Podsumowanie udziałowców}
+%\todo{opis udziałowców}
 
-\subsection{Podsumowanie użytkowników}
-\todo{poprawić użytkowników}
-
+\section{Podsumowanie użytkowników systemu}\label{sec:users-summary}
+\noindent
 \begin{minipage}{\textwidth}
     \begin{table}[H]
         \centering\caption{Użytkownicy (opr.wł)\label{tabela:uzytkownicy}}
@@ -42,11 +50,17 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
             Nazwa & Opis & Odpowiedzialności\\
 
             \hline
-            Administrator &
-            Osoba zarządzająca działaniem aplikacji &
+            Gość &
+            Niezalogowany użytkownik &
             \begin{itemize}
-                \item Przydzielanie i odbieranie użytkownikom uprawnień
-                \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i wyposażeniem kuchennym
+                \item Zakłada konto użytkownika
+                \item Wyświetla stronę główną
+            \end{itemize} \\
+            \hline
+            Pacjent &
+            Klient dietetyka &
+            \begin{itemize}
+                \item Otrzymuje ułożony jadłospis
             \end{itemize} \\
             \hline
             Dietetyk &
@@ -56,19 +70,20 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
                 \item Wprowadza, edytuje i usuwa produkty, przepisy i jadłospisy
             \end{itemize} \\
             \hline
-            Pacjent &
-            Klient dietetyka &
+            Administrator &
+            Osoba zarządzająca działaniem aplikacji &
             \begin{itemize}
-                \item Otrzymuje ułożony jadłospis
+                \item Przydzielanie i odbieranie użytkownikom uprawnień
+                \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i wyposażeniem kuchennym
+                \item Zarządzanie treścią witryny, informacjami kontaktowymi i cennikiem
             \end{itemize} \\
             \hline
         \end{tabular}
     \end{table}
 \end{minipage}
 
-\section{Wymagania funkcjonalne}
-\todo{uzupełnić wymagania funkcjonalne}
-
+\section{Wymagania funkcjonalne}\label{sec:functional-requirements}
+\noindent
 \begin{minipage}{\textwidth}
     \begin{table}[H]
         \centering\caption{Wymagania funkcjonalne ogólne (opr.wł)\label{tabela:wymaganiaFunkcjonalneOgolne}}
@@ -80,6 +95,33 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
             Administrator potrzebuje widzieć listę użytkowników &
             \begin{itemize}
                 \item Przydzielanie i odbieranie użytkownikom uprawnień
+            \end{itemize} \\
+            \hline
+            Administrator potrzebuje zarządzać witryną &
+            \begin{itemize}
+                \item Zarządzanie treścią strony głównej
+                \item Zarządzanie treścią polityki prywatności
+                \item Zarządzanie treścią warunków korzystania z usługi
+                \item Zarządzanie treścią często zadawanych pytań
+                \item Zarządzanie informacjami kontaktowymi
+                \item Zarządzanie cennikiem
+            \end{itemize} \\
+            \hline
+            Użytkownik potrzebuje korzystać ze swojego konta &
+            \begin{itemize}
+                \item Logowanie do systemu
+                \item Przypomnienie hasła
+                \item Zarządzanie swoimi danymi osobowymi
+            \end{itemize} \\
+            \hline
+            Użytkownik chce przeglądać witrynę w swoim języku &
+            \begin{itemize}
+                \item Obsługa witryny w wielu językach
+            \end{itemize} \\
+            \hline
+            Gość potrzebuje korzystać z systemu &
+            \begin{itemize}
+                \item Zakładanie konta użytkownika
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -114,7 +156,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
                 \item Definiowanie wartości odżywczych dla produktu
                 \item Definiowanie miar domowych dla produktu
                 \item Przypisywanie produktu do kategorii i podkategorii
-                \item Definiowanie do jakich typów diet produkt nadaje się a do jakich nie
+                \item Definiowanie do jakich typów diet produkt nadaje się, a do jakich nie
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -222,7 +264,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
             \hline
             Pacjent potrzebuje otrzymywać dietę &
             \begin{itemize}
-                \item Automatyczne wysyłanie do pacjenta diety mailem po zatwierdzeniu jadłospisu przez dietetyka
+                \item Udostępnianie pacjentowi jadłospisu
             \end{itemize} \\
             \hline
             Pacjent chce mieć wgląd w swoją kartę &
@@ -231,10 +273,23 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
                 \item Dodawanie kart pacjenta do swojego konta po udostępnieniu ich przez dietetyka
             \end{itemize} \\
             \hline
-            Pacjent zarządza dietą za pomocą asystenta głosowego &
+            Pacjent chce wyrazić opinię o wizycie &
             \begin{itemize}
-                \item Wydawanie w języku naturalnym poleceń dotyczących diety
+                \item Ocenianie odbytej wizyty
             \end{itemize} \\
+            \hline
+            Pacjent chce znaleźć dietetyka &
+            \begin{itemize}
+                \item Wyświetlanie listy dietetyków
+                \item Wyświetlanie profilu dietetyka
+                \item Wyświetlanie list opinii o wybranym dietetyku
+                \item Kontakt z wybranym dietetykiem
+            \end{itemize} \\
+            %            \hline
+            %            Pacjent zarządza dietą za pomocą asystenta głosowego &
+            %            \begin{itemize}
+            %                \item Wydawanie w języku naturalnym poleceń dotyczących diety
+            %            \end{itemize} \\
             \hline
         \end{tabular}
     \end{table}
@@ -242,18 +297,14 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
 
 \newpage
 
-\section{Wymagania niefunkcjonalne}
-\todo{uzupełnić wymagania niefunkcjonalne}
+\section{Wymagania niefunkcjonalne}\label{sec:nonfunctional-requirements}
 \begin{itemize}
-    \item System działa poprawnie w przeglądarce Google Chrome i Firefox
-    \item System działa poprawnie w przeglądarce Edge i Opera
-    \item System działa poprawnie w przeglądarce Internet Explorer i Safari
-    \item System działa na urządzenia mobilnych Android
-    \item System działa na urządzeniach mobilnych iOS
-    \item System jest dostępny w polskiej wersji językowej
-    \item System ma czytelny i ładny interfejs
-    \item Aplikacja webowa jest w pełni responsywna i wygodna do używania niezależnie od wielkości ekranu urządzenia klienckiego
-    \item Aplikacja webowa udostępnia część funkcji offline
+    \item System działa poprawnie w przeglądarkach Google Chrome 76, Mozilla Firefox 69, Safari 12, Opera 63, Microsoft Edge 17
+    \item System działa na urządzenia mobilnych korzystających z systemu Android i iOS
+    \item System jest dostępny w polskiej i angielskiej wersji językowej
+    \item System ma czytelny i minimalistyczny interfejs
+    \item Aplikacja webowa jest w pełni responsywna i wygodna do używania na ekranach od 5 do 30 cali
+%    \item Aplikacja webowa udostępnia część funkcji offline
     \item Aplikacja ma być oparta na architekturze mikroserwisów
 \end{itemize}
 \thispagestyle{normal}

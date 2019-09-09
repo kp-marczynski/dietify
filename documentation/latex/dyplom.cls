@@ -133,10 +133,10 @@ linenos
 \def\capmystringaux#1#2\relax{\uppercase{#1}#2}
 \RequirePackage{truncate}
 \makeatletter
-\newcommand*{\atr}[1]{%
+\newcommand*{\atr}[2][160pt]{%
 \item
-\def\@currentlabel{\textbf{#1}}%
-\truncate{160pt}{~#1}}
+\def\@currentlabel{\textbf{#2}}%
+\truncate{#1}{~#2}}
 \makeatother
 
 \newcommand{\role}[1]{\emph{#1}}
