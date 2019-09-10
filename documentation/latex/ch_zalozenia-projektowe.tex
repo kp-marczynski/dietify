@@ -1,16 +1,16 @@
 \chapter{Założenia projektowe}\label{ch:design-assumptions}
 \section{Uwagi wstępne}\label{sec:presumptions}
 W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał układanie diety. Aplikacja
-będzie składać się z następujących podstawowych modułów: produkty, przepisy, jadłospisy
+będzie składać się z~następujących podstawowych modułów: produkty, przepisy, jadłospisy
 oraz wizyty.
 \par
 Zalogowani dietetycy będą mogli zarządzać produktami, ich wartościami odżywczymi oraz
 miarami domowymi. Korzystając ze stworzonych produktów dietetycy będą mogli tworzyć
-przepisy, a następnie, w ramach jadłospisu, dodawać do planów posiłków przepisy
+przepisy, a~następnie, w~ramach jadłospisu, dodawać do planów posiłków przepisy
 i pojedyncze produkty.
 \par
-Dietetycy będą mogli również zarządzać pacjentami i ich wizytami. W ramach wizyty dietetyk
-będzie mógł przeprowadzić wywiad żywieniowy, zebrać pomiary ciała pacjenta i przydzielić
+Dietetycy będą mogli również zarządzać pacjentami i~ich wizytami. W~ramach wizyty dietetyk
+będzie mógł przeprowadzić wywiad żywieniowy, zebrać pomiary ciała pacjenta i~przydzielić
 pacjentowi jadłospis.
 
 
@@ -22,24 +22,24 @@ pacjentowi jadłospis.
     \atr{BMI}- wskaźnik masy ciała% todo
     \atr{CPM}- całkowita przemiana materii %todo source
     \atr{Dieta}- sposób odżywiania% todo
-    \atr{Dietetyk}- specjalista w dziedzinie dietetyki
-    \atr{Jadłospis}- plan posiłków zdefiniowany na określoną liczbę dni z uwzględnieniem określonych wymagań
-    \atr{Karta pacjenta}- karta przedstawiająca przebieg współpracy dietetyka z pacjentem
+    \atr{Dietetyk}- specjalista w~dziedzinie dietetyki
+    \atr{Jadłospis}- plan posiłków zdefiniowany na określoną liczbę dni z~uwzględnieniem określonych wymagań
+    \atr{Karta pacjenta}- karta przedstawiająca przebieg współpracy dietetyka z~pacjentem
     \atr{MET}- ekwiwalent metaboliczny%todo
-    \atr{Miara domowa}- definicja pospolitej miary, takiej jak np. łyżeczka w gramach
+    \atr{Miara domowa}- definicja pospolitej miary, takiej jak np. łyżeczka w~gramach
     \atr{Pacjent}- klient dietetyka
     \atr{PAL}- współczynnik aktywności fizycznej
     \atr{Podstawowe wartości odżywcze}- energia, białko, tłuszcz, węglowodany%todo
     \atr{Pomiary ciała}- pomiary ciała pacjenta przeprowadzane przez dietetyka
-    \atr{Posiłek}- posiłek jest przydzielany do jadłospisu; zawiera produkty i przepisy
+    \atr{Posiłek}- posiłek jest przydzielany do jadłospisu; zawiera produkty i~przepisy
     \atr{PPM}- podstawowa przemiana materii %todo source
-    \atr{Produkt}- produkt spożywczy, dla którego specyfikowane są wartości odżywcze i miary domowe
-    \atr{Przepis}- opis składników i kroków przygotowania dania
-    \atr{Sekcja przepisu}- semantyczny podział przepisu, np. sernik może mieć sekcje związane z przygotowaniem ciasta, nadzienia i polewy
+    \atr{Produkt}- produkt spożywczy, dla którego specyfikowane są wartości odżywcze i~miary domowe
+    \atr{Przepis}- opis składników i~kroków przygotowania dania
+    \atr{Sekcja przepisu}- semantyczny podział przepisu, np. sernik może mieć sekcje związane z~przygotowaniem ciasta, nadzienia i~polewy
     \atr{USDA}- Departament Rolnictwa Stanów Zjednoczonych% todo
-    \atr{Wartość odżywcza}- ilość elementu takiego jak np. węglowodanów albo białka w 100g produktu
+    \atr{Wartość odżywcza}- ilość elementu takiego jak np. węglowodanów albo białka w~100g produktu
     \atr{Wizyta}- konkretna wizyta pacjenta
-    \atr{Wywiad żywieniowy}- wywiad przeprowadzany z pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
+    \atr{Wywiad żywieniowy}- wywiad przeprowadzany z~pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
 \end{itemize}
 
 \section{Sformułowanie problemu}\label{sec:problem-specification}
@@ -51,7 +51,7 @@ pacjentowi jadłospis.
 
             \hline
             \cellcolor[HTML]{DDDDDD}Problem &
-            \multicolumn{1}{|l|}{Problem z ręcznym ukladaniem jadłospisu}\\
+            \multicolumn{1}{|l|}{Problem z~ręcznym ukladaniem jadłospisu}\\
             \hline
 
             \cellcolor[HTML]{DDDDDD}Dotyczy &
@@ -60,16 +60,16 @@ pacjentowi jadłospis.
 
             \cellcolor[HTML]{DDDDDD}Wpływ problemu &
             \begin{itemize}
-                \item Dietetyk poświęca dużo czasu na wyszukiwanie informacji o każdym produkcie, którego potrzebuje wykorzystać w układanym jadłospisie
-                \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w każdym przepisie
-                \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w każdym jadłospisie.
-                \item Dietetyk ma problem z przeliczeniem miar domowych produktów na gramy
+                \item Dietetyk poświęca dużo czasu na wyszukiwanie informacji o~każdym produkcie, którego potrzebuje wykorzystać w~układanym jadłospisie
+                \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w~każdym przepisie
+                \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w~każdym jadłospisie.
+                \item Dietetyk ma problem z~przeliczeniem miar domowych produktów na gramy
             \end{itemize} \\
             \hline
 
             \cellcolor[HTML]{DDDDDD}Pomyślne rozwiązanie &
             \begin{itemize}
-                \item Będzie zwalniało dietetyka z konieczności obliczania wartości odżywczych dla przepisów i jadłospisów
+                \item Będzie zwalniało dietetyka z~konieczności obliczania wartości odżywczych dla przepisów i~jadłospisów
                 \item Będzie ułatwiało dietetykowi przekazywanie stworzonego jadłospisu pacjentow
             \end{itemize} \\
             \hline
@@ -97,7 +97,7 @@ pacjentowi jadłospis.
             \hline
 
             \cellcolor[HTML]{DDDDDD}Który &
-            \multicolumn{1}{|l|}{Skraca czas potrzebny na ułożenie i zarządzanie jadłospisami} \\
+            \multicolumn{1}{|l|}{Skraca czas potrzebny na ułożenie i~zarządzanie jadłospisami} \\
             \hline
 
             \cellcolor[HTML]{DDDDDD}Inaczej niż &
@@ -105,13 +105,13 @@ pacjentowi jadłospis.
             \hline
 
             \cellcolor[HTML]{DDDDDD}Nasz produkt &
-            \multicolumn{1}{|l|}{Skupia się na tworzeniu i udostępnianiu jadłospisów} \\
+            \multicolumn{1}{|l|}{Skupia się na tworzeniu i~udostępnianiu jadłospisów} \\
             \hline
         \end{tabular}
     \end{table}
 \end{minipage}
 
-%\section{Opis udziałowców i użytkowników}
+%\section{Opis udziałowców i~użytkowników}
 %\subsection{Podsumowanie udziałowców}
 %\todo{opis udziałowców}
 
@@ -140,18 +140,18 @@ pacjentowi jadłospis.
             \end{itemize} \\
             \hline
             Dietetyk &
-            Specjalista w dziedzinie dietetyki &
+            Specjalista w~dziedzinie dietetyki &
             \begin{itemize}
                 \item Używa założonego konta
-                \item Wprowadza, edytuje i usuwa produkty, przepisy i jadłospisy
+                \item Wprowadza, edytuje i~usuwa produkty, przepisy i~jadłospisy
             \end{itemize} \\
             \hline
             Administrator &
             Osoba zarządzająca działaniem aplikacji &
             \begin{itemize}
-                \item Przydzielanie i odbieranie użytkownikom uprawnień
-                \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i wyposażeniem kuchennym
-                \item Zarządzanie treścią witryny, informacjami kontaktowymi i cennikiem
+                \item Przydzielanie i~odbieranie użytkownikom uprawnień
+                \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i~wyposażeniem kuchennym
+                \item Zarządzanie treścią witryny, informacjami kontaktowymi i~cennikiem
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -170,14 +170,14 @@ pacjentowi jadłospis.
             \hline
             Administrator potrzebuje widzieć listę użytkowników &
             \begin{itemize}
-                \item Przydzielanie i odbieranie użytkownikom uprawnień
+                \item Przydzielanie i~odbieranie użytkownikom uprawnień
             \end{itemize} \\
             \hline
             Administrator potrzebuje zarządzać witryną &
             \begin{itemize}
                 \item Zarządzanie treścią strony głównej
                 \item Zarządzanie treścią polityki prywatności
-                \item Zarządzanie treścią warunków korzystania z usługi
+                \item Zarządzanie treścią warunków korzystania z~usługi
                 \item Zarządzanie treścią często zadawanych pytań
                 \item Zarządzanie informacjami kontaktowymi
                 \item Zarządzanie cennikiem
@@ -190,12 +190,12 @@ pacjentowi jadłospis.
                 \item Zarządzanie swoimi danymi osobowymi
             \end{itemize} \\
             \hline
-            Użytkownik chce przeglądać witrynę w swoim języku &
+            Użytkownik chce przeglądać witrynę w~swoim języku &
             \begin{itemize}
-                \item Obsługa witryny w wielu językach
+                \item Obsługa witryny w~wielu językach
             \end{itemize} \\
             \hline
-            Gość potrzebuje korzystać z systemu &
+            Gość potrzebuje korzystać z~systemu &
             \begin{itemize}
                 \item Zakładanie konta użytkownika
             \end{itemize} \\
@@ -212,7 +212,7 @@ pacjentowi jadłospis.
             \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
-            Administrator potrzebuje zarządzać definicjami potrzebnymi w produktach &
+            Administrator potrzebuje zarządzać definicjami potrzebnymi w~produktach &
             \begin{itemize}
                 \item Zarządzanie definicjami wartości odżywczych
                 \item Zarządzanie kategoriami produktów
@@ -228,11 +228,11 @@ pacjentowi jadłospis.
             \hline
             Dietetyk potrzebuje zarządzać szczegółami produktu &
             \begin{itemize}
-                \item Edytowanie i usuwanie produktów
+                \item Edytowanie i~usuwanie produktów
                 \item Definiowanie wartości odżywczych dla produktu
                 \item Definiowanie miar domowych dla produktu
-                \item Przypisywanie produktu do kategorii i podkategorii
-                \item Definiowanie do jakich typów diet produkt nadaje się, a do jakich nie
+                \item Przypisywanie produktu do kategorii i~podkategorii
+                \item Definiowanie do jakich typów diet produkt nadaje się, a~do jakich nie
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -247,7 +247,7 @@ pacjentowi jadłospis.
             \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
-            Administrator potrzebuje zarządzać definicjami potrzebnymi w przepisach &
+            Administrator potrzebuje zarządzać definicjami potrzebnymi w~przepisach &
             \begin{itemize}
                 \item Zarządzanie typami posiłków
                 \item Zarządzanie typami dań
@@ -263,7 +263,7 @@ pacjentowi jadłospis.
             \hline
             Dietetyk potrzebuje zarządzać szczegółami przepisu &
             \begin{itemize}
-                \item Edytowanie i usuwanie przepisów
+                \item Edytowanie i~usuwanie przepisów
                 \item Dodawanie wielu sekcji do przepisu
                 \item Dodawanie do każdej sekcji listy składników
                 \item Dodawanie do każdej sekcji sposobu przygotowania
@@ -292,13 +292,13 @@ pacjentowi jadłospis.
             \hline
             Dietetyk potrzebuje zarządzać szczegółami jadłospisu &
             \begin{itemize}
-                \item Dodawanie, edytowanie i usuwanie jadłospisów
+                \item Dodawanie, edytowanie i~usuwanie jadłospisów
                 \item Definiowanie liczby dni na które będzie układany jadłospis
                 \item Definiowanie liczby posiłków dziennie
-                \item Definiowanie planowanego czasu każdego z posiłków
-                \item Definiowanie procentowego udziału podstawowych wartości odżywczych w każdym posiłku
-                \item Definiowanie posiłków w jadłospisie
-                \item Dodawanie produktów i przepisów do posiłków
+                \item Definiowanie planowanego czasu każdego z~posiłków
+                \item Definiowanie procentowego udziału podstawowych wartości odżywczych w~każdym posiłku
+                \item Definiowanie posiłków w~jadłospisie
+                \item Dodawanie produktów i~przepisów do posiłków
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -324,7 +324,7 @@ pacjentowi jadłospis.
             \hline
             Dietetyk potrzebuje zarządzać kartą pacjenta &
             \begin{itemize}
-                \item Wyświetlanie i edytowanie podstawowych informacji pacjenta
+                \item Wyświetlanie i~edytowanie podstawowych informacji pacjenta
                 \item Wyświetlanie listy wizyt pacjenta
                 \item Wyświetlanie listy oczekujących porad pacjenta
                 \item Dodawanie nowej wizyty pacjenta
@@ -332,7 +332,7 @@ pacjentowi jadłospis.
             \hline
             Dietetyk potrzebuje wyświetlać szczegóły wizyty pacjenta &
             \begin{itemize}
-                \item Wyświetlanie i edytowanie szczegółów wizyty pacjenta
+                \item Wyświetlanie i~edytowanie szczegółów wizyty pacjenta
                 \item Zarządzanie pomiarami ciała pacjenta przypisanymi do wizyty
                 \item Zarządzanie wywiadem żywieniowym przypisanym do wizyty
                 \item Zarządzanie jadłospisem przydzielonym do wizyty
@@ -343,13 +343,13 @@ pacjentowi jadłospis.
                 \item Udostępnianie pacjentowi jadłospisu
             \end{itemize} \\
             \hline
-            Pacjent chce mieć wgląd w swoją kartę &
+            Pacjent chce mieć wgląd w~swoją kartę &
             \begin{itemize}
-                \item Logowanie do konta utworzonego w serwisie
+                \item Logowanie do konta utworzonego w~serwisie
                 \item Dodawanie kart pacjenta do swojego konta po udostępnieniu ich przez dietetyka
             \end{itemize} \\
             \hline
-            Pacjent chce wyrazić opinię o wizycie &
+            Pacjent chce wyrazić opinię o~wizycie &
             \begin{itemize}
                 \item Ocenianie odbytej wizyty
             \end{itemize} \\
@@ -358,13 +358,13 @@ pacjentowi jadłospis.
             \begin{itemize}
                 \item Wyświetlanie listy dietetyków
                 \item Wyświetlanie profilu dietetyka
-                \item Wyświetlanie list opinii o wybranym dietetyku
-                \item Kontakt z wybranym dietetykiem
+                \item Wyświetlanie list opinii o~wybranym dietetyku
+                \item Kontakt z~wybranym dietetykiem
             \end{itemize} \\
             %            \hline
             %            Pacjent zarządza dietą za pomocą asystenta głosowego &
             %            \begin{itemize}
-            %                \item Wydawanie w języku naturalnym poleceń dotyczących diety
+            %                \item Wydawanie w~języku naturalnym poleceń dotyczących diety
             %            \end{itemize} \\
             \hline
         \end{tabular}
@@ -375,11 +375,11 @@ pacjentowi jadłospis.
 
 \section{Wymagania niefunkcjonalne}\label{sec:nonfunctional-requirements}
 \begin{itemize}
-    \item System działa poprawnie w przeglądarkach Google Chrome 76, Mozilla Firefox 69, Safari 12, Opera 63, Microsoft Edge 17
-    \item System działa na urządzenia mobilnych korzystających z systemu Android i iOS
-    \item System jest dostępny w polskiej i angielskiej wersji językowej
-    \item System ma czytelny i minimalistyczny interfejs
-    \item Aplikacja webowa jest w pełni responsywna i wygodna do używania na ekranach od 5 do 30 cali
+    \item System działa poprawnie w~przeglądarkach Google Chrome 76, Mozilla Firefox 69, Safari 12, Opera 63, Microsoft Edge 17
+    \item System działa na urządzenia mobilnych korzystających z~systemu Android i~iOS
+    \item System jest dostępny w~polskiej i~angielskiej wersji językowej
+    \item System ma czytelny i~minimalistyczny interfejs
+    \item Aplikacja webowa jest w~pełni responsywna i~wygodna do używania na ekranach od 5~do 30 cali
     %    \item Aplikacja webowa udostępnia część funkcji offline
     \item Aplikacja ma być oparta na architekturze mikroserwisów
 \end{itemize}
