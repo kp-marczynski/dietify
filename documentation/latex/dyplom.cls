@@ -12,7 +12,7 @@
 
 \RequirePackage{tgtermes}
 \RequirePackage[absolute]{textpos} % to na potrzeby strony tytułowej
-\RequirePackage{xcolor} % na potrzeby strony tytułowej
+\RequirePackage[table,xcdraw]{xcolor} % na potrzeby strony tytułowej i nagłówków tabel
 \def\ifundefined#1{\expandafter\ifx\csname#1\endcsname\relax}
 %%% Tytularia
 %\renewcommand*\sectsettings{}

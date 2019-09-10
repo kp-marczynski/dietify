@@ -1,4 +1,18 @@
 \chapter{Założenia projektowe}\label{ch:design-assumptions}
+\section{Uwagi wstępne}\label{sec:presumptions}
+W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał układanie diety. Aplikacja
+będzie składać się z następujących podstawowych modułów: produkty, przepisy, jadłospisy
+oraz wizyty.
+\par
+Zalogowani dietetycy będą mogli zarządzać produktami, ich wartościami odżywczymi oraz
+miarami domowymi. Korzystając ze stworzonych produktów dietetycy będą mogli tworzyć
+przepisy, a następnie, w ramach jadłospisu, dodawać do planów posiłków przepisy
+i pojedyncze produkty.
+\par
+Dietetycy będą mogli również zarządzać pacjentami i ich wizytami. W ramach wizyty dietetyk
+będzie mógł przeprowadzić wywiad żywieniowy, zebrać pomiary ciała pacjenta i przydzielić
+pacjentowi jadłospis.
+
 
 \section{Słownik pojęć domenowych}\label{sec:dictionary}
 %\todo{uzupełnić słownik}
@@ -29,11 +43,73 @@
 \end{itemize}
 
 \section{Sformułowanie problemu}\label{sec:problem-specification}
-\todo{sformułowanie problemu}
-Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wizyty
+\noindent
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Sformułowanie problemu (opr.wł)\label{tabela:sformulowanie-problemu}}
+        \begin{tabular}{|P{.2\textwidth}|P{.7\textwidth}|}
 
+            \hline
+            \cellcolor[HTML]{DDDDDD}Problem &
+            \multicolumn{1}{|l|}{Problem z ręcznym ukladaniem jadłospisu}\\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Dotyczy &
+            \multicolumn{1}{|l|}{Dietetyków}\\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Wpływ problemu &
+            \begin{itemize}
+                \item Dietetyk poświęca dużo czasu na wyszukiwanie informacji o każdym produkcie, którego potrzebuje wykorzystać w układanym jadłospisie
+                \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w każdym przepisie
+                \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w każdym jadłospisie.
+                \item Dietetyk ma problem z przeliczeniem miar domowych produktów na gramy
+            \end{itemize} \\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Pomyślne rozwiązanie &
+            \begin{itemize}
+                \item Będzie zwalniało dietetyka z konieczności obliczania wartości odżywczych dla przepisów i jadłospisów
+                \item Będzie ułatwiało dietetykowi przekazywanie stworzonego jadłospisu pacjentow
+            \end{itemize} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
 \section{Pozycjonowanie produktu}\label{sec:product-positioning}
-\todo{pozycjonowanie produktu}
+\noindent
+\begin{minipage}{\textwidth}
+    \begin{table}[H]
+        \centering\caption{Pozycjonowanie produktu (opr.wł)\label{tabela:pozycjonowanie-produktu}}
+        \begin{tabular}{|P{.2\textwidth}|P{.7\textwidth}|}
+
+            \hline
+            \cellcolor[HTML]{DDDDDD}Dla &
+            \multicolumn{1}{|l|}{Dietetyka}\\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Który &
+            \multicolumn{1}{|l|}{Chce łatwiej zarządzać tworzeniem jadłospisu}\\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Nazwa produktu &
+            \multicolumn{1}{|l|}{Webowa aplikacja wspomagająca układanie jadłospisu} \\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Który &
+            \multicolumn{1}{|l|}{Skraca czas potrzebny na ułożenie i zarządzanie jadłospisami} \\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Inaczej niż &
+            \multicolumn{1}{|l|}{Kalkulator kalorii} \\
+            \hline
+
+            \cellcolor[HTML]{DDDDDD}Nasz produkt &
+            \multicolumn{1}{|l|}{Skupia się na tworzeniu i udostępnianiu jadłospisów} \\
+            \hline
+        \end{tabular}
+    \end{table}
+\end{minipage}
 
 %\section{Opis udziałowców i użytkowników}
 %\subsection{Podsumowanie udziałowców}
@@ -44,10 +120,10 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
 \begin{minipage}{\textwidth}
     \begin{table}[H]
         \centering\caption{Użytkownicy (opr.wł)\label{tabela:uzytkownicy}}
-        \begin{tabular}{|P{.2\textwidth}|P{.25\textwidth}|P{.45\textwidth}|}
+        \begin{tabular}{|P{.15\textwidth}|P{.25\textwidth}|P{.5\textwidth}|}
 
             \hline
-            Nazwa & Opis & Odpowiedzialności\\
+            \cellcolor[HTML]{DDDDDD}Nazwa & \cellcolor[HTML]{DDDDDD}Opis & \cellcolor[HTML]{DDDDDD}Odpowiedzialności\\
 
             \hline
             Gość &
@@ -89,7 +165,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
         \centering\caption{Wymagania funkcjonalne ogólne (opr.wł)\label{tabela:wymaganiaFunkcjonalneOgolne}}
         \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
             \hline
-            Potrzeby & Cechy \\
+            \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
             Administrator potrzebuje widzieć listę użytkowników &
@@ -133,7 +209,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
         \centering\caption{Wymagania funkcjonalne dla produktów (opr.wł)\label{tabela:wymaganiaFunkcjonalneProdukty}}
         \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
             \hline
-            Potrzeby & Cechy \\
+            \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
             Administrator potrzebuje zarządzać definicjami potrzebnymi w produktach &
@@ -168,7 +244,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
         \centering\caption{Wymagania funkcjonalne dla przepisów (opr.wł)\label{tabela:wymaganiaFunkcjonalnePrzepisy}}
         \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
             \hline
-            Potrzeby & Cechy \\
+            \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
             Administrator potrzebuje zarządzać definicjami potrzebnymi w przepisach &
@@ -204,7 +280,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
         \centering\caption{Wymagania funkcjonalne dla jadłospisów (opr.wł)\label{tabela:wymaganiaFunkcjonalneJadlospisy}}
         \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
             \hline
-            Potrzeby & Cechy \\
+            \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
             Dietetyk potrzebuje widzieć listę jadłospisów &
@@ -234,7 +310,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
         \centering\caption{Wymagania funkcjonalne dla wizyt (opr.wł)\label{tabela:wymaganiaFunkcjonalneWizyty}}
         \begin{tabular}{|P{.3\textwidth}|P{.6\textwidth}|}
             \hline
-            Potrzeby & Cechy \\
+            \cellcolor[HTML]{DDDDDD}Potrzeby & \cellcolor[HTML]{DDDDDD}Cechy \\
 
             \hline
             Dietetyk potrzebuje wyświetlać listę swoich pacjentów &
@@ -304,7 +380,7 @@ Problem składa się z 4 podstawowych domen: produkty, przepisy, jadłospisy, wi
     \item System jest dostępny w polskiej i angielskiej wersji językowej
     \item System ma czytelny i minimalistyczny interfejs
     \item Aplikacja webowa jest w pełni responsywna i wygodna do używania na ekranach od 5 do 30 cali
-%    \item Aplikacja webowa udostępnia część funkcji offline
+    %    \item Aplikacja webowa udostępnia część funkcji offline
     \item Aplikacja ma być oparta na architekturze mikroserwisów
 \end{itemize}
 \thispagestyle{normal}
