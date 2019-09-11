@@ -58,7 +58,7 @@
         \atr{passwordHash}\label{kat:User:passwordHash}- reprezentacja hasła stworzona przez nałożenie na hasło funkcji skrótu
         \atr{firstName}\label{kat:User:firstName}- imię użytkownika
         \atr{lastName}\label{kat:User:lastName}- nazwisko użytkownika
-        \atr{email}\label{kat:User:email}- adres email
+        \atr{email}\label{kat:User:email}- adres e-mail
         \atr{image}\label{kat:User:image}- zdjęcie profilowe użytkownika
         \atr{activated}\label{kat:User:activated}- flaga pokazująca czy konto użytkownika zostało aktywowane
         \atr{language}\label{kat:User:language}- język użytkownika w~postaci kodu ISO 639-1
@@ -92,7 +92,7 @@
         \atr{postalCode}\label{kat:UserExtraInfo:postalCode}- kod pocztowy
         \atr{city}\label{kat:UserExtraInfo:city}- miasto
         \atr{country}\label{kat:UserExtraInfo:country}- państwo
-        \atr{personalDescription}\label{kat:UserExtraInfo:personalDescription}- krótki opis osobisty. W~przypadku dietyka może zawierać dodatkowe informacje o~prowadzonej praktyce dietetycznej
+        \atr{personalDescription}\label{kat:UserExtraInfo:personalDescription}- krótki opis osobisty. W~przypadku dietetyka może zawierać dodatkowe informacje o~prowadzonej praktyce dietetycznej
     \end{itemize}
 
     \req{SiteContent}\label{kat:SiteContent} (Treść Strony)
@@ -139,7 +139,7 @@
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:Pricing:id}- identyfikator
-        \atr{ordinalNumber}\label{kat:Pricing:ordinalNumber}- numer porządkowy warunkujący kolejność wyswietlania pozycji w~cenniku
+        \atr{ordinalNumber}\label{kat:Pricing:ordinalNumber}- numer porządkowy warunkujący kolejność wyświetlania pozycji w~cenniku
         \atr{title}\label{kat:Pricing:title}- nazwa pozycji cennika
         \atr{description}\label{kat:Pricing:description}- opis pozycji cennika
         \atr{price}\label{kat:Pricing:price}- cena
@@ -172,7 +172,7 @@
 
     \req{ProductVersion}\label{kat:ProductVersion} (Wersja Produktu)
 
-    \textbf{Opis}: Wersja produktu. Podczas kazdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
+    \textbf{Opis}: Wersja produktu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -214,7 +214,7 @@
         \atr{tag}\label{kat:NutritionDefinition:tag}- krótki znacznik reprezentujący wartość odżywczą
         \atr{description}\label{kat:NutritionDefinition:description}- krótki opis wartości odżywczej w~języku angielskim
         \atr{units}\label{kat:NutritionDefinition:units}- jednostki wykorzystywane do pomiaru wartości odżywczej, np. "g", "kcal", "ml"
-        \atr{decimalPlaces}\label{kat:NutritionDefinition:decimalPlaces}- liczba miejsc dziesiętnych do ktorych wartość składnika odżywczego powinna być zaokrąglana
+        \atr{decimalPlaces}\label{kat:NutritionDefinition:decimalPlaces}- liczba miejsc dziesiętnych do których wartość składnika odżywczego powinna być zaokrąglana
     \end{itemize}
 
     \req{NutritionDefinitionTranslation}\label{kat:NutritionDefinitionTranslation} (Tłumaczenie Definicji Wartości Odżywczej)
@@ -273,22 +273,22 @@
 
     \req{DietType}\label{kat:DietType} (Typ Diety)
 
-    \textbf{Opis}: A~tag specifying characteristic feature of object to which it is applied
+    \textbf{Opis}: Typ diety
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:DietType:id}- identyfikator
-        \atr{name}\label{kat:DietType:name}- Short description of diet type in English
+        \atr{name}\label{kat:DietType:name}- krótki opis typu diety w języku angielskim
     \end{itemize}
 
     \req{DietTypeTranslation}\label{kat:DietTypeTranslation} (Tłumaczenie Typu Diety)
 
-    \textbf{Opis}: Diet type translation
+    \textbf{Opis}: Tłumaczenie typu diety
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:DietTypeTranslation:id}- identyfikator
-        \atr{translation}\label{kat:DietTypeTranslation:translation}- Translated name of diet type
+        \atr{translation}\label{kat:DietTypeTranslation:translation}- tłumaczenie nazwy typu diety
         \atr{language}\label{kat:DietTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
@@ -305,7 +305,7 @@
 
     \req{RecipeVersion}\label{kat:RecipeVersion} (Wersja Przepisu)
 
-    \textbf{Opis}: Wersja przepisu. Podczas kazdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
+    \textbf{Opis}: Wersja przepisu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -343,7 +343,7 @@
 
     \req{ProductPortion}\label{kat:ProductPortion} (Porcja Produktu)
 
-    \textbf{Opis}: A~portion of product used in recipe
+    \textbf{Opis}: Porcja produktu wykorzystywana w przepisie
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -353,13 +353,13 @@
 
     \req{PreparationStep}\label{kat:PreparationStep} (Krok Przygotowania)
 
-    \textbf{Opis}: A~preparation step in recipe
+    \textbf{Opis}: Krok przygotowania w przepisie
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:PreparationStep:id}- identyfikator
         \atr{ordinalNumber}\label{kat:PreparationStep:ordinalNumber}- liczba porządkowa kroku przygotowania
-        \atr{stepDescription}\label{kat:PreparationStep:stepDescription}- w~miarę możliwości krótki opis kroku przygotwania
+        \atr{stepDescription}\label{kat:PreparationStep:stepDescription}- w~miarę możliwości krótki opis kroku przygotowania
     \end{itemize}
 
     \req{KitchenAppliance}\label{kat:KitchenAppliance} (Sprzęt Kuchenny)
@@ -604,7 +604,7 @@
 
     \req{AssignedMealPlan}\label{kat:AssignedMealPlan} (Przypisany Jadłospis)
 
-    \textbf{Opis}: An assigned meal plan
+    \textbf{Opis}: Przypisany jadłospis
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -620,7 +620,7 @@
     \setlength\itemsep{1em}
     \item[\textbf{Reguły}] \textbf{ogólne}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        \item Przedmiot kompozycji podlega takim samym zasadom dostępu co właściciel kompozycji pod warunkiem, że przedmiot kompozycji nie definuje własnych reguł dopstepu
+        \item Przedmiot kompozycji podlega takim samym zasadom dostępu co właściciel kompozycji pod warunkiem, że przedmiot kompozycji nie definiuje własnych reguł dostępu
     \end{enumerate}
     \item\ref{kat:User}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -727,7 +727,7 @@
     \item\ref{kat:ProductBasicNutritionData}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokladnie jednej wersji produktu (\ref{kat:ProductVersion})
+        \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
         \item Podstawowe wartości odżywcze produktu (\ref{kat:ProductBasicNutritionData}) są przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
@@ -886,7 +886,7 @@
     \item\ref{kat:KitchenApplianceTranslation}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Tłumaczenie sprzetu kuchennego (\ref{kat:KitchenApplianceTranslation}) musi być przypisane do dokaldnie jednego sprzetu kuchennego (\ref{kat:KitchenAppliance})
+        \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) musi być przypisane do dokładnie jednego sprzętu kuchennego (\ref{kat:KitchenAppliance})
         %CRUD
         \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) jest przedmiotem kompozycji ze strony sprzętu kuchennego (\ref{kat:KitchenAppliance})
     \end{enumerate}
@@ -963,7 +963,7 @@
     \item\ref{kat:MealRecipe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Przepis posiłku (\ref{kat:MealRecipe}) musi być przypisany do dokladnie jednego posiłku (\ref{kat:Meal})
+        \item Przepis posiłku (\ref{kat:MealRecipe}) musi być przypisany do dokładnie jednego posiłku (\ref{kat:Meal})
         \item Przepis posiłku (\ref{kat:MealRecipe}) musi mieć przypisany dokładnie jeden przepis (\ref{kat:Recipe})
         %CRUD
         \item Przepis posiłku (\ref{kat:MealRecipe}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
@@ -1165,7 +1165,7 @@
         \item Atrybut \ref{kat:Pricing:description} jest ciągiem znaków
         \item Atrybut \ref{kat:Pricing:price} jest ciągiem znaków o~długości od 1~do 8~znaków
         \item Atrybut \ref{kat:Pricing:currency} jest ciągiem znaków o~długości 3~znaków spełniającym normę ISO 4217
-        \item Jeżeli w~\ref{kat:Pricing:price} występuje znak "." to muszą po nim wystepować dokładnie 2~cyfry
+        \item Jeżeli w~\ref{kat:Pricing:price} występuje znak "." to muszą po nim występować dokładnie 2~cyfry
     \end{enumerate}
 
     \item\ref{kat:PricingTranslation}
