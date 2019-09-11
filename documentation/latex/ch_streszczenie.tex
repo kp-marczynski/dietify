@@ -1,15 +1,13 @@
-% !TeX spellcheck = pl_PL 
+% !TeX spellcheck = pl_PL
 % --- Strona ze streszczeniem i abstraktem ------------------------------------------------------------------
 \addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
 \chapter*{Streszczenie} % po polsku
-% Wprowadzenie
-\todo{Celem pracy było opracowanie aplikacji służącej do komunikacji z kosmitami. Dostępne na rynku aplikacj e nie satysfakcjonowały autorki ze względu na brak istotnych funkcji takich jak obsługa przez telefon z systemem Android.
-% Sposób rozwiązania problemu
-W ramach pracy przygotowano aplikację komunikacyjną wykorzystującą framework SpaceDirect, przechowującą dane kontaktów w bazie danych MyNoSQL oraz udostępniającą swoje funkcje przez interfejs REST API.
-% Dodatkowe informacji o pracy
-Oprócz projektu aplikacji praca zawiera wyniki testów jednostkowych oraz testów użyteczności przeprowadzonych przez krewnych i znajomych królika.
-% Podsumowanie
-Przygotowana w ramach projektu inżynierskiego praca może zostać wykorzystana przez wszystkie osoby zainteresowane kontaktami z cywilizacjami pozaziemskimi.}
+Celem pracy było opracowanie systemu do zarządzania dietą w architekturze mikroserwisów.
+Aby osiągnąć ten cel przeprowadzono analizę istniejących rozwiązań konkurencyjnych, przedstawiono niezbędną wiedzę domenową oraz porównano popularne style architektury aplikacji.
+Na podstawie zgromadzonej wiedzy wyszczególniono niezbędne założenia projektowe, zaprojektowano interfejs oraz zdefiniowano kategorie danych wraz z regułami i ograniczeniami ich dotyczącymi.
+Następnie przedstawiono opis implementacji stworzonej na podstawie opracowanego projektu.
+W implementacji kluczową rolę odegrały języki Java\cite{tech:java} i TypeScript\cite{tech:typescript}, platforma deweloperska JHipster\cite{tech:jhipster} oraz stos technologii dla architektury mikroserwisów Netflix OSS\cite{tech:netflix-oss}.
+Stworzone rozwiązanie może zostać wykorzystane przez dietetyków w celu przeprowadzania kompleksowej obsługi wizyty pacjenta z położeniem szczególnego nacisku na układanie jadłospisów i udostępnianie go pacjentom.
 
 
 % Kilka sztuczek, żeby:
@@ -20,7 +18,12 @@ Przygotowana w ramach projektu inżynierskiego praca może zostać wykorzystana 
 \renewcommand{\cleardoublepage}{}
 \renewcommand{\clearpage}{}
 \chapter*{Abstract} % ...i to samo po angielsku
-\todo{The main goal of this thesis was development of\dots (\textit{please translate remaining part of Streszczenie into English}).}
+The aim of this work was to develop a diet management system based on microservice architecture.
+To achieve that goal, an analysis of existing competitive solutions was performed, the necessary domain knowledge was presented, and popular application architecture styles were compared.
+Based on the accumulated knowledge, the necessary design assumptions were specified, the interface was designed, and categories of data were defined along with the rules and restrictions concerning them.
+Then a description of the implementation based on the developed project was presented.
+The key role in the implementation was played by languages Java\cite{tech:java} and TypeScript \cite{tech:typescript}, the JHipster\cite{tech:jhipster} development platform and Netflix OSS\cite{tech:netflix-oss} which is a technology stack for a microservices architecture.
+The created solution can be used by dietitians in order to conduct comprehensive service of the patient's visit with particular emphasis on designing the meal plans and sharing them with patients.
 \endgroup
 \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
 % --- Koniec strony ze streszczeniem i abstraktem -----------------------------------------------------------
