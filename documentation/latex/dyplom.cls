@@ -156,4 +156,12 @@ linenos
     \end{figure}
 \end{minipage}
 }
+
+\newcommand{\inlinetodo}[1]{
+    \textcolor{red}{#1}
+}
+
+\newcommand{\todo}[1]{
+    \inlinetodo{#1}\par
+}
 \endinput % dla porządku

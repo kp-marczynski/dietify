@@ -1,11 +1,10 @@
-% !TeX spellcheck = pl_PL 
+% !TeX spellcheck = pl_PL
 % http://wiki.languagetool.org/checking-la-tex-with-languagetool
 \documentclass{dyplom}
 \usepackage[utf8]{inputenc}
 \usepackage{hyperref}
 %%
 \usepackage{lipsum}
-\usepackage{easy-todo}
 
 % Dane o pracy
 \author{Krzysztof Marczyński}
@@ -15,8 +14,16 @@
 %\konsultant{dr hab. inż. Kazimerz Kabacki}
 \wydzial{Wydział Informatyki i Zarządzania}
 \kierunek{Informatyka}
-\krotkiestreszczenie{W pracy przedstawiono projekt aplikacji służącej do układania diet.}
-\slowakluczowe{dieta, jadłospisy, aplikacja webowa, mikroserwisy}
+\krotkiestreszczenie{
+Praca przedstawia proces projektowania i implementacji systemu do zarządzania dietą z wykorzystaniem architektury mikroserwisów.
+Omówione zostaną istniejące na rynku rozwiązania konkurencyjne.
+Analizie zostanie poddana podstawowa architektura mikroserwisów, jej zalety i wady oraz zostanie ona porównana z innymi stylami architektonicznymi.
+Zasadniczym problemem rozwiązywanym przez tworzony produkt jest układanie jadłospisów przez dietetyka i przydzielanie ich pacjentowi.
+}
+\slowakluczowe{
+układanie~jadłospisów
+architektura~mikroserwisów
+aplikacja~webowa}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -32,7 +39,6 @@
     \cleardoublepage
 
     \pagenumbering{arabic}
-%    \todo{uzupełnić streszczenie i słowa kluczowe na stronie tytułowej}
     \input{ch_wstep}
 
     \input{ch_stan-wiedzy}

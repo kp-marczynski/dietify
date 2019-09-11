@@ -615,7 +615,8 @@
     \begin{flushright}
         \small
         słowa kluczowe:\\[0.8ex]
-        \begin{minipage}{7cm}
+        \begin{minipage}{5cm}
+            \raggedleft
             \StrLen{\@slowakluczowe}[\kluczowedlugosc]
             \ifthenelse{\kluczowedlugosc > \dlugoscmaxc}{
             \footnotesize
@@ -631,17 +632,20 @@
         \StrLen{\@krotkiestreszczenie}[\streszczeniedlugosc]
         \ifthenelse{\streszczeniedlugosc > \dlugoscmaxb}{
         \parbox{\textwidth}{
+        \setlength\parindent{24pt}
         \KOMAoptions{fontsize=9pt}
-        \large\@krotkiestreszczenie
+        \indent\large\@krotkiestreszczenie
         }
         }{
         \ifthenelse{\streszczeniedlugosc > \dlugoscmaxa}{
         \parbox{\textwidth}{
-        \@krotkiestreszczenie
+        \setlength\parindent{24pt}
+        \indent\@krotkiestreszczenie
         }
         }{
         \parbox{\textwidth}{
-        \footnotesize\@krotkiestreszczenie
+        \setlength\parindent{24pt}
+        \indent\footnotesize\@krotkiestreszczenie
         }
         }
         }
