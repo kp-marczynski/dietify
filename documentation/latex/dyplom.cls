@@ -164,4 +164,16 @@ linenos
 \newcommand{\todo}[1]{
     \inlinetodo{#1}\par
 }
+
+\newcommand{\cellred}[1]{
+    \cellcolor[HTML]{E74C3C}\textcolor{white}{#1}
+}
+
+\newcommand{\cellgreen}[1]{
+\cellcolor[HTML]{18BC9C}\textcolor{white}{#1}
+}
+
+\newcommand{\cellgray}[1]{
+    \cellcolor[HTML]{DDDDDD}#1
+}
 \endinput % dla porządku

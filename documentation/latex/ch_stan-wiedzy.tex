@@ -3,10 +3,12 @@
 \section{Przegląd istniejących rozwiązań konkurencyjnych}\label{sec:competitive-solutions}
 \todo{opisać rozwiązania konkurencyjne}
 \begin{itemize}
-    \item Dietico
-    \item TiqDiet
-    \item Kcalmar PRO
-    \item Dietetyk Pro
+    \item TiqDiet\cite{url:tiqdiet}
+    \item Kcalmar PRO\cite{url:kcalmar}
+    \item Dietetyk Pro\cite{url:dietetyk-pro}
+    \item Aliant\cite{url:aliant}
+    \item Dietico\cite{url:dietico}
+    \item Vitme\cite{url:vitme}
 \end{itemize}
 
 \begin{minipage}{\textwidth}
@@ -14,17 +16,17 @@
         \centering\caption{Rozwiązania konkurencyjne - cechy funkcjonalne (opr.wł)\label{tabela:rozwiazania-konkurencyjne-funkcjonalne}}
         \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
             \hline
-                                                & Tiqdiet   & Kcalmar Pro   & Dietetyk Pro & Aliant         & Dietico   & Vitme   \\ \hline
-            Tworzenie jadłospisów               & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Gotowe szablony diet                & TAK       & TAK           & TAK          & TAK            & NIE       & NIE     \\ \hline
-            Zapis diety do pliku                & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Wysyłanie diet do pacjenta          & TAK       & TAK           & TAK          & TAK            & NIE       & TAK     \\ \hline
-            Komunikacja z~pacjentem             & TAK       & TAK           & TAK          & NIE            & NIE       & TAK     \\ \hline
-            Karta pacjenta                      & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Wywiad żywieniowy                   & TAK       & TAK           & TAK          & NIE            & TAK       & TAK     \\ \hline
-            Lista zakupów                       & TAK       & TAK           & TAK          & TAK            & TAK       & NIE     \\ \hline
-            Dodawanie własnych produktów        & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
-            Dodawanie własnych przepisów        & TAK       & TAK           & TAK          & TAK            & TAK       & TAK     \\ \hline
+                                                            & \cellgray{Tiqdiet}   & \cellgray{Kcalmar Pro}   & \cellgray{Dietetyk Pro} & \cellgray{Aliant}         & \cellgray{Dietico}   & \cellgray{Vitme}   \\ \hline
+            \cellgray{Tworzenie jadłospisów}               & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Gotowe szablony diet}                & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellred{NIE}       & \cellred{NIE}     \\ \hline
+            \cellgray{Zapis diety do pliku}                & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Wysyłanie diet do pacjenta}          & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellred{NIE}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Komunikacja z~pacjentem}             & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellred{NIE}            & \cellred{NIE}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Karta pacjenta}                      & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Wywiad żywieniowy}                   & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellred{NIE}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Lista zakupów}                       & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellred{NIE}     \\ \hline
+            \cellgray{Dodawanie własnych produktów}        & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Dodawanie własnych przepisów}        & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
         \end{tabular}
     \end{table}
 \end{minipage}
@@ -34,16 +36,16 @@
         \centering\caption{Rozwiązania konkurencyjne - cechy niefunkcjonalne (opr.wł)\label{tabela:rozwiazania-konkurencyjne-niefunkcjonalne}}
         \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
             \hline
-                                                & Tiqdiet   & Kcalmar Pro   & Dietetyk Pro & Aliant         & Dietico   & Vitme   \\ \hline
-            Liczba produktów w~bazie            & 1000      & 1400          & 6000         & 3500           & 900       & 5000    \\ \hline
-            Liczba gotowych przepisów           & 200       & 800           & 2800         & 1700           & 1900      & 400     \\ \hline
-            Praca offline                       & NIE       & NIE           & NIE          & TAK            & NIE       & NIE     \\ \hline
-            Praca online                        & TAK       & TAK           & TAK          & NIE            & TAK       & TAK     \\ \hline
-            Aplikacja mobilna dla dietetyka     & TAK       & TAK           & TAK          & NIE            & NIE       & NIE     \\ \hline
-            Aplikacja mobilna dla pacjenta      & TAK       & TAK           & NIE          & NIE            & NIE       & TAK     \\ \hline
-            Dostęp dla pacjenta przez przeglądarkę internetową       & TAK       & TAK           & TAK          & NIE            & NIE       & TAK     \\ \hline
-            Darmowy okres testowy               & 14dni     & 14dni         & 7dni         & bezter- minowo & 14dni     & 14dni   \\ \hline
-            Cena w~abonamencie rocznym          & 199       & 1188          & 246          & 699            & 546       & 219     \\ \hline
+                                                            & \cellgray{Tiqdiet}   & \cellgray{Kcalmar Pro}   & \cellgray{Dietetyk Pro} & \cellgray{Aliant}         & \cellgray{Dietico}   & \cellgray{Vitme}   \\ \hline
+            \cellgray{Liczba produktów w~bazie}            & 1000      & 1400          & 6000         & 3500           & 900       & 5000    \\ \hline
+            \cellgray{Liczba gotowych przepisów}           & 200       & 800           & 2800         & 1700           & 1900      & 400     \\ \hline
+            \cellgray{Praca offline}                       & \cellred{NIE}       & \cellred{NIE}           & \cellred{NIE}          & \cellgreen{TAK}            & \cellred{NIE}       & \cellred{NIE}     \\ \hline
+            \cellgray{Praca online}                        & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellred{NIE}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Aplikacja mobilna dla dietetyka}     & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellred{NIE}            & \cellred{NIE}       & \cellred{NIE}     \\ \hline
+            \cellgray{Aplikacja mobilna dla pacjenta}      & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellred{NIE}          & \cellred{NIE}            & \cellred{NIE}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Dostęp dla pacjenta przez przeglądarkę internetową}       & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellred{NIE}            & \cellred{NIE}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Darmowy okres testowy}               & 14dni     & 14dni         & 7dni         & bezter- minowo & 14dni     & 14dni   \\ \hline
+            \cellgray{Cena w~abonamencie rocznym}          & 199       & 1188          & 246          & 699            & 546       & 219     \\ \hline
         \end{tabular}
     \end{table}
 \end{minipage}
