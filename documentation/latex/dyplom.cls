@@ -1,7 +1,7 @@
 \NeedsTeXFormat{LaTeX2e} % dla pełnej jasności
 \ProvidesClass{dyplom} % jedyny niezbędny element klasy :-)
 
-\LoadClass[12pt,twoside]{mwrep} % ładujemy klasę bazową, do opcji
+\LoadClass[12pt,twoside]{mwrep} % ładujemy klasę bazową, do opcji % drukowanie 2 stronne
 % podanych w dokumencie dodajemy 12pt
 
 \RequirePackage[OT4]{polski}      % odpowiednik \RequirePackage
@@ -167,15 +167,15 @@ linenos
 }
 
 \newcommand{\inlinetodo}[1]{
-    \textcolor{red}{#1}
+\textcolor{red}{#1}
 }
 
 \newcommand{\todo}[1]{
-    \inlinetodo{#1}\par
+\inlinetodo{#1}\par
 }
 
 \newcommand{\cellred}[1]{
-    \cellcolor[HTML]{E74C3C}\textcolor{white}{#1}
+\cellcolor[HTML]{E74C3C}\textcolor{white}{#1}
 }
 
 \newcommand{\cellgreen}[1]{
@@ -183,6 +183,19 @@ linenos
 }
 
 \newcommand{\cellgray}[1]{
-    \cellcolor[HTML]{DDDDDD}#1
+\cellcolor[HTML]{DDDDDD}#1
 }
+
+\makeatletter
+\newcommand{\listnormal}[2]{%
+\clearpage
+\begingroup
+\phantomsection
+\addcontentsline{toc}{chapter}{#2}
+\let\ps@plain\ps@normal
+\pagestyle{normal}
+#1
+\clearpage
+\endgroup}
+\makeatother
 \endinput % dla porządku

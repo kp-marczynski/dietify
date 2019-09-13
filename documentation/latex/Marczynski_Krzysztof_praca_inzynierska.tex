@@ -59,17 +59,10 @@ aplikacja~webowa}
     \bibliography{literatura}
     \bibliographystyle{dyplom}
 
-    \newpage
-    \phantomsection
-    \addcontentsline{toc}{chapter}{\listfigurename}
-    \listoffigures
+    \listnormal{\listoffigures}{\listfigurename}
+    \listnormal{\listoftables}{\listtablename}
 
-    \newpage
-    \phantomsection
-    \addcontentsline{toc}{chapter}{\listtablename}
-    \listoftables
-
-    \newpage
+    \clearpage
     \listof{listing}{Spis kodów źródłowych}
 
     \input{ch_dodatki}
