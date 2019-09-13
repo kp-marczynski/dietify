@@ -96,7 +96,7 @@ linenos
 \RequirePackage{url}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagestyle{outer} % numery stron po lewej i prawej stronie
-\RequirePackage[font=normalsize]{caption}
+\RequirePackage[font=normalsize, justification=centering]{caption}
 
 \setlength{\parindent}{7mm} % wcięcie w pierwszym wierszu akapitu
 \widowpenalty=1000 % żeby nagłówki nie zostawały na dole strony
@@ -153,6 +153,15 @@ linenos
     \begin{figure}[H]
         \centering\includegraphics[scale=#2]{#3}
         \caption{#4 #1}\label{fig:#5}
+    \end{figure}
+\end{minipage}
+}
+
+\newcommand{\imagewide}[4][(opr.wł)]{
+\begin{minipage}{\textwidth}
+    \begin{figure}[H]
+        \centering\includegraphics[width=.8\textwidth]{#2}
+        \caption{#3 #1}\label{fig:#4}
     \end{figure}
 \end{minipage}
 }
