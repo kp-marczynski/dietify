@@ -54,7 +54,7 @@
 \RequirePackage{stackengine}
 \RequirePackage{tikz}
 \RequirePackage{arydshln}
-\input{strona-tytulowa.sty}
+\usepackage{strona-tytulowa}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[titletoc,title]{appendix}
 
