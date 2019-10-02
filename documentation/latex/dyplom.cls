@@ -54,7 +54,7 @@
 \RequirePackage{stackengine}
 \RequirePackage{tikz}
 \RequirePackage{arydshln}
-\RequirePackage{frontpage}
+\input{frontpage.sty}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 \RequirePackage[titletoc,title]{appendix}
 
