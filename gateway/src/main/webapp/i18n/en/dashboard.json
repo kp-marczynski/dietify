@@ -1,0 +1,9 @@
+{
+  "dashboard": {
+    "title": "Admin Dashboard",
+    "administration": "Administration",
+    "gateway": "Gateway",
+    "products": "Products",
+    "recipes": "Recipes"
+  }
+}
