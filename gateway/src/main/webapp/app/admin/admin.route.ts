@@ -13,6 +13,7 @@ import {
 } from './';
 
 import { UserRouteAccessService } from 'app/core';
+import {dashboardRoute} from 'app/admin/dashboard/dashboard.route';
 
 const ADMIN_ROUTES = [
   auditsRoute,
@@ -23,7 +24,8 @@ const ADMIN_ROUTES = [
   gatewayRoute,
   trackerRoute,
   ...userMgmtRoute,
-  metricsRoute
+  metricsRoute,
+  dashboardRoute
 ];
 
 export const adminState: Routes = [

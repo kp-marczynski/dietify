@@ -1,0 +1,151 @@
+<div class="list-group list-group-flush">
+    <h2 jhiTranslate="dashboard.administration">Administration</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/gateway">
+            <fa-icon icon="road" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.gateway">Gateway</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/user-management">
+            <fa-icon icon="user" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.userManagement">User management</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/jhi-tracker">
+            <fa-icon icon="eye" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.tracker">User tracker</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/jhi-metrics">
+            <fa-icon icon="tachometer-alt" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/jhi-health">
+            <fa-icon icon="heart" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.health">Health</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/jhi-configuration">
+            <fa-icon icon="list" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/audits">
+            <fa-icon icon="bell" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.audits">Audits</span>
+        </a>
+    </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/logs">
+            <fa-icon icon="tasks" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.logs">Logs</span>
+        </a>
+    </span>
+    <span *ngIf="swaggerEnabled">
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/admin/docs">
+            <fa-icon icon="book" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.apidocs">API</span>
+        </a>
+    </span>
+    <!-- jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here -->
+    <span *ngIf="!inProduction">
+        <a class="list-group-item list-group-item-action waves-effect" href='./h2-console' target="_tab">
+            <fa-icon icon="hdd" fixedWidth="true"></fa-icon>
+            <span jhiTranslate="global.menu.admin.database">Database</span>
+        </a>
+    </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2 jhiTranslate="dashboard.gateway">Gateway</h2>
+        <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/landing-page-card" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.landingPageCard">Landing Page Card</span>
+            </a>
+        </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2 jhiTranslate="dashboard.products">Products</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/product-category" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productsProductCategory">Product Category</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/product-category-translation" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productsProductCategoryTranslation">Product Category Translation</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/nutrition-definition" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productsNutritionDefinition">Nutrition Definition</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/nutrition-definition-translation" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productsNutritionDefinitionTranslation">Nutrition Definition Translation</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/diet-type" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productsDietType">Diet Type</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/diet-type-translation" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.productsDietTypeTranslation">Diet Type Translation</span>
+            </a>
+        </span>
+</div>
+<div class="list-group list-group-flush">
+    <h2 jhiTranslate="dashboard.recipes">Recipes</h2>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/dish-type" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.recipesDishType">Dish Type</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/dish-type-translation" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.recipesDishTypeTranslation">Dish Type Translation</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/meal-type" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.recipesMealType">Meal Type</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/meal-type-translation" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.recipesMealTypeTranslation">Meal Type Translation</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/kitchen-appliance" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.recipesKitchenAppliance">Kitchen Appliance</span>
+            </a>
+        </span>
+    <span>
+        <a class="list-group-item list-group-item-action waves-effect" routerLink="/kitchen-appliance-translation" routerLinkActive="active">
+                <fa-icon icon="asterisk" fixedWidth="true"></fa-icon>
+                <span jhiTranslate="global.menu.entities.recipesKitchenApplianceTranslation">Kitchen Appliance Translation</span>
+            </a>
+        </span>
+</div>

@@ -21,6 +21,7 @@ import {
   JhiGatewayComponent,
   JhiTrackerComponent
 } from './';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import {
     JhiDocsComponent,
     JhiGatewayComponent,
     JhiTrackerComponent,
-    JhiMetricsMonitoringComponent
+    JhiMetricsMonitoringComponent,
+    DashboardComponent
   ],
   providers: [{ provide: JhiLanguageService, useClass: JhiLanguageService }],
   entryComponents: [UserMgmtDeleteDialogComponent, JhiHealthModalComponent],
