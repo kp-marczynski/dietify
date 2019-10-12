@@ -18,6 +18,7 @@ import { AppointmentService } from './appointment.service';
 export class AppointmentComponent implements OnInit, OnDestroy {
   @Input() isWaitingForConsultation: boolean;
   @Input() patientId: number;
+  @Input() patientCardId: number;
 
   currentAccount: any;
   appointments: IAppointment[];
