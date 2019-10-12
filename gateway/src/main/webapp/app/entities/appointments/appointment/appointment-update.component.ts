@@ -55,56 +55,6 @@ export class AppointmentUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ appointment }) => {
       this.updateForm(appointment);
     });
-    this.bodyMeasurementService
-      .query({ filter: 'appointment-is-null' })
-      .pipe(
-        filter((mayBeOk: HttpResponse<IBodyMeasurement[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IBodyMeasurement[]>) => response.body)
-      )
-      .subscribe(
-        (res: IBodyMeasurement[]) => {
-          if (!this.editForm.get('bodyMeasurement').value || !this.editForm.get('bodyMeasurement').value.id) {
-            this.bodymeasurements = res;
-          } else {
-            this.bodyMeasurementService
-              .find(this.editForm.get('bodyMeasurement').value.id)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<IBodyMeasurement>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<IBodyMeasurement>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: IBodyMeasurement) => (this.bodymeasurements = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
-    this.nutritionalInterviewService
-      .query({ filter: 'appointment-is-null' })
-      .pipe(
-        filter((mayBeOk: HttpResponse<INutritionalInterview[]>) => mayBeOk.ok),
-        map((response: HttpResponse<INutritionalInterview[]>) => response.body)
-      )
-      .subscribe(
-        (res: INutritionalInterview[]) => {
-          if (!this.editForm.get('nutritionalInterview').value || !this.editForm.get('nutritionalInterview').value.id) {
-            this.nutritionalinterviews = res;
-          } else {
-            this.nutritionalInterviewService
-              .find(this.editForm.get('nutritionalInterview').value.id)
-              .pipe(
-                filter((subResMayBeOk: HttpResponse<INutritionalInterview>) => subResMayBeOk.ok),
-                map((subResponse: HttpResponse<INutritionalInterview>) => subResponse.body)
-              )
-              .subscribe(
-                (subRes: INutritionalInterview) => (this.nutritionalinterviews = [subRes].concat(res)),
-                (subRes: HttpErrorResponse) => this.onError(subRes.message)
-              );
-          }
-        },
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
     this.patientCardService
       .query()
       .pipe(
