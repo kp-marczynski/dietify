@@ -9,10 +9,6 @@ import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 import { IAppointment, Appointment } from 'app/shared/model/appointments/appointment.model';
 import { AppointmentService } from './appointment.service';
-import { IBodyMeasurement } from 'app/shared/model/appointments/body-measurement.model';
-import { BodyMeasurementService } from 'app/entities/appointments/body-measurement';
-import { INutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
-import { NutritionalInterviewService } from 'app/entities/appointments/nutritional-interview';
 import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
 import { PatientCardService } from 'app/entities/appointments/patient-card';
 
@@ -22,10 +18,6 @@ import { PatientCardService } from 'app/entities/appointments/patient-card';
 })
 export class AppointmentUpdateComponent implements OnInit {
   isSaving: boolean;
-
-  bodymeasurements: IBodyMeasurement[];
-
-  nutritionalinterviews: INutritionalInterview[];
 
   patientcards: IPatientCard[];
 
@@ -43,8 +35,6 @@ export class AppointmentUpdateComponent implements OnInit {
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected appointmentService: AppointmentService,
-    protected bodyMeasurementService: BodyMeasurementService,
-    protected nutritionalInterviewService: NutritionalInterviewService,
     protected patientCardService: PatientCardService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
@@ -152,14 +142,6 @@ export class AppointmentUpdateComponent implements OnInit {
   }
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
-  }
-
-  trackBodyMeasurementById(index: number, item: IBodyMeasurement) {
-    return item.id;
-  }
-
-  trackNutritionalInterviewById(index: number, item: INutritionalInterview) {
-    return item.id;
   }
 
   trackPatientCardById(index: number, item: IPatientCard) {
