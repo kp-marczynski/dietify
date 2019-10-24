@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IProduct, Product } from 'app/shared/model/products/product.model';
-import { AccountService } from 'app/core';
+import { AccountService, JhiLanguageHelper } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProductService } from './product.service';
@@ -44,7 +44,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
 
   productSubcategories: IProductSubcategory[];
   productCategories: IProductCategory[];
-  languages: string[] = ['en', 'pl'];
+  languages: any[];
 
   constructor(
     protected productService: ProductService,
@@ -55,7 +55,8 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     protected router: Router,
     protected eventManager: JhiEventManager,
     protected productCategoryService: ProductCategoryService,
-    protected productSubcategoryService: ProductSubcategoryService
+    protected productSubcategoryService: ProductSubcategoryService,
+    protected languageHelper: JhiLanguageHelper
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -186,6 +187,9 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
       this.currentAccount = account;
     });
     this.registerChangeInProducts();
+    this.languageHelper.getAll().then(languages => {
+      this.languages = languages;
+    });
   }
 
   ngOnDestroy() {

@@ -7,7 +7,7 @@
                     (change)="fetchSubcategories(); search()">
                 <option
                     [ngValue]="language === selectedLanguage ? selectedLanguage : language"
-                    *ngFor="let language of languages; trackBy: customTrackBy">{{language}}</option>
+                    *ngFor="let language of languages; trackBy: customTrackBy">{{language | findLanguageFromKey}}</option>
             </select>
             <label for="category-select">Category:</label>
             <select class="form-control" id="category-select" name="category-select" [(ngModel)]="selectedCategory"
