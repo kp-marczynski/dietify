@@ -1,15 +1,19 @@
-import {Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter} from '@angular/core';
-import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {JhiEventManager, JhiParseLinks, JhiAlertService} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import {IProduct, Product} from 'app/shared/model/products/product.model';
-import {AccountService} from 'app/core';
+import { IProduct, Product } from 'app/shared/model/products/product.model';
+import { AccountService, JhiLanguageHelper } from 'app/core';
 
-import {ITEMS_PER_PAGE} from 'app/shared';
-import {ProductService} from './product.service';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { ProductService } from './product.service';
+import { IProductCategory } from 'app/shared/model/products/product-category.model';
+import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
+import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
+import { ProductCategoryService } from 'app/entities/products/product-category';
 
 @Component({
   selector: 'jhi-product',
@@ -34,6 +38,14 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   previousPage: any;
   reverse: any;
 
+  selectedCategory: IProductCategory;
+  selectedSubcategory: IProductSubcategory;
+  selectedLanguage: string;
+
+  productSubcategories: IProductSubcategory[];
+  productCategories: IProductCategory[];
+  languages: any[];
+
   constructor(
     protected productService: ProductService,
     protected parseLinks: JhiParseLinks,
@@ -41,7 +53,10 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected productCategoryService: ProductCategoryService,
+    protected productSubcategoryService: ProductSubcategoryService,
+    protected languageHelper: JhiLanguageHelper
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -59,35 +74,70 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
         this.predicate = 'id';
       }
     });
+    this.productCategoryService
+      .query()
+      .pipe(
+        filter((mayBeOk: HttpResponse<IProductCategory[]>) => mayBeOk.ok),
+        map((response: HttpResponse<IProductCategory[]>) => response.body)
+      )
+      .subscribe((res: IProductCategory[]) => (this.productCategories = res), (res: HttpErrorResponse) => this.onError(res.message));
     this.currentSearch =
       this.activatedRoute.snapshot && this.activatedRoute.snapshot.params['search'] ? this.activatedRoute.snapshot.params['search'] : '';
   }
 
   loadAll() {
-    if (this.currentSearch) {
-      this.productService
-        .search({
-          page: this.page - 1,
-          query: this.currentSearch,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        })
-        .subscribe(
-          (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-      return;
-    }
+    // if (this.currentSearch) {
+    //   this.productService
+    //     .search({
+    //       page: this.page - 1,
+    //       query: this.currentSearch,
+    //       size: this.itemsPerPage,
+    //       sort: this.sort()
+    //     })
+    //     .subscribe(
+    //       (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
+    //       (res: HttpErrorResponse) => this.onError(res.message)
+    //     );
+    //   return;
+    // }
     this.productService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort()
+        sort: this.sort(),
+        search: this.currentSearch.trim(),
+        categoryId: this.selectedCategory ? this.selectedCategory.id : '',
+        subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
+        language: this.selectedLanguage ? this.selectedLanguage : ''
       })
       .subscribe(
         (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+  }
+
+  customTrackBy(index: number, obj: any): any {
+    return index;
+  }
+
+  fetchSubcategories() {
+    console.log('fetch');
+    this.selectedSubcategory = null;
+    if (this.selectedCategory) {
+      this.productSubcategoryService
+        .query({
+          productCategoryId: this.selectedCategory.id,
+          language: this.selectedLanguage
+        })
+        .pipe(
+          filter((mayBeOk: HttpResponse<IProductSubcategory[]>) => mayBeOk.ok),
+          map((response: HttpResponse<IProductSubcategory[]>) => response.body)
+        )
+        .subscribe(
+          (res: IProductSubcategory[]) => (this.productSubcategories = res),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    }
   }
 
   loadPage(page: number) {
@@ -126,22 +176,8 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loadAll();
   }
 
-  search(query) {
-    if (!query) {
-      return this.clear();
-    }
+  search() {
     this.page = 0;
-    this.currentSearch = query;
-    if (this.standaloneView) {
-      this.router.navigate([
-        '/product',
-        {
-          search: this.currentSearch,
-          page: this.page,
-          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-        }
-      ]);
-    }
     this.loadAll();
   }
 
@@ -151,6 +187,9 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
       this.currentAccount = account;
     });
     this.registerChangeInProducts();
+    this.languageHelper.getAll().then(languages => {
+      this.languages = languages;
+    });
   }
 
   ngOnDestroy() {
