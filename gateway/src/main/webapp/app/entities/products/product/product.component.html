@@ -1,4 +1,33 @@
-<div id="product-list-wrapper">
+<div id="product-list-wrapper" class="row">
+    <div class="col-md-3 center-block">
+        <div class="card jh-card">
+            <h2>Filters</h2>
+            <label for="language-select">Language:</label>
+            <select class="form-control" id="language-select" name="language-select" [(ngModel)]="selectedLanguage"
+                    (change)="fetchSubcategories(); search()">
+                <option
+                    [ngValue]="language === selectedLanguage ? selectedLanguage : language"
+                    *ngFor="let language of languages; trackBy: customTrackBy">{{language}}</option>
+            </select>
+            <label for="category-select">Category:</label>
+            <select class="form-control" id="category-select" name="category-select" [(ngModel)]="selectedCategory"
+                    (change)="fetchSubcategories(); search()">
+                <option [ngValue]="null"></option>
+                <option
+                    [ngValue]="productCategoryOption.id === selectedCategory?.id ? selectedCategory : productCategoryOption"
+                    *ngFor="let productCategoryOption of productCategories; trackBy: customTrackBy">{{productCategoryOption.description}}</option>
+            </select>
+            <label for="subcategory-select">Subcategory:</label>
+            <select class="form-control" id="subcategory-select" name="subcategory-select"
+                    [(ngModel)]="selectedSubcategory" (click)="search()">
+                <option [ngValue]="null"></option>
+                <option
+                    [ngValue]="productSubcategoryOption.id === selectedSubcategory?.id ? selectedSubcategory : productSubcategoryOption"
+                    *ngFor="let productSubcategoryOption of productSubcategories; trackBy: customTrackBy">{{productSubcategoryOption.description}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-9">
     <h2 id="page-heading">
         <span jhiTranslate="gatewayApp.productsProduct.home.title">Products</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-product" [routerLink]="['/product/new']" *ngIf="standaloneView">
@@ -14,7 +43,7 @@
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
                     <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.productsProduct.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                    <button class="input-group-append btn btn-info" (click)="search()">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
                     <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
@@ -115,5 +144,6 @@
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
+    </div>
     </div>
 </div>

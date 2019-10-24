@@ -118,4 +118,17 @@ public class ProductServiceImpl implements ProductService {
         log.debug("Request to search for a page of Products for query {}", query);
         return productSearchRepository.search(queryStringQuery(query), pageable);
     }
+
+    @Override
+    public Page<Product> findBySearchAndFilters(String searchPhrase, String language, Long categoryId, Long subcategoryId, Pageable pageable) {
+        if (subcategoryId != null) {
+            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryId(searchPhrase, subcategoryId, pageable);
+        } else if (categoryId != null) {
+            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguage(searchPhrase, categoryId, language, pageable);
+        } else if (language != null) {
+            return productRepository.findByDescriptionContainingIgnoreCaseAndLanguage(searchPhrase, language, pageable);
+        } else {
+            return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, pageable);
+        }
+    }
 }
