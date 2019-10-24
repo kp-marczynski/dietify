@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IRecipe, Recipe } from 'app/shared/model/recipes/recipe.model';
-import { AccountService } from 'app/core';
+import { AccountService, JhiLanguageHelper } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { RecipeService } from './recipe.service';
@@ -35,6 +35,10 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
   previousPage: any;
   reverse: any;
 
+  selectedLanguage: any;
+
+  languages: any[];
+
   constructor(
     protected recipeService: RecipeService,
     protected parseLinks: JhiParseLinks,
@@ -43,7 +47,8 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
-    protected eventManager: JhiEventManager
+    protected eventManager: JhiEventManager,
+    protected languageHelper: JhiLanguageHelper
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
@@ -66,25 +71,27 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   loadAll() {
-    if (this.currentSearch) {
-      this.recipeService
-        .search({
-          page: this.page - 1,
-          query: this.currentSearch,
-          size: this.itemsPerPage,
-          sort: this.sort()
-        })
-        .subscribe(
-          (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
-          (res: HttpErrorResponse) => this.onError(res.message)
-        );
-      return;
-    }
+    // if (this.currentSearch) {
+    //   this.recipeService
+    //     .search({
+    //       page: this.page - 1,
+    //       query: this.currentSearch,
+    //       size: this.itemsPerPage,
+    //       sort: this.sort()
+    //     })
+    //     .subscribe(
+    //       (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
+    //       (res: HttpErrorResponse) => this.onError(res.message)
+    //     );
+    //   return;
+    // }
     this.recipeService
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort()
+        sort: this.sort(),
+        search: this.currentSearch.trim(),
+        language: this.selectedLanguage ? this.selectedLanguage : ''
       })
       .subscribe(
         (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
@@ -128,22 +135,8 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loadAll();
   }
 
-  search(query) {
-    if (!query) {
-      return this.clear();
-    }
+  search() {
     this.page = 0;
-    this.currentSearch = query;
-    if (this.standaloneView) {
-      this.router.navigate([
-        '/recipe',
-        {
-          search: this.currentSearch,
-          page: this.page,
-          sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-        }
-      ]);
-    }
     this.loadAll();
   }
 
@@ -153,6 +146,9 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
       this.currentAccount = account;
     });
     this.registerChangeInRecipes();
+    this.languageHelper.getAll().then(languages => {
+      this.languages = languages;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -201,5 +197,9 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
 
   protected onError(errorMessage: string) {
     this.jhiAlertService.error(errorMessage, null, null);
+  }
+
+  customTrackBy(index: number, obj: any): any {
+    return index;
   }
 }
