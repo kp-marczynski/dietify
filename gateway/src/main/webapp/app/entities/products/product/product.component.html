@@ -1,6 +1,5 @@
 <div id="product-list-wrapper" class="row">
     <div class="col-md-3 center-block">
-        <div class="card jh-card">
             <h2>Filters</h2>
             <label for="language-select">Language:</label>
             <select class="form-control" id="language-select" name="language-select" [(ngModel)]="selectedLanguage"
@@ -25,7 +24,6 @@
                     [ngValue]="productSubcategoryOption.id === selectedSubcategory?.id ? selectedSubcategory : productSubcategoryOption"
                     *ngFor="let productSubcategoryOption of productSubcategories; trackBy: customTrackBy">{{productSubcategoryOption.description}}</option>
             </select>
-        </div>
     </div>
     <div class="col-md-9">
     <h2 id="page-heading">

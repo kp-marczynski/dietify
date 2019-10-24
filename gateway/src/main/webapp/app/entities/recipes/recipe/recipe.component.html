@@ -1,4 +1,15 @@
-<div id="recipe-list-wrapper">
+<div id="recipe-list-wrapper" class="row">
+    <div class="col-md-3 center-block">
+        <h2>Filters</h2>
+        <label for="language-select">Language:</label>
+        <select class="form-control" id="language-select" name="language-select" [(ngModel)]="selectedLanguage"
+                (change)="search()">
+            <option
+                [ngValue]="language === selectedLanguage ? selectedLanguage : language"
+                *ngFor="let language of languages; trackBy: customTrackBy">{{language | findLanguageFromKey}}</option>
+        </select>
+    </div>
+    <div class="col-md-9">
     <h2 id="page-heading">
         <span jhiTranslate="gatewayApp.recipesRecipe.home.title">Recipes</span>
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-recipe" [routerLink]="['/recipe/new']">
@@ -14,7 +25,7 @@
             <form name="searchForm" class="form-inline">
                 <div class="input-group w-100 mt-3">
                     <input type="text" class="form-control" [(ngModel)]="currentSearch" id="currentSearch" name="currentSearch" placeholder="{{ 'gatewayApp.recipesRecipe.home.search' | translate }}">
-                    <button class="input-group-append btn btn-info" (click)="search(currentSearch)">
+                    <button class="input-group-append btn btn-info" (click)="search()">
                         <fa-icon [icon]="'search'"></fa-icon>
                     </button>
                     <button class="input-group-append btn btn-danger" (click)="clear()" *ngIf="currentSearch">
@@ -129,4 +140,5 @@
             <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="3" [rotate]="true" [boundaryLinks]="false"> (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
+</div>
 </div>
