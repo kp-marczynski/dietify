@@ -2,7 +2,7 @@
 \chapter{Implementacja}\label{ch:implementation}
 \section{Wykorzystywane środowiska i~narzędzia programistyczne}\label{sec:dev-tools}
 \todo{uzupełnić, opisać, zacytować narzędzia}
-Podstawowe kryteria wyboru języka są następujące:
+Podczas wyboru języków programowania, z użyciem których zostanie zaimplementowany system, postawiono następujące kryteria:
 
 \begin{itemize}
     \item Ścisła kontrola typów
@@ -10,63 +10,79 @@ Podstawowe kryteria wyboru języka są następujące:
     \item Niezależność języka od platformy
 \end{itemize}
 
-Wybrane przeze mnie języki spełniające te kryteria to:
+Wybrane języki spełniające te kryteria to:
 
 \begin{itemize}
     \item W~warstwie backendu Java\cite{tech:java}
     \item W~warstwie frontendu Typescript\cite{tech:typescript}
 \end{itemize}
 
-\begin{enumerate}
-    \item Backend
-    \begin{itemize}
-        \item Java\cite{tech:java}
-        \item Spring\cite{tech:spring}
-        \item Gradle\cite{tech:gradle}
-    \end{itemize}
+Powyższy wybór zaowocował decyzją o zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego i Springa\cite{tech:spring} jako wiodącego frameworka backendowego.
+Frameworki te cieszą się bardzo dużą popularnością, a ich dojrzałość sprawia, że nadają się zarówno przy tworzeniu niewielkich aplikacji jak i systemów klasy enterprise.
+\todo{angular, spring}
 
-    \item Frontend
-    \begin{itemize}
-        \item Typescript\cite{tech:typescript}
-        \item Angular\cite{tech:angular}
-        \item HTML\cite{tech:html}
-        \item Sass\cite{tech:sass}
-        \item Bootstrap\cite{tech:bootstrap}
-        \item Bootswatch Flatly\cite{tech:bootswatch}
-        \item Font Awesome\cite{tech:font-awesome}
-    \end{itemize}
+\par
+\todo{html, bootstrap, bootswatch}
 
-    \item Baza danych
-    \begin{itemize}
-        \item PostgreSQL\cite{tech:postgresql}
-        \item Hibernate\cite{tech:hibernate}
-        \item Liquibase\cite{tech:liquibase}
-    \end{itemize}
+\par
+System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych, więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
+Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i MySQL\cite{tech:mysql}. Z punktu widzenia funkcjonalności potrzebnych w implementowanej aplikacji oba systemy RDBMS wypadają równie dobrze, jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w rozwiązaniach komercyjnych o zamkniętym kodzie.
+\todo{liquibase}
+\par
+\todo{Netflix oss, jhipster}
 
-    \item Testy
-    \begin{itemize}
-        \item JUnit\cite{tech:junit}
-        \item Mockito\cite{tech:mockito}
-        \item Jest\cite{tech:jest}
-        \item Protractor\cite{tech:protractor}
-    \end{itemize}
-
-    \item Netflix OSS\cite{tech:netflix-oss}
-    \begin{itemize}
-        \item Eureka Service Discovery\cite{tech:netflix-eureka}
-        \item Zuul Proxy\cite{tech:netflix-zuul}
-        \item Ribbon load balancer\cite{tech:netflix-ribbon}
-        \item Hystrix circuit breaker\cite{tech:netflix-hystrix}
-    \end{itemize}
-    \item Inne
-    \begin{itemize}
-        \item JHipster\cite{tech:jhipster}
-        \item Gitlab\cite{tech:gitlab}
-        \item Docker\cite{tech:docker}
-        \item Docker Compose\cite{tech:docker-compose}
-        \item Elasticsearch\cite{tech:elasticsearch}
-    \end{itemize}
-\end{enumerate}
+\par
+\todo{docker, docker compose, gitlab pipelines}
+%\begin{enumerate}
+%    \item Backend
+%    \begin{itemize}
+%        \item Java\cite{tech:java}
+%        \item Spring\cite{tech:spring}
+%        \item Gradle\cite{tech:gradle}
+%    \end{itemize}
+%
+%    \item Frontend
+%    \begin{itemize}
+%        \item Typescript\cite{tech:typescript}
+%        \item Angular\cite{tech:angular}
+%        \item HTML\cite{tech:html}
+%        \item Sass\cite{tech:sass}
+%        \item Bootstrap\cite{tech:bootstrap}
+%        \item Bootswatch Flatly\cite{tech:bootswatch}
+%        \item Font Awesome\cite{tech:font-awesome}
+%    \end{itemize}
+%
+%    \item Baza danych
+%    \begin{itemize}
+%        \item PostgreSQL\cite{tech:postgresql}
+%        \item Hibernate\cite{tech:hibernate}
+%        \item Liquibase\cite{tech:liquibase}
+%    \end{itemize}
+%
+%    \item Testy
+%    \begin{itemize}
+%        \item JUnit\cite{tech:junit}
+%        \item Mockito\cite{tech:mockito}
+%        \item Jest\cite{tech:jest}
+%        \item Protractor\cite{tech:protractor}
+%    \end{itemize}
+%
+%    \item Netflix OSS\cite{tech:netflix-oss}
+%    \begin{itemize}
+%        \item Eureka Service Discovery\cite{tech:netflix-eureka}
+%        \item Zuul Proxy\cite{tech:netflix-zuul}
+%        \item Ribbon load balancer\cite{tech:netflix-ribbon}
+%        \item Hystrix circuit breaker\cite{tech:netflix-hystrix}
+%    \end{itemize}
+%    \item Inne
+%    \begin{itemize}
+%        \item JHipster\cite{tech:jhipster}
+%        \item Gitlab\cite{tech:gitlab}
+%        \item Docker\cite{tech:docker}
+%        \item Docker Compose\cite{tech:docker-compose}
+%        \item Elasticsearch\cite{tech:elasticsearch}
+%    \end{itemize}
+%\end{enumerate}
 \section{Architektura systemu}\label{sec:system-architecture}
 \todo{opisać stack netflix oss}
 \todo{diagram rozmieszczenia}
