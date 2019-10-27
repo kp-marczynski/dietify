@@ -1,9 +1,7 @@
 % !TeX spellcheck = pl_PL
 \chapter{Założenia projektowe}\label{ch:design-assumptions}
 \section{Uwagi wstępne}\label{sec:presumptions}
-W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał układanie diety. Aplikacja
-będzie składać się z~następujących podstawowych modułów: produkty, przepisy, jadłospisy
-oraz wizyty.
+W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał układanie diety.
 \par
 Zalogowani dietetycy będą mogli zarządzać produktami, ich wartościami odżywczymi oraz
 miarami domowymi. Korzystając ze stworzonych produktów dietetycy będą mogli tworzyć
@@ -112,6 +110,15 @@ pacjentowi jadłospis.
     \end{table}
 \end{minipage}
 
+\section{Dekompozycja problemu w oparciu o poddziedziny}\label{sec:problem-decomposition}
+\todo{podział na serwisy}
+Opierając się na opisanym w rozdziale \ref{sec:usefull-technologies} wzorcu dekompozycji problemu w oparciu o poddziedziny dla omawianej aplikacji wspomagania zarządzania dietą można wyszczególnić następujące poddziedziny:
+\begin{itemize}
+    \item poddziedzina produkty - skupiająca się na zarządzaniu produktami spożywczymi, ich wartościami odżywczymi i miarami domowymi
+    \item poddziedzina przepisy - pozwalająca na tworzenie i zarzędzanie przepisami, w tym przypisawanie do przepisów produktów
+    \item poddziedzina jadłospisy - pozwalająca na tworzenie i zarządzanie jadłospisami, w tym przypisawanie do jadłospisów produktów i przepisów
+    \item poddziedzina wizyty - skupiająca się na całościowym zarządzaniu wizytami pacjenta w obrębie karty pacjenta, a w szczególności przypisywaniem do wizyty jadłospisów, przeprwadzaniem wywiadu żywieniowego czy też zbierania pomiarów ciała pacjenta
+\end{itemize}
 %\section{Opis udziałowców i~użytkowników}
 %\subsection{Podsumowanie udziałowców}
 
