@@ -67,7 +67,7 @@ Z tego względu wszystkie analizowane dane zostały zebrane z publicznie dostęp
         \imagewide[\cite{url:vitme-youtube}]{img/competitive-solutions/vitme.png}{Vitme}{competitive-solution:vitme}
 \end{itemize}
 
-W tabeli \ref{tabela:rozwiazania-konkurencyjne-funkcjonalne} przedstawiono porównanie najważniejszych cech funkcjonalnych, a tabeli \ref{tabela:rozwiazania-konkurencyjne-niefunkcjonalne} cech niefunkcjonalnych 6 istniejących na rynku rozwiązań konkurencyjnych.
+W tabeli \ref{tabela:rozwiazania-konkurencyjne-funkcjonalne} przedstawiono porównanie najważniejszych cech funkcjonalnych, a w tabeli \ref{tabela:rozwiazania-konkurencyjne-niefunkcjonalne} cech niefunkcjonalnych 6 istniejących na rynku rozwiązań konkurencyjnych.
 Warto zwrócić uwagę, że funkcjonalności takie jak możliwość wykorzystania gotowych szablonów diet, wysyłanie diety do pacjenta, przeprowadzanie wywiadu żywieniowego czy automatyczne generowanie listy zakupów nie występują w niektórych spośród analizowanych systemów.
 Na tej podstawie można wysunąć hipotezę, że te funkcjonalności - mino iż istotne - nie są kluczowe w systemie wspomagającym pracę dietetyka.
 Natomiast możliwość tworzenia jadłospisów z wykorzystaniem własnych produktów i przepisów, zapisywanie ich do plików oraz przypisywanie do stosownych kart pacjenta są oczekiwane w tego typu aplikacji.
@@ -142,9 +142,11 @@ a następnie przeprowadzić migrację do architektury mikroserwisów poprzez wyd
 \par
 W przypadku aplikacji monolitycznej łatwo jest doprowadzić do sytuacji w której poszczególne moduły są ze sobą ściśle powiązane, co zwykle ma bardzo negatywny wpływ na wydajność aplikacji, utrudnia wprowadzanie zmian w kodzie i prowadzi do występowania trudnych do wykrycia błędów w implementacji.
 Sytuację w której w aplikacji powstaje dużo przypadkowych powiązań i zależności Vaughn Vernon określił mianem "Wielkiej Kuli Błota"\cite{book:ddd-kompendium}.
+
+\par
 Do głównych zalet zastosowania mikroserwisów należy stosowanie luźnego powiązania serwisów, co poniekąd wymusza, żeby zależności pomiędzy serwisami były bardziej przemyślane i lepiej zaprojektowane.
 Z pomocą we właściwym zaprojektowaniu serwisów i zależności między nimi przychodzi strategiczne wzorce DDD.
-Jednym z takich wzorców jest dekompozycja w oparciu poddziedziny\cite{ddd-evans}.
+Jednym z takich wzorców jest dekompozycja w oparciu poddziedziny\cite{book:ddd-evans}.
 Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w obrębie względnie niezaleleżnych obszarów specjalizacji.
 W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu i stworzenie serwisu dla każdej z nich\cite{book:microservices-patterns}.
 
