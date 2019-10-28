@@ -2,7 +2,7 @@
 \chapter{Implementacja}\label{ch:implementation}
 \section{Wykorzystywane środowiska i~narzędzia programistyczne}\label{sec:dev-tools}
 \todo{uzupełnić, opisać, zacytować narzędzia}
-Podczas wyboru języków programowania, z użyciem których zostanie zaimplementowany system, postawiono następujące kryteria:
+Podczas wyboru języków programowania, z~użyciem których zostanie zaimplementowany system, postawiono następujące kryteria:
 
 \begin{itemize}
     \item Ścisła kontrola typów
@@ -17,8 +17,8 @@ Wybrane języki spełniające te kryteria to:
     \item W~warstwie frontendu Typescript\cite{tech:typescript}
 \end{itemize}
 
-Powyższy wybór zaowocował decyzją o zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego i Springa\cite{tech:spring} jako wiodącego frameworka backendowego.
-Frameworki te cieszą się bardzo dużą popularnością, a ich dojrzałość sprawia, że nadają się zarówno przy tworzeniu niewielkich aplikacji jak i systemów klasy enterprise.
+Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego i~Springa\cite{tech:spring} jako wiodącego frameworka backendowego.
+Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia, że nadają się zarówno przy tworzeniu niewielkich aplikacji jak i~systemów klasy enterprise.
 \todo{angular, spring}
 
 \par
@@ -26,7 +26,7 @@ Frameworki te cieszą się bardzo dużą popularnością, a ich dojrzałość sp
 
 \par
 System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych, więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
-Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i MySQL\cite{tech:mysql}. Z punktu widzenia funkcjonalności potrzebnych w implementowanej aplikacji oba systemy RDBMS wypadają równie dobrze, jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w rozwiązaniach komercyjnych o zamkniętym kodzie.
+Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}. Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy RDBMS wypadają równie dobrze, jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
 \todo{liquibase}
 \par
 \todo{Netflix oss, jhipster}
@@ -97,14 +97,14 @@ Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i MySQL\ci
 \subsection{Instalacja}\label{subsec:installation}
 
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
-\todo{podstawoway opis poruszania się po aplikacji, zrzuty ekranu z kilku najważniejszych widoków}
+\todo{podstawoway opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}
 \todo{Gotowa implementacja:}
-\todo{logowanie użytkowników, import danych z USDA, ciągła integracja, stack mikroserwisowy (service discovery, gateway, serwisy), CRUD dla wszystkich mikroserwisów (produkty, przepisy, jadłospisy, wizyty), cache danych, dynamiczne dodawanie podkategorii produktu, dodawanie produktu do przepisu, wykres najważniejszych składników produktu, dodawanie przepisów i produktów do dania w jadłospisie}
+\todo{logowanie użytkowników, import danych z~USDA, ciągła integracja, stack mikroserwisowy (service discovery, gateway, serwisy), CRUD dla wszystkich mikroserwisów (produkty, przepisy, jadłospisy, wizyty), cache danych, dynamiczne dodawanie podkategorii produktu, dodawanie produktu do przepisu, wykres najważniejszych składników produktu, dodawanie przepisów i~produktów do dania w~jadłospisie}
 \todo{Do zrobienia:}
-\todo{filtrowanie produktów i przepisów, tworzenie nowej wizyty, obliczanie podstawowych wartości odżywczych w przepisie, wyświetlanie spełnienia norm odżywczych w jadłospisie, wydzielenie menu admina, wersjonowanie produktów i przepisów, generowanie listy zakupów i jadłospisu do wydruku, wykres BMI}
+\todo{filtrowanie produktów i~przepisów, tworzenie nowej wizyty, obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wydzielenie menu admina, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
 
 \section{Dokumentacja kodu}\label{sec:code-documentation}
 \todo{javadoc, swagger, jdl}
 \section{Testy}\label{sec:tests}
-\todo{przykładowe testy jednostkowe i integracyjne}
+\todo{przykładowe testy jednostkowe i~integracyjne}
 \thispagestyle{normal}
