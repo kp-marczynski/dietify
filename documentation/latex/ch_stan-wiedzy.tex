@@ -147,7 +147,7 @@ Sytuację w~której w~aplikacji powstaje dużo przypadkowych powiązań i~zależ
 Do głównych zalet zastosowania mikroserwisów należy stosowanie luźnego powiązania serwisów, co poniekąd wymusza, żeby zależności pomiędzy serwisami były bardziej przemyślane i~lepiej zaprojektowane.
 Z pomocą we właściwym zaprojektowaniu serwisów i~zależności między nimi przychodzi strategiczne wzorce DDD.
 Jednym z~takich wzorców jest dekompozycja w~oparciu poddziedziny\cite{book:ddd-evans}.
-Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w~obrębie względnie niezaleleżnych obszarów specjalizacji.
+Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w~obrębie względnie niezależnych obszarów specjalizacji.
 W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu i~stworzenie serwisu dla każdej z~nich\cite{book:microservices-patterns}.
 
 %o potencjał biznesowy (ang. business capability), gdzie jako potencjał biznesowy należy rozumieć zdolność do wykonania konkretnego zadania biznesowego.
@@ -159,4 +159,70 @@ W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy 
 %http://www.mckp.uj.edu.pl/cm/uploads/2017/08/7.-Zywienie-literatura.pdf
 %https://www.ars.usda.gov/ARSUserFiles/80400525/Data/SR-Legacy/SR-Legacy_Doc.pdf
 
+W rozdziale \ref{sec:competitive-solutions} dokonano przeglądu rozwiązań konkurencyjnych.
+Na podstawie dokonanej analizy możliwe będzie zdefiniowanie głównych wymagań funkcjonalnych projektowanego systemu, jednakże konieczne jest odwołanie się do literatury dziedzinowej, żeby potwierdzić zasadność przyjętych założeń istotnych z punktu widzenia dietetyki.
+
+\par
+Pierwszym rozważanym pojęciem jest podstawowa przemiana materii (PPM).
+Jest to poziom zapotrzebowania energetycznego organizmu znajdującego się w stanie spoczynku (czyli minimalny poziom zapotrzebowania energetycznego) wyznaczany na podstawie wieku i masy ciała osoby.
+Aby obliczyć wartość energetyczną posiłku należy wyznaczyć ekwiwalent energetyczny podstawowych wartości odżywczych, tj. białek, tłuszczy i węglowodanów\cite{book:dietetyka-zywienie-zdroweg-i-chorego-czlowieka}.
+
+\par
+Kolejnym uwzględnianym współczynnikiem jest współczynnik poziomu aktywności fizycznej (ang. Physical Activity Level - PAL).
+Organizacja Narodów Zjednoczonych do spraw Wyżywienia i Rolnictwa definiuje 5 poziomów aktywności fizycznej\cite{url:fao-pal}:
+\begin{itemize}
+    \item brak aktywności fizycznej (wartość współczynnika 1,2 - 1,39)
+    \item niska aktywność fizyczna (wartość współczynnika 1,4 - 1,69)
+    \item umiarkowana aktywność fizyczna (wartość współczynnika 1,7 - 1,99)
+    \item wysoka aktywność fizyczna (wartość współczynnika 2 - 2,4)
+    \item bardzo wysoka aktywność fizyczna (wartość współczynnika > 2,4)
+\end{itemize}
+
+\par
+Iloczyn PPM i PAL określa stopień całkowitego zapotrzebowania energetycznego (ang. Total Energy Expenditure - TEE)\cite{book:normy-zywienia-czlowieka}.
+Przy czym dla prawidłowo zaplanowanej diety, dzienna energia powinna być dostarczana:
+\begin{itemize}
+    \item ok 10\% z białek
+    \item ok 60\% z węglowodanów
+    \item ok 30\% z tłuszczu
+\end{itemize}
+
+Wymienione wyżej składniki tworzą najważniejszą grupę składników, tzw grupę składników energetycznych, ale należy zwrócić uwagę, że do prawidłowego funkcjonowania organizmu definiuje się ok 40 innych niezbędnych składników należących do grup składników budulcowych (głównie jod, wapń, lipidy, fosfor, żelazo i siarka) i regulujących (głównie witaminy, błonnik oraz mikro- i makroelementy), które również powinny być uwzględnione podczas układania zbilansowanej diety\cite{book:dietetyka-zywienie-zdroweg-i-chorego-czlowieka}.
+
+\par
+Podczas układania jadłospisu uwzględnia się podstawowe typy diet\cite{book:dietoterapia}:
+\begin{itemize}
+    \item podstawowa
+    \item kleikowa
+    \item papkowata
+    \item bogatopotasowa
+    \item niskosodowa
+    \item niskocholesterolowa
+    \item bezglutenowa
+    \item bogatoresztkowa
+    \item łatwostrawna
+    \item ubogotłuszczowa
+    \item bogatobiałkowa
+    \item ubogobiałkowa
+    \item bogatoenergetyczna
+    \item ubogoenergetyczna
+\end{itemize}
+
+\par
+Jak zauważono wyżej, podstawowym kryterium potrzebnym do skomponowania odpowiednio zbilansowanej diety jest odpowiednie dobranie wartości odzywczej produktów spożywczych.
+Wartości te mogą być uzyskane z tabel składu i wartości odżywczej żywności.
+Na rynku polskim tabele takie są odpłatnie udostępniane przez polski Instytut Żywności i Żywienia\cite{book:tabele-wartosci-odzywczych}, jednakże licencja wspomnianego opracowania nie zezwala na wykorzystanie danych zawartych w zestawieniu bez wykupienia odpowiedniego abonamentu\cite{url:izz-dostep-do-bazy}.
+
+\par
+Podobne rozwiązanie w języku angielskim oferuje Departament Rolnictwa Stanów Zjednoczonych udostępniając całkowicie za darmo do dowolnego użytku narodową bazę danych wartości odżywczych dla standardowych odwołań (ang. National Nutrient Database for Standard Reference)\cite{url:usda-sr-db}.
+Dane są udostępniane w formie pliku bazy Microsoft Access. Baza zawiera:
+\begin{itemize}
+    \item ponad 7 tysięcy produktów spożywczych
+    \item ponad 600 tysięcy wartości odżywczych
+    \item ok 100 definicji wartości odżywczych
+    \item ponad 14 tysięcy miar domowych
+    \item ok 25 kategorii produktów spożywczych
+\end{itemize}
+
+% typy dań, posiłków, wyposażenie kuchenne
 \thispagestyle{normal}
