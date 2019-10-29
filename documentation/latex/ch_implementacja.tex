@@ -89,12 +89,34 @@ Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i~MySQL\ci
 \section{Instalacja oprogramowania}\label{sec:software-installation}
 \todo{opisać instalacje oprogramowania i~warunki wstępne}
 \subsection{Wymagania wstępne}\label{subsec:prerequirements}
+Przed przystąpieniem do wykonywania kolejny kroków należy się upewnić, że następujące narzędzia są zainstalowane:
 \begin{itemize}
-    \item Java 8\cite{tech:java}
-    \item Node.js 10\cite{tech:nodejs}
-    \item Docker\cite{tech:docker} + Docker Compose\cite{tech:docker-compose}
+    \item Open JDK 11
+    \item Node.js 10
+    \item Docker 19.03 + Docker Compose 2
 \end{itemize}
+
 \subsection{Instalacja}\label{subsec:installation}
+
+Aby zbudować i uruchomić projekt na Dockerze należy z poziomu głównego katalogu projektu wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        cd gateway
+        npm install
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../products
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../recipes
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../mealplans
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../appointments
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../docker-compose
+        sh docker-compose up
+    \end{minted}
+    \caption{Skrypt kompilujący wszystkie mikroserwisy i uruchamiający aplikację na Dockerze (opr. wł.)} \label{listing:komilacja-i-uruchomienie}
+\end{listing}
 
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
 \todo{podstawoway opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}

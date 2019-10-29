@@ -23,14 +23,14 @@
 \imagewide{../mockup/1products_2details.png}{Prototyp interfejsu~- szczegóły produktu}{mockup:1products_2details}
 \imagewide{../mockup/2recipes.png}{Prototyp interfejsu~- lista przepisów}{mockup:2recipes}
 \imagewide{../mockup/2recipes_1new.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego przepisu}{mockup:2recipes_1new}
-\imagewide{../mockup/2recipes_1new_1add-product.png}{Prototyp interfejsu~- dodawanie produktu do przepisu}{mockup:2recipes_1new_1add-product}
+%\imagewide{../mockup/2recipes_1new_1add-product.png}{Prototyp interfejsu~- dodawanie produktu do przepisu}{mockup:2recipes_1new_1add-product}
 \imagewide{../mockup/2recipes_2details.png}{Prototyp interfejsu~- szczegóły przepisu}{mockup:2recipes_2details}
 \imagewide{../mockup/3mealplans.png}{Prototyp interfejsu~- lista jadłospisów}{mockup:3mealplans}
 \imagewide{../mockup/3mealplans_1new_1settings.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego jadłospisu~- zakładka ustawień}{mockup:3mealplans_1new_1settings}
 \imagewide{../mockup/3mealplans_1new_2calendar.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego jadłospisu~- zakładka kalendarza}{mockup:3mealplans_1new_2calendar}
 \imagewide{../mockup/3mealplans_1new_2calendar_1meal.png}{Prototyp interfejsu~- zarządzanie posiłkiem w~edytowanym jadłospisie}{mockup:3mealplans_1new_2calendar_1meal}
-\imagewide{../mockup/3mealplans_1new_2calendar_2add-product.png}{Prototyp interfejsu~- dodawanie produktu do posiłku w~jadłospisie}{mockup:3mealplans_1new_2calendar_2add-product}
-\imagewide{../mockup/3mealplans_1new_2calendar_3add-recipe.png}{Prototyp interfejsu~- dodawanie przepisu do posiłku w~jadłospisie}{mockup:3mealplans_1new_2calendar_3add-recipe}
+%\imagewide{../mockup/3mealplans_1new_2calendar_2add-product.png}{Prototyp interfejsu~- dodawanie produktu do posiłku w~jadłospisie}{mockup:3mealplans_1new_2calendar_2add-product}
+%\imagewide{../mockup/3mealplans_1new_2calendar_3add-recipe.png}{Prototyp interfejsu~- dodawanie przepisu do posiłku w~jadłospisie}{mockup:3mealplans_1new_2calendar_3add-recipe}
 \imagewide{../mockup/3mealplans_2details_1settings.png}{Prototyp interfejsu~- szczegóły jadłospisu~- zakładka ustawień}{mockup:3mealplans_2details_1settings}
 \imagewide{../mockup/3mealplans_2details_2calendar.png}{Prototyp interfejsu~- szczegóły jadłospisu~- zakładka kalendarza}{mockup:3mealplans_2details_2calendar}
 \imagewide{../mockup/3mealplans_2details_2calendar_1meal.png}{Prototyp interfejsu~- szczegóły posiłku w~jadłospisie}{mockup:3mealplans_2details_2calendar_1meal}
@@ -41,7 +41,7 @@
 \imagewide{../mockup/4appointments_4appointment-details.png}{Prototyp interfejsu~- szczegóły wizyty}{mockup:4appointments_4appointment-details}
 \imagewide{../mockup/4appointments_4appointment-details_1nutritional-interview.png}{Prototyp interfejsu~- wizyta~- wywiad żywieniowy}{mockup:4appointments_4appointment-details_1nutritional-interview}
 \imagewide{../mockup/4appointments_4appointment-details_2body-measurement.png}{Prototyp interfejsu~- wizyta~- pomiary ciała}{mockup:4appointments_4appointment-details_2body-measurement}
-\imagewide{../mockup/4appointments_4appointment-details_3mealplan.png}{Prototyp interfejsu~- wizyta~- jadłospis}{mockup:4appointments_4appointment-details_3mealplan}
+%\imagewide{../mockup/4appointments_4appointment-details_3mealplan.png}{Prototyp interfejsu~- wizyta~- jadłospis}{mockup:4appointments_4appointment-details_3mealplan}
 \imagewide{../mockup/5administration.png}{Prototyp interfejsu~- widok administratora}{mockup:5administration}
 \image{0.4}{../mockup/6mobile.png}{Prototyp interfejsu~- układ strony na urządzeniu mobilnym}{mockup:6mobile}
 
@@ -105,68 +105,68 @@ wzorce projektowe}
         \atr{personalDescription}\label{kat:UserExtraInfo:personalDescription}- krótki opis osobisty. W~przypadku dietetyka może zawierać dodatkowe informacje o~prowadzonej praktyce dietetycznej
     \end{itemize}
 
-    \req{SiteContent}\label{kat:SiteContent} (Treść Strony)
-
-    \textbf{Opis}: Treść strony definiowana przez administratora
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:SiteContent:id}- identyfikator
-        \atr{ordinalNumber}\label{kat:SiteContent:ordinalNumber}- numer porządkowy definiujący kolejność w~jakim dane powinny być wyświetlane
-        \atr{siteContentType}\label{kat:SiteContent:siteContentType}- typ treści strony
-        \atr{title}\label{kat:SiteContent:title}- tytuł treści stron
-        \atr{description}\label{kat:SiteContent:description}- opis treści strony
-        \atr{image}\label{kat:SiteContent:image}- opcjonalny obrazek, który powinien zostać wyświetlony obok treści strony
-    \end{itemize}
-
-    \req{SiteContentTranslation}\label{kat:SiteContentTranslation} (Tłumaczenie Treści Strony)
-
-    \textbf{Opis}: Tłumaczenie treści strony
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:SiteContentTranslation:id}- identyfikator
-        \atr{title}\label{kat:SiteContentTranslation:title}- tłumaczenie tytułu
-        \atr{description}\label{kat:SiteContentTranslation:description}- tłumaczenie opisu
-        \atr{language}\label{kat:SiteContentTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
-    \end{itemize}
-
-    \req{ContactInfo}\label{kat:ContactInfo} (Informacje Kontaktowe)
-
-    \textbf{Opis}: Informacje kontaktowe witryny
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:ContactInfo:id}- identyfikator
-        \atr{contactInfoType}\label{kat:ContactInfo:contactInfoType}- typ informacji kontaktowej
-        \atr{description}\label{kat:ContactInfo:description}- opis
-    \end{itemize}
-
-    \req{Pricing}\label{kat:Pricing} (Cennik)
-
-    \textbf{Opis}: Pozycja cennika dostępu do usług oferowanych przez system
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:Pricing:id}- identyfikator
-        \atr{ordinalNumber}\label{kat:Pricing:ordinalNumber}- numer porządkowy warunkujący kolejność wyświetlania pozycji w~cenniku
-        \atr{title}\label{kat:Pricing:title}- nazwa pozycji cennika
-        \atr{description}\label{kat:Pricing:description}- opis pozycji cennika
-        \atr{price}\label{kat:Pricing:price}- cena
-        \atr{currency}\label{kat:Pricing:currency}- waluta przedstawiona jako kod ISO 4217
-    \end{itemize}
-
-    \req{PricingTranslation}\label{kat:PricingTranslation} (Tłumaczenie Cennika)
-
-    \textbf{Opis}: Tłumaczenie pozycji cennika
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:PricingTranslation:id}- identyfikator
-        \atr{title}\label{kat:PricingTranslation:title}- tłumaczenie nazwy
-        \atr{description}\label{kat:PricingTranslation:description}- tłumaczenie opisu
-        \atr{language}\label{kat:PricingTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
-    \end{itemize}
+%    \req{SiteContent}\label{kat:SiteContent} (Treść Strony)
+%
+%    \textbf{Opis}: Treść strony definiowana przez administratora
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:SiteContent:id}- identyfikator
+%        \atr{ordinalNumber}\label{kat:SiteContent:ordinalNumber}- numer porządkowy definiujący kolejność w~jakim dane powinny być wyświetlane
+%        \atr{siteContentType}\label{kat:SiteContent:siteContentType}- typ treści strony
+%        \atr{title}\label{kat:SiteContent:title}- tytuł treści stron
+%        \atr{description}\label{kat:SiteContent:description}- opis treści strony
+%        \atr{image}\label{kat:SiteContent:image}- opcjonalny obrazek, który powinien zostać wyświetlony obok treści strony
+%    \end{itemize}
+%
+%    \req{SiteContentTranslation}\label{kat:SiteContentTranslation} (Tłumaczenie Treści Strony)
+%
+%    \textbf{Opis}: Tłumaczenie treści strony
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:SiteContentTranslation:id}- identyfikator
+%        \atr{title}\label{kat:SiteContentTranslation:title}- tłumaczenie tytułu
+%        \atr{description}\label{kat:SiteContentTranslation:description}- tłumaczenie opisu
+%        \atr{language}\label{kat:SiteContentTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+%    \end{itemize}
+%
+%    \req{ContactInfo}\label{kat:ContactInfo} (Informacje Kontaktowe)
+%
+%    \textbf{Opis}: Informacje kontaktowe witryny
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:ContactInfo:id}- identyfikator
+%        \atr{contactInfoType}\label{kat:ContactInfo:contactInfoType}- typ informacji kontaktowej
+%        \atr{description}\label{kat:ContactInfo:description}- opis
+%    \end{itemize}
+%
+%    \req{Pricing}\label{kat:Pricing} (Cennik)
+%
+%    \textbf{Opis}: Pozycja cennika dostępu do usług oferowanych przez system
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:Pricing:id}- identyfikator
+%        \atr{ordinalNumber}\label{kat:Pricing:ordinalNumber}- numer porządkowy warunkujący kolejność wyświetlania pozycji w~cenniku
+%        \atr{title}\label{kat:Pricing:title}- nazwa pozycji cennika
+%        \atr{description}\label{kat:Pricing:description}- opis pozycji cennika
+%        \atr{price}\label{kat:Pricing:price}- cena
+%        \atr{currency}\label{kat:Pricing:currency}- waluta przedstawiona jako kod ISO 4217
+%    \end{itemize}
+%
+%    \req{PricingTranslation}\label{kat:PricingTranslation} (Tłumaczenie Cennika)
+%
+%    \textbf{Opis}: Tłumaczenie pozycji cennika
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:PricingTranslation:id}- identyfikator
+%        \atr{title}\label{kat:PricingTranslation:title}- tłumaczenie nazwy
+%        \atr{description}\label{kat:PricingTranslation:description}- tłumaczenie opisu
+%        \atr{language}\label{kat:PricingTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+%    \end{itemize}
 
     \req{Product}\label{kat:Product} (Produkt)
 
@@ -601,16 +601,16 @@ wzorce projektowe}
         \atr{answer}\label{kat:CustomNutritionalInterviewQuestion:answer}- odpowiedź na pytanie
     \end{itemize}
 
-    \req{CustomNutritionalInterviewQuestionTemplate}\label{kat:CustomNutritionalInterviewQuestionTemplate} (Szablon Niestandardowego Pytania Wywiadu Żywieniowego)
-
-    \textbf{Opis}: Szablon niestandardowego pytania do wywiadu żywieniowego
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:CustomNutritionalInterviewQuestionTemplate:id}- identyfikator
-        \atr{question}\label{kat:CustomNutritionalInterviewQuestionTemplate:question}- pytanie
-        \atr{language}\label{kat:CustomNutritionalInterviewQuestionTemplate:language}- język tłumaczenia w~postaci kodu ISO 639-1
-    \end{itemize}
+%    \req{CustomNutritionalInterviewQuestionTemplate}\label{kat:CustomNutritionalInterviewQuestionTemplate} (Szablon Niestandardowego Pytania Wywiadu Żywieniowego)
+%
+%    \textbf{Opis}: Szablon niestandardowego pytania do wywiadu żywieniowego
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:CustomNutritionalInterviewQuestionTemplate:id}- identyfikator
+%        \atr{question}\label{kat:CustomNutritionalInterviewQuestionTemplate:question}- pytanie
+%        \atr{language}\label{kat:CustomNutritionalInterviewQuestionTemplate:language}- język tłumaczenia w~postaci kodu ISO 639-1
+%    \end{itemize}
 
     \req{AssignedMealPlan}\label{kat:AssignedMealPlan} (Przypisany Jadłospis)
 
@@ -663,47 +663,47 @@ wzorce projektowe}
         \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) są przedmiotem kompozycji ze strony użytkownika (\ref{kat:User})
         \item \role{Administrator} nie może wyświetlać i~usuwać dodatkowych informacji (\ref{kat:UserExtraInfo}) innych użytkowników
     \end{enumerate}
-    \item\ref{kat:SiteContent}
-    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Treść strony (\ref{kat:SiteContent}) nie musi mieć żadnego tłumaczenia (\ref{kat:SiteContentTranslation})
-        \item Treść strony (\ref{kat:SiteContent}) może mieć wiele tłumaczeń (\ref{kat:SiteContentTranslation})
-        %CRUD
-        \item \role{Gość} może wyświetlać dane treści strony (\ref{kat:SiteContent})
-        \item \role{Użytkownik} może wyświetlać dane treści strony (\ref{kat:SiteContent})
-        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane treści strony (\ref{kat:SiteContent})
-    \end{enumerate}
-    \item\ref{kat:SiteContentTranslation}
-    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) musi być przypisane do dokładnie jednej treści strony (\ref{kat:SiteContent})
-        %CRUD
-        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) jest przedmiotem kompozycji ze strony treści strony (\ref{kat:SiteContent})
-    \end{enumerate}
-    \item\ref{kat:ContactInfo}
-    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %CRUD
-        \item \role{Gość} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
-        \item \role{Użytkownik} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
-        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane informacji kontaktowych (\ref{kat:ContactInfo})
-    \end{enumerate}
-    \item\ref{kat:Pricing}
-    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Cennik (\ref{kat:Pricing}) nie musi mieć przypisanych żadnych tłumaczeń (\ref{kat:PricingTranslation})
-        \item Cennik (\ref{kat:Pricing}) może mieć przypisane wiele tłumaczeń (\ref{kat:PricingTranslation})
-        %CRUD
-        \item \role{Gość} może wyświetlać dane cennika (\ref{kat:Pricing})
-        \item \role{Użytkownik} może wyświetlać dane cennika (\ref{kat:Pricing})
-        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane cennika (\ref{kat:Pricing})
-    \end{enumerate}
-    \item\ref{kat:PricingTranslation}
-    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) musi być przypisane do dokładnie jednego cennika (\ref{kat:Pricing})
-        %CRUD
-        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) jest przedmiotem kompozycji ze strony cennika (\ref{kat:Pricing})
-    \end{enumerate}
+%    \item\ref{kat:SiteContent}
+%    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %Relacje
+%        \item Treść strony (\ref{kat:SiteContent}) nie musi mieć żadnego tłumaczenia (\ref{kat:SiteContentTranslation})
+%        \item Treść strony (\ref{kat:SiteContent}) może mieć wiele tłumaczeń (\ref{kat:SiteContentTranslation})
+%        %CRUD
+%        \item \role{Gość} może wyświetlać dane treści strony (\ref{kat:SiteContent})
+%        \item \role{Użytkownik} może wyświetlać dane treści strony (\ref{kat:SiteContent})
+%        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane treści strony (\ref{kat:SiteContent})
+%    \end{enumerate}
+%    \item\ref{kat:SiteContentTranslation}
+%    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %Relacje
+%        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) musi być przypisane do dokładnie jednej treści strony (\ref{kat:SiteContent})
+%        %CRUD
+%        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) jest przedmiotem kompozycji ze strony treści strony (\ref{kat:SiteContent})
+%    \end{enumerate}
+%    \item\ref{kat:ContactInfo}
+%    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %CRUD
+%        \item \role{Gość} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
+%        \item \role{Użytkownik} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
+%        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane informacji kontaktowych (\ref{kat:ContactInfo})
+%    \end{enumerate}
+%    \item\ref{kat:Pricing}
+%    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %Relacje
+%        \item Cennik (\ref{kat:Pricing}) nie musi mieć przypisanych żadnych tłumaczeń (\ref{kat:PricingTranslation})
+%        \item Cennik (\ref{kat:Pricing}) może mieć przypisane wiele tłumaczeń (\ref{kat:PricingTranslation})
+%        %CRUD
+%        \item \role{Gość} może wyświetlać dane cennika (\ref{kat:Pricing})
+%        \item \role{Użytkownik} może wyświetlać dane cennika (\ref{kat:Pricing})
+%        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane cennika (\ref{kat:Pricing})
+%    \end{enumerate}
+%    \item\ref{kat:PricingTranslation}
+%    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %Relacje
+%        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) musi być przypisane do dokładnie jednego cennika (\ref{kat:Pricing})
+%        %CRUD
+%        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) jest przedmiotem kompozycji ze strony cennika (\ref{kat:Pricing})
+%    \end{enumerate}
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
@@ -1058,14 +1058,14 @@ wzorce projektowe}
         %CRUD
         \item  Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) jest przedmiotem kompozycji ze strony wywiadu żywieniowego (\ref{kat:NutritionalInterview})
     \end{enumerate}
-    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
-    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate}) musi mieć dokaldnie jednego autora (\ref{kat:User})
-        %CRUD
-        \item \role{Dietetyk} może dodawać szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
-        \item \role{Dietetyk} może wyświetlać, edytować i~usuwać swój szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
-    \end{enumerate}
+%    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
+%    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %Relacje
+%        \item Szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate}) musi mieć dokaldnie jednego autora (\ref{kat:User})
+%        %CRUD
+%        \item \role{Dietetyk} może dodawać szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
+%        \item \role{Dietetyk} może wyświetlać, edytować i~usuwać swój szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
+%    \end{enumerate}
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
@@ -1133,58 +1133,58 @@ wzorce projektowe}
         \item Atrybut \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
     \end{enumerate}
 
-    \item\ref{kat:SiteContent}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest wymagany
-        \item Atrybut \ref{kat:SiteContent:siteContentType} jest wymagany
-        \item Atrybut \ref{kat:SiteContent:description} jest wymagany
-
-        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest liczbą całkowitą
-        \item Atrybut \ref{kat:SiteContent:siteContentType} jest typu wyliczeniowego i~może przyjmować wartości "LANDING\_PAGE\_CARD", "TERMS\_OF\_SERVICE", "PRIVACY\_POLICY", "FREQUENTLY\_ASKED\_QUESTION"
-        \item Atrybut \ref{kat:SiteContent:title} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:SiteContent:description} jest ciągiem znaków
-        \item Atrybut \ref{kat:SiteContent:image} jest zdjęciem o~maksymalnym rozmiarze 5000000 bajtów
-    \end{enumerate}
-
-    \item\ref{kat:SiteContentTranslation}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:SiteContentTranslation:description} jest wymagany
-
-        \item Atrybut \ref{kat:SiteContentTranslation:title} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:SiteContentTranslation:description} jest ciągiem znaków
-    \end{enumerate}
-
-    \item\ref{kat:ContactInfo}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest wymagany
-        \item Atrybut \ref{kat:ContactInfo:description} jest wymagany
-
-        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i~może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING\_HOURS", "OTHER"
-        \item Atrybut \ref{kat:ContactInfo:description} jest ciągiem znaków o~długości od 1~do 255 znaków
-    \end{enumerate}
-
-    \item\ref{kat:Pricing}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest wymagany
-        \item Atrybut \ref{kat:Pricing:description} jest wymagany
-        \item Atrybut \ref{kat:Pricing:price} jest wymagany
-        \item Atrybut \ref{kat:Pricing:currency} jest wymagany
-
-        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest liczbą całkowitą większą od 0
-        \item Atrybut \ref{kat:Pricing:title} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:Pricing:description} jest ciągiem znaków
-        \item Atrybut \ref{kat:Pricing:price} jest ciągiem znaków o~długości od 1~do 8~znaków
-        \item Atrybut \ref{kat:Pricing:currency} jest ciągiem znaków o~długości 3~znaków spełniającym normę ISO 4217
-        \item Jeżeli w~\ref{kat:Pricing:price} występuje znak "." to muszą po nim występować dokładnie 2~cyfry
-    \end{enumerate}
-
-    \item\ref{kat:PricingTranslation}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:PricingTranslation:description} jest wymagany
-
-        \item Atrybut \ref{kat:PricingTranslation:title} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:PricingTranslation:description} jest ciągiem znaków
-    \end{enumerate}
+%    \item\ref{kat:SiteContent}
+%    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest wymagany
+%        \item Atrybut \ref{kat:SiteContent:siteContentType} jest wymagany
+%        \item Atrybut \ref{kat:SiteContent:description} jest wymagany
+%
+%        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest liczbą całkowitą
+%        \item Atrybut \ref{kat:SiteContent:siteContentType} jest typu wyliczeniowego i~może przyjmować wartości "LANDING\_PAGE\_CARD", "TERMS\_OF\_SERVICE", "PRIVACY\_POLICY", "FREQUENTLY\_ASKED\_QUESTION"
+%        \item Atrybut \ref{kat:SiteContent:title} jest ciągiem znaków o~długości od 1~do 255 znaków
+%        \item Atrybut \ref{kat:SiteContent:description} jest ciągiem znaków
+%        \item Atrybut \ref{kat:SiteContent:image} jest zdjęciem o~maksymalnym rozmiarze 5000000 bajtów
+%    \end{enumerate}
+%
+%    \item\ref{kat:SiteContentTranslation}
+%    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:SiteContentTranslation:description} jest wymagany
+%
+%        \item Atrybut \ref{kat:SiteContentTranslation:title} jest ciągiem znaków o~długości od 1~do 255 znaków
+%        \item Atrybut \ref{kat:SiteContentTranslation:description} jest ciągiem znaków
+%    \end{enumerate}
+%
+%    \item\ref{kat:ContactInfo}
+%    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest wymagany
+%        \item Atrybut \ref{kat:ContactInfo:description} jest wymagany
+%
+%        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest typu wyliczeniowego i~może przyjmować wartości "PHONE", "EMAIL", "ADDRESS", "FACEBOOK", "TWITTER", "INSTAGRAM", "ANDROID", "IOS", "WORKING\_HOURS", "OTHER"
+%        \item Atrybut \ref{kat:ContactInfo:description} jest ciągiem znaków o~długości od 1~do 255 znaków
+%    \end{enumerate}
+%
+%    \item\ref{kat:Pricing}
+%    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest wymagany
+%        \item Atrybut \ref{kat:Pricing:description} jest wymagany
+%        \item Atrybut \ref{kat:Pricing:price} jest wymagany
+%        \item Atrybut \ref{kat:Pricing:currency} jest wymagany
+%
+%        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest liczbą całkowitą większą od 0
+%        \item Atrybut \ref{kat:Pricing:title} jest ciągiem znaków o~długości od 1~do 255 znaków
+%        \item Atrybut \ref{kat:Pricing:description} jest ciągiem znaków
+%        \item Atrybut \ref{kat:Pricing:price} jest ciągiem znaków o~długości od 1~do 8~znaków
+%        \item Atrybut \ref{kat:Pricing:currency} jest ciągiem znaków o~długości 3~znaków spełniającym normę ISO 4217
+%        \item Jeżeli w~\ref{kat:Pricing:price} występuje znak "." to muszą po nim występować dokładnie 2~cyfry
+%    \end{enumerate}
+%
+%    \item\ref{kat:PricingTranslation}
+%    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:PricingTranslation:description} jest wymagany
+%
+%        \item Atrybut \ref{kat:PricingTranslation:title} jest ciągiem znaków o~długości od 1~do 255 znaków
+%        \item Atrybut \ref{kat:PricingTranslation:description} jest ciągiem znaków
+%    \end{enumerate}
 
     \item\ref{kat:Product}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1552,12 +1552,12 @@ wzorce projektowe}
         \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:answer} jest ciągiem znaków
     \end{enumerate}
 
-    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
-    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest wymagany
-
-        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest ciągiem znaków
-    \end{enumerate}
+%    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
+%    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest wymagany
+%
+%        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest ciągiem znaków
+%    \end{enumerate}
 
     \item\ref{kat:AssignedMealPlan}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
