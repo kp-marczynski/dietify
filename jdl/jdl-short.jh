@@ -1,6 +1,6 @@
 // <<START gateway.jh>>
 application {
-	config {
+    config {
         baseName gateway
         packageName pl.marczynski.dietify.gateway
 
@@ -13,7 +13,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
 
@@ -43,7 +43,7 @@ noFluentMethod *
 
 // <<START products.jh>>
 application {
-	config {
+    config {
         baseName products
         packageName pl.marczynski.dietify.products
 
@@ -56,7 +56,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
 
@@ -70,7 +70,7 @@ application {
 
 // <<START recipes.jh>>
 application {
-	config {
+    config {
         baseName recipes
         packageName pl.marczynski.dietify.recipes
 
@@ -83,7 +83,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
 
@@ -99,7 +99,7 @@ application {
 
 // <<START mealPlans.jh>>
 application {
-	config {
+    config {
         baseName mealplans
         packageName pl.marczynski.dietify.mealplans
 
@@ -112,7 +112,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
 
@@ -126,7 +126,7 @@ application {
 
 // <<START appointments.jh>>
 application {
-	config {
+    config {
         baseName appointments
         packageName pl.marczynski.dietify.appointments
 
@@ -139,7 +139,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
 
