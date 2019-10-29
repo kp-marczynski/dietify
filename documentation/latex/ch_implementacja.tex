@@ -118,15 +118,31 @@ Aby zbudować i uruchomić projekt na Dockerze należy z poziomu głównego kata
     \caption{Skrypt kompilujący wszystkie mikroserwisy i uruchamiający aplikację na Dockerze (opr. wł.)} \label{listing:komilacja-i-uruchomienie}
 \end{listing}
 
+Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
+W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z poziomu głównego katalogu projektu wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        cd service-discovery
+        java -jar ./jhipster-registry-5.0.2.jar --spring.profiles.active=dev --spring.security.user.password=admin --spring.cloud.config.server.composite.0.type=git --spring.cloud.config.server.composite.0.uri= https://github.com/jhipster/jhipster-registry-sample-config
+    \end{minted}
+    \caption{Uruchamianie JHipster Registry (opr. wł.)} \label{listing:service-discovery}
+\end{listing}
+
+Następnie z poziomu katalogu każdego z serwsiów (gateway, products, recipes, mealplans, appointments) należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listingu \ref{listing:run-gradle-wrapper}.
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        ./gradlew
+    \end{minted}
+    \caption{Uruchamianie Gradle Wrapper (opr. wł.)} \label{listing:run-gradle-wrapper}
+\end{listing}
+
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
 \todo{podstawoway opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}
-\todo{Gotowa implementacja:}
-\todo{logowanie użytkowników, import danych z~USDA, ciągła integracja, stack mikroserwisowy (service discovery, gateway, serwisy), CRUD dla wszystkich mikroserwisów (produkty, przepisy, jadłospisy, wizyty), cache danych, dynamiczne dodawanie podkategorii produktu, dodawanie produktu do przepisu, wykres najważniejszych składników produktu, dodawanie przepisów i~produktów do dania w~jadłospisie}
-\todo{Do zrobienia:}
-\todo{filtrowanie produktów i~przepisów, tworzenie nowej wizyty, obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wydzielenie menu admina, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
+\todo{implementacja w kodzie: obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
 
 \section{Dokumentacja kodu}\label{sec:code-documentation}
 \todo{javadoc, swagger, jdl}
 \section{Testy}\label{sec:tests}
 \todo{przykładowe testy jednostkowe i~integracyjne}
+\todo{testy akceptacyjne}
 \thispagestyle{normal}
