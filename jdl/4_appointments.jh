@@ -1,7 +1,7 @@
 
 // <<START appointments.jh>>
 application {
-	config {
+    config {
         baseName appointments
         packageName pl.marczynski.dietify.appointments
 
@@ -14,7 +14,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
         searchEngine false
@@ -33,7 +33,7 @@ application {
  * @author Krzysztof Marczyński
  */
 enum AppointmentState {
-	PLANNED, CANCELED, TOOK_PLACE, COMPLETED
+    PLANNED, CANCELED, TOOK_PLACE, COMPLETED
 }
 
 /**
@@ -41,7 +41,7 @@ enum AppointmentState {
  * @author Krzysztof Marczyński
  */
 enum PhysicalActivity {
-	EXTREMELY_INACTIVE, SEDENTARY, MODERATELY_ACTIVE, VIGOROUSLY_ACTIVE, EXTREMELY_ACTIVE
+    EXTREMELY_INACTIVE, SEDENTARY, MODERATELY_ACTIVE, VIGOROUSLY_ACTIVE, EXTREMELY_ACTIVE
 }
 
 /**
@@ -49,7 +49,7 @@ enum PhysicalActivity {
  * @author Krzysztof Marczyński
  */
 enum JobType {
-	SITTING, STANDING, MIXED
+    SITTING, STANDING, MIXED
 }
 
 /**
@@ -57,7 +57,7 @@ enum JobType {
  * @author Krzysztof Marczyński
  */
 enum SatisfactionRate {
-	VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_SATISFIED
+    VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_SATISFIED
 }
 
 /**
@@ -67,8 +67,8 @@ enum SatisfactionRate {
 @paginate(pager)
 @microservice(appointments)
 entity PatientCard {
-	/** Date when patient registered to dietitian */
-	creationDate LocalDate required
+    /** Date when patient registered to dietitian */
+    creationDate LocalDate required
     /** Dietitian to which patient has signed. Id of User entity retrieved from gateway service. */
     dietitianId Long required
     /** Patient of dietitian. Id of User entity retrieved from gateway service. */
@@ -82,12 +82,12 @@ entity PatientCard {
 @paginate(pager)
 @microservice(appointments)
 entity Appointment {
-	/** Date and time of the appointment */
-	appointmentDate Instant required
+    /** Date and time of the appointment */
+    appointmentDate Instant required
     /** Current appointment state */
     appointmentState AppointmentState required
     /** General advice after appointment */
-	generalAdvice TextBlob
+    generalAdvice TextBlob
 }
 
 /**
@@ -96,8 +96,8 @@ entity Appointment {
  */
 @microservice(appointments)
 entity BodyMeasurement {
-	/** Date of measurement completion */
-	completionDate LocalDate required
+    /** Date of measurement completion */
+    completionDate LocalDate required
     /** Patient's height. Alongside with weight it is used to calculate BMI factor */
     height Integer required
     /** Patient's weight. Alongside with height it is used to calculate BMI factor */
@@ -105,7 +105,7 @@ entity BodyMeasurement {
     /** Patient's waist measure */
     waist Double required
     /** Percent of fat tissue in patient's body. Norm for women: 16-20. Norm for men: 15-18 */
-	percentOfFatTissue Double min(0) max(100)
+    percentOfFatTissue Double min(0) max(100)
     /** Percent of water in patient's body. Norm for women: 45-60. Norm for men: 50-65 */
     percentOfWater Double min(0) max(100)
     /** Mass of patient's muscle tissue in kilograms */
@@ -128,9 +128,9 @@ entity BodyMeasurement {
  */
 @microservice(appointments)
 entity NutritionalInterview {
-	/** Date of interview completion */
+    /** Date of interview completion */
     completionDate LocalDate required
-	/** Patient's target weight in kilograms */
+    /** Patient's target weight in kilograms */
     targetWeight Integer required
     /** Advice purpose summarising what patient wish to accomplish with diet */
     advicePurpose TextBlob required
@@ -158,7 +158,7 @@ entity NutritionalInterview {
  */
 @microservice(appointments)
 entity CustomNutritionalInterviewQuestion (cust_nutr_intr_quest) {
-	/** Ordinal number of custom question*/
+    /** Ordinal number of custom question*/
     ordinalNumber Integer min(1)
     /** Custom question extending Nutritional Interview */
     question TextBlob required
@@ -186,8 +186,8 @@ entity CustomNutritionalInterviewQuestionTemplate (cust_nutr_intr_quest_tmpl) {
  */
 @microservice(appointments)
 entity OwnedKitchenAppliance {
-	/** Id of KitchenAppliance entity retrieved from recipes service */
-	kitchenApplianceId Long required
+    /** Id of KitchenAppliance entity retrieved from recipes service */
+    kitchenApplianceId Long required
 }
 
 /**
@@ -196,7 +196,7 @@ entity OwnedKitchenAppliance {
  */
 @microservice(appointments)
 entity AssignedMealPlan {
-	/** Id of assigned MealPlan entity retrieved from mealplans service */
+    /** Id of assigned MealPlan entity retrieved from mealplans service */
     mealPlanId Long required
 }
 
@@ -207,10 +207,10 @@ entity AssignedMealPlan {
 @paginate(pager)
 @microservice(appointments)
 entity AppointmentEvaluation {
-	/** Overall visit satisfaction */
-	overallSatisfaction SatisfactionRate required
+    /** Overall visit satisfaction */
+    overallSatisfaction SatisfactionRate required
     /** Dietitian service satisfaction */
-	dietitianServiceSatisfaction SatisfactionRate required
+    dietitianServiceSatisfaction SatisfactionRate required
     /** Overall meal plan satisfaction */
     mealPlanOverallSatisfaction SatisfactionRate required
     /** Meals cost satisfaction */
@@ -229,26 +229,26 @@ entity AppointmentEvaluation {
 
 relationship OneToOne {
     Appointment{bodyMeasurement}
-    	to BodyMeasurement{appointment required}
+        to BodyMeasurement{appointment required}
 
     Appointment{nutritionalInterview}
-    	to NutritionalInterview{appointment required}
+        to NutritionalInterview{appointment required}
 
     AppointmentEvaluation{appointment required}
-    	to Appointment
+        to Appointment
 }
 
 relationship OneToMany {
-	PatientCard{appointments}
-		to Appointment{patientCard required}
+    PatientCard{appointments}
+        to Appointment{patientCard required}
 
     Appointment{mealPlans}
-    	to AssignedMealPlan{appointment required}
+        to AssignedMealPlan{appointment required}
 
     NutritionalInterview{ownedKitchenAppliances}
-    	to OwnedKitchenAppliance{nutritionalInterview required}
+        to OwnedKitchenAppliance{nutritionalInterview required}
 
     NutritionalInterview{customQuestions}
-    	to CustomNutritionalInterviewQuestion{nutritionalInterview required}
+        to CustomNutritionalInterviewQuestion{nutritionalInterview required}
 }
 // <<END appointments.jh>>

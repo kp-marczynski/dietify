@@ -1,28 +1,28 @@
 
 // <<START recipes.jh>>
 application {
-	config {
+    config {
         baseName recipes
         packageName pl.marczynski.dietify.recipes
-        
+
         applicationType microservice
         serverPort 8082
-        
+
         authenticationType jwt
         buildTool gradle
         serviceDiscoveryType eureka
-        
+
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
         searchEngine elasticsearch
-        
+
         enableTranslation true
         nativeLanguage en
         languages [en, pl]
-        
+
         testFrameworks [gatling, cucumber]
     }
     entities Recipe, MealType, MealTypeTranslation, DishType, DishTypeTranslation, KitchenAppliance, KitchenApplianceTranslation, RecipeSuitableForDiet, RecipeUnsuitableForDiet, RecipeSection, ProductPortion, PreparationStep, RecipeBasicNutritionData
@@ -35,22 +35,22 @@ application {
 @paginate(pager)
 @microservice(recipes)
 entity Recipe {
-	/** Name of recipe in language of recipe*/
-	name String required minlength(1) maxlength(255)
+    /** Name of recipe in language of recipe*/
+    name String required minlength(1) maxlength(255)
     /** Average time needed for overall recipe preparation, defined in minutes */
-	preparationTimeMinutes Integer required min(0)
+    preparationTimeMinutes Integer required min(0)
     /** Number of portions for which all quantities are specified */
-	numberOfPortions Double required min(0)
+    numberOfPortions Double required min(0)
     /** Optional image of recipe */
-	image ImageBlob maxbytes(5000000)
+    image ImageBlob maxbytes(5000000)
     /** Id of recipe's author. Id of User entity retrieved from gateway service */
-	authorId Long required
-	/** Date of creation */
-	creationDate LocalDate required
+    authorId Long required
+    /** Date of creation */
+    creationDate LocalDate required
     /** Date of last edit */
-	lastEditDate LocalDate required
+    lastEditDate LocalDate required
     /** Flag specifying if recipe should be visible in list of author's recipes */
-	isVisible Boolean required
+    isVisible Boolean required
     /** Language tag of a recipe as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
     /** Total weight in grams of meal prepared from recipe */
@@ -90,8 +90,8 @@ entity DishType {
  */
 @microservice(recipes)
 entity DishTypeTranslation (dish_type_trns) {
-	/** Translated name of dish type */
-	translation String required minlength(1) maxlength(255)
+    /** Translated name of dish type */
+    translation String required minlength(1) maxlength(255)
     /** Language of translation as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
@@ -113,8 +113,8 @@ entity MealType {
  */
 @microservice(recipes)
 entity MealTypeTranslation (meal_type_trns) {
-	/** Translated name of meal type */
-	translation String required minlength(1) maxlength(255)
+    /** Translated name of meal type */
+    translation String required minlength(1) maxlength(255)
     /** Language of translation as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
@@ -135,8 +135,8 @@ entity KitchenAppliance {
  */
 @microservice(recipes)
 entity KitchenApplianceTranslation (kitch_appl_trns) {
-	/** Translated name of kitchen appliance */
-	translation String required minlength(1) maxlength(255)
+    /** Translated name of kitchen appliance */
+    translation String required minlength(1) maxlength(255)
     /** Language of translation as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
@@ -149,8 +149,8 @@ entity KitchenApplianceTranslation (kitch_appl_trns) {
  */
 @microservice(recipes)
 entity RecipeSection {
-	/** Name of recipe section in language of a recipe*/
-	sectionName String minlength(1) maxlength(255)
+    /** Name of recipe section in language of a recipe*/
+    sectionName String minlength(1) maxlength(255)
 }
 
 /**
@@ -159,9 +159,9 @@ entity RecipeSection {
  */
 @microservice(recipes)
 entity PreparationStep {
-	/** Ordinal number of preparation step */
-	ordinalNumber Integer required min(1)
-  	/** Preferably short step description */
+    /** Ordinal number of preparation step */
+    ordinalNumber Integer required min(1)
+      /** Preferably short step description */
     stepDescription TextBlob
 }
 
@@ -172,7 +172,7 @@ entity PreparationStep {
 @microservice(recipes)
 entity ProductPortion {
     /** Amount of product in household measure units. If household measure is null then amount is in grams */
-	amount Double required min(0)
+    amount Double required min(0)
     /** Id of Product entity retrieved form products service */
     productId Long required
     /** Id of HouseholdMeasure entity retrieved from products service */
@@ -186,66 +186,66 @@ entity ProductPortion {
  */
 @microservice(recipes)
 entity RecipeSuitableForDiet {
-	/** Id of applicable DietType entity retrieved from products service */
-	dietTypeId Long required
+    /** Id of applicable DietType entity retrieved from products service */
+    dietTypeId Long required
 }
 
 /**
- * A tag specifying cases in which recipe should not be used, 
+ * A tag specifying cases in which recipe should not be used,
  * e.g. vegetarian should mean it is bad for vegetarians.
  * @author Krzysztof Marczyński
  */
 @microservice(recipes)
 entity RecipeUnsuitableForDiet {
-	/** Id of applicable DietType entity retrieved from products service */
-	dietTypeId Long required
+    /** Id of applicable DietType entity retrieved from products service */
+    dietTypeId Long required
 }
 
 relationship OneToOne {
-	Recipe{basicNutritionData required}
-    	to RecipeBasicNutritionData
+    Recipe{basicNutritionData required}
+        to RecipeBasicNutritionData
 }
 
 relationship OneToMany {
-	RecipeSection{productPortions}
-    	to ProductPortion{recipeSection required} 
-    
+    RecipeSection{productPortions}
+        to ProductPortion{recipeSection required}
+
     RecipeSection{preparationSteps}
-    	to PreparationStep{recipeSection required}
-    
+        to PreparationStep{recipeSection required}
+
     Recipe{recipeSections(sectionName)}
-    	to RecipeSection{recipe required} 
-    
+        to RecipeSection{recipe required}
+
     Recipe{suitableForDiets}
-    	to RecipeSuitableForDiet{recipe required} 
-    
+        to RecipeSuitableForDiet{recipe required}
+
     Recipe{unsuitableForDiets}
-    	to RecipeUnsuitableForDiet{recipe required} 
-    
+        to RecipeUnsuitableForDiet{recipe required}
+
     KitchenAppliance{translations}
-    	to KitchenApplianceTranslation{kitchenAppliance(name) required}
-    
+        to KitchenApplianceTranslation{kitchenAppliance(name) required}
+
     MealType{translations}
-    	to MealTypeTranslation{mealType(name) required}
-    
+        to MealTypeTranslation{mealType(name) required}
+
     DishType{translations}
-    	to DishTypeTranslation{dishType(description) required}
+        to DishTypeTranslation{dishType(description) required}
 }
 
 relationship ManyToOne {
-	Recipe{sourceRecipe(name)}
-    	to Recipe
+    Recipe{sourceRecipe(name)}
+        to Recipe
 }
 
 relationship ManyToMany {
-	Recipe{kitchenAppliances(name)} 
-    	to KitchenAppliance
-    
-    Recipe{dishTypes(description)} 
-    	to DishType
-   
-    Recipe{mealTypes(name)} 
-    	to MealType
+    Recipe{kitchenAppliances(name)}
+        to KitchenAppliance
+
+    Recipe{dishTypes(description)}
+        to DishType
+
+    Recipe{mealTypes(name)}
+        to MealType
 }
 
 search Recipe with elasticsearch

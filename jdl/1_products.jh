@@ -1,28 +1,28 @@
 
 // <<START products.jh>>
 application {
-	config {
+    config {
         baseName products
         packageName pl.marczynski.dietify.products
-        
+
         applicationType microservice
         serverPort 8081
-        
+
         authenticationType jwt
         buildTool gradle
         serviceDiscoveryType eureka
-        
+
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
         searchEngine elasticsearch
-        
+
         enableTranslation true
         nativeLanguage en
         languages [en, pl]
-        
+
         testFrameworks [gatling, cucumber]
     }
     entities Product, ProductSubcategory, ProductCategory, ProductCategoryTranslation, NutritionData, NutritionDefinition, NutritionDefinitionTranslation, HouseholdMeasure, DietType, DietTypeTranslation, ProductBasicNutritionData
@@ -36,16 +36,16 @@ application {
 @paginate(pager)
 @microservice(products)
 entity Product {
-	/** Specifying source if product is imported, preferably url address if possible */
-	source String minlength(1) maxlength(255)
+    /** Specifying source if product is imported, preferably url address if possible */
+    source String minlength(1) maxlength(255)
     /** Author of product if product created or edited manually. Id of User entity retrieved from gateway service */
     authorId Long
     /** Short description of Product in a language of a product*/
-	description String required minlength(1) maxlength(255)
+    description String required minlength(1) maxlength(255)
     /** Flag specifying if product is final or editable */
-	isFinal Boolean required
+    isFinal Boolean required
     /** Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these. */
-	isVerified Boolean required
+    isVerified Boolean required
     /** Language tag of a product as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
@@ -73,8 +73,8 @@ entity ProductBasicNutritionData {
  */
 @microservice(products)
 entity ProductSubcategory {
-	/** Short description of subcategory in language of a product */
-	description String required minlength(1) maxlength(255)
+    /** Short description of subcategory in language of a product */
+    description String required minlength(1) maxlength(255)
 }
 
 /**
@@ -85,7 +85,7 @@ entity ProductSubcategory {
 @microservice(products)
 entity ProductCategory {
     /** Short description of category in English */
-	description String required unique minlength(1) maxlength(255)
+    description String required unique minlength(1) maxlength(255)
 }
 
 /**
@@ -94,8 +94,8 @@ entity ProductCategory {
  */
 @microservice(products)
 entity ProductCategoryTranslation (product_category_trns) {
-	/** Translated name of product category */
-	translation String required minlength(1) maxlength(255)
+    /** Translated name of product category */
+    translation String required minlength(1) maxlength(255)
     /** Language of translation as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
@@ -108,11 +108,11 @@ entity ProductCategoryTranslation (product_category_trns) {
 @microservice(products)
 entity HouseholdMeasure {
     /** Short description of measure in language of a product, e.g. "cup" or "tea spoon" */
-	description String required minlength(1) maxlength(255)
+    description String required minlength(1) maxlength(255)
     /** Grams weight of 1 unit of specified measure */
-	gramsWeight Double required min(0)
+    gramsWeight Double required min(0)
     /** Flag specifying if measure is visible on presentation layer. By default it is initially set to false for data imported from external sources */
-	isVisible Boolean required
+    isVisible Boolean required
 }
 
 /**
@@ -122,14 +122,14 @@ entity HouseholdMeasure {
  */
 @microservice(products)
 entity NutritionDefinition {
-	/** Short tag name of nutrient */
-	tag String required unique minlength(1) maxlength(20)
+    /** Short tag name of nutrient */
+    tag String required unique minlength(1) maxlength(20)
     /** Short description of nutrient in English */
-	description String required minlength(1) maxlength(255)
+    description String required minlength(1) maxlength(255)
     /** Unit used for nutrient measurement, e.g. "g", "kcal", "ml" */
-	units String required minlength(1) maxlength(10)
+    units String required minlength(1) maxlength(10)
     /** Decimal places to which nutrient value should be rounded */
-	decimalPlaces Integer required min(0)
+    decimalPlaces Integer required min(0)
 }
 
 /**
@@ -138,8 +138,8 @@ entity NutritionDefinition {
  */
 @microservice(products)
 entity NutritionDefinitionTranslation (nutr_def_trns) {
-	/** Translated description of nutrition definition*/
-	translation String required minlength(1) maxlength(255)
+    /** Translated description of nutrition definition*/
+    translation String required minlength(1) maxlength(255)
     /** Language of translation as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
@@ -151,8 +151,8 @@ entity NutritionDefinitionTranslation (nutr_def_trns) {
  */
 @microservice(products)
 entity NutritionData {
-	/** Nutrition value in units specified in NutritionDefinition */
-	nutritionValue Double required min(0)
+    /** Nutrition value in units specified in NutritionDefinition */
+    nutritionValue Double required min(0)
 }
 
 /**
@@ -171,51 +171,51 @@ entity DietType {
  */
 @microservice(products)
 entity DietTypeTranslation (diet_type_trns) {
-	/** Translated name of diet type */
-	translation String required minlength(1) maxlength(255)
+    /** Translated name of diet type */
+    translation String required minlength(1) maxlength(255)
     /** Language of translation as ISO_639-1 code */
     language String required minlength(2) maxlength(2)
 }
 
 relationship OneToOne {
-	Product{basicNutritionData required}
-    	to ProductBasicNutritionData
+    Product{basicNutritionData required}
+        to ProductBasicNutritionData
 }
 
 relationship OneToMany {
-	Product{nutritionData(nutritionValue)}
-		to NutritionData{product required}
-        
+    Product{nutritionData(nutritionValue)}
+        to NutritionData{product required}
+
     Product{householdMeasures(description)}
-    	to HouseholdMeasure{product required}
-        
+        to HouseholdMeasure{product required}
+
     ProductCategory{translations}
-    	to ProductCategoryTranslation{productCategory required}
-    
+        to ProductCategoryTranslation{productCategory required}
+
     DietType{translations}
-    	to DietTypeTranslation{dietType required}
-        
+        to DietTypeTranslation{dietType required}
+
     NutritionDefinition{translations}
-    	to NutritionDefinitionTranslation{nutritionDefinition required}
+        to NutritionDefinitionTranslation{nutritionDefinition required}
 }
 
 relationship ManyToOne {
-	Product{subcategory(description) required} 
-    	to ProductSubcategory
+    Product{subcategory(description) required}
+        to ProductSubcategory
 
-	ProductSubcategory{category(description) required} 
-    	to ProductCategory
-        
-	NutritionData{nutritionDefinition(tag) required} 
-    	to NutritionDefinition
+    ProductSubcategory{category(description) required}
+        to ProductCategory
+
+    NutritionData{nutritionDefinition(tag) required}
+        to NutritionDefinition
 }
 
 relationship ManyToMany {
-	Product{suitableDiets(name)}
-    	to DietType
-    
+    Product{suitableDiets(name)}
+        to DietType
+
     Product{unsuitableDiets(name)}
-    	to DietType
+        to DietType
 }
 
 search Product with elasticsearch

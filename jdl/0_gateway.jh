@@ -1,7 +1,7 @@
 
 // <<START gateway.jh>>
 application {
-	config {
+    config {
         baseName gateway
         packageName pl.marczynski.dietify.gateway
 
@@ -14,7 +14,7 @@ application {
 
         databaseType sql
         devDatabaseType h2Disk
-    	prodDatabaseType postgresql
+        prodDatabaseType postgresql
         cacheProvider hazelcast
         enableHibernateCache true
         searchEngine elasticsearch
@@ -39,7 +39,7 @@ application {
  * @author Krzysztof Marczyński
  */
 enum Gender {
-	FEMALE, MALE, OTHER
+    FEMALE, MALE, OTHER
 }
 
 /**
@@ -47,10 +47,10 @@ enum Gender {
  * @author Krzysztof Marczyński
  */
 entity UserExtraInfo {
-	/** Gender */
-	gender Gender
+    /** Gender */
+    gender Gender
     /** Date of birth */
-	dateOfBirth LocalDate
+    dateOfBirth LocalDate
     /** Phone number. Preferably in format (+00) 000-000-000 */
     phoneNumber String minlength(1) maxlength(50)
     /** Street address with house/apartment number */
@@ -70,17 +70,17 @@ entity UserExtraInfo {
  * @author Krzysztof Marczyński
  */
 entity LandingPageCard {
-	/** Number for specifying order in which content should appear on landing page */
-	ordinalNumber Integer required min(1)
+    /** Number for specifying order in which content should appear on landing page */
+    ordinalNumber Integer required min(1)
     /** Landing page card content in form of simple string or html code. Bootstrap and Font Awesome may be used to style content */
-	htmlContent TextBlob required
+    htmlContent TextBlob required
     /** Optional image to be shown beside htmlContent */
     cardImage ImageBlob
 }
 
 relationship OneToOne {
-	UserExtraInfo{user required}
-    	to User
+    UserExtraInfo{user required}
+        to User
 }
 
 deployment {
