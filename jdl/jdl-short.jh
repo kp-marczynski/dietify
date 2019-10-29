@@ -1,0 +1,152 @@
+// <<START gateway.jh>>
+application {
+	config {
+        baseName gateway
+        packageName pl.marczynski.dietify.gateway
+
+        applicationType gateway
+        serverPort 8080
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+
+        useSass true
+        clientFramework angularX
+        //clientTheme flatly
+        //clientThemeVariant primary
+    }
+    entities *
+}
+
+deployment {
+  deploymentType docker-compose
+
+  appsFolders [gateway, products, recipes, mealplans, appointments]
+  dockerRepositoryName "dietify"
+  monitoring elk
+}
+
+service * with serviceImpl
+noFluentMethod *
+// <<END gateway.jh>>
+
+// <<START products.jh>>
+application {
+	config {
+        baseName products
+        packageName pl.marczynski.dietify.products
+
+        applicationType microservice
+        serverPort 8081
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+    }
+    entities Product, ProductSubcategory, ProductCategory, ProductCategoryTranslation, NutritionData, NutritionDefinition, NutritionDefinitionTranslation, HouseholdMeasure, DietType, DietTypeTranslation, ProductBasicNutritionData
+}
+// <<END products.jh>>
+
+// <<START recipes.jh>>
+application {
+	config {
+        baseName recipes
+        packageName pl.marczynski.dietify.recipes
+
+        applicationType microservice
+        serverPort 8082
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+
+        testFrameworks [gatling, cucumber]
+    }
+    entities Recipe, MealType, MealTypeTranslation, DishType, DishTypeTranslation, KitchenAppliance, KitchenApplianceTranslation, RecipeSuitableForDiet, RecipeUnsuitableForDiet, RecipeSection, ProductPortion, PreparationStep, RecipeBasicNutritionData
+}
+// <<END recipes.jh>>
+
+// <<START mealPlans.jh>>
+application {
+	config {
+        baseName mealplans
+        packageName pl.marczynski.dietify.mealplans
+
+        applicationType microservice
+        serverPort 8083
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+    }
+    entities MealPlan, MealDefinition, MealPlanSuitableForDiet, MealPlanUnsuitableForDiet, MealPlanDay, Meal, MealRecipe, MealProduct
+}
+// <<END mealPlans.jh>>
+
+// <<START appointments.jh>>
+application {
+	config {
+        baseName appointments
+        packageName pl.marczynski.dietify.appointments
+
+        applicationType microservice
+        serverPort 8084
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+    	prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+    }
+    entities Appointment, BodyMeasurement, PatientCard, NutritionalInterview, AssignedMealPlan, OwnedKitchenAppliance, CustomNutritionalInterviewQuestion, AppointmentEvaluation
+}
+// <<END appointments.jh>>
