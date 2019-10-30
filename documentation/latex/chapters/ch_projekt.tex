@@ -3,13 +3,12 @@
 
 \section{Przypadki użycia}\label{sec:usecase}
 \todo{scenariusze przypadków użycia}
-
-\image{0.55}{../uml/use_case_diagrams/users.png}{Diagram przypadków użycia~- użytkownicy}{use-case-diagram:users}
-\image{0.55}{../uml/use_case_diagrams/gateway.png}{Diagram przypadków użycia~- poddziedzina administracyjna}{use-case-diagram:gateway}
-\image{0.55}{../uml/use_case_diagrams/products.png}{Diagram przypadków użycia~- poddziedzina produkty}{use-case-diagram:products}
-\image{0.55}{../uml/use_case_diagrams/recipes.png}{Diagram przypadków użycia~- poddziedzina przepisy}{use-case-diagram:recipes}
-\image{0.55}{../uml/use_case_diagrams/mealplans.png}{Diagram przypadków użycia~- poddziedzina jadłospisy}{use-case-diagram:mealplans}
-\image{0.55}{../uml/use_case_diagrams/appointments.png}{Diagram przypadków użycia~- poddziedzina wizyty}{use-case-diagram:appointments}
+\image{0.75}{../uml/use_case_diagrams/users.png}{Diagram przypadków użycia~- użytkownicy}{use-case-diagram:users}
+\image{0.75}{../uml/use_case_diagrams/gateway.png}{Diagram przypadków użycia~- poddziedzina administracyjna}{use-case-diagram:gateway}
+\image{0.75}{../uml/use_case_diagrams/products.png}{Diagram przypadków użycia~- poddziedzina produkty}{use-case-diagram:products}
+\image{0.75}{../uml/use_case_diagrams/recipes.png}{Diagram przypadków użycia~- poddziedzina przepisy}{use-case-diagram:recipes}
+\image{0.75}{../uml/use_case_diagrams/mealplans.png}{Diagram przypadków użycia~- poddziedzina jadłospisy}{use-case-diagram:mealplans}
+\image{0.75}{../uml/use_case_diagrams/appointments.png}{Diagram przypadków użycia~- poddziedzina wizyty}{use-case-diagram:appointments}
 
 \section{Prototyp interfejsu}\label{sec:mockups}
 \todo{opisać mockupy}
@@ -88,7 +87,7 @@ wzorce projektowe}
         \atr{name}\label{kat:Authority:name}- nazwa roli
     \end{itemize}
 
-    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)
+    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika) \inlinetodo{dodać zgodę na przetwarzanie danych}
 
     \textbf{Opis}: Dodatkowe informacje o~użytkowniku
     \par
@@ -635,9 +634,9 @@ wzorce projektowe}
     \item\ref{kat:User}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Użytkownik (\ref{kat:User}) nie musi mieć musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
+        \item Użytkownik (\ref{kat:User}) nie musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
         \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
-        \item Użytkownik (\ref{kat:User}) musi mieć musi mieć przynajmniej jedną rolę (\ref{kat:Authority})
+        \item Użytkownik (\ref{kat:User}) musi mieć przynajmniej jedną rolę (\ref{kat:Authority})
         \item Użytkownik (\ref{kat:User}) może mieć wiele ról (\ref{kat:Authority})
         \item Użytkownik (\ref{kat:User}) nie musi mieć autora (\ref{kat:User})
         \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jednego autora (\ref{kat:User})
@@ -1082,7 +1081,7 @@ wzorce projektowe}
     \setlength\itemsep{1em}
     \item[\textbf{Ograniczenia}] \textbf{ogólne}
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        \item Wszystkie \textbf{id} muszą być być unikalne
+        \item Wszystkie \textbf{id} muszą być unikalne
         \item Wszystkie \textbf{id} są wymagane
         \item Wszystkie \textbf{id} są liczbami całkowitymi dodatnimi tworzonymi przez SZBD za pomocą autonumerowania
         \item Wszystkie atrybuty \textbf{language} są wymagane
@@ -1570,11 +1569,11 @@ wzorce projektowe}
 \section{Model domenowy}\label{sec:domainModel}
 \noindent
 \todo{opisać dodane atrybuty i~pomocnicze tabele asocjacyjne}
-\image{0.7}{../uml/class_diagrams/dataTypes.png}{Diagram klas~- typy danych}{class-diagram:data-types}
-\image{0.7}{../uml/class_diagrams/gateway.png}{Diagram klas~- poddziedzina administracyjna}{class-diagram:gateway}
-\image{0.7}{../uml/class_diagrams/products.png}{Diagram klas~- poddziedzina produkty}{class-diagram:products}
-\image{0.7}{../uml/class_diagrams/recipes.png}{Diagram klas~- poddziedzina przepisy}{class-diagram:recipes}
-\image{0.7}{../uml/class_diagrams/mealplans.png}{Diagram klas~- poddziedzina jadłospisy}{class-diagram:mealplans}
-\image{0.7}{../uml/class_diagrams/appointments.png}{Diagram klas~- poddziedzina wizyty}{class-diagram:appointments}
+\image{0.75}{../uml/class_diagrams/dataTypes.png}{Diagram klas~- typy danych}{class-diagram:data-types}
+\image{0.75}{../uml/class_diagrams/gateway.png}{Diagram klas~- poddziedzina administracyjna}{class-diagram:gateway}
+\image{0.75}{../uml/class_diagrams/products.png}{Diagram klas~- poddziedzina produkty}{class-diagram:products}
+\image{0.75}{../uml/class_diagrams/recipes.png}{Diagram klas~- poddziedzina przepisy}{class-diagram:recipes}
+\image{0.75}{../uml/class_diagrams/mealplans.png}{Diagram klas~- poddziedzina jadłospisy}{class-diagram:mealplans}
+\image{0.75}{../uml/class_diagrams/appointments.png}{Diagram klas~- poddziedzina wizyty}{class-diagram:appointments}
 
 \thispagestyle{normal}

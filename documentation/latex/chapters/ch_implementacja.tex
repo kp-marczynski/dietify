@@ -17,9 +17,9 @@ Wybrane języki spełniające te kryteria to:
     \item W~warstwie frontendu Typescript\cite{tech:typescript}
 \end{itemize}
 
-Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego 
+Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego
 i~Springa\cite{tech:spring} jako wiodącego frameworka backendowego.
-Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia, 
+Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia,
 że nadają się zarówno przy tworzeniu niewielkich aplikacji jak i~systemów klasy enterprise.
 \todo{angular, spring}
 
@@ -27,10 +27,10 @@ Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sp
 \todo{html, bootstrap, bootswatch}
 
 \par
-System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych, 
+System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych,
 więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
-Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}. 
-Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy RDBMS wypadają równie dobrze, 
+Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
+Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy RDBMS wypadają równie dobrze,
 jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
 \todo{liquibase}
 \par
@@ -103,7 +103,7 @@ Przed przystąpieniem do wykonywania kolejny kroków należy się upewnić, że 
 
 \subsection{Instalacja}\label{subsec:installation}
 
-Aby zbudować i uruchomić projekt na Dockerze należy z poziomu głównego katalogu projektu 
+Aby zbudować i uruchomić projekt na Dockerze należy z poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -125,7 +125,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomien
 \end{listing}
 
 Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
-W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z poziomu głównego katalogu projektu 
+W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -135,7 +135,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
     \caption{Uruchamianie JHipster Registry (opr. wł.)} \label{listing:service-discovery}
 \end{listing}
 
-Następnie z poziomu katalogu każdego z serwisów (gateway, products, recipes, mealplans, appointments) 
+Następnie z poziomu katalogu każdego z serwisów (gateway, products, recipes, mealplans, appointments)
 należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listingu \ref{listing:run-gradle-wrapper}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -152,5 +152,5 @@ należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listin
 \todo{javadoc, swagger, jdl}
 \section{Testy}\label{sec:tests}
 \todo{przykładowe testy jednostkowe i~integracyjne}
-\todo{testy akceptacyjne}
+\todo{testy użyteczności}
 \thispagestyle{normal}
