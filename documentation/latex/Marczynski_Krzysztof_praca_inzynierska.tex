@@ -33,7 +33,7 @@ aplikacja~webowa}
 
     \maketitle
     \pagenumbering{gobble}
-    \input{ch_streszczenie}
+    \input{chapters/ch_streszczenie}
     \cleardoublepage
 
     \pdfbookmark{\contentsname}{toc}
@@ -42,19 +42,18 @@ aplikacja~webowa}
 
     \pagenumbering{arabic}
     \setlength{\parskip}{6pt}%
-    \input{ch_wstep}
+    \input{chapters/ch_wstep}
 
-    \input{ch_stan-wiedzy}
-    \input{ch_zalozenia-projektowe}
-    \input{ch_projekt}
-    \input{ch_implementacja}
-%    \input{ch_testy}
+    \input{chapters/ch_stan-wiedzy}
+    \input{chapters/ch_zalozenia-projektowe}
+    \input{chapters/ch_projekt}
+    \input{chapters/ch_implementacja}
+%    \input{chapters/ch_testy}
 
 %    \input{demo/instrukcja}
 %    \input{demo/demo}
-%    \input{temp_bibl}
 
-    \input{ch_zakonczenie}
+    \input{chapters/ch_zakonczenie}
 
     % W~pracy pojawią się tylko prace naprawdę cytowane.
     % \nocite{*}
@@ -68,6 +67,6 @@ aplikacja~webowa}
     \clearpage
     \listof{listing}{Spis kodów źródłowych}
 
-    \input{ch_dodatki}
+    \input{chapters/ch_dodatki}
 
 \end{document}

@@ -1,0 +1,156 @@
+% !TeX spellcheck = pl_PL
+\chapter{Implementacja}\label{ch:implementation}
+\section{Wykorzystywane środowiska i~narzędzia programistyczne}\label{sec:dev-tools}
+\todo{uzupełnić, opisać, zacytować narzędzia}
+Podczas wyboru języków programowania, z~użyciem których zostanie zaimplementowany system, postawiono następujące kryteria:
+
+\begin{itemize}
+    \item Ścisła kontrola typów
+    \item Dobre wsparcie dla paradygmatu programowania obiektowego
+    \item Niezależność języka od platformy
+\end{itemize}
+
+Wybrane języki spełniające te kryteria to:
+
+\begin{itemize}
+    \item W~warstwie backendu Java\cite{tech:java}
+    \item W~warstwie frontendu Typescript\cite{tech:typescript}
+\end{itemize}
+
+Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego 
+i~Springa\cite{tech:spring} jako wiodącego frameworka backendowego.
+Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia, 
+że nadają się zarówno przy tworzeniu niewielkich aplikacji jak i~systemów klasy enterprise.
+\todo{angular, spring}
+
+\par
+\todo{html, bootstrap, bootswatch}
+
+\par
+System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych, 
+więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
+Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}. 
+Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy RDBMS wypadają równie dobrze, 
+jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
+\todo{liquibase}
+\par
+\todo{Netflix oss, jhipster}
+
+\par
+\todo{docker, docker compose, gitlab pipelines}
+%\begin{enumerate}
+%    \item Backend
+%    \begin{itemize}
+%        \item Java\cite{tech:java}
+%        \item Spring\cite{tech:spring}
+%        \item Gradle\cite{tech:gradle}
+%    \end{itemize}
+%
+%    \item Frontend
+%    \begin{itemize}
+%        \item Typescript\cite{tech:typescript}
+%        \item Angular\cite{tech:angular}
+%        \item HTML\cite{tech:html}
+%        \item Sass\cite{tech:sass}
+%        \item Bootstrap\cite{tech:bootstrap}
+%        \item Bootswatch Flatly\cite{tech:bootswatch}
+%        \item Font Awesome\cite{tech:font-awesome}
+%    \end{itemize}
+%
+%    \item Baza danych
+%    \begin{itemize}
+%        \item PostgreSQL\cite{tech:postgresql}
+%        \item Hibernate\cite{tech:hibernate}
+%        \item Liquibase\cite{tech:liquibase}
+%    \end{itemize}
+%
+%    \item Testy
+%    \begin{itemize}
+%        \item JUnit\cite{tech:junit}
+%        \item Mockito\cite{tech:mockito}
+%        \item Jest\cite{tech:jest}
+%        \item Protractor\cite{tech:protractor}
+%    \end{itemize}
+%
+%    \item Netflix OSS\cite{tech:netflix-oss}
+%    \begin{itemize}
+%        \item Eureka Service Discovery\cite{tech:netflix-eureka}
+%        \item Zuul Proxy\cite{tech:netflix-zuul}
+%        \item Ribbon load balancer\cite{tech:netflix-ribbon}
+%        \item Hystrix circuit breaker\cite{tech:netflix-hystrix}
+%    \end{itemize}
+%    \item Inne
+%    \begin{itemize}
+%        \item JHipster\cite{tech:jhipster}
+%        \item Gitlab\cite{tech:gitlab}
+%        \item Docker\cite{tech:docker}
+%        \item Docker Compose\cite{tech:docker-compose}
+%        \item Elasticsearch\cite{tech:elasticsearch}
+%    \end{itemize}
+%\end{enumerate}
+\section{Architektura systemu}\label{sec:system-architecture}
+\todo{opisać stack netflix oss}
+\todo{diagram rozmieszczenia}
+\section{Instalacja oprogramowania}\label{sec:software-installation}
+\todo{opisać instalacje oprogramowania i~warunki wstępne}
+\subsection{Wymagania wstępne}\label{subsec:prerequirements}
+Przed przystąpieniem do wykonywania kolejny kroków należy się upewnić, że następujące narzędzia są zainstalowane:
+\begin{itemize}
+    \item Open JDK 11 (https://adoptopenjdk.net/?variant=openjdk11)
+    \item Node.js 10 lub nowsza wersja LTS (https://nodejs.org/en/)
+    \item Docker 19.03 + Docker Compose 2 (https://docs.docker.com/install/)
+\end{itemize}
+
+\subsection{Instalacja}\label{subsec:installation}
+
+Aby zbudować i uruchomić projekt na Dockerze należy z poziomu głównego katalogu projektu 
+wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        cd gateway
+        npm install
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../products
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../recipes
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../mealplans
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../appointments
+        sh gradlew bootJar -Pprod jibDockerBuild
+        cd ../docker-compose
+        sh docker-compose up
+    \end{minted}
+    \caption{Skrypt kompilujący wszystkie mikroserwisy i uruchamiający aplikację na Dockerze (opr. wł.)} \label{listing:komilacja-i-uruchomienie}
+\end{listing}
+
+Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
+W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z poziomu głównego katalogu projektu 
+wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        cd service-discovery
+        java -jar ./jhipster-registry-5.0.2.jar --spring.profiles.active=dev --spring.security.user.password=admin --spring.cloud.config.server.composite.0.type=git --spring.cloud.config.server.composite.0.uri= https://github.com/jhipster/jhipster-registry-sample-config
+    \end{minted}
+    \caption{Uruchamianie JHipster Registry (opr. wł.)} \label{listing:service-discovery}
+\end{listing}
+
+Następnie z poziomu katalogu każdego z serwisów (gateway, products, recipes, mealplans, appointments) 
+należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listingu \ref{listing:run-gradle-wrapper}.
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        ./gradlew
+    \end{minted}
+    \caption{Uruchamianie Gradle Wrapper (opr. wł.)} \label{listing:run-gradle-wrapper}
+\end{listing}
+
+\section{Prezentacja aplikacji}\label{sec:app-presentation}
+\todo{podstawowy opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}
+\todo{implementacja w kodzie: obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
+
+\section{Dokumentacja kodu}\label{sec:code-documentation}
+\todo{javadoc, swagger, jdl}
+\section{Testy}\label{sec:tests}
+\todo{przykładowe testy jednostkowe i~integracyjne}
+\todo{testy akceptacyjne}
+\thispagestyle{normal}

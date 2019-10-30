@@ -1,0 +1,46 @@
+% !TeX spellcheck = pl_PL
+\chapter*{Wstęp}\label{ch:admission}
+
+\section*{Opis problemu}\label{sec:problem-description}
+
+Zanim będzie można rozpocząć analizę problemu, warto zdefiniować co można rozumieć pod pojęciem diety.
+Według definicji z~Encyklopedii PWN, dieta to "system odżywiania z~ustaleniem jakości i~ilości pokarmów, 
+dostosowany do potrzeb organizmu"\cite{book:pwn-dietetyk}. \inlinetodo{fix reference to pwn}
+Opierając się na tej definicji, można opisać system do zarządzania dietą jako system, 
+który będzie ułatwiał dietetykowi tworzenie jadłospisów dostosowanych do potrzeb żywieniowych organizmu pacjenta, zarządzanie stworzonymi jadłospisami 
+oraz pozwalał udostępniać utworzony jadłospis pacjentowi w~formie umożliwiającej w~jak najprostszy sposób zastosowanie przez pacjenta przygotowanej dla niego diety.
+
+\par
+Obserwując trendy występujące we współczesnym społeczeństwie można zauważyć, że zdrowy styl życia stał się modny, a~czasem nawet utożsamiany ze statusem społecznym.
+W związku z~tą tendencją coraz więcej ludzi regularnie uprawia sport, rezygnuje z~używek, a~także dba o~dietę.
+Analizując dane wyszukiwania hasła "dietetyk" rys. \ref{fig:dietetyk-trend} poprzez narzędzie Google Trends\cite{url:google-trends} można zauważyć, 
+że popularność wyszukiwania tego hasła w~latach 2016-2019 jest ponad 5~krotnie większa niż w~roku 2004.
+\imagewide[\cite{url:google-trends}]{img/dietetyk-trend.jpg}{Zainteresowanie hasłem "dietetyk" w~ujęciu czasowym}{dietetyk-trend}
+
+Zwiększone zainteresowanie usługami dietetycznymi powoduje zwiększone zapotrzebowanie na wysokiej jakości, nowoczesne narzędzia wspomagające pracę dietetyka.
+W chwili pisania niniejszej pracy w~Polsce popularność zyskało jedynie kilka programów oferujących kompleksowe funkcjonalności potrzebne w~codziennej praktyce dietetyka, 
+można więc sądzić, że rynek aplikacji tego typu nie został jeszcze nasycony.
+
+\par
+Biorąc pod uwagę powyższe spostrzeżenia, warto w~tym miejscu podkreślić, że Światowa Organizacja Zdrowia określiła otyłość 
+(i bardziej ogólnie choroby dietozależne) jako jeden z~głównych problemów zdrowia publicznego\cite{article:dietetyk-na-rynku-uslug-medycznych}.
+Fakt ten podkreśla jak duże brzemię odpowiedzialności spoczywa na ramionach dietetyków, 
+a~co za tym idzie jak istotne jest dostarczenie specjalistom dietetyki narzędzi ułatwiających niesienie pomocy pacjentom.
+
+\section*{Cel pracy}\label{sec:thesis-goal}
+
+Celem pracy jest projekt i~budowa platformy do zarządzania dietą w~oparciu o~architekturę mikroserwisów.
+Tworzona platforma będzie obejmowała cały cykl życia diety, czyli przede wszystkim:
+zebranie przez dietetyka wywiadu żywieniowego od pacjenta,
+stworzenie przez dietetyka jadłospisu,
+udostępnienie jadłospisu pacjentowi
+i elementy pomagające pacjentowi stosować dietę.
+
+\section*{Zakres pracy}\label{sec:scope-of-work}
+
+Praca w~swoim zakresie będzie zawierała
+opracowanie projektu systemu, w~ramach którego, między innymi, przygotowane zostaną diagramy UML takie jak diagram przypadków użycia, diagram klas i~diagram rozmieszczenia.
+Przygotowana zostanie również implementacja w~oparciu o~języki Java i~TypeScript oraz o~stos technologii Netflix OSS dla architektury mikroserwisów.
+Na koniec zostanie przedstawiona dokumentacja kodu oraz pokrótce omówiony zostanie sposób instalacji i~korzystania z~systemu.
+
+\thispagestyle{normal}

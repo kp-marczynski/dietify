@@ -12,3 +12,6 @@ _minted-main/
 *.upa
 *.upb
 *.pyg
+*.fdb_latexmk
+*.fls
+__latexindent_temp.tex
