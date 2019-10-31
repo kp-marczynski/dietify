@@ -1,9 +1,10 @@
 % !TeX spellcheck = pl_PL
 \chapter{Projekt}\label{ch:project}
 
+\todo{wprowadzenie do uml'a i mockupów}
+\todo{przerzucić przypadki użycia do rozdziału "założenia projektowe"; odpowiednie diagramy po każdej tabelce z wymaganiami funkcjonalnymi}
 \section{Przypadki użycia}\label{sec:usecase}
 \todo{scenariusze przypadków użycia}
-\todo{zgoda rodo przy rejestracji, informacja o konieczności uzyskania zgody od pacjenta przed wprowadzeniem jego danych do systemu}
 
 \image{0.7}{../uml/use_case_diagrams/users.png}{Diagram przypadków użycia~- użytkownicy}{use-case-diagram:users}
 
@@ -81,13 +82,13 @@
 \image{0.4}{../mockup/6mobile.png}{Prototyp interfejsu~- układ strony na urządzeniu mobilnym}{mockup:6mobile}
 
 \section{Opis podstawowej architektury systemu}\label{sec:basicArchitecture}
-\todo{Wyszczególnienie modułów;
-wzorce projektowe}
+\todo{podstawowe mikroserwisy, jeszcze bez opisu netflixa; relacyjna baza danych}
 
 %https://martinfowler.com/eaaDev/TemporalObject.html
 %https://microservices.io/patterns/decomposition/decompose-by-subdomain.html
 %https://dzone.com/articles/design-patterns-for-microservices
 
+\todo{zmienić układ: sekcja "model domenowy", podsekcje dla każdej poddziedziny a w nich odpowiednie kategorie, reguły, ograniczenia i diagram klas}
 \section{Kategorie}\label{sec:categories}
 
 \begin{enumerate}[label={\textbf{KAT/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
@@ -121,7 +122,7 @@ wzorce projektowe}
         \atr{name}\label{kat:Authority:name}- nazwa roli
     \end{itemize}
 
-    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika) \inlinetodo{dodać zgodę na przetwarzanie danych; albo lepiej dać checbox przy rejestracji i rejestracja niemożliwa bez zaznaczenia zgody. wtedy bez dodatkowego pola w bazie?}\\
+    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)\\
     \indent\textbf{Opis}: Dodatkowe informacje o~użytkowniku
     \par
     \textbf{Atrybuty}:
