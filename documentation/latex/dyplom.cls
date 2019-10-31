@@ -167,7 +167,7 @@ linenos
 }
 
 \newcommand{\inlinetodo}[1]{
-\textcolor{red}{#1}
+\textcolor{red}{(#1)}
 }
 
 \newcommand{\todo}[1]{
