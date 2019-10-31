@@ -103,6 +103,8 @@ linenos
 \clubpenalty=1000
 \hyphenpenalty=5000
 
+\usepackage[defaultlines=4,all]{nowidow}
+
 \textfloatsep=10pt % odstęp pommiędzy rysunkiem, tabelą, listingiem a tekstem
 \renewcommand{\baselinestretch}{1} % interlinia 1
 
