@@ -92,9 +92,8 @@ wzorce projektowe}
 
 \begin{enumerate}[label={\textbf{KAT/\protect\threedigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1em}
-    \req{User}\label{kat:User} (Użytkownik)
-
-    \textbf{Opis}: Konto użytkownika aplikacji. Każdy zalogowany użytkownik musi mieć konto użytkownika
+    \req{User}\label{kat:User} (Użytkownik)\\
+    \indent\textbf{Opis}: Konto użytkownika aplikacji. Każdy zalogowany użytkownik musi mieć konto użytkownika
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -114,18 +113,16 @@ wzorce projektowe}
         \atr{lastModifiedDate}\label{kat:User:lastModifiedDate}- data ostatniej modyfikacji konta
     \end{itemize}
 
-    \req{Authority}\label{kat:Authority} (Rola)
-
-    \textbf{Opis}: Rola użytkownika od której zależy zakres uprawnień użytkownika
+    \req{Authority}\label{kat:Authority} (Rola)\\
+    \indent\textbf{Opis}: Rola użytkownika od której zależy zakres uprawnień użytkownika
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{name}\label{kat:Authority:name}- nazwa roli
     \end{itemize}
 
-    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika) \inlinetodo{dodać zgodę na przetwarzanie danych; albo lepiej dać checbox przy rejestracji i rejestracja niemożliwa bez zaznaczenia zgody. wtedy bez dodatkowego pola w bazie?}
-
-    \textbf{Opis}: Dodatkowe informacje o~użytkowniku
+    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika) \inlinetodo{dodać zgodę na przetwarzanie danych; albo lepiej dać checbox przy rejestracji i rejestracja niemożliwa bez zaznaczenia zgody. wtedy bez dodatkowego pola w bazie?}\\
+    \indent\textbf{Opis}: Dodatkowe informacje o~użytkowniku
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -142,7 +139,7 @@ wzorce projektowe}
 
 %    \req{SiteContent}\label{kat:SiteContent} (Treść Strony)
 %
-%    \textbf{Opis}: Treść strony definiowana przez administratora
+%    \indent\textbf{Opis}: Treść strony definiowana przez administratora
 %    \par
 %    \textbf{Atrybuty}:
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -156,7 +153,7 @@ wzorce projektowe}
 %
 %    \req{SiteContentTranslation}\label{kat:SiteContentTranslation} (Tłumaczenie Treści Strony)
 %
-%    \textbf{Opis}: Tłumaczenie treści strony
+%    \indent\textbf{Opis}: Tłumaczenie treści strony
 %    \par
 %    \textbf{Atrybuty}:
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -168,7 +165,7 @@ wzorce projektowe}
 %
 %    \req{ContactInfo}\label{kat:ContactInfo} (Informacje Kontaktowe)
 %
-%    \textbf{Opis}: Informacje kontaktowe witryny
+%    \indent\textbf{Opis}: Informacje kontaktowe witryny
 %    \par
 %    \textbf{Atrybuty}:
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -179,7 +176,7 @@ wzorce projektowe}
 %
 %    \req{Pricing}\label{kat:Pricing} (Cennik)
 %
-%    \textbf{Opis}: Pozycja cennika dostępu do usług oferowanych przez system
+%    \indent\textbf{Opis}: Pozycja cennika dostępu do usług oferowanych przez system
 %    \par
 %    \textbf{Atrybuty}:
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -193,7 +190,7 @@ wzorce projektowe}
 %
 %    \req{PricingTranslation}\label{kat:PricingTranslation} (Tłumaczenie Cennika)
 %
-%    \textbf{Opis}: Tłumaczenie pozycji cennika
+%    \indent\textbf{Opis}: Tłumaczenie pozycji cennika
 %    \par
 %    \textbf{Atrybuty}:
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -203,9 +200,8 @@ wzorce projektowe}
 %        \atr{language}\label{kat:PricingTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
 %    \end{itemize}
 
-    \req{Product}\label{kat:Product} (Produkt)
-
-    \textbf{Opis}: Produkt żywieniowy
+    \req{Product}\label{kat:Product} (Produkt)\\
+    \indent\textbf{Opis}: Produkt żywieniowy
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -215,9 +211,8 @@ wzorce projektowe}
         \atr{language}\label{kat:Product:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{ProductVersion}\label{kat:ProductVersion} (Wersja Produktu)
-
-    \textbf{Opis}: Wersja produktu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
+    \req{ProductVersion}\label{kat:ProductVersion} (Wersja Produktu)\\
+    \indent\textbf{Opis}: Wersja produktu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -226,9 +221,8 @@ wzorce projektowe}
         \atr{description}\label{kat:ProductVersion:description}- krótki opis produktu w~języku produktu
     \end{itemize}
 
-    \req{ProductBasicNutritionData}\label{kat:ProductBasicNutritionData} (Podstawowe Składniki Odżywcze Produktu)
-
-    \textbf{Opis}: Podstawowe składniki odżywcze produktu
+    \req{ProductBasicNutritionData}\label{kat:ProductBasicNutritionData} (Podstawowe Składniki Odżywcze Produktu)\\
+    \indent\textbf{Opis}: Podstawowe składniki odżywcze produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -239,9 +233,8 @@ wzorce projektowe}
         \atr{carbohydrates}\label{kat:ProductBasicNutritionData:carbohydrates}- węglowodany w~gramach na 100 gramów produktu
     \end{itemize}
 
-    \req{NutritionData}\label{kat:NutritionData} (Wartość Odżywcza)
-
-    \textbf{Opis}: Wartość wartości odżywczej dla konkretnego produktu
+    \req{NutritionData}\label{kat:NutritionData} (Wartość Odżywcza)\\
+    \indent\textbf{Opis}: Wartość wartości odżywczej dla konkretnego produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -249,9 +242,8 @@ wzorce projektowe}
         \atr{nutritionValue}\label{kat:NutritionData:nutritionValue}- ilość składnika odżywczego w~jednostkach wyspecyfikowanych w~definicji wartości odżywczej
     \end{itemize}
 
-    \req{NutritionDefinition}\label{kat:NutritionDefinition} (Definicja Wartości Odżywczej)
-
-    \textbf{Opis}: Definicja wartości odżywczej
+    \req{NutritionDefinition}\label{kat:NutritionDefinition} (Definicja Wartości Odżywczej)\\
+    \indent\textbf{Opis}: Definicja wartości odżywczej
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -262,9 +254,8 @@ wzorce projektowe}
         \atr{decimalPlaces}\label{kat:NutritionDefinition:decimalPlaces}- liczba miejsc dziesiętnych do których wartość składnika odżywczego powinna być zaokrąglana
     \end{itemize}
 
-    \req{NutritionDefinitionTranslation}\label{kat:NutritionDefinitionTranslation} (Tłumaczenie Definicji Wartości Odżywczej)
-
-    \textbf{Opis}: Tłumaczenie definicji wartości odżywczej
+    \req{NutritionDefinitionTranslation}\label{kat:NutritionDefinitionTranslation} (Tłumaczenie Definicji Wartości Odżywczej)\\
+    \indent\textbf{Opis}: Tłumaczenie definicji wartości odżywczej
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -273,9 +264,8 @@ wzorce projektowe}
         \atr{language}\label{kat:NutritionDefinitionTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{HouseholdMeasure}\label{kat:HouseholdMeasure} (Miara Domowa)
-
-    \textbf{Opis}: Miara domowa produktu z~masą w~gramach
+    \req{HouseholdMeasure}\label{kat:HouseholdMeasure} (Miara Domowa)\\
+    \indent\textbf{Opis}: Miara domowa produktu z~masą w~gramach
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -285,9 +275,8 @@ wzorce projektowe}
         \atr{isVisible}\label{kat:HouseholdMeasure:isVisible}- flaga określająca czy miara jest widoczna podczas wyświetlania produktu
     \end{itemize}
 
-    \req{ProductSubcategory}\label{kat:ProductSubcategory} (Podkategoria Produktu)
-
-    \textbf{Opis}: Podkategoria produktu
+    \req{ProductSubcategory}\label{kat:ProductSubcategory} (Podkategoria Produktu)\\
+    \indent\textbf{Opis}: Podkategoria produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -295,9 +284,8 @@ wzorce projektowe}
         \atr{description}\label{kat:ProductSubcategory:description}- krótki opis podkategorii w~języku produktu
     \end{itemize}
 
-    \req{ProductCategory}\label{kat:ProductCategory} (Kategoria Produktu)
-
-    \textbf{Opis}: Główna kategoria produktu
+    \req{ProductCategory}\label{kat:ProductCategory} (Kategoria Produktu)\\
+    \indent\textbf{Opis}: Główna kategoria produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -305,9 +293,8 @@ wzorce projektowe}
         \atr{description}\label{kat:ProductCategory:description}- krótki opis kategorii produktu w~języku angielskim
     \end{itemize}
 
-    \req{ProductCategoryTranslation}\label{kat:ProductCategoryTranslation} (Tłumaczenie Kategorii Produktu)
-
-    \textbf{Opis}: Tłumaczenie kategorii produktu
+    \req{ProductCategoryTranslation}\label{kat:ProductCategoryTranslation} (Tłumaczenie Kategorii Produktu)\\
+    \indent\textbf{Opis}: Tłumaczenie kategorii produktu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -316,9 +303,8 @@ wzorce projektowe}
         \atr{language}\label{kat:ProductCategoryTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{DietType}\label{kat:DietType} (Typ Diety)
-
-    \textbf{Opis}: Typ diety
+    \req{DietType}\label{kat:DietType} (Typ Diety)\\
+    \indent\textbf{Opis}: Typ diety
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -326,9 +312,8 @@ wzorce projektowe}
         \atr{name}\label{kat:DietType:name}- krótki opis typu diety w~języku angielskim
     \end{itemize}
 
-    \req{DietTypeTranslation}\label{kat:DietTypeTranslation} (Tłumaczenie Typu Diety)
-
-    \textbf{Opis}: Tłumaczenie typu diety
+    \req{DietTypeTranslation}\label{kat:DietTypeTranslation} (Tłumaczenie Typu Diety)\\
+    \indent\textbf{Opis}: Tłumaczenie typu diety
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -337,9 +322,8 @@ wzorce projektowe}
         \atr{language}\label{kat:DietTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{Recipe}\label{kat:Recipe} (Przepis)
-
-    \textbf{Opis}: Przepis
+    \req{Recipe}\label{kat:Recipe} (Przepis)\\
+    \indent\textbf{Opis}: Przepis
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -348,9 +332,8 @@ wzorce projektowe}
         \atr{language}\label{kat:Recipe:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{RecipeVersion}\label{kat:RecipeVersion} (Wersja Przepisu)
-
-    \textbf{Opis}: Wersja przepisu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
+    \req{RecipeVersion}\label{kat:RecipeVersion} (Wersja Przepisu)\\
+    \indent\textbf{Opis}: Wersja przepisu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -363,9 +346,8 @@ wzorce projektowe}
         \atr{totalGramsWeight}\label{kat:RecipeVersion:totalGramsWeight}- całkowita masa w~gramach dania przygotowanego z~przepisu
     \end{itemize}
 
-    \req{RecipeBasicNutritionData}\label{kat:RecipeBasicNutritionData} (Podstawowe Wartości Odżywcze Przepisu)
-
-    \textbf{Opis}: Podstawowe wartości odżywcze przepisu
+    \req{RecipeBasicNutritionData}\label{kat:RecipeBasicNutritionData} (Podstawowe Wartości Odżywcze Przepisu)\\
+    \indent\textbf{Opis}: Podstawowe wartości odżywcze przepisu
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -376,9 +358,8 @@ wzorce projektowe}
         \atr{carbohydrates}\label{kat:RecipeBasicNutritionData:carbohydrates}- węglowodany w~gramach na 100 gramów posiłku przygotowanego z~użyciem produktów w~przepisie
     \end{itemize}
 
-    \req{RecipeSection}\label{kat:RecipeSection} (Sekcja Przepisu)
-
-    \textbf{Opis}: Sekcja przepisu, np. sernik może mieć 3~sekcje odpowiednio dla ciasta, masy i~polewy
+    \req{RecipeSection}\label{kat:RecipeSection} (Sekcja Przepisu)\\
+    \indent\textbf{Opis}: Sekcja przepisu, np. sernik może mieć 3~sekcje odpowiednio dla ciasta, masy i~polewy
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -386,9 +367,8 @@ wzorce projektowe}
         \atr{sectionName}\label{kat:RecipeSection:sectionName}- nazwa przepisu w~języku przepisu
     \end{itemize}
 
-    \req{ProductPortion}\label{kat:ProductPortion} (Porcja Produktu)
-
-    \textbf{Opis}: Porcja produktu wykorzystywana w~przepisie
+    \req{ProductPortion}\label{kat:ProductPortion} (Porcja Produktu)\\
+    \indent\textbf{Opis}: Porcja produktu wykorzystywana w~przepisie
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -396,9 +376,8 @@ wzorce projektowe}
         \atr{amount}\label{kat:ProductPortion:amount}- ilość produktu w~jednostkach miary domowej lub w~gramach jeśli miara domowa nie jest zdefiniowana
     \end{itemize}
 
-    \req{PreparationStep}\label{kat:PreparationStep} (Krok Przygotowania)
-
-    \textbf{Opis}: Krok przygotowania w~przepisie
+    \req{PreparationStep}\label{kat:PreparationStep} (Krok Przygotowania)\\
+    \indent\textbf{Opis}: Krok przygotowania w~przepisie
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -407,9 +386,8 @@ wzorce projektowe}
         \atr{stepDescription}\label{kat:PreparationStep:stepDescription}- w~miarę możliwości krótki opis kroku przygotowania
     \end{itemize}
 
-    \req{KitchenAppliance}\label{kat:KitchenAppliance} (Sprzęt Kuchenny)
-
-    \textbf{Opis}: Definicja sprzętu kuchennego
+    \req{KitchenAppliance}\label{kat:KitchenAppliance} (Sprzęt Kuchenny)\\
+    \indent\textbf{Opis}: Definicja sprzętu kuchennego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -417,9 +395,8 @@ wzorce projektowe}
         \atr{name}\label{kat:KitchenAppliance:name}- nazwa sprzętu kuchennego w~języku angielskim
     \end{itemize}
 
-    \req{KitchenApplianceTranslation}\label{kat:KitchenApplianceTranslation} (Tłumaczenie Sprzętu Kuchennego)
-
-    \textbf{Opis}: Tłumaczenie sprzętu kuchennego
+    \req{KitchenApplianceTranslation}\label{kat:KitchenApplianceTranslation} (Tłumaczenie Sprzętu Kuchennego)\\
+    \indent\textbf{Opis}: Tłumaczenie sprzętu kuchennego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -428,9 +405,8 @@ wzorce projektowe}
         \atr{language}\label{kat:KitchenApplianceTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{DishType}\label{kat:DishType} (Typ Dania)
-
-    \textbf{Opis}: Typ dania, np. sałatka lub zupa
+    \req{DishType}\label{kat:DishType} (Typ Dania)\\
+    \indent\textbf{Opis}: Typ dania, np. sałatka lub zupa
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -438,9 +414,8 @@ wzorce projektowe}
         \atr{description}\label{kat:DishType:description}- opis typu dania w~języku angielskim
     \end{itemize}
 
-    \req{DishTypeTranslation}\label{kat:DishTypeTranslation} (Tłumaczenie Typu Dania)
-
-    \textbf{Opis}: Tłumaczenie typu dania
+    \req{DishTypeTranslation}\label{kat:DishTypeTranslation} (Tłumaczenie Typu Dania)\\
+    \indent\textbf{Opis}: Tłumaczenie typu dania
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -449,9 +424,8 @@ wzorce projektowe}
         \atr{language}\label{kat:DishTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
-    \req{MealType}\label{kat:MealType} (Typ Posiłku)
-
-    \textbf{Opis}: Typ posiłku, np. śniadanie lub obiad
+    \req{MealType}\label{kat:MealType} (Typ Posiłku)\\
+    \indent\textbf{Opis}: Typ posiłku, np. śniadanie lub obiad
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -459,9 +433,8 @@ wzorce projektowe}
         \atr{name}\label{kat:MealType:name}- nazwa typu posiłku w~języku angielskim
     \end{itemize}
 
-    \req{MealTypeTranslation}\label{kat:MealTypeTranslation} (Tłumaczenie Typu Posiłku)
-
-    \textbf{Opis}: Meal type translation
+    \req{MealTypeTranslation}\label{kat:MealTypeTranslation} (Tłumaczenie Typu Posiłku)\\
+    \indent\textbf{Opis}: Meal type translation
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -471,9 +444,8 @@ wzorce projektowe}
     \end{itemize}
 
 
-    \req{MealPlan}\label{kat:MealPlan} (Jadłospis)
-
-    \textbf{Opis}: Jadłospis; plan posiłków z~podziałem na dnie i~posiłki
+    \req{MealPlan}\label{kat:MealPlan} (Jadłospis)\\
+    \indent\textbf{Opis}: Jadłospis; plan posiłków z~podziałem na dnie i~posiłki
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -491,9 +463,8 @@ wzorce projektowe}
         \atr{percentOfCarbohydrates}\label{kat:MealPlan:percentOfCarbohydrates}- procent węglowodanów w~całkowitej dziennej energii
     \end{itemize}
 
-    \req{MealPlanDay}\label{kat:MealPlanDay} (Dzień Jadłospisu)
-
-    \textbf{Opis}: Dzień w~jadłospisie
+    \req{MealPlanDay}\label{kat:MealPlanDay} (Dzień Jadłospisu)\\
+    \indent\textbf{Opis}: Dzień w~jadłospisie
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -501,9 +472,8 @@ wzorce projektowe}
         \atr{ordinalNumber}\label{kat:MealPlanDay:ordinalNumber}- numer porządkowy dnia
     \end{itemize}
 
-    \req{Meal}\label{kat:Meal} (Posiłek)
-
-    \textbf{Opis}: Posiłek
+    \req{Meal}\label{kat:Meal} (Posiłek)\\
+    \indent\textbf{Opis}: Posiłek
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -511,9 +481,8 @@ wzorce projektowe}
         \atr{ordinalNumber}\label{kat:Meal:ordinalNumber}- numer porządkowy posiłku
     \end{itemize}
 
-    \req{MealRecipe}\label{kat:MealRecipe} (Przepis Posiłku)
-
-    \textbf{Opis}: Przepis przypisany do posiłku
+    \req{MealRecipe}\label{kat:MealRecipe} (Przepis Posiłku)\\
+    \indent\textbf{Opis}: Przepis przypisany do posiłku
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -521,9 +490,8 @@ wzorce projektowe}
         \atr{amount}\label{kat:MealRecipe:amount}- ilość przepisu w~gramach
     \end{itemize}
 
-    \req{MealProduct}\label{kat:MealProduct} (Produkt Posiłku)
-
-    \textbf{Opis}: Produkt przypisany do posiłku
+    \req{MealProduct}\label{kat:MealProduct} (Produkt Posiłku)\\
+    \indent\textbf{Opis}: Produkt przypisany do posiłku
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -531,9 +499,8 @@ wzorce projektowe}
         \atr{amount}\label{kat:MealProduct:amount}- ilość produktu w~jednostkach miary domowej lub w~gramach jeśli miara domowa nie jest zdefiniowana
     \end{itemize}
 
-    \req{MealDefinition}\label{kat:MealDefinition} (Definicja Posiłku)
-
-    \textbf{Opis}: Definicja posiłku wykorzystywana do określenia właściwości każdego posiłku w~ciągu dnia
+    \req{MealDefinition}\label{kat:MealDefinition} (Definicja Posiłku)\\
+    \indent\textbf{Opis}: Definicja posiłku wykorzystywana do określenia właściwości każdego posiłku w~ciągu dnia
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -543,9 +510,8 @@ wzorce projektowe}
         \atr{percentOfEnergy}\label{kat:MealDefinition:percentOfEnergy}- część dziennej całkowitej dziennej energii w~procentach
     \end{itemize}
 
-    \req{Appointment}\label{kat:Appointment} (Wizyta)
-
-    \textbf{Opis}: Wizyta dietetyczna
+    \req{Appointment}\label{kat:Appointment} (Wizyta)\\
+    \indent\textbf{Opis}: Wizyta dietetyczna
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -555,9 +521,8 @@ wzorce projektowe}
         \atr{generalAdvice}\label{kat:Appointment:generalAdvice}- ogólna porada po wizycie
     \end{itemize}
 
-    \req{PatientCard}\label{kat:PatientCard} (Karta Pacjenta)
-
-    \textbf{Opis}: Karta pacjenta
+    \req{PatientCard}\label{kat:PatientCard} (Karta Pacjenta)\\
+    \indent\textbf{Opis}: Karta pacjenta
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -565,9 +530,8 @@ wzorce projektowe}
         \atr{creationDate}\label{kat:PatientCard:creationDate}- data rejestracji pacjenta do dietetyka
     \end{itemize}
 
-    \req{AppointmentEvaluation}\label{kat:AppointmentEvaluation} (Ewaluacja Wizyty)
-
-    \textbf{Opis}: Ocena wizyty przez pacjenta
+    \req{AppointmentEvaluation}\label{kat:AppointmentEvaluation} (Ewaluacja Wizyty)\\
+    \indent\textbf{Opis}: Ocena wizyty przez pacjenta
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -583,9 +547,8 @@ wzorce projektowe}
         \atr{comment}\label{kat:AppointmentEvaluation:comment}- opcjonalny komentarz do wizyty
     \end{itemize}
 
-    \req{BodyMeasurement}\label{kat:BodyMeasurement} (Pomiar Ciała)
-
-    \textbf{Opis}: Pomiar ciała
+    \req{BodyMeasurement}\label{kat:BodyMeasurement} (Pomiar Ciała)\\
+    \indent\textbf{Opis}: Pomiar ciała
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -604,9 +567,8 @@ wzorce projektowe}
         \atr{visceralFatLevel}\label{kat:BodyMeasurement:visceralFatLevel}- poziom tłuszczu trzewnego; norma: 1-12
     \end{itemize}
 
-    \req{NutritionalInterview}\label{kat:NutritionalInterview} (Wywiad Żywieniowy)
-
-    \textbf{Opis}: Wywiad żywieniowy
+    \req{NutritionalInterview}\label{kat:NutritionalInterview} (Wywiad Żywieniowy)\\
+    \indent\textbf{Opis}: Wywiad żywieniowy
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -624,9 +586,8 @@ wzorce projektowe}
         \atr{foodIntolerances}\label{kat:NutritionalInterview:foodIntolerances}- nietolerancje pokarmowe pacjenta
     \end{itemize}
 
-    \req{CustomNutritionalInterviewQuestion}\label{kat:CustomNutritionalInterviewQuestion} (Niestandardowe Pytanie Wywiadu Żywieniowego)
-
-    \textbf{Opis}: Niestandardowe pytanie wywiadu żywieniowego
+    \req{CustomNutritionalInterviewQuestion}\label{kat:CustomNutritionalInterviewQuestion} (Niestandardowe Pytanie Wywiadu Żywieniowego)\\
+    \indent\textbf{Opis}: Niestandardowe pytanie wywiadu żywieniowego
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -638,7 +599,7 @@ wzorce projektowe}
 
 %    \req{CustomNutritionalInterviewQuestionTemplate}\label{kat:CustomNutritionalInterviewQuestionTemplate} (Szablon Niestandardowego Pytania Wywiadu Żywieniowego)
 %
-%    \textbf{Opis}: Szablon niestandardowego pytania do wywiadu żywieniowego
+%    \indent\textbf{Opis}: Szablon niestandardowego pytania do wywiadu żywieniowego
 %    \par
 %    \textbf{Atrybuty}:
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -647,9 +608,8 @@ wzorce projektowe}
 %        \atr{language}\label{kat:CustomNutritionalInterviewQuestionTemplate:language}- język tłumaczenia w~postaci kodu ISO 639-1
 %    \end{itemize}
 
-    \req{AssignedMealPlan}\label{kat:AssignedMealPlan} (Przypisany Jadłospis)
-
-    \textbf{Opis}: Przypisany jadłospis
+    \req{AssignedMealPlan}\label{kat:AssignedMealPlan} (Przypisany Jadłospis)\\
+    \indent\textbf{Opis}: Przypisany jadłospis
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
@@ -667,7 +627,7 @@ wzorce projektowe}
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Przedmiot kompozycji podlega takim samym zasadom dostępu co właściciel kompozycji pod warunkiem, że przedmiot kompozycji nie definiuje własnych reguł dostępu
     \end{enumerate}
-    \item\ref{kat:User}
+    \item\ref{kat:User}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Użytkownik (\ref{kat:User}) nie musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
@@ -684,13 +644,13 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać dane \role{Pacjenta}, którego kartotekę prowadzi
         \item \role{Administrator} może wyświetlać i~usuwać dane użytkownika (\ref{kat:User})
     \end{enumerate}
-    \item\ref{kat:Authority}
+    \item\ref{kat:Authority}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         %CRUD
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane roli (\ref{kat:Authority})
     \end{enumerate}
-    \item\ref{kat:UserExtraInfo}
+    \item\ref{kat:UserExtraInfo}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:User})
@@ -698,7 +658,7 @@ wzorce projektowe}
         \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) są przedmiotem kompozycji ze strony użytkownika (\ref{kat:User})
         \item \role{Administrator} nie może wyświetlać i~usuwać dodatkowych informacji (\ref{kat:UserExtraInfo}) innych użytkowników
     \end{enumerate}
-%    \item\ref{kat:SiteContent}
+%    \item\ref{kat:SiteContent}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Treść strony (\ref{kat:SiteContent}) nie musi mieć żadnego tłumaczenia (\ref{kat:SiteContentTranslation})
@@ -708,21 +668,21 @@ wzorce projektowe}
 %        \item \role{Użytkownik} może wyświetlać dane treści strony (\ref{kat:SiteContent})
 %        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane treści strony (\ref{kat:SiteContent})
 %    \end{enumerate}
-%    \item\ref{kat:SiteContentTranslation}
+%    \item\ref{kat:SiteContentTranslation}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) musi być przypisane do dokładnie jednej treści strony (\ref{kat:SiteContent})
 %        %CRUD
 %        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) jest przedmiotem kompozycji ze strony treści strony (\ref{kat:SiteContent})
 %    \end{enumerate}
-%    \item\ref{kat:ContactInfo}
+%    \item\ref{kat:ContactInfo}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %CRUD
 %        \item \role{Gość} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
 %        \item \role{Użytkownik} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
 %        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane informacji kontaktowych (\ref{kat:ContactInfo})
 %    \end{enumerate}
-%    \item\ref{kat:Pricing}
+%    \item\ref{kat:Pricing}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Cennik (\ref{kat:Pricing}) nie musi mieć przypisanych żadnych tłumaczeń (\ref{kat:PricingTranslation})
@@ -732,14 +692,14 @@ wzorce projektowe}
 %        \item \role{Użytkownik} może wyświetlać dane cennika (\ref{kat:Pricing})
 %        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane cennika (\ref{kat:Pricing})
 %    \end{enumerate}
-%    \item\ref{kat:PricingTranslation}
+%    \item\ref{kat:PricingTranslation}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) musi być przypisane do dokładnie jednego cennika (\ref{kat:Pricing})
 %        %CRUD
 %        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) jest przedmiotem kompozycji ze strony cennika (\ref{kat:Pricing})
 %    \end{enumerate}
-    \item\ref{kat:Product}
+    \item\ref{kat:Product}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Produkt (\ref{kat:Product}) musi mieć przynajmniej jedną wersję (\ref{kat:ProductVersion})
@@ -751,7 +711,7 @@ wzorce projektowe}
         \item \role{Dietetyk} może dodawać, wyświetlać, edytować i~usuwać własne produkty (\ref{kat:Product})
         \item \role{Administrator} może wyświetlać i~usuwać produkty (\ref{kat:Product})
     \end{enumerate}
-    \item\ref{kat:ProductVersion}
+    \item\ref{kat:ProductVersion}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednego produktu  (\ref{kat:Product})
@@ -769,14 +729,14 @@ wzorce projektowe}
         \item Wersja produktu (\ref{kat:ProductVersion}) jest przedmiotem kompozycji ze strony produktu (\ref{kat:Product})
         \item Wersja produktu (\ref{kat:ProductVersion}) po utworzeniu nie może być edytowana ani usuwana
     \end{enumerate}
-    \item\ref{kat:ProductBasicNutritionData}
+    \item\ref{kat:ProductBasicNutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
         \item Podstawowe wartości odżywcze produktu (\ref{kat:ProductBasicNutritionData}) są przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
-    \item\ref{kat:NutritionData}
+    \item\ref{kat:NutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
@@ -784,7 +744,7 @@ wzorce projektowe}
         %CRUD
         \item Wartość odżywcza (\ref{kat:NutritionData}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
-    \item\ref{kat:NutritionDefinition}
+    \item\ref{kat:NutritionDefinition}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Definicja wartości odżywczej (\ref{kat:NutritionDefinition}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:NutritionDefinitionTranslation})
@@ -793,21 +753,21 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać definicję wartości odżywczej (\ref{kat:NutritionDefinition})
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać definicję wartości odżywczej (\ref{kat:NutritionDefinition})
     \end{enumerate}
-    \item\ref{kat:NutritionDefinitionTranslation}
+    \item\ref{kat:NutritionDefinitionTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) musi być przypisane do dokładnie jednej definicji wartości odżywczej  (\ref{kat:NutritionDefinition})
         %CRUD
         \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) jest przedmiotem kompozycji ze strony definicji wartości odżywczej (\ref{kat:NutritionDefinition})
     \end{enumerate}
-    \item\ref{kat:HouseholdMeasure}
+    \item\ref{kat:HouseholdMeasure}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Miara domowa (\ref{kat:HouseholdMeasure}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
         \item Miara domowa (\ref{kat:HouseholdMeasure}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
-    \item\ref{kat:ProductSubcategory}
+    \item\ref{kat:ProductSubcategory}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podkategoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do co najmniej jednej wersji produktu (\ref{kat:ProductVersion})
@@ -817,7 +777,7 @@ wzorce projektowe}
         \item \role{Dietetyk} może dodawać i~wyświetlać podkategorię produktu (\ref{kat:ProductSubcategory})
         \item \role{Administrator} może wyświetlać podkategorię produktu (\ref{kat:ProductSubcategory})
     \end{enumerate}
-    \item\ref{kat:ProductCategory}
+    \item\ref{kat:ProductCategory}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Kategoria produktu (\ref{kat:ProductCategory}) nie musi mieć przypisanego żadnego tłumaczenia (\ref{kat:ProductCategoryTranslation})
@@ -826,14 +786,14 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać kategorię produktu (\ref{kat:ProductCategory})
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać kategorię produktu (\ref{kat:ProductCategory})
     \end{enumerate}
-    \item\ref{kat:ProductCategoryTranslation}
+    \item\ref{kat:ProductCategoryTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) musi być przypisane do dokładnie jednej kategorii (\ref{kat:ProductCategory})
         %CRUD
         \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) jest przedmiotem kompozycji ze strony kategorii (\ref{kat:ProductCategory})
     \end{enumerate}
-    \item\ref{kat:DietType}
+    \item\ref{kat:DietType}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Typ diety (\ref{kat:DietType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:DietTypeTranslation})
@@ -842,14 +802,14 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać typ diety (\ref{kat:DietType})
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać typ diety (\ref{kat:DietType})
     \end{enumerate}
-    \item\ref{kat:DietTypeTranslation}
+    \item\ref{kat:DietTypeTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu diety (\ref{kat:DietTypeTranslation}) musi być przypisane do dokładnie jednego typu diety (\ref{kat:DietType})
         %CRUD
         \item Tłumaczenie typu diety (\ref{kat:DietTypeTranslation}) jest przedmiotem kompozycji ze strony typu diety (\ref{kat:DietType})
     \end{enumerate}
-    \item\ref{kat:Recipe}
+    \item\ref{kat:Recipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Przepis (\ref{kat:Recipe}) nie musi mieć zdefiniowanego żadnego przepisu źródłowego (\ref{kat:Recipe})
@@ -863,7 +823,7 @@ wzorce projektowe}
         \item \role{Dietetyk} może dodawać, wyświetlać, edytować i~usuwać własne przepisy (\ref{kat:Recipe})
         \item \role{Administrator} może wyświetlać i~usuwać przepisy (\ref{kat:Recipe})
     \end{enumerate}
-    \item\ref{kat:RecipeVersion}
+    \item\ref{kat:RecipeVersion}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć dokładnie jedne podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData})
@@ -883,14 +843,14 @@ wzorce projektowe}
         \item Wersja przepisu (\ref{kat:RecipeVersion}) jest przedmiotem kompozycji ze strony przepisu (\ref{kat:Recipe})
         \item Wersja przepisu (\ref{kat:RecipeVersion}) po utworzeniu nie może być edytowana ani usuwana
     \end{enumerate}
-    \item\ref{kat:RecipeBasicNutritionData}
+    \item\ref{kat:RecipeBasicNutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji przepisu (\ref{kat:RecipeVersion})
         %CRUD
         \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) są przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
     \end{enumerate}
-    \item\ref{kat:RecipeSection}
+    \item\ref{kat:RecipeSection}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Sekcja przepisu (\ref{kat:RecipeSection}) musi być przypisana do dokładniej jednej wersji przepisu (\ref{kat:RecipeVersion})
@@ -901,7 +861,7 @@ wzorce projektowe}
         %CRUD
         \item Sekcja przepisu (\ref{kat:RecipeSection}) jest przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
     \end{enumerate}
-    \item\ref{kat:ProductPortion}
+    \item\ref{kat:ProductPortion}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Porcja produktu (\ref{kat:ProductPortion}) musi być przypisana do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
@@ -911,14 +871,14 @@ wzorce projektowe}
         %CRUD
         \item Porcja produktu (\ref{kat:ProductPortion}) jest przedmiotem kompozycji ze strony sekcji przepisu (\ref{kat:RecipeSection})
     \end{enumerate}
-    \item\ref{kat:PreparationStep}
+    \item\ref{kat:PreparationStep}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Krok przygotowania (\ref{kat:PreparationStep}) musi być przypisany do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
         %CRUD
         \item Krok przygotowania (\ref{kat:PreparationStep}) jest przedmiotem kompozycji ze strony sekcji przepisu (\ref{kat:RecipeSection})
     \end{enumerate}
-    \item\ref{kat:KitchenAppliance}
+    \item\ref{kat:KitchenAppliance}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Sprzęt kuchenny (\ref{kat:KitchenAppliance}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:KitchenApplianceTranslation})
@@ -928,14 +888,14 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać sprzęt kuchenny (\ref{kat:KitchenAppliance})
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać sprzęt kuchenny (\ref{kat:KitchenAppliance})
     \end{enumerate}
-    \item\ref{kat:KitchenApplianceTranslation}
+    \item\ref{kat:KitchenApplianceTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) musi być przypisane do dokładnie jednego sprzętu kuchennego (\ref{kat:KitchenAppliance})
         %CRUD
         \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) jest przedmiotem kompozycji ze strony sprzętu kuchennego (\ref{kat:KitchenAppliance})
     \end{enumerate}
-    \item\ref{kat:DishType}
+    \item\ref{kat:DishType}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Typ dania (\ref{kat:DishType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:DishTypeTranslation})
@@ -944,14 +904,14 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać typ dania (\ref{kat:DishType})
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać typ dania (\ref{kat:DishType})
     \end{enumerate}
-    \item\ref{kat:DishTypeTranslation}
+    \item\ref{kat:DishTypeTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) musi być przypisane do dokładnie jednego typu dania (\ref{kat:DishType})
         %CRUD
         \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) jest przedmiotem kompozycji ze strony typu dania (\ref{kat:DishType})
     \end{enumerate}
-    \item\ref{kat:MealType}
+    \item\ref{kat:MealType}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Typ posiłku (\ref{kat:MealType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:MealTypeTranslation})
@@ -961,14 +921,14 @@ wzorce projektowe}
         \item \role{Dietetyk} może wyświetlać typ posiłku (\ref{kat:MealType})
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać typ posiłku (\ref{kat:MealType})
     \end{enumerate}
-    \item\ref{kat:MealTypeTranslation}
+    \item\ref{kat:MealTypeTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu posiłku (\ref{kat:MealTypeTranslation}) musi być przypisane do dokładnie jednego typu posiłku (\ref{kat:MealType})
         %CRUD
         \item Tłumaczenie typu posiłku (\ref{kat:MealTypeTranslation}) jest przedmiotem kompozycji ze strony typu posiłku (\ref{kat:MealType})
     \end{enumerate}
-    \item\ref{kat:MealPlan}
+    \item\ref{kat:MealPlan}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Jadłospis (\ref{kat:MealPlan}) musi mieć przypisany przynajmniej jeden dzień (\ref{kat:MealPlanDay})
@@ -985,7 +945,7 @@ wzorce projektowe}
         \item \role{Dietetyk} może dodawać, wyświetlać, edytować i~usuwać własne jadłospisy (\ref{kat:MealPlan})
         \item \role{Administrator} może wyświetlać i~usuwać jadłospisy (\ref{kat:MealPlan})
     \end{enumerate}
-    \item\ref{kat:MealPlanDay}
+    \item\ref{kat:MealPlanDay}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) musi być przypisany do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
@@ -994,7 +954,7 @@ wzorce projektowe}
         %CRUD
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) jest przedmiotem kompozycji ze strony jadłospisu (\ref{kat:MealPlan})
     \end{enumerate}
-    \item\ref{kat:Meal}
+    \item\ref{kat:Meal}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Posiłek (\ref{kat:Meal}) musi być przypisany do dokładnie jednego dnia jadłospisu (\ref{kat:MealPlanDay})
@@ -1005,7 +965,7 @@ wzorce projektowe}
         %CRUD
         \item Posiłek (\ref{kat:Meal}) jest przedmiotem kompozycji ze strony dnia jadłospisu (\ref{kat:MealPlanDay})
     \end{enumerate}
-    \item\ref{kat:MealRecipe}
+    \item\ref{kat:MealRecipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Przepis posiłku (\ref{kat:MealRecipe}) musi być przypisany do dokładnie jednego posiłku (\ref{kat:Meal})
@@ -1013,7 +973,7 @@ wzorce projektowe}
         %CRUD
         \item Przepis posiłku (\ref{kat:MealRecipe}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
     \end{enumerate}
-    \item\ref{kat:MealProduct}
+    \item\ref{kat:MealProduct}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Produkt posiłku (\ref{kat:MealProduct}) musi być przypisany do dokładnie jednego posiłku (\ref{kat:Meal})
@@ -1023,7 +983,7 @@ wzorce projektowe}
         %CRUD
         \item Produkt posiłku (\ref{kat:MealProduct}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
     \end{enumerate}
-    \item\ref{kat:MealDefinition}
+    \item\ref{kat:MealDefinition}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Definicja posiłku (\ref{kat:MealDefinition}) musi być przypisana do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
@@ -1031,7 +991,7 @@ wzorce projektowe}
         %CRUD
         \item Definicja posiłku (\ref{kat:MealDefinition}) jest przedmiotem kompozycji ze strony jadłospisu (\ref{kat:MealPlan})
     \end{enumerate}
-    \item\ref{kat:Appointment}
+    \item\ref{kat:Appointment}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wizyta (\ref{kat:Appointment}) musi być przypisana do dokładnie jednej karty pacjenta (\ref{kat:PatientCard})
@@ -1048,7 +1008,7 @@ wzorce projektowe}
         \item \role{Dietetyk} może dodawać nową wizytę (\ref{kat:Appointment})
         \item \role{Dietetyk} może wyświetlać i~edytować swoją wizytę (\ref{kat:Appointment})
     \end{enumerate}
-    \item\ref{kat:PatientCard}
+    \item\ref{kat:PatientCard}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Karta pacjenta (\ref{kat:PatientCard}) nie musi mieć przypisanej żadnej wizyty (\ref{kat:Appointment})
@@ -1060,7 +1020,7 @@ wzorce projektowe}
         \item \role{Dietetyk} może dodawać nową kartę pacjenta (\ref{kat:PatientCard})
         \item \role{Dietetyk} może wyświetlać i~edytować karty pacjenta (\ref{kat:PatientCard}), którymi zarządza
     \end{enumerate}
-    \item\ref{kat:AppointmentEvaluation}
+    \item\ref{kat:AppointmentEvaluation}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Ewaluacja wizyty (\ref{kat:AppointmentEvaluation}) musi być przypisana do dokładnie jednej wizyty (\ref{kat:Appointment})
@@ -1068,14 +1028,14 @@ wzorce projektowe}
         \item \role{Użytkownik} może wyświetlać ewaluację wizyty (\ref{kat:AppointmentEvaluation})
         \item \role{Pacjent} może dodawać ewaluację (\ref{kat:AppointmentEvaluation}) do swojej wizyty (\ref{kat:Appointment})
     \end{enumerate}
-    \item\ref{kat:BodyMeasurement}
+    \item\ref{kat:BodyMeasurement}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Pomiary ciała (\ref{kat:BodyMeasurement}) muszą być przypisane do dokładnie jednej wizyty (\ref{kat:Appointment})
         %CRUD
         \item Pomiary ciała (\ref{kat:BodyMeasurement}) są przedmiotem kompozycji ze strony wizyty (\ref{kat:Appointment})
     \end{enumerate}
-    \item\ref{kat:NutritionalInterview}
+    \item\ref{kat:NutritionalInterview}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) musi być przypisany do dokładnie jednej wizyty (\ref{kat:Appointment})
@@ -1086,14 +1046,14 @@ wzorce projektowe}
         %CRUD
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) jest przedmiotem kompozycji ze strony wizyty (\ref{kat:Appointment})
     \end{enumerate}
-    \item\ref{kat:CustomNutritionalInterviewQuestion}
+    \item\ref{kat:CustomNutritionalInterviewQuestion}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) musi być przypisane do dokładnie jednego wywiadu żywieniowego (\ref{kat:NutritionalInterview})
         %CRUD
         \item  Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) jest przedmiotem kompozycji ze strony wywiadu żywieniowego (\ref{kat:NutritionalInterview})
     \end{enumerate}
-%    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
+%    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate}) musi mieć dokładnie jednego autora (\ref{kat:User})
@@ -1101,7 +1061,7 @@ wzorce projektowe}
 %        \item \role{Dietetyk} może dodawać szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
 %        \item \role{Dietetyk} może wyświetlać, edytować i~usuwać swój szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
 %    \end{enumerate}
-    \item\ref{kat:AssignedMealPlan}
+    \item\ref{kat:AssignedMealPlan}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Przypisany jadłospis (\ref{kat:AssignedMealPlan}) musi mieć przydzieloną dokładnie jedną wizytę (\ref{kat:Appointment})
@@ -1126,7 +1086,7 @@ wzorce projektowe}
         \item Wszystkie \textbf{daty} są w~formacie YYYY:MM:DD
         \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w~systemie kodowania UTF-8
     \end{enumerate}
-    \item\ref{kat:User}
+    \item\ref{kat:User}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Required
         \item Atrybut \ref{kat:User:login} jest wymagany
@@ -1150,13 +1110,13 @@ wzorce projektowe}
         \item Atrybut \ref{kat:User:createdDate} jest stemplem czasowym
         \item Atrybut \ref{kat:User:lastModifiedDate} jest stemplem czasowym
     \end{enumerate}
-    \item\ref{kat:Authority}
+    \item\ref{kat:Authority}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Authority:name} jest wymagany
         \item Atrybut \ref{kat:Authority:name} ma unikalną wartość
         \item Atrybut \ref{kat:Authority:name} jest ciągiem znaków składającym się z~liter i~znaków "\_" o~długości od 1~do 255 znaków
     \end{enumerate}
-    \item\ref{kat:UserExtraInfo}
+    \item\ref{kat:UserExtraInfo}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i~może przyjmować wartości "FEMALE", "MALE", "OTHER"
         \item Atrybut \ref{kat:UserExtraInfo:dateOfBirth} jest datą
@@ -1168,7 +1128,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
     \end{enumerate}
 
-%    \item\ref{kat:SiteContent}
+%    \item\ref{kat:SiteContent}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest wymagany
 %        \item Atrybut \ref{kat:SiteContent:siteContentType} jest wymagany
@@ -1181,7 +1141,7 @@ wzorce projektowe}
 %        \item Atrybut \ref{kat:SiteContent:image} jest zdjęciem o~maksymalnym rozmiarze 5000000 bajtów
 %    \end{enumerate}
 %
-%    \item\ref{kat:SiteContentTranslation}
+%    \item\ref{kat:SiteContentTranslation}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:SiteContentTranslation:description} jest wymagany
 %
@@ -1189,7 +1149,7 @@ wzorce projektowe}
 %        \item Atrybut \ref{kat:SiteContentTranslation:description} jest ciągiem znaków
 %    \end{enumerate}
 %
-%    \item\ref{kat:ContactInfo}
+%    \item\ref{kat:ContactInfo}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest wymagany
 %        \item Atrybut \ref{kat:ContactInfo:description} jest wymagany
@@ -1198,7 +1158,7 @@ wzorce projektowe}
 %        \item Atrybut \ref{kat:ContactInfo:description} jest ciągiem znaków o~długości od 1~do 255 znaków
 %    \end{enumerate}
 %
-%    \item\ref{kat:Pricing}
+%    \item\ref{kat:Pricing}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest wymagany
 %        \item Atrybut \ref{kat:Pricing:description} jest wymagany
@@ -1213,7 +1173,7 @@ wzorce projektowe}
 %        \item Jeżeli w~\ref{kat:Pricing:price} występuje znak "." to muszą po nim występować dokładnie 2~cyfry
 %    \end{enumerate}
 %
-%    \item\ref{kat:PricingTranslation}
+%    \item\ref{kat:PricingTranslation}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:PricingTranslation:description} jest wymagany
 %
@@ -1221,7 +1181,7 @@ wzorce projektowe}
 %        \item Atrybut \ref{kat:PricingTranslation:description} jest ciągiem znaków
 %    \end{enumerate}
 
-    \item\ref{kat:Product}
+    \item\ref{kat:Product}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Product:isPublic} jest wymagany
 
@@ -1229,7 +1189,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:Product:isPublic} jest typu logicznego
     \end{enumerate}
 
-    \item\ref{kat:ProductVersion}
+    \item\ref{kat:ProductVersion}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductVersion:createdDate} jest wymagany
         \item Atrybut \ref{kat:ProductVersion:description} jest wymagany
@@ -1238,7 +1198,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:ProductVersion:description} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:ProductBasicNutritionData}
+    \item\ref{kat:ProductBasicNutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductBasicNutritionData:energy} jest wymagany
         \item Atrybut \ref{kat:ProductBasicNutritionData:protein} jest wymagany
@@ -1251,14 +1211,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:ProductBasicNutritionData:carbohydrates} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:NutritionData}
+    \item\ref{kat:NutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionData:nutritionValue} jest wymagany
 
         \item Atrybut \ref{kat:NutritionData:nutritionValue} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:NutritionDefinition}
+    \item\ref{kat:NutritionDefinition}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionDefinition:tag} jest wymagany
         \item Atrybut \ref{kat:NutritionDefinition:description} jest wymagany
@@ -1273,14 +1233,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:NutritionDefinition:decimalPlaces} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:NutritionDefinitionTranslation}
+    \item\ref{kat:NutritionDefinitionTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionDefinitionTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:NutritionDefinitionTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:HouseholdMeasure}
+    \item\ref{kat:HouseholdMeasure}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:HouseholdMeasure:description} jest wymagany
         \item Atrybut \ref{kat:HouseholdMeasure:gramsWeight} jest wymagany
@@ -1291,14 +1251,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:HouseholdMeasure:isVisible} jest typu logicznego
     \end{enumerate}
 
-    \item\ref{kat:ProductSubcategory}
+    \item\ref{kat:ProductSubcategory}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductSubcategory:description} jest wymagany
 
         \item Atrybut \ref{kat:ProductSubcategory:description} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:ProductCategory}
+    \item\ref{kat:ProductCategory}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductCategory:description} jest wymagany
 
@@ -1307,14 +1267,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:ProductCategory:description} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:ProductCategoryTranslation}
+    \item\ref{kat:ProductCategoryTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductCategoryTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:ProductCategoryTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:DietType}
+    \item\ref{kat:DietType}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DietType:name} jest wymagany
 
@@ -1323,21 +1283,21 @@ wzorce projektowe}
         \item Atrybut \ref{kat:DietType:name} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:DietTypeTranslation}
+    \item\ref{kat:DietTypeTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DietTypeTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:DietTypeTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:Recipe}
+    \item\ref{kat:Recipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Recipe:isPublic} jest wymagany
 
         \item Atrybut \ref{kat:Recipe:isPublic} jest typu logicznego
     \end{enumerate}
 
-    \item\ref{kat:RecipeVersion}
+    \item\ref{kat:RecipeVersion}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:RecipeVersion:name} jest wymagany
         \item Atrybut \ref{kat:RecipeVersion:preparationTimeMinutes} jest wymagany
@@ -1352,7 +1312,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:RecipeVersion:totalGramsWeight} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:RecipeBasicNutritionData}
+    \item\ref{kat:RecipeBasicNutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:RecipeBasicNutritionData:energy} jest wymagany
         \item Atrybut \ref{kat:RecipeBasicNutritionData:protein} jest wymagany
@@ -1365,19 +1325,19 @@ wzorce projektowe}
         \item Atrybut \ref{kat:RecipeBasicNutritionData:carbohydrates} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:RecipeSection}
+    \item\ref{kat:RecipeSection}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:RecipeSection:sectionName} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:ProductPortion}
+    \item\ref{kat:ProductPortion}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductPortion:amount} jest wymagany
 
         \item Atrybut \ref{kat:ProductPortion:amount} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:PreparationStep}
+    \item\ref{kat:PreparationStep}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:PreparationStep:ordinalNumber} jest wymagany
 
@@ -1385,7 +1345,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:PreparationStep:stepDescription} jest ciągiem znaków
     \end{enumerate}
 
-    \item\ref{kat:KitchenAppliance}
+    \item\ref{kat:KitchenAppliance}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:KitchenAppliance:name} jest wymagany
 
@@ -1394,14 +1354,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:KitchenAppliance:name} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:KitchenApplianceTranslation}
+    \item\ref{kat:KitchenApplianceTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:KitchenApplianceTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:KitchenApplianceTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:DishType}
+    \item\ref{kat:DishType}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DishType:description} jest wymagany
 
@@ -1410,14 +1370,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:DishType:description} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:DishTypeTranslation}
+    \item\ref{kat:DishTypeTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DishTypeTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:DishTypeTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:MealType}
+    \item\ref{kat:MealType}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealType:name} jest wymagany
 
@@ -1426,14 +1386,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:MealType:name} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:MealTypeTranslation}
+    \item\ref{kat:MealTypeTranslation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealTypeTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:MealTypeTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
-    \item\ref{kat:MealPlan}
+    \item\ref{kat:MealPlan}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest wymagany
         \item Atrybut \ref{kat:MealPlan:editTimestamp} jest wymagany
@@ -1458,35 +1418,35 @@ wzorce projektowe}
         \item Suma wartości atrybutów \ref{kat:MealPlan:percentOfProtein}, \ref{kat:MealPlan:percentOfFat}, \ref{kat:MealPlan:percentOfCarbohydrates} nie może przekraczać 100
     \end{enumerate}
 
-    \item\ref{kat:MealPlanDay}
+    \item\ref{kat:MealPlanDay}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealPlanDay:ordinalNumber} jest wymagany
 
         \item Atrybut \ref{kat:MealPlanDay:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
     \end{enumerate}
 
-    \item\ref{kat:Meal}
+    \item\ref{kat:Meal}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Meal:ordinalNumber} jest wymagany
 
         \item Atrybut \ref{kat:Meal:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
     \end{enumerate}
 
-    \item\ref{kat:MealRecipe}
+    \item\ref{kat:MealRecipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealRecipe:amount} jest wymagany
 
         \item Atrybut \ref{kat:MealRecipe:amount} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:MealProduct}
+    \item\ref{kat:MealProduct}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealProduct:amount} jest wymagany
 
         \item Atrybut \ref{kat:MealProduct:amount} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
-    \item\ref{kat:MealDefinition}
+    \item\ref{kat:MealDefinition}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealDefinition:ordinalNumber} jest wymagany
         \item Atrybut \ref{kat:MealDefinition:timeOfMeal} jest wymagany
@@ -1498,7 +1458,7 @@ wzorce projektowe}
         \item Suma wartości wszystkich atrybutów \ref{kat:MealDefinition:percentOfEnergy} w~jednym jadłospisie musi być równa 100
     \end{enumerate}
 
-    \item\ref{kat:Appointment}
+    \item\ref{kat:Appointment}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Appointment:appointmentDate} jest wymagany
         \item Atrybut \ref{kat:Appointment:appointmentState} jest wymagany
@@ -1508,14 +1468,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:Appointment:generalAdvice} jest ciągiem znaków
     \end{enumerate}
 
-    \item\ref{kat:PatientCard}
+    \item\ref{kat:PatientCard}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:PatientCard:creationDate} jest wymagany
 
         \item Atrybut \ref{kat:PatientCard:creationDate} jest stemplem czasowym
     \end{enumerate}
 
-    \item\ref{kat:AppointmentEvaluation}
+    \item\ref{kat:AppointmentEvaluation}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:AppointmentEvaluation:overallSatisfaction} jest wymagany
         \item Atrybut \ref{kat:AppointmentEvaluation:dietitianServiceSatisfaction} jest wymagany
@@ -1537,7 +1497,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:AppointmentEvaluation:comment} jest ciągiem znaków
     \end{enumerate}
 
-    \item\ref{kat:BodyMeasurement}
+    \item\ref{kat:BodyMeasurement}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:BodyMeasurement:completionDate} jest wymagany
         \item Atrybut \ref{kat:BodyMeasurement:height} jest wymagany
@@ -1558,7 +1518,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:BodyMeasurement:visceralFatLevel} jest liczbą rzeczywistą
     \end{enumerate}
 
-    \item\ref{kat:NutritionalInterview}
+    \item\ref{kat:NutritionalInterview}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionalInterview:completionDate} jest wymagany
         \item Atrybut \ref{kat:NutritionalInterview:targetWeight} jest wymagany
@@ -1578,7 +1538,7 @@ wzorce projektowe}
         \item Atrybut \ref{kat:NutritionalInterview:foodIntolerances} jest ciągiem znaków
     \end{enumerate}
 
-    \item\ref{kat:CustomNutritionalInterviewQuestion}
+    \item\ref{kat:CustomNutritionalInterviewQuestion}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:question} jest wymagany
 
@@ -1587,14 +1547,14 @@ wzorce projektowe}
         \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:answer} jest ciągiem znaków
     \end{enumerate}
 
-%    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}
+%    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest wymagany
 %
 %        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest ciągiem znaków
 %    \end{enumerate}
 
-    \item\ref{kat:AssignedMealPlan}
+    \item\ref{kat:AssignedMealPlan}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/\protect\threedigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:AssignedMealPlan:assigmentTime} jest wymagany
 

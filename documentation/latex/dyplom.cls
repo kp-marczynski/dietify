@@ -200,4 +200,7 @@ linenos
 \clearpage
 \endgroup}
 \makeatother
+\makeatletter
+\newcommand\mynobreakpar{\par\nobreak\@afterheading}
+\makeatother
 \endinput % dla porządku
