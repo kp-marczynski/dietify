@@ -123,11 +123,11 @@ Na podstawie wywiadu z~dietetykiem, analizy rozwiązań konkurencyjnych oraz opi
 na opisanym w~rozdziale \ref{sec:usefull-technologies} wzorcu dekompozycji problemu w~oparciu o~poddziedziny
 dla omawianej aplikacji wspomagania zarządzania dietą można wyszczególnić następujące poddziedziny:
 \begin{itemize}
+    \item poddziedzina administracyjna - służąca jako brama aplikacji, pozwalająca na zarządzanie użytkownikami i administrowanie aplikacją
     \item poddziedzina produkty - skupiająca się na zarządzaniu produktami spożywczymi, ich wartościami odżywczymi i~miarami domowymi
     \item poddziedzina przepisy - pozwalająca na tworzenie i~zarządzanie przepisami, w~tym przypisywanie do przepisów produktów
     \item poddziedzina jadłospisy - pozwalająca na tworzenie i~zarządzanie jadłospisami, w~tym przypisywanie do jadłospisów produktów i~przepisów
     \item poddziedzina wizyty - skupiająca się na całościowym zarządzaniu wizytami pacjenta w~obrębie karty pacjenta, a~w szczególności przypisywaniem do wizyty jadłospisów, przeprowadzaniem wywiadu żywieniowego czy też zbierania pomiarów ciała pacjenta
-    \item poddziedzina administracyjna - służąca jako brama aplikacji, pozwalająca na zarządzanie użytkownikami i administrowanie aplikacją
 \end{itemize}
 %\section{Opis udziałowców i~użytkowników}
 %\subsection{Podsumowanie udziałowców}
@@ -177,6 +177,10 @@ W tabeli \ref{tabela:uzytkownicy} przedstawiono podsumowanie użytkowników proj
     \end{table}
 \end{minipage}
 
+Na Rys. \ref{fig:use-case-diagram:users} przedstawiono relacje pomiędzy użytkownikami korzystając z notacji diagramu przypadków użycia języka UML.
+
+\image{0.7}{../uml/use_case_diagrams/users.png}{Diagram przypadków użycia~- użytkownicy}{use-case-diagram:users}
+
 \section{Wymagania funkcjonalne}\label{sec:functional-requirements}
 \par
 W tabelach \ref{tabela:wymaganiaFunkcjonalneOgolne} - \ref{tabela:wymaganiaFunkcjonalneWizyty} przedstawiono wymagania funkcjonalne dla poddziedzin systemu w postaci zestawienia potrzeb użytkowników systemu z cechami związanymi z realizacją danej potrzeby.
@@ -225,6 +229,8 @@ W tabelach \ref{tabela:wymaganiaFunkcjonalneOgolne} - \ref{tabela:wymaganiaFunkc
     \end{table}
 \end{minipage}
 
+\image{0.7}{../uml/use_case_diagrams/gateway.png}{Diagram przypadków użycia~- poddziedzina administracyjna}{use-case-diagram:gateway}
+
 \begin{minipage}{\textwidth}
     \begin{table}[H]
         \centering\caption{Wymagania funkcjonalne - poddziedzina produkty (opr.wł)\label{tabela:wymaganiaFunkcjonalneProdukty}}
@@ -259,6 +265,8 @@ W tabelach \ref{tabela:wymaganiaFunkcjonalneOgolne} - \ref{tabela:wymaganiaFunkc
         \end{tabular}
     \end{table}
 \end{minipage}
+
+\image{0.7}{../uml/use_case_diagrams/products.png}{Diagram przypadków użycia~- poddziedzina produkty}{use-case-diagram:products}
 
 \begin{minipage}{\textwidth}
     \begin{table}[H]
@@ -296,6 +304,8 @@ W tabelach \ref{tabela:wymaganiaFunkcjonalneOgolne} - \ref{tabela:wymaganiaFunkc
     \end{table}
 \end{minipage}
 
+\image{0.7}{../uml/use_case_diagrams/recipes.png}{Diagram przypadków użycia~- poddziedzina przepisy}{use-case-diagram:recipes}
+
 \begin{minipage}{\textwidth}
     \begin{table}[H]
         \centering\caption{Wymagania funkcjonalne - poddziedzina jadłospisy (opr.wł)\label{tabela:wymaganiaFunkcjonalneJadlospisy}}
@@ -325,6 +335,8 @@ W tabelach \ref{tabela:wymaganiaFunkcjonalneOgolne} - \ref{tabela:wymaganiaFunkc
         \end{tabular}
     \end{table}
 \end{minipage}
+
+\image{0.7}{../uml/use_case_diagrams/mealplans.png}{Diagram przypadków użycia~- poddziedzina jadłospisy}{use-case-diagram:mealplans}
 
 \begin{minipage}{\textwidth}
     \begin{table}[H]
@@ -391,6 +403,8 @@ W tabelach \ref{tabela:wymaganiaFunkcjonalneOgolne} - \ref{tabela:wymaganiaFunkc
         \end{tabular}
     \end{table}
 \end{minipage}
+
+\image{0.7}{../uml/use_case_diagrams/appointments.png}{Diagram przypadków użycia~- poddziedzina wizyty}{use-case-diagram:appointments}
 
 \newpage
 

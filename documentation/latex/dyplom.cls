@@ -123,6 +123,10 @@ linenos
 \ifnum#1<10 0\fi
 \number#1}
 
+\def\twodigits#1{%
+\ifnum#1<10 0\fi
+\number#1}
+
 %https://tex.stackexchange.com/questions/120756/referencing-enumeration-items-by-number-and-name
 \makeatletter
 \newcommand*{\req}[1]{%
