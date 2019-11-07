@@ -1,8 +1,8 @@
 % !TeX spellcheck = pl_PL
 \chapter{Projekt}\label{ch:project}
 
-%\todo{wprowadzenie do uml'a i mockupów}
-%\todo{przerzucić przypadki użycia do rozdziału "założenia projektowe"; odpowiednie diagramy po każdej tabelce z wymaganiami funkcjonalnymi}
+%\todo{wprowadzenie do uml'a i~mockupów}
+%\todo{przerzucić przypadki użycia do rozdziału "założenia projektowe"; odpowiednie diagramy po każdej tabelce z~wymaganiami funkcjonalnymi}
 %\section{Przypadki użycia}\label{sec:usecase}
 %\todo{scenariusze przypadków użycia}
 %
@@ -94,21 +94,21 @@
 %https://dzone.com/articles/design-patterns-for-microservices
 \section{Projekt bazy danych}\label{sec:database}
 
-Podstawą projektowanego systemu jest przetwarzanie danych związanych z domeną zarządzania dietą, dlatego niezmiernie istotne jest zapewnienie trwałości i spójności danych.
+Podstawą projektowanego systemu jest przetwarzanie danych związanych z~domeną zarządzania dietą, dlatego niezmiernie istotne jest zapewnienie trwałości i~spójności danych.
 Cechy takie może zapewnić relacyjna baza danych dzięki mechanizmowi transakcji\cite{book:bazury}.
-Jednakże w przypadku architektury mikroserwisów, w której każdy serwis korzysta z własnego schematu bazy danych spójność będzie gwarantowana jedynie w obrębie jednego serwisu,
-gdyż więzy integralności nie będą definiowane pomiędzy danymi znajdującymi się w bazach różnych serwisów.
-Aby rozwiązać ten problem, dla danych definiowanych przez użytkownika końcowego (dietetyka), do których odniesienia będą przechowywane w serwisie, który nie jest ich właścicielem,
+Jednakże w~przypadku architektury mikroserwisów, w~której każdy serwis korzysta z~własnego schematu bazy danych spójność będzie gwarantowana jedynie w~obrębie jednego serwisu,
+gdyż więzy integralności nie będą definiowane pomiędzy danymi znajdującymi się w~bazach różnych serwisów.
+Aby rozwiązać ten problem, dla danych definiowanych przez użytkownika końcowego (dietetyka), do których odniesienia będą przechowywane w~serwisie, który nie jest ich właścicielem,
 zastosowany zostanie wzorzec "Tymczasowego Obiektu" (ang. Temporal Object)\cite{url:temporal-object-pattern} nazywany również wzorcem wersjonowania.
-Dla raz utworzonej wersji obiektu dane pozostają niezmienne, a w razie potrzeby zmiany danych należy utworzyć nową wersję.
-Dzięki temu referencję do wersji można bezpiecznie wykorzystywać w środowisku rozproszonym.
+Dla raz utworzonej wersji obiektu dane pozostają niezmienne, a~w razie potrzeby zmiany danych należy utworzyć nową wersję.
+Dzięki temu referencję do wersji można bezpiecznie wykorzystywać w~środowisku rozproszonym.
 Należy zauważyć, że konsekwencją zastosowania tego wzorca jest niemożność usuwania obiektów.
-Zamiast tego należy stworzyć finalną wersję obiektu z flagą pokazującą, że obiekt powinien być traktowany jako usunięty.
+Zamiast tego należy stworzyć finalną wersję obiektu z~flagą pokazującą, że obiekt powinien być traktowany jako usunięty.
 
 \par
 W dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
-w ramach której dla każdej rozważanej poddziedziny zdefiniowane zostaną kategorie (obiekty) oraz związane z nimi reguły funkcjonowania i ograniczenia dziedzinowe\cite{book:bazury},
-które następnie zostaną podsumowane w formie modelu informacyjnego wyrażonego za pomocą diagramu klas języka UML.
+w ramach której dla każdej rozważanej poddziedziny zdefiniowane zostaną kategorie (obiekty) oraz związane z~nimi reguły funkcjonowania i~ograniczenia dziedzinowe\cite{book:bazury},
+które następnie zostaną podsumowane w~formie modelu informacyjnego wyrażonego za pomocą diagramu klas języka UML.
 
 \subsection{Ogólne cechy dziedziny}\label{ssubsubsec:database:domain}
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:domain:functionalRules}
@@ -144,7 +144,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 
 \subsection{Poddziedzina administracyjna}\label{subsec:database:gateway}
 
-%\todo{zmienić układ: sekcja "Model informacyjny", podsekcje dla każdej poddziedziny a w nich odpowiednie kategorie, reguły, ograniczenia i diagram klas}
+%\todo{zmienić układ: sekcja "Model informacyjny", podsekcje dla każdej poddziedziny a~w nich odpowiednie kategorie, reguły, ograniczenia i~diagram klas}
 \subsubsection{Kategorie}\label{subsubsec:database:gateway:categories}
 
 \begin{enumerate}[label={\textbf{KAT/0/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]

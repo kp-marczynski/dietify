@@ -102,7 +102,7 @@ Przed przystąpieniem do wykonywania kolejny kroków należy się upewnić, że 
 
 \subsection{Instalacja}\label{subsec:installation}
 
-Aby zbudować i uruchomić projekt na Dockerze należy z poziomu głównego katalogu projektu
+Aby zbudować i~uruchomić projekt na Dockerze należy z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -120,11 +120,11 @@ wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomien
         cd ../docker-compose
         sh docker-compose up
     \end{minted}
-    \caption{Skrypt kompilujący wszystkie mikroserwisy i uruchamiający aplikację na Dockerze (opr. wł.)} \label{listing:komilacja-i-uruchomienie}
+    \caption{Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze (opr. wł.)} \label{listing:komilacja-i-uruchomienie}
 \end{listing}
 
 Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
-W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z poziomu głównego katalogu projektu
+W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -134,7 +134,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
     \caption{Uruchamianie JHipster Registry (opr. wł.)} \label{listing:service-discovery}
 \end{listing}
 
-Następnie z poziomu katalogu każdego z serwisów (gateway, products, recipes, mealplans, appointments)
+Następnie z~poziomu katalogu każdego z~serwisów (gateway, products, recipes, mealplans, appointments)
 należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listingu \ref{listing:run-gradle-wrapper}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -147,7 +147,7 @@ Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \te
 
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
 \todo{podstawowy opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}
-\todo{implementacja w kodzie: obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
+\todo{implementacja w~kodzie: obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
 
 \section{Dokumentacja kodu}\label{sec:code-documentation}
 \todo{javadoc, swagger, jdl}
