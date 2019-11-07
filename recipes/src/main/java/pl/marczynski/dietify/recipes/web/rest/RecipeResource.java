@@ -99,10 +99,17 @@ public class RecipeResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of recipes in body.
      */
     @GetMapping("/recipes")
-    public ResponseEntity<List<Recipe>> getAllRecipes(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Recipe>> getAllRecipes(Pageable pageable,
+                                                      @RequestParam MultiValueMap<String, String> queryParams,
+                                                      UriComponentsBuilder uriBuilder,
+                                                      @RequestParam(required = false, defaultValue = "false") boolean eagerload,
+                                                      @RequestParam(required = false) String search,
+                                                      @RequestParam(required = false) String language) {
         log.debug("REST request to get a page of Recipes");
         Page<Recipe> page;
-        if (eagerload) {
+        if (search != null) {
+            page = recipeService.findBySearchAndFilters(search, language, pageable);
+        } else if (eagerload) {
             page = recipeService.findAllWithEagerRelationships(pageable);
         } else {
             page = recipeService.findAll(pageable);

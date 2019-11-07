@@ -5,12 +5,20 @@
             <span *ngSwitchCase="true" jhiTranslate="gatewayApp.appointmentsAppointment.home.consultationsTitle">Consultation</span>
         </span>
 <!--        <span jhiTranslate="gatewayApp.appointmentsAppointment.home.title">Appointments</span>-->
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-appointment" [routerLink]="['/appointment/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
-            <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsAppointment.home.createLabel">
-            Create new Appointment
-            </span>
-        </button>
+        <span id="jh-create-entity" *ngIf="!isWaitingForConsultation">
+            <button *ngIf="!patientCardId"  class="btn btn-primary float-right jh-create-entity create-appointment" [routerLink]="['/appointment/new']">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsAppointment.home.createLabel">
+                Create new Appointment
+                </span>
+            </button>
+            <button *ngIf="patientCardId"  class="btn btn-primary float-right jh-create-entity create-appointment" [routerLink]="['/appointment/new/card', patientCardId]">
+                <fa-icon [icon]="'plus'"></fa-icon>
+                <span class="hidden-sm-down"  jhiTranslate="gatewayApp.appointmentsAppointment.home.createLabel">
+                Create new Appointment
+                </span>
+            </button>
+        </span>
     </h3>
 <!--    <jhi-alert></jhi-alert>-->
 <!--    <div class="row">-->

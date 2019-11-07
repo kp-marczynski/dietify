@@ -99,10 +99,19 @@ public class ProductResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of products in body.
      */
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false, defaultValue = "false") boolean eagerload) {
+    public ResponseEntity<List<Product>> getAllProducts(Pageable pageable,
+                                                        @RequestParam MultiValueMap<String, String> queryParams,
+                                                        UriComponentsBuilder uriBuilder,
+                                                        @RequestParam(required = false, defaultValue = "false") boolean eagerload,
+                                                        @RequestParam(required = false) String search,
+                                                        @RequestParam(required = false) Long categoryId,
+                                                        @RequestParam(required = false) Long subcategoryId,
+                                                        @RequestParam(required = false) String language) {
         log.debug("REST request to get a page of Products");
         Page<Product> page;
-        if (eagerload) {
+        if (language != null && !language.isEmpty()) {
+            page = productService.findBySearchAndFilters(search, language, categoryId, subcategoryId, pageable);
+        } else if (eagerload) {
             page = productService.findAllWithEagerRelationships(pageable);
         } else {
             page = productService.findAll(pageable);

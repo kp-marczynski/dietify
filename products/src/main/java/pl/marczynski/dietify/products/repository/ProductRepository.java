@@ -31,4 +31,12 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         " where product.id =:id")
     Optional<Product> findOneWithEagerRelationships(@Param("id") Long id);
 
+    Page<Product> findByDescriptionContainingIgnoreCase(String searchPhrase, Pageable pageable);
+
+    Page<Product> findByDescriptionContainingIgnoreCaseAndLanguage(String searchPhrase, String language, Pageable pageable);
+
+    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguage(String searchPhrase, Long categoryId, String language, Pageable pageable);
+
+    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryId(String searchPhrase, Long subcategoryId, Pageable pageable);
+
 }

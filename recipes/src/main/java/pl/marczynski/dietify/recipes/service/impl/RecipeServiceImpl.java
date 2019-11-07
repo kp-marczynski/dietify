@@ -69,7 +69,7 @@ public class RecipeServiceImpl implements RecipeService {
     public Page<Recipe> findAllWithEagerRelationships(Pageable pageable) {
         return recipeRepository.findAllWithEagerRelationships(pageable);
     }
-    
+
 
     /**
      * Get one recipe by id.
@@ -107,5 +107,15 @@ public class RecipeServiceImpl implements RecipeService {
     @Transactional(readOnly = true)
     public Page<Recipe> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of Recipes for query {}", query);
-        return recipeSearchRepository.search(queryStringQuery(query), pageable);    }
+        return recipeSearchRepository.search(queryStringQuery(query), pageable);
+    }
+
+    @Override
+    public Page<Recipe> findBySearchAndFilters(String searchPhrase, String language, Pageable pageable) {
+        if (language != null) {
+            return this.recipeRepository.findByNameContainingIgnoreCaseAndLanguage(searchPhrase, language, pageable);
+        } else {
+            return this.recipeRepository.findByNameContainingIgnoreCase(searchPhrase, pageable);
+        }
+    }
 }

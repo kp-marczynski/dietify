@@ -26,39 +26,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState" for="field_appointmentState" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentState' | translate">Appointment State</label>
-                    <select class="form-control" name="appointmentState" formControlName="appointmentState" id="field_appointmentState">
-                        <option value="PLANNED">{{'gatewayApp.AppointmentState.PLANNED' | translate}}</option>
-                        <option value="CANCELED">{{'gatewayApp.AppointmentState.CANCELED' | translate}}</option>
-                        <option value="TOOK_PLACE">{{'gatewayApp.AppointmentState.TOOK_PLACE' | translate}}</option>
-                        <option value="COMPLETED">{{'gatewayApp.AppointmentState.COMPLETED' | translate}}</option>
-                    </select>
-                    <div *ngIf="editForm.get('appointmentState').invalid && (editForm.get('appointmentState').dirty || editForm.get('appointmentState').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('appointmentState').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" for="field_generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</label>
                     <textarea class="form-control" name="generalAdvice" id="field_generalAdvice"
                               formControlName="generalAdvice"></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement" for="field_bodyMeasurement">Body Measurement</label>
-                    <select class="form-control" id="field_bodyMeasurement" name="bodyMeasurement" formControlName="bodyMeasurement">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="bodyMeasurementOption.id === editForm.get('bodyMeasurement').value?.id ? editForm.get('bodyMeasurement').value : bodyMeasurementOption" *ngFor="let bodyMeasurementOption of bodymeasurements; trackBy: trackBodyMeasurementById">{{bodyMeasurementOption.id}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.nutritionalInterview" for="field_nutritionalInterview">Nutritional Interview</label>
-                    <select class="form-control" id="field_nutritionalInterview" name="nutritionalInterview" formControlName="nutritionalInterview">
-                        <option [ngValue]="null"></option>
-                        <option [ngValue]="nutritionalInterviewOption.id === editForm.get('nutritionalInterview').value?.id ? editForm.get('nutritionalInterview').value : nutritionalInterviewOption" *ngFor="let nutritionalInterviewOption of nutritionalinterviews; trackBy: trackNutritionalInterviewById">{{nutritionalInterviewOption.id}}</option>
-                    </select>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.appointmentsAppointment.patientCard" for="field_patientCard">Patient Card</label>
