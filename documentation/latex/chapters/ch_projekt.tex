@@ -104,6 +104,35 @@ Zamiast tego należy stworzyć finalną wersję obiektu z flagą pokazującą, �
 W dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
 w ramach której dla każdej rozważanej poddziedziny zdefiniowane zostaną kategorie (obiekty) oraz związane z nimi reguły funkcjonowania i ograniczenia dziedzinowe\cite{book:bazury},
 które następnie zostaną podsumowane w formie modelu informacyjnego wyrażonego za pomocą diagramu klas języka UML.
+
+\subsection{Ogólne cechy dziedziny}\label{ssubsubsec:database:domain}
+\subsubsection{Reguły funkcjonowania}\label{subsubsec:database:domain:functionalRules}
+\begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
+    \item[\textbf{Reguły}] \textbf{ogólne}
+    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+        \item Przedmiot kompozycji podlega takim samym zasadom dostępu co właściciel kompozycji pod warunkiem, że przedmiot kompozycji nie definiuje własnych reguł dostępu
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Ograniczenia dziedzinowe}\label{subsubsec:database:domain:restrictions}
+
+\begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
+    \item[\textbf{Ograniczenia}] \textbf{ogólne}
+    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+        \item Wszystkie \textbf{id} muszą być unikalne
+        \item Wszystkie \textbf{id} są wymagane
+        \item Wszystkie \textbf{id} są liczbami całkowitymi dodatnimi tworzonymi przez SZBD za pomocą autonumerowania
+        \item Wszystkie atrybuty \textbf{language} są wymagane
+        \item Wszystkie \textbf{language} są ciągami znaków o~długości 2~znaków spełniającymi normę ISO 639-1
+        \item Wszystkie \textbf{stemple czasowe} są w~formacie YYYY:MM:DD HH:MI:SS
+        \item Wszystkie \textbf{daty} są w~formacie YYYY:MM:DD
+        \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w~systemie kodowania UTF-8
+    \end{enumerate}
+\end{itemize}
+
+\subsubsection{Model informacyjny}\label{subsubsec:database:domain:domainModel}
 Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardowych typów danych potrzebnych przy prezentacji modelu informacyjnego.
 
 \image{0.7}{../uml/class_diagrams/dataTypes.png}{Diagram klas~- typy danych}{class-diagram:data-types}
@@ -114,7 +143,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Kategorie}\label{subsubsec:database:gateway:categories}
 
 \begin{enumerate}[label={\textbf{KAT/0/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
-    \setlength\itemsep{1em}
+    \setlength\itemsep{1.75em}
     \req{User}\label{kat:User} (Użytkownik)\\
     \indent\textbf{Opis}: Konto użytkownika aplikacji. Każdy zalogowany użytkownik musi mieć konto użytkownika
     \par
@@ -227,13 +256,9 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:gateway:functionalRules}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
-    \setlength\itemsep{1em}
-    \item[\textbf{Reguły}] \textbf{ogólne}
-    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        \item Przedmiot kompozycji podlega takim samym zasadom dostępu co właściciel kompozycji pod warunkiem, że przedmiot kompozycji nie definiuje własnych reguł dostępu
-    \end{enumerate}
+    \setlength\itemsep{1.75em}
     \item\ref{kat:User}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item Użytkownik (\ref{kat:User}) nie musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
         \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
@@ -309,20 +334,9 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Ograniczenia dziedzinowe}\label{subsubsec:database:gateway:restrictions}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
-    \setlength\itemsep{1em}
-    \item[\textbf{Ograniczenia}] \textbf{ogólne}
-    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        \item Wszystkie \textbf{id} muszą być unikalne
-        \item Wszystkie \textbf{id} są wymagane
-        \item Wszystkie \textbf{id} są liczbami całkowitymi dodatnimi tworzonymi przez SZBD za pomocą autonumerowania
-        \item Wszystkie atrybuty \textbf{language} są wymagane
-        \item Wszystkie \textbf{language} są ciągami znaków o~długości 2~znaków spełniającymi normę ISO 639-1
-        \item Wszystkie \textbf{stemple czasowe} są w~formacie YYYY:MM:DD HH:MI:SS
-        \item Wszystkie \textbf{daty} są w~formacie YYYY:MM:DD
-        \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w~systemie kodowania UTF-8
-    \end{enumerate}
+    \setlength\itemsep{1.75em}
     \item\ref{kat:User}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Required
         \item Atrybut \ref{kat:User:login} jest wymagany
         \item Atrybut \ref{kat:User:passwordHash} jest wymagany
@@ -426,6 +440,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 
 \subsubsection{Kategorie}\label{subsubsec:database:products:categories}
 \begin{enumerate}[label={\textbf{KAT/1/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
+    \setlength\itemsep{1.75em}
     \req{Product}\label{kat:Product} (Produkt)\\
     \indent\textbf{Opis}: Produkt żywieniowy
     \par
@@ -553,6 +568,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:products:functionalRules}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:Product}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/1/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
@@ -668,6 +684,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Ograniczenia dziedzinowe}\label{subsubsec:database:products:restrictions}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:Product}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:Product:isPublic} jest wymagany
@@ -786,7 +803,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 
 \subsubsection{Kategorie}\label{subsubsec:database:recipes:categories}
 \begin{enumerate}[label={\textbf{KAT/2/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
-
+    \setlength\itemsep{1.75em}
     \req{Recipe}\label{kat:Recipe} (Przepis)\\
     \indent\textbf{Opis}: Przepis
     \par
@@ -913,6 +930,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:recipes:functionalRules}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:Recipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
@@ -1037,6 +1055,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Ograniczenia dziedzinowe}\label{subsubsec:database:recipes:restrictions}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:Recipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:Recipe:isPublic} jest wymagany
@@ -1149,7 +1168,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 
 \subsubsection{Kategorie}\label{subsubsec:database:mealplans:categories}
 \begin{enumerate}[label={\textbf{KAT/3/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
-
+    \setlength\itemsep{1.75em}
     \req{MealPlan}\label{kat:MealPlan} (Jadłospis)\\
     \indent\textbf{Opis}: Jadłospis; plan posiłków z~podziałem na dnie i~posiłki
     \par
@@ -1221,6 +1240,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:mealplans:functionalRules}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:MealPlan}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
@@ -1289,6 +1309,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Ograniczenia dziedzinowe}\label{subsubsec:database:mealplans:restrictions}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:MealPlan}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest wymagany
@@ -1363,7 +1384,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 
 \subsubsection{Kategorie}\label{subsubsec:database:appointments:categories}
 \begin{enumerate}[label={\textbf{KAT/3/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
-
+    \setlength\itemsep{1.75em}
     \req{Appointment}\label{kat:Appointment} (Wizyta)\\
     \indent\textbf{Opis}: Wizyta dietetyczna
     \par
@@ -1476,6 +1497,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:appointments:functionalRules}
 
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:Appointment}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
@@ -1559,6 +1581,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsubsection{Ograniczenia dziedzinowe}\label{subsubsec:database:appointments:restrictions}
 
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
+    \setlength\itemsep{1.75em}
     \item\ref{kat:Appointment}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:Appointment:appointmentDate} jest wymagany
