@@ -133,21 +133,55 @@ Na uwagę zasługuje fakt, że widok edycji jadłospisu jest tożsamy z widokiem
 
 \subsection{Poddziedzina wizyty}
 
+Na rysunku \ref{fig:mockup:4appointments} przedstawiono prototyp widoku listy pacjentów i wizyt.
+Dietetyk będzie widział 3 kategorie wpisów:
+\begin{itemize}
+    \item lista wszystkich pacjentów
+    \item lista zbliżających się wizyt
+    \item lista wizyt, które się odbyły, ale które nadal oczekują na konsultację (np. na komentarz dietetyka, albo na przydzielenie jadłospisu)
+\end{itemize}
+Z poziomu tego widoku możliwe jest tworzenie nowej karty pacjenta, wyszukiwanie pacjentów, wyświetlenie karty pacjenta, wyświetlenie szczegółów wizyt nadchodzących i oczekujących na konsultacje.
+Należy zauważyć, że dietetyk będzie widział tylko karty pacjentów, które sam prowadzi.
+Do tego widoku prowadzi odnośnik "Patients" z panelu nawigacyjnego.
+
 \imagewide{../mockup/4appointments.png}{Prototyp interfejsu~- lista wizyt}{mockup:4appointments}
+
+Rysunek \ref{fig:mockup:4appointments_1new-patient-card} przedstawia prototyp widoku tworzenia nowej karty pacjenta.
+Na szczególną uwagę zasługuje fakt, że formularz poza polami służącymi do zdefiniowania podstawowych danych pacjenta zawiera pole,
+w którym dietetyk deklaruje się, że uzyskał od pacjenta pisemną zgodę na przetwarzanie jego danych osobowych.
 
 \imagewide{../mockup/4appointments_1new-patient-card.png}{Prototyp interfejsu~- dodawanie nowej karty pacjenta}{mockup:4appointments_1new-patient-card}
 
+Prototyp szczegółów karty pacjenta został przedstawiony na rysunku \ref{fig:mockup:4appointments_2patient-card-details}.
+Poza podstawowymi danymi pacjenta w obrębie tego widoku wyśletlany jest wykres BMI, stworzony na podstawie pomiarów przeprowadzanych w ramach kolejnych wizyt pacjenta.
+Z poziomu tego widoku możliwe jest edytowanie karty pacjenta, stworzenie nowej wizyty oraz przeglądanie listy wszystkich wizyt pacjenta oraz listy wizyt oczekujących na konsultację.
+
 \imagewide{../mockup/4appointments_2patient-card-details.png}{Prototyp interfejsu~- szczegóły karty pacjenta}{mockup:4appointments_2patient-card-details}
+
+Na rysunku \ref{fig:mockup:4appointments_3new-appointment} przedstawiono prototyp widoku tworzenia nowej wizyty.
 
 \imagewide{../mockup/4appointments_3new-appointment.png}{Prototyp interfejsu~- dodawanie nowej wizyty}{mockup:4appointments_3new-appointment}
 
+Rysunek \ref{fig:mockup:4appointments_4appointment-details} przedstawia prototyp widoku szczegółów wizyty.
+Z poziomu tego widoku możliwe jest zarządzanie przypisanymi do wizyty jadłospisami, pomiarami ciała i wywiadem żywieniowym, a także zmiana statusu wizyty.
+
 \imagewide{../mockup/4appointments_4appointment-details.png}{Prototyp interfejsu~- szczegóły wizyty}{mockup:4appointments_4appointment-details}
+
+Wywiad żywieniowy podzielony został na kilka etapów. Zbieranie podstawowych informacji dotyczących stanu pacjenta zostało przedstawione na rysunku \ref{fig:mockup:4appointments_4appointment-details_1nutritional-interview1},
+szczegółowe informacje dotyczące zdrowia na rysunku \ref{fig:mockup:4appointments_4appointment-details_1nutritional-interview2}, a nawyki żywieniowe na rysunku \ref{fig:mockup:4appointments_4appointment-details_1nutritional-interview3}.
 
 \imagewide{../mockup/4appointments_4appointment-details_1nutritional-interview1.png}{Prototyp interfejsu~- wizyta~- wywiad żywieniowy~- krok~1}{mockup:4appointments_4appointment-details_1nutritional-interview1}
 
 \imagewide{../mockup/4appointments_4appointment-details_1nutritional-interview2.png}{Prototyp interfejsu~- wizyta~- wywiad żywieniowy~- krok~2}{mockup:4appointments_4appointment-details_1nutritional-interview2}
 
 \imagewide{../mockup/4appointments_4appointment-details_1nutritional-interview3.png}{Prototyp interfejsu~- wizyta~- wywiad żywieniowy~- krok~3}{mockup:4appointments_4appointment-details_1nutritional-interview3}
+
+Na rysunku \ref{fig:mockup:4appointments_4appointment-details_2body-measurement} przedstawiono prototyp widoku edycji pomiarów ciała.
+Formularz został podzielony na 2 sekcje:
+\begin{itemize}
+    \item podstawowa - podstawowe, wymagane pomiary ciałe
+    \item zaawansowana - pomiary, które powinny zostać przeprowadzone metodą BIA
+\end{itemize}
 
 \imagewide{../mockup/4appointments_4appointment-details_2body-measurement.png}{Prototyp interfejsu~- wizyta~- pomiary ciała}{mockup:4appointments_4appointment-details_2body-measurement}
 
@@ -1487,6 +1521,12 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:PatientCard:id}- identyfikator
         \atr{creationDate}\label{kat:PatientCard:creationDate}- data rejestracji pacjenta do dietetyka
+        \atr{patientLastName}\label{kat:PatientCard:patientLastName}- nazwisko pacjenta
+        \atr{patientFirstName}\label{kat:PatientCard:patientFirstName}- imię pacjenta
+        \atr{patientGender}\label{kat:PatientCard:patientGender}- płeć pacjenta
+        \atr{patientEmail}\label{kat:PatientCard:patientEmail}- adres mailowy pacjenta
+        \atr{patientPhone}\label{kat:PatientCard:patientPhone}- numer telefonu pacjenta
+        \atr{additionalPatientInfo}\label{kat:PatientCard:additionalPatientInfo}- dodatkowe informacje pacjenta
     \end{itemize}
 
 %    \req{AppointmentEvaluation}\label{kat:AppointmentEvaluation} (Ewaluacja Wizyty)\\
@@ -1604,7 +1644,8 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         %Relacje
         \item Karta pacjenta (\ref{kat:PatientCard}) nie musi mieć przypisanej żadnej wizyty (\ref{kat:Appointment})
         \item Karta pacjenta (\ref{kat:PatientCard}) może mieć przypisanych wiele wizyt (\ref{kat:Appointment})
-        \item Karta pacjenta (\ref{kat:PatientCard}) musi mieć przypisanego dokładnie jednego pacjenta (\ref{kat:User})
+        \item Karta pacjenta (\ref{kat:PatientCard}) nie musi mieć przypisanego żadnego konta pacjenta (\ref{kat:User})
+        \item Karta pacjenta (\ref{kat:PatientCard}) może mieć przypisaną maksymalnie jedno konto pacjenta (\ref{kat:User})
         \item Karta pacjenta (\ref{kat:PatientCard}) musi mieć przypisanego dokładnie jednego dietetyka (\ref{kat:User})
         %CRUD
         \item \role{Pacjent} może wyświetlać swoją kartę pacjenta (\ref{kat:PatientCard})
@@ -1642,7 +1683,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         %Relacje
         \item Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) musi być przypisane do dokładnie jednego wywiadu żywieniowego (\ref{kat:NutritionalInterview})
         %CRUD
-        \item  Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) jest przedmiotem kompozycji ze strony wywiadu żywieniowego (\ref{kat:NutritionalInterview})
+        \item Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) jest przedmiotem kompozycji ze strony wywiadu żywieniowego (\ref{kat:NutritionalInterview})
     \end{enumerate}
 %    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1679,8 +1720,17 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \item\ref{kat:PatientCard}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:PatientCard:creationDate} jest wymagany
+        \item Atrybut \ref{kat:PatientCard:patientLastName} jest wymagany
+        \item Atrybut \ref{kat:PatientCard:patientFirstName} jest wymagany
+        \item Atrybut \ref{kat:PatientCard:patientGender} jest wymagany
 
         \item Atrybut \ref{kat:PatientCard:creationDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:PatientCard:patientLastName} jest ciągiem znaków o~długości od 1~do 255 znaków
+        \item Atrybut \ref{kat:PatientCard:patientFirstName}jest ciągiem znaków o~długości od 1~do 255 znaków
+        \item Atrybut \ref{kat:PatientCard:patientGender} jest typu wyliczeniowego i~może przyjmować wartości "FEMALE", "MALE", "OTHER"
+        \item Atrybut \ref{kat:PatientCard:patientEmail}- jest ciągiem znaków o~długości od 5~do 254 znaków
+        \item Atrybut \ref{kat:PatientCard:patientPhone}- jest ciągiem znaków o~długości od 1~do 50 znaków
+        \item Atrybut \ref{kat:PatientCard:additionalPatientInfo} jest ciągiem znaków
     \end{enumerate}
 
 %    \item\ref{kat:AppointmentEvaluation}\mynobreakpar
