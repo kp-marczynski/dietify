@@ -19,8 +19,6 @@
 %\image{0.75}{../uml/use_case_diagrams/appointments.png}{Diagram przypadków użycia~- poddziedzina wizyty}{use-case-diagram:appointments}
 
 \section{Prototyp interfejsu}\label{sec:mockups}
-\todo{opisać mockupy}
-\noindent
 
 Opierając się zdobytej wiedzy dotyczącej potrzeb użytkowników aplikacji
 oraz na wymaganiach funkcjonalnych służących do zaspokojenia tych potrzeb
@@ -48,7 +46,7 @@ Na rysunku \ref{fig:mockup:5administration} przedstawiono podstawowy widok admin
 \imagewide{../mockup/5administration.png}{Prototyp interfejsu~- widok administratora}{mockup:5administration}
 
 Poddziedzina administracyjna jest związana przede wszystkim z zarządzaniem użytkownikami,
-przy czym należy również wziąć pod uwagę rejestrację (wysunek \ref{fig:mockup:0home_1sign-up}) i logowanie (rysunek \ref{fig:mockup:0home_2login}) użytkowników do systemu.
+przy czym należy również wziąć pod uwagę rejestrację (rysunek \ref{fig:mockup:0home_1sign-up}) i logowanie (rysunek \ref{fig:mockup:0home_2login}) użytkowników do systemu.
 Warto zauważyć, że podczas rejestracji użytkownik wyraża zgodę na przetwarzanie swoich danych osobowych poprzez akceptację polityki prywatności.
 
 \imagewide{../mockup/0home_1sign-up.png}{Prototyp interfejsu~- rejestrowanie do systemu}{mockup:0home_1sign-up}
@@ -60,7 +58,17 @@ Widoku zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:user
 
 \subsection{Poddziedzina produkty}
 
+Na rysunku \ref{fig:mockup:1products} przedstawiono prototyp widoku listy produktów.
+Z poziomu tego widoku możliwe jest wyszukiwanie i filtrowanie produktów, wyświetlanie szczegółów produktu oraz tworzenie nowego produktu.
+Do tego widoku prowadzi odnośnik "Products" z panelu nawigacyjnego.
+
 \imagewide{../mockup/1products.png}{Prototyp interfejsu~- lista produktów}{mockup:1products}
+
+Na rysunkach \ref{fig:mockup:1products_1new} i \ref{fig:mockup:1products_2details} są widoczne odpowiednio prototypy widoków edycji i szczegółów produktu.
+Oba widoki zawierają takie same pola, jednak w przypadku formularza edycji wartości odżywcze i miary domowe znajdują się w oddzielnych zakładkach,
+natomiast w widoku szczegółów produktu te sekcje są przedstawione jako karty.
+Dodatkowo w widoku szczegółów podstawowe wartości odżywcze zostały podsumowane w formie diagramu kołowego.
+Na uwagę zasługuguje fakt, że widok edycji produktu jest tożsamy z widokiem tworzenia nowego produktu.
 
 \imagewide{../mockup/1products_1new.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego produktu}{mockup:1products_1new}
 
@@ -68,7 +76,17 @@ Widoku zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:user
 
 \subsection{Poddziedzina przepisy}
 
+Na rysunku \ref{fig:mockup:2recipes} przedstawiono prototyp widoku listy przepisów.
+Z poziomu tego widoku możliwe jest wyszukiwanie i filtrowanie przepisów, wyświetlanie szczegółów przepisu oraz tworzenie nowego przepisu.
+Do tego widoku prowadzi odnośnik "Recipes" z panelu nawigacyjnego.
+
 \imagewide{../mockup/2recipes.png}{Prototyp interfejsu~- lista przepisów}{mockup:2recipes}
+
+Rysunek \ref{fig:mockup:2recipes_1new} przedstawia prototyp widoku edycji przepisu.
+Oprócz definiowania podstawowych informacji dotyczących przepisu, formularz pozwala na dodawanie nowych sekcji, a w każdej sekcji na dodawanie i usuwanie składników i kroków przygotowania.
+Podczas dodawania nowego składnika zostanie wyświetlony modal zawierający listę produktów, analogiczną jak na rysunku \ref{fig:mockup:1products}.
+Na uwagę zasługuje fakt, że widok edycji przepisu jest tożsamy z widokiem tworzenia nowego przepisu.
+Po zapisaniu edytowanego przepisu zostanie wyświetlony widok szczegółów przepisu, którego prototyp widoczny jest na rysunku \ref{fig:mockup:2recipes_2details}.
 
 \imagewide{../mockup/2recipes_1new.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego przepisu}{mockup:2recipes_1new}
 
@@ -78,7 +96,24 @@ Widoku zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:user
 
 \subsection{Poddziedzina jadłospisy}
 
+Na rysunku \ref{fig:mockup:3mealplans} przedstawiono prototyp widoku listy jadłospisów.
+Z poziomu tego widoku możliwe jest wyszukiwanie i filtrowanie jadłospisów, wyświetlanie szczegółów produktu oraz tworzenie nowego jadłospisu.
+Do tego widoku prowadzi odnośnik "Meal Plans" z panelu nawigacyjnego.
+
 \imagewide{../mockup/3mealplans.png}{Prototyp interfejsu~- lista jadłospisów}{mockup:3mealplans}
+
+Podczas tworzenia jadłospisu dietetyk musi wpierw zdefiniować podstawowe właściwości jadłospisu, co widoczne jest na prototypie widoku zakładki ustawień jadłospisu przedstawionym na rysunku \ref{fig:mockup:3mealplans_1new_1settings}
+Po uzupełnieniu liczby dni i posiłków w ciągu dnia, a także definicji posiłków możliwe jest przejście do zakładki kalendarza, której prototyp widoczny jest na rysunku \ref{fig:mockup:3mealplans_1new_2calendar}.
+Kalendarz jest automatycznie dostosowywany do liczby dni i posiłków w ciągu dnia.
+W polach odpowiadających odpowiednim posiłków w ciągu dnia wyświetlane są produkty i przepisy składające się na posiłek.
+Po kliknięciu w takie pole możliwe będzie wyświetlenie bardziej szczegółowego widoku posiłku
+oraz dodawanie produktów po wyświetleniu modala zawierającego listę produktów, analogiczną jak na rysunku \ref{fig:mockup:1products}
+i dodawanie przepisów po wyświetleniu modala zawierającego listę przepisów, analogiczną jak na rysunku \ref{fig:mockup:2recipes}
+Jeśli w zakładce właściwości uzupełniono informacje o procentowej dystrybucji energii na posiłki i na podstawowe wartości odżywcze
+oraz zdefiniowano oczekiwaną dzienną całkowitą oczekiwaną wartość energetyczną posiłków
+to w widoku kalendarza w kolumnie "Summary" widoczne będzie ikonograficzne podsumowanie czy nałożone ograniczenia zostały spełnione.
+Użytkownik będzie miał możliwość wyświetlić szczegóły tego podsumowania, które udzielą szerszych informacji pozwalających na skorygowanie planu posiłków.
+Na uwagę zasługuje fakt, że widok edycji jadłospisu jest tożsamy z widokiem tworzenia nowego jadłospisu.
 
 \imagewide{../mockup/3mealplans_1new_1settings.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego jadłospisu~- zakładka ustawień}{mockup:3mealplans_1new_1settings}
 
