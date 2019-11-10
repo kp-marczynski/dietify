@@ -29,7 +29,7 @@ Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sp
 \par
 System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych,
 więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
-Rozważano przede wszystkim systemy PostegreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
+Rozważano przede wszystkim systemy PostgreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
 Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy systemy zarządzania relacyjną bazą danych (ang. Relational Database Management System - RDBMS) wypadają równie dobrze,
 jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
 \todo{liquibase}
@@ -88,6 +88,23 @@ jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną lice
 %        \item Elasticsearch\cite{tech:elasticsearch}
 %    \end{itemize}
 %\end{enumerate}
+\section{Zakres implementacji}\label{sec:implementation-scope}
+
+W wyniku analizy założeń projektowych przedstawionych w rozdziale \ref{ch:design-assumptions} stwierdzono,
+że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product - MVP)
+wymaga zaimplementowania całego modelu domeny omówionego w projekcie bazy danych w rozdziale \ref{sec:database}.
+Natomiast w kwestii dostępu do systemu, w celu osiągnięcia MVP wystarczy żeby bezpośredni dostęp mieli tylko dietetycy i administratorzy,
+a pacjenci otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
+
+\par
+Ze względu na przetwarzanie wrażliwych danych osobowych, konieczne jest zawarcie w witrynie internetowej polityki prywatności.
+Na rzecz osiągnięcia MVP postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl.
+Jednakże należy podkreślić, że autor niniejszej pracy inżynierskiej nie posiada wykształcenia prawniczego
+i należy traktować przedstawioną politykę prywatności jedynie jako wersję roboczą,
+a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kancelarii prawniczej oferującej doradztwo prawne z zakresu przetwarzania i ochrony danych osobowych.
+
+\todo{https://supertlumacz.pl/bezplatny-wzor-prywatnosci-po-angielsku-i-niemiecku/}
+
 \section{Architektura systemu}\label{sec:system-architecture}
 \todo{opisać stack netflix oss}
 \todo{diagram rozmieszczenia}
