@@ -1,0 +1,56 @@
+% !TeX spellcheck = pl_PL
+\pagenumbering{gobble}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+\chapter*{Changelog}\label{ch:changelog}
+
+Jest to pomocniczy rozdział opisujący zmiany w kolejnych wersjach pracy wysyłanej do promotora.
+
+\subsubsection{v2}
+\begin{itemize}
+\item Uwzględniono sugestie z komentarzy:
+    \begin{itemize}
+	\item poprawiłem błędy wyszczególnione błędy ortograficzne, interpunkcyjne, stylistyczne
+	\item W kwestii rozwiązań konkurencyjnych i pracy offline;napisałem maile do supportu wszystkich porównywanych rozwiązań z pytaniem czy jest możliwa praca offline. Wszyscy odpisali, że nie. (oczywiście poza aliantem, który działa tylko offline)
+	\item dodałem zgodę na przetwarzanie danych osobowych w wymaganiach funkcjonalnych i use casach
+	\item diagramy przypadów użycia powiększyłem o ok 30\% a klas o ok 10\%
+	\item dodałem reguły w latex'ie które powinny wyeliminować większość wdów i sierot
+	\item dodałem wersje przeglądarek/systemów w wymaganiach niefunkcjonalnych
+	\end{itemize}
+\item Zmiany:
+    \begin{itemize}
+	\item krótkie streszczenie na stronie tytułowej
+	\item przegląd rozwiązań konkurencyjnych
+	\item uzupełniłem opis problemu we wstępie
+	\item założenia projektowe: uzupełniłem słownik
+	\item diagramy przypadków użycia przerzuciłem do sekcji z wymaganiami funkcjonalnymi w założeniach projektowych
+	\item poprawiłem scope wymagań funkcjonalnych
+	\item uprościłem diagramy przypadków użycia
+	\item uzupełniłem prototypy interfejsu
+	\item w dodatku (jdl) zamiast całego opisu domeny zostawiłem tylko definicję mikroserwisów. odniesienie do dodatku będzie w rozdziale implementacja
+	\item kategorie, ograniczenia, reguły i diagramy klas zostały rozdzielone na sekcje dla każdej poddziedziny w celu zwiększenia czytelności
+	\item wyrzuciłem ze scope'u mało istotne kategorie; głównie z poddziedzin administracyjnej i wizyt
+	\item zmiana oznaczeń kategorii/ograniczeń/reguł z KAT/XXX na KAT/Y/XX, gdzie Y to numer poddziedziny
+	\end{itemize}
+\item Nowości:
+    \begin{itemize}
+	\item stan wiedzy i technik: przegląd literatury dietetycznej, opis architektury mikroserwisów
+	\item projekt: opis podstawowej architektury systemu
+	\item projekt: projekt bazy danych - wprowadzenie teoretyczne
+	\item implementacja: instalacja oprogramowania
+	\end{itemize}
+\item Podsumowanie:
+    \begin{itemize}
+	\item Chciałbym zamknąć już wszystko od początku pracy do końca opisu projektu (tj. do końca rozdziału 3.)
+	\item Właściwej treści w pracy jest więcej, a stron mniej niż w poprzednio przesłanej wersji
+	\end{itemize}
+\item Do zrobienia:
+    \begin{itemize}
+	\item uzupełnić wykorzystywane środowiska i narzędzia programistyczne
+	\item uzupełnić opisy mockupów
+	\item opisać: architektura systemu, prezentacja aplikacji, dokumentacja kodu, testy, podsumowanie
+	\end{itemize}
+\end{itemize}
+
+\cleardoublepage
+\pagenumbering{gobble}
+%\thispagestyle{normal}

@@ -22,17 +22,51 @@
 \todo{opisać mockupy}
 \noindent
 
+Opierając się zdobytej wiedzy dotyczącej potrzeb użytkowników aplikacji
+oraz na wymaganiach funkcjonalnych służących do zaspokojenia tych potrzeb
+opracowano prototypy kluczowych widoków interfejsu użytkownika.
+Zanim przedstawione zostaną prototypy dla poddziedzin warto wpierw omówić szablon widoku, który będzie stosowany w obrębie całej witryny.
+Na rysunku \ref{fig:mockup:0home} przedstawiona została strona startowa witryny.
+U góry strony znajduje się belka zawierająca hasło przewodnie danego widoku.
+Po lewej stronie umieszczony został panel nawigacyjny, u góry którego widnieje logo i nazwa systemu.
+Na rzecz projektu roboczo przyjęto jako logo rysunek sztućców, a "Dietify" jako nazwę projektowanego systemu.
+Poniżej są odnośniki do strony startowej oraz do głównych widoków związanych z każdą z poddziedzin.
+Na dole panelu nawigacyjnego znajdują się łącza do zmiany języka, ustawień użytkownika oraz, jeśli zalogowany użytkownik ma uprawnienia administratora, do widoku administracyjnego.
+W głównej części widoku widoczna jest właściwa treść bieżącej strony.
+W przypadku omawianej strony startowej jest to wiadomość powitalna oraz obrazek związany z dietetyką.
+
 \imagewide{../mockup/0home.png}{Prototyp interfejsu~- strona startowa}{mockup:0home}
+
+Podobnie szablon strony będzie wyglądał na urządzeniu mobilnym, co przedstawiono na rysunku \ref{fig:mockup:6mobile}.
+
+\image{0.4}{../mockup/6mobile.png}{Prototyp interfejsu~- układ strony na urządzeniu mobilnym}{mockup:6mobile}
+
+\subsection{Poddziedzina administracyjna}
+
+Na rysunku \ref{fig:mockup:5administration} przedstawiono podstawowy widok administratora zawierający łącza do treści zarządzanych przed administratora w poszczególnych poddziedzinach.
+
+\imagewide{../mockup/5administration.png}{Prototyp interfejsu~- widok administratora}{mockup:5administration}
+
+Poddziedzina administracyjna jest związana przede wszystkim z zarządzaniem użytkownikami,
+przy czym należy również wziąć pod uwagę rejestrację (wysunek \ref{fig:mockup:0home_1sign-up}) i logowanie (rysunek \ref{fig:mockup:0home_2login}) użytkowników do systemu.
+Warto zauważyć, że podczas rejestracji użytkownik wyraża zgodę na przetwarzanie swoich danych osobowych poprzez akceptację polityki prywatności.
 
 \imagewide{../mockup/0home_1sign-up.png}{Prototyp interfejsu~- rejestrowanie do systemu}{mockup:0home_1sign-up}
 
 \imagewide{../mockup/0home_2login.png}{Prototyp interfejsu~- logowanie do systemu}{mockup:0home_2login}
+
+Widoku zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:users}) jest dostępny tylko dla administratora i z jego poziomu możliwe jest zarządzanie uprawnieniami użytkowników, zmiana statusu ich kont oraz tworzenie nowych użytkowników.
+\imagewide{../mockup/5administration_users.png}{Prototyp interfejsu~- zarządzanie użytkownikami}{mockup:5administration:users}
+
+\subsection{Poddziedzina produkty}
 
 \imagewide{../mockup/1products.png}{Prototyp interfejsu~- lista produktów}{mockup:1products}
 
 \imagewide{../mockup/1products_1new.png}{Prototyp interfejsu~- dodawanie nowego lub edycja istniejącego produktu}{mockup:1products_1new}
 
 \imagewide{../mockup/1products_2details.png}{Prototyp interfejsu~- szczegóły produktu}{mockup:1products_2details}
+
+\subsection{Poddziedzina przepisy}
 
 \imagewide{../mockup/2recipes.png}{Prototyp interfejsu~- lista przepisów}{mockup:2recipes}
 
@@ -41,6 +75,8 @@
 %\imagewide{../mockup/2recipes_1new_1add-product.png}{Prototyp interfejsu~- dodawanie produktu do przepisu}{mockup:2recipes_1new_1add-product}
 
 \imagewide{../mockup/2recipes_2details.png}{Prototyp interfejsu~- szczegóły przepisu}{mockup:2recipes_2details}
+
+\subsection{Poddziedzina jadłospisy}
 
 \imagewide{../mockup/3mealplans.png}{Prototyp interfejsu~- lista jadłospisów}{mockup:3mealplans}
 
@@ -59,6 +95,8 @@
 %\imagewide{../mockup/3mealplans_2details_2calendar.png}{Prototyp interfejsu~- szczegóły jadłospisu~- zakładka kalendarza}{mockup:3mealplans_2details_2calendar}
 
 %\imagewide{../mockup/3mealplans_2details_2calendar_1meal.png}{Prototyp interfejsu~- szczegóły posiłku w~jadłospisie}{mockup:3mealplans_2details_2calendar_1meal}
+
+\subsection{Poddziedzina wizyty}
 
 \imagewide{../mockup/4appointments.png}{Prototyp interfejsu~- lista wizyt}{mockup:4appointments}
 
@@ -80,12 +118,19 @@
 
 %\imagewide{../mockup/4appointments_4appointment-details_3mealplan.png}{Prototyp interfejsu~- wizyta~- jadłospis}{mockup:4appointments_4appointment-details_3mealplan}
 
-\imagewide{../mockup/5administration.png}{Prototyp interfejsu~- widok administratora}{mockup:5administration}
-
-\image{0.4}{../mockup/6mobile.png}{Prototyp interfejsu~- układ strony na urządzeniu mobilnym}{mockup:6mobile}
-
 \section{Opis podstawowej architektury systemu}\label{sec:basicArchitecture}
-\todo{podstawowe mikroserwisy, jeszcze bez opisu netflixa; relacyjna baza danych}
+
+Jak wspomniano w rozdziale \ref{sec:usefull-technologies}, dekompozycja w oparciu o poddziedziny
+pozwala na proste wyznaczenie mikroserwisów poprzez stworzenie serwisu dla każdej poddziedziny.
+Każdy mikroserwisych potrzebuje przechowywać dane w bazie danych, która będzie odseparowana od baz innych mikroserwisów przynajmniej na poziomie logicznym.
+Instancje mikroserwisów mogą być tworzone dynamicznie i w efekcie mogą być dostępne pod różnymi adresami,
+należy więc uwzględnić mechanizm pozwalający na automatyczną detekcję bieżących lokalizacji mikroserwisów.
+Zadanie takie może być realizowane przez serwis typu discovery.
+Dodatkowo potrzebne jest rozwiązanie umożliwiające odbieranie żądań użytkownika i przekierowywanie ich do odpowiednich serwisów z uwzględnieniem obciążenia (ang. load balancing).
+Do tego celu służyć może serwis działający jako brama aplikacji (ang. gateway), przy czym warto zauważyć, że brama aplikacji powinna również być odpowiedzialna za autoryzację żądań użytkowników,
+dlatego też poddziedzina administracyjna będzie zaimplementowana w ramach serwisu gateway.
+\par
+Na rysunku \ref{fig:podstawowa-architektura} przedstawiono diagram podstawowej architektury uwzględniający powyższe rozważania.
 
 \imagewide{img/podstawowa-architektura.png}{Podstawowa architektura systemu}{podstawowa-architektura}
 
@@ -138,16 +183,15 @@ które następnie zostaną podsumowane w~formie modelu informacyjnego wyrażoneg
 \end{itemize}
 
 \subsubsection{Model informacyjny}\label{subsubsec:database:domain:domainModel}
-Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardowych typów danych potrzebnych przy prezentacji modelu informacyjnego.
+Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardowych typów danych potrzebnych przy prezentacji modelu informacyjnego.
 
 \image{0.75}{../uml/class_diagrams/dataTypes.png}{Diagram klas~- typy danych}{class-diagram:data-types}
 
 \subsection{Poddziedzina administracyjna}\label{subsec:database:gateway}
 
-%\todo{zmienić układ: sekcja "Model informacyjny", podsekcje dla każdej poddziedziny a~w nich odpowiednie kategorie, reguły, ograniczenia i~diagram klas}
 \subsubsection{Kategorie}\label{subsubsec:database:gateway:categories}
 
-\begin{enumerate}[label={\textbf{KAT/0/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
+\begin{enumerate}[label={\textbf{KAT/1/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{User}\label{kat:User} (Użytkownik)\\
     \indent\textbf{Opis}: Konto użytkownika aplikacji. Każdy zalogowany użytkownik musi mieć konto użytkownika
@@ -263,7 +307,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:User}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item Użytkownik (\ref{kat:User}) nie musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
         \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
@@ -280,13 +324,13 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może wyświetlać i~usuwać dane użytkownika (\ref{kat:User})
     \end{enumerate}
     \item\ref{kat:Authority}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         %CRUD
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane roli (\ref{kat:Authority})
     \end{enumerate}
     \item\ref{kat:UserExtraInfo}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:User})
         %CRUD
@@ -294,7 +338,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} nie może wyświetlać i~usuwać dodatkowych informacji (\ref{kat:UserExtraInfo}) innych użytkowników
     \end{enumerate}
 %    \item\ref{kat:SiteContent}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Treść strony (\ref{kat:SiteContent}) nie musi mieć żadnego tłumaczenia (\ref{kat:SiteContentTranslation})
 %        \item Treść strony (\ref{kat:SiteContent}) może mieć wiele tłumaczeń (\ref{kat:SiteContentTranslation})
@@ -304,21 +348,21 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane treści strony (\ref{kat:SiteContent})
 %    \end{enumerate}
 %    \item\ref{kat:SiteContentTranslation}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) musi być przypisane do dokładnie jednej treści strony (\ref{kat:SiteContent})
 %        %CRUD
 %        \item Tłumaczenie treści strony (\ref{kat:SiteContentTranslation}) jest przedmiotem kompozycji ze strony treści strony (\ref{kat:SiteContent})
 %    \end{enumerate}
 %    \item\ref{kat:ContactInfo}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %CRUD
 %        \item \role{Gość} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
 %        \item \role{Użytkownik} może wyświetlać dane informacji kontaktowych (\ref{kat:ContactInfo})
 %        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane informacji kontaktowych (\ref{kat:ContactInfo})
 %    \end{enumerate}
 %    \item\ref{kat:Pricing}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Cennik (\ref{kat:Pricing}) nie musi mieć przypisanych żadnych tłumaczeń (\ref{kat:PricingTranslation})
 %        \item Cennik (\ref{kat:Pricing}) może mieć przypisane wiele tłumaczeń (\ref{kat:PricingTranslation})
@@ -328,7 +372,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %        \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane cennika (\ref{kat:Pricing})
 %    \end{enumerate}
 %    \item\ref{kat:PricingTranslation}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Tłumaczenie cennika (\ref{kat:PricingTranslation}) musi być przypisane do dokładnie jednego cennika (\ref{kat:Pricing})
 %        %CRUD
@@ -341,7 +385,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:User}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Required
         \item Atrybut \ref{kat:User:login} jest wymagany
         \item Atrybut \ref{kat:User:passwordHash} jest wymagany
@@ -365,13 +409,13 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Atrybut \ref{kat:User:lastModifiedDate} jest stemplem czasowym
     \end{enumerate}
     \item\ref{kat:Authority}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Authority:name} jest wymagany
         \item Atrybut \ref{kat:Authority:name} ma unikalną wartość
         \item Atrybut \ref{kat:Authority:name} jest ciągiem znaków składającym się z~liter i~znaków "\_" o~długości od 1~do 255 znaków
     \end{enumerate}
     \item\ref{kat:UserExtraInfo}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i~może przyjmować wartości "FEMALE", "MALE", "OTHER"
         \item Atrybut \ref{kat:UserExtraInfo:dateOfBirth} jest datą
         \item Atrybut \ref{kat:UserExtraInfo:phoneNumber} jest ciągiem znaków o~długości od 1~do 50 znaków
@@ -383,7 +427,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
 %    \item\ref{kat:SiteContent}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:SiteContent:ordinalNumber} jest wymagany
 %        \item Atrybut \ref{kat:SiteContent:siteContentType} jest wymagany
 %        \item Atrybut \ref{kat:SiteContent:description} jest wymagany
@@ -396,7 +440,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %    \end{enumerate}
 %
 %    \item\ref{kat:SiteContentTranslation}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:SiteContentTranslation:description} jest wymagany
 %
 %        \item Atrybut \ref{kat:SiteContentTranslation:title} jest ciągiem znaków o~długości od 1~do 255 znaków
@@ -404,7 +448,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %    \end{enumerate}
 %
 %    \item\ref{kat:ContactInfo}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:ContactInfo:contactInfoType} jest wymagany
 %        \item Atrybut \ref{kat:ContactInfo:description} jest wymagany
 %
@@ -413,7 +457,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %    \end{enumerate}
 %
 %    \item\ref{kat:Pricing}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:Pricing:ordinalNumber} jest wymagany
 %        \item Atrybut \ref{kat:Pricing:description} jest wymagany
 %        \item Atrybut \ref{kat:Pricing:price} jest wymagany
@@ -428,7 +472,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %    \end{enumerate}
 %
 %    \item\ref{kat:PricingTranslation}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:PricingTranslation:description} jest wymagany
 %
 %        \item Atrybut \ref{kat:PricingTranslation:title} jest ciągiem znaków o~długości od 1~do 255 znaków
@@ -444,7 +488,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsection{Poddziedzina prdukty}\label{subsec:database:products}
 
 \subsubsection{Kategorie}\label{subsubsec:database:products:categories}
-\begin{enumerate}[label={\textbf{KAT/1/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
+\begin{enumerate}[label={\textbf{KAT/2/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{Product}\label{kat:Product} (Produkt)\\
     \indent\textbf{Opis}: Produkt żywieniowy
@@ -575,7 +619,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:Product}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item Produkt (\ref{kat:Product}) musi mieć przynajmniej jedną wersję (\ref{kat:ProductVersion})
         \item Produkt (\ref{kat:Product}) może mieć wiele wersji (\ref{kat:ProductVersion})
@@ -587,7 +631,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może wyświetlać i~usuwać produkty (\ref{kat:Product})
     \end{enumerate}
     \item\ref{kat:ProductVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednego produktu  (\ref{kat:Product})
         \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednych podstawowych wartości odżywczych (\ref{kat:ProductBasicNutritionData})
@@ -605,14 +649,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Wersja produktu (\ref{kat:ProductVersion}) po utworzeniu nie może być edytowana ani usuwana
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
         \item Podstawowe wartości odżywcze produktu (\ref{kat:ProductBasicNutritionData}) są przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
     \item\ref{kat:NutritionData}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej definicji wartości odżywczej (\ref{kat:NutritionDefinition})
@@ -620,7 +664,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Wartość odżywcza (\ref{kat:NutritionData}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
     \item\ref{kat:NutritionDefinition}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Definicja wartości odżywczej (\ref{kat:NutritionDefinition}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:NutritionDefinitionTranslation})
         \item Definicja wartości odżywczej (\ref{kat:NutritionDefinition}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:NutritionDefinitionTranslation})
@@ -629,21 +673,21 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać definicję wartości odżywczej (\ref{kat:NutritionDefinition})
     \end{enumerate}
     \item\ref{kat:NutritionDefinitionTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) musi być przypisane do dokładnie jednej definicji wartości odżywczej  (\ref{kat:NutritionDefinition})
         %CRUD
         \item Tłumaczenie definicji wartości odżywczej (\ref{kat:NutritionDefinitionTranslation}) jest przedmiotem kompozycji ze strony definicji wartości odżywczej (\ref{kat:NutritionDefinition})
     \end{enumerate}
     \item\ref{kat:HouseholdMeasure}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Miara domowa (\ref{kat:HouseholdMeasure}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
         %CRUD
         \item Miara domowa (\ref{kat:HouseholdMeasure}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
     \end{enumerate}
     \item\ref{kat:ProductSubcategory}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podkategoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do co najmniej jednej wersji produktu (\ref{kat:ProductVersion})
         \item Podkategoria produktu (\ref{kat:ProductSubcategory}) może być przypisana do wielu wersji produktu (\ref{kat:ProductVersion})
@@ -653,7 +697,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może wyświetlać podkategorię produktu (\ref{kat:ProductSubcategory})
     \end{enumerate}
     \item\ref{kat:ProductCategory}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Kategoria produktu (\ref{kat:ProductCategory}) nie musi mieć przypisanego żadnego tłumaczenia (\ref{kat:ProductCategoryTranslation})
         \item Kategoria produktu (\ref{kat:ProductCategory}) może mieć przypisanych wiele tłumaczeń (\ref{kat:ProductCategoryTranslation})
@@ -662,14 +706,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać kategorię produktu (\ref{kat:ProductCategory})
     \end{enumerate}
     \item\ref{kat:ProductCategoryTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) musi być przypisane do dokładnie jednej kategorii (\ref{kat:ProductCategory})
         %CRUD
         \item Tłumaczenie kategorii produktu (\ref{kat:ProductCategoryTranslation}) jest przedmiotem kompozycji ze strony kategorii (\ref{kat:ProductCategory})
     \end{enumerate}
     \item\ref{kat:DietType}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Typ diety (\ref{kat:DietType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:DietTypeTranslation})
         \item Typ diety (\ref{kat:DietType}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:DietTypeTranslation})
@@ -678,7 +722,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać typ diety (\ref{kat:DietType})
     \end{enumerate}
     \item\ref{kat:DietTypeTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu diety (\ref{kat:DietTypeTranslation}) musi być przypisane do dokładnie jednego typu diety (\ref{kat:DietType})
         %CRUD
@@ -691,7 +735,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:Product}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:Product:isPublic} jest wymagany
 
         \item Atrybut \ref{kat:Product:source} jest ciągiem znaków o~długości od 1~do 255 znaków
@@ -699,7 +743,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:ProductVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductVersion:createdDate} jest wymagany
         \item Atrybut \ref{kat:ProductVersion:description} jest wymagany
 
@@ -708,7 +752,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:ProductBasicNutritionData}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductBasicNutritionData:energy} jest wymagany
         \item Atrybut \ref{kat:ProductBasicNutritionData:protein} jest wymagany
         \item Atrybut \ref{kat:ProductBasicNutritionData:fat} jest wymagany
@@ -721,14 +765,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:NutritionData}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionData:nutritionValue} jest wymagany
 
         \item Atrybut \ref{kat:NutritionData:nutritionValue} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
     \item\ref{kat:NutritionDefinition}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionDefinition:tag} jest wymagany
         \item Atrybut \ref{kat:NutritionDefinition:description} jest wymagany
         \item Atrybut \ref{kat:NutritionDefinition:units} jest wymagany
@@ -743,14 +787,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:NutritionDefinitionTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionDefinitionTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:NutritionDefinitionTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
     \item\ref{kat:HouseholdMeasure}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:HouseholdMeasure:description} jest wymagany
         \item Atrybut \ref{kat:HouseholdMeasure:gramsWeight} jest wymagany
         \item Atrybut \ref{kat:HouseholdMeasure:isVisible} jest wymagany
@@ -761,14 +805,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:ProductSubcategory}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductSubcategory:description} jest wymagany
 
         \item Atrybut \ref{kat:ProductSubcategory:description} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
     \item\ref{kat:ProductCategory}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductCategory:description} jest wymagany
 
         \item Atrybut \ref{kat:ProductCategory:description} ma unikalną wartość
@@ -777,14 +821,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:ProductCategoryTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductCategoryTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:ProductCategoryTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
     \item\ref{kat:DietType}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DietType:name} jest wymagany
 
         \item Atrybut \ref{kat:DietType:name} ma unikalną wartość
@@ -793,7 +837,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:DietTypeTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DietTypeTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:DietTypeTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
@@ -807,7 +851,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsection{Poddziedzina przepisy}\label{subsec:database:recipes}
 
 \subsubsection{Kategorie}\label{subsubsec:database:recipes:categories}
-\begin{enumerate}[label={\textbf{KAT/2/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
+\begin{enumerate}[label={\textbf{KAT/3/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{Recipe}\label{kat:Recipe} (Przepis)\\
     \indent\textbf{Opis}: Przepis
@@ -937,7 +981,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:Recipe}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item Przepis (\ref{kat:Recipe}) nie musi mieć zdefiniowanego żadnego przepisu źródłowego (\ref{kat:Recipe})
         \item Przepis (\ref{kat:Recipe}) może mieć zdefiniowany maksymalnie jeden przepis źródłowy (\ref{kat:Recipe})
@@ -951,7 +995,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może wyświetlać i~usuwać przepisy (\ref{kat:Recipe})
     \end{enumerate}
     \item\ref{kat:RecipeVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć dokładnie jedne podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData})
         \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć przynajmniej jedną sekcję (\ref{kat:RecipeSection})
@@ -971,14 +1015,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Wersja przepisu (\ref{kat:RecipeVersion}) po utworzeniu nie może być edytowana ani usuwana
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji przepisu (\ref{kat:RecipeVersion})
         %CRUD
         \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) są przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
     \end{enumerate}
     \item\ref{kat:RecipeSection}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Sekcja przepisu (\ref{kat:RecipeSection}) musi być przypisana do dokładniej jednej wersji przepisu (\ref{kat:RecipeVersion})
         \item Sekcja przepisu (\ref{kat:RecipeSection}) musi mieć przypisaną przynajmniej jedną porcję produktu (\ref{kat:ProductPortion})
@@ -989,7 +1033,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Sekcja przepisu (\ref{kat:RecipeSection}) jest przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
     \end{enumerate}
     \item\ref{kat:ProductPortion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Porcja produktu (\ref{kat:ProductPortion}) musi być przypisana do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
         \item Porcja produktu (\ref{kat:ProductPortion}) musi mieć przypisany dokładnie jeden produkt (\ref{kat:Product})
@@ -999,14 +1043,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Porcja produktu (\ref{kat:ProductPortion}) jest przedmiotem kompozycji ze strony sekcji przepisu (\ref{kat:RecipeSection})
     \end{enumerate}
     \item\ref{kat:PreparationStep}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Krok przygotowania (\ref{kat:PreparationStep}) musi być przypisany do dokładnie jednej sekcji przepisu (\ref{kat:RecipeSection})
         %CRUD
         \item Krok przygotowania (\ref{kat:PreparationStep}) jest przedmiotem kompozycji ze strony sekcji przepisu (\ref{kat:RecipeSection})
     \end{enumerate}
     \item\ref{kat:KitchenAppliance}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Sprzęt kuchenny (\ref{kat:KitchenAppliance}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:KitchenApplianceTranslation})
         \item Sprzęt kuchenny (\ref{kat:KitchenAppliance}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:KitchenApplianceTranslation})
@@ -1016,14 +1060,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać sprzęt kuchenny (\ref{kat:KitchenAppliance})
     \end{enumerate}
     \item\ref{kat:KitchenApplianceTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) musi być przypisane do dokładnie jednego sprzętu kuchennego (\ref{kat:KitchenAppliance})
         %CRUD
         \item Tłumaczenie sprzętu kuchennego (\ref{kat:KitchenApplianceTranslation}) jest przedmiotem kompozycji ze strony sprzętu kuchennego (\ref{kat:KitchenAppliance})
     \end{enumerate}
     \item\ref{kat:DishType}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Typ dania (\ref{kat:DishType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:DishTypeTranslation})
         \item Typ dania (\ref{kat:DishType}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:DishTypeTranslation})
@@ -1032,14 +1076,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać typ dania (\ref{kat:DishType})
     \end{enumerate}
     \item\ref{kat:DishTypeTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) musi być przypisane do dokładnie jednego typu dania (\ref{kat:DishType})
         %CRUD
         \item Tłumaczenie typu dania (\ref{kat:DishTypeTranslation}) jest przedmiotem kompozycji ze strony typu dania (\ref{kat:DishType})
     \end{enumerate}
     \item\ref{kat:MealType}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Typ posiłku (\ref{kat:MealType}) nie musi mieć zdefiniowanego żadnego tłumaczenia (\ref{kat:MealTypeTranslation})
         \item Typ posiłku (\ref{kat:MealType}) może mieć zdefiniowanych wiele tłumaczeń (\ref{kat:MealTypeTranslation})
@@ -1049,7 +1093,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać typ posiłku (\ref{kat:MealType})
     \end{enumerate}
     \item\ref{kat:MealTypeTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Tłumaczenie typu posiłku (\ref{kat:MealTypeTranslation}) musi być przypisane do dokładnie jednego typu posiłku (\ref{kat:MealType})
         %CRUD
@@ -1062,14 +1106,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:Recipe}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:Recipe:isPublic} jest wymagany
 
         \item Atrybut \ref{kat:Recipe:isPublic} jest typu logicznego
     \end{enumerate}
 
     \item\ref{kat:RecipeVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:RecipeVersion:name} jest wymagany
         \item Atrybut \ref{kat:RecipeVersion:preparationTimeMinutes} jest wymagany
         \item Atrybut \ref{kat:RecipeVersion:numberOfPortions} jest wymagany
@@ -1084,7 +1128,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:RecipeBasicNutritionData}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:RecipeBasicNutritionData:energy} jest wymagany
         \item Atrybut \ref{kat:RecipeBasicNutritionData:protein} jest wymagany
         \item Atrybut \ref{kat:RecipeBasicNutritionData:fat} jest wymagany
@@ -1097,19 +1141,19 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:RecipeSection}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:RecipeSection:sectionName} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
     \item\ref{kat:ProductPortion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:ProductPortion:amount} jest wymagany
 
         \item Atrybut \ref{kat:ProductPortion:amount} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
     \item\ref{kat:PreparationStep}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:PreparationStep:ordinalNumber} jest wymagany
 
         \item Atrybut \ref{kat:PreparationStep:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
@@ -1117,7 +1161,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:KitchenAppliance}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:KitchenAppliance:name} jest wymagany
 
         \item Atrybut \ref{kat:KitchenAppliance:name} ma unikalną wartość
@@ -1126,14 +1170,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:KitchenApplianceTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:KitchenApplianceTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:KitchenApplianceTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
     \item\ref{kat:DishType}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DishType:description} jest wymagany
 
         \item Atrybut \ref{kat:DishType:description} ma unikalną wartość
@@ -1142,14 +1186,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:DishTypeTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:DishTypeTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:DishTypeTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
     \end{enumerate}
 
     \item\ref{kat:MealType}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealType:name} jest wymagany
 
         \item Atrybut \ref{kat:MealType:name} ma unikalną wartość
@@ -1158,7 +1202,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:MealTypeTranslation}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealTypeTranslation:translation} jest wymagany
 
         \item Atrybut \ref{kat:MealTypeTranslation:translation} jest ciągiem znaków o~długości od 1~do 255 znaków
@@ -1172,7 +1216,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsection{Poddziedzina jadłospisy}\label{subsec:database:mealplans}
 
 \subsubsection{Kategorie}\label{subsubsec:database:mealplans:categories}
-\begin{enumerate}[label={\textbf{KAT/3/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
+\begin{enumerate}[label={\textbf{KAT/4/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{MealPlan}\label{kat:MealPlan} (Jadłospis)\\
     \indent\textbf{Opis}: Jadłospis; plan posiłków z~podziałem na dnie i~posiłki
@@ -1247,7 +1291,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:MealPlan}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item Jadłospis (\ref{kat:MealPlan}) musi mieć przypisany przynajmniej jeden dzień (\ref{kat:MealPlanDay})
         \item Jadłospis (\ref{kat:MealPlan}) może mieć przypisanych maksymalnie 31 dni (\ref{kat:MealPlanDay})
@@ -1264,7 +1308,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Administrator} może wyświetlać i~usuwać jadłospisy (\ref{kat:MealPlan})
     \end{enumerate}
     \item\ref{kat:MealPlanDay}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) musi być przypisany do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) nie musi mieć przypisanego żadnego posiłku (\ref{kat:Meal})
@@ -1273,7 +1317,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Dzień jadłospisu (\ref{kat:MealPlanDay}) jest przedmiotem kompozycji ze strony jadłospisu (\ref{kat:MealPlan})
     \end{enumerate}
     \item\ref{kat:Meal}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Posiłek (\ref{kat:Meal}) musi być przypisany do dokładnie jednego dnia jadłospisu (\ref{kat:MealPlanDay})
         \item Posiłek (\ref{kat:Meal}) nie musi mieć przypisanego żadnego produktu (\ref{kat:MealProduct})
@@ -1284,7 +1328,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Posiłek (\ref{kat:Meal}) jest przedmiotem kompozycji ze strony dnia jadłospisu (\ref{kat:MealPlanDay})
     \end{enumerate}
     \item\ref{kat:MealRecipe}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Przepis posiłku (\ref{kat:MealRecipe}) musi być przypisany do dokładnie jednego posiłku (\ref{kat:Meal})
         \item Przepis posiłku (\ref{kat:MealRecipe}) musi mieć przypisany dokładnie jeden przepis (\ref{kat:Recipe})
@@ -1292,7 +1336,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Przepis posiłku (\ref{kat:MealRecipe}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
     \end{enumerate}
     \item\ref{kat:MealProduct}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Produkt posiłku (\ref{kat:MealProduct}) musi być przypisany do dokładnie jednego posiłku (\ref{kat:Meal})
         \item Produkt posiłku (\ref{kat:MealProduct}) musi mieć przypisany dokładnie jeden produkt (\ref{kat:Product})
@@ -1302,7 +1346,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Produkt posiłku (\ref{kat:MealProduct}) jest przedmiotem kompozycji ze strony posiłku (\ref{kat:Meal})
     \end{enumerate}
     \item\ref{kat:MealDefinition}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Definicja posiłku (\ref{kat:MealDefinition}) musi być przypisana do dokładnie jednego jadłospisu (\ref{kat:MealPlan})
         \item Definicja posiłku (\ref{kat:MealDefinition}) musi mieć przypisany dokładnie jeden typ posiłku (\ref{kat:MealType})
@@ -1316,7 +1360,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:MealPlan}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest wymagany
         \item Atrybut \ref{kat:MealPlan:editTimestamp} jest wymagany
         \item Atrybut \ref{kat:MealPlan:isVisible} jest wymagany
@@ -1341,35 +1385,35 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:MealPlanDay}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealPlanDay:ordinalNumber} jest wymagany
 
         \item Atrybut \ref{kat:MealPlanDay:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
     \end{enumerate}
 
     \item\ref{kat:Meal}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:Meal:ordinalNumber} jest wymagany
 
         \item Atrybut \ref{kat:Meal:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
     \end{enumerate}
 
     \item\ref{kat:MealRecipe}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealRecipe:amount} jest wymagany
 
         \item Atrybut \ref{kat:MealRecipe:amount} jest liczbą całkowitą nie mniejszą niż 0
     \end{enumerate}
 
     \item\ref{kat:MealProduct}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealProduct:amount} jest wymagany
 
         \item Atrybut \ref{kat:MealProduct:amount} jest liczbą rzeczywistą nie mniejszą niż 0
     \end{enumerate}
 
     \item\ref{kat:MealDefinition}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:MealDefinition:ordinalNumber} jest wymagany
         \item Atrybut \ref{kat:MealDefinition:timeOfMeal} jest wymagany
         \item Atrybut \ref{kat:MealDefinition:percentOfEnergy} jest wymagany
@@ -1388,7 +1432,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \subsection{Poddziedzina wizyty}\label{subsec:database:appointments}
 
 \subsubsection{Kategorie}\label{subsubsec:database:appointments:categories}
-\begin{enumerate}[label={\textbf{KAT/3/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
+\begin{enumerate}[label={\textbf{KAT/5/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{Appointment}\label{kat:Appointment} (Wizyta)\\
     \indent\textbf{Opis}: Wizyta dietetyczna
@@ -1504,7 +1548,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:Appointment}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
         \item Wizyta (\ref{kat:Appointment}) musi być przypisana do dokładnie jednej karty pacjenta (\ref{kat:PatientCard})
 %        \item Wizyta (\ref{kat:Appointment}) nie musi mieć przypisanej żadnej ewaluacji (\ref{kat:AppointmentEvaluation})
@@ -1521,7 +1565,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Dietetyk} może wyświetlać i~edytować swoją wizytę (\ref{kat:Appointment})
     \end{enumerate}
     \item\ref{kat:PatientCard}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Karta pacjenta (\ref{kat:PatientCard}) nie musi mieć przypisanej żadnej wizyty (\ref{kat:Appointment})
         \item Karta pacjenta (\ref{kat:PatientCard}) może mieć przypisanych wiele wizyt (\ref{kat:Appointment})
@@ -1533,7 +1577,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item \role{Dietetyk} może wyświetlać i~edytować karty pacjenta (\ref{kat:PatientCard}), którymi zarządza
     \end{enumerate}
 %    \item\ref{kat:AppointmentEvaluation}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Ewaluacja wizyty (\ref{kat:AppointmentEvaluation}) musi być przypisana do dokładnie jednej wizyty (\ref{kat:Appointment})
 %        %CRUD
@@ -1541,14 +1585,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %        \item \role{Pacjent} może dodawać ewaluację (\ref{kat:AppointmentEvaluation}) do swojej wizyty (\ref{kat:Appointment})
 %    \end{enumerate}
     \item\ref{kat:BodyMeasurement}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Pomiary ciała (\ref{kat:BodyMeasurement}) muszą być przypisane do dokładnie jednej wizyty (\ref{kat:Appointment})
         %CRUD
         \item Pomiary ciała (\ref{kat:BodyMeasurement}) są przedmiotem kompozycji ze strony wizyty (\ref{kat:Appointment})
     \end{enumerate}
     \item\ref{kat:NutritionalInterview}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) musi być przypisany do dokładnie jednej wizyty (\ref{kat:Appointment})
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) nie musi mieć przypisanego żadnego niestandardowego pytania (\ref{kat:CustomNutritionalInterviewQuestion})
@@ -1559,14 +1603,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
         \item Wywiad żywieniowy (\ref{kat:NutritionalInterview}) jest przedmiotem kompozycji ze strony wizyty (\ref{kat:Appointment})
     \end{enumerate}
     \item\ref{kat:CustomNutritionalInterviewQuestion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) musi być przypisane do dokładnie jednego wywiadu żywieniowego (\ref{kat:NutritionalInterview})
         %CRUD
         \item  Niestandardowe pytanie żywieniowe (\ref{kat:CustomNutritionalInterviewQuestion}) jest przedmiotem kompozycji ze strony wywiadu żywieniowego (\ref{kat:NutritionalInterview})
     \end{enumerate}
 %    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
 %        \item Szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate}) musi mieć dokładnie jednego autora (\ref{kat:User})
 %        %CRUD
@@ -1574,7 +1618,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %        \item \role{Dietetyk} może wyświetlać, edytować i~usuwać swój szablon niestandardowego pytania żywieniowego (\ref{kat:CustomNutritionalInterviewQuestionTemplate})
 %    \end{enumerate}
     \item\ref{kat:AssignedMealPlan}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{REG/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
         \item Przypisany jadłospis (\ref{kat:AssignedMealPlan}) musi mieć przydzieloną dokładnie jedną wizytę (\ref{kat:Appointment})
         \item Przypisany jadłospis (\ref{kat:AssignedMealPlan}) musi mieć przydzielony dokładnie jeden jadłospis (\ref{kat:MealPlan})
@@ -1588,7 +1632,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 \begin{itemize}[label={\textbf{Ograniczenia dla}}, wide, labelwidth=!, labelindent=0pt]
     \setlength\itemsep{1.75em}
     \item\ref{kat:Appointment}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
+    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:Appointment:appointmentDate} jest wymagany
         \item Atrybut \ref{kat:Appointment:appointmentState} jest wymagany
 
@@ -1598,14 +1642,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:PatientCard}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:PatientCard:creationDate} jest wymagany
 
         \item Atrybut \ref{kat:PatientCard:creationDate} jest stemplem czasowym
     \end{enumerate}
 
 %    \item\ref{kat:AppointmentEvaluation}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:AppointmentEvaluation:overallSatisfaction} jest wymagany
 %        \item Atrybut \ref{kat:AppointmentEvaluation:dietitianServiceSatisfaction} jest wymagany
 %        \item Atrybut \ref{kat:AppointmentEvaluation:mealPlanOverallSatisfaction} jest wymagany
@@ -1627,7 +1671,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
 %    \end{enumerate}
 
     \item\ref{kat:BodyMeasurement}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:BodyMeasurement:completionDate} jest wymagany
         \item Atrybut \ref{kat:BodyMeasurement:height} jest wymagany
         \item Atrybut \ref{kat:BodyMeasurement:weight} jest wymagany
@@ -1648,7 +1692,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:NutritionalInterview}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:NutritionalInterview:completionDate} jest wymagany
         \item Atrybut \ref{kat:NutritionalInterview:targetWeight} jest wymagany
         \item Atrybut \ref{kat:NutritionalInterview:advicePurpose} jest wymagany
@@ -1668,7 +1712,7 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
     \item\ref{kat:CustomNutritionalInterviewQuestion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:question} jest wymagany
 
         \item Atrybut \ref{kat:CustomNutritionalInterviewQuestion:ordinalNumber} jest liczbą całkowitą nie mniejszą niż 1
@@ -1677,14 +1721,14 @@ Na Rys. \ref{fig:class-diagram:data-types} przedstawiono definicje niestandardow
     \end{enumerate}
 
 %    \item\ref{kat:CustomNutritionalInterviewQuestionTemplate}\mynobreakpar
-%    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest wymagany
 %
 %        \item Atrybut \ref{kat:CustomNutritionalInterviewQuestionTemplate:question} jest ciągiem znaków
 %    \end{enumerate}
 
     \item\ref{kat:AssignedMealPlan}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+    \begin{enumerate}[label={\textbf{OGR/5/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         \item Atrybut \ref{kat:AssignedMealPlan:assigmentTime} jest wymagany
 
         \item Atrybut \ref{kat:AssignedMealPlan:assigmentTime} jest stemplem czasowym

@@ -117,53 +117,6 @@ zapisywanie ich do plików oraz przypisywanie do stosownych kart pacjenta są oc
     \end{table}
 \end{minipage}
 
-\section{Architektura mikroserwisów}\label{sec:usefull-technologies}
-
-Tworzenie złożonych systemów informatycznych umożliwiających bezproblemowe korzystanie jednocześnie przez miliony użytkowników jest zadaniem niebanalnym.
-W klasycznym podejściu, implementowano systemy w~architekturze monolitycznej.
-Aplikacja napisana w~takiej architekturze jest samowystarczalna w~kontekście jej zachowania.
-Może komunikować się z~zewnętrznymi usługami lub źródłami danych w~celu wykonania operacji,
-ale logika biznesowa potrzebna do wykonania każdej operacji jest w~całości zawarta w~obrębie aplikacji.
-W przypadku wystąpienia potrzeby skalowania horyzontalnego takiej aplikacji,
-konieczne jest powielanie całej aplikacji na każdym z~serwerów\cite{url:microsoft-web-architectures}.
-
-\par
-Architektura mikroserwisów, zgodnie z~tym co sugeruje nazwa, skupia się na budowaniu aplikacji będącej zbiorem niewielkich,
-luźno powiązanych serwisów komunikujących się ze sobą na przykład za pomocą protokołu HTTP czy AMQP.
-Serwisy implementowane i~wdrażane są niezależnie od siebie\cite{book:dot-net-microservices}.
-Efektem tworzenia niezależnych serwisów jest skalowanie tylko serwisów, które tego wymagają,
-co pozwala na optymalne wykorzystanie zasobów\cite{book:mastering-microservices-with-java9}.
-
-\par
-Architektura monolityczna ma wiele zalet\cite{book:microservices-patterns}, spośród których do najważniejszych należą:
-\begin{itemize}
-    \item Prostota implementacji
-    \item Możliwość łatwego przeprowadzania radykalnych zmian w~programie
-    \item Prostota testowania
-    \item Prostota wdrażania aplikacji na środowisko produkcyjne
-    \item Prostota skalowania aplikacji
-\end{itemize}
-
-\par
-Martin Fowler podkreśla, że w~przypadku wielu aplikacji architektura monolityczna jest jak najbardziej wystarczająca,
-a w~przypadku gdy system jest wystarczająco złożony, żeby użycie mikroserwisów przyniosło realny zysk zwykle lepiej jest zacząć od monolitu,
-a następnie przeprowadzić migrację do architektury mikroserwisów poprzez wydzielania modułów w~obrębie monolitu
-i~późniejsze przekształcanie ich w~niezależne serwisy\cite{url:monolith-first}.
-
-\par
-W przypadku aplikacji monolitycznej łatwo jest doprowadzić do sytuacji w~której poszczególne moduły są ze sobą ściśle powiązane,
-co zwykle ma bardzo negatywny wpływ na wydajność aplikacji, utrudnia wprowadzanie zmian w~kodzie i~prowadzi do występowania trudnych do wykrycia błędów w~implementacji.
-Sytuację w~której w~aplikacji powstaje dużo przypadkowych powiązań i~zależności Vaughn Vernon określił mianem "Wielkiej Kuli Błota"\cite{book:ddd-kompendium}.
-
-\par
-Do głównych zalet zastosowania mikroserwisów należy stosowanie luźnego powiązania serwisów,
-co poniekąd wymusza, żeby zależności pomiędzy serwisami były bardziej przemyślane i~lepiej zaprojektowane.
-Z pomocą we właściwym zaprojektowaniu serwisów i~zależności między nimi przychodzi strategiczne wzorce DDD.
-Jednym z~takich wzorców jest dekompozycja w~oparciu o~poddziedziny\cite{book:ddd-evans}.
-Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w~obrębie względnie niezależnych obszarów specjalizacji.
-W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu
-i~stworzenie serwisu dla każdej z~nich\cite{book:microservices-patterns}.
-
 \section{Przegląd literatury dietetycznej}\label{sec:domain-literature}
 
 W rozdziale \ref{sec:competitive-solutions} dokonano przeglądu rozwiązań konkurencyjnych.
@@ -247,4 +200,52 @@ Metoda BIA polega na przepuszczeniu przez organizm ładunku elektrycznego o nat�
 Metoda ta jest nieinwazyjna i bezpieczne jest jej stosowanie w każdym stanie zdrowia pacjenta.
 Pozwala nie tylko na wyznaczenie ilości tkanki tłuszczowej, ale także ilości wody w organizmie, wapnia w kościach, a także masy mięśniowej\cite{book:dietetyka-zywienie-zdrowego-i-chorego-czlowieka}.
 % typy dań, posiłków, wyposażenie kuchenne
+
+\section{Architektura mikroserwisów}\label{sec:usefull-technologies}
+
+Tworzenie złożonych systemów informatycznych umożliwiających bezproblemowe korzystanie jednocześnie przez miliony użytkowników jest zadaniem niebanalnym.
+W klasycznym podejściu, implementowano systemy w~architekturze monolitycznej.
+Aplikacja napisana w~takiej architekturze jest samowystarczalna w~kontekście jej zachowania.
+Może komunikować się z~zewnętrznymi usługami lub źródłami danych w~celu wykonania operacji,
+ale logika biznesowa potrzebna do wykonania każdej operacji jest w~całości zawarta w~obrębie aplikacji.
+W przypadku wystąpienia potrzeby skalowania horyzontalnego takiej aplikacji,
+konieczne jest powielanie całej aplikacji na każdym z~serwerów\cite{url:microsoft-web-architectures}.
+
+\par
+Architektura mikroserwisów, zgodnie z~tym co sugeruje nazwa, skupia się na budowaniu aplikacji będącej zbiorem niewielkich,
+luźno powiązanych serwisów komunikujących się ze sobą na przykład za pomocą protokołu HTTP czy AMQP.
+Serwisy implementowane i~wdrażane są niezależnie od siebie\cite{book:dot-net-microservices}.
+Efektem tworzenia niezależnych serwisów jest skalowanie tylko serwisów, które tego wymagają,
+co pozwala na optymalne wykorzystanie zasobów\cite{book:mastering-microservices-with-java9}.
+
+\par
+Architektura monolityczna ma wiele zalet\cite{book:microservices-patterns}, spośród których do najważniejszych należą:
+\begin{itemize}
+    \item Prostota implementacji
+    \item Możliwość łatwego przeprowadzania radykalnych zmian w~programie
+    \item Prostota testowania
+    \item Prostota wdrażania aplikacji na środowisko produkcyjne
+    \item Prostota skalowania aplikacji
+\end{itemize}
+
+\par
+Martin Fowler podkreśla, że w~przypadku wielu aplikacji architektura monolityczna jest jak najbardziej wystarczająca,
+a w~przypadku gdy system jest wystarczająco złożony, żeby użycie mikroserwisów przyniosło realny zysk zwykle lepiej jest zacząć od monolitu,
+a następnie przeprowadzić migrację do architektury mikroserwisów poprzez wydzielania modułów w~obrębie monolitu
+i~późniejsze przekształcanie ich w~niezależne serwisy\cite{url:monolith-first}.
+
+\par
+W przypadku aplikacji monolitycznej łatwo jest doprowadzić do sytuacji w~której poszczególne moduły są ze sobą ściśle powiązane,
+co zwykle ma bardzo negatywny wpływ na wydajność aplikacji, utrudnia wprowadzanie zmian w~kodzie i~prowadzi do występowania trudnych do wykrycia błędów w~implementacji.
+Sytuację w~której w~aplikacji powstaje dużo przypadkowych powiązań i~zależności Vaughn Vernon określił mianem "Wielkiej Kuli Błota"\cite{book:ddd-kompendium}.
+
+\par
+Do głównych zalet zastosowania mikroserwisów należy stosowanie luźnego powiązania serwisów,
+co poniekąd wymusza, żeby zależności pomiędzy serwisami były bardziej przemyślane i~lepiej zaprojektowane.
+Z pomocą we właściwym zaprojektowaniu serwisów i~zależności między nimi przychodzi strategiczne wzorce DDD.
+Jednym z~takich wzorców jest dekompozycja w~oparciu o~poddziedziny\cite{book:ddd-evans}.
+Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w~obrębie względnie niezależnych obszarów specjalizacji.
+W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu
+i~stworzenie serwisu dla każdej z~nich\cite{book:microservices-patterns}.
+
 \thispagestyle{normal}
