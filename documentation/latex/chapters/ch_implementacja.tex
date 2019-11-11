@@ -5,22 +5,22 @@
 Podczas wyboru języków programowania, z~użyciem których miał zostać zaimplementowany system, postawiono następujące kryteria:
 
 \begin{itemize}
-    \item Ścisła kontrola typów
-    \item Dobre wsparcie dla paradygmatu programowania obiektowego
-    \item Niezależność języka od platformy
-    \item Bogaty ekosystem
+    \item scisła kontrola typów
+    \item dobre wsparcie dla paradygmatu programowania obiektowego
+    \item niezależność języka od platformy
+    \item bogaty ekosystem
 \end{itemize}
 
 Wybrane języki spełniające te kryteria to:
 
 \begin{itemize}
-    \item W~warstwie backendu Java\cite{tech:java}~- stworzony przez Sun Microsystems język kompilowalny do kodu bajtowego, który jest wykonywany na maszynie wirtualnej
-    \item W~warstwie frontendu Typescript\cite{tech:typescript}~- stworzony przez Microsoft język otwartoźródłowy kompilowalny do języka JavaScript\cite{tech:javascript}
+    \item w~warstwie backendu Java\cite{tech:java}~- stworzony przez Sun Microsystems język kompilowalny do kodu bajtowego, który jest wykonywany na maszynie wirtualnej
+    \item w~warstwie frontendu Typescript\cite{tech:typescript}~- stworzony przez Microsoft język otwartoźródłowy kompilowalny do języka JavaScript\cite{tech:javascript}
 \end{itemize}
 
-Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego
-i~Springa\cite{tech:spring} jako wiodącego frameworka backendowego.
-Frameworki te cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia,
+Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącej frontendowej platformy programistycznej
+i~Springa\cite{tech:spring} jako wiodącej backendowej platformy programistycznej.
+Wspomniane platformy cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia,
 że nadają się zarówno przy tworzeniu niewielkich aplikacji jak i~systemów klasy enterprise.
 
 \par
@@ -38,7 +38,7 @@ Dodatkowo postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} d
 \par
 Do implementacji architektury mikroserwisów postanowiono wykorzystać stos technologii Netflix OSS\cite{tech:netflix-oss}.
 Jest to dojrzały, prosty do wykorzystania w implementacji stos technologii mikroserwisowych,
-który posiada integrację ze Springiem na poziomie frameworka poprzez wykorzystania projektu Spring Cloud Netflix\cite{tech:spring-cloud-netflix}.
+dla którego możliwa jest ścisła integracja ze Springiem poprzez wykorzystania projektu Spring Cloud Netflix\cite{tech:spring-cloud-netflix}.
 W skład tego stosu wchodzą przede wszystkim:
 \begin{itemize}
     \item Eureka\cite{tech:netflix-eureka}~- serwis typu discovery
@@ -51,13 +51,13 @@ Ze względu na wykorzystanie architektury mikroserwisowej zdecydowano się na au
 ponieważ jest to bezstanowy mechanizm, który można bezproblemowo wykorzystywać w środowisku rozproszonym.
 
 \par
-W celu przyspieszenia rozwoju aplikacji postanowiono wykorzysta generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
+W celu przyspieszenia rozwoju aplikacji postanowiono wykorzystać generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
 Korzystając z autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w oparciu o stos technologii Netflix OSS oraz encji przypisanych do konkretnych serwisów.
-Wykorzystaną konfigurację przedstawiono w dodatku \ref{app:jdl}, jednakże w celu zwiększenia czytelności pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w rozdziale \ref{sec:database}.
+Wykorzystaną konfigurację przedstawiono w dodatku \ref{app:jdl}, jednakże w celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w rozdziale \ref{sec:database}.
 Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, autoryzację i autentykację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
 
 \par
-Dodatkowo postanowiono wykorzystać następujące narzędzia nie związane bezpośrednio z implementacją:
+Dodatkowo postanowiono wykorzystać następujące narzędzia niezwiązane bezpośrednio z implementacją:
 \begin{itemize}
     \item Docker\cite{tech:docker}~- system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z wykorzystaniem konfiguracji niezależnej od środowiska
     \item Docker Compose\cite{tech:docker-compose}~- narzędzie upraszczające zarządzanie wielokontenerowym środowiskiem aplikacji skonteneryzowanych
@@ -70,24 +70,23 @@ Dodatkowo postanowiono wykorzystać następujące narzędzia nie związane bezpo
 W wyniku analizy założeń projektowych przedstawionych w rozdziale \ref{ch:design-assumptions} stwierdzono,
 że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product~- MVP)
 wymaga zaimplementowania całego modelu domeny omówionego w projekcie bazy danych w rozdziale \ref{sec:database}.
-Natomiast w kwestii dostępu do systemu, w celu osiągnięcia MVP wystarczy żeby bezpośredni dostęp mieli tylko dietetycy i administratorzy,
+Natomiast w kwestii dostępu do systemu, w celu osiągnięcia MVP wystarczy, żeby bezpośredni dostęp mieli tylko dietetycy i administratorzy,
 a pacjenci otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
 
 \par
 Ze względu na przetwarzanie wrażliwych danych osobowych, konieczne jest zawarcie w witrynie internetowej polityki prywatności.
-Na rzecz osiągnięcia MVP postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl.
+Na rzecz osiągnięcia MVP w przygotowywanej implementacji postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl\cite{url:ogicom-privacy-policy}.
 Jednakże należy podkreślić, że autor niniejszej pracy inżynierskiej nie posiada wykształcenia prawniczego
 i należy traktować przedstawioną politykę prywatności jedynie jako wersję roboczą,
-a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kancelarii prawniczej oferującej doradztwo prawne z zakresu przetwarzania i ochrony danych osobowych.
-
-\todo{https://supertlumacz.pl/bezplatny-wzor-prywatnosci-po-angielsku-i-niemiecku/}
+a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kancelarii prawnej oferującej doradztwo prawne z zakresu przetwarzania i ochrony danych osobowych.
+%Wykorzystany szablon przedstawiony został w dodatku \ref{app:privacy-policy}.
 
 \section{Architektura systemu}\label{sec:system-architecture}
 \todo{opisać stack netflix oss}
 \todo{diagram rozmieszczenia}
 \section{Instalacja oprogramowania}\label{sec:software-installation}
 \subsection{Wymagania wstępne}\label{subsec:prerequirements}
-Przed przystąpieniem do wykonywania kolejny kroków należy się upewnić, że następujące narzędzia są zainstalowane:
+Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, że następujące narzędzia są zainstalowane:
 \begin{itemize}
     \item Open JDK 11 (https://adoptopenjdk.net/?variant=openjdk11)
     \item Node.js 10 lub nowsza wersja LTS (https://nodejs.org/en/)
@@ -96,7 +95,7 @@ Przed przystąpieniem do wykonywania kolejny kroków należy się upewnić, że 
 
 \subsection{Instalacja}\label{subsec:installation}
 
-Aby zbudować i~uruchomić projekt na Dockerze należy z~poziomu głównego katalogu projektu
+Aby zbudować i~uruchomić projekt z wykorzystaniem Dockera należy z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -114,7 +113,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomien
         cd ../docker-compose
         sh docker-compose up
     \end{minted}
-    \caption{Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze (opr. wł.)} \label{listing:komilacja-i-uruchomienie}
+    \centering\caption{Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze (opr. wł.)}\label{listing:komilacja-i-uruchomienie}
 \end{listing}
 
 Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
@@ -125,7 +124,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
         cd service-discovery
         java -jar ./jhipster-registry-5.0.2.jar --spring.profiles.active=dev --spring.security.user.password=admin --spring.cloud.config.server.composite.0.type=git --spring.cloud.config.server.composite.0.uri= https://github.com/jhipster/jhipster-registry-sample-config
     \end{minted}
-    \caption{Uruchamianie JHipster Registry (opr. wł.)} \label{listing:service-discovery}
+    \centering\caption{Uruchamianie JHipster Registry (opr. wł.)}\label{listing:service-discovery}
 \end{listing}
 
 Następnie z~poziomu katalogu każdego z~serwisów (gateway, products, recipes, mealplans, appointments)
@@ -134,7 +133,7 @@ należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listin
     \begin{minted}{bash}
         ./gradlew
     \end{minted}
-    \caption{Uruchamianie Gradle Wrapper (opr. wł.)} \label{listing:run-gradle-wrapper}
+    \centering\caption{Uruchamianie Gradle Wrapper (opr. wł.)}\label{listing:run-gradle-wrapper}
 \end{listing}
 
 Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \textit{localhost:8080}.

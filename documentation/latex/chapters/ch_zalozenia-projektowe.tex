@@ -1,7 +1,7 @@
 % !TeX spellcheck = pl_PL
 \chapter{Założenia projektowe}\label{ch:design-assumptions}
 \section{Uwagi wstępne}\label{sec:presumptions}
-W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał układanie diety.
+W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał zarządzanie dietą.
 \par
 Zalogowani dietetycy będą mogli zarządzać produktami, ich wartościami odżywczymi oraz
 miarami domowymi. Korzystając ze stworzonych produktów dietetycy będą mogli tworzyć
@@ -15,9 +15,8 @@ pacjentowi jadłospis.
 
 \section{Słownik pojęć domenowych}\label{sec:dictionary}
 
-Na podstawie rozważań z~rozdziału \ref{ch:knowladge-state} sporządzono następującą listę definicji istotną z~punkty widzenia projektu:
+Na podstawie rozważań z~rozdziału \ref{ch:knowladge-state} sporządzono następującą listę definicji domenowych istotną z~punkty widzenia projektu:
 \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-    \atr{Administrator}- użytkownik posiadający uprawnienia do zarządzania uprawnieniami użytkowników
     \atr{BIA}- metoda impedancji bioelektrycznej wykorzystywana do analizy składu ciała
     \atr{BMI}- wskaźnik masy ciała
     \atr{CPM}- całkowita przemiana materii
@@ -36,7 +35,7 @@ Na podstawie rozważań z~rozdziału \ref{ch:knowladge-state} sporządzono nast�
     \atr{Produkt}- produkt spożywczy, dla którego specyfikowane są wartości odżywcze i~miary domowe
     \atr{Przepis}- opis składników i~kroków przygotowania dania
     \atr{Sekcja przepisu}- semantyczny podział przepisu, np. sernik może mieć sekcje związane z~przygotowaniem ciasta, nadzienia i~polewy
-    \atr{Baza USDA}- Baza produktów udostępniana przez Departament Rolnictwa Stanów Zjednoczonych
+    \atr{Baza USDA}- baza produktów udostępniana przez Departament Rolnictwa Stanów Zjednoczonych
     \atr{Wartość odżywcza}- ilość elementu takiego jak np. węglowodanów albo białka w~100g produktu
     \atr{Wizyta}- konkretna wizyta pacjenta
     \atr{Wywiad żywieniowy}- wywiad przeprowadzany z~pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
@@ -55,7 +54,7 @@ W tabeli \ref{tabela:sformulowanie-problemu} przedstawiono sformułowanie rozwa�
 
             \hline
             \cellgray{Problem} &
-            \multicolumn{1}{|l|}{Problem z~ręcznym układaniem jadłospisu}\\
+            \multicolumn{1}{|l|}{Problem z~ręcznym układaniem jadłospisu i kontrolą rezultatów stosowania jadłospisu przez pacjenta}\\
             \hline
 
             \cellgray{Dotyczy} &
@@ -68,6 +67,7 @@ W tabeli \ref{tabela:sformulowanie-problemu} przedstawiono sformułowanie rozwa�
                 \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w~każdym przepisie
                 \item Dietetyk poświęca dużo czasu na obliczanie wartości odżywczych w~każdym jadłospisie.
                 \item Dietetyk ma problem z~przeliczeniem miar domowych produktów na gramy
+                \item Dietetyk musi sam obliczać i kontrolować zmiany BMI pacjenta
             \end{itemize} \\
             \hline
 
@@ -75,6 +75,7 @@ W tabeli \ref{tabela:sformulowanie-problemu} przedstawiono sformułowanie rozwa�
             \begin{itemize}
                 \item Będzie zwalniało dietetyka z~konieczności obliczania wartości odżywczych dla przepisów i~jadłospisów
                 \item Będzie ułatwiało dietetykowi przekazywanie stworzonego jadłospisu pacjentów
+                \item Będzie ułatwiało dietetykowi kontrolowanie rezultatów stosowania diety
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -100,7 +101,7 @@ W tabeli \ref{tabela:pozycjonowanie-produktu} przedstawiono pozycjonowanie oprac
             \hline
 
             \cellgray{Nazwa produktu} &
-            \multicolumn{1}{|l|}{Webowa aplikacja wspomagająca układanie jadłospisu} \\
+            \multicolumn{1}{|l|}{Aplikacja webowa wspomagająca pracę dietetyka "Dietify"} \\
             \hline
 
             \cellgray{Który} &
@@ -112,7 +113,7 @@ W tabeli \ref{tabela:pozycjonowanie-produktu} przedstawiono pozycjonowanie oprac
             \hline
 
             \cellgray{Nasz produkt} &
-            \multicolumn{1}{|l|}{Skupia się na tworzeniu i~udostępnianiu jadłospisów} \\
+            \multicolumn{1}{|l|}{Skupia się na tworzeniu i~udostępnianiu jadłospisów oraz kontroli rezultatów ich stosowania} \\
             \hline
         \end{tabular}
     \end{table}
@@ -124,18 +125,18 @@ Na podstawie wywiadu z~dietetykiem, analizy rozwiązań konkurencyjnych oraz opi
 na opisanym w~rozdziale \ref{sec:usefull-technologies} wzorcu dekompozycji problemu w~oparciu o~poddziedziny
 dla omawianej aplikacji wspomagania zarządzania dietą można wyszczególnić następujące poddziedziny:
 \begin{itemize}
-    \item poddziedzina administracyjna~- służąca jako brama aplikacji, pozwalająca na zarządzanie użytkownikami i~administrowanie aplikacją
-    \item poddziedzina produkty~- skupiająca się na zarządzaniu produktami spożywczymi, ich wartościami odżywczymi i~miarami domowymi
-    \item poddziedzina przepisy~- pozwalająca na tworzenie i~zarządzanie przepisami, w~tym przypisywanie do przepisów produktów
-    \item poddziedzina jadłospisy~- pozwalająca na tworzenie i~zarządzanie jadłospisami, w~tym przypisywanie do jadłospisów produktów i~przepisów
-    \item poddziedzina wizyty~- skupiająca się na całościowym zarządzaniu wizytami pacjenta w~obrębie karty pacjenta, a~w szczególności przypisywaniem do wizyty jadłospisów, przeprowadzaniem wywiadu żywieniowego czy też zbierania pomiarów ciała pacjenta
+    \item \textbf{poddziedzina administracyjna}~- służąca jako brama aplikacji, pozwalająca na zarządzanie użytkownikami i~administrowanie aplikacją
+    \item \textbf{poddziedzina produkty}~- skupiająca się na zarządzaniu produktami spożywczymi, ich wartościami odżywczymi i~miarami domowymi
+    \item \textbf{poddziedzina przepisy}~- pozwalająca na tworzenie i~zarządzanie przepisami, w~tym przypisywanie do przepisów produktów
+    \item \textbf{poddziedzina jadłospisy}~- pozwalająca na tworzenie i~zarządzanie jadłospisami, w~tym przypisywanie do jadłospisów produktów i~przepisów
+    \item \textbf{poddziedzina wizyty}~- skupiająca się na całościowym zarządzaniu wizytami pacjenta w~obrębie karty pacjenta, a~w szczególności przypisywaniem do wizyty jadłospisów, przeprowadzaniem wywiadu żywieniowego oraz zbieraniem pomiarów ciała pacjenta
 \end{itemize}
 %\section{Opis udziałowców i~użytkowników}
 %\subsection{Podsumowanie udziałowców}
 
 \section{Podsumowanie użytkowników systemu}\label{sec:users-summary}
 \par
-W tabeli \ref{tabela:uzytkownicy} przedstawiono podsumowanie użytkowników projektowanegom ich krótki opis oraz ich podstawowe odpowiedzialności związane z~korzystaniem z~systemu.
+W tabeli \ref{tabela:uzytkownicy} przedstawiono podsumowanie użytkowników projektowanego systemu, ich krótki opis oraz ich podstawowe odpowiedzialności związane z~korzystaniem z~systemu.
 
 \begin{minipage}{\textwidth}
     \begin{table}[H]
@@ -164,6 +165,7 @@ W tabeli \ref{tabela:uzytkownicy} przedstawiono podsumowanie użytkowników proj
             \begin{itemize}
                 \item Używa założonego konta
                 \item Wprowadza, edytuje i~usuwa produkty, przepisy i~jadłospisy
+                \item Zarządza wizytami pacjenta
             \end{itemize} \\
             \hline
             Administrator &
@@ -171,7 +173,6 @@ W tabeli \ref{tabela:uzytkownicy} przedstawiono podsumowanie użytkowników proj
             \begin{itemize}
                 \item Przydzielanie i~odbieranie użytkownikom uprawnień
                 \item Zarządzanie definicjami wartości odżywczych, typami diet, typami posiłków, typami dań i~wyposażeniem kuchennym
-                \item Zarządzanie treścią witryny, informacjami kontaktowymi i~cennikiem
             \end{itemize} \\
             \hline
         \end{tabular}
@@ -402,7 +403,7 @@ Następnie wymagania dla konkretnych poddziedzin sformalizowano w~postaci diagra
             %            \begin{itemize}
             %                \item Wydawanie w~języku naturalnym poleceń dotyczących diety
             %            \end{itemize} \\
-            \hline
+%            \hline
         \end{tabular}
     \end{table}
 \end{minipage}
@@ -413,13 +414,13 @@ Następnie wymagania dla konkretnych poddziedzin sformalizowano w~postaci diagra
 
 \section{Wymagania niefunkcjonalne}\label{sec:nonfunctional-requirements}
 \begin{itemize}
-    \item System działa poprawnie w~przeglądarkach Google~Chrome~76, Mozilla~Firefox~69, Safari~12, Opera~63, Microsoft~Edge~17
+    \item System działa poprawnie w~przeglądarkach Google~Chrome~76, Mozilla~Firefox~69 i Opera~63
     \item System działa na urządzenia mobilnych korzystających z~systemu Android~9 i~iOS~12
     \item System jest dostępny w~polskiej i~angielskiej wersji językowej
     \item System ma czytelny i~minimalistyczny interfejs
     \item Aplikacja webowa jest w~pełni responsywna i~wygodna do używania na ekranach od~5 do~30 cali
     %    \item Aplikacja webowa udostępnia część funkcji offline
-    \item Aplikacja ma być oparta na architekturze mikroserwisów
+    \item Aplikacja jest oparta na architekturze mikroserwisów
 \end{itemize}
 \thispagestyle{normal}
 

@@ -23,6 +23,7 @@
 Opierając się zdobytej wiedzy dotyczącej potrzeb użytkowników aplikacji
 oraz na wymaganiach funkcjonalnych służących do zaspokojenia tych potrzeb
 opracowano prototypy kluczowych widoków interfejsu użytkownika.
+\par
 Zanim przedstawione zostaną prototypy dla poddziedzin warto wpierw omówić szablon widoku, który będzie stosowany w obrębie całej witryny.
 Na rysunku \ref{fig:mockup:0home} przedstawiona została strona startowa witryny.
 U góry strony znajduje się belka zawierająca hasło przewodnie danego widoku.
@@ -35,7 +36,9 @@ W przypadku omawianej strony startowej jest to wiadomość powitalna oraz obraze
 
 \imagewide{../mockup/0home.png}{Prototyp interfejsu~- strona startowa}{mockup:0home}
 
-Podobnie szablon strony będzie wyglądał na urządzeniu mobilnym, co przedstawiono na rysunku \ref{fig:mockup:6mobile}.
+Podobnie szablon strony będzie wyglądał na urządzeniu mobilnym, co przedstawiono na rysunku \ref{fig:mockup:6mobile},
+przy czym ze względu na niewielki rozmiar ekranu urządzeń mobilnych, panel nawigacyjny jest zwijany,
+a w celu jego wyświetlenia koniecznie jest naciśnięcie przycisku znajdującego się po prawej stronie belki, która jest u góry strony.
 
 \image{0.4}{../mockup/6mobile.png}{Prototyp interfejsu~- układ strony na urządzeniu mobilnym}{mockup:6mobile}
 
@@ -53,7 +56,9 @@ Warto zauważyć, że podczas rejestracji użytkownik wyraża zgodę na przetwar
 
 \imagewide{../mockup/0home_2login.png}{Prototyp interfejsu~- logowanie do systemu}{mockup:0home_2login}
 
-Widoku zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:users}) jest dostępny tylko dla administratora i z jego poziomu możliwe jest zarządzanie uprawnieniami użytkowników, zmiana statusu ich kont oraz tworzenie nowych użytkowników.
+Widok zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:users}) jest dostępny tylko dla administratora
+Z poziomu tego widoku możliwe jest zarządzanie uprawnieniami użytkowników, zmiana statusu ich kont oraz tworzenie nowych użytkowników.
+
 \imagewide{../mockup/5administration_users.png}{Prototyp interfejsu~- zarządzanie użytkownikami}{mockup:5administration:users}
 
 \subsection{Poddziedzina produkty}
@@ -102,9 +107,9 @@ Do tego widoku prowadzi odnośnik "Meal Plans" z panelu nawigacyjnego.
 
 \imagewide{../mockup/3mealplans.png}{Prototyp interfejsu~- lista jadłospisów}{mockup:3mealplans}
 
-Podczas tworzenia jadłospisu dietetyk musi wpierw zdefiniować podstawowe właściwości jadłospisu, co widoczne jest na prototypie widoku zakładki ustawień jadłospisu przedstawionym na rysunku \ref{fig:mockup:3mealplans_1new_1settings}
-Po uzupełnieniu liczby dni i posiłków w ciągu dnia, a także definicji posiłków możliwe jest przejście do zakładki kalendarza, której prototyp widoczny jest na rysunku \ref{fig:mockup:3mealplans_1new_2calendar}.
-Kalendarz jest automatycznie dostosowywany do liczby dni i posiłków w ciągu dnia.
+Podczas tworzenia jadłospisu dietetyk musi wpierw zdefiniować podstawowe właściwości jadłospisu, co widoczne jest na prototypie widoku zakładki ustawień jadłospisu przedstawionym na rysunku \ref{fig:mockup:3mealplans_1new_1settings}.
+Po uzupełnieniu liczby dni i liczby posiłków w ciągu dnia, a także definicji posiłków możliwe jest przejście do zakładki kalendarza, której prototyp widoczny jest na rysunku \ref{fig:mockup:3mealplans_1new_2calendar}.
+Kalendarz jest automatycznie dostosowywany do liczby dni i liczby posiłków w ciągu dnia.
 W polach odpowiadających odpowiednim posiłków w ciągu dnia wyświetlane są produkty i przepisy składające się na posiłek.
 Po kliknięciu w takie pole możliwe będzie wyświetlenie bardziej szczegółowego widoku posiłku
 oraz dodawanie produktów po wyświetleniu modala zawierającego listę produktów, analogiczną jak na rysunku \ref{fig:mockup:1products}
@@ -179,7 +184,7 @@ szczegółowe informacje dotyczące zdrowia na rysunku \ref{fig:mockup:4appointm
 Na rysunku \ref{fig:mockup:4appointments_4appointment-details_2body-measurement} przedstawiono prototyp widoku edycji pomiarów ciała.
 Formularz został podzielony na 2 sekcje:
 \begin{itemize}
-    \item podstawowa~- podstawowe, wymagane pomiary ciałe
+    \item podstawowa~- podstawowe, wymagane pomiary ciała
     \item zaawansowana~- pomiary, które powinny zostać przeprowadzone metodą BIA
 \end{itemize}
 
@@ -191,7 +196,7 @@ Formularz został podzielony na 2 sekcje:
 
 Jak wspomniano w rozdziale \ref{sec:usefull-technologies}, dekompozycja w oparciu o poddziedziny
 pozwala na proste wyznaczenie mikroserwisów poprzez stworzenie serwisu dla każdej poddziedziny.
-Każdy mikroserwisych potrzebuje przechowywać dane w bazie danych, która będzie odseparowana od baz innych mikroserwisów przynajmniej na poziomie logicznym.
+Każdy mikroserwis potrzebuje przechowywać dane w bazie danych, która będzie odseparowana od baz innych mikroserwisów przynajmniej na poziomie logicznym.
 Instancje mikroserwisów mogą być tworzone dynamicznie i w efekcie mogą być dostępne pod różnymi adresami,
 należy więc uwzględnić mechanizm pozwalający na automatyczną detekcję bieżących lokalizacji mikroserwisów.
 Zadanie takie może być realizowane przez serwis typu discovery.
@@ -210,7 +215,7 @@ Na rysunku \ref{fig:podstawowa-architektura} przedstawiono diagram podstawowej a
 
 Podstawą projektowanego systemu jest przetwarzanie danych związanych z~domeną zarządzania dietą, dlatego niezmiernie istotne jest zapewnienie trwałości i~spójności danych.
 Cechy takie może zapewnić relacyjna baza danych dzięki mechanizmowi transakcji\cite{book:bazury}.
-Jednakże w~przypadku architektury mikroserwisów, w~której każdy serwis korzysta z~własnego schematu bazy danych spójność będzie gwarantowana jedynie w~obrębie jednego serwisu,
+Jednakże w~przypadku architektury mikroserwisów, w~której każdy serwis korzysta z~własnego schematu bazy danych, spójność będzie gwarantowana jedynie w~obrębie jednego serwisu,
 gdyż więzy integralności nie będą definiowane pomiędzy danymi znajdującymi się w~bazach różnych serwisów.
 Aby rozwiązać ten problem, dla danych definiowanych przez użytkownika końcowego (dietetyka), do których odniesienia będą przechowywane w~serwisie, który nie jest ich właścicielem,
 zastosowany zostanie wzorzec "Tymczasowego Obiektu" (ang. Temporal Object)\cite{url:temporal-object-pattern} nazywany również wzorcem wersjonowania.
