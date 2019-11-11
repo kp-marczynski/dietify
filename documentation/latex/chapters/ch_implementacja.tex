@@ -14,8 +14,8 @@ Podczas wyboru języków programowania, z~użyciem których miał zostać zaimpl
 Wybrane języki spełniające te kryteria to:
 
 \begin{itemize}
-    \item W~warstwie backendu Java\cite{tech:java} - stworzony przez Sun Microsystems język kompilowalny do kodu bajtowego, który jest wykonywany na maszynie wirtualnej
-    \item W~warstwie frontendu Typescript\cite{tech:typescript} - stworzony przez Microsoft język otwartoźródłowy kompilowalny do języka JavaScript\cite{tech:javascript}
+    \item W~warstwie backendu Java\cite{tech:java}~- stworzony przez Sun Microsystems język kompilowalny do kodu bajtowego, który jest wykonywany na maszynie wirtualnej
+    \item W~warstwie frontendu Typescript\cite{tech:typescript}~- stworzony przez Microsoft język otwartoźródłowy kompilowalny do języka JavaScript\cite{tech:javascript}
 \end{itemize}
 
 Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącego frameworka frontendowego
@@ -31,7 +31,7 @@ Jak już wspomniano zamiast języka JavaScript wykorzystano TypeScript, natomias
 System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych,
 więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
 Rozważano przede wszystkim systemy PostgreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
-Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy systemy zarządzania relacyjną bazą danych (ang. Relational Database Management System - RDBMS) wypadają równie dobrze,
+Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy systemy zarządzania relacyjną bazą danych (ang. Relational Database Management System~- RDBMS) wypadają równie dobrze,
 jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
 Dodatkowo postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} do zarządzania zmianami schematu bazy.
 
@@ -41,9 +41,9 @@ Jest to dojrzały, prosty do wykorzystania w implementacji stos technologii mikr
 który posiada integrację ze Springiem na poziomie frameworka poprzez wykorzystania projektu Spring Cloud Netflix\cite{tech:spring-cloud-netflix}.
 W skład tego stosu wchodzą przede wszystkim:
 \begin{itemize}
-    \item Eureka\cite{tech:netflix-eureka} - serwis typu discovery
-    \item Zuul\cite{tech:netflix-zuul} - serwis zapewniający dynamiczne przekierowywanie żądań z bramy aplikacji do poszczególnych mikroserwisów
-    \item Ribbon\cite{tech:netflix-ribbon} - seriws zapewniający równoważenie obciążenia podczas wyboru mikroserwisu, który odpowie na żądanie
+    \item Eureka\cite{tech:netflix-eureka}~- serwis typu discovery
+    \item Zuul\cite{tech:netflix-zuul}~- serwis zapewniający dynamiczne przekierowywanie żądań z bramy aplikacji do poszczególnych mikroserwisów
+    \item Ribbon\cite{tech:netflix-ribbon}~- seriws zapewniający równoważenie obciążenia podczas wyboru mikroserwisu, który odpowie na żądanie
 \end{itemize}
 
 \par
@@ -59,16 +59,16 @@ Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisó
 \par
 Dodatkowo postanowiono wykorzystać następujące narzędzia nie związane bezpośrednio z implementacją:
 \begin{itemize}
-    \item Docker\cite{tech:docker} - system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z wykorzystaniem konfiguracji niezależnej od środowiska
-    \item Docker Compose\cite{tech:docker-compose} - narzędzie upraszczające zarządzanie wielokontenerowym środowiskiem aplikacji skonteneryzowanych
-    \item Git\cite{tech:git} - rozproszony system kontroli wersji wykorzystywany do zarządzania zmianami w kodzie
-    \item Gitlab Pipelines\cite{tech:gitlab-pipelines} - narzędzie wspomagające proces ciągłej integracji
+    \item Docker\cite{tech:docker}~- system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z wykorzystaniem konfiguracji niezależnej od środowiska
+    \item Docker Compose\cite{tech:docker-compose}~- narzędzie upraszczające zarządzanie wielokontenerowym środowiskiem aplikacji skonteneryzowanych
+    \item Git\cite{tech:git}~- rozproszony system kontroli wersji wykorzystywany do zarządzania zmianami w kodzie
+    \item Gitlab Pipelines\cite{tech:gitlab-pipelines}~- narzędzie wspomagające proces ciągłej integracji
 \end{itemize}
 
 \section{Zakres implementacji}\label{sec:implementation-scope}
 
 W wyniku analizy założeń projektowych przedstawionych w rozdziale \ref{ch:design-assumptions} stwierdzono,
-że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product - MVP)
+że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product~- MVP)
 wymaga zaimplementowania całego modelu domeny omówionego w projekcie bazy danych w rozdziale \ref{sec:database}.
 Natomiast w kwestii dostępu do systemu, w celu osiągnięcia MVP wystarczy żeby bezpośredni dostęp mieli tylko dietetycy i administratorzy,
 a pacjenci otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
