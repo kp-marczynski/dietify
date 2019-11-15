@@ -107,7 +107,7 @@ Do tego widoku prowadzi odnośnik "Meal Plans" z panelu nawigacyjnego.
 
 \imagewide{../mockup/3mealplans.png}{Prototyp interfejsu~- lista jadłospisów}{mockup:3mealplans}
 
-Podczas tworzenia jadłospisu dietetyk musi wpierw zdefiniować podstawowe właściwości jadłospisu, co widoczne jest na prototypie widoku zakładki ustawień jadłospisu przedstawionym na rysunku \ref{fig:mockup:3mealplans_1new_1settings}.
+Podczas układania jadłospisu dietetyk musi wpierw zdefiniować podstawowe właściwości jadłospisu, co widoczne jest na prototypie widoku zakładki ustawień jadłospisu przedstawionym na rysunku \ref{fig:mockup:3mealplans_1new_1settings}.
 Po uzupełnieniu liczby dni i liczby posiłków w ciągu dnia, a także definicji posiłków możliwe jest przejście do zakładki kalendarza, której prototyp widoczny jest na rysunku \ref{fig:mockup:3mealplans_1new_2calendar}.
 Kalendarz jest automatycznie dostosowywany do liczby dni i liczby posiłków w ciągu dnia.
 W polach odpowiadających odpowiednim posiłków w ciągu dnia wyświetlane są produkty i przepisy składające się na posiłek.
@@ -158,8 +158,8 @@ w którym dietetyk deklaruje się, że uzyskał od pacjenta pisemną zgodę na p
 \imagewide{../mockup/4appointments_1new-patient-card.png}{Prototyp interfejsu~- dodawanie nowej karty pacjenta}{mockup:4appointments_1new-patient-card}
 
 Prototyp szczegółów karty pacjenta został przedstawiony na rysunku \ref{fig:mockup:4appointments_2patient-card-details}.
-Poza podstawowymi danymi pacjenta w obrębie tego widoku wyświetlany jest wykres BMI, stworzony na podstawie pomiarów przeprowadzanych w ramach kolejnych wizyt pacjenta.
-Z poziomu tego widoku możliwe jest edytowanie karty pacjenta, stworzenie nowej wizyty oraz przeglądanie listy wszystkich wizyt pacjenta oraz listy wizyt oczekujących na konsultację.
+Poza podstawowymi danymi pacjenta w obrębie tego widoku wyświetlany jest wykres BMI, utworzony na podstawie pomiarów przeprowadzanych w ramach kolejnych wizyt pacjenta.
+Z poziomu tego widoku możliwe jest edytowanie karty pacjenta, utworzenie nowej wizyty oraz przeglądanie listy wszystkich wizyt pacjenta oraz listy wizyt oczekujących na konsultację.
 
 \imagewide{../mockup/4appointments_2patient-card-details.png}{Prototyp interfejsu~- szczegóły karty pacjenta}{mockup:4appointments_2patient-card-details}
 
@@ -195,7 +195,7 @@ Formularz został podzielony na 2 sekcje:
 \section{Opis podstawowej architektury systemu}\label{sec:basicArchitecture}
 
 Jak wspomniano w rozdziale \ref{sec:usefull-technologies}, dekompozycja w oparciu o poddziedziny
-pozwala na proste wyznaczenie mikroserwisów poprzez stworzenie serwisu dla każdej poddziedziny.
+pozwala na proste wyznaczenie mikroserwisów poprzez zaprojektowanie serwisu dla każdej poddziedziny.
 Każdy mikroserwis potrzebuje przechowywać dane w bazie danych, która będzie odseparowana od baz innych mikroserwisów przynajmniej na poziomie logicznym.
 Instancje mikroserwisów mogą być tworzone dynamicznie i w efekcie mogą być dostępne pod różnymi adresami,
 należy więc uwzględnić mechanizm pozwalający na automatyczną detekcję bieżących lokalizacji mikroserwisów.
@@ -222,7 +222,7 @@ zastosowany zostanie wzorzec "Tymczasowego Obiektu" (ang. Temporal Object)\cite{
 Dla raz utworzonej wersji obiektu dane pozostają niezmienne, a~w razie potrzeby zmiany danych należy utworzyć nową wersję.
 Dzięki temu referencję do wersji można bezpiecznie wykorzystywać w~środowisku rozproszonym.
 Należy zauważyć, że konsekwencją zastosowania tego wzorca jest niemożność usuwania obiektów.
-Zamiast tego należy stworzyć finalną wersję obiektu z~flagą pokazującą, że obiekt powinien być traktowany jako usunięty.
+Zamiast tego należy utworzyć finalną wersję obiektu z~flagą pokazującą, że obiekt powinien być traktowany jako usunięty.
 
 \par
 W dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
@@ -274,7 +274,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:User:id}- identyfikator
         \atr{login}\label{kat:User:login}- login użytkownika
-        \atr{passwordHash}\label{kat:User:passwordHash}- reprezentacja hasła stworzona przez nałożenie na hasło funkcji skrótu
+        \atr{passwordHash}\label{kat:User:passwordHash}- reprezentacja hasła utworzona przez nałożenie na hasło funkcji skrótu
         \atr{firstName}\label{kat:User:firstName}- imię użytkownika
         \atr{lastName}\label{kat:User:lastName}- nazwisko użytkownika
         \atr{email}\label{kat:User:email}- adres e-mail

@@ -11,7 +11,7 @@ Dodatkowo, żeby rozwiać wątpliwości czy dane rozwiązanie konkurencyjne umo�
 \begin{itemize}
     \item TiqDiet
 
-        TiqDiet\cite{url:TiqDiet} jest wygodnym w~użyciu programem, który pozwala dietetykom w~intuicyjny sposób tworzyć jadłospisy i~udostępniać je pacjentom.
+        TiqDiet\cite{url:TiqDiet} jest wygodnym w~użyciu programem, który pozwala dietetykom w~intuicyjny sposób projektować jadłospisy i~udostępniać je pacjentom.
         W~celu uproszczenia pracy dietetyka, udostępnianych jest wiele szablonów jadłospisów, które łatwo można dostosować do indywidualnych potrzeb pacjenta.
         Pacjent może odbierać ułożoną dietę poprzez responsywną stronę internetową, aplikację mobilną oraz za pomocą inteligentnego zegarka.
         Aplikacje mobilne pozwalają ponadto na automatyczne przypominanie pacjentowi m.in. o~konieczności zażycia suplementu oraz o~konieczności regularnego picia wody.
@@ -22,7 +22,7 @@ Dodatkowo, żeby rozwiać wątpliwości czy dane rozwiązanie konkurencyjne umo�
 %        \imagewide[\cite{url:TiqDiet-youtube}]{img/competitive-solutions/TiqDiet.png}{TiqDiet}{competitive-solution:TiqDiet}
     \item Kcalmar PRO
 
-        Kcalmar\cite{url:kcalmar} jest systemem, którego głównym założeniem jest maksymalne skrócenie czasu potrzebnego na stworzenie programu żywieniowego dopasowanego do potrzeb pacjenta.
+        Kcalmar\cite{url:kcalmar} jest systemem, którego głównym założeniem jest maksymalne skrócenie czasu potrzebnego na ułożenie programu żywieniowego dopasowanego do potrzeb pacjenta.
         Zapewnia zaawansowany system podpowiedzi ułatwiający projektowanie zbilansowanej diety z~wyraźnym oznaczeniem alergenów czy zduplikowanych potraw.
         Jadłospisy mogą być automatycznie skalowane z~automatycznym przeliczeniem miar domowych.
         Co ciekawe system pozwala również na wyszukiwanie dietetyków w~wybranych miastach i~filtrowanie ich według typów diet i~jednostek chorobowych, w~których się specjalizują.
@@ -75,7 +75,7 @@ a~w~tabeli \ref{tabela:rozwiazania-konkurencyjne-niefunkcjonalne} cech niefunkcj
 Warto zwrócić uwagę, że funkcjonalności takie jak możliwość wykorzystania gotowych szablonów diet, wysyłanie diety do pacjenta,
 przeprowadzanie wywiadu żywieniowego czy automatyczne generowanie listy zakupów nie występują w~niektórych spośród analizowanych systemów.
 Na tej podstawie można wysunąć hipotezę, że te funkcjonalności~- mino iż istotne~- nie są kluczowe w~systemie wspomagającym pracę dietetyka.
-Natomiast możliwość tworzenia jadłospisów z~wykorzystaniem własnych produktów i~przepisów,
+Natomiast możliwość układania jadłospisów z~wykorzystaniem własnych produktów i~przepisów,
 zapisywanie ich do plików oraz przypisywanie do stosownych kart pacjenta są oczekiwane w~tego typu aplikacjach.
 
 \begin{minipage}{\textwidth}
@@ -84,7 +84,7 @@ zapisywanie ich do plików oraz przypisywanie do stosownych kart pacjenta są oc
         \begin{tabular}{|P{.22\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|P{.09\textwidth}|}
             \hline
                                                            & \cellgray{TiqDiet}    & \cellgray{Kcalmar Pro}    & \cellgray{Dietetyk Pro}  & \cellgray{Aliant}          & \cellgray{Dietico}    & \cellgray{Vitme}    \\ \hline
-            \cellgray{Tworzenie jadłospisów}               & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
+            \cellgray{Układanie jadłospisów}               & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
             \cellgray{Gotowe szablony diet}                & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellred{NIE}         & \cellred{NIE}       \\ \hline
             \cellgray{Zapis diety do pliku}                & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellgreen{TAK}       & \cellgreen{TAK}     \\ \hline
             \cellgray{Wysyłanie diet do pacjenta}          & \cellgreen{TAK}       & \cellgreen{TAK}           & \cellgreen{TAK}          & \cellgreen{TAK}            & \cellred{NIE}         & \cellgreen{TAK}     \\ \hline
@@ -203,7 +203,7 @@ Pozwala nie tylko na wyznaczenie ilości tkanki tłuszczowej, ale także ilości
 
 \section{Architektura mikroserwisów}\label{sec:usefull-technologies}
 
-Tworzenie złożonych systemów informatycznych umożliwiających bezproblemowe jednoczesne korzystanie przez miliony użytkowników jest zadaniem niebanalnym.
+Projektowanie złożonych systemów informatycznych umożliwiających bezproblemowe jednoczesne korzystanie przez miliony użytkowników jest zadaniem niebanalnym.
 W klasycznym podejściu, implementowano systemy w~architekturze monolitycznej.
 Aplikacja napisana w~takiej architekturze jest samowystarczalna w~kontekście jej zachowania.
 Może komunikować się z~zewnętrznymi usługami lub źródłami danych w~celu wykonania operacji,
@@ -215,7 +215,7 @@ konieczne jest powielanie całej aplikacji na każdym z~serwerów\cite{url:micro
 Architektura mikroserwisów, zgodnie z~tym co sugeruje nazwa, skupia się na budowaniu aplikacji będącej zbiorem niewielkich,
 luźno powiązanych serwisów komunikujących się ze sobą na przykład za pomocą protokołu HTTP czy AMQP.
 Serwisy implementowane i~wdrażane są niezależnie od siebie\cite{book:dot-net-microservices}.
-Efektem tworzenia niezależnych serwisów jest skalowanie tylko serwisów, które tego wymagają,
+Efektem projektowania niezależnych serwisów jest skalowanie tylko serwisów, które tego wymagają,
 co pozwala na optymalne wykorzystanie zasobów\cite{book:mastering-microservices-with-java9}.
 
 \par
@@ -246,6 +246,6 @@ Z pomocą we właściwym zaprojektowaniu serwisów i~zależności między nimi p
 Jednym z~takich wzorców jest dekompozycja w~oparciu o~poddziedziny\cite{book:ddd-evans}.
 Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w~obrębie względnie niezależnych obszarów specjalizacji.
 W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu
-i~stworzenie serwisu dla każdej z~nich\cite{book:microservices-patterns}.
+i~zaprojektowanie serwisu dla każdej z~nich\cite{book:microservices-patterns}.
 
 \thispagestyle{normal}

@@ -4,7 +4,7 @@
 W niniejszym rozdziale opisano wizję systemu, który będzie wspomagał zarządzanie dietą.
 \par
 Zalogowani dietetycy będą mogli zarządzać produktami, ich wartościami odżywczymi oraz
-miarami domowymi. Korzystając ze stworzonych produktów dietetycy będą mogli tworzyć
+miarami domowymi. Korzystając ze zdefiniowanych produktów dietetycy będą mogli tworzyć
 przepisy, a~następnie, w~ramach jadłospisu, dodawać do planów posiłków przepisy
 i pojedyncze produkty.
 \par
@@ -39,7 +39,7 @@ Na podstawie rozważań z~rozdziału \ref{ch:knowladge-state} sporządzono nast�
     \atr{Wartość odżywcza}- ilość elementu takiego jak np. węglowodanów albo białka w~100g produktu
     \atr{Wizyta}- konkretna wizyta pacjenta
     \atr{Wywiad żywieniowy}- wywiad przeprowadzany z~pacjentem uwzględniający jego nawyki żywieniowe, nietolerancje, choroby, przyjmowane leki, itp.
-    \atr{Zarządzanie dietą}- wspomaganie procesu tworzenia odpowiednio zbilansowanego jadłospisu i~kontrola rezultatów stosowania stworzonego jadłospisu
+    \atr{Zarządzanie dietą}- wspomaganie procesu układania odpowiednio zbilansowanego jadłospisu i~kontrola rezultatów stosowania ułożonego jadłospisu
 \end{itemize}
 
 \section{Sformułowanie problemu}\label{sec:problem-specification}
@@ -74,7 +74,7 @@ W tabeli \ref{tabela:sformulowanie-problemu} przedstawiono sformułowanie rozwa�
             \cellgray{Pomyślne rozwiązanie} &
             \begin{itemize}
                 \item Będzie zwalniało dietetyka z~konieczności obliczania wartości odżywczych dla przepisów i~jadłospisów
-                \item Będzie ułatwiało dietetykowi przekazywanie stworzonego jadłospisu pacjentów
+                \item Będzie ułatwiało dietetykowi przekazywanie ułożonego jadłospisu pacjentów
                 \item Będzie ułatwiało dietetykowi kontrolowanie rezultatów stosowania diety
             \end{itemize} \\
             \hline
@@ -113,7 +113,7 @@ W tabeli \ref{tabela:pozycjonowanie-produktu} przedstawiono pozycjonowanie oprac
             \hline
 
             \cellgray{Nasz produkt} &
-            \multicolumn{1}{|l|}{Skupia się na tworzeniu i~udostępnianiu jadłospisów oraz kontroli rezultatów ich stosowania} \\
+            \multicolumn{1}{|l|}{Skupia się na układaniu i~udostępnianiu jadłospisów oraz kontroli rezultatów ich stosowania} \\
             \hline
         \end{tabular}
     \end{table}
@@ -127,8 +127,8 @@ dla omawianej aplikacji wspomagania zarządzania dietą można wyszczególnić n
 \begin{itemize}
     \item \textbf{poddziedzina administracyjna}~- służąca jako brama aplikacji, pozwalająca na zarządzanie użytkownikami i~administrowanie aplikacją
     \item \textbf{poddziedzina produkty}~- skupiająca się na zarządzaniu produktami spożywczymi, ich wartościami odżywczymi i~miarami domowymi
-    \item \textbf{poddziedzina przepisy}~- pozwalająca na tworzenie i~zarządzanie przepisami, w~tym przypisywanie do przepisów produktów
-    \item \textbf{poddziedzina jadłospisy}~- pozwalająca na tworzenie i~zarządzanie jadłospisami, w~tym przypisywanie do jadłospisów produktów i~przepisów
+    \item \textbf{poddziedzina przepisy}~- pozwalająca na zarządzanie przepisami, w~tym przypisywanie do przepisów produktów
+    \item \textbf{poddziedzina jadłospisy}~- pozwalająca na zarządzanie jadłospisami, w~tym przypisywanie do jadłospisów produktów i~przepisów
     \item \textbf{poddziedzina wizyty}~- skupiająca się na całościowym zarządzaniu wizytami pacjenta w~obrębie karty pacjenta, a~w szczególności przypisywaniem do wizyty jadłospisów, przeprowadzaniem wywiadu żywieniowego oraz zbieraniem pomiarów ciała pacjenta
 \end{itemize}
 %\section{Opis udziałowców i~użytkowników}
