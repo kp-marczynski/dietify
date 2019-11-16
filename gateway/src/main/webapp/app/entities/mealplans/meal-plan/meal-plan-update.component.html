@@ -13,7 +13,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.authorId" for="field_authorId" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.authorId' | translate">Author Id</label>
-                            <input type="number" class="form-control" name="authorId" id="field_authorId"
+                            <input readonly type="number" class="form-control" name="authorId" id="field_authorId"
                                    formControlName="authorId"/>
                             <div *ngIf="editForm.get('authorId').invalid && (editForm.get('authorId').dirty || editForm.get('authorId').touched)">
                                 <small class="form-text text-danger"
@@ -305,7 +305,7 @@
                                    *ngFor="let product of getMealProductsFormArray(meal).controls; let productIndex = index"
                                    routerLink="/product/{{product.get('productId').value}}/view">
                                     <span class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">
-                                        {{product.get('amount').value}}x {{product.get('householdMeasureId').value ? product.get('householdMeasureId').value : 'g'}}
+                                        {{product.get('amount').value}}x {{getHouseholdMeasure(product)}}
                                     </span>
                                     {{product.get('product').value ? product.get('product').value.description : product.get('productId').value}}
                                 </a>

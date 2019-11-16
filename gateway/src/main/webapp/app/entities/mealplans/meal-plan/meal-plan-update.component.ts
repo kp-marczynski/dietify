@@ -1,15 +1,21 @@
-import {Component, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {IMealPlan, MealPlan} from 'app/shared/model/mealplans/meal-plan.model';
-import {MealPlanService} from './meal-plan.service';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {MealUpdateComponent} from 'app/entities/mealplans/meal';
-import {MealTypeService} from 'app/entities/recipes/meal-type';
-import {IMealType} from 'app/shared/model/recipes/meal-type.model';
-import {JhiAlertService} from 'ng-jhipster';
+import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { IMealPlan, MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
+import { MealPlanService } from './meal-plan.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MealUpdateComponent } from 'app/entities/mealplans/meal';
+import { MealTypeService } from 'app/entities/recipes/meal-type';
+import { IMealType } from 'app/shared/model/recipes/meal-type.model';
+import { JhiAlertService } from 'ng-jhipster';
+import { IProduct } from 'app/shared/model/products/product.model';
+import { IRecipe } from 'app/shared/model/recipes/recipe.model';
+import { RecipeService } from 'app/entities/recipes/recipe';
+import { ProductService } from 'app/entities/products/product';
+import { IMealProduct } from 'app/shared/model/mealplans/meal-product.model';
+import { Account, AccountService, UserService } from 'app/core';
 
 @Component({
   selector: 'jhi-meal-plan-update',
@@ -44,21 +50,61 @@ export class MealPlanUpdateComponent implements OnInit {
     protected modalService: NgbModal,
     protected mealTypeService: MealTypeService,
     protected jhiAlertService: JhiAlertService,
+    protected recipeService: RecipeService,
+    protected productService: ProductService,
+    private accountService: AccountService,
+    private userService: UserService,
     private fb: FormBuilder
   ) {}
 
   ngOnInit() {
+    this.accountService.identity().then((account: Account) => {
+      this.userService.find(account.login).subscribe(res => {
+        this.editForm.patchValue({ authorId: res.body.id });
+      });
+    });
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ mealPlan }) => {
       console.log(mealPlan);
       this.updateForm(mealPlan);
     });
-    this.mealTypeService.query().subscribe(
-      (res: HttpResponse<IMealType[]>) => this.mealTypes = res.body,
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
+    this.mealTypeService
+      .query()
+      .subscribe((res: HttpResponse<IMealType[]>) => (this.mealTypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.editForm.get('numberOfMealsPerDay').valueChanges.subscribe(numberOfMeals => this.numberOfMealsPerDayChanged());
     this.editForm.get('numberOfDays').valueChanges.subscribe(numberOfDays => this.numberOfDaysChanged());
+  }
+
+  findProduct(mealProduct: FormGroup): void {
+    this.productService
+      .find(mealProduct.get('productId').value)
+      .subscribe(
+        (res: HttpResponse<IProduct>) => mealProduct.patchValue({ product: res.body }),
+        (res: HttpErrorResponse) => mealProduct.patchValue({ product: null })
+      );
+  }
+
+  findRecipe(mealRecipe: FormGroup): void {
+    this.recipeService
+      .find(mealRecipe.get('recipeId').value)
+      .subscribe(
+        (res: HttpResponse<IRecipe>) => mealRecipe.patchValue({ product: res.body }),
+        (res: HttpErrorResponse) => mealRecipe.patchValue({ product: null })
+      );
+  }
+
+  getHouseholdMeasure(mealProduct: FormGroup): string {
+    let result = 'g';
+    if (mealProduct.get('householdMeasureId').value) {
+      const product = mealProduct.get('product').value;
+      if (product) {
+        const householdMeasure = product.householdMeasures.find(measure => measure.id === mealProduct.get('householdMeasureId').value);
+        if (householdMeasure) {
+          result = householdMeasure.description;
+        }
+      }
+    }
+    return result;
   }
 
   protected onError(errorMessage: string) {
@@ -188,6 +234,20 @@ export class MealPlanUpdateComponent implements OnInit {
     }
     this.numberOfDaysChanged();
     console.log(this.editForm);
+    this.updateMeals();
+  }
+
+  updateMeals() {
+    for (const day of this.getDaysFormArray().controls) {
+      for (const meal of this.getMealsFormArray(day as FormGroup).controls) {
+        for (const mealProduct of this.getMealProductsFormArray(meal as FormGroup).controls) {
+          this.findProduct(mealProduct as FormGroup);
+        }
+        for (const mealRecipe of this.getMealRecipesFormArray(meal as FormGroup).controls) {
+          this.findRecipe(mealRecipe as FormGroup);
+        }
+      }
+    }
   }
 
   previousState() {

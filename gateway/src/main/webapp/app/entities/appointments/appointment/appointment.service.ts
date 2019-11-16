@@ -8,8 +8,8 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IAppointment } from 'app/shared/model/appointments/appointment.model';
-import { Shoplist } from 'app/shared/model/appointments/shoplist.model';
 import { MailableMealPlan } from 'app/shared/model/appointments/mailable-meal-plan.model';
+import { Shoplist } from 'app/shared/model/appointments/shoplist-item.model';
 
 type EntityResponseType = HttpResponse<IAppointment>;
 type EntityArrayResponseType = HttpResponse<IAppointment[]>;

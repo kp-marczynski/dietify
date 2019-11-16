@@ -45,7 +45,7 @@ export class ShoplistComponent implements OnInit {
             );
         }
         for (const mealRecipe of meal.mealRecipes) {
-          this.recipeService.find(mealRecipe.id).subscribe((resRecipe: HttpResponse<IRecipe>) => {
+          this.recipeService.find(mealRecipe.recipeId).subscribe((resRecipe: HttpResponse<IRecipe>) => {
             const recipe = resRecipe.body;
             const recipeScaleFactor = mealRecipe.amount / recipe.totalGramsWeight;
             for (const section of recipe.recipeSections) {

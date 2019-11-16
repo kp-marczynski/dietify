@@ -20,12 +20,10 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
         " left join fetch recipe.kitchenAppliances" +
         " left join fetch recipe.dishTypes" +
         " left join fetch recipe.mealTypes" +
-        " left join fetch recipe.recipeSections",
+        " left join fetch recipe.recipeSections" +
+        " where recipe.authorId =:author",
         countQuery = "select count(distinct recipe) from Recipe recipe")
-    Page<Recipe> findAllWithEagerRelationships(Pageable pageable);
-
-    @Query("select distinct recipe from Recipe recipe left join fetch recipe.kitchenAppliances left join fetch recipe.dishTypes left join fetch recipe.mealTypes")
-    List<Recipe> findAllWithEagerRelationships();
+    Page<Recipe> findAllWithEagerRelationships(Long author, Pageable pageable);
 
     @Query("select recipe from Recipe recipe" +
         " left join fetch recipe.kitchenAppliances" +
@@ -35,7 +33,7 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
         " where recipe.id =:id")
     Optional<Recipe> findOneWithEagerRelationships(@Param("id") Long id);
 
-    Page<Recipe> findByNameContainingIgnoreCase(String searchPhrase, Pageable pageable);
+    Page<Recipe> findByNameContainingIgnoreCaseAndAuthorId(String searchPhrase, Long authorId, Pageable pageable);
 
-    Page<Recipe> findByNameContainingIgnoreCaseAndLanguage(String searchPhrase, String language, Pageable pageable);
+    Page<Recipe> findByNameContainingIgnoreCaseAndLanguageAndAuthorId(String searchPhrase, String language, Long authorId, Pageable pageable);
 }

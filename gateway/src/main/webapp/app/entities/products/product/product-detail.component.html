@@ -31,9 +31,24 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span></dt>
                 <dd>
-                    <div *ngIf="product.basicNutritionData">
-                        <a [routerLink]="['/product-basic-nutrition-data', product.basicNutritionData?.id, 'view']">{{product.basicNutritionData?.id}}</a>
-                    </div>
+                    <table>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.energy">Energy</th>
+                            <td>{{product.basicNutritionData.energy}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.fat">Fat</th>
+                            <td>{{product.basicNutritionData.fat}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.protein">Protein</th>
+                            <td>{{product.basicNutritionData.protein}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.carbohydrates">Carbohydrates</th>
+                            <td>{{product.basicNutritionData.carbohydrates}}</td>
+                        </tr>
+                    </table>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span></dt>
                 <dd>

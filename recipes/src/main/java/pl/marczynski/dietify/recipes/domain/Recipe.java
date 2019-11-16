@@ -60,7 +60,7 @@ public class Recipe implements Serializable {
     /**
      * Optional image of recipe
      */
-    
+
     @ApiModelProperty(value = "Optional image of recipe")
     @Lob
     @Column(name = "image")
@@ -80,7 +80,6 @@ public class Recipe implements Serializable {
     /**
      * Date of creation
      */
-    @NotNull
     @ApiModelProperty(value = "Date of creation", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
@@ -88,7 +87,6 @@ public class Recipe implements Serializable {
     /**
      * Date of last edit
      */
-    @NotNull
     @ApiModelProperty(value = "Date of last edit", required = true)
     @Column(name = "last_edit_date", nullable = false)
     private LocalDate lastEditDate;

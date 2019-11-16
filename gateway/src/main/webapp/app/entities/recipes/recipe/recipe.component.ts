@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IRecipe, Recipe } from 'app/shared/model/recipes/recipe.model';
-import { AccountService, JhiLanguageHelper } from 'app/core';
+import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { RecipeService } from './recipe.service';
@@ -34,6 +34,7 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
   predicate: any;
   previousPage: any;
   reverse: any;
+  authorId: any;
 
   selectedLanguage: any;
 
@@ -44,6 +45,7 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected dataUtils: JhiDataUtils,
     protected router: Router,
@@ -91,7 +93,8 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
         size: this.itemsPerPage,
         sort: this.sort(),
         search: this.currentSearch.trim(),
-        language: this.selectedLanguage ? this.selectedLanguage : ''
+        language: this.selectedLanguage ? this.selectedLanguage : '',
+        author: this.authorId ? this.authorId : ''
       })
       .subscribe(
         (res: HttpResponse<IRecipe[]>) => this.paginateRecipes(res.body, res.headers),
@@ -141,6 +144,12 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.accountService.identity().then((account: Account) => {
+      this.userService.find(account.login).subscribe(res => {
+        this.authorId = res.body.id;
+        this.loadAll();
+      });
+    });
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;

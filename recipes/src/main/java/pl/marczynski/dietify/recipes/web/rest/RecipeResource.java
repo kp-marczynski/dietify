@@ -104,16 +104,17 @@ public class RecipeResource {
                                                       UriComponentsBuilder uriBuilder,
                                                       @RequestParam(required = false, defaultValue = "false") boolean eagerload,
                                                       @RequestParam(required = false) String search,
-                                                      @RequestParam(required = false) String language) {
+                                                      @RequestParam(required = false) String language,
+                                                      @RequestParam(required = false) Long author) {
         log.debug("REST request to get a page of Recipes");
         Page<Recipe> page;
-        if (search != null) {
-            page = recipeService.findBySearchAndFilters(search, language, pageable);
-        } else if (eagerload) {
-            page = recipeService.findAllWithEagerRelationships(pageable);
+        if ((search != null && !search.isEmpty()) || (language != null && !language.isEmpty())) {
+            page = recipeService.findBySearchAndFilters(search, language, pageable, author);
         } else {
+            page = recipeService.findAllWithEagerRelationships(pageable, author);
+        } /*else {
             page = recipeService.findAll(pageable);
-        }
+        }*/
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

@@ -18,7 +18,7 @@ import { MealTypeService } from 'app/entities/recipes/meal-type';
 import { IProduct, Product } from 'app/shared/model/products/product.model';
 import { ProductComponent, ProductService } from 'app/entities/products/product';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageHelper } from 'app/core';
+import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/core';
 import { IProductCategoryTranslation } from 'app/shared/model/products/product-category-translation.model';
 
 @Component({
@@ -50,18 +50,18 @@ export class RecipeUpdateComponent implements OnInit {
     numberOfPortions: [null, [Validators.required, Validators.min(0)]],
     image: [null, []],
     imageContentType: [],
-    authorId: [null, [Validators.required]],
-    creationDate: [null, [Validators.required]],
-    lastEditDate: [null, [Validators.required]],
+    authorId: [],
+    creationDate: [],
+    lastEditDate: [],
     isVisible: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    totalGramsWeight: [null, [Validators.required, Validators.min(0)]],
+    totalGramsWeight: [],
     basicNutritionData: this.fb.group({
       id: [],
-      energy: [null, [Validators.required]],
-      protein: [null, [Validators.required]],
-      fat: [null, [Validators.required]],
-      carbohydrates: [null, [Validators.required]]
+      energy: [],
+      protein: [],
+      fat: [],
+      carbohydrates: []
     }),
     recipeSections: this.fb.array([]),
     sourceRecipe: [],
@@ -81,6 +81,8 @@ export class RecipeUpdateComponent implements OnInit {
     protected modalService: NgbModal,
     protected elementRef: ElementRef,
     protected activatedRoute: ActivatedRoute,
+    private accountService: AccountService,
+    private userService: UserService,
     private fb: FormBuilder,
     private languageService: JhiLanguageService,
     private languageHelper: JhiLanguageHelper
@@ -88,6 +90,11 @@ export class RecipeUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.isSaving = false;
+    this.accountService.identity().then((account: Account) => {
+      this.userService.find(account.login).subscribe(res => {
+        this.editForm.patchValue({ authorId: res.body.id });
+      });
+    });
     this.activatedRoute.data.subscribe(({ recipe }) => {
       if (!recipe.basicNutritionData) {
         recipe.basicNutritionData = new RecipeBasicNutritionData();
@@ -245,7 +252,7 @@ export class RecipeUpdateComponent implements OnInit {
   }
 
   private calcRecipeBasicNutritionData(recipe: IRecipe) {
-    const basicNutritionData = new RecipeBasicNutritionData(0, 0, 0, 0, 0);
+    const basicNutritionData = new RecipeBasicNutritionData(null, 0, 0, 0, 0);
     recipe.totalGramsWeight = 0;
     for (const recipeSection of this.getRecipeSectionsFormArray().controls) {
       for (const productPortion of this.getProductPortionsFormArray(recipeSection as FormGroup).controls) {
@@ -262,6 +269,11 @@ export class RecipeUpdateComponent implements OnInit {
         basicNutritionData.carbohydrates += product.basicNutritionData.carbohydrates * portionGramsWeight;
       }
     }
+    recipe.totalGramsWeight = Math.floor(recipe.totalGramsWeight);
+    basicNutritionData.energy = Math.floor(basicNutritionData.energy);
+    basicNutritionData.fat = Math.floor(basicNutritionData.fat);
+    basicNutritionData.protein = Math.floor(basicNutritionData.protein);
+    basicNutritionData.carbohydrates = Math.floor(basicNutritionData.carbohydrates);
     recipe.basicNutritionData = basicNutritionData;
   }
 

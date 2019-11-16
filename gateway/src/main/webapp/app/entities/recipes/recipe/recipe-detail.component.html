@@ -52,9 +52,24 @@
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.basicNutritionData">Basic Nutrition Data</span></dt>
                 <dd>
-                    <div *ngIf="recipe.basicNutritionData">
-                        <a [routerLink]="['/recipe-basic-nutrition-data', recipe.basicNutritionData?.id, 'view']">{{recipe.basicNutritionData?.id}}</a>
-                    </div>
+                    <table>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.energy">Energy</th>
+                            <td>{{recipe.basicNutritionData.energy}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.fat">Fat</th>
+                            <td>{{recipe.basicNutritionData.fat}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.protein">Protein</th>
+                            <td>{{recipe.basicNutritionData.protein}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.carbohydrates">Carbohydrates</th>
+                            <td>{{recipe.basicNutritionData.carbohydrates}}</td>
+                        </tr>
+                    </table>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
                 <dd>

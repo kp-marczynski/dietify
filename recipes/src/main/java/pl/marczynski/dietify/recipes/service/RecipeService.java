@@ -33,7 +33,7 @@ public interface RecipeService {
      *
      * @return the list of entities.
      */
-    Page<Recipe> findAllWithEagerRelationships(Pageable pageable);
+    Page<Recipe> findAllWithEagerRelationships(Pageable pageable, Long author);
 
     /**
      * Get the "id" recipe.
@@ -60,5 +60,5 @@ public interface RecipeService {
      */
     Page<Recipe> search(String query, Pageable pageable);
 
-    Page<Recipe> findBySearchAndFilters(String searchPhrase, String language, Pageable pageable);
+    Page<Recipe> findBySearchAndFilters(String searchPhrase, String language, Pageable pageable, Long author);
 }

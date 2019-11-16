@@ -43,7 +43,7 @@ export class MealPlanSenderComponent implements OnInit {
         const mailableMeal = new MailableMeal(meal.ordinalNumber);
         for (const mealProduct of meal.mealProducts) {
           this.queueItems++;
-          this.productService.find(mealProduct.id).subscribe((res: HttpResponse<IProduct>) => {
+          this.productService.find(mealProduct.productId).subscribe((res: HttpResponse<IProduct>) => {
             const product = res.body;
 
             product.householdMeasures.find(measure => measure.id === mealProduct.householdMeasureId);
@@ -56,7 +56,7 @@ export class MealPlanSenderComponent implements OnInit {
         }
         for (const mealRecipe of meal.mealRecipes) {
           this.queueItems++;
-          this.recipeService.find(mealRecipe.id).subscribe((res: HttpResponse<IRecipe>) => {
+          this.recipeService.find(mealRecipe.recipeId).subscribe((res: HttpResponse<IRecipe>) => {
             const recipe = res.body;
             mailableMeal.recipes.push(new MailableProduct(recipe.name, 'g', mealRecipe.amount));
             this.processedItems++;
