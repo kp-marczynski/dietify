@@ -1,28 +1,25 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
-import {HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {JhiAlertService, JhiDataUtils, JhiLanguageService} from 'ng-jhipster';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { JhiAlertService, JhiDataUtils, JhiLanguageService } from 'ng-jhipster';
 import * as moment from 'moment';
-import {IRecipe, Recipe} from 'app/shared/model/recipes/recipe.model';
-import {RecipeService} from './recipe.service';
-import {
-  IRecipeBasicNutritionData,
-  RecipeBasicNutritionData
-} from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
-import {IKitchenAppliance} from 'app/shared/model/recipes/kitchen-appliance.model';
-import {KitchenApplianceService} from 'app/entities/recipes/kitchen-appliance';
-import {IDishType} from 'app/shared/model/recipes/dish-type.model';
-import {DishTypeService} from 'app/entities/recipes/dish-type';
-import {IMealType} from 'app/shared/model/recipes/meal-type.model';
-import {MealTypeService} from 'app/entities/recipes/meal-type';
-import {IProduct, Product} from 'app/shared/model/products/product.model';
-import {ProductComponent, ProductService} from 'app/entities/products/product';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {JhiLanguageHelper} from 'app/core';
-import {IProductCategoryTranslation} from 'app/shared/model/products/product-category-translation.model';
+import { IRecipe, Recipe } from 'app/shared/model/recipes/recipe.model';
+import { RecipeService } from './recipe.service';
+import { IRecipeBasicNutritionData, RecipeBasicNutritionData } from 'app/shared/model/recipes/recipe-basic-nutrition-data.model';
+import { IKitchenAppliance } from 'app/shared/model/recipes/kitchen-appliance.model';
+import { KitchenApplianceService } from 'app/entities/recipes/kitchen-appliance';
+import { IDishType } from 'app/shared/model/recipes/dish-type.model';
+import { DishTypeService } from 'app/entities/recipes/dish-type';
+import { IMealType } from 'app/shared/model/recipes/meal-type.model';
+import { MealTypeService } from 'app/entities/recipes/meal-type';
+import { IProduct, Product } from 'app/shared/model/products/product.model';
+import { ProductComponent, ProductService } from 'app/entities/products/product';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { JhiLanguageHelper } from 'app/core';
+import { IProductCategoryTranslation } from 'app/shared/model/products/product-category-translation.model';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -87,12 +84,11 @@ export class RecipeUpdateComponent implements OnInit {
     private fb: FormBuilder,
     private languageService: JhiLanguageService,
     private languageHelper: JhiLanguageHelper
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({recipe}) => {
+    this.activatedRoute.data.subscribe(({ recipe }) => {
       if (!recipe.basicNutritionData) {
         recipe.basicNutritionData = new RecipeBasicNutritionData();
       }
@@ -226,13 +222,19 @@ export class RecipeUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const recipe = this.createFromForm();
+    this.calcRecipeBasicNutritionData(recipe);
     for (const section of recipe.recipeSections) {
-      section.preparationSteps = section.preparationSteps.filter(step => step.stepDescription && (step.stepDescription as string).trim().length > 0);
+      section.preparationSteps = section.preparationSteps.filter(
+        step => step.stepDescription && (step.stepDescription as string).trim().length > 0
+      );
       for (let i = 0; i < section.preparationSteps.length; ++i) {
         section.preparationSteps[i].ordinalNumber = i + 1;
       }
     }
-    recipe.recipeSections = recipe.recipeSections.filter(section => (section.preparationSteps && section.preparationSteps.length > 0) || (section.productPortions && section.productPortions.length > 0));
+    recipe.recipeSections = recipe.recipeSections.filter(
+      section =>
+        (section.preparationSteps && section.preparationSteps.length > 0) || (section.productPortions && section.productPortions.length > 0)
+    );
 
     console.log(recipe);
     if (recipe.id !== undefined) {
@@ -240,6 +242,27 @@ export class RecipeUpdateComponent implements OnInit {
     } else {
       this.subscribeToSaveResponse(this.recipeService.create(recipe));
     }
+  }
+
+  private calcRecipeBasicNutritionData(recipe: IRecipe) {
+    const basicNutritionData = new RecipeBasicNutritionData(0, 0, 0, 0, 0);
+    recipe.totalGramsWeight = 0;
+    for (const recipeSection of this.getRecipeSectionsFormArray().controls) {
+      for (const productPortion of this.getProductPortionsFormArray(recipeSection as FormGroup).controls) {
+        const product = productPortion.get('product').value as IProduct;
+        const householdMeasureId = productPortion.get('householdMeasureId').value;
+        const amount = productPortion.get('amount').value;
+
+        const scale = householdMeasureId ? product.householdMeasures.find(measure => measure.id === householdMeasureId).gramsWeight : 1;
+        const portionGramsWeight = (amount * scale) / 100;
+        recipe.totalGramsWeight += portionGramsWeight;
+        basicNutritionData.energy += product.basicNutritionData.energy * portionGramsWeight;
+        basicNutritionData.fat += product.basicNutritionData.fat * portionGramsWeight;
+        basicNutritionData.protein += product.basicNutritionData.protein * portionGramsWeight;
+        basicNutritionData.carbohydrates += product.basicNutritionData.carbohydrates * portionGramsWeight;
+      }
+    }
+    recipe.basicNutritionData = basicNutritionData;
   }
 
   private createFromForm(): IRecipe {
@@ -315,20 +338,22 @@ export class RecipeUpdateComponent implements OnInit {
   }
 
   findProduct(productPortion: FormGroup): void {
-    this.productService.find(productPortion.get('productId').value).subscribe(
-      (res: HttpResponse<IProduct>) => productPortion.patchValue({product: res.body}),
-      (res: HttpErrorResponse) => productPortion.patchValue({product: null})
-    );
+    this.productService
+      .find(productPortion.get('productId').value)
+      .subscribe(
+        (res: HttpResponse<IProduct>) => productPortion.patchValue({ product: res.body }),
+        (res: HttpErrorResponse) => productPortion.patchValue({ product: null })
+      );
   }
 
   addIngredient(recipeSection: FormGroup) {
-    const modalRef = this.modalService.open(ProductComponent, {windowClass: 'custom-modal'});
+    const modalRef = this.modalService.open(ProductComponent, { windowClass: 'custom-modal' });
 
     modalRef.componentInstance.passEntry.subscribe((receivedEntry: Product) => {
       modalRef.close();
 
       const productPortionsFormGroup = this.getProductPortionsFormGroup();
-      productPortionsFormGroup.patchValue({productId: receivedEntry.id});
+      productPortionsFormGroup.patchValue({ productId: receivedEntry.id });
       this.getProductPortionsFormArray(recipeSection).push(productPortionsFormGroup);
       this.findProduct(productPortionsFormGroup);
     });
