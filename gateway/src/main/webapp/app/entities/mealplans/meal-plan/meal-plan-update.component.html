@@ -80,22 +80,13 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.language" for="field_language" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.language' | translate">Language</label>
-                            <input type="text" class="form-control" name="language" id="field_language"
-                                   formControlName="language"/>
-                            <div *ngIf="editForm.get('language').invalid && (editForm.get('language').dirty || editForm.get('language').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('language').errors.required" jhiTranslate="entity.validation.required">
-                                This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('language').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
-                                This field is required to be at least 2 characters.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('language').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2 }">
-                                This field cannot be longer than 2 characters.
-                                </small>
-                            </div>
+                            <select class="form-control" id="field_language" name="language"
+                                    formControlName="language">
+                                <option *ngIf="!editForm.get('language').value" [ngValue]="null" selected></option>
+                                <option
+                                    [ngValue]="languageOption === editForm.get('language').value ? editForm.get('language').value : languageOption"
+                                    *ngFor="let languageOption of languages">{{languageOption}}</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.numberOfDays" for="field_numberOfDays" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfDays' | translate">Number Of Days</label>
@@ -277,7 +268,7 @@
                             <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate "
                                  *ngFor="let meal of getMealsFormArray(day).controls; let mealIndex = index">
                                 <button type="button"
-                                        (click)="editMeal(meal)"
+                                        (click)="editMeal(day, meal)"
                                         class="btn btn-primary btn-sm">
                                     <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                     <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
@@ -314,21 +305,21 @@
                                 <h5 class="row align-items-center">
                                     <small class="col d-sm-none text-center text-muted" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</small>
                                 </h5>
-<!--                                <div *ngIf="day.nutritionData">-->
-<!--                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">-->
-<!--                                    <h5>{{nutritionKey}}</h5>-->
-<!--                                    <div-->
-<!--                                        class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">-->
-<!--                                        <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;-->
-<!--                                        <span>-->
-<!--                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%-->
-<!--                            </span><br/>-->
-<!--                                        <span>-->
-<!--                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}-->
-<!--                        </span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                </div>-->
+                                <div *ngIf="dayBasicNutritionResponses[day.get('ordinalNumber').value]">
+                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
+                                    <h5>{{nutritionKey}}</h5>
+                                    <div
+                                        class="btn btn-sm {{getSummaryButtonClass(dayBasicNutritionResponses[day.get('ordinalNumber').value],nutritionKey)}}">
+                                        <fa-icon icon="{{getSummaryIcon(dayBasicNutritionResponses[day.get('ordinalNumber').value],nutritionKey)}}"></fa-icon>&nbsp;
+                                        <span>
+                                            {{calcPercent(getNutritionValue(dayBasicNutritionResponses[day.get('ordinalNumber').value], nutritionKey), getDailyValue(nutritionKey))}}%
+                                        </span><br/>
+                                        <span>
+                                            {{getNutritionValue(dayBasicNutritionResponses[day.get('ordinalNumber').value], nutritionKey)}}/{{getDailyValue(nutritionKey)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                         <div class="w-100"></div>

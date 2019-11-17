@@ -9,13 +9,15 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MealUpdateComponent } from 'app/entities/mealplans/meal';
 import { MealTypeService } from 'app/entities/recipes/meal-type';
 import { IMealType } from 'app/shared/model/recipes/meal-type.model';
-import { JhiAlertService } from 'ng-jhipster';
 import { IProduct } from 'app/shared/model/products/product.model';
 import { IRecipe } from 'app/shared/model/recipes/recipe.model';
 import { RecipeService } from 'app/entities/recipes/recipe';
 import { ProductService } from 'app/entities/products/product';
-import { IMealProduct } from 'app/shared/model/mealplans/meal-product.model';
-import { Account, AccountService, UserService } from 'app/core';
+import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/core';
+import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
+import { BasicNutritionResponse, IBasicNutritionResponse } from 'app/shared/model/mealplans/basic-nutrition-response.model';
+import { BasicNutritionType } from 'app/shared/model/mealplans/enum/basic-nutritions.enum';
+import { CaloriesConverterService } from 'app/entities/mealplans/meal-plan/calories-converter.service';
 
 @Component({
   selector: 'jhi-meal-plan-update',
@@ -25,6 +27,8 @@ export class MealPlanUpdateComponent implements OnInit {
   isSaving: boolean;
   creationDateDp: any;
   mealTypes: IMealType[];
+  languages: string[] = [];
+  dayBasicNutritionResponses: BasicNutritionResponse[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -34,8 +38,8 @@ export class MealPlanUpdateComponent implements OnInit {
     isVisible: [null, [Validators.required]],
     isLocked: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
-    numberOfDays: [7, [Validators.required, Validators.min(1)]],
-    numberOfMealsPerDay: [5, [Validators.required, Validators.min(1)]],
+    numberOfDays: [7, [Validators.required, Validators.min(1), Validators.max(31)]],
+    numberOfMealsPerDay: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
     totalDailyEnergy: [null, [Validators.required, Validators.min(1)]],
     percentOfProtein: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
     percentOfFat: [null, [Validators.required, Validators.min(0), Validators.max(100)]],
@@ -54,7 +58,10 @@ export class MealPlanUpdateComponent implements OnInit {
     protected productService: ProductService,
     private accountService: AccountService,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private languageService: JhiLanguageService,
+    private languageHelper: JhiLanguageHelper,
+    protected caloriesConverter: CaloriesConverterService
   ) {}
 
   ngOnInit() {
@@ -73,24 +80,32 @@ export class MealPlanUpdateComponent implements OnInit {
       .subscribe((res: HttpResponse<IMealType[]>) => (this.mealTypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
     this.editForm.get('numberOfMealsPerDay').valueChanges.subscribe(numberOfMeals => this.numberOfMealsPerDayChanged());
     this.editForm.get('numberOfDays').valueChanges.subscribe(numberOfDays => this.numberOfDaysChanged());
+
+    this.languageHelper.getAll().then(languages => {
+      this.languages = languages;
+    });
+    // this.languageService.getCurrent().then(res => this.changeLanguage(res));
+    // this.languageHelper.language.subscribe((languageKey: string) => this.changeLanguage(languageKey));
   }
 
-  findProduct(mealProduct: FormGroup): void {
-    this.productService
-      .find(mealProduct.get('productId').value)
-      .subscribe(
-        (res: HttpResponse<IProduct>) => mealProduct.patchValue({ product: res.body }),
-        (res: HttpErrorResponse) => mealProduct.patchValue({ product: null })
-      );
+  findProduct(day: FormGroup, mealProduct: FormGroup): void {
+    this.productService.find(mealProduct.get('productId').value).subscribe(
+      (res: HttpResponse<IProduct>) => {
+        mealProduct.patchValue({ product: res.body });
+        this.getNutritionData(day);
+      },
+      (res: HttpErrorResponse) => mealProduct.patchValue({ product: null })
+    );
   }
 
-  findRecipe(mealRecipe: FormGroup): void {
-    this.recipeService
-      .find(mealRecipe.get('recipeId').value)
-      .subscribe(
-        (res: HttpResponse<IRecipe>) => mealRecipe.patchValue({ product: res.body }),
-        (res: HttpErrorResponse) => mealRecipe.patchValue({ product: null })
-      );
+  findRecipe(day: FormGroup, mealRecipe: FormGroup): void {
+    this.recipeService.find(mealRecipe.get('recipeId').value).subscribe(
+      (res: HttpResponse<IRecipe>) => {
+        mealRecipe.patchValue({ product: res.body });
+        this.getNutritionData(day);
+      },
+      (res: HttpErrorResponse) => mealRecipe.patchValue({ product: null })
+    );
   }
 
   getHouseholdMeasure(mealProduct: FormGroup): string {
@@ -123,6 +138,132 @@ export class MealPlanUpdateComponent implements OnInit {
       timeOfMeal: ['12:00', [Validators.required]],
       percentOfEnergy: [null, [Validators.required, Validators.min(0), Validators.max(100)]]
     });
+  }
+
+  getNutritionData(day: FormGroup): IBasicNutritionResponse {
+    const result = new BasicNutritionResponse(0, 0, 0, 0, 0);
+    for (const meal of this.getMealsFormArray(day).controls) {
+      result.addNutritions(this.getNutritionDataForMeal(meal as FormGroup));
+    }
+    result.floor();
+    this.dayBasicNutritionResponses[day.get('ordinalNumber').value] = result;
+    return result;
+  }
+
+  getNutritionDataForMeal(meal: FormGroup) {
+    const result = new BasicNutritionResponse(0, 0, 0, 0, 0);
+    for (const mealProduct of this.getMealProductsFormArray(meal).controls) {
+      if (mealProduct.get('product').value) {
+        const product = mealProduct.get('product').value;
+        const scale =
+          (mealProduct.get('amount').value *
+            (mealProduct.get('householdMeasureId').value
+              ? product.householdMeasures.find(measure => measure.id === mealProduct.get('householdMeasureId').value).gramsWeight
+              : 1)) /
+          100;
+        result.weight += scale * 100;
+        result.energy += product.basicNutritionData.energy * scale;
+        result.fat += product.basicNutritionData.fat * scale;
+        result.carbohydrates += product.basicNutritionData.carbohydrates * scale;
+        result.protein += product.basicNutritionData.protein * scale;
+      }
+    }
+    for (const mealRecipe of this.getMealRecipesFormArray(meal).controls) {
+      if (mealRecipe.get('recipe').value) {
+        const recipe = mealRecipe.get('recipe').value;
+        const amount = mealRecipe.get('amount').value ? mealRecipe.get('amount').value : 0;
+        const scale = amount / 100;
+        result.weight += amount;
+        result.energy += recipe.basicNutritionData.energy * scale;
+        result.fat += recipe.basicNutritionData.fat * scale;
+        result.carbohydrates += recipe.basicNutritionData.carbohydrates * scale;
+        result.protein += recipe.basicNutritionData.protein * scale;
+      }
+    }
+    result.floor();
+    return result;
+  }
+
+  calcPercent(currentValue: number, desiredValue: number): number {
+    return Math.floor((currentValue / desiredValue - 1) * 100);
+  }
+
+  getSummaryIcon(nutritionData: IBasicNutritionResponse, nutritionKey: string): string {
+    const percent = this.calcPercent(this.getNutritionValue(nutritionData, nutritionKey), this.getDailyValue(nutritionKey));
+    if (Math.abs(percent) <= 3) {
+      return 'check-circle';
+    } else if (percent > 3) {
+      return 'arrow-circle-up';
+    } else {
+      return 'arrow-circle-down';
+    }
+  }
+
+  getSummaryButtonClass(nutritionData: IBasicNutritionResponse, nutritionKey: string): string {
+    const percent = this.calcPercent(this.getNutritionValue(nutritionData, nutritionKey), this.getDailyValue(nutritionKey));
+    if (Math.abs(percent) <= 3) {
+      return 'btn-success';
+    } else if (Math.abs(percent) <= 6) {
+      return 'btn-warning';
+    } else {
+      return 'btn-danger';
+    }
+  }
+
+  getNutritionValue(nutritionData: IBasicNutritionResponse, nutritionKey: string) {
+    switch (BasicNutritionType[nutritionKey]) {
+      case BasicNutritionType.Energy:
+        return nutritionData.energy;
+      case BasicNutritionType.Carbohydrates:
+        return nutritionData.carbohydrates;
+      case BasicNutritionType.Fat:
+        return nutritionData.fat;
+      case BasicNutritionType.Protein:
+        return nutritionData.protein;
+    }
+  }
+
+  getBasicNutritionsKeys(): string[] {
+    return Object.keys(BasicNutritionType);
+  }
+
+  getExpectedDailyCarbohydrates(): number {
+    return Math.floor(
+      this.caloriesConverter.calcCarbohydrateGrams(
+        (this.editForm.get('percentOfCarbohydrates').value * this.editForm.get('totalDailyEnergy').value) / 100
+      )
+    );
+  }
+
+  getExpectedDailyEnergy(): number {
+    return Math.floor(this.editForm.get('totalDailyEnergy').value);
+  }
+
+  getExpectedDailyFat(): number {
+    return Math.floor(
+      this.caloriesConverter.calcFatGrams((this.editForm.get('percentOfFat').value * this.editForm.get('totalDailyEnergy').value) / 100)
+    );
+  }
+
+  getExpectedDailyProtein(): number {
+    return Math.floor(
+      this.caloriesConverter.calcProteinGrams(
+        (this.editForm.get('percentOfProtein').value * this.editForm.get('totalDailyEnergy').value) / 100
+      )
+    );
+  }
+
+  getDailyValue(nutritionKey: string) {
+    switch (BasicNutritionType[nutritionKey]) {
+      case BasicNutritionType.Energy:
+        return this.getExpectedDailyEnergy();
+      case BasicNutritionType.Carbohydrates:
+        return this.getExpectedDailyCarbohydrates();
+      case BasicNutritionType.Fat:
+        return this.getExpectedDailyFat();
+      case BasicNutritionType.Protein:
+        return this.getExpectedDailyProtein();
+    }
   }
 
   getDaysFormArray() {
@@ -241,10 +382,10 @@ export class MealPlanUpdateComponent implements OnInit {
     for (const day of this.getDaysFormArray().controls) {
       for (const meal of this.getMealsFormArray(day as FormGroup).controls) {
         for (const mealProduct of this.getMealProductsFormArray(meal as FormGroup).controls) {
-          this.findProduct(mealProduct as FormGroup);
+          this.findProduct(day as FormGroup, mealProduct as FormGroup);
         }
         for (const mealRecipe of this.getMealRecipesFormArray(meal as FormGroup).controls) {
-          this.findRecipe(mealRecipe as FormGroup);
+          this.findRecipe(day as FormGroup, mealRecipe as FormGroup);
         }
       }
     }
@@ -355,7 +496,7 @@ export class MealPlanUpdateComponent implements OnInit {
     }
   }
 
-  editMeal(meal: FormGroup) {
+  editMeal(day: FormGroup, meal: FormGroup) {
     const modalRef = this.modalService.open(MealUpdateComponent, { windowClass: 'custom-modal' });
     modalRef.componentInstance.expectedEnergy =
       this.getMealDefinitionsFormArray().controls[meal.get('ordinalNumber').value - 1].get('percentOfEnergy').value *
@@ -368,6 +509,7 @@ export class MealPlanUpdateComponent implements OnInit {
       // meal.mealRecipes = receivedEntry.mealRecipes;
       // meal.mealProducts = receivedEntry.mealProducts;
       // this.findMealProductsAndRecipes(meal);
+      this.getNutritionData(day);
     });
 
     // modalRef.result.then(
