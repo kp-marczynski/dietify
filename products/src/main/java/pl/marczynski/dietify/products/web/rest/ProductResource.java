@@ -106,15 +106,16 @@ public class ProductResource {
                                                         @RequestParam(required = false) String search,
                                                         @RequestParam(required = false) Long categoryId,
                                                         @RequestParam(required = false) Long subcategoryId,
-                                                        @RequestParam(required = false) String language) {
+                                                        @RequestParam(required = false) String language,
+                                                        @RequestParam(required = false) Long author) {
         log.debug("REST request to get a page of Products");
         Page<Product> page;
         if (language != null && !language.isEmpty()) {
-            page = productService.findBySearchAndFilters(search, language, categoryId, subcategoryId, pageable);
+            page = productService.findBySearchAndFilters(search, language, categoryId, subcategoryId, author, pageable);
         } else if (eagerload) {
-            page = productService.findAllWithEagerRelationships(pageable);
+            page = productService.findAllWithEagerRelationships(author, pageable);
         } else {
-            page = productService.findAll(pageable);
+            page = productService.findAll(author, pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

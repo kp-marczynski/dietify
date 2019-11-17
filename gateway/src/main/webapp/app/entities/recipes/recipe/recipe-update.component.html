@@ -147,22 +147,13 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.language" for="field_language" [ngbTooltip]="'gatewayApp.recipesRecipe.help.language' | translate">Language</label>
-                    <input type="text" class="form-control" name="language" id="field_language"
-                           formControlName="language"/>
-                    <div *ngIf="editForm.get('language').invalid && (editForm.get('language').dirty || editForm.get('language').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('language').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('language').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
-                        This field is required to be at least 2 characters.
-                        </small>
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('language').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2 }">
-                        This field cannot be longer than 2 characters.
-                        </small>
-                    </div>
+                    <select class="form-control" id="field_language" name="language"
+                            formControlName="language">
+                        <option *ngIf="!editForm.get('language').value" [ngValue]="null" selected></option>
+                        <option
+                            [ngValue]="languageOption === editForm.get('language').value ? editForm.get('language').value : languageOption"
+                            *ngFor="let languageOption of languages">{{languageOption}}</option>
+                    </select>
                 </div>
 <!--                <div class="form-group">-->
 <!--                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight" for="field_totalGramsWeight" [ngbTooltip]="'gatewayApp.recipesRecipe.help.totalGramsWeight' | translate">Total Grams Weight</label>-->

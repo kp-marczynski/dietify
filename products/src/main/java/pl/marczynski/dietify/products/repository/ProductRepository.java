@@ -16,12 +16,12 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query(value = "select distinct product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets",
+    @Query(value = "select distinct product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets where product.authorId =:authorId or product.authorId is null",
         countQuery = "select count(distinct product) from Product product")
-    Page<Product> findAllWithEagerRelationships(Pageable pageable);
+    Page<Product> findAllWithEagerRelationships(Long authorId, Pageable pageable);
 
-    @Query("select distinct product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets")
-    List<Product> findAllWithEagerRelationships();
+    @Query("select distinct product from Product product left join fetch product.suitableDiets left join fetch product.unsuitableDiets where product.authorId =:authorId or product.authorId is null")
+    List<Product> findAllWithEagerRelationships(Long authorId);
 
     @Query("select product from Product product" +
         " left join fetch product.suitableDiets" +
@@ -31,12 +31,23 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
         " where product.id =:id")
     Optional<Product> findOneWithEagerRelationships(@Param("id") Long id);
 
-    Page<Product> findByDescriptionContainingIgnoreCase(String searchPhrase, Pageable pageable);
+    @Query(value = "select distinct product from Product product where lower(product.description) like concat('%',lower(:searchPhrase),'%') and (product.authorId =:authorId or product.authorId is null)",
+        countQuery = "select count(distinct product) from Product product")
+    Page<Product> findByDescriptionContainingIgnoreCase(String searchPhrase, Long authorId, Pageable pageable);
 
-    Page<Product> findByDescriptionContainingIgnoreCaseAndLanguage(String searchPhrase, String language, Pageable pageable);
+    @Query(value = "select distinct product from Product product where lower(product.description) like concat('%',lower(:searchPhrase),'%') and product.language =:language and (product.authorId =:authorId or product.authorId is null)",
+        countQuery = "select count(distinct product) from Product product")
+    Page<Product> findByDescriptionContainingIgnoreCaseAndLanguage(String searchPhrase, String language, Long authorId, Pageable pageable);
 
-    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguage(String searchPhrase, Long categoryId, String language, Pageable pageable);
+    @Query(value = "select distinct product from Product product where lower(product.description) like concat('%',lower(:searchPhrase),'%') and product.language =:language and product.subcategory.id =:subcategoryId and (product.authorId =:authorId or product.authorId is null)",
+        countQuery = "select count(distinct product) from Product product")
+    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguage(String searchPhrase, Long subcategoryId, String language, Long authorId, Pageable pageable);
 
-    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryId(String searchPhrase, Long subcategoryId, Pageable pageable);
+    @Query(value = "select distinct product from Product product where lower(product.description) like concat('%',lower(:searchPhrase),'%') and product.subcategory.id =:subcategoryId and (product.authorId =:authorId or product.authorId is null)",
+        countQuery = "select count(distinct product) from Product product")
+    Page<Product> findByDescriptionContainingIgnoreCaseAndSubcategoryId(String searchPhrase, Long subcategoryId, Long authorId, Pageable pageable);
 
+    @Query(value = "select distinct product from Product product where product.authorId =:authorId or product.authorId is null",
+        countQuery = "select count(distinct product) from Product product")
+    Page<Product> findAllByAuthorId(Long authorId, Pageable pageable);
 }
