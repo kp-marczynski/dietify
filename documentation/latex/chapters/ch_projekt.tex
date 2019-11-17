@@ -218,11 +218,7 @@ Cechy takie może zapewnić relacyjna baza danych dzięki mechanizmowi transakcj
 Jednakże w~przypadku architektury mikroserwisów, w~której każdy serwis korzysta z~własnego schematu bazy danych, spójność będzie gwarantowana jedynie w~obrębie jednego serwisu,
 gdyż więzy integralności nie będą definiowane pomiędzy danymi znajdującymi się w~bazach różnych serwisów.
 Aby rozwiązać ten problem, dla danych definiowanych przez użytkownika końcowego (dietetyka), do których odniesienia będą przechowywane w~serwisie, który nie jest ich właścicielem,
-zastosowany zostanie wzorzec "Tymczasowego Obiektu" (ang. Temporal Object)\cite{url:temporal-object-pattern} nazywany również wzorcem wersjonowania.
-Dla raz utworzonej wersji obiektu dane pozostają niezmienne, a~w razie potrzeby zmiany danych należy utworzyć nową wersję.
-Dzięki temu referencję do wersji można bezpiecznie wykorzystywać w~środowisku rozproszonym.
-Należy zauważyć, że konsekwencją zastosowania tego wzorca jest niemożność usuwania obiektów.
-Zamiast tego należy utworzyć finalną wersję obiektu z~flagą pokazującą, że obiekt powinien być traktowany jako usunięty.
+dodana zostanie flaga blokująca możliwość usuwania i edycji obiektu używanego przez inny serwis, która będzie aktywowana w momencie, w którym zerwis nie będący właścicielem danych zaczyna z nich korzystać.
 
 \par
 W dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
@@ -296,21 +292,21 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         \atr{name}\label{kat:Authority:name}- nazwa roli
     \end{itemize}
 
-    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)\\
-    \indent\textbf{Opis}: Dodatkowe informacje o~użytkowniku
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:UserExtraInfo:id}- identyfikator
-        \atr{gender}\label{kat:UserExtraInfo:gender}- płeć
-        \atr{dateOfBirth}\label{kat:UserExtraInfo:dateOfBirth}- data urodzenia
-        \atr{phoneNumber}\label{kat:UserExtraInfo:phoneNumber}- numer telefonu, najlepiej w~formacie (+00) 000-000-000
-        \atr{streetAddress}\label{kat:UserExtraInfo:streetAddress}- adres zamieszkania
-        \atr{postalCode}\label{kat:UserExtraInfo:postalCode}- kod pocztowy
-        \atr{city}\label{kat:UserExtraInfo:city}- miasto
-        \atr{country}\label{kat:UserExtraInfo:country}- państwo
-        \atr{personalDescription}\label{kat:UserExtraInfo:personalDescription}- krótki opis osobisty. W~przypadku dietetyka może zawierać dodatkowe informacje o~prowadzonej praktyce dietetycznej
-    \end{itemize}
+%    \req{UserExtraInfo}\label{kat:UserExtraInfo} (Dodatkowe Informacje Użytkownika)\\
+%    \indent\textbf{Opis}: Dodatkowe informacje o~użytkowniku
+%    \par
+%    \textbf{Atrybuty}:
+%    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
+%        \atr{id}\label{kat:UserExtraInfo:id}- identyfikator
+%        \atr{gender}\label{kat:UserExtraInfo:gender}- płeć
+%        \atr{dateOfBirth}\label{kat:UserExtraInfo:dateOfBirth}- data urodzenia
+%        \atr{phoneNumber}\label{kat:UserExtraInfo:phoneNumber}- numer telefonu, najlepiej w~formacie (+00) 000-000-000
+%        \atr{streetAddress}\label{kat:UserExtraInfo:streetAddress}- adres zamieszkania
+%        \atr{postalCode}\label{kat:UserExtraInfo:postalCode}- kod pocztowy
+%        \atr{city}\label{kat:UserExtraInfo:city}- miasto
+%        \atr{country}\label{kat:UserExtraInfo:country}- państwo
+%        \atr{personalDescription}\label{kat:UserExtraInfo:personalDescription}- krótki opis osobisty. W~przypadku dietetyka może zawierać dodatkowe informacje o~prowadzonej praktyce dietetycznej
+%    \end{itemize}
 
 %    \req{SiteContent}\label{kat:SiteContent} (Treść Strony)
 %
@@ -383,8 +379,8 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \item\ref{kat:User}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
-        \item Użytkownik (\ref{kat:User}) nie musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
-        \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
+%        \item Użytkownik (\ref{kat:User}) nie musi mieć żadnych dodatkowych informacji (\ref{kat:UserExtraInfo})
+%        \item Użytkownik (\ref{kat:User}) może mieć maksymalnie jedne dodatkowe informacje (\ref{kat:UserExtraInfo})
         \item Użytkownik (\ref{kat:User}) musi mieć przynajmniej jedną rolę (\ref{kat:Authority})
         \item Użytkownik (\ref{kat:User}) może mieć wiele ról (\ref{kat:Authority})
         \item Użytkownik (\ref{kat:User}) nie musi mieć autora (\ref{kat:User})
@@ -403,14 +399,14 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         %CRUD
         \item \role{Administrator} może dodawać, wyświetlać, edytować i~usuwać dane roli (\ref{kat:Authority})
     \end{enumerate}
-    \item\ref{kat:UserExtraInfo}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:User})
-        %CRUD
-        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) są przedmiotem kompozycji ze strony użytkownika (\ref{kat:User})
-        \item \role{Administrator} nie może wyświetlać i~usuwać dodatkowych informacji (\ref{kat:UserExtraInfo}) innych użytkowników
-    \end{enumerate}
+%    \item\ref{kat:UserExtraInfo}\mynobreakpar
+%    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        %Relacje
+%        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) muszą być przypisane do dokładnie jednego użytkownika (\ref{kat:User})
+%        %CRUD
+%        \item Dodatkowe informacje (\ref{kat:UserExtraInfo}) są przedmiotem kompozycji ze strony użytkownika (\ref{kat:User})
+%        \item \role{Administrator} nie może wyświetlać i~usuwać dodatkowych informacji (\ref{kat:UserExtraInfo}) innych użytkowników
+%    \end{enumerate}
 %    \item\ref{kat:SiteContent}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{REG/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
 %        %Relacje
@@ -488,17 +484,17 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         \item Atrybut \ref{kat:Authority:name} ma unikalną wartość
         \item Atrybut \ref{kat:Authority:name} jest ciągiem znaków składającym się z~liter i~znaków "\_" o~długości od 1~do 255 znaków
     \end{enumerate}
-    \item\ref{kat:UserExtraInfo}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i~może przyjmować wartości "FEMALE", "MALE", "OTHER"
-        \item Atrybut \ref{kat:UserExtraInfo:dateOfBirth} jest datą
-        \item Atrybut \ref{kat:UserExtraInfo:phoneNumber} jest ciągiem znaków o~długości od 1~do 50 znaków
-        \item Atrybut \ref{kat:UserExtraInfo:streetAddress} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:UserExtraInfo:postalCode} jest ciągiem znaków o~długości od 1~do 20 znaków
-        \item Atrybut \ref{kat:UserExtraInfo:city} jest ciągiem znaków o~długości od 1~do 50 znaków
-        \item Atrybut \ref{kat:UserExtraInfo:country} jest ciągiem znaków o~długości od 1~do 50 znaków
-        \item Atrybut \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
-    \end{enumerate}
+%    \item\ref{kat:UserExtraInfo}\mynobreakpar
+%    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
+%        \item Atrybut \ref{kat:UserExtraInfo:gender} jest typu wyliczeniowego i~może przyjmować wartości "FEMALE", "MALE", "OTHER"
+%        \item Atrybut \ref{kat:UserExtraInfo:dateOfBirth} jest datą
+%        \item Atrybut \ref{kat:UserExtraInfo:phoneNumber} jest ciągiem znaków o~długości od 1~do 50 znaków
+%        \item Atrybut \ref{kat:UserExtraInfo:streetAddress} jest ciągiem znaków o~długości od 1~do 255 znaków
+%        \item Atrybut \ref{kat:UserExtraInfo:postalCode} jest ciągiem znaków o~długości od 1~do 20 znaków
+%        \item Atrybut \ref{kat:UserExtraInfo:city} jest ciągiem znaków o~długości od 1~do 50 znaków
+%        \item Atrybut \ref{kat:UserExtraInfo:country} jest ciągiem znaków o~długości od 1~do 50 znaków
+%        \item Atrybut \ref{kat:UserExtraInfo:personalDescription} jest ciągiem znaków
+%    \end{enumerate}
 
 %    \item\ref{kat:SiteContent}\mynobreakpar
 %    \begin{enumerate}[label={\textbf{OGR/1/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -565,24 +561,16 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 \begin{enumerate}[label={\textbf{KAT/2/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{Product}\label{kat:Product} (Produkt)\\
-    \indent\textbf{Opis}: Produkt żywieniowy
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:Product:id}- identyfikator
-        \atr{source}\label{kat:Product:source}- źródło produktu, jeśli produkt jest importowany; preferowany format adresu URL
-        \atr{isPublic}\label{kat:Product:isPublic}- flaga określająca czy produkt jest widoczny publicznie
-        \atr{language}\label{kat:Product:language}- język tłumaczenia w~postaci kodu ISO 639-1
-    \end{itemize}
-
-    \req{ProductVersion}\label{kat:ProductVersion} (Wersja Produktu)\\
     \indent\textbf{Opis}: Wersja produktu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:ProductVersion:id}- identyfikator
-        \atr{createdDate}\label{kat:ProductVersion:createdDate}- czas utworzenia wersji
-        \atr{description}\label{kat:ProductVersion:description}- krótki opis produktu w~języku produktu
+        \atr{id}\label{kat:Product:id}- identyfikator
+        \atr{createdDate}\label{kat:Product:createdDate}- czas utworzenia wersji
+        \atr{description}\label{kat:Product:description}- krótki opis produktu w~języku produktu
+        \atr{source}\label{kat:Product:source}- źródło produktu, jeśli produkt jest importowany; preferowany format adresu URL
+        \atr{isFinal}\label{kat:Product:isFinal}- flaga określająca czy produkt jest dostępny do edycji czy jest zablokowany
+        \atr{language}\label{kat:Product:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
     \req{ProductBasicNutritionData}\label{kat:ProductBasicNutritionData} (Podstawowe Składniki Odżywcze Produktu)\\
@@ -695,47 +683,38 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \item\ref{kat:Product}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
-        \item Produkt (\ref{kat:Product}) musi mieć przynajmniej jedną wersję (\ref{kat:ProductVersion})
-        \item Produkt (\ref{kat:Product}) może mieć wiele wersji (\ref{kat:ProductVersion})
         \item Produkt (\ref{kat:Product}) nie musi mieć zdefiniowanego autora (\ref{kat:User})
         \item Produkt (\ref{kat:Product}) może mieć maksymalnie jednego autora (\ref{kat:User})
+        \item Produkt (\ref{kat:Product}) musi być przypisana do dokładnie jednych podstawowych wartości odżywczych (\ref{kat:ProductBasicNutritionData})
+        \item Produkt (\ref{kat:Product}) nie musi mieć zdefiniowanych żadnych wartości odżywczych (\ref{kat:NutritionData})
+        \item Produkt (\ref{kat:Product}) może mieć zdefiniowane wiele wartości odżywczych (\ref{kat:NutritionData})
+        \item Produkt (\ref{kat:Product}) nie musi mieć zdefiniowanych żadnych miar domowych (\ref{kat:HouseholdMeasure})
+        \item Produkt (\ref{kat:Product}) może mieć zdefiniowane wiele miar domowych (\ref{kat:HouseholdMeasure})
+        \item Produkt (\ref{kat:Product}) musi należeć do dokładnie jednej podkategorii (\ref{kat:ProductSubcategory})
+        \item Produkt (\ref{kat:Product}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
+        \item Produkt (\ref{kat:Product}) może mieć przypisanych wiele odpowiednich typów diety (\ref{kat:DietType})
+        \item Produkt (\ref{kat:Product}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
+        \item Produkt (\ref{kat:Product}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
         %CRUD
         \item \role{Dietetyk} może wyświetlać publiczne produkty (\ref{kat:Product})
         \item \role{Dietetyk} może dodawać, wyświetlać, edytować i~usuwać własne produkty (\ref{kat:Product})
         \item \role{Administrator} może wyświetlać i~usuwać produkty (\ref{kat:Product})
-    \end{enumerate}
-    \item\ref{kat:ProductVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednego produktu  (\ref{kat:Product})
-        \item Wersja produktu (\ref{kat:ProductVersion}) musi być przypisana do dokładnie jednych podstawowych wartości odżywczych (\ref{kat:ProductBasicNutritionData})
-        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć zdefiniowanych żadnych wartości odżywczych (\ref{kat:NutritionData})
-        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć zdefiniowane wiele wartości odżywczych (\ref{kat:NutritionData})
-        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć zdefiniowanych żadnych miar domowych (\ref{kat:HouseholdMeasure})
-        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć zdefiniowane wiele miar domowych (\ref{kat:HouseholdMeasure})
-        \item Wersja produktu (\ref{kat:ProductVersion}) musi należeć do dokładnie jednej podkategorii (\ref{kat:ProductSubcategory})
-        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
-        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć przypisanych wiele odpowiednich typów diety (\ref{kat:DietType})
-        \item Wersja produktu (\ref{kat:ProductVersion}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
-        \item Wersja produktu (\ref{kat:ProductVersion}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
-        %CRUD
-        \item Wersja produktu (\ref{kat:ProductVersion}) jest przedmiotem kompozycji ze strony produktu (\ref{kat:Product})
-        \item Wersja produktu (\ref{kat:ProductVersion}) po utworzeniu nie może być edytowana ani usuwana
+        \item Produkt (\ref{kat:Product}) oznaczony jako ostateczny nie może być usunięty ani edytowany
     \end{enumerate}
     \item\ref{kat:ProductBasicNutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
+        \item Podstawowe wartości odżywcze produktu(\ref{kat:ProductBasicNutritionData}) muszą być przypisane do dokładnie jednego produktu (\ref{kat:Product})
         %CRUD
-        \item Podstawowe wartości odżywcze produktu (\ref{kat:ProductBasicNutritionData}) są przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
+        \item Podstawowe wartości odżywcze produktu (\ref{kat:ProductBasicNutritionData}) są przedmiotem kompozycji ze strony produktu (\ref{kat:Product})
     \end{enumerate}
     \item\ref{kat:NutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
+        \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednego produktu (\ref{kat:Product})
         \item Wartość odżywcza (\ref{kat:NutritionData}) musi być przypisana do dokładnie jednej definicji wartości odżywczej (\ref{kat:NutritionDefinition})
         %CRUD
-        \item Wartość odżywcza (\ref{kat:NutritionData}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
+        \item Wartość odżywcza (\ref{kat:NutritionData}) jest przedmiotem kompozycji ze strony produktu (\ref{kat:Product})
     \end{enumerate}
     \item\ref{kat:NutritionDefinition}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -756,15 +735,15 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \item\ref{kat:HouseholdMeasure}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Miara domowa (\ref{kat:HouseholdMeasure}) musi być przypisana do dokładnie jednej wersji produktu (\ref{kat:ProductVersion})
+        \item Miara domowa (\ref{kat:HouseholdMeasure}) musi być przypisana do dokładnie jednego produktu (\ref{kat:Product})
         %CRUD
-        \item Miara domowa (\ref{kat:HouseholdMeasure}) jest przedmiotem kompozycji ze strony wersji produktu (\ref{kat:ProductVersion})
+        \item Miara domowa (\ref{kat:HouseholdMeasure}) jest przedmiotem kompozycji ze strony produktu (\ref{kat:Product})
     \end{enumerate}
     \item\ref{kat:ProductSubcategory}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podkategoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do co najmniej jednej wersji produktu (\ref{kat:ProductVersion})
-        \item Podkategoria produktu (\ref{kat:ProductSubcategory}) może być przypisana do wielu wersji produktu (\ref{kat:ProductVersion})
+        \item Podkategoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do co najmniej jednego produktu (\ref{kat:Product})
+        \item Podkategoria produktu (\ref{kat:ProductSubcategory}) może być przypisana do wielu produktów (\ref{kat:Product})
         \item Podkategoria produktu (\ref{kat:ProductSubcategory}) musi być przypisana do dokładnie jednej kategorii (\ref{kat:ProductCategory})
         %CRUD
         \item \role{Dietetyk} może dodawać i~wyświetlać podkategorię produktu (\ref{kat:ProductSubcategory})
@@ -810,19 +789,14 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \setlength\itemsep{1.75em}
     \item\ref{kat:Product}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        \item Atrybut \ref{kat:Product:isPublic} jest wymagany
+        \item Atrybut \ref{kat:Product:createdDate} jest wymagany
+        \item Atrybut \ref{kat:Product:description} jest wymagany
+        \item Atrybut \ref{kat:Product:isFinal} jest wymagany
 
+        \item Atrybut \ref{kat:Product:createdDate} jest stemplem czasowym
+        \item Atrybut \ref{kat:Product:description} jest ciągiem znaków o~długości od 1~do 255 znaków
         \item Atrybut \ref{kat:Product:source} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:Product:isPublic} jest typu logicznego
-    \end{enumerate}
-
-    \item\ref{kat:ProductVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/2/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:ProductVersion:createdDate} jest wymagany
-        \item Atrybut \ref{kat:ProductVersion:description} jest wymagany
-
-        \item Atrybut \ref{kat:ProductVersion:createdDate} jest stemplem czasowym
-        \item Atrybut \ref{kat:ProductVersion:description} jest ciągiem znaków o~długości od 1~do 255 znaków
+        \item Atrybut \ref{kat:Product:isFinal} jest typu logicznego
     \end{enumerate}
 
     \item\ref{kat:ProductBasicNutritionData}\mynobreakpar
@@ -928,27 +902,19 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 \begin{enumerate}[label={\textbf{KAT/3/\protect\twodigits{\theenumi}}}, wide, labelwidth=!, labelindent=0pt, labelsep=0pt, series=reqs]
     \setlength\itemsep{1.75em}
     \req{Recipe}\label{kat:Recipe} (Przepis)\\
-    \indent\textbf{Opis}: Przepis
-    \par
-    \textbf{Atrybuty}:
-    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:Recipe:id}- identyfikator
-        \atr{isPublic}\label{kat:Recipe:isPublic}- flaga określająca czy przepis jest widoczny publicznie
-        \atr{language}\label{kat:Recipe:language}- język tłumaczenia w~postaci kodu ISO 639-1
-    \end{itemize}
-
-    \req{RecipeVersion}\label{kat:RecipeVersion} (Wersja Przepisu)\\
     \indent\textbf{Opis}: Wersja przepisu. Podczas każdej edycji powstaje nowa wersja. Wersji nie można usunąć, można ją jedynie zastąpić nową wersją
     \par
     \textbf{Atrybuty}:
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
-        \atr{id}\label{kat:RecipeVersion:id}- identyfikator
-        \atr{editTimestamp}\label{kat:RecipeVersion:editTimestamp}- czas utworzenia wersji
-        \atr{name}\label{kat:RecipeVersion:name}- nazwa przepisu w~języku przepisu
-        \atr{preparationTimeMinutes}\label{kat:RecipeVersion:preparationTimeMinutes}- średni czas potrzebny na całkowite przygotowanie przepisu, zdefiniowany w~minutach
-        \atr{numberOfPortions}\label{kat:RecipeVersion:numberOfPortions}- liczba porcji dla których przepis jest zdefiniowany
-        \atr{image}\label{kat:RecipeVersion:image}- opcjonalne zdjęcie dania przygotowanego na podstawie przepisu
-        \atr{totalGramsWeight}\label{kat:RecipeVersion:totalGramsWeight}- całkowita masa w~gramach dania przygotowanego z~przepisu
+        \atr{id}\label{kat:Recipe:id}- identyfikator
+        \atr{editTimestamp}\label{kat:Recipe:editTimestamp}- czas utworzenia wersji
+        \atr{name}\label{kat:Recipe:name}- nazwa przepisu w~języku przepisu
+        \atr{preparationTimeMinutes}\label{kat:Recipe:preparationTimeMinutes}- średni czas potrzebny na całkowite przygotowanie przepisu, zdefiniowany w~minutach
+        \atr{numberOfPortions}\label{kat:Recipe:numberOfPortions}- liczba porcji dla których przepis jest zdefiniowany
+        \atr{image}\label{kat:Recipe:image}- opcjonalne zdjęcie dania przygotowanego na podstawie przepisu
+        \atr{totalGramsWeight}\label{kat:Recipe:totalGramsWeight}- całkowita masa w~gramach dania przygotowanego z~przepisu
+        \atr{isFinal}\label{kat:Recipe:isPublic}- flaga określająca czy przepis jest dostępny do edycji czy jest zablokowany
+        \atr{language}\label{kat:Recipe:language}- język tłumaczenia w~postaci kodu ISO 639-1
     \end{itemize}
 
     \req{RecipeBasicNutritionData}\label{kat:RecipeBasicNutritionData} (Podstawowe Wartości Odżywcze Przepisu)\\
@@ -1057,54 +1023,44 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \item\ref{kat:Recipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         %Relacje
-        \item Przepis (\ref{kat:Recipe}) nie musi mieć zdefiniowanego żadnego przepisu źródłowego (\ref{kat:Recipe})
-        \item Przepis (\ref{kat:Recipe}) może mieć zdefiniowany maksymalnie jeden przepis źródłowy (\ref{kat:Recipe})
-        \item Przepis (\ref{kat:Recipe}) musi mieć przynajmniej jedną wersję (\ref{kat:RecipeVersion})
-        \item Przepis (\ref{kat:Recipe}) może mieć wiele wersji (\ref{kat:RecipeVersion})
         \item Przepis (\ref{kat:Recipe}) nie musi mieć zdefiniowanego autora (\ref{kat:User})
         \item Przepis (\ref{kat:Recipe}) może mieć maksymalnie jednego autora (\ref{kat:User})
+        \item Przepis (\ref{kat:Recipe}) musi mieć dokładnie jedne podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData})
+        \item Przepis (\ref{kat:Recipe}) musi mieć przynajmniej jedną sekcję (\ref{kat:RecipeSection})
+        \item Przepis (\ref{kat:Recipe}) może mieć wiele sekcji (\ref{kat:RecipeSection})
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć przypisanego żadnego sprzętu kuchennego (\ref{kat:KitchenAppliance})
+        \item Przepis (\ref{kat:Recipe}) może mieć przypisanych wiele sprzętów kuchennych (\ref{kat:KitchenAppliance})
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć przypisanego żadnego typu dania (\ref{kat:DishType})
+        \item Przepis (\ref{kat:Recipe}) może mieć przypisanych wiele typów dań (\ref{kat:DishType})
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć przypisanego żadnego typu posiłku (\ref{kat:MealType})
+        \item Przepis (\ref{kat:Recipe}) może mieć przypisanych wiele typów posiłków (\ref{kat:MealType})
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
+        \item Przepis (\ref{kat:Recipe}) może mieć przypisanych wiele odpowiednich typów diety  (\ref{kat:DietType})
+        \item Przepis (\ref{kat:Recipe}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
+        \item Przepis (\ref{kat:Recipe}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
         %CRUD
         \item \role{Dietetyk} może wyświetlać publiczne przepisy (\ref{kat:Recipe})
         \item \role{Dietetyk} może dodawać, wyświetlać, edytować i~usuwać własne przepisy (\ref{kat:Recipe})
         \item \role{Administrator} może wyświetlać i~usuwać przepisy (\ref{kat:Recipe})
-    \end{enumerate}
-    \item\ref{kat:RecipeVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        %Relacje
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć dokładnie jedne podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) musi mieć przynajmniej jedną sekcję (\ref{kat:RecipeSection})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć wiele sekcji (\ref{kat:RecipeSection})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego sprzętu kuchennego (\ref{kat:KitchenAppliance})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele sprzętów kuchennych (\ref{kat:KitchenAppliance})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego typu dania (\ref{kat:DishType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele typów dań (\ref{kat:DishType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego typu posiłku (\ref{kat:MealType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele typów posiłków (\ref{kat:MealType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego odpowiedniego typu diety (\ref{kat:DietType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele odpowiednich typów diety  (\ref{kat:DietType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) nie musi mieć przypisanego żadnego nieodpowiedniego typu diety (\ref{kat:DietType})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) może mieć przypisanych wiele nieodpowiednich typów diety (\ref{kat:DietType})
-        %CRUD
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) jest przedmiotem kompozycji ze strony przepisu (\ref{kat:Recipe})
-        \item Wersja przepisu (\ref{kat:RecipeVersion}) po utworzeniu nie może być edytowana ani usuwana
+        \item Przepis (\ref{kat:Recipe}) oznaczony jako ostateczny nie może być edytowany ani usuwany
     \end{enumerate}
     \item\ref{kat:RecipeBasicNutritionData}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) muszą być przypisane do dokładnie jednej wersji przepisu (\ref{kat:RecipeVersion})
+        \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) muszą być przypisane do dokładnie jednego przepisu (\ref{kat:Recipe})
         %CRUD
-        \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) są przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
+        \item Podstawowe wartości odżywcze przepisu (\ref{kat:RecipeBasicNutritionData}) są przedmiotem kompozycji ze strony przepisu (\ref{kat:Recipe})
     \end{enumerate}
     \item\ref{kat:RecipeSection}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
         %Relacje
-        \item Sekcja przepisu (\ref{kat:RecipeSection}) musi być przypisana do dokładniej jednej wersji przepisu (\ref{kat:RecipeVersion})
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) musi być przypisana do dokładniej jednego przepisu (\ref{kat:Recipe})
         \item Sekcja przepisu (\ref{kat:RecipeSection}) musi mieć przypisaną przynajmniej jedną porcję produktu (\ref{kat:ProductPortion})
         \item Sekcja przepisu (\ref{kat:RecipeSection}) może mieć przypisanych wiele porcji produktu (\ref{kat:ProductPortion})
         \item Sekcja przepisu (\ref{kat:RecipeSection}) musi mieć przypisany przynajmniej jeden krok przygotowania (\ref{kat:PreparationStep})
         \item Sekcja przepisu (\ref{kat:RecipeSection}) może mieć zdefiniowanych wiele kroków przygotowania (\ref{kat:PreparationStep})
         %CRUD
-        \item Sekcja przepisu (\ref{kat:RecipeSection}) jest przedmiotem kompozycji ze strony wersji przepisu (\ref{kat:RecipeVersion})
+        \item Sekcja przepisu (\ref{kat:RecipeSection}) jest przedmiotem kompozycji ze strony przepisu (\ref{kat:Recipe})
     \end{enumerate}
     \item\ref{kat:ProductPortion}\mynobreakpar
     \begin{enumerate}[label={\textbf{REG/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
@@ -1181,24 +1137,19 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \setlength\itemsep{1.75em}
     \item\ref{kat:Recipe}\mynobreakpar
     \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
-        \item Atrybut \ref{kat:Recipe:isPublic} jest wymagany
+        \item Atrybut \ref{kat:Recipe:name} jest wymagany
+        \item Atrybut \ref{kat:Recipe:preparationTimeMinutes} jest wymagany
+        \item Atrybut \ref{kat:Recipe:numberOfPortions} jest wymagany
+        \item Atrybut \ref{kat:Recipe:totalGramsWeight} jest wymagany
+        \item Atrybut \ref{kat:Recipe:isFinal} jest wymagany
 
-        \item Atrybut \ref{kat:Recipe:isPublic} jest typu logicznego
-    \end{enumerate}
-
-    \item\ref{kat:RecipeVersion}\mynobreakpar
-    \begin{enumerate}[label={\textbf{OGR/3/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm, resume]
-        \item Atrybut \ref{kat:RecipeVersion:name} jest wymagany
-        \item Atrybut \ref{kat:RecipeVersion:preparationTimeMinutes} jest wymagany
-        \item Atrybut \ref{kat:RecipeVersion:numberOfPortions} jest wymagany
-        \item Atrybut \ref{kat:RecipeVersion:totalGramsWeight} jest wymagany
-
-        \item Atrybut \ref{kat:RecipeVersion:editTimestamp} jest stemplem czasowym
-        \item Atrybut \ref{kat:RecipeVersion:name} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:RecipeVersion:preparationTimeMinutes} jest liczbą całkowitą nie mniejszą niż 0
-        \item Atrybut \ref{kat:RecipeVersion:numberOfPortions} jest liczbą rzeczywistą nie mniejszą niż 0
-        \item Atrybut \ref{kat:RecipeVersion:image} jest zdjęciem o~maksymalnym rozmiarze 5000000 bajtów
-        \item Atrybut \ref{kat:RecipeVersion:totalGramsWeight} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:Recipe:editTimestamp} jest stemplem czasowym
+        \item Atrybut \ref{kat:Recipe:name} jest ciągiem znaków o~długości od 1~do 255 znaków
+        \item Atrybut \ref{kat:Recipe:preparationTimeMinutes} jest liczbą całkowitą nie mniejszą niż 0
+        \item Atrybut \ref{kat:Recipe:numberOfPortions} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:Recipe:image} jest zdjęciem o~maksymalnym rozmiarze 5000000 bajtów
+        \item Atrybut \ref{kat:Recipe:totalGramsWeight} jest liczbą rzeczywistą nie mniejszą niż 0
+        \item Atrybut \ref{kat:Recipe:isFinal} jest typu logicznego
     \end{enumerate}
 
     \item\ref{kat:RecipeBasicNutritionData}\mynobreakpar
@@ -1301,7 +1252,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         \atr{creationTimestamp}\label{kat:MealPlan:creationTimestamp}- czas utworzenia jadłospisu
         \atr{editTimestamp}\label{kat:MealPlan:editTimestamp}- czas ostatniej edycji jadłospisu
         \atr{name}\label{kat:MealPlan:name}- nazwa jadłospisu
-        \atr{isVisible}\label{kat:MealPlan:isVisible}- flaga określająca czy jadłospis jest widoczny na liście jadłospisów autora
+        \atr{isFinal}\label{kat:MealPlan:isFinal}- flaga określająca czy jadłospis jest edytowalny
         \atr{language}\label{kat:MealPlan:language}- język tłumaczenia w~postaci kodu ISO 639-1
         \atr{numberOfDays}\label{kat:MealPlan:numberOfDays}- liczba dni planu
         \atr{numberOfMealsPerDay}\label{kat:MealPlan:numberOfMealsPerDay}- liczba posiłków w~ciągu dnia
@@ -1437,7 +1388,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
     \begin{enumerate}[label={\textbf{OGR/4/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest wymagany
         \item Atrybut \ref{kat:MealPlan:editTimestamp} jest wymagany
-        \item Atrybut \ref{kat:MealPlan:isVisible} jest wymagany
+        \item Atrybut \ref{kat:MealPlan:isFinal} jest wymagany
         \item Atrybut \ref{kat:MealPlan:numberOfDays}  jest wymagany
         \item Atrybut \ref{kat:MealPlan:numberOfMealsPerDay} jest wymagany
         \item Atrybut \ref{kat:MealPlan:totalDailyEnergy} jest wymagany
@@ -1448,7 +1399,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         \item Atrybut \ref{kat:MealPlan:creationTimestamp} jest stemplem czasowym
         \item Atrybut \ref{kat:MealPlan:editTimestamp} jest stemplem czasowym
         \item Atrybut \ref{kat:MealPlan:name} jest ciągiem znaków o~długości od 1~do 255 znaków
-        \item Atrybut \ref{kat:MealPlan:isVisible} jest typu logicznego
+        \item Atrybut \ref{kat:MealPlan:isFinal} jest typu logicznego
         \item Atrybut \ref{kat:MealPlan:numberOfDays} jest liczbą całkowitą nie mniejszą niż 1~i nie większą niż 30
         \item Atrybut \ref{kat:MealPlan:numberOfMealsPerDay} jest liczbą całkowitą nie mniejszą niż 1~i nie większą niż 10
         \item Atrybut \ref{kat:MealPlan:totalDailyEnergy} jest liczbą całkowitą nie mniejszą niż 1
