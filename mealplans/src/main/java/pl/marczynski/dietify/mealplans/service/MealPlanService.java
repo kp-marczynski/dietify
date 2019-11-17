@@ -26,7 +26,7 @@ public interface MealPlanService {
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<MealPlan> findAll(Pageable pageable);
+    Page<MealPlan> findAll(Long authorId, Pageable pageable);
 
 
     /**
@@ -48,7 +48,7 @@ public interface MealPlanService {
      * Search for the mealPlan corresponding to the query.
      *
      * @param query the query of the search.
-     * 
+     *
      * @param pageable the pagination information.
      * @return the list of entities.
      */

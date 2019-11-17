@@ -98,9 +98,9 @@ public class MealPlanResource {
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of mealPlans in body.
      */
     @GetMapping("/meal-plans")
-    public ResponseEntity<List<MealPlan>> getAllMealPlans(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
+    public ResponseEntity<List<MealPlan>> getAllMealPlans(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder, @RequestParam(required = false) Long author) {
         log.debug("REST request to get a page of MealPlans");
-        Page<MealPlan> page = mealPlanService.findAll(pageable);
+        Page<MealPlan> page = mealPlanService.findAll(author, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

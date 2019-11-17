@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -43,6 +44,9 @@ public class MealPlanServiceImpl implements MealPlanService {
     @Override
     public MealPlan save(MealPlan mealPlan) {
         log.debug("Request to save MealPlan : {}", mealPlan);
+        if(mealPlan.getId() == null || mealPlan.getCreationDate() == null){
+            mealPlan.setCreationDate(LocalDate.now());
+        }
         MealPlan result = mealPlanRepository.save(mealPlan);
         mealPlanSearchRepository.save(result);
         return result;
@@ -56,9 +60,9 @@ public class MealPlanServiceImpl implements MealPlanService {
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<MealPlan> findAll(Pageable pageable) {
+    public Page<MealPlan> findAll(Long authorId, Pageable pageable) {
         log.debug("Request to get all MealPlans");
-        return mealPlanRepository.findAll(pageable);
+        return mealPlanRepository.findAllByAuthorId(authorId, pageable);
     }
 
 

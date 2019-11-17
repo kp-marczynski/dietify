@@ -40,7 +40,6 @@ public class MealPlan implements Serializable {
     /**
      * Creation date of the plan
      */
-    @NotNull
     @ApiModelProperty(value = "Creation date of the plan", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;

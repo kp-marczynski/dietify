@@ -29,7 +29,7 @@
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.creationDate" for="field_creationDate" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationDate' | translate">Creation Date</label>
                             <div class="input-group">
-                                <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" formControlName="creationDate"/>
+                                <input readonly id="field_creationDate" type="text" class="form-control" name="creationDate" formControlName="creationDate"/>
                                 <span class="input-group-append">
                                     <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
                                 </span>
