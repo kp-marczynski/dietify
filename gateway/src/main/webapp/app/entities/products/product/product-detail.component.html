@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="product">
-            <h2><span jhiTranslate="gatewayApp.productsProduct.detail.title">Product</span> {{product.id}}</h2>
+            <h2><span jhiTranslate="gatewayApp.productsProduct.detail.title">Product</span> - {{product.description}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
@@ -12,10 +12,6 @@
                 <dt><span jhiTranslate="gatewayApp.productsProduct.authorId" [ngbTooltip]="'gatewayApp.productsProduct.help.authorId' | translate">Author Id</span></dt>
                 <dd>
                     <span>{{product.authorId}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.productsProduct.description" [ngbTooltip]="'gatewayApp.productsProduct.help.description' | translate">Description</span></dt>
-                <dd>
-                    <span>{{product.description}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.isFinal" [ngbTooltip]="'gatewayApp.productsProduct.help.isFinal' | translate">Is Final</span></dt>
                 <dd>

@@ -343,10 +343,10 @@
                                 *ngFor="let preparationStep of getPreparationStepsFormArray(recipeSection).controls; let last = last; let preparationIndex = index"
                                 [formGroupName]="preparationIndex">
                                 <td>
-                                <input type="text" class="form-control"
+                                <textarea class="form-control"
                                        formControlName="stepDescription"
                                        (keyup)="updatePreparationSteps(recipeSection)"
-                                       [placeholder]="'gatewayApp.recipesPreparationStep.stepDescription' | translate"/>
+                                          [placeholder]="'gatewayApp.recipesPreparationStep.stepDescription' | translate"></textarea>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-sm"
