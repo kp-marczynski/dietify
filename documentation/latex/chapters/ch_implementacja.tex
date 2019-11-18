@@ -33,7 +33,7 @@ więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko 
 Rozważano przede wszystkim systemy PostgreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
 Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy systemy zarządzania relacyjną bazą danych (ang. Relational Database Management System~- RDBMS) wypadają równie dobrze,
 jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
-Dodatkowo postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} do zarządzania zmianami schematu bazy.
+Dodatkowo w celu implementacji ewolucyjnego projektowania bazy danych\cite{url:evolutionary-database} postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} do zarządzania zmianami schematu bazy.
 
 \par
 Do implementacji architektury mikroserwisów postanowiono wykorzystać stos technologii Netflix OSS\cite{tech:netflix-oss}.
@@ -71,7 +71,7 @@ W wyniku analizy założeń projektowych przedstawionych w rozdziale \ref{ch:des
 że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product~- MVP)
 wymaga zaimplementowania całego modelu domeny omówionego w projekcie bazy danych w rozdziale \ref{sec:database}.
 Natomiast w kwestii dostępu do systemu, w celu osiągnięcia MVP wystarczy, żeby bezpośredni dostęp mieli tylko dietetycy i administratorzy,
-a pacjenci otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
+a pacjenci będą otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
 
 \par
 Ze względu na przetwarzanie wrażliwych danych osobowych, konieczne jest zawarcie w witrynie internetowej polityki prywatności.
@@ -82,8 +82,19 @@ a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kance
 %Wykorzystany szablon przedstawiony został w dodatku \ref{app:privacy-policy}.
 
 \section{Architektura systemu}\label{sec:system-architecture}
-\todo{opisać stack netflix oss}
+\subsection{Architektura mikroserwisów}\label{subsec:system-architecture:microservices}
 \todo{diagram rozmieszczenia}
+
+\image{0.7}{../uml/deployment_diagrams/deployment.png}{Diagram rozmieszczenia}{deployment-diagram}
+
+\subsection{Architektura backendu}\label{subsec:system-architecture:backend}
+\image{0.75}{../uml/package_diagrams/backend.png}{Podstawowy diagram pakietów warstwy biznesowej mikroserwisów}{package-diagram-backend}
+\todo{opisać}
+
+\subsection{Architektura frontendu}\label{subsec:system-architecture:frontend}
+\image{0.75}{img/angular-architecture.png}{Ogólna architektura angulara}{angular-architecture}
+\todo{opisać}
+
 \section{Instalacja oprogramowania}\label{sec:software-installation}
 \subsection{Wymagania wstępne}\label{subsec:prerequirements}
 Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, że następujące narzędzia są zainstalowane:
