@@ -47,15 +47,22 @@ W skład tego stosu wchodzą przede wszystkim:
 \end{itemize}
 
 \par
-Ze względu na wykorzystanie architektury mikroserwisowej zdecydowano się na autentykację użytkowników z użyciem tokenów JWT\cite{url:jwt},
+Jako serwis typu discovery postanowiono wykorzystać JHipster Registry\cite{tech:jhipster-registry}, który jest oparty na serwisie Eureka
+i dodatkowo zapewnia metryki kompatybilne z ekosystemem aplikacji tworzonych w oparciu o generator JHipster.
+
+\par
+Ze względu na wykorzystanie architektury mikroserwisowej zdecydowano się na uwierzytelnianie użytkowników z użyciem tokenów JWT\cite{url:jwt},
 ponieważ jest to bezstanowy mechanizm, który można bezproblemowo wykorzystywać w środowisku rozproszonym.
 
 \par
 W celu przyspieszenia rozwoju aplikacji postanowiono wykorzystać generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
 Korzystając z autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w oparciu o stos technologii Netflix OSS oraz encji przypisanych do konkretnych serwisów.
 Wykorzystaną konfigurację przedstawiono w dodatku \ref{app:jdl}, jednakże w celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w rozdziale \ref{sec:database}.
-Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, autoryzację i autentykację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
+Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, uwierzytelnianie i autoryzację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
 
+\par
+Aby zapewnić możliwie wysoką jakość oprogramowania konieczne jest przetestowanie czy kod działa w oczekiwany sposób.
+Do implementacji testów jednostkowych i integracyjnych po stronie backendu postanowiono wykorzystać bibliotekę JUnit\cite{tech:junit} i platformę Mockito\cite{tech:mockito}
 \par
 Dodatkowo postanowiono wykorzystać następujące narzędzia niezwiązane bezpośrednio z implementacją:
 \begin{itemize}
@@ -83,17 +90,51 @@ a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kance
 
 \section{Architektura systemu}\label{sec:system-architecture}
 \subsection{Architektura mikroserwisów}\label{subsec:system-architecture:microservices}
-\todo{diagram rozmieszczenia}
 
+\noindent
 \image{0.7}{../uml/deployment_diagrams/deployment.png}{Diagram rozmieszczenia}{deployment-diagram}
 
+Na rysunku \ref{fig:deployment-diagram} przedstawiono diagram rozmieszczenia prezentujący fizyczne rozmieszczenie komponentów systemu.
+Mikroserwisy mogą mieć wiele instancji, które po uruchomieniu rejestrują się w serwisie JHipster Registry za pomocą protokołu HTTP.
+Serwis Gateway z pomocą mechanizmu równoważenia obciążenia komunikuje się z innymi serwisami za pomocą protokołu HTTP.
+Klient końcowy za pomocą przeglądarki internetowej łączy się z systemem za pomocą protokołu HTTP.
+Żądania klienta są obsługiwane przez jedną instancję serwisu Gateway, a serwis Gateway może obsługiwać żądania wielu klientów.
+Warto zauważyć, że serwis JHipster Registry jest pojedynczym punktem awarii (ang. Single point of failure), gdyż wszystkie mikroserwisy korzystają z pojedynczej instancji tego serwisu.
+Komunikacja z serwerami bazodanowymi odbywa się za pomocą protokołu PostgreSQL.
+W celu uniknięcia niespójności danych przyjęto założenie, że może istnieć tylko jedna instancja bazy danych dla konkretnego serwisu.
+
 \subsection{Architektura backendu}\label{subsec:system-architecture:backend}
+
+\noindent
 \image{0.75}{../uml/package_diagrams/backend.png}{Podstawowy diagram pakietów warstwy biznesowej mikroserwisów}{package-diagram-backend}
-\todo{opisać}
+
+Na rysunku \ref{fig:package-diagram-backend} przedstawiono diagram pakietów obrazujący konwencję zastosowaną we wszystkich mikroserwisach podczas implementowania kodu backendu.
+Pakiet "REST" jest odpowiedzialny za odbieranie żądań przychodzących do aplikacji i odpowiadanie na nie.
+W celu wykonania akcji biznesowej wywoływane są funkcje z klas pakietu "SERVICE", który agreguje całą logikę biznesową aplikacji.
+Żeby ułatwić testowanie jednostkowe z wykorzystaniem Mockito w warstwie serwis postanowiono zaimplementować wzorzec projektowy Most\cite{book:wzorce-projektowe} i oddzielić interfejsy serwisów od ich implementacji.
+Aby realizować niektóre akcje biznesowe konieczne jest odwołanie się do bazy danych.
+Za wszystkie operacje na bazie danych odpowiadają klasy z pakietu "REPOSITORY".
+We wszystkich wymienionych pakietach możliwe jest korzystanie z pakietu "DOMAIN" zawierającego definicje encji i typów wyliczeniowych.
+
+\par
+Dodatkowo zdefiniowane są dwa pakiety nie związane z realizacją akcji biznesowych:
+\begin{itemize}
+    \item "SECURITY" - odpowiedzialny za zabezpieczanie aplikacji
+    \item "CONFIG" - odpowiedzialny za zapewnienie konfiguracji aplikacji
+\end{itemize}
+
+\par
+Klasy z pakietów "REST", "SERVICE.IMPL", "REPOSITORY", "SECURITY" i "CONFIG" zdefiniowane są jako komponenty Spring (ang. Spring Bean) przez co platforma Spring zarządza ich czasem życia i zapewnia mechanizm wstrzykiwania zależności\cite{book:spring-w-akcji}.
 
 \subsection{Architektura frontendu}\label{subsec:system-architecture:frontend}
+
+\noindent
 \image{0.75}{img/angular-architecture.png}{Ogólna architektura angulara}{angular-architecture}
-\todo{opisać}
+
+Architektura frontendu jest ściśle związana a architekturą promowaną na platformie Angular opartej na komponentach,
+co przedstawiono na rysunku \ref{fig:angular-architecture}.
+Podstawową jednostką budulcową są komponenty, które za pomocą wiązania właściwości i zdarzeń oddziałują z szablonami w calu prezentacji treści użytkownikowi końcowemu.
+Komponenty mogą korzystać z serwisów dostępnych z pomocą mechanizmu wstrzykiwania zależności.
 
 \section{Instalacja oprogramowania}\label{sec:software-installation}
 \subsection{Wymagania wstępne}\label{subsec:prerequirements}
@@ -156,6 +197,10 @@ Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \te
 \section{Dokumentacja kodu}\label{sec:code-documentation}
 \todo{javadoc, swagger, jdl}
 \section{Testy}\label{sec:tests}
-\todo{przykładowe testy jednostkowe i~integracyjne}
-\todo{testy użyteczności}
+\subsection{Testy jednostkowe}\label{subsec:tests:unit}
+\todo{opisać}
+\subsection{Testy integracyjne}\label{subsec:tests:integration}
+\todo{opisać}
+\subsection{Testy użyteczności}\label{subsec:tests:usability}
+\todo{opisać}
 \thispagestyle{normal}
