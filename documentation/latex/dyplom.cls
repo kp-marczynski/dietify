@@ -166,7 +166,7 @@ linenos
 \newcommand{\imagewide}[4][opr.wł]{
 \begin{minipage}{\textwidth}
     \begin{figure}[H]
-        \centering\includegraphics[width=.8\textwidth]{#2}
+        \centering\includegraphics[width=.85\textwidth]{#2}
         \caption{#3 (źródło: #1)}\label{fig:#4}
     \end{figure}
 \end{minipage}

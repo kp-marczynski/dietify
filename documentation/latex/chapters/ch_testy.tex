@@ -37,12 +37,50 @@ Rezultat wykonania procesu CI na platformie Gitlab CI został przedstawiony na r
 
 \section{Testy jednostkowe}
 
-Robert C. Martin stwierdził, że dobrze napisane testy jednostkowe zwiększają elastyczność kodu produkcyjnego, ułatwiają wprowadzanie zmian w kodzie i pozwalają szybko wykryć zaistniałe błędy\cite{book:czysty-kod}.
+Robert C. Martin stwierdził, że dobrze napisane testy jednostkowe zwiększają elastyczność kodu produkcyjnego,
+ułatwiają wprowadzanie zmian w kodzie i pozwalają szybko wykryć zaistniałe błędy\cite{book:czysty-kod}.
 
-\todo{testy jednostkowe}\cite{book:testy-jednostkowe}
+\par
+Przedmiotem testów jednostkowych jest logika akcji biznesowych przeprowadzanych w obrębie warstwy serwisów.
+Należy jednak zauważyć, że wątpliwą wartość przynosi testowanie funkcji,
+których jedyną odpowiedzialnością jest przekierowanie żądania z warstwy punktów końcowych API do warstwy repozytoriów.
+
+\par
+Testy jednostkowe, jak nazwa wskazuje, powinny testować jednostkę taką jak funkcja i powinny daną jednostkę testować w izolacji od zależności zewnętrznych\cite{book:testy-jednostkowe}.
+Aby osiągnąć taką izolację, zastosowano platformę Mockito dzięki czemu możliwe jest tworzenie makiet dla zależności zewnętrznych i definiowanie rezultatów obcowania z nimi.
+W rezultacie osiągnięta może być ścisła kontrola nad przepływem informacji w obrębie testowanej jednostki.
+
+\todo{przykładowy test jednostkowy}
+
 \section{Testy integracyjne}
-\todo{testy integracyjne}\cite{book:testy-jednostkowe}
+
+W przeciwieństwie do testów jednostkowych testy integracyjne nie są wykonywane w całkowitej izolacji\cite{book:testy-jednostkowe}.
+Testowaniu podlegają punkty końcowe API z wykorzystaniem rzeczywistego połączenia z bazą danych.
+Na potrzeby testów tworzona jest instancja osadzonej bazy danych H2\cite{tech:h2-db} oraz inicjalizowany jest kontekst aplikacji Spring Boot.
+
+\par
+Celem przeprowadzania tego typu testów jest sprawdzenie czy punkty końcowe API w poprawny sposób obsługują przychodzące żądania
+z uwzględnieniem przeprowadzenia akcji biznesowych w warstwie serwisów i perzystencji w warstwie repozytoriów.
+
+\todo{przykładowy test integracyjny}
+
 \section{Testy użyteczności}
-\todo{testy użyteczności}\cite{book:testowanie-i-jakosc-oprogramowania}
+
+Oprogramowanie zwykle nie jest tworzone, żeby istniało w próżni.
+Należy więc zbadać w jakim stopniu aplikacja może być używana przez rzeczywistych użytkowników.
+W tym celu przeprowadzane są testy użyteczności\cite{book:testowanie-i-jakosc-oprogramowania}.
+
+\par
+W ramach realizacji tej grupy testów, 7 potencjalnych użytkowników (tj. osoby studiujące dietetykę lub zajmujące się profesjonalnie dietetyką)
+zostało poproszonych o zasymulowanie przeprowadzania kompleksowej wizyty pacjenta
+i wyrażenie opinii o używalności systemu poprzez odpowiedź na pytania ustandaryzowanego formularza Skali Używalności Systemu (ang. System Usability Scale - SUS)\cite{url:sus}.
+Korzystając z SUS, uczestnik badania udziela odpowiedzi na 10 pytań w pięciostopniowej skali od "Bardzo się zgadzam" do "Bardzo się nie zgadzam".
+Rezultaty następnie są konwertowane na wartość liczbową z zakresu 0-4, a suma otrzymanych punktów jest mnożona przez 2.5, żeby otrzymać wynik w skali 0-100.
+Wynik powyżej 68 punktów uznawany jest za ponadprzeciętny.
+Na rysunku \ref{fig:sus-form} przedstawiony został wykorzystany kwestionariusz SUS.
+
+\imagewide[\cite{url:sus-form}]{img/kwestionariusz-sus.png}{Kwestionariusz SUS}{sus-form}
+
+\todo{rezultaty sus}
 
 \thispagestyle{normal}
