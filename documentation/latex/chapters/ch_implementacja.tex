@@ -5,17 +5,18 @@
 Podczas wyboru języków programowania, z~użyciem których miał zostać zaimplementowany system, postawiono następujące kryteria:
 
 \begin{itemize}
-    \item ścisła kontrola typów
-    \item dobre wsparcie dla paradygmatu programowania obiektowego
-    \item niezależność języka od platformy
-    \item bogaty ekosystem
+    \item ścisła kontrola typów,
+    \item dobre wsparcie dla paradygmatu programowania obiektowego,
+    \item niezależność języka od platformy,
+    \item bogaty ekosystem.
 \end{itemize}
 
+\par
 Wybrane języki spełniające te kryteria to:
 
 \begin{itemize}
-    \item w~warstwie backendu Java\cite{tech:java}~- opracowany przez Sun Microsystems język kompilowalny do kodu bajtowego, który jest wykonywany na maszynie wirtualnej
-    \item w~warstwie frontendu Typescript\cite{tech:typescript}~- opracowany przez Microsoft język otwartoźródłowy kompilowalny do języka JavaScript\cite{tech:javascript}
+    \item w~warstwie backendu Java\cite{tech:java}~- opracowany przez Sun Microsystems język kompilowalny do kodu bajtowego, który jest wykonywany na maszynie wirtualnej,
+    \item w~warstwie frontendu Typescript\cite{tech:typescript}~- opracowany przez Microsoft język otwartoźródłowy kompilowalny do języka JavaScript\cite{tech:javascript}.
 \end{itemize}
 
 Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącej frontendowej platformy programistycznej (ang. framework)
@@ -41,9 +42,9 @@ Jest to dojrzały, prosty do wykorzystania w implementacji stos technologii mikr
 dla którego możliwa jest ścisła integracja ze Springiem poprzez wykorzystania projektu Spring Cloud Netflix\cite{tech:spring-cloud-netflix}.
 W skład tego stosu wchodzą przede wszystkim:
 \begin{itemize}
-    \item Eureka\cite{tech:netflix-eureka}~- serwis typu discovery
-    \item Zuul\cite{tech:netflix-zuul}~- serwis zapewniający dynamiczne przekierowywanie żądań z bramy aplikacji do poszczególnych mikroserwisów
-    \item Ribbon\cite{tech:netflix-ribbon}~- serwis zapewniający równoważenie obciążenia podczas wyboru mikroserwisu, który odpowie na żądanie
+    \item Eureka\cite{tech:netflix-eureka}~- serwis typu discovery,
+    \item Zuul\cite{tech:netflix-zuul}~- serwis zapewniający dynamiczne przekierowywanie żądań z bramy aplikacji do poszczególnych mikroserwisów,
+    \item Ribbon\cite{tech:netflix-ribbon}~- serwis zapewniający równoważenie obciążenia podczas wyboru mikroserwisu, który odpowie na żądanie.
 \end{itemize}
 
 \par
@@ -66,10 +67,10 @@ Do implementacji testów jednostkowych i integracyjnych po stronie backendu post
 \par
 Dodatkowo postanowiono wykorzystać następujące narzędzia niezwiązane bezpośrednio z implementacją:
 \begin{itemize}
-    \item Docker\cite{tech:docker}~- system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z wykorzystaniem konfiguracji niezależnej od środowiska
-    \item Docker Compose\cite{tech:docker-compose}~- narzędzie upraszczające zarządzanie wielokontenerowym środowiskiem aplikacji skonteneryzowanych
-    \item Git\cite{tech:git}~- rozproszony system kontroli wersji wykorzystywany do zarządzania zmianami w kodzie
-    \item Gitlab Pipelines\cite{tech:gitlab-pipelines}~- narzędzie wspomagające proces ciągłej integracji
+    \item Docker\cite{tech:docker}~- system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z wykorzystaniem konfiguracji niezależnej od środowiska,
+    \item Docker Compose\cite{tech:docker-compose}~- narzędzie upraszczające zarządzanie wielokontenerowym środowiskiem aplikacji skonteneryzowanych,
+    \item Git\cite{tech:git}~- rozproszony system kontroli wersji wykorzystywany do zarządzania zmianami w kodzie,
+    \item Gitlab Pipelines\cite{tech:gitlab-pipelines}~- narzędzie wspomagające proces ciągłej integracji.
 \end{itemize}
 
 \section{Zakres implementacji}\label{sec:implementation-scope}
@@ -119,8 +120,8 @@ We wszystkich wymienionych pakietach możliwe jest korzystanie z pakietu "DOMAIN
 \par
 Dodatkowo zdefiniowane są dwa pakiety nie związane z realizacją akcji biznesowych:
 \begin{itemize}
-    \item "SECURITY" - odpowiedzialny za zabezpieczanie aplikacji
-    \item "CONFIG" - odpowiedzialny za zapewnienie konfiguracji aplikacji
+    \item "SECURITY" - odpowiedzialny za zabezpieczanie aplikacji,
+    \item "CONFIG" - odpowiedzialny za zapewnienie konfiguracji aplikacji.
 \end{itemize}
 
 \par
@@ -136,13 +137,38 @@ co przedstawiono na rysunku \ref{fig:angular-architecture}.
 Podstawową jednostką budulcową są komponenty, które za pomocą wiązania właściwości i zdarzeń oddziałują z szablonami w calu prezentacji treści użytkownikowi końcowemu.
 Komponenty mogą korzystać z serwisów dostępnych z pomocą mechanizmu wstrzykiwania zależności.
 
+\section{Dokumentacja kodu}\label{sec:code-documentation}
+
+Podstawowa dokumentacja kodu została napisana przy użyciu komentarzy w stylu kompatybilnym z generatorem dokumentacji JavaDoc\cite{tech:javadoc}.
+Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a fragment wygenerowanej dokumentacji na rysunku \ref{fig:javadoc}.
+
+\begin{listing}[h!]
+    \begin{minted}{bash}
+        /**
+        * Short description of measure in language of a product, e.g. \"cup\" or \"tea spoon\"
+        */
+        @NotNull
+        @Size(min = 1, max = 255)
+        private String description;
+    \end{minted}
+    \centering\caption{Uruchamianie Gradle Wrapper (opr. wł.)}\label{listing:javadoc}
+\end{listing}
+
+\imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
+
+Dodatkowo wykorzystano narzędzie Swagger\cite{tech:swagger} do automatycznego generowania dokumentacji
+punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints - API Endpoints) na podstawie implementacji,
+czego rezultat zaprezentowano na rysunku \ref{fig:swagger}.
+
+\imagewide{img/swagger-example.png}{Przykładowy fragment dokumentacji Swagger}{swagger}
+
 \section{Instalacja oprogramowania}\label{sec:software-installation}
 \subsection{Wymagania wstępne}\label{subsec:prerequirements}
 Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, że następujące narzędzia są zainstalowane:
 \begin{itemize}
-    \item Open JDK 11 (https://adoptopenjdk.net/?variant=openjdk11)
-    \item Node.js 10 lub nowsza wersja LTS (https://nodejs.org/en/)
-    \item Docker 19.03 + Docker Compose 2 (https://docs.docker.com/install/)
+    \item Open JDK 11 (https://adoptopenjdk.net/?variant=openjdk11),
+    \item Node.js 10 lub nowsza wersja LTS (https://nodejs.org/en/),
+    \item Docker 19.03 + Docker Compose 2 (https://docs.docker.com/install/).
 \end{itemize}
 
 \subsection{Instalacja}\label{subsec:installation}
@@ -194,16 +220,11 @@ Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \te
 \todo{podstawowy opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}
 %\todo{implementacja w~kodzie: obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
 
-\section{Dokumentacja kodu}\label{sec:code-documentation}
-\noindent
-\imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
-\imagewide{img/swagger-example.png}{Przykładowy fragment dokumentacji Swagger}{swagger}
-\todo{javadoc, swagger, jdl}
-\section{Testy}\label{sec:tests}
-\subsection{Testy jednostkowe}\label{subsec:tests:unit}
-\todo{opisać}
-\subsection{Testy integracyjne}\label{subsec:tests:integration}
-\todo{opisać}
-\subsection{Testy użyteczności}\label{subsec:tests:usability}
-\todo{opisać}
+%\section{Testy}\label{sec:tests}
+%\subsection{Testy jednostkowe}\label{subsec:tests:unit}
+%\todo{opisać}
+%\subsection{Testy integracyjne}\label{subsec:tests:integration}
+%\todo{opisać}
+%\subsection{Testy użyteczności}\label{subsec:tests:usability}
+%\todo{opisać}
 \thispagestyle{normal}
