@@ -22,10 +22,10 @@ Wybrane języki spełniające te kryteria to:
 Powyższy wybór zaowocował decyzją o~zastosowaniu Angulara\cite{tech:angular} jako wiodącej frontendowej platformy programistycznej (ang. framework)
 i~Springa\cite{tech:spring} jako wiodącej backendowej platformy programistycznej.
 Wspomniane platformy cieszą się bardzo dużą popularnością, a~ich dojrzałość sprawia,
-że znajdują zastosowanie zarówno w niewielkich aplikacjach jak i~w~systemach klasy enterprise.
+że znajdują zastosowanie zarówno w~niewielkich aplikacjach jak i~w~systemach klasy enterprise.
 
 \par
-Podczas projektu witryny internetowej kod, który jest wykonywany po stronie przeglądarki zwykle jest napisany w technologiach HTML, CSS\cite{tech:html-css} i JavaScript\cite{tech:javascript}.
+Podczas projektu witryny internetowej kod, który jest wykonywany po stronie przeglądarki zwykle jest napisany w~technologiach HTML, CSS\cite{tech:html-css} i~JavaScript\cite{tech:javascript}.
 Jak już wspomniano zamiast języka JavaScript wykorzystano TypeScript, natomiast zamiast CSS postanowiono wykorzystać SASS\cite{tech:sass}, który rozszerza funkcjonalność CSS.
 
 \par
@@ -34,60 +34,60 @@ więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko 
 Rozważano przede wszystkim systemy PostgreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
 Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy systemy zarządzania relacyjną bazą danych (ang. Relational Database Management System~- RDBMS) wypadają równie dobrze,
 jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
-Dodatkowo w celu implementacji ewolucyjnego projektowania bazy danych\cite{url:evolutionary-database} postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} do zarządzania zmianami schematu bazy.
+Dodatkowo w~celu implementacji ewolucyjnego projektowania bazy danych\cite{url:evolutionary-database} postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} do zarządzania zmianami schematu bazy.
 
 \par
 Do implementacji architektury mikroserwisów postanowiono wykorzystać stos technologii Netflix OSS\cite{tech:netflix-oss}.
-Jest to dojrzały, prosty do wykorzystania w implementacji stos technologii mikroserwisowych,
+Jest to dojrzały, prosty do wykorzystania w~implementacji stos technologii mikroserwisowych,
 dla którego możliwa jest ścisła integracja ze Springiem poprzez wykorzystania projektu Spring Cloud Netflix\cite{tech:spring-cloud-netflix}.
 W skład tego stosu wchodzą przede wszystkim:
 \begin{itemize}
     \item Eureka\cite{tech:netflix-eureka}~- serwis typu discovery,
-    \item Zuul\cite{tech:netflix-zuul}~- serwis zapewniający dynamiczne przekierowywanie żądań z bramy aplikacji do poszczególnych mikroserwisów,
+    \item Zuul\cite{tech:netflix-zuul}~- serwis zapewniający dynamiczne przekierowywanie żądań z~bramy aplikacji do poszczególnych mikroserwisów,
     \item Ribbon\cite{tech:netflix-ribbon}~- serwis zapewniający równoważenie obciążenia podczas wyboru mikroserwisu, który odpowie na żądanie.
 \end{itemize}
 
 \par
 Jako serwis typu discovery postanowiono wykorzystać JHipster Registry\cite{tech:jhipster-registry}, który jest oparty na serwisie Eureka
-i dodatkowo zapewnia metryki kompatybilne z ekosystemem aplikacji tworzonych w oparciu o generator JHipster.
+i dodatkowo zapewnia metryki kompatybilne z~ekosystemem aplikacji tworzonych w~oparciu o~generator JHipster.
 
 \par
-Ze względu na wykorzystanie architektury mikroserwisowej zdecydowano się na uwierzytelnianie użytkowników z użyciem tokenów JWT\cite{url:jwt},
-ponieważ jest to bezstanowy mechanizm, który można bezproblemowo wykorzystywać w środowisku rozproszonym.
+Ze względu na wykorzystanie architektury mikroserwisowej zdecydowano się na uwierzytelnianie użytkowników z~użyciem tokenów JWT\cite{url:jwt},
+ponieważ jest to bezstanowy mechanizm, który można bezproblemowo wykorzystywać w~środowisku rozproszonym.
 
 \par
 W celu przyspieszenia rozwoju aplikacji postanowiono wykorzystać generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
-Korzystając z autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w oparciu o stos technologii Netflix OSS oraz encji przypisanych do konkretnych serwisów.
-Wykorzystaną konfigurację przedstawiono w dodatku \ref{app:jdl}, jednakże w celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w rozdziale \ref{sec:database}.
-Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, uwierzytelnianie i autoryzację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
+Korzystając z~autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w~oparciu o~stos technologii Netflix OSS oraz encji przypisanych do konkretnych serwisów.
+Wykorzystaną konfigurację przedstawiono w~dodatku \ref{app:jdl}, jednakże w~celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w~rozdziale \ref{sec:database}.
+Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, uwierzytelnianie i~autoryzację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
 
 \par
-Aby zapewnić możliwie wysoką jakość oprogramowania konieczne jest przetestowanie czy kod działa w oczekiwany sposób.
-Do implementacji testów jednostkowych i integracyjnych po stronie backendu postanowiono wykorzystać bibliotekę JUnit\cite{tech:junit} i platformę Mockito\cite{tech:mockito}
+Aby zapewnić możliwie wysoką jakość oprogramowania konieczne jest przetestowanie czy kod działa w~oczekiwany sposób.
+Do implementacji testów jednostkowych i~integracyjnych po stronie backendu postanowiono wykorzystać bibliotekę JUnit\cite{tech:junit} i~platformę Mockito\cite{tech:mockito}
 \par
-Dodatkowo postanowiono wykorzystać następujące narzędzia niezwiązane bezpośrednio z implementacją:
+Dodatkowo postanowiono wykorzystać następujące narzędzia niezwiązane bezpośrednio z~implementacją:
 \begin{itemize}
-    \item Docker\cite{tech:docker}~- system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z wykorzystaniem konfiguracji niezależnej od środowiska,
+    \item Docker\cite{tech:docker}~- system konteneryzacji pozwalający uprościć proces wdrażania aplikacji z~wykorzystaniem konfiguracji niezależnej od środowiska,
     \item Docker Compose\cite{tech:docker-compose}~- narzędzie upraszczające zarządzanie wielokontenerowym środowiskiem aplikacji skonteneryzowanych,
-    \item Git\cite{tech:git}~- rozproszony system kontroli wersji wykorzystywany do zarządzania zmianami w kodzie,
+    \item Git\cite{tech:git}~- rozproszony system kontroli wersji wykorzystywany do zarządzania zmianami w~kodzie,
     \item Gitlab Pipelines\cite{tech:gitlab-pipelines}~- narzędzie wspomagające proces ciągłej integracji.
 \end{itemize}
 
 \section{Zakres implementacji}\label{sec:implementation-scope}
 
-W wyniku analizy założeń projektowych przedstawionych w rozdziale \ref{ch:design-assumptions} stwierdzono,
+W wyniku analizy założeń projektowych przedstawionych w~rozdziale \ref{ch:design-assumptions} stwierdzono,
 że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product~- MVP)
-wymaga zaimplementowania całego modelu domeny omówionego w projekcie bazy danych w rozdziale \ref{sec:database}.
-Natomiast w kwestii dostępu do systemu, w celu osiągnięcia MVP wystarczy, żeby bezpośredni dostęp mieli tylko dietetycy i administratorzy,
+wymaga zaimplementowania całego modelu domeny omówionego w~projekcie bazy danych w~rozdziale \ref{sec:database}.
+Natomiast w~kwestii dostępu do systemu, w~celu osiągnięcia MVP wystarczy, żeby bezpośredni dostęp mieli tylko dietetycy i~administratorzy,
 a pacjenci będą otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
 
 \par
-Ze względu na przetwarzanie wrażliwych danych osobowych, konieczne jest zawarcie w witrynie internetowej polityki prywatności.
-Na rzecz osiągnięcia MVP w przygotowywanej implementacji postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl\cite{url:ogicom-privacy-policy}.
+Ze względu na przetwarzanie wrażliwych danych osobowych, konieczne jest zawarcie w~witrynie internetowej polityki prywatności.
+Na rzecz osiągnięcia MVP w~przygotowywanej implementacji postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl\cite{url:ogicom-privacy-policy}.
 Jednakże należy podkreślić, że autor niniejszej pracy inżynierskiej nie posiada wykształcenia prawniczego
 i należy traktować przedstawioną politykę prywatności jedynie jako wersję roboczą,
-a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kancelarii prawnej oferującej doradztwo prawne z zakresu przetwarzania i ochrony danych osobowych.
-%Wykorzystany szablon przedstawiony został w dodatku \ref{app:privacy-policy}.
+a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w~kancelarii prawnej oferującej doradztwo prawne z~zakresu przetwarzania i~ochrony danych osobowych.
+%Wykorzystany szablon przedstawiony został w~dodatku \ref{app:privacy-policy}.
 
 \section{Architektura systemu}\label{sec:system-architecture}
 \subsection{Architektura mikroserwisów}\label{subsec:system-architecture:microservices}
@@ -96,12 +96,12 @@ a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w kance
 \image{0.7}{../uml/deployment_diagrams/deployment.png}{Diagram rozmieszczenia}{deployment-diagram}
 
 Na rysunku \ref{fig:deployment-diagram} przedstawiono diagram rozmieszczenia prezentujący fizyczne rozmieszczenie komponentów systemu.
-Mikroserwisy mogą mieć wiele instancji, które po uruchomieniu rejestrują się w serwisie JHipster Registry za pomocą protokołu HTTP.
-Serwis Gateway z pomocą mechanizmu równoważenia obciążenia komunikuje się z innymi serwisami za pomocą protokołu HTTP.
-Klient końcowy za pomocą przeglądarki internetowej łączy się z systemem za pomocą protokołu HTTP.
-Żądania klienta są obsługiwane przez jedną instancję serwisu Gateway, a serwis Gateway może obsługiwać żądania wielu klientów.
-Warto zauważyć, że serwis JHipster Registry jest pojedynczym punktem awarii (ang. Single point of failure), gdyż wszystkie mikroserwisy korzystają z pojedynczej instancji tego serwisu.
-Komunikacja z serwerami bazodanowymi odbywa się za pomocą protokołu PostgreSQL.
+Mikroserwisy mogą mieć wiele instancji, które po uruchomieniu rejestrują się w~serwisie JHipster Registry za pomocą protokołu HTTP.
+Serwis Gateway z~pomocą mechanizmu równoważenia obciążenia komunikuje się z~innymi serwisami za pomocą protokołu HTTP.
+Klient końcowy za pomocą przeglądarki internetowej łączy się z~systemem za pomocą protokołu HTTP.
+Żądania klienta są obsługiwane przez jedną instancję serwisu Gateway, a~serwis Gateway może obsługiwać żądania wielu klientów.
+Warto zauważyć, że serwis JHipster Registry jest pojedynczym punktem awarii (ang. Single point of failure), gdyż wszystkie mikroserwisy korzystają z~pojedynczej instancji tego serwisu.
+Komunikacja z~serwerami bazodanowymi odbywa się za pomocą protokołu PostgreSQL.
 W celu uniknięcia niespójności danych przyjęto założenie, że może istnieć tylko jedna instancja bazy danych dla konkretnego serwisu.
 
 \subsection{Architektura backendu}\label{subsec:system-architecture:backend}
@@ -110,42 +110,42 @@ W celu uniknięcia niespójności danych przyjęto założenie, że może istnie
 \image{0.75}{../uml/package_diagrams/backend.png}{Podstawowy diagram pakietów warstwy biznesowej mikroserwisów}{package-diagram-backend}
 
 Na rysunku \ref{fig:package-diagram-backend} przedstawiono diagram pakietów obrazujący konwencję zastosowaną we wszystkich mikroserwisach podczas implementowania kodu backendu.
-Pakiet "REST" jest odpowiedzialny za odbieranie żądań przychodzących do aplikacji i odpowiadanie na nie.
-W celu wykonania akcji biznesowej wywoływane są funkcje z klas pakietu "SERVICE", który agreguje całą logikę biznesową aplikacji.
-Żeby ułatwić testowanie jednostkowe z wykorzystaniem Mockito w warstwie serwis postanowiono zaimplementować wzorzec projektowy Most\cite{book:wzorce-projektowe} i oddzielić interfejsy serwisów od ich implementacji.
+Pakiet "REST" jest odpowiedzialny za odbieranie żądań przychodzących do aplikacji i~odpowiadanie na nie.
+W celu wykonania akcji biznesowej wywoływane są funkcje z~klas pakietu "SERVICE", który agreguje całą logikę biznesową aplikacji.
+Żeby ułatwić testowanie jednostkowe z~wykorzystaniem Mockito w~warstwie serwis postanowiono zaimplementować wzorzec projektowy Most\cite{book:wzorce-projektowe} i~oddzielić interfejsy serwisów od ich implementacji.
 Aby realizować niektóre akcje biznesowe konieczne jest odwołanie się do bazy danych.
-Za wszystkie operacje na bazie danych odpowiadają klasy z pakietu "REPOSITORY".
-We wszystkich wymienionych pakietach możliwe jest korzystanie z pakietu "DOMAIN" zawierającego definicje encji i typów wyliczeniowych.
+Za wszystkie operacje na bazie danych odpowiadają klasy z~pakietu "REPOSITORY".
+We wszystkich wymienionych pakietach możliwe jest korzystanie z~pakietu "DOMAIN" zawierającego definicje encji i~typów wyliczeniowych.
 
 \par
-Dodatkowo zdefiniowane są dwa pakiety nie związane z realizacją akcji biznesowych:
+Dodatkowo zdefiniowane są dwa pakiety nie związane z~realizacją akcji biznesowych:
 \begin{itemize}
-    \item "SECURITY" - odpowiedzialny za zabezpieczanie aplikacji,
-    \item "CONFIG" - odpowiedzialny za zapewnienie konfiguracji aplikacji.
+    \item "SECURITY"~-odpowiedzialny za zabezpieczanie aplikacji,
+    \item "CONFIG"~-odpowiedzialny za zapewnienie konfiguracji aplikacji.
 \end{itemize}
 
 \par
-Klasy z pakietów "REST", "SERVICE.IMPL", "REPOSITORY", "SECURITY" i "CONFIG" zdefiniowane są jako komponenty Spring (ang. Spring Bean) przez co platforma Spring zarządza ich czasem życia i zapewnia mechanizm wstrzykiwania zależności\cite{book:spring-w-akcji}.
+Klasy z~pakietów "REST", "SERVICE.IMPL", "REPOSITORY", "SECURITY" i~"CONFIG" zdefiniowane są jako komponenty Spring (ang. Spring Bean) przez co platforma Spring zarządza ich czasem życia i~zapewnia mechanizm wstrzykiwania zależności\cite{book:spring-w-akcji}.
 
 \subsection{Architektura frontendu}\label{subsec:system-architecture:frontend}
 
 \noindent
 \image{0.75}{img/angular-architecture.png}{Ogólna architektura angulara}{angular-architecture}
 
-Architektura frontendu jest ściśle związana a architekturą promowaną na platformie Angular opartej na komponentach,
+Architektura frontendu jest ściśle związana a~architekturą promowaną na platformie Angular opartej na komponentach,
 co przedstawiono na rysunku \ref{fig:angular-architecture}.
-Podstawową jednostką budulcową są komponenty, które za pomocą wiązania właściwości i zdarzeń oddziałują z szablonami w calu prezentacji treści użytkownikowi końcowemu.
-Komponenty mogą korzystać z serwisów dostępnych z pomocą mechanizmu wstrzykiwania zależności.
+Podstawową jednostką budulcową są komponenty, które za pomocą wiązania właściwości i~zdarzeń oddziałują z~szablonami w~calu prezentacji treści użytkownikowi końcowemu.
+Komponenty mogą korzystać z~serwisów dostępnych z~pomocą mechanizmu wstrzykiwania zależności.
 
 \section{Dokumentacja kodu}\label{sec:code-documentation}
 
-Podstawowa dokumentacja kodu została napisana przy użyciu komentarzy w stylu kompatybilnym z generatorem dokumentacji JavaDoc\cite{tech:javadoc}.
-Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a fragment wygenerowanej dokumentacji na rysunku \ref{fig:javadoc}.
+Podstawowa dokumentacja kodu została napisana przy użyciu komentarzy w~stylu kompatybilnym z~generatorem dokumentacji JavaDoc\cite{tech:javadoc}.
+Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a~fragment wygenerowanej dokumentacji na rysunku \ref{fig:javadoc}.
 
 \begin{listing}[h!]
     \begin{minted}{bash}
         /**
-        * Short description of measure in language of a product, e.g. \"cup\" or \"tea spoon\"
+        * Short description of measure in language of a~product, e.g. \"cup\" or \"tea spoon\"
         */
         @NotNull
         @Size(min = 1, max = 255)
@@ -157,7 +157,7 @@ Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a fragmen
 \imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
 
 Dodatkowo wykorzystano narzędzie Swagger\cite{tech:swagger} do automatycznego generowania dokumentacji
-punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints - API Endpoints) na podstawie implementacji,
+punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints~-API Endpoints) na podstawie implementacji,
 czego rezultat zaprezentowano na rysunku \ref{fig:swagger}.
 
 \imagewide{img/swagger-example.png}{Przykładowy fragment dokumentacji Swagger}{swagger}
@@ -173,7 +173,7 @@ Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, ż
 
 \subsection{Instalacja}\label{subsec:installation}
 
-Aby zbudować i~uruchomić projekt z wykorzystaniem Dockera należy z~poziomu głównego katalogu projektu
+Aby zbudować i~uruchomić projekt z~wykorzystaniem Dockera należy z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
 \begin{listing}[h!]
     \begin{minted}{bash}
@@ -218,6 +218,7 @@ Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \te
 
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
 \todo{podstawowy opis poruszania się po aplikacji, zrzuty ekranu z~kilku najważniejszych widoków}
+\todo{filmik na youtube'ie?}
 %\todo{implementacja w~kodzie: obliczanie podstawowych wartości odżywczych w~przepisie, wyświetlanie spełnienia norm odżywczych w~jadłospisie, wersjonowanie produktów i~przepisów, generowanie listy zakupów i~jadłospisu do wydruku, wykres BMI}
 
 %\section{Testy}\label{sec:tests}

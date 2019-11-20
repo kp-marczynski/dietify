@@ -154,20 +154,20 @@ linenos
 \renewcommand\cftlottitlefont{\fontsize{14pt}{14pt}\bfseries}
 
 %\image[source]{scale}{file path}{caption}{label}
-\newcommand{\image}[5][(opr.wł)]{
+\newcommand{\image}[5][opr.wł]{
 \begin{minipage}{\textwidth}
     \begin{figure}[H]
         \centering\includegraphics[scale=#2]{#3}
-        \caption{#4 #1}\label{fig:#5}
+        \caption{#4 (źródło: #1)}\label{fig:#5}
     \end{figure}
 \end{minipage}
 }
 
-\newcommand{\imagewide}[4][(opr.wł)]{
+\newcommand{\imagewide}[4][opr.wł]{
 \begin{minipage}{\textwidth}
     \begin{figure}[H]
         \centering\includegraphics[width=.8\textwidth]{#2}
-        \caption{#3 #1}\label{fig:#4}
+        \caption{#3 (źródło: #1)}\label{fig:#4}
     \end{figure}
 \end{minipage}
 }
