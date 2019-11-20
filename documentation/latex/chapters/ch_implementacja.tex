@@ -153,7 +153,7 @@ Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a~fragmen
         @Size(min = 1, max = 255)
         private String description;
     \end{minted}
-    \centering\caption{Uruchamianie Gradle Wrapper (opr. wł.)}\label{listing:javadoc}
+    \centering\caption{Uruchamianie Gradle Wrapper (źródło: opr.wł)}\label{listing:javadoc}
 \end{listing}
 
 \imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
@@ -193,7 +193,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomien
         cd ../docker-compose
         sh docker-compose up
     \end{minted}
-    \centering\caption{Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze (opr. wł.)}\label{listing:komilacja-i-uruchomienie}
+    \centering\caption{Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze (źródło: opr.wł)}\label{listing:komilacja-i-uruchomienie}
 \end{listing}
 
 Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
@@ -204,7 +204,7 @@ wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
         cd service-discovery
         java -jar ./jhipster-registry-5.0.2.jar --spring.profiles.active=dev --spring.security.user.password=admin --spring.cloud.config.server.composite.0.type=git --spring.cloud.config.server.composite.0.uri= https://github.com/jhipster/jhipster-registry-sample-config
     \end{minted}
-    \centering\caption{Uruchamianie JHipster Registry (opr. wł.)}\label{listing:service-discovery}
+    \centering\caption{Uruchamianie JHipster Registry (źródło: opr.wł)}\label{listing:service-discovery}
 \end{listing}
 
 Następnie z~poziomu katalogu każdego z~serwisów (gateway, products, recipes, mealplans, appointments)
@@ -213,7 +213,7 @@ należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listin
     \begin{minted}{bash}
         ./gradlew
     \end{minted}
-    \centering\caption{Uruchamianie Gradle Wrapper (opr. wł.)}\label{listing:run-gradle-wrapper}
+    \centering\caption{Uruchamianie Gradle Wrapper (źródło: opr.wł)}\label{listing:run-gradle-wrapper}
 \end{listing}
 
 Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \textit{localhost:8080}.

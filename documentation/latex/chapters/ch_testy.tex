@@ -50,6 +50,47 @@ Testy jednostkowe, jak nazwa wskazuje, powinny testować jednostkę taką jak fu
 Aby osiągnąć taką izolację, zastosowano platformę Mockito dzięki czemu możliwe jest tworzenie makiet dla zależności zewnętrznych i definiowanie rezultatów obcowania z nimi.
 W rezultacie osiągnięta może być ścisła kontrola nad przepływem informacji w obrębie testowanej jednostki.
 
+\begin{listing}[h!]
+    \begin{minted}{java}
+@RunWith(MockitoJUnitRunner.class)
+public class ExampleTest {
+
+    @Mock private UserService userService;
+    @Mock private ProductRepository productRepository;
+    @Mock private CacheManager cacheManager;
+    @Mock private ProductSubcategoryService productSubcategoryService;
+    @Mock EntityManager entityManager;
+
+    @InjectMocks private ProductServiceImpl productService;
+
+    private User user;
+    private Product product;
+
+    @Before
+    public void setup() {
+        long id = 1;
+        this.user = UserCreator.createEntity();
+        this.user.setId(id);
+        this.product = ProductCreator.createEntity(entityManager);
+        this.product.setId(id);
+        this.product.setAuthor(user);
+        when(userService.getCurrentUser()).thenReturn(Optional.of(this.user));
+        when(productRepository.findOneWithEagerRelationships(any())).thenReturn(Optional.of(this.product));
+    }
+
+    @Test
+    public void authorShouldBeAbleToEditOwnProduct() {
+        //when
+        productService.save(product);
+
+        //then
+        Mockito.verify(productRepository, times(1)).saveAndFlush(this.product);
+    }
+}
+    \end{minted}
+    \centering\caption{Przykładowy test jednostkowy (źródło: opr.wł)}\label{listing:javadoc}
+\end{listing}
+
 \todo{przykładowy test jednostkowy}
 
 \section{Testy integracyjne}
