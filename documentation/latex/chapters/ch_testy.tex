@@ -4,7 +4,7 @@
 Tworząc oprogramowanie istotne jest żeby akcje biznesowe i~inne operacje wykonywane w~systemie były realizowane w~określony sposób i~przynosiły oczekiwane rezultaty.
 Wiąże się z~tym pojęcie zapewniania jakości, czyli przede wszystkim "spełnienie lub przekroczenie wymagań klienta"\cite{book:jakosc-projektow-informatycznych}.
 Podstawowym narzędziem pozwalającym na zapewnienie jakości oprogramowania jest przeprowadzanie testów.
-Według sylabusa Międzynarodowej Rady Kwalifikacji Testów Oprogramowania (ang. International Software Testing Qualifications Board~-ISQB)\cite{url:istqb-syllabus} testowanie przeprowadza się w~celu:
+Według sylabusa Międzynarodowej Rady Kwalifikacji Testów Oprogramowania (ang. International Software Testing Qualifications Board~- ISQB)\cite{url:istqb-syllabus} testowanie przeprowadza się w~celu:
 \begin{itemize}
     \item znajdowania i~zapobiegania błędom,
     \item zdobywania pewności odnośnie poziomu jakości,
@@ -12,28 +12,33 @@ Według sylabusa Międzynarodowej Rady Kwalifikacji Testów Oprogramowania (ang.
     \item zapewniania informacji dotyczących bieżącego stanu implementacji.
 \end{itemize}
 
+\par
 W ramach niniejszej pracy opisane zostaną następujące rodzaje testów:
 \begin{itemize}
-    \item \textbf{jednostkowe}~-testujące logikę biznesową,
-    \item \textbf{integracyjne}~-testujące punkty końcowe API,
-    \item \textbf{użyteczności}~-testy przeprowadzane z~użytkownikami końcowymi sprawdzające użyteczność systemu.
+    \item \textbf{jednostkowe}~- testujące logikę biznesową,
+    \item \textbf{integracyjne}~- testujące punkty końcowe API,
+    \item \textbf{użyteczności}~- testy przeprowadzane z~użytkownikami końcowymi sprawdzające użyteczność systemu.
 \end{itemize}
 
-Pierwsze dwa rodzaje testów mogą być przeprowadzane automatycznie, dlatego postanowiono wdrożyć rozwiązanie zapewniające ciągłą integrację (ang. Continuous Integration~-CI) z~wykorzystaniem platformy Gitlab CI\cite{tech:gitlab-pipelines}.
+\par
+Pierwsze dwa rodzaje testów mogą być przeprowadzane automatycznie, dlatego postanowiono wdrożyć rozwiązanie zapewniające ciągłą integrację (ang. Continuous Integration~- CI) z~wykorzystaniem platformy Gitlab CI\cite{tech:gitlab-pipelines}.
 Dzięki temu w~momencie zwracania kodu do repozytorium automatycznie wykonywany jest zdefiniowany proces CI (ang. pipeline), zawierający następujące etapy:
 \begin{itemize}
-    \item \textbf{build}~-kompilacja kodu,
-    \item \textbf{unit tests}~-wykonanie testów jednostkowych,
-    \item \textbf{integration tests}~-wykonanie testów integracyjnych,
-    \item \textbf{package}~-pakowanie skompilowanego kodu do plików *.jar.
+    \item \textbf{build}~- kompilacja kodu,
+    \item \textbf{unit tests}~- wykonanie testów jednostkowych,
+    \item \textbf{integration tests}~- wykonanie testów integracyjnych,
+    \item \textbf{package}~- pakowanie skompilowanego kodu do plików *.jar.
 \end{itemize}
 
+\par
 Rezultat wykonania procesu CI na platformie Gitlab CI został przedstawiony na rysunku \ref{fig:gitlab-pipeline}.
 
 \todo{screenshoot pipeline z~gitlaba}
 
-\todo{wprowadzenie, gitlab ci}
 \section{Testy jednostkowe}
+
+Robert C. Martin stwierdził, że dobrze napisane testy jednostkowe zwiększają elastyczność kodu produkcyjnego, ułatwiają wprowadzanie zmian w kodzie i pozwalają szybko wykryć zaistniałe błędy\cite{book:czysty-kod}.
+
 \todo{testy jednostkowe}\cite{book:testy-jednostkowe}
 \section{Testy integracyjne}
 \todo{testy integracyjne}\cite{book:testy-jednostkowe}

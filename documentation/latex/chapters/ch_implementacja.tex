@@ -89,6 +89,8 @@ i należy traktować przedstawioną politykę prywatności jedynie jako wersję 
 a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w~kancelarii prawnej oferującej doradztwo prawne z~zakresu przetwarzania i~ochrony danych osobowych.
 %Wykorzystany szablon przedstawiony został w~dodatku \ref{app:privacy-policy}.
 
+\todo{usda-db}
+
 \section{Architektura systemu}\label{sec:system-architecture}
 \subsection{Architektura mikroserwisów}\label{subsec:system-architecture:microservices}
 
@@ -120,8 +122,8 @@ We wszystkich wymienionych pakietach możliwe jest korzystanie z~pakietu "DOMAIN
 \par
 Dodatkowo zdefiniowane są dwa pakiety nie związane z~realizacją akcji biznesowych:
 \begin{itemize}
-    \item "SECURITY"~-odpowiedzialny za zabezpieczanie aplikacji,
-    \item "CONFIG"~-odpowiedzialny za zapewnienie konfiguracji aplikacji.
+    \item "SECURITY"~- odpowiedzialny za zabezpieczanie aplikacji,
+    \item "CONFIG"~- odpowiedzialny za zapewnienie konfiguracji aplikacji.
 \end{itemize}
 
 \par
@@ -157,7 +159,7 @@ Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a~fragmen
 \imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
 
 Dodatkowo wykorzystano narzędzie Swagger\cite{tech:swagger} do automatycznego generowania dokumentacji
-punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints~-API Endpoints) na podstawie implementacji,
+punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints~- API Endpoints) na podstawie implementacji,
 czego rezultat zaprezentowano na rysunku \ref{fig:swagger}.
 
 \imagewide{img/swagger-example.png}{Przykładowy fragment dokumentacji Swagger}{swagger}
