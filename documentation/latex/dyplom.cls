@@ -75,7 +75,7 @@ linenos
 
 % nowe otoczenie do składania listingów
 \RequirePackage{float}
-\newfloat{listing}{htp}{lop}
+\newfloat{listing}{!htp}{lop}
 \floatname{listing}{Kod}
 \RequirePackage{chngcntr}
 \counterwithin{listing}{chapter}
@@ -154,7 +154,7 @@ linenos
 \renewcommand\cftlottitlefont{\fontsize{14pt}{14pt}\bfseries}
 
 %\image[source]{scale}{file path}{caption}{label}
-\newcommand{\image}[5][opr.wł]{
+\newcommand{\image}[5][\ownwork]{
 \begin{minipage}{\textwidth}
     \begin{figure}[H]
         \centering\includegraphics[scale=#2]{#3}
@@ -163,13 +163,17 @@ linenos
 \end{minipage}
 }
 
-\newcommand{\imagewide}[4][opr.wł]{
+\newcommand{\imagewide}[4][\ownwork]{
 \begin{minipage}{\textwidth}
     \begin{figure}[H]
         \centering\includegraphics[width=.85\textwidth]{#2}
         \caption{#3 (źródło: #1)}\label{fig:#4}
     \end{figure}
 \end{minipage}
+}
+
+\newcommand{\ownwork}{
+opr.wł
 }
 
 \newcommand{\inlinetodo}[1]{
