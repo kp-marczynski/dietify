@@ -38,128 +38,128 @@ Rezultat wykonania procesu CI na platformie Gitlab CI został przedstawiony na r
 \section{Testy jednostkowe}
 
 Robert C. Martin stwierdził, że dobrze napisane testy jednostkowe zwiększają elastyczność kodu produkcyjnego,
-ułatwiają wprowadzanie zmian w kodzie i pozwalają szybko wykryć zaistniałe błędy\cite{book:czysty-kod}.
+ułatwiają wprowadzanie zmian w~kodzie i~pozwalają szybko wykryć zaistniałe błędy\cite{book:czysty-kod}.
 
 \par
-Przedmiotem testów jednostkowych jest logika akcji biznesowych przeprowadzanych w obrębie warstwy serwisów.
+Przedmiotem testów jednostkowych jest logika akcji biznesowych przeprowadzanych w~obrębie warstwy serwisów.
 Należy jednak zauważyć, że wątpliwą wartość przynosi testowanie funkcji,
-których jedyną odpowiedzialnością jest przekierowanie żądania z warstwy punktów końcowych API do warstwy repozytoriów.
+których jedyną odpowiedzialnością jest przekierowanie żądania z~warstwy punktów końcowych API do warstwy repozytoriów.
 
 \par
-Testy jednostkowe, jak nazwa wskazuje, powinny testować jednostkę taką jak funkcja i powinny daną jednostkę testować w izolacji od zależności zewnętrznych\cite{book:testy-jednostkowe}.
-Aby osiągnąć taką izolację, zastosowano platformę Mockito dzięki czemu możliwe jest tworzenie makiet dla zależności zewnętrznych i definiowanie rezultatów obcowania z nimi.
-W rezultacie osiągnięta może być ścisła kontrola nad przepływem informacji w obrębie testowanej jednostki.
+Testy jednostkowe, jak nazwa wskazuje, powinny testować jednostkę taką jak funkcja i~powinny daną jednostkę testować w~izolacji od zależności zewnętrznych\cite{book:testy-jednostkowe}.
+Aby osiągnąć taką izolację, zastosowano platformę Mockito dzięki czemu możliwe jest tworzenie makiet dla zależności zewnętrznych i~definiowanie rezultatów obcowania z~nimi.
+W rezultacie osiągnięta może być ścisła kontrola nad przepływem informacji w~obrębie testowanej jednostki.
 
 \par
 Na listingu \ref{listing:unit-test} przedstawiony został przykładowy test jednostkowy.
 
-\begin{listing}[h!]
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
 \begin{minted}{java}
 @RunWith(MockitoJUnitRunner.class)
 public class ExampleUnitTest {
-    @Mock private UserService userService;
-    @Mock private ProductRepository productRepository;
-    @Mock private CacheManager cacheManager;
-    @Mock private ProductSubcategoryService productSubcategoryService;
-    @Mock EntityManager entityManager;
-    @InjectMocks private ProductServiceImpl productService;
-    private User user;
-    private Product product;
+  @Mock private UserService userService;
+  @Mock private ProductRepository productRepository;
+  @Mock private CacheManager cacheManager;
+  @Mock private ProductSubcategoryService productSubcategoryService;
+  @Mock EntityManager entityManager;
+  @InjectMocks private ProductServiceImpl productService;
+  private User user;
+  private Product product;
 
-    @Before
-    public void setup() {
-        long id = 1;
-        this.user = UserCreator.createEntity();
-        this.user.setId(id);
-        this.product = ProductCreator.createEntity(entityManager);
-        this.product.setId(id);
-        this.product.setAuthor(user);
-        when(userService.getCurrentUser())
-            .thenReturn(Optional.of(this.user));
-        when(productRepository.findOneWithEagerRelationships(any()))
-            .thenReturn(Optional.of(this.product));
-    }
+  @Before
+  public void setup() {
+    long id = 1;
+    this.user = UserCreator.createEntity();
+    this.user.setId(id);
+    this.product = ProductCreator.createEntity(entityManager);
+    this.product.setId(id);
+    this.product.setAuthor(user);
+    when(userService.getCurrentUser())
+      .thenReturn(Optional.of(this.user));
+    when(productRepository.findOneWithEagerRelationships(any()))
+      .thenReturn(Optional.of(this.product));
+  }
 
-    @Test
-    public void authorShouldBeAbleToEditOwnProduct() {
-        //when
-        productService.save(product);
-        //then
-        Mockito.verify(productRepository, times(1)).saveAndFlush(this.product);
-    }
+  @Test
+  public void authorShouldBeAbleToEditOwnProduct() {
+    //when
+    productService.save(product);
+    //then
+    Mockito.verify(productRepository, times(1)).saveAndFlush(this.product);
+  }
 }
 \end{minted}
-    \centering\caption{Przykładowy test jednostkowy (źródło: \ownwork)}\label{listing:unit-test}
-\end{listing}
+\begin{lstlisting}[caption={Przykładowy test jednostkowy \source{\ownwork}}, label={listing:unit-test}]
+\end{lstlisting}
+\end{minipage}
 
 \section{Testy integracyjne}
 
-W przeciwieństwie do testów jednostkowych testy integracyjne nie są wykonywane w całkowitej izolacji\cite{book:testy-jednostkowe}.
-Testowaniu podlegają punkty końcowe API z wykorzystaniem rzeczywistego połączenia z bazą danych.
+W przeciwieństwie do testów jednostkowych testy integracyjne nie są wykonywane w~całkowitej izolacji\cite{book:testy-jednostkowe}.
+Testowaniu podlegają punkty końcowe API z~wykorzystaniem rzeczywistego połączenia z~bazą danych.
 Na potrzeby testów tworzona jest instancja osadzonej bazy danych H2\cite{tech:h2-db} oraz inicjalizowany jest kontekst aplikacji Spring Boot.
 
 \par
-Celem przeprowadzania tego typu testów jest sprawdzenie czy punkty końcowe API w poprawny sposób obsługują przychodzące żądania
-z uwzględnieniem przeprowadzenia akcji biznesowych w warstwie serwisów i perzystencji w warstwie repozytoriów.
+Celem przeprowadzania tego typu testów jest sprawdzenie czy punkty końcowe API w~poprawny sposób obsługują przychodzące żądania
+z uwzględnieniem przeprowadzenia akcji biznesowych w~warstwie serwisów i~perzystencji w~warstwie repozytoriów.
 
 \par
 Na listingu \ref{listing:integration-test} przedstawiony został przykładowy test integracyjny.
 
-\begin{listing}[h!]
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
 \begin{minted}{java}
 @SpringBootTest(classes = RecipesApp.class)
 public class ExampleIntegrationTest {
-    @Autowired private DishTypeRepository dishTypeRepository;
-    @Autowired private DishTypeService dishTypeService;
-    @Autowired private DishTypeSearchRepository mockDishTypeSearchRepository;
-    @Autowired private MappingJackson2HttpMessageConverter jacksonMessageConverter;
-    @Autowired private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
-    @Autowired private ExceptionTranslator exceptionTranslator;
-    @Autowired private EntityManager em;
-    @Autowired private Validator validator;
+  @Autowired private DishTypeRepository dishTypeRepository;
+  @Autowired private DishTypeService dishTypeService;
+  @Autowired private DishTypeSearchRepository mockDishTypeSearchRepository;
+  @Autowired private MappingJackson2HttpMessageConverter jacksonMessageConverter;
+  @Autowired private PageableHandlerMethodArgumentResolver pageableArgumentResolver;
+  @Autowired private ExceptionTranslator exceptionTranslator;
+  @Autowired private EntityManager em;
+  @Autowired private Validator validator;
 
-    private MockMvc restDishTypeMockMvc;
+  private MockMvc restDishTypeMockMvc;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-        final DishTypeResource dishTypeResource = new DishTypeResource(dishTypeService);
-        this.restDishTypeMockMvc = MockMvcBuilders.standaloneSetup(dishTypeResource)
-            .setCustomArgumentResolvers(pageableArgumentResolver)
-            .setControllerAdvice(exceptionTranslator)
-            .setConversionService(createFormattingConversionService())
-            .setMessageConverters(jacksonMessageConverter)
-            .setValidator(validator).build();
-    }
+  @BeforeEach
+  public void setup() {
+    MockitoAnnotations.initMocks(this);
+    final DishTypeResource dishTypeResource = new DishTypeResource(dishTypeService);
+    this.restDishTypeMockMvc = MockMvcBuilders.standaloneSetup(dishTypeResource)
+      .setCustomArgumentResolvers(pageableArgumentResolver)
+      .setControllerAdvice(exceptionTranslator)
+      .setConversionService(createFormattingConversionService())
+      .setMessageConverters(jacksonMessageConverter)
+      .setValidator(validator).build();
+  }
 
-    @Test
-    @Transactional
-    public void getNonExistingDishType() throws Exception {
-        // Get the dishType
-        restDishTypeMockMvc.perform(get("/api/dish-types/{id}", Long.MAX_VALUE))
-            .andExpect(status().isNotFound());
-    }
+  @Test
+  @Transactional
+  public void getNonExistingDishType() throws Exception {
+    // Get the dishType
+    restDishTypeMockMvc.perform(get("/api/dish-types/{id}", Long.MAX_VALUE))
+      .andExpect(status().isNotFound());
+  }
 }
 \end{minted}
-    \centering\caption{Przykładowy test integracyjny (źródło: \ownwork)}\label{listing:integration-test}
-\end{listing}
-
-\newpage %todo temoral fix. remove if necessary
+\begin{lstlisting}[caption={Przykładowy test integracyjny \source{\ownwork}}, label={listing:integration-test}]
+\end{lstlisting}
+\end{minipage}
 
 \section{Testy użyteczności}
 
-Oprogramowanie zwykle nie jest tworzone, żeby istniało w próżni.
-Należy więc zbadać w jakim stopniu aplikacja może być używana przez rzeczywistych użytkowników.
+Oprogramowanie zwykle nie jest tworzone, żeby istniało w~próżni.
+Należy więc zbadać w~jakim stopniu aplikacja może być używana przez rzeczywistych użytkowników.
 W tym celu przeprowadzane są testy użyteczności\cite{book:testowanie-i-jakosc-oprogramowania}.
 
 \par
 W ramach realizacji tej grupy testów, 7 potencjalnych użytkowników (tj. osoby studiujące dietetykę lub zajmujące się profesjonalnie dietetyką)
-zostało poproszonych o zasymulowanie przeprowadzania kompleksowej wizyty pacjenta
-i wyrażenie opinii o używalności systemu poprzez odpowiedź na pytania ustandaryzowanego formularza Skali Używalności Systemu (ang. System Usability Scale - SUS)\cite{url:sus}.
+zostało poproszonych o~zasymulowanie przeprowadzania kompleksowej wizyty pacjenta
+i wyrażenie opinii o~używalności systemu poprzez odpowiedź na pytania ustandaryzowanego formularza Skali Używalności Systemu (ang. System Usability Scale - SUS)\cite{url:sus}.
 
 \par
-Korzystając z SUS, uczestnik badania udziela odpowiedzi na 10 pytań w pięciostopniowej skali od "Bardzo się zgadzam" do "Bardzo się nie zgadzam".
-Rezultaty następnie są konwertowane na wartość liczbową z zakresu 0-4, a suma otrzymanych punktów jest mnożona przez 2.5, żeby otrzymać wynik w skali 0-100.
+Korzystając z~SUS, uczestnik badania udziela odpowiedzi na 10 pytań w~pięciostopniowej skali od "Bardzo się zgadzam" do "Bardzo się nie zgadzam".
+Rezultaty następnie są konwertowane na wartość liczbową z~zakresu 0-4, a~suma otrzymanych punktów jest mnożona przez 2.5, żeby otrzymać wynik w~skali 0-100.
 Wynik powyżej 68 punktów uznawany jest za ponadprzeciętny.
 Na rysunku \ref{fig:sus-form} przedstawiony został wykorzystany kwestionariusz SUS.
 

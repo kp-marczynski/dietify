@@ -58,7 +58,7 @@ ponieważ jest to bezstanowy mechanizm, który można bezproblemowo wykorzystywa
 \par
 W celu przyspieszenia rozwoju aplikacji postanowiono wykorzystać generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
 Korzystając z~autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w~oparciu o~stos technologii Netflix OSS oraz encji przypisanych do konkretnych serwisów.
-Wykorzystaną konfigurację przedstawiono w~dodatku \ref{app:jdl}, jednakże w~celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w~rozdziale \ref{sec:database}.
+Wykorzystaną konfigurację przedstawiono w~dodatku \ref{app:jdl} na listingu \ref{listing:short-jdl}, jednakże w~celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w~rozdziale \ref{sec:database}.
 Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, uwierzytelnianie i~autoryzację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
 
 \par
@@ -89,13 +89,44 @@ i należy traktować przedstawioną politykę prywatności jedynie jako wersję 
 a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w~kancelarii prawnej oferującej doradztwo prawne z~zakresu przetwarzania i~ochrony danych osobowych.
 %Wykorzystany szablon przedstawiony został w~dodatku \ref{app:privacy-policy}.
 
-\todo{usda-db}
+\par
+Aby zapewnić użytkownikom aplikacji podstawową bazę produktów spożywczych postanowiono wykorzystać bazę USDA omówioną w~rozdziale \ref{sec:domain-literature}.
+Baza jest udostępniana w~formie pliku bazy Microsoft Access.
+Żeby umożliwić wykorzystanie tej bazy w~tworzonym programie, z~pomocą narzędzi dostępnych w~programie Microsoft Access przygotowano pliki w~formacie CSV dla następujących kategorii:
+\begin{itemize}
+    \item\ref{kat:Product},
+    \item\ref{kat:ProductBasicNutritionData},
+    \item\ref{kat:NutritionData},
+    \item\ref{kat:NutritionDefinition},
+    \item\ref{kat:NutritionDefinitionTranslation},
+    \item\ref{kat:HouseholdMeasure},
+    \item\ref{kat:ProductSubcategory}.
+    \item\ref{kat:ProductCategory},
+    \item\ref{kat:ProductCategoryTranslation},
+\end{itemize}
+
+\par
+Przygotowane pliki są wczytywane do bazy za pomocą Liquibase.
+Przykładowy skrypt ładujący dane z~pliku CSV został przedstawiony na listingu \ref{listing:liquibase}.
+
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
+    \begin{minted}{xml}
+<changeSet id="201902130001" author="kmarczynski" context="usda">
+  <loadData file="config/liquibase/usda_sr_db/household_measure.csv"
+    quotchar='"' separator=";" tableName="household_measure">
+    <column header="product_id" name="product_id" type="numeric"/>
+    <column header="measure_description" name="description" type="string"/>
+    <column header="grams_weight" name="grams_weight" type="numeric"/>
+    <column header="is_visible" name="is_visible" type="boolean"/>
+  </loadData>
+</changeSet>
+    \end{minted}
+    \begin{lstlisting}[caption={Skrpyt ładujący dane z~pliku CSV \source{\ownwork}}, label={listing:liquibase}]
+\end{lstlisting}
+\end{minipage}
 
 \section{Architektura systemu}\label{sec:system-architecture}
 \subsection{Architektura mikroserwisów}\label{subsec:system-architecture:microservices}
-
-\noindent
-\image{0.7}{../uml/deployment_diagrams/deployment.png}{Diagram rozmieszczenia}{deployment-diagram}
 
 Na rysunku \ref{fig:deployment-diagram} przedstawiono diagram rozmieszczenia prezentujący fizyczne rozmieszczenie komponentów systemu.
 Mikroserwisy mogą mieć wiele instancji, które po uruchomieniu rejestrują się w~serwisie JHipster Registry za pomocą protokołu HTTP.
@@ -106,9 +137,10 @@ Warto zauważyć, że serwis JHipster Registry jest pojedynczym punktem awarii (
 Komunikacja z~serwerami bazodanowymi odbywa się za pomocą protokołu PostgreSQL.
 W celu uniknięcia niespójności danych przyjęto założenie, że może istnieć tylko jedna instancja bazy danych dla konkretnego serwisu.
 
+\image{0.7}{../uml/deployment_diagrams/deployment.png}{Diagram rozmieszczenia}{deployment-diagram}
+
 \subsection{Architektura backendu}\label{subsec:system-architecture:backend}
 
-\noindent
 \image{0.75}{../uml/package_diagrams/backend.png}{Podstawowy diagram pakietów warstwy biznesowej mikroserwisów}{package-diagram-backend}
 
 Na rysunku \ref{fig:package-diagram-backend} przedstawiono diagram pakietów obrazujący konwencję zastosowaną we wszystkich mikroserwisach podczas implementowania kodu backendu.
@@ -131,7 +163,6 @@ Klasy z~pakietów "REST", "SERVICE.IMPL", "REPOSITORY", "SECURITY" i~"CONFIG" zd
 
 \subsection{Architektura frontendu}\label{subsec:system-architecture:frontend}
 
-\noindent
 \image{0.75}{img/angular-architecture.png}{Ogólna architektura angulara}{angular-architecture}
 
 Architektura frontendu jest ściśle związana a~architekturą promowaną na platformie Angular opartej na komponentach,
@@ -142,19 +173,20 @@ Komponenty mogą korzystać z~serwisów dostępnych z~pomocą mechanizmu wstrzyk
 \section{Dokumentacja kodu}\label{sec:code-documentation}
 
 Podstawowa dokumentacja kodu została napisana przy użyciu komentarzy w~stylu kompatybilnym z~generatorem dokumentacji JavaDoc\cite{tech:javadoc}.
-Przykładowy komentarz przedstawiono na listingu\ref{listing:javadoc}, a~fragment wygenerowanej dokumentacji na rysunku \ref{fig:javadoc}.
+Przykładowy komentarz przedstawiono na listingu \ref{listing:javadoc}, a~fragment wygenerowanej dokumentacji na rysunku \ref{fig:javadoc}.
 
-\begin{listing}[h!]
-    \begin{minted}{bash}
-        /**
-        * Short description of measure in language of a~product, e.g. \"cup\" or \"tea spoon\"
-        */
-        @NotNull
-        @Size(min = 1, max = 255)
-        private String description;
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
+    \begin{minted}{java}
+/**
+* Short description of measure in language of a~product, e.g. \"cup\" or \"tea spoon\"
+*/
+@NotNull
+@Size(min = 1, max = 255)
+private String description;
     \end{minted}
-    \centering\caption{Uruchamianie Gradle Wrapper (źródło: \ownwork)}\label{listing:javadoc}
-\end{listing}
+    \begin{lstlisting}[caption={Komentarz w~stylu JavaDoc \source{\ownwork}}, label={listing:javadoc}]
+\end{lstlisting}
+\end{minipage}
 
 \imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
 
@@ -177,44 +209,50 @@ Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, ż
 
 Aby zbudować i~uruchomić projekt z~wykorzystaniem Dockera należy z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
-\begin{listing}[h!]
+
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
     \begin{minted}{bash}
-        cd gateway
-        npm install
-        sh gradlew bootJar -Pprod jibDockerBuild
-        cd ../products
-        sh gradlew bootJar -Pprod jibDockerBuild
-        cd ../recipes
-        sh gradlew bootJar -Pprod jibDockerBuild
-        cd ../mealplans
-        sh gradlew bootJar -Pprod jibDockerBuild
-        cd ../appointments
-        sh gradlew bootJar -Pprod jibDockerBuild
-        cd ../docker-compose
-        sh docker-compose up
+cd gateway
+npm install
+sh gradlew bootJar -Pprod jibDockerBuild
+cd ../products
+sh gradlew bootJar -Pprod jibDockerBuild
+cd ../recipes
+sh gradlew bootJar -Pprod jibDockerBuild
+cd ../mealplans
+sh gradlew bootJar -Pprod jibDockerBuild
+cd ../appointments
+sh gradlew bootJar -Pprod jibDockerBuild
+cd ../docker-compose
+sh docker-compose up
     \end{minted}
-    \centering\caption{Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze (źródło: \ownwork)}\label{listing:komilacja-i-uruchomienie}
-\end{listing}
+    \begin{lstlisting}[caption={Skrypt kompilujący wszystkie mikroserwisy i~uruchamiający aplikację na Dockerze \source{\ownwork}}, label={listing:komilacja-i-uruchomienie}]
+\end{lstlisting}
+\end{minipage}
 
 Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
 W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
-\begin{listing}[h!]
+
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
     \begin{minted}{bash}
-        cd service-discovery
-        java -jar ./jhipster-registry-5.0.2.jar --spring.profiles.active=dev --spring.security.user.password=admin --spring.cloud.config.server.composite.0.type=git --spring.cloud.config.server.composite.0.uri= https://github.com/jhipster/jhipster-registry-sample-config
+cd service-discovery
+java -jar ./jhipster-registry-5.0.2.jar --spring.profiles.active=dev --spring.security.user.password=admin --spring.cloud.config.server.composite.0.type=git --spring.cloud.config.server.composite.0.uri= https://github.com/jhipster/jhipster-registry-sample-config
     \end{minted}
-    \centering\caption{Uruchamianie JHipster Registry (źródło: \ownwork)}\label{listing:service-discovery}
-\end{listing}
+    \begin{lstlisting}[caption={Uruchamianie JHipster Registry \source{\ownwork}}, label={listing:service-discovery}]
+\end{lstlisting}
+\end{minipage}
 
 Następnie z~poziomu katalogu każdego z~serwisów (gateway, products, recipes, mealplans, appointments)
 należy wykonać polecenie uruchamiające Gradle Wrapper przedstawione na listingu \ref{listing:run-gradle-wrapper}.
-\begin{listing}[h!]
+
+\noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
     \begin{minted}{bash}
-        ./gradlew
+./gradlew
     \end{minted}
-    \centering\caption{Uruchamianie Gradle Wrapper (źródło: \ownwork)}\label{listing:run-gradle-wrapper}
-\end{listing}
+    \begin{lstlisting}[caption={Uruchamianie Gradle Wrapper \source{\ownwork}}, label={listing:run-gradle-wrapper}]
+\end{lstlisting}
+\end{minipage}
 
 Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \textit{localhost:8080}.
 

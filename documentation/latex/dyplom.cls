@@ -37,7 +37,7 @@
 {6\p@}
 %%% Floaty
 %% Rysunki
-\renewcommand\figurename{Rys.}
+\renewcommand\figurename{Rysunek}
 \RequirePackage{microtype}
 \RequirePackage[utf8]{inputenc}
 \RequirePackage[T1]{fontenc}
@@ -75,10 +75,13 @@ linenos
 
 % nowe otoczenie do składania listingów
 \RequirePackage{float}
-\newfloat{listing}{!htp}{lop}
-\floatname{listing}{Kod}
+%\newfloat{listing}{!htp}{lop}
+%\floatname{listing}{Kod}
 \RequirePackage{chngcntr}
-\counterwithin{listing}{chapter}
+%\counterwithin{listing}{chapter}
+\usepackage{listings}
+\renewcommand\lstlistingname{Listing}
+\renewcommand\lstlistlistingname{Spis kodów źródłowych}
 
 % patch wyrównujący spis listingów do lewego marginesu
 %https://tex.stackexchange.com/questions/58469/why-are-listof-and-listoffigures-styled-differently
@@ -155,26 +158,25 @@ linenos
 
 %\image[source]{scale}{file path}{caption}{label}
 \newcommand{\image}[5][\ownwork]{
-\begin{minipage}{\textwidth}
+\noindent\begin{minipage}{\textwidth}
     \begin{figure}[H]
         \centering\includegraphics[scale=#2]{#3}
-        \caption{#4 (źródło: #1)}\label{fig:#5}
+        \caption{#4 \source{#1}}\label{fig:#5}
     \end{figure}
 \end{minipage}
 }
 
 \newcommand{\imagewide}[4][\ownwork]{
-\begin{minipage}{\textwidth}
+\noindent\begin{minipage}{\textwidth}
     \begin{figure}[H]
         \centering\includegraphics[width=.85\textwidth]{#2}
-        \caption{#3 (źródło: #1)}\label{fig:#4}
+        \caption{#3 \source{#1}}\label{fig:#4}
     \end{figure}
 \end{minipage}
 }
 
-\newcommand{\ownwork}{
-opr.wł
-}
+\newcommand{\source}[1]{(źródło: #1)}
+\newcommand{\ownwork}{opr. wł.}
 
 \newcommand{\inlinetodo}[1]{
 \textcolor{red}{(#1)}
