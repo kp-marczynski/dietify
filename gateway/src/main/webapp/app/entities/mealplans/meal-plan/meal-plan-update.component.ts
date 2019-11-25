@@ -101,10 +101,10 @@ export class MealPlanUpdateComponent implements OnInit {
   findRecipe(day: FormGroup, mealRecipe: FormGroup): void {
     this.recipeService.find(mealRecipe.get('recipeId').value).subscribe(
       (res: HttpResponse<IRecipe>) => {
-        mealRecipe.patchValue({ product: res.body });
+        mealRecipe.patchValue({ recipe: res.body });
         this.getNutritionData(day);
       },
-      (res: HttpErrorResponse) => mealRecipe.patchValue({ product: null })
+      (res: HttpErrorResponse) => mealRecipe.patchValue({ recipe: null })
     );
   }
 

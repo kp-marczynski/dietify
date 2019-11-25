@@ -261,12 +261,12 @@ export class RecipeUpdateComponent implements OnInit {
         const amount = productPortion.get('amount').value;
 
         const scale = householdMeasureId ? product.householdMeasures.find(measure => measure.id === householdMeasureId).gramsWeight : 1;
-        const portionGramsWeight = (amount * scale) / 100;
+        const portionGramsWeight = amount * scale;
         recipe.totalGramsWeight += portionGramsWeight;
-        basicNutritionData.energy += product.basicNutritionData.energy * portionGramsWeight;
-        basicNutritionData.fat += product.basicNutritionData.fat * portionGramsWeight;
-        basicNutritionData.protein += product.basicNutritionData.protein * portionGramsWeight;
-        basicNutritionData.carbohydrates += product.basicNutritionData.carbohydrates * portionGramsWeight;
+        basicNutritionData.energy += (product.basicNutritionData.energy * portionGramsWeight) / 100;
+        basicNutritionData.fat += (product.basicNutritionData.fat * portionGramsWeight) / 100;
+        basicNutritionData.protein += (product.basicNutritionData.protein * portionGramsWeight) / 100;
+        basicNutritionData.carbohydrates += (product.basicNutritionData.carbohydrates * portionGramsWeight) / 100;
       }
     }
     recipe.totalGramsWeight = Math.floor(recipe.totalGramsWeight);

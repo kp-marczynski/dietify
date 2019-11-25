@@ -308,7 +308,7 @@
                                 <div *ngIf="dayBasicNutritionResponses[day.get('ordinalNumber').value]">
                                 <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
                                     <h5>{{nutritionKey}}</h5>
-                                    <div
+                                    <div style="width: 100%;"
                                         class="btn btn-sm {{getSummaryButtonClass(dayBasicNutritionResponses[day.get('ordinalNumber').value],nutritionKey)}}">
                                         <fa-icon icon="{{getSummaryIcon(dayBasicNutritionResponses[day.get('ordinalNumber').value],nutritionKey)}}"></fa-icon>&nbsp;
                                         <span>
