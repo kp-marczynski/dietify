@@ -3,14 +3,16 @@ import { INutritionData } from 'app/shared/model/products/nutrition-data.model';
 import { IHouseholdMeasure } from 'app/shared/model/products/household-measure.model';
 import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { IDietType } from 'app/shared/model/products/diet-type.model';
-
+import { Moment } from 'moment';
 export interface IProduct {
   id?: number;
   source?: string;
   authorId?: number;
   description?: string;
   isFinal?: boolean;
-  isVerified?: boolean;
+  // isVerified?: boolean;
+  creationTimestamp?: Moment;
+  lastEditTimestamp?: Moment;
   language?: string;
   basicNutritionData?: IProductBasicNutritionData;
   nutritionData?: INutritionData[];
@@ -27,7 +29,9 @@ export class Product implements IProduct {
     public authorId?: number,
     public description?: string,
     public isFinal?: boolean,
-    public isVerified?: boolean,
+    // public isVerified?: boolean,
+    public creationTimestamp?: Moment,
+    public lastEditTimestamp?: Moment,
     public language?: string,
     public basicNutritionData?: IProductBasicNutritionData,
     public nutritionData?: INutritionData[],
@@ -37,6 +41,6 @@ export class Product implements IProduct {
     public unsuitableDiets?: IDietType[]
   ) {
     this.isFinal = this.isFinal || false;
-    this.isVerified = this.isVerified || false;
+    // this.isVerified = this.isVerified || false;
   }
 }

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="201911271605-1" author="kp-marczynski">
+        <addColumn tableName="meal_plan">
+            <column name="creation_timestamp" type="datetime" />
+        </addColumn>
+        <sql>update document set creation_timestamp = creation_date</sql>
+        <dropColumn tableName="meal_plan" columnName="creation_date" />
+
+        <addColumn tableName="meal_plan">
+            <column name="last_edit_timestamp" type="datetime" />
+        </addColumn>
+<!--        <sql>update document set last_edit_timestamp = last_edit_date</sql>-->
+<!--        <dropColumn tableName="meal_plan" columnName="last_edit_date" />-->
+
+        <dropColumn tableName="meal_plan" columnName="is_locked" />
+        <dropColumn tableName="meal_plan" columnName="is_visible" />
+        <addColumn tableName="meal_plan">
+            <column name="is_final" type="boolean" defaultValueBoolean="false"/>
+        </addColumn>
+    </changeSet>
+
+</databaseChangeLog>

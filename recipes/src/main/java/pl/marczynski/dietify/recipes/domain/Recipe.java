@@ -9,7 +9,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,6 +49,14 @@ public class Recipe implements Serializable {
     private Integer preparationTimeMinutes;
 
     /**
+     * Flag specifying if recipe is final or editable
+     */
+    @NotNull
+    @ApiModelProperty(value = "Flag specifying if product is final or editable", required = true)
+    @Column(name = "is_final", nullable = false)
+    private Boolean isFinal;
+
+    /**
      * Number of portions for which all quantities are specified
      */
     @NotNull
@@ -78,26 +86,26 @@ public class Recipe implements Serializable {
     private Long authorId;
 
     /**
-     * Date of creation
+     * Timestamp of creation
      */
-    @ApiModelProperty(value = "Date of creation", required = true)
-    @Column(name = "creation_date", nullable = false)
-    private LocalDate creationDate;
+    @ApiModelProperty(value = "Timestamp of creation")
+    @Column(name = "creation_timestamp")
+    private Instant creationTimestamp;
 
     /**
-     * Date of last edit
+     * Timestamp of last edit
      */
-    @ApiModelProperty(value = "Date of last edit", required = true)
-    @Column(name = "last_edit_date", nullable = false)
-    private LocalDate lastEditDate;
+    @ApiModelProperty(value = "Timestamp of last edit")
+    @Column(name = "last_edit_timestamp")
+    private Instant lastEditTimestamp;
 
-    /**
-     * Flag specifying if recipe should be visible in list of author's recipes
-     */
-    @NotNull
-    @ApiModelProperty(value = "Flag specifying if recipe should be visible in list of author's recipes", required = true)
-    @Column(name = "is_visible", nullable = false)
-    private Boolean isVisible;
+//    /**
+//     * Flag specifying if recipe should be visible in list of author's recipes
+//     */
+//    @NotNull
+//    @ApiModelProperty(value = "Flag specifying if recipe should be visible in list of author's recipes", required = true)
+//    @Column(name = "is_visible", nullable = false)
+//    private Boolean isVisible;
 
     /**
      * Language tag of a recipe as ISO_639-1 code
@@ -169,6 +177,14 @@ public class Recipe implements Serializable {
         this.id = id;
     }
 
+    public Boolean getFinal() {
+        return isFinal;
+    }
+
+    public void setFinal(Boolean aFinal) {
+        isFinal = aFinal;
+    }
+
     public String getName() {
         return name;
     }
@@ -183,6 +199,14 @@ public class Recipe implements Serializable {
 
     public void setPreparationTimeMinutes(Integer preparationTimeMinutes) {
         this.preparationTimeMinutes = preparationTimeMinutes;
+    }
+
+    public Boolean isIsFinal() {
+        return isFinal;
+    }
+
+    public void setIsFinal(Boolean isFinal) {
+        this.isFinal = isFinal;
     }
 
     public Double getNumberOfPortions() {
@@ -217,29 +241,29 @@ public class Recipe implements Serializable {
         this.authorId = authorId;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public Instant getCreationTimestamp() {
+        return creationTimestamp;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationTimestamp(Instant creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
     }
 
-    public LocalDate getLastEditDate() {
-        return lastEditDate;
+    public Instant getLastEditTimestamp() {
+        return lastEditTimestamp;
     }
 
-    public void setLastEditDate(LocalDate lastEditDate) {
-        this.lastEditDate = lastEditDate;
+    public void setLastEditTimestamp(Instant lastEditTimestamp) {
+        this.lastEditTimestamp = lastEditTimestamp;
     }
 
-    public Boolean isIsVisible() {
-        return isVisible;
-    }
-
-    public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
-    }
+//    public Boolean isIsVisible() {
+//        return isVisible;
+//    }
+//
+//    public void setIsVisible(Boolean isVisible) {
+//        this.isVisible = isVisible;
+//    }
 
     public String getLanguage() {
         return language;
@@ -348,9 +372,9 @@ public class Recipe implements Serializable {
             ", image='" + getImage() + "'" +
             ", imageContentType='" + getImageContentType() + "'" +
             ", authorId=" + getAuthorId() +
-            ", creationDate='" + getCreationDate() + "'" +
-            ", lastEditDate='" + getLastEditDate() + "'" +
-            ", isVisible='" + isIsVisible() + "'" +
+            ", creationTimestamp='" + getCreationTimestamp() + "'" +
+            ", lastEditTimestamp='" + getLastEditTimestamp() + "'" +
+//            ", isVisible='" + isIsVisible() + "'" +
             ", language='" + getLanguage() + "'" +
             ", totalGramsWeight=" + getTotalGramsWeight() +
             "}";

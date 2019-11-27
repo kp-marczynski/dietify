@@ -16,9 +16,10 @@ export interface IRecipe {
   imageContentType?: string;
   image?: any;
   authorId?: number;
-  creationDate?: Moment;
-  lastEditDate?: Moment;
-  isVisible?: boolean;
+  creationTimestamp?: Moment;
+  lastEditTimestamp?: Moment;
+  // isVisible?: boolean;
+  isFinal?: boolean;
   language?: string;
   totalGramsWeight?: number;
   basicNutritionData?: IRecipeBasicNutritionData;
@@ -40,9 +41,10 @@ export class Recipe implements IRecipe {
     public imageContentType?: string,
     public image?: any,
     public authorId?: number,
-    public creationDate?: Moment,
-    public lastEditDate?: Moment,
-    public isVisible?: boolean,
+    public creationTimestamp?: Moment,
+    public lastEditTimestamp?: Moment,
+    // public isVisible?: boolean,
+    public isFinal?: boolean,
     public language?: string,
     public totalGramsWeight?: number,
     public basicNutritionData?: IRecipeBasicNutritionData,
@@ -54,6 +56,7 @@ export class Recipe implements IRecipe {
     public dishTypes?: IDishType[],
     public mealTypes?: IMealType[]
   ) {
-    this.isVisible = this.isVisible || false;
+    // this.isVisible = this.isVisible || false;
+    this.isFinal = this.isFinal || false;
   }
 }

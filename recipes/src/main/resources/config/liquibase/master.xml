@@ -40,4 +40,5 @@
     <include file="config/liquibase/changelog/20190722200929_added_entity_constraints_RecipeSuitableForDiet.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20190722200930_added_entity_constraints_RecipeUnsuitableForDiet.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
+    <include file="config/liquibase/changelog/201911271605_update_schema_to_v3.xml" relativeToChangelogFile="false"/>
 </databaseChangeLog>

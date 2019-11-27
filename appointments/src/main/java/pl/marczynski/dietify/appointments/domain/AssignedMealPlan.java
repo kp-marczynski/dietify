@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 
 import java.io.Serializable;
+import java.time.Instant;
 
 /**
  * A AssignedMealPlan.
@@ -32,6 +33,20 @@ public class AssignedMealPlan implements Serializable {
     @Column(name = "meal_plan_id", nullable = false)
     private Long mealPlanId;
 
+    /**
+     * Timestamp of last edit
+     */
+    @ApiModelProperty(value = "Timestamp of assigment")
+    @Column(name = "assigment_time")
+    private Instant assigmentTime;
+
+    public Instant getAssigmentTime() {
+        return assigmentTime;
+    }
+
+    public void setAssigmentTime(Instant assigmentTime) {
+        this.assigmentTime = assigmentTime;
+    }
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;

@@ -9,6 +9,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,13 +62,27 @@ public class Product implements Serializable {
     @Column(name = "is_final", nullable = false)
     private Boolean isFinal;
 
+//    /**
+//     * Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.
+//     */
+//    @NotNull
+//    @ApiModelProperty(value = "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.", required = true)
+//    @Column(name = "is_verified", nullable = false)
+//    private Boolean isVerified;
+
     /**
-     * Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.
+     * Timestamp of creation
      */
-    @NotNull
-    @ApiModelProperty(value = "Flag specifying if product is verified. All products retrieved from external sources should be checked for eligibility to use and therefore initially this flag is set to false for these.", required = true)
-    @Column(name = "is_verified", nullable = false)
-    private Boolean isVerified;
+    @ApiModelProperty(value = "Timestamp of creation")
+    @Column(name = "creation_timestamp")
+    private Instant creationTimestamp;
+
+    /**
+     * Timestamp of last edit
+     */
+    @ApiModelProperty(value = "Timestamp of last edit")
+    @Column(name = "last_edit_timestamp")
+    private Instant lastEditTimestamp;
 
     /**
      * Language tag of a product as ISO_639-1 code
@@ -121,6 +136,14 @@ public class Product implements Serializable {
         this.id = id;
     }
 
+    public Boolean getFinal() {
+        return isFinal;
+    }
+
+    public void setFinal(Boolean aFinal) {
+        isFinal = aFinal;
+    }
+
     public String getSource() {
         return source;
     }
@@ -153,12 +176,28 @@ public class Product implements Serializable {
         this.isFinal = isFinal;
     }
 
-    public Boolean isIsVerified() {
-        return isVerified;
+//    public Boolean isIsVerified() {
+//        return isVerified;
+//    }
+//
+//    public void setIsVerified(Boolean isVerified) {
+//        this.isVerified = isVerified;
+//    }
+
+    public Instant getCreationTimestamp() {
+        return creationTimestamp;
     }
 
-    public void setIsVerified(Boolean isVerified) {
-        this.isVerified = isVerified;
+    public void setCreationTimestamp(Instant creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
+    public Instant getLastEditTimestamp() {
+        return lastEditTimestamp;
+    }
+
+    public void setLastEditTimestamp(Instant lastEditTimestamp) {
+        this.lastEditTimestamp = lastEditTimestamp;
     }
 
     public String getLanguage() {
@@ -242,7 +281,7 @@ public class Product implements Serializable {
             ", authorId=" + getAuthorId() +
             ", description='" + getDescription() + "'" +
             ", isFinal='" + isIsFinal() + "'" +
-            ", isVerified='" + isIsVerified() + "'" +
+//            ", isVerified='" + isIsVerified() + "'" +
             ", language='" + getLanguage() + "'" +
             "}";
     }
