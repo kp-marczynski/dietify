@@ -10,13 +10,13 @@
         <addColumn tableName="recipe">
             <column name="creation_timestamp" type="datetime" />
         </addColumn>
-        <sql>update document set creation_timestamp = creation_date</sql>
+        <sql>update recipe set creation_timestamp = creation_date</sql>
         <dropColumn tableName="recipe" columnName="creation_date" />
 
         <addColumn tableName="recipe">
             <column name="last_edit_timestamp" type="datetime" />
         </addColumn>
-        <sql>update document set last_edit_timestamp = last_edit_date</sql>
+        <sql>update recipe set last_edit_timestamp = last_edit_date</sql>
         <dropColumn tableName="recipe" columnName="last_edit_date" />
 
         <dropColumn tableName="recipe" columnName="is_visible" />
