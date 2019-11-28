@@ -56,19 +56,19 @@ gateway-gradle-integration-test:
       - /builds/kp.marczynski/dietify/gateway/build/jacoco/
     expire_in: 1 day
 
-gateway-frontend-test:
-  stage: unit-test
-  script:
-    - cd /builds/kp.marczynski/dietify/gateway
-    - sh gradlew npm_install -PnodeInstall --no-daemon
-    - sh gradlew npm_run_test -PnodeInstall --no-daemon
-  artifacts:
-    reports:
-      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
-    paths:
-      - /builds/kp.marczynski/dietify/gateway/build/test-results/
-      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
-    expire_in: 1 day
+#gateway-frontend-test:
+#  stage: unit-test
+#  script:
+#    - cd /builds/kp.marczynski/dietify/gateway
+#    - sh gradlew npm_install -PnodeInstall --no-daemon
+#    - sh gradlew npm_run_test -PnodeInstall --no-daemon
+#  artifacts:
+#    reports:
+#      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
+#    paths:
+#      - /builds/kp.marczynski/dietify/gateway/build/test-results/
+#      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+#    expire_in: 1 day
 
 gateway-gradle-package:
   stage: package
