@@ -193,8 +193,6 @@ public class MealPlanResourceIT {
         assertThat(mealPlanList).hasSize(databaseSizeBeforeCreate + 1);
         MealPlan testMealPlan = mealPlanList.get(mealPlanList.size() - 1);
         assertThat(testMealPlan.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
-        assertThat(testMealPlan.getCreationTimestamp()).isEqualTo(DEFAULT_CREATION_DATE);
-        assertThat(testMealPlan.getLastEditTimestamp()).isEqualTo(DEFAULT_LAST_EDIT_DATE);
         assertThat(testMealPlan.getName()).isEqualTo(DEFAULT_NAME);
         assertThat(testMealPlan.isIsFinal()).isEqualTo(DEFAULT_IS_VISIBLE);
         assertThat(testMealPlan.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
@@ -238,24 +236,6 @@ public class MealPlanResourceIT {
         int databaseSizeBeforeTest = mealPlanRepository.findAll().size();
         // set the field null
         mealPlan.setAuthorId(null);
-
-        // Create the MealPlan, which fails.
-
-        restMealPlanMockMvc.perform(post("/api/meal-plans")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
-            .andExpect(status().isBadRequest());
-
-        List<MealPlan> mealPlanList = mealPlanRepository.findAll();
-        assertThat(mealPlanList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkCreationDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = mealPlanRepository.findAll().size();
-        // set the field null
-        mealPlan.setCreationTimestamp(null);
 
         // Create the MealPlan, which fails.
 
@@ -424,10 +404,7 @@ public class MealPlanResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(mealPlan.getId().intValue())))
             .andExpect(jsonPath("$.[*].authorId").value(hasItem(DEFAULT_AUTHOR_ID.intValue())))
-            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME.toString())))
-            .andExpect(jsonPath("$.[*].isVisible").value(hasItem(DEFAULT_IS_VISIBLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].isLocked").value(hasItem(DEFAULT_IS_LOCKED.booleanValue())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())))
             .andExpect(jsonPath("$.[*].numberOfDays").value(hasItem(DEFAULT_NUMBER_OF_DAYS)))
             .andExpect(jsonPath("$.[*].numberOfMealsPerDay").value(hasItem(DEFAULT_NUMBER_OF_MEALS_PER_DAY)))
@@ -449,10 +426,7 @@ public class MealPlanResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.id").value(mealPlan.getId().intValue()))
             .andExpect(jsonPath("$.authorId").value(DEFAULT_AUTHOR_ID.intValue()))
-            .andExpect(jsonPath("$.creationDate").value(DEFAULT_CREATION_DATE.toString()))
             .andExpect(jsonPath("$.name").value(DEFAULT_NAME.toString()))
-            .andExpect(jsonPath("$.isVisible").value(DEFAULT_IS_VISIBLE.booleanValue()))
-            .andExpect(jsonPath("$.isLocked").value(DEFAULT_IS_LOCKED.booleanValue()))
             .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE.toString()))
             .andExpect(jsonPath("$.numberOfDays").value(DEFAULT_NUMBER_OF_DAYS))
             .andExpect(jsonPath("$.numberOfMealsPerDay").value(DEFAULT_NUMBER_OF_MEALS_PER_DAY))
@@ -485,8 +459,6 @@ public class MealPlanResourceIT {
         // Disconnect from session so that the updates on updatedMealPlan are not directly saved in db
         em.detach(updatedMealPlan);
         updatedMealPlan.setAuthorId(UPDATED_AUTHOR_ID);
-        updatedMealPlan.setCreationTimestamp(UPDATED_CREATION_DATE);
-        updatedMealPlan.setLastEditTimestamp(UPDATED_LAST_EDIT_DATE);
         updatedMealPlan.setName(UPDATED_NAME);
         updatedMealPlan.setIsFinal(UPDATED_IS_VISIBLE);
         updatedMealPlan.setLanguage(UPDATED_LANGUAGE);
@@ -578,10 +550,7 @@ public class MealPlanResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(mealPlan.getId().intValue())))
             .andExpect(jsonPath("$.[*].authorId").value(hasItem(DEFAULT_AUTHOR_ID.intValue())))
-            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())))
             .andExpect(jsonPath("$.[*].name").value(hasItem(DEFAULT_NAME)))
-            .andExpect(jsonPath("$.[*].isVisible").value(hasItem(DEFAULT_IS_VISIBLE.booleanValue())))
-            .andExpect(jsonPath("$.[*].isLocked").value(hasItem(DEFAULT_IS_LOCKED.booleanValue())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE)))
             .andExpect(jsonPath("$.[*].numberOfDays").value(hasItem(DEFAULT_NUMBER_OF_DAYS)))
             .andExpect(jsonPath("$.[*].numberOfMealsPerDay").value(hasItem(DEFAULT_NUMBER_OF_MEALS_PER_DAY)))
