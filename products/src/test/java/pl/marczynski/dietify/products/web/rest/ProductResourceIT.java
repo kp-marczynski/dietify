@@ -315,7 +315,7 @@ public class ProductResourceIT {
         productRepository.saveAndFlush(product);
 
         // Get all the productList
-        restProductMockMvc.perform(get("/api/products?sort=id,desc"))
+        restProductMockMvc.perform(get("/api/products?author=" + DEFAULT_AUTHOR_ID + "&sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))

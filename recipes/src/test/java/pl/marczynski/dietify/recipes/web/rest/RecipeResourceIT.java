@@ -389,7 +389,7 @@ public class RecipeResourceIT {
         recipeRepository.saveAndFlush(recipe);
 
         // Get all the recipeList
-        restRecipeMockMvc.perform(get("/api/recipes?sort=id,desc"))
+        restRecipeMockMvc.perform(get("/api/recipes?author=" + DEFAULT_AUTHOR_ID + "&sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(recipe.getId().intValue())))

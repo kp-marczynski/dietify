@@ -399,7 +399,7 @@ public class MealPlanResourceIT {
         mealPlanRepository.saveAndFlush(mealPlan);
 
         // Get all the mealPlanList
-        restMealPlanMockMvc.perform(get("/api/meal-plans?sort=id,desc"))
+        restMealPlanMockMvc.perform(get("/api/meal-plans?author=" + DEFAULT_AUTHOR_ID + "&sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(mealPlan.getId().intValue())))
@@ -479,8 +479,6 @@ public class MealPlanResourceIT {
         assertThat(mealPlanList).hasSize(databaseSizeBeforeUpdate);
         MealPlan testMealPlan = mealPlanList.get(mealPlanList.size() - 1);
         assertThat(testMealPlan.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
-        assertThat(testMealPlan.getCreationTimestamp()).isEqualTo(UPDATED_CREATION_DATE);
-        assertThat(testMealPlan.getLastEditTimestamp()).isEqualTo(UPDATED_LAST_EDIT_DATE);
         assertThat(testMealPlan.getName()).isEqualTo(UPDATED_NAME);
         assertThat(testMealPlan.isIsFinal()).isEqualTo(UPDATED_IS_VISIBLE);
         assertThat(testMealPlan.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
