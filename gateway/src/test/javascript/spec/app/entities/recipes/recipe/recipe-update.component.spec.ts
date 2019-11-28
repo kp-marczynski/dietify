@@ -52,6 +52,7 @@ describe('Component Tests', () => {
         // GIVEN
         const entity = new Recipe();
         entity.basicNutritionData = new RecipeBasicNutritionData(null, 0, 0, 0, 0);
+        entity.totalGramsWeight = 0;
         entity.recipeSections = [];
         spyOn(service, 'create').and.returnValue(of(new HttpResponse({ body: entity })));
         comp.updateForm(entity);
