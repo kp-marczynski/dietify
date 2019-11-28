@@ -275,11 +275,3 @@ appointments-gradle-package:
             - /builds/kp.marczynski/dietify/appointments/build/libs/*.jar
             - /builds/kp.marczynski/dietify/appointments/build/classes
         expire_in: 1 day
-
-# ionic
-ionic-frontend-test:
-    stage: test
-    script:
-        - cd /builds/kp.marczynski/dietify/ionic
-        - npm install
-        - npm test

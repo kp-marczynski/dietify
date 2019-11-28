@@ -105,42 +105,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.creationDate" for="field_creationDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.creationDate' | translate">Creation Date</label>
-                    <div class="input-group">
-                        <input readonly id="field_creationDate" type="text" class="form-control" name="creationDate" formControlName="creationDate"/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div *ngIf="editForm.get('creationDate').invalid && (editForm.get('creationDate').dirty || editForm.get('creationDate').touched)">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.isFinal" for="field_isFinal" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isFinal' | translate">Is Final</label>
+                    <input type="checkbox" class="form-control" name="isFinal" id="field_isFinal"
+                           formControlName="isFinal"/>
+                    <div *ngIf="editForm.get('isFinal').invalid && (editForm.get('isFinal').dirty || editForm.get('isFinal').touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('creationDate').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.lastEditDate" for="field_lastEditDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.lastEditDate' | translate">Last Edit Date</label>
-                    <div class="input-group">
-                        <input readonly id="field_lastEditDate" type="text" class="form-control" name="lastEditDate" formControlName="lastEditDate"/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="lastEditDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div *ngIf="editForm.get('lastEditDate').invalid && (editForm.get('lastEditDate').dirty || editForm.get('lastEditDate').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('lastEditDate').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.isVisible" for="field_isVisible" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isVisible' | translate">Is Visible</label>
-                    <input type="checkbox" class="form-control" name="isVisible" id="field_isVisible"
-                           formControlName="isVisible"/>
-                    <div *ngIf="editForm.get('isVisible').invalid && (editForm.get('isVisible').dirty || editForm.get('isVisible').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('isVisible').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('isFinal').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>

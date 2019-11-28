@@ -37,8 +37,8 @@ export class RecipeUpdateComponent implements OnInit {
   dishtypes: IDishType[];
 
   mealtypes: IMealType[];
-  creationDateDp: any;
-  lastEditDateDp: any;
+  creationTimestampDp: any;
+  lastEditTimestampDp: any;
 
   languages: any[];
   lang = 'en';
@@ -51,9 +51,9 @@ export class RecipeUpdateComponent implements OnInit {
     image: [null, []],
     imageContentType: [],
     authorId: [],
-    creationDate: [],
-    lastEditDate: [],
-    isVisible: [null, [Validators.required]],
+    creationTimestamp: [],
+    lastEditTimestamp: [],
+    isFinal: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
     totalGramsWeight: [],
     basicNutritionData: this.fb.group({
@@ -149,9 +149,9 @@ export class RecipeUpdateComponent implements OnInit {
       image: recipe.image,
       imageContentType: recipe.imageContentType,
       authorId: recipe.authorId,
-      creationDate: recipe.creationDate,
-      lastEditDate: recipe.lastEditDate,
-      isVisible: recipe.isVisible,
+      creationTimestamp: recipe.creationTimestamp,
+      lastEditTimestamp: recipe.lastEditTimestamp,
+      isFinal: recipe.isFinal,
       language: recipe.language,
       totalGramsWeight: recipe.totalGramsWeight,
       basicNutritionData: recipe.basicNutritionData,
@@ -287,9 +287,9 @@ export class RecipeUpdateComponent implements OnInit {
       imageContentType: this.editForm.get(['imageContentType']).value,
       image: this.editForm.get(['image']).value,
       authorId: this.editForm.get(['authorId']).value,
-      creationDate: this.editForm.get(['creationDate']).value,
-      lastEditDate: this.editForm.get(['lastEditDate']).value,
-      isVisible: this.editForm.get(['isVisible']).value,
+      creationTimestamp: this.editForm.get(['creationTimestamp']).value,
+      lastEditTimestamp: this.editForm.get(['lastEditTimestamp']).value,
+      isFinal: this.editForm.get(['isFinal']).value,
       language: this.editForm.get(['language']).value,
       totalGramsWeight: this.editForm.get(['totalGramsWeight']).value,
       basicNutritionData: this.editForm.get(['basicNutritionData']).value,

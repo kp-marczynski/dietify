@@ -13,13 +13,17 @@
                 <dd>
                     <span>{{product.authorId}}</span>
                 </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.creationTimestamp" [ngbTooltip]="'gatewayApp.productsProduct.help.creationTimestamp' | translate">Creation Timestamp</span></dt>
+                <dd>
+                    <span>{{product.creationTimestamp}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.productsProduct.lastEditTimestamp" [ngbTooltip]="'gatewayApp.productsProduct.help.lastEditTimestamp' | translate">LastEdit Timestamp</span></dt>
+                <dd>
+                    <span>{{product.lastEditTimestamp}}</span>
+                </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.isFinal" [ngbTooltip]="'gatewayApp.productsProduct.help.isFinal' | translate">Is Final</span></dt>
                 <dd>
                     <span>{{product.isFinal}}</span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.productsProduct.isVerified" [ngbTooltip]="'gatewayApp.productsProduct.help.isVerified' | translate">Is Verified</span></dt>
-                <dd>
-                    <span>{{product.isVerified}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.productsProduct.language" [ngbTooltip]="'gatewayApp.productsProduct.help.language' | translate">Language</span></dt>
                 <dd>

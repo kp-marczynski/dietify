@@ -25,7 +25,8 @@ import { CaloriesConverterService } from 'app/entities/mealplans/meal-plan/calor
 })
 export class MealPlanUpdateComponent implements OnInit {
   isSaving: boolean;
-  creationDateDp: any;
+  creationTimestampDp: any;
+  lastEditTimestampDp: any;
   mealTypes: IMealType[];
   languages: string[] = [];
   dayBasicNutritionResponses: BasicNutritionResponse[] = [];
@@ -33,10 +34,10 @@ export class MealPlanUpdateComponent implements OnInit {
   editForm = this.fb.group({
     id: [],
     authorId: [null],
-    creationDate: [null],
+    creationTimestamp: [null],
+    lastEditTimestamp: [null],
     name: [null, [Validators.minLength(1), Validators.maxLength(255)]],
-    isVisible: [null, [Validators.required]],
-    isLocked: [null, [Validators.required]],
+    isFinal: [null, [Validators.required]],
     language: [null, [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
     numberOfDays: [7, [Validators.required, Validators.min(1), Validators.max(31)]],
     numberOfMealsPerDay: [5, [Validators.required, Validators.min(1), Validators.max(10)]],
@@ -322,10 +323,10 @@ export class MealPlanUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: mealPlan.id,
       authorId: mealPlan.authorId,
-      creationDate: mealPlan.creationDate,
+      creationTimestamp: mealPlan.creationTimestamp,
+      lastEditTimestamp: mealPlan.lastEditTimestamp,
       name: mealPlan.name,
-      isVisible: mealPlan.isVisible,
-      isLocked: mealPlan.isLocked,
+      isFinal: mealPlan.isFinal,
       language: mealPlan.language,
       numberOfDays: mealPlan.numberOfDays,
       numberOfMealsPerDay: mealPlan.numberOfMealsPerDay,
@@ -412,10 +413,10 @@ export class MealPlanUpdateComponent implements OnInit {
       ...new MealPlan(),
       id: this.editForm.get(['id']).value,
       authorId: this.editForm.get(['authorId']).value,
-      creationDate: this.editForm.get(['creationDate']).value,
+      creationTimestamp: this.editForm.get(['creationTimestamp']).value,
+      lastEditTimestamp: this.editForm.get(['lastEditTimestamp']).value,
       name: this.editForm.get(['name']).value,
-      isVisible: this.editForm.get(['isVisible']).value,
-      isLocked: this.editForm.get(['isLocked']).value,
+      isFinal: this.editForm.get(['isFinal']).value,
       language: this.editForm.get(['language']).value,
       numberOfDays: this.editForm.get(['numberOfDays']).value,
       numberOfMealsPerDay: this.editForm.get(['numberOfMealsPerDay']).value,

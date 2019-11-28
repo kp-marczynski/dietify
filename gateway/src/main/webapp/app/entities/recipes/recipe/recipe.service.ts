@@ -59,16 +59,16 @@ export class RecipeService {
 
   protected convertDateFromClient(recipe: IRecipe): IRecipe {
     const copy: IRecipe = Object.assign({}, recipe, {
-      creationDate: recipe.creationDate != null && recipe.creationDate.isValid() ? recipe.creationDate.format(DATE_FORMAT) : null,
-      lastEditDate: recipe.lastEditDate != null && recipe.lastEditDate.isValid() ? recipe.lastEditDate.format(DATE_FORMAT) : null
+      creationTimestamp: recipe.creationTimestamp != null && recipe.creationTimestamp.isValid() ? recipe.creationTimestamp.toJSON() : null,
+      lastEditTimestamp: recipe.lastEditTimestamp != null && recipe.lastEditTimestamp.isValid() ? recipe.lastEditTimestamp.toJSON() : null
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
-      res.body.lastEditDate = res.body.lastEditDate != null ? moment(res.body.lastEditDate) : null;
+      res.body.creationTimestamp = res.body.creationTimestamp != null ? moment(res.body.creationTimestamp) : null;
+      res.body.lastEditTimestamp = res.body.lastEditTimestamp != null ? moment(res.body.lastEditTimestamp) : null;
     }
     return res;
   }
@@ -76,8 +76,8 @@ export class RecipeService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((recipe: IRecipe) => {
-        recipe.creationDate = recipe.creationDate != null ? moment(recipe.creationDate) : null;
-        recipe.lastEditDate = recipe.lastEditDate != null ? moment(recipe.lastEditDate) : null;
+        recipe.creationTimestamp = recipe.creationTimestamp != null ? moment(recipe.creationTimestamp) : null;
+        recipe.lastEditTimestamp = recipe.lastEditTimestamp != null ? moment(recipe.lastEditTimestamp) : null;
       });
     }
     return res;
