@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -48,6 +49,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
+        if(product.getId() == null || product.getCreationTimestamp() == null){
+            product.setCreationTimestamp(Instant.now());
+        }
+        product.setLastEditTimestamp(Instant.now());
         if (product.getSubcategory().getId() == null) {
             product.setSubcategory(this.productSubcategoryService.save(product.getSubcategory()));
         }

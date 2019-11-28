@@ -177,14 +177,6 @@ public class Recipe implements Serializable {
         this.id = id;
     }
 
-    public Boolean getFinal() {
-        return isFinal;
-    }
-
-    public void setFinal(Boolean aFinal) {
-        isFinal = aFinal;
-    }
-
     public String getName() {
         return name;
     }

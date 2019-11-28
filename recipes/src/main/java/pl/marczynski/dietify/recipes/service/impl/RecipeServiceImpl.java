@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -44,10 +45,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe save(Recipe recipe) {
         log.debug("Request to save Recipe : {}", recipe);
-        if(recipe.getId() == null || recipe.getCreationDate() == null){
-            recipe.setCreationDate(LocalDate.now());
+        if(recipe.getId() == null || recipe.getCreationTimestamp() == null){
+            recipe.setCreationTimestamp(Instant.now());
         }
-        recipe.setLastEditDate(LocalDate.now());
+        recipe.setLastEditTimestamp(Instant.now());
         Recipe result = recipeRepository.saveAndFlush(recipe);
         recipeSearchRepository.save(result);
         return result;

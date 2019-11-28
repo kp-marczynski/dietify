@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Collections;
@@ -45,8 +46,11 @@ public class MealPlanResourceIT {
     private static final Long DEFAULT_AUTHOR_ID = 1L;
     private static final Long UPDATED_AUTHOR_ID = 2L;
 
-    private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_CREATION_DATE = Instant.ofEpochSecond(0L);
+    private static final Instant UPDATED_CREATION_DATE = Instant.now();
+
+    private static final Instant DEFAULT_LAST_EDIT_DATE = Instant.ofEpochSecond(0L);
+    private static final Instant UPDATED_LAST_EDIT_DATE = Instant.now();
 
     private static final String DEFAULT_NAME = "AAAAAAAAAA";
     private static final String UPDATED_NAME = "BBBBBBBBBB";
@@ -132,10 +136,10 @@ public class MealPlanResourceIT {
     public static MealPlan createEntity(EntityManager em) {
         MealPlan mealPlan = new MealPlan();
         mealPlan.setAuthorId(DEFAULT_AUTHOR_ID);
-        mealPlan.setCreationDate(DEFAULT_CREATION_DATE);
+        mealPlan.setCreationTimestamp(DEFAULT_CREATION_DATE);
+        mealPlan.setLastEditTimestamp(DEFAULT_LAST_EDIT_DATE);
         mealPlan.setName(DEFAULT_NAME);
-        mealPlan.setIsVisible(DEFAULT_IS_VISIBLE);
-        mealPlan.setIsLocked(DEFAULT_IS_LOCKED);
+        mealPlan.setIsFinal(DEFAULT_IS_VISIBLE);
         mealPlan.setLanguage(DEFAULT_LANGUAGE);
         mealPlan.setNumberOfDays(DEFAULT_NUMBER_OF_DAYS);
         mealPlan.setNumberOfMealsPerDay(DEFAULT_NUMBER_OF_MEALS_PER_DAY);
@@ -154,10 +158,10 @@ public class MealPlanResourceIT {
     public static MealPlan createUpdatedEntity(EntityManager em) {
         MealPlan mealPlan = new MealPlan();
         mealPlan.setAuthorId(UPDATED_AUTHOR_ID);
-        mealPlan.setCreationDate(UPDATED_CREATION_DATE);
+        mealPlan.setCreationTimestamp(UPDATED_CREATION_DATE);
+        mealPlan.setLastEditTimestamp(UPDATED_LAST_EDIT_DATE);
         mealPlan.setName(UPDATED_NAME);
-        mealPlan.setIsVisible(UPDATED_IS_VISIBLE);
-        mealPlan.setIsLocked(UPDATED_IS_LOCKED);
+        mealPlan.setIsFinal(UPDATED_IS_VISIBLE);
         mealPlan.setLanguage(UPDATED_LANGUAGE);
         mealPlan.setNumberOfDays(UPDATED_NUMBER_OF_DAYS);
         mealPlan.setNumberOfMealsPerDay(UPDATED_NUMBER_OF_MEALS_PER_DAY);
@@ -189,10 +193,10 @@ public class MealPlanResourceIT {
         assertThat(mealPlanList).hasSize(databaseSizeBeforeCreate + 1);
         MealPlan testMealPlan = mealPlanList.get(mealPlanList.size() - 1);
         assertThat(testMealPlan.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
-        assertThat(testMealPlan.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
+        assertThat(testMealPlan.getCreationTimestamp()).isEqualTo(DEFAULT_CREATION_DATE);
+        assertThat(testMealPlan.getLastEditTimestamp()).isEqualTo(DEFAULT_LAST_EDIT_DATE);
         assertThat(testMealPlan.getName()).isEqualTo(DEFAULT_NAME);
-        assertThat(testMealPlan.isIsVisible()).isEqualTo(DEFAULT_IS_VISIBLE);
-        assertThat(testMealPlan.isIsLocked()).isEqualTo(DEFAULT_IS_LOCKED);
+        assertThat(testMealPlan.isIsFinal()).isEqualTo(DEFAULT_IS_VISIBLE);
         assertThat(testMealPlan.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
         assertThat(testMealPlan.getNumberOfDays()).isEqualTo(DEFAULT_NUMBER_OF_DAYS);
         assertThat(testMealPlan.getNumberOfMealsPerDay()).isEqualTo(DEFAULT_NUMBER_OF_MEALS_PER_DAY);
@@ -251,7 +255,7 @@ public class MealPlanResourceIT {
     public void checkCreationDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = mealPlanRepository.findAll().size();
         // set the field null
-        mealPlan.setCreationDate(null);
+        mealPlan.setCreationTimestamp(null);
 
         // Create the MealPlan, which fails.
 
@@ -269,25 +273,7 @@ public class MealPlanResourceIT {
     public void checkIsVisibleIsRequired() throws Exception {
         int databaseSizeBeforeTest = mealPlanRepository.findAll().size();
         // set the field null
-        mealPlan.setIsVisible(null);
-
-        // Create the MealPlan, which fails.
-
-        restMealPlanMockMvc.perform(post("/api/meal-plans")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(mealPlan)))
-            .andExpect(status().isBadRequest());
-
-        List<MealPlan> mealPlanList = mealPlanRepository.findAll();
-        assertThat(mealPlanList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
-    public void checkIsLockedIsRequired() throws Exception {
-        int databaseSizeBeforeTest = mealPlanRepository.findAll().size();
-        // set the field null
-        mealPlan.setIsLocked(null);
+        mealPlan.setIsFinal(null);
 
         // Create the MealPlan, which fails.
 
@@ -450,7 +436,7 @@ public class MealPlanResourceIT {
             .andExpect(jsonPath("$.[*].percentOfFat").value(hasItem(DEFAULT_PERCENT_OF_FAT)))
             .andExpect(jsonPath("$.[*].percentOfCarbohydrates").value(hasItem(DEFAULT_PERCENT_OF_CARBOHYDRATES)));
     }
-    
+
     @Test
     @Transactional
     public void getMealPlan() throws Exception {
@@ -499,10 +485,10 @@ public class MealPlanResourceIT {
         // Disconnect from session so that the updates on updatedMealPlan are not directly saved in db
         em.detach(updatedMealPlan);
         updatedMealPlan.setAuthorId(UPDATED_AUTHOR_ID);
-        updatedMealPlan.setCreationDate(UPDATED_CREATION_DATE);
+        updatedMealPlan.setCreationTimestamp(UPDATED_CREATION_DATE);
+        updatedMealPlan.setLastEditTimestamp(UPDATED_LAST_EDIT_DATE);
         updatedMealPlan.setName(UPDATED_NAME);
-        updatedMealPlan.setIsVisible(UPDATED_IS_VISIBLE);
-        updatedMealPlan.setIsLocked(UPDATED_IS_LOCKED);
+        updatedMealPlan.setIsFinal(UPDATED_IS_VISIBLE);
         updatedMealPlan.setLanguage(UPDATED_LANGUAGE);
         updatedMealPlan.setNumberOfDays(UPDATED_NUMBER_OF_DAYS);
         updatedMealPlan.setNumberOfMealsPerDay(UPDATED_NUMBER_OF_MEALS_PER_DAY);
@@ -521,10 +507,10 @@ public class MealPlanResourceIT {
         assertThat(mealPlanList).hasSize(databaseSizeBeforeUpdate);
         MealPlan testMealPlan = mealPlanList.get(mealPlanList.size() - 1);
         assertThat(testMealPlan.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
-        assertThat(testMealPlan.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
+        assertThat(testMealPlan.getCreationTimestamp()).isEqualTo(UPDATED_CREATION_DATE);
+        assertThat(testMealPlan.getLastEditTimestamp()).isEqualTo(UPDATED_LAST_EDIT_DATE);
         assertThat(testMealPlan.getName()).isEqualTo(UPDATED_NAME);
-        assertThat(testMealPlan.isIsVisible()).isEqualTo(UPDATED_IS_VISIBLE);
-        assertThat(testMealPlan.isIsLocked()).isEqualTo(UPDATED_IS_LOCKED);
+        assertThat(testMealPlan.isIsFinal()).isEqualTo(UPDATED_IS_VISIBLE);
         assertThat(testMealPlan.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testMealPlan.getNumberOfDays()).isEqualTo(UPDATED_NUMBER_OF_DAYS);
         assertThat(testMealPlan.getNumberOfMealsPerDay()).isEqualTo(UPDATED_NUMBER_OF_MEALS_PER_DAY);

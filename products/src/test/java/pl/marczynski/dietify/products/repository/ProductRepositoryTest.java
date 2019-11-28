@@ -27,6 +27,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(classes = ProductsApp.class)
 public class ProductRepositoryTest {
 
+    private static final Long DEFAULT_AUTHOR_ID = 1L;
+
     @Autowired
     private ProductRepository productRepository;
 
@@ -128,7 +130,7 @@ public class ProductRepositoryTest {
         product3 = productRepository.saveAndFlush(product3);
 
         //when
-        Page<Product> result = productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, PageRequest.of(0, 10));
+        Page<Product> result = productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, DEFAULT_AUTHOR_ID, PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(2);
@@ -147,7 +149,7 @@ public class ProductRepositoryTest {
         product1 = productRepository.saveAndFlush(product1);
 
         //when
-        Page<Product> result = productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, PageRequest.of(0, 10));
+        Page<Product> result = productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, DEFAULT_AUTHOR_ID, PageRequest.of(0, 10));
 
         //then
         assertThat(result.getTotalElements()).isEqualTo(1);

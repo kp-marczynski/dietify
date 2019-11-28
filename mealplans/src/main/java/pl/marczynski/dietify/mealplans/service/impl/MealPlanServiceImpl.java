@@ -12,6 +12,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -44,9 +45,10 @@ public class MealPlanServiceImpl implements MealPlanService {
     @Override
     public MealPlan save(MealPlan mealPlan) {
         log.debug("Request to save MealPlan : {}", mealPlan);
-        if(mealPlan.getId() == null || mealPlan.getCreationDate() == null){
-            mealPlan.setCreationDate(LocalDate.now());
+        if(mealPlan.getId() == null || mealPlan.getCreationTimestamp() == null){
+            mealPlan.setCreationTimestamp(Instant.now());
         }
+        mealPlan.setLastEditTimestamp(Instant.now());
         MealPlan result = mealPlanRepository.save(mealPlan);
         mealPlanSearchRepository.save(result);
         return result;

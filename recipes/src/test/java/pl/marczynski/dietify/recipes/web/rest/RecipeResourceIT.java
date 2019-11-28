@@ -26,6 +26,7 @@ import org.springframework.util.Base64Utils;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -63,11 +64,11 @@ public class RecipeResourceIT {
     private static final Long DEFAULT_AUTHOR_ID = 1L;
     private static final Long UPDATED_AUTHOR_ID = 2L;
 
-    private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_CREATION_DATE = Instant.ofEpochSecond(0L);
+    private static final Instant UPDATED_CREATION_DATE = Instant.now();
 
-    private static final LocalDate DEFAULT_LAST_EDIT_DATE = LocalDate.ofEpochDay(0L);
-    private static final LocalDate UPDATED_LAST_EDIT_DATE = LocalDate.now(ZoneId.systemDefault());
+    private static final Instant DEFAULT_LAST_EDIT_DATE = Instant.ofEpochSecond(0L);
+    private static final Instant UPDATED_LAST_EDIT_DATE = Instant.now();
 
     private static final Boolean DEFAULT_IS_VISIBLE = false;
     private static final Boolean UPDATED_IS_VISIBLE = true;
@@ -155,9 +156,9 @@ public class RecipeResourceIT {
         recipe.setImage(DEFAULT_IMAGE);
         recipe.setImageContentType(DEFAULT_IMAGE_CONTENT_TYPE);
         recipe.setAuthorId(DEFAULT_AUTHOR_ID);
-        recipe.setCreationDate(DEFAULT_CREATION_DATE);
-        recipe.setLastEditDate(DEFAULT_LAST_EDIT_DATE);
-        recipe.setIsVisible(DEFAULT_IS_VISIBLE);
+        recipe.setCreationTimestamp(DEFAULT_CREATION_DATE);
+        recipe.setLastEditTimestamp(DEFAULT_LAST_EDIT_DATE);
+        recipe.setIsFinal(DEFAULT_IS_VISIBLE);
         recipe.setLanguage(DEFAULT_LANGUAGE);
         recipe.setTotalGramsWeight(DEFAULT_TOTAL_GRAMS_WEIGHT);
         // Add required entity
@@ -183,9 +184,9 @@ public class RecipeResourceIT {
         recipe.setImage(UPDATED_IMAGE);
         recipe.setImageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         recipe.setAuthorId(UPDATED_AUTHOR_ID);
-        recipe.setCreationDate(UPDATED_CREATION_DATE);
-        recipe.setLastEditDate(UPDATED_LAST_EDIT_DATE);
-        recipe.setIsVisible(UPDATED_IS_VISIBLE);
+        recipe.setCreationTimestamp(UPDATED_CREATION_DATE);
+        recipe.setLastEditTimestamp(UPDATED_LAST_EDIT_DATE);
+        recipe.setIsFinal(UPDATED_IS_VISIBLE);
         recipe.setLanguage(UPDATED_LANGUAGE);
         recipe.setTotalGramsWeight(UPDATED_TOTAL_GRAMS_WEIGHT);
         // Add required entity
@@ -224,9 +225,9 @@ public class RecipeResourceIT {
         assertThat(testRecipe.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testRecipe.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testRecipe.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
-        assertThat(testRecipe.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
-        assertThat(testRecipe.getLastEditDate()).isEqualTo(DEFAULT_LAST_EDIT_DATE);
-        assertThat(testRecipe.isIsVisible()).isEqualTo(DEFAULT_IS_VISIBLE);
+        assertThat(testRecipe.getCreationTimestamp()).isEqualTo(DEFAULT_CREATION_DATE);
+        assertThat(testRecipe.getLastEditTimestamp()).isEqualTo(DEFAULT_LAST_EDIT_DATE);
+        assertThat(testRecipe.isIsFinal()).isEqualTo(DEFAULT_IS_VISIBLE);
         assertThat(testRecipe.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
         assertThat(testRecipe.getTotalGramsWeight()).isEqualTo(DEFAULT_TOTAL_GRAMS_WEIGHT);
 
@@ -334,7 +335,7 @@ public class RecipeResourceIT {
     public void checkCreationDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = recipeRepository.findAll().size();
         // set the field null
-        recipe.setCreationDate(null);
+        recipe.setCreationTimestamp(null);
 
         // Create the Recipe, which fails.
 
@@ -352,7 +353,7 @@ public class RecipeResourceIT {
     public void checkLastEditDateIsRequired() throws Exception {
         int databaseSizeBeforeTest = recipeRepository.findAll().size();
         // set the field null
-        recipe.setLastEditDate(null);
+        recipe.setLastEditTimestamp(null);
 
         // Create the Recipe, which fails.
 
@@ -370,7 +371,7 @@ public class RecipeResourceIT {
     public void checkIsVisibleIsRequired() throws Exception {
         int databaseSizeBeforeTest = recipeRepository.findAll().size();
         // set the field null
-        recipe.setIsVisible(null);
+        recipe.setIsFinal(null);
 
         // Create the Recipe, which fails.
 
@@ -442,11 +443,11 @@ public class RecipeResourceIT {
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())))
             .andExpect(jsonPath("$.[*].totalGramsWeight").value(hasItem(DEFAULT_TOTAL_GRAMS_WEIGHT.doubleValue())));
     }
-    
+
     @SuppressWarnings({"unchecked"})
     public void getAllRecipesWithEagerRelationshipsIsEnabled() throws Exception {
         RecipeResource recipeResource = new RecipeResource(recipeServiceMock);
-        when(recipeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        when(recipeServiceMock.findAllWithEagerRelationships(any(), DEFAULT_AUTHOR_ID)).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restRecipeMockMvc = MockMvcBuilders.standaloneSetup(recipeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -457,13 +458,13 @@ public class RecipeResourceIT {
         restRecipeMockMvc.perform(get("/api/recipes?eagerload=true"))
         .andExpect(status().isOk());
 
-        verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any());
+        verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any(), DEFAULT_AUTHOR_ID);
     }
 
     @SuppressWarnings({"unchecked"})
     public void getAllRecipesWithEagerRelationshipsIsNotEnabled() throws Exception {
         RecipeResource recipeResource = new RecipeResource(recipeServiceMock);
-            when(recipeServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            when(recipeServiceMock.findAllWithEagerRelationships(any(), DEFAULT_AUTHOR_ID)).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restRecipeMockMvc = MockMvcBuilders.standaloneSetup(recipeResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -473,7 +474,7 @@ public class RecipeResourceIT {
         restRecipeMockMvc.perform(get("/api/recipes?eagerload=true"))
         .andExpect(status().isOk());
 
-            verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any());
+            verify(recipeServiceMock, times(1)).findAllWithEagerRelationships(any(), DEFAULT_AUTHOR_ID);
     }
 
     @Test
@@ -528,9 +529,9 @@ public class RecipeResourceIT {
         updatedRecipe.setImage(UPDATED_IMAGE);
         updatedRecipe.setImageContentType(UPDATED_IMAGE_CONTENT_TYPE);
         updatedRecipe.setAuthorId(UPDATED_AUTHOR_ID);
-        updatedRecipe.setCreationDate(UPDATED_CREATION_DATE);
-        updatedRecipe.setLastEditDate(UPDATED_LAST_EDIT_DATE);
-        updatedRecipe.setIsVisible(UPDATED_IS_VISIBLE);
+        updatedRecipe.setCreationTimestamp(UPDATED_CREATION_DATE);
+        updatedRecipe.setLastEditTimestamp(UPDATED_LAST_EDIT_DATE);
+        updatedRecipe.setIsFinal(UPDATED_IS_VISIBLE);
         updatedRecipe.setLanguage(UPDATED_LANGUAGE);
         updatedRecipe.setTotalGramsWeight(UPDATED_TOTAL_GRAMS_WEIGHT);
 
@@ -549,9 +550,9 @@ public class RecipeResourceIT {
         assertThat(testRecipe.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testRecipe.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testRecipe.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
-        assertThat(testRecipe.getCreationDate()).isEqualTo(UPDATED_CREATION_DATE);
-        assertThat(testRecipe.getLastEditDate()).isEqualTo(UPDATED_LAST_EDIT_DATE);
-        assertThat(testRecipe.isIsVisible()).isEqualTo(UPDATED_IS_VISIBLE);
+        assertThat(testRecipe.getCreationTimestamp()).isEqualTo(UPDATED_CREATION_DATE);
+        assertThat(testRecipe.getLastEditTimestamp()).isEqualTo(UPDATED_LAST_EDIT_DATE);
+        assertThat(testRecipe.isIsFinal()).isEqualTo(UPDATED_IS_VISIBLE);
         assertThat(testRecipe.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testRecipe.getTotalGramsWeight()).isEqualTo(UPDATED_TOTAL_GRAMS_WEIGHT);
 
