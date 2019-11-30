@@ -274,7 +274,7 @@ export class RecipeUpdateComponent implements OnInit {
         if (!product.isFinal) {
           product.isFinal = true;
           console.log(product);
-          this.productService.update(product).subscribe();
+          this.productService.changeToFinal(product.id).subscribe();
         }
       }
     }

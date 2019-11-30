@@ -223,7 +223,7 @@ public class ProductResourceIT {
         assertThat(testProduct.getSource()).isEqualTo(DEFAULT_SOURCE);
         assertThat(testProduct.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testProduct.isIsFinal()).isEqualTo(DEFAULT_IS_FINAL);
+        assertThat(testProduct.getIsFinal()).isEqualTo(DEFAULT_IS_FINAL);
 //        assertThat(testProduct.isIsVerified()).isEqualTo(DEFAULT_IS_VERIFIED);
         assertThat(testProduct.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
@@ -419,7 +419,7 @@ public class ProductResourceIT {
         assertThat(testProduct.getSource()).isEqualTo(UPDATED_SOURCE);
         assertThat(testProduct.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testProduct.isIsFinal()).isEqualTo(UPDATED_IS_FINAL);
+        assertThat(testProduct.getIsFinal()).isEqualTo(UPDATED_IS_FINAL);
 //        assertThat(testProduct.isIsVerified()).isEqualTo(UPDATED_IS_VERIFIED);
         assertThat(testProduct.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
 

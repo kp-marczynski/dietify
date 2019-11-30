@@ -90,6 +90,27 @@ public class MealPlanResource {
     }
 
     /**
+     * {@code PUT  /meal-plans/:id} : Change mealPlan to final
+     *
+     * @param id the mealPlan to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated mealPlan,
+     * or with status {@code 400 (Bad Request)} if the mealPlan is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the mealPlan couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/meal-plans/{id}")
+    public ResponseEntity<Void> changeToFinal(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to change mealPlan to final: {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        mealPlanService.changeToFinal(id);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
+    }
+
+    /**
      * {@code GET  /meal-plans} : get all the mealPlans.
      *
      * @param pageable the pagination information.

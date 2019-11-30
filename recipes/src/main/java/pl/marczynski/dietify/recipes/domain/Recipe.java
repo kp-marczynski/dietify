@@ -193,7 +193,7 @@ public class Recipe implements Serializable {
         this.preparationTimeMinutes = preparationTimeMinutes;
     }
 
-    public Boolean isIsFinal() {
+    public Boolean getIsFinal() {
         return isFinal;
     }
 

@@ -105,4 +105,9 @@ public class MealPlanServiceImpl implements MealPlanService {
     public Page<MealPlan> search(String query, Pageable pageable) {
         log.debug("Request to search for a page of MealPlans for query {}", query);
         return mealPlanSearchRepository.search(queryStringQuery(query), pageable);    }
+
+    @Override
+    public void changeToFinal(Long mealPlanId) {
+        this.mealPlanRepository.changeToFinal(mealPlanId);
+    }
 }

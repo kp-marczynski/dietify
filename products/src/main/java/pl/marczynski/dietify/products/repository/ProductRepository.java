@@ -50,4 +50,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query(value = "select distinct product from Product product where product.authorId =:authorId or product.authorId is null",
         countQuery = "select count(distinct product) from Product product")
     Page<Product> findAllByAuthorId(Long authorId, Pageable pageable);
+
+    @Modifying
+    @Query(value = "update Product product set product.isFinal = true where product.id = :productId")
+    void changeToFinal(@Param("productId") Long productId);
 }

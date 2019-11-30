@@ -27,8 +27,6 @@ import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
 import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -225,7 +223,7 @@ public class RecipeResourceIT {
         assertThat(testRecipe.getImage()).isEqualTo(DEFAULT_IMAGE);
         assertThat(testRecipe.getImageContentType()).isEqualTo(DEFAULT_IMAGE_CONTENT_TYPE);
         assertThat(testRecipe.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
-        assertThat(testRecipe.isIsFinal()).isEqualTo(DEFAULT_IS_VISIBLE);
+        assertThat(testRecipe.getIsFinal()).isEqualTo(DEFAULT_IS_VISIBLE);
         assertThat(testRecipe.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
         assertThat(testRecipe.getTotalGramsWeight()).isEqualTo(DEFAULT_TOTAL_GRAMS_WEIGHT);
 
@@ -504,7 +502,7 @@ public class RecipeResourceIT {
         assertThat(testRecipe.getImage()).isEqualTo(UPDATED_IMAGE);
         assertThat(testRecipe.getImageContentType()).isEqualTo(UPDATED_IMAGE_CONTENT_TYPE);
         assertThat(testRecipe.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
-        assertThat(testRecipe.isIsFinal()).isEqualTo(UPDATED_IS_VISIBLE);
+        assertThat(testRecipe.getIsFinal()).isEqualTo(UPDATED_IS_VISIBLE);
         assertThat(testRecipe.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
         assertThat(testRecipe.getTotalGramsWeight()).isEqualTo(UPDATED_TOTAL_GRAMS_WEIGHT);
 

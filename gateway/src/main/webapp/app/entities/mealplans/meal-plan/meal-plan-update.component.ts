@@ -18,6 +18,7 @@ import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
 import { BasicNutritionResponse, IBasicNutritionResponse } from 'app/shared/model/mealplans/basic-nutrition-response.model';
 import { BasicNutritionType } from 'app/shared/model/mealplans/enum/basic-nutritions.enum';
 import { CaloriesConverterService } from 'app/entities/mealplans/meal-plan/calories-converter.service';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-meal-plan-update',
@@ -50,6 +51,7 @@ export class MealPlanUpdateComponent implements OnInit {
   });
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected mealPlanService: MealPlanService,
     protected activatedRoute: ActivatedRoute,
     protected modalService: NgbModal,
@@ -66,6 +68,7 @@ export class MealPlanUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.accountService.identity().then((account: Account) => {
       this.userService.find(account.login).subscribe(res => {
         this.editForm.patchValue({ authorId: res.body.id });
@@ -399,12 +402,26 @@ export class MealPlanUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const mealPlan = this.createFromForm();
+    this.updateProductsAndRecipes(mealPlan);
     console.log('saving');
     console.log(mealPlan);
     if (mealPlan.id !== undefined) {
       this.subscribeToSaveResponse(this.mealPlanService.update(mealPlan));
     } else {
       this.subscribeToSaveResponse(this.mealPlanService.create(mealPlan));
+    }
+  }
+
+  private updateProductsAndRecipes(mealPlan: IMealPlan) {
+    for (const day of mealPlan.days) {
+      for (const meal of day.meals) {
+        for (const mealProduct of meal.mealProducts) {
+          this.productService.changeToFinal(mealProduct.productId).subscribe();
+        }
+        for (const mealRecipe of meal.mealRecipes) {
+          this.recipeService.changeToFinal(mealRecipe.recipeId).subscribe();
+        }
+      }
     }
   }
 

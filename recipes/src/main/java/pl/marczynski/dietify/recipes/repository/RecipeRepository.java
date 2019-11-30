@@ -36,4 +36,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
     Page<Recipe> findByNameContainingIgnoreCaseAndAuthorId(String searchPhrase, Long authorId, Pageable pageable);
 
     Page<Recipe> findByNameContainingIgnoreCaseAndLanguageAndAuthorId(String searchPhrase, String language, Long authorId, Pageable pageable);
+
+    @Modifying
+    @Query(value = "update Recipe recipe set recipe.isFinal = true where recipe.id = :recipeId")
+    void changeToFinal(@Param("recipeId") Long recipeId);
 }

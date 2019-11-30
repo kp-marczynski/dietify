@@ -125,4 +125,9 @@ public class RecipeServiceImpl implements RecipeService {
             return this.recipeRepository.findByNameContainingIgnoreCaseAndAuthorId(searchPhrase, author, pageable);
         }
     }
+
+    @Override
+    public void changeToFinal(Long recipeId) {
+        this.recipeRepository.changeToFinal(recipeId);
+    }
 }

@@ -3,6 +3,7 @@
         <div *ngIf="mealPlan">
             <h2><span jhiTranslate="gatewayApp.mealplansMealPlan.detail.title">Meal Plan</span> {{mealPlan.id}}</h2>
             <jhi-alert-error></jhi-alert-error>
+            <div class="card jh-card">
             <ngb-tabset justify="justified">
                 <ngb-tab title="{{'gatewayApp.mealplansMealPlan.settings' | translate}}">
                     <ng-template ngbTabContent>
@@ -151,6 +152,7 @@
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
+            </div>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

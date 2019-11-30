@@ -61,4 +61,6 @@ public interface RecipeService {
     Page<Recipe> search(String query, Pageable pageable);
 
     Page<Recipe> findBySearchAndFilters(String searchPhrase, String language, Pageable pageable, Long author);
+
+    void changeToFinal(Long recipeId);
 }

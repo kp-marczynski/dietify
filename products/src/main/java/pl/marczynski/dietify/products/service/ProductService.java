@@ -69,4 +69,6 @@ public interface ProductService {
      * @return the list of entities
      */
     public Page<Product> findBySearchAndFilters(String searchPhrase, String language, Long categoryId, Long subcategoryId, Long author, Pageable pageable);
+
+    void changeToFinal(Long productId);
 }

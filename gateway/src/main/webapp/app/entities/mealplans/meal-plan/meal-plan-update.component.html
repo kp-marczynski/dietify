@@ -2,6 +2,7 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-meal-plan-heading" jhiTranslate="gatewayApp.mealplansMealPlan.home.createOrEditLabel">Create or edit a Meal Plan</h2>
+            <div class="card jh-card">
             <ngb-tabset justify="justified">
                 <ngb-tab title="{{'gatewayApp.mealplansMealPlan.settings' | translate}}">
                     <ng-template ngbTabContent>
@@ -300,6 +301,7 @@
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
+            </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

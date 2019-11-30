@@ -32,6 +32,10 @@ export class ProductService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  changeToFinal(productId: number): Observable<EntityResponseType> {
+    return this.http.put<IProduct>(this.resourceUrl + '/' + productId, null, { observe: 'response' });
+  }
+
   find(id: number): Observable<EntityResponseType> {
     return this.http
       .get<IProduct>(`${this.resourceUrl}/${id}`, { observe: 'response' })

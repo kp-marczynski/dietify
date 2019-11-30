@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IRecipe } from 'app/shared/model/recipes/recipe.model';
+import { IProduct } from 'app/shared/model/products/product.model';
 
 type EntityResponseType = HttpResponse<IRecipe>;
 type EntityArrayResponseType = HttpResponse<IRecipe[]>;
@@ -31,6 +32,10 @@ export class RecipeService {
     return this.http
       .put<IRecipe>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  changeToFinal(recipeId: number): Observable<EntityResponseType> {
+    return this.http.put<IRecipe>(this.resourceUrl + '/' + recipeId, null, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {

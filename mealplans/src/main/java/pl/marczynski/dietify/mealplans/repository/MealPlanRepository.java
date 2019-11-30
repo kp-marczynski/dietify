@@ -27,4 +27,8 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Long> {
     Optional<MealPlan> findOneWithEagerRelationships(@Param("id") Long id);
 
     Page<MealPlan> findAllByAuthorId(Long authorId, Pageable pageable);
+
+    @Modifying
+    @Query(value = "update MealPlan mealPlan set mealPlan.isFinal = true where mealPlan.id = :mealPlanId")
+    void changeToFinal(@Param("mealPlanId") Long mealPlanId);
 }

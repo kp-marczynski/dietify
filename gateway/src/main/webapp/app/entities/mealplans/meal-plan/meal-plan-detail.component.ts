@@ -16,6 +16,7 @@ import { IMealProduct } from 'app/shared/model/mealplans/meal-product.model';
 import { MealTypeService } from 'app/entities/recipes/meal-type';
 import { IMealType } from 'app/shared/model/recipes/meal-type.model';
 import { JhiAlertService } from 'ng-jhipster';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-meal-plan-detail',
@@ -29,6 +30,7 @@ export class MealPlanDetailComponent implements OnInit {
   mealTypes: IMealType[];
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected activatedRoute: ActivatedRoute,
     protected caloriesConverter: CaloriesConverterService,
     protected productService: ProductService,
@@ -38,6 +40,7 @@ export class MealPlanDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.mealTypeService
       .query()
       .subscribe((res: HttpResponse<IMealType[]>) => (this.mealTypes = res.body), (res: HttpErrorResponse) => this.onError(res.message));
@@ -64,7 +67,7 @@ export class MealPlanDetailComponent implements OnInit {
   }
 
   findMealTypeDescription(mealTypeId): string {
-    return this.mealTypes.find(res => res.id === mealTypeId).name;
+    return this.mealTypes ? this.mealTypes.find(res => res.id === mealTypeId).name : '';
   }
 
   protected onError(errorMessage: string) {

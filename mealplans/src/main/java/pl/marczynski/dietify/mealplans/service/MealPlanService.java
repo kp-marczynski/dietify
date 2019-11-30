@@ -53,4 +53,6 @@ public interface MealPlanService {
      * @return the list of entities.
      */
     Page<MealPlan> search(String query, Pageable pageable);
+
+    void changeToFinal(Long mealPlanId);
 }

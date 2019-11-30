@@ -136,14 +136,6 @@ public class Product implements Serializable {
         this.id = id;
     }
 
-    public Boolean getFinal() {
-        return isFinal;
-    }
-
-    public void setFinal(Boolean aFinal) {
-        isFinal = aFinal;
-    }
-
     public String getSource() {
         return source;
     }
@@ -168,7 +160,7 @@ public class Product implements Serializable {
         this.description = description;
     }
 
-    public Boolean isIsFinal() {
+    public Boolean getIsFinal() {
         return isFinal;
     }
 
@@ -280,7 +272,7 @@ public class Product implements Serializable {
             ", source='" + getSource() + "'" +
             ", authorId=" + getAuthorId() +
             ", description='" + getDescription() + "'" +
-            ", isFinal='" + isIsFinal() + "'" +
+            ", isFinal='" + getIsFinal() + "'" +
 //            ", isVerified='" + isIsVerified() + "'" +
             ", language='" + getLanguage() + "'" +
             "}";

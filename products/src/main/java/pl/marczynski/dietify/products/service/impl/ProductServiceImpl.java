@@ -142,4 +142,9 @@ public class ProductServiceImpl implements ProductService {
             return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, author, pageable);
         }
     }
+
+    @Override
+    public void changeToFinal(Long productId) {
+        this.productRepository.changeToFinal(productId);
+    }
 }
