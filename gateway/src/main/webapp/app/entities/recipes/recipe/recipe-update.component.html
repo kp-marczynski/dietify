@@ -4,6 +4,7 @@
             <h2 id="jhi-recipe-heading" jhiTranslate="gatewayApp.recipesRecipe.home.createOrEditLabel">Create or edit a Recipe</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
+                <div class="card jh-card">
                 <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
@@ -235,6 +236,7 @@
                         <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{getMealTypeTranslation(mealTypeOption)}}</option>
                     </select>
                 </div>
+                </div>
                 <div formArrayName="recipeSections" class="form-group">
                     <h1>
                         <span jhiTranslate="gatewayApp.recipesRecipe.recipeSections">Recipe sections</span>
@@ -252,6 +254,7 @@
                                 <fa-icon [icon]="'times'"></fa-icon>
                             </button>
                         </h2>
+                        <div class="card jh-card">
                         <input class="form-control" type="text" formControlName="sectionName" [placeholder]="'gatewayApp.recipesRecipeSection.sectionName' | translate"/>
                         <div class="form-group">
                             <label jhiTranslate="gatewayApp.recipesRecipeSection.productPortions">Ingredients</label>
@@ -328,6 +331,7 @@
                             </table>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div>

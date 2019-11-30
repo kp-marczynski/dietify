@@ -1,5 +1,6 @@
 <div id="recipe-list-wrapper" class="row">
     <div class="col-md-3 center-block">
+        <div class="card jh-card">
         <h2>Filters</h2>
         <label for="language-select">Language:</label>
         <select class="form-control" id="language-select" name="language-select" [(ngModel)]="selectedLanguage"
@@ -8,6 +9,7 @@
                 [ngValue]="language === selectedLanguage ? selectedLanguage : language"
                 *ngFor="let language of languages; trackBy: customTrackBy">{{language | findLanguageFromKey}}</option>
         </select>
+        </div>
     </div>
     <div class="col-md-9">
     <h2 id="page-heading">
@@ -39,6 +41,7 @@
     <div class="alert alert-warning" *ngIf="recipes?.length === 0">
         <span jhiTranslate="gatewayApp.recipesRecipe.home.notFound">No recipes found</span>
     </div>
+        <div class="card jh-card">
     <div class="table-responsive" *ngIf="recipes?.length > 0">
         <table class="table table-striped">
             <thead>
@@ -105,13 +108,13 @@
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" [disabled]="recipe.isFinal"
                                 [routerLink]="['/recipe', recipe.id, 'edit']"
                                 class="btn btn-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
+                        <button type="submit" [disabled]="recipe.isFinal"
                                 [routerLink]="['/', 'recipe', { outlets: { popup: recipe.id + '/delete'} }]"
                                 replaceUrl="true"
                                 queryParamsHandling="merge"
@@ -131,6 +134,7 @@
             </tbody>
         </table>
     </div>
+        </div>
     <!-- Pager is not implemented yet, so this is normal pagination instead -->
     <div [hidden]="recipes?.length === 0">
         <div class="row justify-content-center">

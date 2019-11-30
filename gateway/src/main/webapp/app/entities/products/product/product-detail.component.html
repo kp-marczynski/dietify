@@ -5,6 +5,9 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <div class="card jh-card">
+                    <div class="row">
+                    <div class="col-md-6">
                 <dt><span jhiTranslate="gatewayApp.productsProduct.source" [ngbTooltip]="'gatewayApp.productsProduct.help.source' | translate">Source</span></dt>
                 <dd>
                     <span>{{product.source}}</span>
@@ -29,50 +32,61 @@
                 <dd>
                     <span>{{product.language}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span></dt>
-                <dd>
-                    <table>
-                        <tr>
-                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.energy">Energy</th>
-                            <td>{{product.basicNutritionData.energy}}</td>
-                        </tr>
-                        <tr>
-                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.fat">Fat</th>
-                            <td>{{product.basicNutritionData.fat}}</td>
-                        </tr>
-                        <tr>
-                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.protein">Protein</th>
-                            <td>{{product.basicNutritionData.protein}}</td>
-                        </tr>
-                        <tr>
-                            <th jhiTranslate="gatewayApp.productsProductBasicNutritionData.carbohydrates">Carbohydrates</th>
-                            <td>{{product.basicNutritionData.carbohydrates}}</td>
-                        </tr>
-                    </table>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span></dt>
-                <dd>
-                    <div *ngIf="product.subcategory">
-                        <a [routerLink]="['/product-subcategory', product.subcategory?.id, 'view']">{{product.subcategory?.description}}</a>
                     </div>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.productsProduct.suitableDiets">Suitable Diets</span></dt>
-                <dd>
+                    <div class="col-md-6">
+                        <dt><span jhiTranslate="gatewayApp.productsProduct.subcategory">Subcategory</span></dt>
+                        <dd>
+                            <div *ngIf="product.subcategory">
+                                <a [routerLink]="['/product-subcategory', product.subcategory?.id, 'view']">{{product.subcategory?.description}}</a>
+                            </div>
+                        </dd>
+                        <dt><span jhiTranslate="gatewayApp.productsProduct.suitableDiets">Suitable Diets</span></dt>
+                        <dd>
                     <span *ngFor="let suitableDiets of product.suitableDiets; let last = last">
                         <a [routerLink]="['/diet-type', suitableDiets?.id, 'view' ]">{{suitableDiets.name}}</a>{{last ? '' : ', '}}
                     </span>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.productsProduct.unsuitableDiets">Unsuitable Diets</span></dt>
-                <dd>
+                        </dd>
+                        <dt><span jhiTranslate="gatewayApp.productsProduct.unsuitableDiets">Unsuitable Diets</span></dt>
+                        <dd>
                     <span *ngFor="let unsuitableDiets of product.unsuitableDiets; let last = last">
                         <a [routerLink]="['/diet-type', unsuitableDiets?.id, 'view' ]">{{unsuitableDiets.name}}</a>{{last ? '' : ', '}}
                     </span>
-                </dd>
+                        </dd>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="card jh-card">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <dt><span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span></dt>
+                            <dd>
+                                <table>
+                                    <tr>
+                                        <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.energy">Energy</span> [kcal]: </th>
+                                        <td>{{product.basicNutritionData.energy}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.fat">Fat</span> [g]: </th>
+                                        <td>{{product.basicNutritionData.fat}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.protein">Protein</span> [g]: </th>
+                                        <td>{{product.basicNutritionData.protein}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th><span jhiTranslate="gatewayApp.productsProductBasicNutritionData.carbohydrates">Carbohydrates</span> [g]: </th>
+                                        <td>{{product.basicNutritionData.carbohydrates}}</td>
+                                    </tr>
+                                </table>
+                            </dd>
+                            <div class="canvas-wrapper">
+                                <canvas id="canvas" width="300px" height="300px">{{ chart }}</canvas>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                 <dt><span jhiTranslate="gatewayApp.productsProduct.nutritionData">Nutritions</span></dt>
                 <dd>
-                    <div class="canvas-wrapper">
-                        <canvas id="canvas" width="300px" height="300px">{{ chart }}</canvas>
-                    </div>
                     <table>
                         <tr *ngFor="let nutritionData of product.nutritionData">
                             <td>{{getNutritionDefinitionTranslation(nutritionData.nutritionDefinition)}} [{{nutritionData.nutritionDefinition.units}}]:</td>
@@ -80,6 +94,10 @@
                         </tr>
                     </table>
                 </dd>
+                        </div>
+                    </div>
+                </div>
+                <div class="card jh-card">
                 <dt><span jhiTranslate="gatewayApp.productsProduct.householdMeasures">Household Measures</span></dt>
                 <dd>
                     <table>
@@ -89,6 +107,7 @@
                         </tr>
                     </table>
                 </dd>
+                </div>
             </dl>
 
             <button type="submit"
@@ -97,7 +116,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <button type="button" [disabled]="product.isFinal"
                     [routerLink]="['/product', product.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>

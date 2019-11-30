@@ -7,6 +7,7 @@ import { ProductService } from 'app/entities/products/product';
 import { IProduct } from 'app/shared/model/products/product.model';
 import { IMealProduct } from 'app/shared/model/mealplans/meal-product.model';
 import { IProductPortion } from 'app/shared/model/recipes/product-portion.model';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-recipe-detail',
@@ -17,9 +18,15 @@ export class RecipeDetailComponent implements OnInit {
   products: IProduct[] = [];
   itemsQueue = 0;
 
-  constructor(protected dataUtils: JhiDataUtils, protected activatedRoute: ActivatedRoute, protected productService: ProductService) {}
+  constructor(
+    protected layoutCardService: MainLayoutCardService,
+    protected dataUtils: JhiDataUtils,
+    protected activatedRoute: ActivatedRoute,
+    protected productService: ProductService
+  ) {}
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.activatedRoute.data.subscribe(({ recipe }) => {
       this.recipe = recipe;
       for (const section of this.recipe.recipeSections) {

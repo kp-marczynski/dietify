@@ -5,6 +5,9 @@
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
+                <div class="card jh-card">
+                <div class="row">
+                    <div class="col-md-6">
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.preparationTimeMinutes" [ngbTooltip]="'gatewayApp.recipesRecipe.help.preparationTimeMinutes' | translate">Preparation Time Minutes</span></dt>
                 <dd>
                     <span>{{recipe.preparationTimeMinutes}}</span>
@@ -42,6 +45,14 @@
                 <dd>
                     <span>{{recipe.language}}</span>
                 </dd>
+                        <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
+                        <dd>
+                            <div *ngIf="recipe.sourceRecipe">
+                                <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.name}}</a>
+                            </div>
+                        </dd>
+                </div>
+                <div class="col-md-6">
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight" [ngbTooltip]="'gatewayApp.recipesRecipe.help.totalGramsWeight' | translate">Total Grams Weight</span></dt>
                 <dd>
                     <span>{{recipe.totalGramsWeight}}</span>
@@ -67,12 +78,6 @@
                         </tr>
                     </table>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
-                <dd>
-                    <div *ngIf="recipe.sourceRecipe">
-                        <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.name}}</a>
-                    </div>
-                </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.kitchenAppliances">Kitchen Appliances</span></dt>
                 <dd>
                     <span *ngFor="let kitchenAppliances of recipe.kitchenAppliances; let last = last">
@@ -91,15 +96,19 @@
                         <a [routerLink]="['/meal-type', mealTypes?.id, 'view' ]">{{mealTypes.name}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
+                </div>
+                </div>
+                </div>
             </dl>
             <div *ngFor="let section of recipe.recipeSections">
                 <hr>
                 <h3><span jhiTranslate="gatewayApp.recipesRecipeSection.detail.title">Section</span> {{section.sectionName}}</h3>
+                <div class="card jh-card">
                 <div class="row">
                     <div class="col-md-6">
                         <h3 jhiTranslate="gatewayApp.recipesRecipeSection.productPortions">Ingredients</h3>
                         <ul>
-                            <li *ngFor="let productPortion of section.productPortions">{{productPortion.amount}}x {{getHouseholdMeasure(productPortion)}} - {{products[productPortion.productId].description}}</li>
+                            <li *ngFor="let productPortion of section.productPortions">{{productPortion.amount}}x {{getHouseholdMeasure(productPortion)}} - <a [routerLink]="['/product', productPortion.productId, 'view' ]">{{products[productPortion.productId]?.description}}</a></li>
                         </ul>
                     </div>
                     <div class="col-md-6">
@@ -109,6 +118,7 @@
                         </ol>
                     </div>
                 </div>
+                </div>
             </div>
             <button type="submit"
                     (click)="previousState()"
@@ -116,7 +126,7 @@
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <button type="button" [disabled]="recipe.isFinal"
                     [routerLink]="['/recipe', recipe.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>

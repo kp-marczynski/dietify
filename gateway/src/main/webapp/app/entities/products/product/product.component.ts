@@ -14,6 +14,7 @@ import { IProductCategory } from 'app/shared/model/products/product-category.mod
 import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
 import { ProductCategoryService } from 'app/entities/products/product-category';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-product',
@@ -48,6 +49,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   languages: any[];
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected productService: ProductService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -185,6 +187,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.accountService.identity().then((account: Account) => {
       this.userService.find(account.login).subscribe(res => {
         this.authorId = res.body.id;

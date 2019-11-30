@@ -20,6 +20,7 @@ import { ProductComponent, ProductService } from 'app/entities/products/product'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/core';
 import { IProductCategoryTranslation } from 'app/shared/model/products/product-category-translation.model';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-recipe-update',
@@ -71,6 +72,7 @@ export class RecipeUpdateComponent implements OnInit {
   });
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected recipeService: RecipeService,
@@ -89,6 +91,7 @@ export class RecipeUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.isSaving = false;
     this.accountService.identity().then((account: Account) => {
       this.userService.find(account.login).subscribe(res => {
@@ -267,6 +270,12 @@ export class RecipeUpdateComponent implements OnInit {
         basicNutritionData.fat += (product.basicNutritionData.fat * portionGramsWeight) / 100;
         basicNutritionData.protein += (product.basicNutritionData.protein * portionGramsWeight) / 100;
         basicNutritionData.carbohydrates += (product.basicNutritionData.carbohydrates * portionGramsWeight) / 100;
+
+        if (!product.isFinal) {
+          product.isFinal = true;
+          console.log(product);
+          this.productService.update(product).subscribe();
+        }
       }
     }
     recipe.totalGramsWeight = Math.floor(recipe.totalGramsWeight);

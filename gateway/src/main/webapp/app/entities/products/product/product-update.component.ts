@@ -19,6 +19,7 @@ import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/cor
 import { IProductCategory } from 'app/shared/model/products/product-category.model';
 import { ProductCategoryService } from 'app/entities/products/product-category';
 import { IProductCategoryTranslation } from 'app/shared/model/products/product-category-translation.model';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 const HouseholdMeasureValidator: ValidatorFn = (fg: FormGroup) => {
   const description = fg.get('description').value;
@@ -81,6 +82,7 @@ export class ProductUpdateComponent implements OnInit {
   );
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected jhiAlertService: JhiAlertService,
     protected productService: ProductService,
     protected productSubcategoryService: ProductSubcategoryService,
@@ -96,6 +98,7 @@ export class ProductUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ product }) => {
       if (!product.basicNutritionData) {

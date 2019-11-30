@@ -4,6 +4,7 @@
             <h2 id="jhi-product-heading" jhiTranslate="gatewayApp.productsProduct.home.createOrEditLabel">Create or edit a Product</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
+                <div class="card jh-card">
                 <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
@@ -69,8 +70,55 @@
                             *ngFor="let languageOption of languages">{{languageOption}}</option>
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_category" jhiTranslate="gatewayApp.productsProduct.category">Category</label>
+                    <select class="form-control col-5" id="field_category" name="category"
+                            formControlName="category" (change)="fetchSubcategories()">
+                        <option *ngIf="!editForm.get('category').value" [ngValue]="null" selected></option>
+                        <option
+                            [ngValue]="productCategoryOption.id === editForm.get('category').value?.id ? editForm.get('category').value : productCategoryOption"
+                            *ngFor="let productCategoryOption of productCategories; trackBy: trackProductCategoryById">{{getProductCategoryTranslation(productCategoryOption)}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.subcategory"
+                           for="field_subcategory">Subcategory</label>
+                    <div class="row">
+                        <select class="form-control col-5" id="field_subcategory" name="subcategory"
+                                formControlName="subcategory" (click)="selectedExistingSubcategory()">
+                            <option *ngIf="!editForm.get('subcategory').value" [ngValue]="null" selected></option>
+                            <option
+                                [ngValue]="productSubcategoryOption.id === editForm.get('subcategory').value?.id ? editForm.get('subcategory').value : productSubcategoryOption"
+                                *ngFor="let productSubcategoryOption of productsubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
+                        </select>
+                        <div class="col-2 text-center">-- SELECT OR NEW --</div>
+                        <input id="new_subcategory" type="text" class="form-control col-5" name="newSubcategory" formControlName="newSubcategory"
+                               (keyup)="selectedNewSubcategory()">
+                    </div>
+                </div>
+                <div *ngIf="editForm.get('subcategory').invalid && (editForm.get('subcategory').dirty || editForm.get('subcategory').touched)">
+                    <small class="form-text text-danger"
+                           *ngIf="editForm.get('subcategory').errors.required" jhiTranslate="entity.validation.required">
+                        This field is required.
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="gatewayApp.productsProduct.suitableDiets" for="field_suitableDiets">Suitable Diets</label>
+                    <select class="form-control" id="field_suitableDiets" multiple name="suitableDiets" formControlName="suitableDiets">
+                        <option [ngValue]="getSelected(editForm.get('suitableDiets').value, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.name}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label jhiTranslate="gatewayApp.productsProduct.unsuitableDiets" for="field_unsuitableDiets">Unsuitable Diets</label>
+                    <select class="form-control" id="field_unsuitableDiets" multiple name="unsuitableDiets" formControlName="unsuitableDiets">
+                        <option [ngValue]="getSelected(editForm.get('unsuitableDiets').value, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.name}}</option>
+                    </select>
+                </div>
+                </div>
+                <div class="card jh-card">
                 <div class="form-group" formGroupName="basicNutritionData">
-                    <span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span>
+                    <h3 jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</h3>
                     <table>
                         <tr>
                             <td><label class="form-control-label" jhiTranslate="gatewayApp.productsProductBasicNutritionData.energy" for="field_energy" [ngbTooltip]="'gatewayApp.productsProductBasicNutritionData.help.energy' | translate">Energy</label></td>
@@ -135,51 +183,7 @@
                     </table>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" for="field_category" jhiTranslate="gatewayApp.productsProduct.category">Category</label>
-                    <select class="form-control col-5" id="field_category" name="category"
-                            formControlName="category" (change)="fetchSubcategories()">
-                        <option *ngIf="!editForm.get('category').value" [ngValue]="null" selected></option>
-                        <option
-                            [ngValue]="productCategoryOption.id === editForm.get('category').value?.id ? editForm.get('category').value : productCategoryOption"
-                            *ngFor="let productCategoryOption of productCategories; trackBy: trackProductCategoryById">{{getProductCategoryTranslation(productCategoryOption)}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.productsProduct.subcategory"
-                           for="field_subcategory">Subcategory</label>
-                    <div class="row">
-                        <select class="form-control col-5" id="field_subcategory" name="subcategory"
-                                formControlName="subcategory" (click)="selectedExistingSubcategory()">
-                            <option *ngIf="!editForm.get('subcategory').value" [ngValue]="null" selected></option>
-                            <option
-                                [ngValue]="productSubcategoryOption.id === editForm.get('subcategory').value?.id ? editForm.get('subcategory').value : productSubcategoryOption"
-                                *ngFor="let productSubcategoryOption of productsubcategories; trackBy: trackProductSubcategoryById">{{productSubcategoryOption.description}}</option>
-                        </select>
-                        <div class="col-2 text-center">-- SELECT OR NEW --</div>
-                        <input id="new_subcategory" type="text" class="form-control col-5" name="newSubcategory" formControlName="newSubcategory"
-                               (keyup)="selectedNewSubcategory()">
-                    </div>
-                </div>
-                <div *ngIf="editForm.get('subcategory').invalid && (editForm.get('subcategory').dirty || editForm.get('subcategory').touched)">
-                    <small class="form-text text-danger"
-                           *ngIf="editForm.get('subcategory').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                    </small>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="gatewayApp.productsProduct.suitableDiets" for="field_suitableDiets">Suitable Diets</label>
-                    <select class="form-control" id="field_suitableDiets" multiple name="suitableDiets" formControlName="suitableDiets">
-                        <option [ngValue]="getSelected(editForm.get('suitableDiets').value, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label jhiTranslate="gatewayApp.productsProduct.unsuitableDiets" for="field_unsuitableDiets">Unsuitable Diets</label>
-                    <select class="form-control" id="field_unsuitableDiets" multiple name="unsuitableDiets" formControlName="unsuitableDiets">
-                        <option [ngValue]="getSelected(editForm.get('unsuitableDiets').value, dietTypeOption)" *ngFor="let dietTypeOption of diettypes; trackBy: trackDietTypeById">{{dietTypeOption.name}}</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <span jhiTranslate="gatewayApp.productsProduct.nutritionData">Nutritions</span>
+                    <h3 jhiTranslate="gatewayApp.productsProduct.nutritionData">Nutritions</h3>
                     <table formArrayName="nutritionData">
                         <tr *ngFor="let nutritionData of getNutritionDataFormArray().controls; let i = index" [formGroupName]="i">
                             <td><label class="form-control-label" for="nutritionValue_{{i}}">{{getNutritionDefinitionTranslation(nutritionData.value.nutritionDefinition)}}</label></td>
@@ -200,8 +204,10 @@
                         </tr>
                     </table>
                 </div>
+                </div>
+                <div class="card jh-card">
                 <div class="form-group">
-                    <span jhiTranslate="gatewayApp.productsProduct.householdMeasures">Household Measures</span>
+                    <h3 jhiTranslate="gatewayApp.productsProduct.householdMeasures">Household Measures</h3>
                     <table formArrayName="householdMeasures" class="form-group">
                         <tr *ngFor="let householdMeasure of getHouseholdMeasuresFormArray().controls; let i = index" [formGroupName]="i">
                             <td>
@@ -228,6 +234,7 @@
                             </td>
                         </tr>
                     </table>
+                </div>
                 </div>
             </div>
             <div>

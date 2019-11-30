@@ -11,6 +11,7 @@ import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/cor
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { RecipeService } from './recipe.service';
 import { Product } from 'app/shared/model/products/product.model';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-recipe',
@@ -41,6 +42,7 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
   languages: any[];
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected recipeService: RecipeService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -144,6 +146,7 @@ export class RecipeComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.accountService.identity().then((account: Account) => {
       this.userService.find(account.login).subscribe(res => {
         this.authorId = res.body.id;
