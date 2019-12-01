@@ -60,7 +60,11 @@ export class PatientCardService {
   protected convertDateFromClient(patientCard: IPatientCard): IPatientCard {
     const copy: IPatientCard = Object.assign({}, patientCard, {
       creationDate:
-        patientCard.creationDate != null && patientCard.creationDate.isValid() ? patientCard.creationDate.format(DATE_FORMAT) : null
+        patientCard.creationDate != null && patientCard.creationDate.isValid() ? patientCard.creationDate.format(DATE_FORMAT) : null,
+      patientDateOfBirth:
+        patientCard.patientDateOfBirth != null && patientCard.patientDateOfBirth.isValid()
+          ? patientCard.patientDateOfBirth.format(DATE_FORMAT)
+          : null
     });
     return copy;
   }
@@ -68,6 +72,7 @@ export class PatientCardService {
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
+      res.body.patientDateOfBirth = res.body.patientDateOfBirth != null ? moment(res.body.patientDateOfBirth) : null;
     }
     return res;
   }
@@ -76,6 +81,7 @@ export class PatientCardService {
     if (res.body) {
       res.body.forEach((patientCard: IPatientCard) => {
         patientCard.creationDate = patientCard.creationDate != null ? moment(patientCard.creationDate) : null;
+        patientCard.patientDateOfBirth = patientCard.patientDateOfBirth != null ? moment(patientCard.patientDateOfBirth) : null;
       });
     }
     return res;

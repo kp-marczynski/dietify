@@ -21,6 +21,13 @@
       "appointments": "Appointments",
       "bmi": "BMI",
       "details": "Patient details",
+      "patientLastName": "Patient Last Name",
+      "patientFirstName": "Patient First Name",
+      "patientGender": "Patient Gender",
+      "patientEmail": "Patient Email",
+      "patientPhone": "Patient Phone",
+      "patientDateOfBirth": "Patient Date of Birth",
+      "additionalPatientInfo": "Additional Patient Info",
       "help": {
         "creationDate": "Date when patient registered to dietitian",
         "dietitianId": "Dietitian to which patient has signed. Id of User entity retrieved from gateway service.",
