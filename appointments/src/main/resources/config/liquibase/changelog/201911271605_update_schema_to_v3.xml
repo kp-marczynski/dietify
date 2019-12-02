@@ -33,4 +33,8 @@
         </addColumn>
     </changeSet>
 
+    <changeSet id="201912020058-1" author="kp-marczynski">
+        <dropNotNullConstraint tableName="patient_card" columnName="patient_id" columnDataType="bigint"/>
+    </changeSet>
+
 </databaseChangeLog>

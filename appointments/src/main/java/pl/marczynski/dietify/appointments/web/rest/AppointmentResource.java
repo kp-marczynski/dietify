@@ -102,16 +102,18 @@ public class AppointmentResource {
         boolean waitingForConsultation = Boolean.parseBoolean(queryParams.getOrDefault("isWaitingForConsultation", Collections.singletonList("false")).get(0));
         String patientIdString = queryParams.getOrDefault("patientId", Collections.singletonList(null)).get(0);
         Long patientId = patientIdString != null ? Long.valueOf(patientIdString) : null;
+        String dietitianIdString = queryParams.getOrDefault("dietitianId", Collections.singletonList(null)).get(0);
+        Long dietitianId = dietitianIdString != null ? Long.valueOf(dietitianIdString) : null;
         if (waitingForConsultation) {
             if (patientId != null) {
-                page = appointmentService.findAllByPatientWaitingForConsultation(patientId, pageable);
+                page = appointmentService.findAllByPatientWaitingForConsultation(dietitianId, patientId, pageable);
             } else {
-                page = appointmentService.findAllWaitingForConsultation(pageable);
+                page = appointmentService.findAllWaitingForConsultation(dietitianId, pageable);
             }
         } else if (patientId != null) {
-            page = appointmentService.findAllByPatient(patientId, pageable);
+            page = appointmentService.findAllByPatient(dietitianId, patientId, pageable);
         } else {
-            page = appointmentService.findAll(pageable);
+            page = appointmentService.findAll(dietitianId, pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

@@ -25,13 +25,13 @@
         </div>
     </div>
     <br/>
-    <div class="alert alert-warning" *ngIf="patientCards?.length === 0">
-        <span jhiTranslate="gatewayApp.appointmentsPatientCard.home.notFound">No patientCards found</span>
-    </div>
     <div class="row">
         <div class="col-lg-4 col-lg-offset-2">
             <div class="card jh-card">
                 <h3 jhiTranslate="gatewayApp.appointmentsPatientCard.detail.allPatients">All patients</h3>
+                <div class="alert alert-warning" *ngIf="patientCards?.length === 0">
+                    <span jhiTranslate="gatewayApp.appointmentsPatientCard.home.notFound">No patientCards found</span>
+                </div>
                 <div class="table-responsive" *ngIf="patientCards?.length > 0">
                     <table class="table table-striped">
                         <thead>

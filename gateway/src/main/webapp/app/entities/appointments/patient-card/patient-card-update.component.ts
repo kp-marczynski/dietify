@@ -91,7 +91,14 @@ export class PatientCardUpdateComponent implements OnInit {
       id: this.editForm.get(['id']).value,
       creationDate: this.editForm.get(['creationDate']).value,
       dietitianId: this.editForm.get(['dietitianId']).value,
-      patientId: this.editForm.get(['patientId']).value
+      patientId: this.editForm.get(['patientId']).value,
+      patientLastName: this.editForm.get(['patientLastName']).value,
+      patientFirstName: this.editForm.get(['patientFirstName']).value,
+      patientGender: this.editForm.get(['patientGender']).value,
+      patientEmail: this.editForm.get(['patientEmail']).value,
+      patientPhone: this.editForm.get(['patientPhone']).value,
+      patientDateOfBirth: this.editForm.get(['patientDateOfBirth']).value,
+      additionalPatientInfo: this.editForm.get(['additionalPatientInfo']).value
     };
   }
 

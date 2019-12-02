@@ -31,7 +31,6 @@ public class PatientCard implements Serializable {
     /**
      * Date when patient registered to dietitian
      */
-    @NotNull
     @ApiModelProperty(value = "Date when patient registered to dietitian", required = true)
     @Column(name = "creation_date", nullable = false)
     private LocalDate creationDate;
@@ -47,7 +46,6 @@ public class PatientCard implements Serializable {
     /**
      * Patient of dietitian. Id of User entity retrieved from gateway service.
      */
-    @NotNull
     @ApiModelProperty(value = "Patient of dietitian. Id of User entity retrieved from gateway service.")
     @Column(name = "patient_id")
     private Long patientId;

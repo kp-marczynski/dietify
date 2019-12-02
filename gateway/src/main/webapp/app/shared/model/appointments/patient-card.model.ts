@@ -1,5 +1,6 @@
 import { Moment } from 'moment';
 import { IAppointment } from 'app/shared/model/appointments/appointment.model';
+import { IBmiResult } from 'app/shared/model/appointments/bmi-result.model';
 
 export const enum Gender {
   FEMALE = 'FEMALE',

@@ -1,5 +1,7 @@
 package pl.marczynski.dietify.appointments.service.impl;
 
+import pl.marczynski.dietify.appointments.domain.BmiResult;
+import pl.marczynski.dietify.appointments.service.AppointmentService;
 import pl.marczynski.dietify.appointments.service.PatientCardService;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.repository.PatientCardRepository;
@@ -11,6 +13,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,9 +27,11 @@ public class PatientCardServiceImpl implements PatientCardService {
     private final Logger log = LoggerFactory.getLogger(PatientCardServiceImpl.class);
 
     private final PatientCardRepository patientCardRepository;
+    private final AppointmentService appointmentService;
 
-    public PatientCardServiceImpl(PatientCardRepository patientCardRepository) {
+    public PatientCardServiceImpl(PatientCardRepository patientCardRepository, AppointmentService appointmentService) {
         this.patientCardRepository = patientCardRepository;
+        this.appointmentService = appointmentService;
     }
 
     /**
@@ -37,20 +43,25 @@ public class PatientCardServiceImpl implements PatientCardService {
     @Override
     public PatientCard save(PatientCard patientCard) {
         log.debug("Request to save PatientCard : {}", patientCard);
+        if(patientCard.getId() == null || patientCard.getCreationDate() == null){
+            patientCard.setCreationDate(LocalDate.now());
+        }
         return patientCardRepository.save(patientCard);
     }
 
     /**
      * Get all the patientCards.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<PatientCard> findAll(Pageable pageable) {
+    public Page<PatientCard> findAll(Long dietitianId, Pageable pageable) {
         log.debug("Request to get all PatientCards");
-        return patientCardRepository.findAll(pageable);
+        return patientCardRepository.findAllByDietitianId(dietitianId, pageable);
     }
 
 
@@ -67,6 +78,10 @@ public class PatientCardServiceImpl implements PatientCardService {
         return patientCardRepository.findById(id);
     }
 
+    @Override
+    public List<BmiResult> getBmiResults(Long patientCardId) {
+        return this.appointmentService.calculateBMI(patientCardId);
+    }
     /**
      * Delete the patientCard by id.
      *

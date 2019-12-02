@@ -8,9 +8,11 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
+import { IBmiResult } from 'app/shared/model/appointments/bmi-result.model';
 
 type EntityResponseType = HttpResponse<IPatientCard>;
 type EntityArrayResponseType = HttpResponse<IPatientCard[]>;
+type BmiResponseType = HttpResponse<IBmiResult[]>;
 
 @Injectable({ providedIn: 'root' })
 export class PatientCardService {
@@ -37,6 +39,10 @@ export class PatientCardService {
     return this.http
       .get<IPatientCard>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  getBmiResults(id: number): Observable<BmiResponseType> {
+    return this.http.get<IBmiResult[]>(`${this.resourceUrl}/${id}/bmi`, { observe: 'response' });
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

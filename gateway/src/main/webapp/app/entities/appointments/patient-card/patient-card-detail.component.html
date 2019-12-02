@@ -1,5 +1,5 @@
 <div *ngIf="patientCard">
-    <h2><span jhiTranslate="gatewayApp.appointmentsPatientCard.detail.title">Patient Card</span> {{patientCard.id}}</h2>
+    <h2><span jhiTranslate="gatewayApp.appointmentsPatientCard.detail.title">Patient Card</span> - {{patientCard.patientLastName}} {{patientCard.patientFirstName}}</h2>
     <button type="submit"
             (click)="previousState()"
             class="btn btn-info">
@@ -30,6 +30,34 @@
                 <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientId' | translate">Patient Id</span></dt>
                 <dd>
                     <span>{{patientCard.patientId}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientLastName" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientLastName' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.patientLastName}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientFirstName" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientFirstName' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.patientFirstName}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientGender" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientGender' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.patientGender}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientEmail" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientEmail' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.patientEmail}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientPhone" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientPhone' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.patientPhone}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientDateOfBirth" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.patientDateOfBirth' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.patientDateOfBirth}}</span>
+                </dd>
+                <dt><span jhiTranslate="gatewayApp.appointmentsPatientCard.additionalPatientInfo" [ngbTooltip]="'gatewayApp.appointmentsPatientCard.help.additionalPatientInfo' | translate">Patient Id</span></dt>
+                <dd>
+                    <span>{{patientCard.additionalPatientInfo}}</span>
                 </dd>
             </dl>
         </div>

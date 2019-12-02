@@ -1,5 +1,5 @@
 <div *ngIf="appointment">
-    <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> {{appointment.id}}</h2>
+    <h2><span jhiTranslate="gatewayApp.appointmentsAppointment.detail.title">Appointment</span> - <a [routerLink]="['/patient-card', appointment.patientCard.id, 'view' ]">{{appointment.patientCard.patientLastName}} {{appointment.patientCard.patientFirstName}}</a> {{appointment.appointmentDate | date:'shortDate'}}</h2>
     <jhi-alert-error></jhi-alert-error>
 </div>
 <div class="row">
@@ -9,7 +9,7 @@
             <dl *ngIf="appointment" class="row-md jh-entity-details">
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentDate' | translate">Appointment Date</span></dt>
                 <dd>
-                    <span>{{appointment.appointmentDate}}</span>
+                    <span>{{appointment.appointmentDate | date:'short'}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.appointmentState' | translate">Appointment State</span></dt>
                 <dd>
@@ -17,16 +17,16 @@
                     <br>
                     <div *ngIf="appointment.appointmentState != 'CANCELED' && appointment.appointmentState != 'COMPLETED'">
                         <div *ngIf="appointment.appointmentState == 'PLANNED'">
-                            <button type="button" class="btn btn-danger" (click)="cancelAppointment()" jhiTranslate="gatewayApp.AppointmentState.action.cancel">Cancel Appointment</button>
-                            <button type="button" class="btn btn-secondary" (click)="appointmentTookPlace()" jhiTranslate="gatewayApp.AppointmentState.action.acknowledge">Visit took place</button>
+                            <button type="button" class="btn btn-danger w-100" (click)="cancelAppointment()" jhiTranslate="gatewayApp.AppointmentState.action.cancel">Cancel Appointment</button>
+                            <button type="button" class="btn btn-secondary w-100" (click)="appointmentTookPlace()" jhiTranslate="gatewayApp.AppointmentState.action.acknowledge">Visit took place</button>
                         </div>
-                        <button type="button" class="btn btn-primary" (click)="consultationCompleted()" jhiTranslate="gatewayApp.AppointmentState.action.complete">Consultation completed</button>
+                        <button type="button" class="btn btn-primary w-100" (click)="consultationCompleted()" jhiTranslate="gatewayApp.AppointmentState.action.complete">Consultation completed</button>
                     </div>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</span></dt>
-                <dd>
-                    <span>{{appointment.generalAdvice}}</span>
-                </dd>
+<!--                </dd>-->
+<!--                <dt><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice" [ngbTooltip]="'gatewayApp.appointmentsAppointment.help.generalAdvice' | translate">General Advice</span></dt>-->
+<!--                <dd>-->
+<!--                    <span>{{appointment.generalAdvice}}</span>-->
+<!--                </dd>-->
             </dl>
         </div>
     </div>
@@ -79,7 +79,7 @@
             <table class="table table-striped">
                 <tbody>
                 <tr *ngFor="let mealPlan of appointment.mealPlans">
-                    <td>{{mealPlan.mealPlanId}}</td>
+                    <td>{{mealPlans[mealPlan.mealPlanId]? mealPlans[mealPlan.mealPlanId].name : mealPlan.mealPlanId}}</td>
                     <td>
                         <button type="submit"
                                 [routerLink]="['/meal-plan', mealPlan.mealPlanId, 'view' ]"

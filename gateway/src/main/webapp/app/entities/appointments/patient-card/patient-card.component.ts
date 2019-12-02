@@ -6,11 +6,11 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
-import { AccountService } from 'app/core';
+import { AccountService, UserService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { PatientCardService } from './patient-card.service';
-import {MainLayoutCardService} from 'app/layouts/main/main-layout-card.service';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-patient-card',
@@ -31,8 +31,10 @@ export class PatientCardComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  dietitianId: number;
 
   constructor(
+    protected userService: UserService,
     protected patientCardService: PatientCardService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -60,7 +62,8 @@ export class PatientCardComponent implements OnInit, OnDestroy {
           page: this.page - 1,
           query: this.currentSearch,
           size: this.itemsPerPage,
-          sort: this.sort()
+          sort: this.sort(),
+          dietitianId: this.dietitianId
         })
         .subscribe(
           (res: HttpResponse<IPatientCard[]>) => this.paginatePatientCards(res.body, res.headers),
@@ -72,7 +75,8 @@ export class PatientCardComponent implements OnInit, OnDestroy {
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort()
+        sort: this.sort(),
+        dietitianId: this.dietitianId
       })
       .subscribe(
         (res: HttpResponse<IPatientCard[]>) => this.paginatePatientCards(res.body, res.headers),
@@ -131,9 +135,12 @@ export class PatientCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.layoutCardService.changeMainCardContainerVisibility(false);
-    this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;
+      this.userService.find(account.login).subscribe(res => {
+        this.dietitianId = res.body.id;
+        this.loadAll();
+      });
     });
     this.registerChangeInPatientCards();
   }

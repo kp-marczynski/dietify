@@ -7,10 +7,10 @@ import { FormBuilder } from '@angular/forms';
 import { AppointmentState, IAppointment } from 'app/shared/model/appointments/appointment.model';
 import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
+import { IMealPlan, MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
 import { AssignedMealPlan } from 'app/shared/model/appointments/assigned-meal-plan.model';
 import { AppointmentService } from 'app/entities/appointments/appointment/appointment.service';
-import { MealPlanComponent } from 'app/entities/mealplans/meal-plan';
+import { MealPlanComponent, MealPlanService } from 'app/entities/mealplans/meal-plan';
 import { NutritionalInterviewDetailComponent, NutritionalInterviewUpdateComponent } from 'app/entities/appointments/nutritional-interview';
 import { NutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
 import { BodyMeasurementDetailComponent, BodyMeasurementUpdateComponent } from 'app/entities/appointments/body-measurement';
@@ -23,6 +23,7 @@ import { BodyMeasurement } from 'app/shared/model/appointments/body-measurement.
 export class AppointmentDetailComponent implements OnInit {
   appointment: IAppointment;
   isEditingAdvice = false;
+  mealPlans: IMealPlan[] = [];
 
   editForm = this.fb.group({
     generalAdvice: []
@@ -30,6 +31,7 @@ export class AppointmentDetailComponent implements OnInit {
 
   constructor(
     protected appointmentService: AppointmentService,
+    protected mealPlansService: MealPlanService,
     protected jhiAlertService: JhiAlertService,
     protected dataUtils: JhiDataUtils,
     protected activatedRoute: ActivatedRoute,
@@ -42,6 +44,12 @@ export class AppointmentDetailComponent implements OnInit {
     this.layoutCardService.changeMainCardContainerVisibility(false);
     this.activatedRoute.data.subscribe(({ appointment }) => {
       this.appointment = appointment;
+      this.appointment.mealPlans.forEach(assignedMealPlan => {
+        this.mealPlansService.find(assignedMealPlan.mealPlanId).subscribe(res => {
+          const mealPlan = res.body;
+          this.mealPlans[mealPlan.id] = mealPlan;
+        });
+      });
     });
   }
 
@@ -62,6 +70,7 @@ export class AppointmentDetailComponent implements OnInit {
 
     modalRef.componentInstance.passEntry.subscribe((receivedEntry: MealPlan) => {
       modalRef.close();
+      this.mealPlans[receivedEntry.id] = receivedEntry;
       if (!this.appointment.mealPlans) {
         this.appointment.mealPlans = [];
       }

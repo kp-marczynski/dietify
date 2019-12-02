@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.web.rest;
 
+import pl.marczynski.dietify.appointments.domain.BmiResult;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 import pl.marczynski.dietify.appointments.service.PatientCardService;
 import pl.marczynski.dietify.appointments.web.rest.errors.BadRequestAlertException;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -97,9 +99,18 @@ public class PatientCardResource {
     @GetMapping("/patient-cards")
     public ResponseEntity<List<PatientCard>> getAllPatientCards(Pageable pageable, @RequestParam MultiValueMap<String, String> queryParams, UriComponentsBuilder uriBuilder) {
         log.debug("REST request to get a page of PatientCards");
-        Page<PatientCard> page = patientCardService.findAll(pageable);
+        String dietitianIdString = queryParams.getOrDefault("dietitianId", Collections.singletonList(null)).get(0);
+        Long dietitianId = dietitianIdString != null ? Long.valueOf(dietitianIdString) : null;
+        Page<PatientCard> page = patientCardService.findAll(dietitianId, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    @GetMapping("/patient-cards/{id}/bmi")
+    public ResponseEntity<List<BmiResult>> getAllPatientCards(@PathVariable Long id) {
+        log.debug("REST request to get PatientCard BMI: {}", id);
+        List<BmiResult> bmiResults = patientCardService.getBmiResults(id);
+        return ResponseEntity.ok().body(bmiResults);
     }
 
     /**
