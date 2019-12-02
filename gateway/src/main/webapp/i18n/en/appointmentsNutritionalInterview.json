@@ -18,6 +18,7 @@
         "basic": "Basic info",
         "health": "Health",
         "eatingHabits": "Eating Habits",
+        "customQuestions": "Custom Questions",
         "summary": "Summary"
       },
       "completionDate": "Completion Date",

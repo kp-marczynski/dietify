@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import pl.marczynski.dietify.products.service.ProductSubcategoryService;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -47,6 +49,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product save(Product product) {
         log.debug("Request to save Product : {}", product);
+        if(product.getId() == null || product.getCreationTimestamp() == null){
+            product.setCreationTimestamp(Instant.now());
+        }
+        product.setLastEditTimestamp(Instant.now());
         if (product.getSubcategory().getId() == null) {
             product.setSubcategory(this.productSubcategoryService.save(product.getSubcategory()));
         }
@@ -59,14 +65,15 @@ public class ProductServiceImpl implements ProductService {
     /**
      * Get all the products.
      *
+     * @param author
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Product> findAll(Pageable pageable) {
+    public Page<Product> findAll(Long author, Pageable pageable) {
         log.debug("Request to get all Products");
-        return productRepository.findAll(pageable);
+        return productRepository.findAllByAuthorId(author, pageable);
     }
 
     /**
@@ -74,8 +81,9 @@ public class ProductServiceImpl implements ProductService {
      *
      * @return the list of entities.
      */
-    public Page<Product> findAllWithEagerRelationships(Pageable pageable) {
-        return productRepository.findAllWithEagerRelationships(pageable);
+    @Override
+    public Page<Product> findAllWithEagerRelationships(Long author, Pageable pageable) {
+        return productRepository.findAllWithEagerRelationships(author, pageable);
     }
 
 
@@ -120,15 +128,23 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Page<Product> findBySearchAndFilters(String searchPhrase, String language, Long categoryId, Long subcategoryId, Pageable pageable) {
+    public Page<Product> findBySearchAndFilters(String searchPhrase, String language, Long categoryId, Long subcategoryId, Long author, Pageable pageable) {
+//        if (searchPhrase != null) {
+//            searchPhrase = "%" + searchPhrase + "%";
+//        }
         if (subcategoryId != null) {
-            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryId(searchPhrase, subcategoryId, pageable);
+            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryId(searchPhrase, subcategoryId, author, pageable);
         } else if (categoryId != null) {
-            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguage(searchPhrase, categoryId, language, pageable);
+            return productRepository.findByDescriptionContainingIgnoreCaseAndSubcategoryCategoryIdAndLanguage(searchPhrase, categoryId, language, author, pageable);
         } else if (language != null) {
-            return productRepository.findByDescriptionContainingIgnoreCaseAndLanguage(searchPhrase, language, pageable);
+            return productRepository.findByDescriptionContainingIgnoreCaseAndLanguage(searchPhrase, language, author, pageable);
         } else {
-            return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, pageable);
+            return this.productRepository.findByDescriptionContainingIgnoreCase(searchPhrase, author, pageable);
         }
+    }
+
+    @Override
+    public void changeToFinal(Long productId) {
+        this.productRepository.changeToFinal(productId);
     }
 }

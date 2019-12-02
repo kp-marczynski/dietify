@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Validator;
 
 import javax.persistence.EntityManager;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -137,7 +138,8 @@ public class ProductResourceIT {
         product.setAuthorId(DEFAULT_AUTHOR_ID);
         product.setDescription(DEFAULT_DESCRIPTION);
         product.setIsFinal(DEFAULT_IS_FINAL);
-        product.setIsVerified(DEFAULT_IS_VERIFIED);
+        product.setCreationTimestamp(Instant.now());
+        product.setLastEditTimestamp(Instant.now());
         product.setLanguage(DEFAULT_LANGUAGE);
         // Add required entity
         ProductBasicNutritionData productBasicNutritionData = new ProductBasicNutritionData();
@@ -170,7 +172,8 @@ public class ProductResourceIT {
         product.setAuthorId(UPDATED_AUTHOR_ID);
         product.setDescription(UPDATED_DESCRIPTION);
         product.setIsFinal(UPDATED_IS_FINAL);
-        product.setIsVerified(UPDATED_IS_VERIFIED);
+        product.setCreationTimestamp(Instant.now());
+        product.setLastEditTimestamp(Instant.now());
         product.setLanguage(UPDATED_LANGUAGE);
         // Add required entity
         ProductBasicNutritionData productBasicNutritionData;
@@ -220,8 +223,8 @@ public class ProductResourceIT {
         assertThat(testProduct.getSource()).isEqualTo(DEFAULT_SOURCE);
         assertThat(testProduct.getAuthorId()).isEqualTo(DEFAULT_AUTHOR_ID);
         assertThat(testProduct.getDescription()).isEqualTo(DEFAULT_DESCRIPTION);
-        assertThat(testProduct.isIsFinal()).isEqualTo(DEFAULT_IS_FINAL);
-        assertThat(testProduct.isIsVerified()).isEqualTo(DEFAULT_IS_VERIFIED);
+        assertThat(testProduct.getIsFinal()).isEqualTo(DEFAULT_IS_FINAL);
+//        assertThat(testProduct.isIsVerified()).isEqualTo(DEFAULT_IS_VERIFIED);
         assertThat(testProduct.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
 
         // Validate the Product in Elasticsearch
@@ -289,24 +292,6 @@ public class ProductResourceIT {
 
     @Test
     @Transactional
-    public void checkIsVerifiedIsRequired() throws Exception {
-        int databaseSizeBeforeTest = productRepository.findAll().size();
-        // set the field null
-        product.setIsVerified(null);
-
-        // Create the Product, which fails.
-
-        restProductMockMvc.perform(post("/api/products")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(product)))
-            .andExpect(status().isBadRequest());
-
-        List<Product> productList = productRepository.findAll();
-        assertThat(productList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void checkLanguageIsRequired() throws Exception {
         int databaseSizeBeforeTest = productRepository.findAll().size();
         // set the field null
@@ -330,7 +315,7 @@ public class ProductResourceIT {
         productRepository.saveAndFlush(product);
 
         // Get all the productList
-        restProductMockMvc.perform(get("/api/products?sort=id,desc"))
+        restProductMockMvc.perform(get("/api/products?author=" + DEFAULT_AUTHOR_ID + "&sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(product.getId().intValue())))
@@ -338,14 +323,13 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].authorId").value(hasItem(DEFAULT_AUTHOR_ID.intValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION.toString())))
             .andExpect(jsonPath("$.[*].isFinal").value(hasItem(DEFAULT_IS_FINAL.booleanValue())))
-            .andExpect(jsonPath("$.[*].isVerified").value(hasItem(DEFAULT_IS_VERIFIED.booleanValue())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
     }
 
     @SuppressWarnings({"unchecked"})
     public void getAllProductsWithEagerRelationshipsIsEnabled() throws Exception {
         ProductResource productResource = new ProductResource(productServiceMock);
-        when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+        when(productServiceMock.findAllWithEagerRelationships(DEFAULT_AUTHOR_ID, any())).thenReturn(new PageImpl(new ArrayList<>()));
 
         MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
@@ -356,13 +340,13 @@ public class ProductResourceIT {
         restProductMockMvc.perform(get("/api/products?eagerload=true"))
         .andExpect(status().isOk());
 
-        verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+        verify(productServiceMock, times(1)).findAllWithEagerRelationships(DEFAULT_AUTHOR_ID, any());
     }
 
     @SuppressWarnings({"unchecked"})
     public void getAllProductsWithEagerRelationshipsIsNotEnabled() throws Exception {
         ProductResource productResource = new ProductResource(productServiceMock);
-            when(productServiceMock.findAllWithEagerRelationships(any())).thenReturn(new PageImpl(new ArrayList<>()));
+            when(productServiceMock.findAllWithEagerRelationships(DEFAULT_AUTHOR_ID, any())).thenReturn(new PageImpl(new ArrayList<>()));
             MockMvc restProductMockMvc = MockMvcBuilders.standaloneSetup(productResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
@@ -372,7 +356,7 @@ public class ProductResourceIT {
         restProductMockMvc.perform(get("/api/products?eagerload=true"))
         .andExpect(status().isOk());
 
-            verify(productServiceMock, times(1)).findAllWithEagerRelationships(any());
+            verify(productServiceMock, times(1)).findAllWithEagerRelationships(DEFAULT_AUTHOR_ID, any());
     }
 
     @Test
@@ -390,7 +374,6 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.authorId").value(DEFAULT_AUTHOR_ID.intValue()))
             .andExpect(jsonPath("$.description").value(DEFAULT_DESCRIPTION.toString()))
             .andExpect(jsonPath("$.isFinal").value(DEFAULT_IS_FINAL.booleanValue()))
-            .andExpect(jsonPath("$.isVerified").value(DEFAULT_IS_VERIFIED.booleanValue()))
             .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE.toString()));
     }
 
@@ -420,7 +403,8 @@ public class ProductResourceIT {
         updatedProduct.setAuthorId(UPDATED_AUTHOR_ID);
         updatedProduct.setDescription(UPDATED_DESCRIPTION);
         updatedProduct.setIsFinal(UPDATED_IS_FINAL);
-        updatedProduct.setIsVerified(UPDATED_IS_VERIFIED);
+        updatedProduct.setLastEditTimestamp(Instant.now());
+//        updatedProduct.setIsVerified(UPDATED_IS_VERIFIED);
         updatedProduct.setLanguage(UPDATED_LANGUAGE);
 
         restProductMockMvc.perform(put("/api/products")
@@ -435,8 +419,8 @@ public class ProductResourceIT {
         assertThat(testProduct.getSource()).isEqualTo(UPDATED_SOURCE);
         assertThat(testProduct.getAuthorId()).isEqualTo(UPDATED_AUTHOR_ID);
         assertThat(testProduct.getDescription()).isEqualTo(UPDATED_DESCRIPTION);
-        assertThat(testProduct.isIsFinal()).isEqualTo(UPDATED_IS_FINAL);
-        assertThat(testProduct.isIsVerified()).isEqualTo(UPDATED_IS_VERIFIED);
+        assertThat(testProduct.getIsFinal()).isEqualTo(UPDATED_IS_FINAL);
+//        assertThat(testProduct.isIsVerified()).isEqualTo(UPDATED_IS_VERIFIED);
         assertThat(testProduct.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
 
         // Validate the Product in Elasticsearch
@@ -501,7 +485,6 @@ public class ProductResourceIT {
             .andExpect(jsonPath("$.[*].authorId").value(hasItem(DEFAULT_AUTHOR_ID.intValue())))
             .andExpect(jsonPath("$.[*].description").value(hasItem(DEFAULT_DESCRIPTION)))
             .andExpect(jsonPath("$.[*].isFinal").value(hasItem(DEFAULT_IS_FINAL.booleanValue())))
-            .andExpect(jsonPath("$.[*].isVerified").value(hasItem(DEFAULT_IS_VERIFIED.booleanValue())))
             .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE)));
     }
 

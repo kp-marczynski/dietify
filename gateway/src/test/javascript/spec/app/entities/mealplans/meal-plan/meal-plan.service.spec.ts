@@ -27,14 +27,14 @@ describe('Service Tests', () => {
       httpMock = injector.get(HttpTestingController);
       currentDate = moment();
 
-      elemDefault = new MealPlan(0, 0, currentDate, 'AAAAAAA', false, false, 'AAAAAAA', 0, 0, 0, 0, 0, 0);
+      elemDefault = new MealPlan(0, 0, 'AAAAAAA', false, currentDate, currentDate, 'AAAAAAA', 0, 0, 0, 0, 0, 0);
     });
 
     describe('Service methods', () => {
       it('should find an element', async () => {
         const returnedFromService = Object.assign(
           {
-            creationDate: currentDate.format(DATE_FORMAT)
+            creationTimestamp: currentDate.toJSON()
           },
           elemDefault
         );
@@ -52,13 +52,13 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             id: 0,
-            creationDate: currentDate.format(DATE_FORMAT)
+            creationTimestamp: currentDate.toJSON()
           },
           elemDefault
         );
         const expected = Object.assign(
           {
-            creationDate: currentDate
+            creationTimestamp: currentDate
           },
           returnedFromService
         );
@@ -75,7 +75,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             authorId: 1,
-            creationDate: currentDate.format(DATE_FORMAT),
+            creationTimestamp: currentDate.toJSON(),
             name: 'BBBBBB',
             isVisible: true,
             isLocked: true,
@@ -92,7 +92,7 @@ describe('Service Tests', () => {
 
         const expected = Object.assign(
           {
-            creationDate: currentDate
+            creationTimestamp: currentDate
           },
           returnedFromService
         );
@@ -109,7 +109,7 @@ describe('Service Tests', () => {
         const returnedFromService = Object.assign(
           {
             authorId: 1,
-            creationDate: currentDate.format(DATE_FORMAT),
+            creationTimestamp: currentDate.toJSON(),
             name: 'BBBBBB',
             isVisible: true,
             isLocked: true,
@@ -125,7 +125,7 @@ describe('Service Tests', () => {
         );
         const expected = Object.assign(
           {
-            creationDate: currentDate
+            creationTimestamp: currentDate
           },
           returnedFromService
         );

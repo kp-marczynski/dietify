@@ -8,6 +8,8 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IAppointment } from 'app/shared/model/appointments/appointment.model';
+import { MailableMealPlan } from 'app/shared/model/appointments/mailable-meal-plan.model';
+import { Shoplist } from 'app/shared/model/appointments/shoplist-item.model';
 
 type EntityResponseType = HttpResponse<IAppointment>;
 type EntityArrayResponseType = HttpResponse<IAppointment[]>;
@@ -18,6 +20,14 @@ export class AppointmentService {
   public resourceSearchUrl = SERVER_API_URL + 'services/appointments/api/_search/appointments';
 
   constructor(protected http: HttpClient) {}
+
+  sendMealPlan(mealPlan: MailableMealPlan) {
+    return this.http.post<boolean>(this.resourceUrl + '/send', mealPlan, { observe: 'response' });
+  }
+
+  sendShoplist(shoplist: Shoplist) {
+    return this.http.post<boolean>(this.resourceUrl + '/send-shoplist', shoplist, { observe: 'response' });
+  }
 
   create(appointment: IAppointment): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(appointment);

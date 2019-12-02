@@ -56,6 +56,11 @@
                 <dd>
                     <span>{{nutritionalInterview.foodIntolerances}}</span>
                 </dd>
+                <h3 jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.home.title">Custom Questions</h3>
+                <div *ngFor="let customQuestion of nutritionalInterview.customQuestions">
+                    <dt>{{customQuestion.question}}</dt>
+                    <dd>{{customQuestion.answer}}</dd>
+                </div>
             </dl>
 <!--            <div *ngIf="standaloneView">-->
 <!--                <button type="submit"-->

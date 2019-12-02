@@ -1,10 +1,13 @@
 package pl.marczynski.dietify.appointments.service;
 
+import org.springframework.data.repository.query.Param;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import pl.marczynski.dietify.appointments.domain.BmiResult;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -23,10 +26,12 @@ public interface AppointmentService {
     /**
      * Get all the appointments.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Appointment> findAll(Pageable pageable);
+    Page<Appointment> findAll(Long dietitianId, Pageable pageable);
 
 
     /**
@@ -44,9 +49,11 @@ public interface AppointmentService {
      */
     void delete(Long id);
 
-    Page<Appointment> findAllWaitingForConsultation(Pageable pageable);
+    Page<Appointment> findAllWaitingForConsultation(Long dietitianId, Pageable pageable);
 
-    Page<Appointment> findAllByPatientWaitingForConsultation(Long patientId, Pageable pageable);
+    Page<Appointment> findAllByPatientWaitingForConsultation(Long dietitianId, Long patientId, Pageable pageable);
 
-    Page<Appointment> findAllByPatient(Long patientId, Pageable pageable);
+    Page<Appointment> findAllByPatient(Long dietitianId, Long patientId, Pageable pageable);
+
+    List<BmiResult> calculateBMI(Long patientCardId);
 }

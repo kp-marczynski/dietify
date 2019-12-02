@@ -6,7 +6,8 @@ cache:
         - .gradle/
 stages:
     - build
-    - test
+    - unit-test
+    - integration-test
     - analyze
     - package
     - release
@@ -32,7 +33,7 @@ gateway-gradle-compile:
         expire_in: 1 day
 
 gateway-gradle-test:
-    stage: test
+    stage: unit-test
     script:
         - cd /builds/kp.marczynski/dietify/gateway
         - sh gradlew test -PnodeInstall --no-daemon
@@ -47,7 +48,7 @@ gateway-gradle-test:
         expire_in: 1 day
 
 gateway-gradle-integration-test:
-    stage: test
+    stage: integration-test
     script:
         - cd /builds/kp.marczynski/dietify/gateway
         - sh gradlew integrationTest -PnodeInstall --no-daemon
@@ -61,21 +62,21 @@ gateway-gradle-integration-test:
             - /builds/kp.marczynski/dietify/gateway/build/jacoco/
         expire_in: 1 day
 
-gateway-frontend-test:
-    stage: test
-    script:
-        - cd /builds/kp.marczynski/dietify/gateway
-        - sh gradlew npm_install -PnodeInstall --no-daemon
-        - sh gradlew npm_run_test -PnodeInstall --no-daemon
-    except:
-        - praca-dyplomowa
-    artifacts:
-        reports:
-            junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
-        paths:
-            - /builds/kp.marczynski/dietify/gateway/build/test-results/
-            - /builds/kp.marczynski/dietify/gateway/build/jacoco/
-        expire_in: 1 day
+#gateway-frontend-test:
+#  stage: unit-test
+#  script:
+#    - cd /builds/kp.marczynski/dietify/gateway
+#    - sh gradlew npm_install -PnodeInstall --no-daemon
+#    - sh gradlew npm_run_test -PnodeInstall --no-daemon
+#  except:
+#      - praca-dyplomowa
+#  artifacts:
+#    reports:
+#      junit: /builds/kp.marczynski/dietify/gateway/build/test-results/TESTS-results-jest.xml
+#    paths:
+#      - /builds/kp.marczynski/dietify/gateway/build/test-results/
+#      - /builds/kp.marczynski/dietify/gateway/build/jacoco/
+#    expire_in: 1 day
 
 gateway-gradle-package:
     stage: package
@@ -105,7 +106,7 @@ products-gradle-compile:
         expire_in: 1 day
 
 products-gradle-test:
-    stage: test
+    stage: unit-test
     script:
         - cd /builds/kp.marczynski/dietify/products
         - sh gradlew test -PnodeInstall --no-daemon
@@ -120,7 +121,7 @@ products-gradle-test:
         expire_in: 1 day
 
 products-gradle-integration-test:
-    stage: test
+    stage: integration-test
     script:
         - cd /builds/kp.marczynski/dietify/products
         - sh gradlew integrationTest -PnodeInstall --no-daemon
@@ -162,7 +163,7 @@ recipes-gradle-compile:
         expire_in: 1 day
 
 recipes-gradle-test:
-    stage: test
+    stage: unit-test
     script:
         - cd /builds/kp.marczynski/dietify/recipes
         - sh gradlew test -PnodeInstall --no-daemon
@@ -177,7 +178,7 @@ recipes-gradle-test:
         expire_in: 1 day
 
 recipes-gradle-integration-test:
-    stage: test
+    stage: integration-test
     script:
         - cd /builds/kp.marczynski/dietify/recipes
         - sh gradlew integrationTest -PnodeInstall --no-daemon
@@ -219,7 +220,7 @@ mealplans-gradle-compile:
         expire_in: 1 day
 
 mealplans-gradle-test:
-    stage: test
+    stage: unit-test
     script:
         - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew test -PnodeInstall --no-daemon
@@ -234,7 +235,7 @@ mealplans-gradle-test:
         expire_in: 1 day
 
 mealplans-gradle-integration-test:
-    stage: test
+    stage: integration-test
     script:
         - cd /builds/kp.marczynski/dietify/mealplans
         - sh gradlew integrationTest -PnodeInstall --no-daemon
@@ -276,7 +277,7 @@ appointments-gradle-compile:
         expire_in: 1 day
 
 appointments-gradle-test:
-    stage: test
+    stage: unit-test
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew test -PnodeInstall --no-daemon
@@ -291,7 +292,7 @@ appointments-gradle-test:
         expire_in: 1 day
 
 appointments-gradle-integration-test:
-    stage: test
+    stage: integration-test
     script:
         - cd /builds/kp.marczynski/dietify/appointments
         - sh gradlew integrationTest -PnodeInstall --no-daemon
@@ -318,16 +319,6 @@ appointments-gradle-package:
             - /builds/kp.marczynski/dietify/appointments/build/classes
         expire_in: 1 day
 
-# ionic
-ionic-frontend-test:
-    stage: test
-    script:
-        - cd /builds/kp.marczynski/dietify/ionic
-        - npm install
-        - npm test
-    except:
-        - praca-dyplomowa
-
 latex-compilation:
     stage: build
     image: aergus/latex
@@ -343,3 +334,4 @@ latex-compilation:
     only:
         refs:
             - praca-dyplomowa
+            - master

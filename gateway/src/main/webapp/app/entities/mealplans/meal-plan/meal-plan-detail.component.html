@@ -3,6 +3,7 @@
         <div *ngIf="mealPlan">
             <h2><span jhiTranslate="gatewayApp.mealplansMealPlan.detail.title">Meal Plan</span> {{mealPlan.id}}</h2>
             <jhi-alert-error></jhi-alert-error>
+            <div class="card jh-card">
             <ngb-tabset justify="justified">
                 <ngb-tab title="{{'gatewayApp.mealplansMealPlan.settings' | translate}}">
                     <ng-template ngbTabContent>
@@ -11,21 +12,21 @@
                             <dd>
                                 <span>{{mealPlan.authorId}}</span>
                             </dd>
-                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.creationDate" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationDate' | translate">Creation Date</span></dt>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.creationTimestamp" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationTimestamp' | translate">Creation Timestamp</span></dt>
                             <dd>
-                                <span>{{mealPlan.creationDate}}</span>
+                                <span>{{mealPlan.creationTimestamp}}</span>
+                            </dd>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.lastEditTimestamp" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.lastEditTimestamp' | translate">LastEdit Timestamp</span></dt>
+                            <dd>
+                                <span>{{mealPlan.lastEditTimestamp}}</span>
                             </dd>
                             <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.name" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.name' | translate">Name</span></dt>
                             <dd>
                                 <span>{{mealPlan.name}}</span>
                             </dd>
-                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isVisible" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isVisible' | translate">Is Visible</span></dt>
+                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isFinal" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isFinal' | translate">Is Visible</span></dt>
                             <dd>
-                                <span>{{mealPlan.isVisible}}</span>
-                            </dd>
-                            <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.isLocked" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isLocked' | translate">Is Locked</span></dt>
-                            <dd>
-                                <span>{{mealPlan.isLocked}}</span>
+                                <span>{{mealPlan.isFinal}}</span>
                             </dd>
                             <dt><span jhiTranslate="gatewayApp.mealplansMealPlan.language" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.language' | translate">Language</span></dt>
                             <dd>
@@ -41,10 +42,16 @@
                             </dd>
                                 <dt jhiTranslate="gatewayApp.mealplansMealPlan.mealDefinitions">Meals Definitions</dt>
                             <dd>
-                                <table>
+                                <table class="table table-striped">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Meal type</th>
+                                        <th>Time</th>
+                                        <th>% of energy</th>
+                                    </tr>
                                     <tr *ngFor="let mealDefinition of mealPlan.mealDefinitions">
                                         <td>{{mealDefinition.ordinalNumber}}</td>
-                                        <td>{{mealDefinition.mealTypeId}}</td>
+                                        <td>{{findMealTypeDescription(mealDefinition.mealTypeId)}}</td>
                                         <td>{{mealDefinition.timeOfMeal}}</td>
                                         <td>{{mealDefinition.percentOfEnergy}}</td>
                                     </tr>
@@ -99,52 +106,53 @@
                                     <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealRecipes">Recipes</span>
                                 </h5>
                                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
-                                   title="{{recipe.recipe? recipe.recipe.name : recipe.recipeId}}"
-                                   *ngFor="let recipe of meal.mealRecipes; let recipeIndex = index"
-                                   routerLink="/recipe/{{recipe.recipeId}}/view">
+                                   title="{{mealRecipe.recipe? mealRecipe.recipe.name : mealRecipe.recipeId}}"
+                                   *ngFor="let mealRecipe of meal.mealRecipes; let recipeIndex = index"
+                                   routerLink="/recipe/{{mealRecipe.recipeId}}/view">
                                     <span class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">
-                                        {{recipe.amount}}x g
+                                        {{mealRecipe.amount}}x g
                                     </span>
-                                    {{recipe.recipe ? recipe.recipe.name : recipe.recipeId}}
+                                    {{recipes[mealRecipe.recipeId] ? recipes[mealRecipe.recipeId].name : mealRecipe.recipeId}}
                                 </a>
                                 <h5 class="row align-items-center" *ngIf="meal.mealProducts.length > 0">
                                     <span class="col-1" jhiTranslate="gatewayApp.mealplansMeal.mealProducts">Products</span>
                                 </h5>
                                 <a class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-info text-white"
-                                   title="{{product.product ? product.product.description : product.productId}}"
-                                   *ngFor="let product of meal.mealProducts; let productIndex = index"
-                                   routerLink="/product/{{product.productId}}/view">
+                                   title="{{mealProduct.product ? mealProduct.product.description : mealProduct.productId}}"
+                                   *ngFor="let mealProduct of meal.mealProducts; let productIndex = index"
+                                   routerLink="/product/{{mealProduct.productId}}/view">
                                     <span class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">
-                                        {{product.amount}}x {{product.householdMeasureId ? product.householdMeasureId : 'g'}}
+                                        {{mealProduct.amount}}x {{getHouseholdMeasure(mealProduct)}}
                                     </span>
-                                    {{product.product ? product.product.description : product.productId}}
+                                    {{products[mealProduct.productId] ? products[mealProduct.productId].description : mealProduct.productId}}
                                 </a>
                             </div>
                             <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate" >
                                 <h5 class="row align-items-center">
                                     <small class="col d-sm-none text-center text-muted" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</small>
                                 </h5>
-                                <!--                                <div *ngIf="day.nutritionData">-->
-                                <!--                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">-->
-                                <!--                                    <h5>{{nutritionKey}}</h5>-->
-                                <!--                                    <div-->
-                                <!--                                        class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">-->
-                                <!--                                        <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;-->
-                                <!--                                        <span>-->
-                                <!--                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%-->
-                                <!--                            </span><br/>-->
-                                <!--                                        <span>-->
-                                <!--                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}-->
-                                <!--                        </span>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
-                                <!--                                </div>-->
+                                <div *ngIf="day.nutritionData">
+                                    <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
+                                        <h5>{{nutritionKey}}</h5>
+                                        <div style="width: 100%;"
+                                            class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">
+                                            <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;
+                                            <span>
+                                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%
+                                            </span><br/>
+                                            <span>
+                                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="w-100"></div>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
+            </div>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">

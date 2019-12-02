@@ -20,6 +20,8 @@
       "isFinal": "Czy ostateczny",
       "isVerified": "Czy zweryfikowany",
       "language": "Język",
+      "creationTimestamp": "Data utworzenia",
+      "lastEditTimestamp": "Data ostatniej edycji",
       "basicNutritionData": "Podstawowe wartości odżywcze",
       "nutritionData": "Wartości odżywcze",
       "householdMeasures": "Miary domowe",

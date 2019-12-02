@@ -2,7 +2,7 @@
   "gatewayApp": {
     "appointmentsCustomNutritionalInterviewQuestion": {
       "home": {
-        "title": "Dodatkowe pytanie do wywiadu żywieniowego",
+        "title": "Dodatkowe pytania",
         "createLabel": "Dodaj dodatkowe pytanie do wywiadu żywieniowego",
         "createOrEditLabel": "Dodaj lub edytuj dodatkowe pytanie do wywiadu żywieniowego",
         "search": "Szukaj dodatkowe pytanie do wywiadu żywieniowego",

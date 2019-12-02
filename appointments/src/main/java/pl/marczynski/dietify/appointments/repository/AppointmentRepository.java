@@ -6,9 +6,11 @@ import org.springframework.data.repository.query.Param;
 import pl.marczynski.dietify.appointments.domain.Appointment;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
+import pl.marczynski.dietify.appointments.domain.BmiResult;
 import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -26,9 +28,14 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
         " where appointment.id =:id")
     Optional<Appointment> findOneWithEagerRelationships(@Param("id") Long id);
 
-    Page<Appointment> findAllByAppointmentState(@NotNull AppointmentState appointmentState, Pageable pageable);
+    Page<Appointment> findAllByAppointmentStateAndPatientCardDietitianId(@NotNull AppointmentState appointmentState, Long dietitianId, Pageable pageable);
 
-    Page<Appointment> findAllByAppointmentStateAndPatientCardPatientId(@NotNull AppointmentState appointmentState, @NotNull Long patientCard_patientId, Pageable pageable);
+    Page<Appointment> findAllByAppointmentStateAndPatientCardDietitianIdAndPatientCardPatientId(@NotNull AppointmentState appointmentState, Long dietitianId, @NotNull Long patientCard_patientId, Pageable pageable);
 
-    Page<Appointment> findAllByPatientCardPatientId(@NotNull Long patientCard_patientId, Pageable pageable);
+    Page<Appointment> findAllByPatientCardDietitianIdAndPatientCardPatientId(Long dietitianId, @NotNull Long patientCard_patientId, Pageable pageable);
+
+    Page<Appointment> findAllByPatientCardDietitianId(Long dietitianId, Pageable pageable);
+
+    @Query(value = "select new pl.marczynski.dietify.appointments.domain.BmiResult(appointment.appointmentDate, appointment.bodyMeasurement.weight, appointment.bodyMeasurement.height) from Appointment appointment where appointment.patientCard.id = :patientCardId and appointment.bodyMeasurement.weight is not null and appointment.bodyMeasurement.height is not null order by appointment.appointmentDate")
+    List<BmiResult> calculateBMI(@Param("patientCardId")Long patientCardId);
 }

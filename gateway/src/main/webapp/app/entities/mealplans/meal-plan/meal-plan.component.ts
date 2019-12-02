@@ -1,15 +1,15 @@
-import {Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter} from '@angular/core';
-import {HttpErrorResponse, HttpHeaders, HttpResponse} from '@angular/common/http';
-import {ActivatedRoute, Router} from '@angular/router';
-import {Subscription} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
-import {JhiEventManager, JhiParseLinks, JhiAlertService} from 'ng-jhipster';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter } from '@angular/core';
+import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
-import {IMealPlan, MealPlan} from 'app/shared/model/mealplans/meal-plan.model';
-import {AccountService} from 'app/core';
+import { IMealPlan, MealPlan } from 'app/shared/model/mealplans/meal-plan.model';
+import { Account, AccountService, UserService } from 'app/core';
 
-import {ITEMS_PER_PAGE} from 'app/shared';
-import {MealPlanService} from './meal-plan.service';
+import { ITEMS_PER_PAGE } from 'app/shared';
+import { MealPlanService } from './meal-plan.service';
 
 @Component({
   selector: 'jhi-meal-plan',
@@ -33,6 +33,7 @@ export class MealPlanComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  authorId: any;
 
   constructor(
     protected mealPlanService: MealPlanService,
@@ -41,6 +42,7 @@ export class MealPlanComponent implements OnInit, OnDestroy {
     protected accountService: AccountService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
+    protected userService: UserService,
     protected eventManager: JhiEventManager
   ) {
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -82,7 +84,8 @@ export class MealPlanComponent implements OnInit, OnDestroy {
       .query({
         page: this.page - 1,
         size: this.itemsPerPage,
-        sort: this.sort()
+        sort: this.sort(),
+        author: this.authorId ? this.authorId : ''
       })
       .subscribe(
         (res: HttpResponse<IMealPlan[]>) => this.paginateMealPlans(res.body, res.headers),
@@ -146,6 +149,12 @@ export class MealPlanComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.accountService.identity().then((account: Account) => {
+      this.userService.find(account.login).subscribe(res => {
+        this.authorId = res.body.id;
+        this.loadAll();
+      });
+    });
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;

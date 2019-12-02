@@ -2,6 +2,7 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-meal-plan-heading" jhiTranslate="gatewayApp.mealplansMealPlan.home.createOrEditLabel">Create or edit a Meal Plan</h2>
+            <div class="card jh-card">
             <ngb-tabset justify="justified">
                 <ngb-tab title="{{'gatewayApp.mealplansMealPlan.settings' | translate}}">
                     <ng-template ngbTabContent>
@@ -13,7 +14,7 @@
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.authorId" for="field_authorId" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.authorId' | translate">Author Id</label>
-                            <input type="number" class="form-control" name="authorId" id="field_authorId"
+                            <input readonly type="number" class="form-control" name="authorId" id="field_authorId"
                                    formControlName="authorId"/>
                             <div *ngIf="editForm.get('authorId').invalid && (editForm.get('authorId').dirty || editForm.get('authorId').touched)">
                                 <small class="form-text text-danger"
@@ -23,21 +24,6 @@
                                 <small class="form-text text-danger"
                                     [hidden]="!editForm.get('authorId')?.errors?.number" jhiTranslate="entity.validation.number">
                                     This field should be a number.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.creationDate" for="field_creationDate" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.creationDate' | translate">Creation Date</label>
-                            <div class="input-group">
-                                <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" formControlName="creationDate"/>
-                                <span class="input-group-append">
-                                    <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                                </span>
-                            </div>
-                            <div *ngIf="editForm.get('creationDate').invalid && (editForm.get('creationDate').dirty || editForm.get('creationDate').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('creationDate').errors.required" jhiTranslate="entity.validation.required">
-                                This field is required.
                                 </small>
                             </div>
                         </div>
@@ -57,45 +43,25 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.isVisible" for="field_isVisible" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isVisible' | translate">Is Visible</label>
-                            <input type="checkbox" class="form-control" name="isVisible" id="field_isVisible"
-                                   formControlName="isVisible"/>
-                            <div *ngIf="editForm.get('isVisible').invalid && (editForm.get('isVisible').dirty || editForm.get('isVisible').touched)">
+                            <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.isFinal" for="field_isFinal" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isFinal' | translate">Is Visible</label>
+                            <input type="checkbox" class="form-control" name="isFinal" id="field_isFinal"
+                                   formControlName="isFinal"/>
+                            <div *ngIf="editForm.get('isFinal').invalid && (editForm.get('isFinal').dirty || editForm.get('isFinal').touched)">
                                 <small class="form-text text-danger"
-                                       *ngIf="editForm.get('isVisible').errors.required" jhiTranslate="entity.validation.required">
-                                This field is required.
-                                </small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.isLocked" for="field_isLocked" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.isLocked' | translate">Is Locked</label>
-                            <input type="checkbox" class="form-control" name="isLocked" id="field_isLocked"
-                                   formControlName="isLocked"/>
-                            <div *ngIf="editForm.get('isLocked').invalid && (editForm.get('isLocked').dirty || editForm.get('isLocked').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('isLocked').errors.required" jhiTranslate="entity.validation.required">
+                                       *ngIf="editForm.get('isFinal').errors.required" jhiTranslate="entity.validation.required">
                                 This field is required.
                                 </small>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.language" for="field_language" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.language' | translate">Language</label>
-                            <input type="text" class="form-control" name="language" id="field_language"
-                                   formControlName="language"/>
-                            <div *ngIf="editForm.get('language').invalid && (editForm.get('language').dirty || editForm.get('language').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('language').errors.required" jhiTranslate="entity.validation.required">
-                                This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('language').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
-                                This field is required to be at least 2 characters.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('language').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2 }">
-                                This field cannot be longer than 2 characters.
-                                </small>
-                            </div>
+                            <select class="form-control" id="field_language" name="language"
+                                    formControlName="language">
+                                <option *ngIf="!editForm.get('language').value" [ngValue]="null" selected></option>
+                                <option
+                                    [ngValue]="languageOption === editForm.get('language').value ? editForm.get('language').value : languageOption"
+                                    *ngFor="let languageOption of languages">{{languageOption}}</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label class="form-control-label" jhiTranslate="gatewayApp.mealplansMealPlan.numberOfDays" for="field_numberOfDays" [ngbTooltip]="'gatewayApp.mealplansMealPlan.help.numberOfDays' | translate">Number Of Days</label>
@@ -277,7 +243,7 @@
                             <div class="day col-lg p-2 border border-left-0 border-top-0 text-truncate "
                                  *ngFor="let meal of getMealsFormArray(day).controls; let mealIndex = index">
                                 <button type="button"
-                                        (click)="editMeal(meal)"
+                                        (click)="editMeal(day, meal)"
                                         class="btn btn-primary btn-sm">
                                     <fa-icon [icon]="'pencil-alt'"></fa-icon>
                                     <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
@@ -305,7 +271,7 @@
                                    *ngFor="let product of getMealProductsFormArray(meal).controls; let productIndex = index"
                                    routerLink="/product/{{product.get('productId').value}}/view">
                                     <span class="event d-block p-1 pl-2 pr-2 mb-1 rounded text-wrap small bg-light text-dark">
-                                        {{product.get('amount').value}}x {{product.get('householdMeasureId').value ? product.get('householdMeasureId').value : 'g'}}
+                                        {{product.get('amount').value}}x {{getHouseholdMeasure(product)}}
                                     </span>
                                     {{product.get('product').value ? product.get('product').value.description : product.get('productId').value}}
                                 </a>
@@ -314,27 +280,28 @@
                                 <h5 class="row align-items-center">
                                     <small class="col d-sm-none text-center text-muted" jhiTranslate="gatewayApp.mealplansMealPlanDay.summary">Summary</small>
                                 </h5>
-<!--                                <div *ngIf="day.nutritionData">-->
-<!--                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">-->
-<!--                                    <h5>{{nutritionKey}}</h5>-->
-<!--                                    <div-->
-<!--                                        class="btn btn-sm {{getSummaryButtonClass(day.nutritionData,nutritionKey)}}">-->
-<!--                                        <fa-icon icon="{{getSummaryIcon(day.nutritionData,nutritionKey)}}"></fa-icon>&nbsp;-->
-<!--                                        <span>-->
-<!--                                {{calcPercent(getNutritionValue(day.nutritionData, nutritionKey), getDailyValue(nutritionKey))}}%-->
-<!--                            </span><br/>-->
-<!--                                        <span>-->
-<!--                            {{getNutritionValue(day.nutritionData, nutritionKey)}}/{{getDailyValue(nutritionKey)}}-->
-<!--                        </span>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                </div>-->
+                                <div *ngIf="dayBasicNutritionResponses[day.get('ordinalNumber').value]">
+                                <div *ngFor="let nutritionKey of getBasicNutritionsKeys()">
+                                    <h5>{{nutritionKey}}</h5>
+                                    <div style="width: 100%;"
+                                        class="btn btn-sm {{getSummaryButtonClass(dayBasicNutritionResponses[day.get('ordinalNumber').value],nutritionKey)}}">
+                                        <fa-icon icon="{{getSummaryIcon(dayBasicNutritionResponses[day.get('ordinalNumber').value],nutritionKey)}}"></fa-icon>&nbsp;
+                                        <span>
+                                            {{calcPercent(getNutritionValue(dayBasicNutritionResponses[day.get('ordinalNumber').value], nutritionKey), getDailyValue(nutritionKey))}}%
+                                        </span><br/>
+                                        <span>
+                                            {{getNutritionValue(dayBasicNutritionResponses[day.get('ordinalNumber').value], nutritionKey)}}/{{getDailyValue(nutritionKey)}}
+                                        </span>
+                                    </div>
+                                </div>
+                                </div>
                             </div>
                         </div>
                         <div class="w-100"></div>
                     </ng-template>
                 </ngb-tab>
             </ngb-tabset>
+            </div>
             <div>
                 <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
                     <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>

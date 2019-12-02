@@ -20,6 +20,8 @@
       "isFinal": "Is Final",
       "isVerified": "Is Verified",
       "language": "Language",
+      "creationTimestamp": "Creation Timestamp",
+      "lastEditTimestamp": "Last Edit Timestamp",
       "basicNutritionData": "Basic Nutrition Data",
       "nutritionData": "Nutrition Data",
       "householdMeasures": "Household Measures",

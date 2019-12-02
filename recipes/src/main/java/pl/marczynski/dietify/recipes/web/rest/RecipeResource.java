@@ -90,6 +90,27 @@ public class RecipeResource {
     }
 
     /**
+     * {@code PUT  /recipes/:id} : Change recipe to final
+     *
+     * @param id the recipe to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated recipe,
+     * or with status {@code 400 (Bad Request)} if the recipe is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the recipe couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/recipes/{id}")
+    public ResponseEntity<Void> changeToFinal(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to change Recipe to final: {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        recipeService.changeToFinal(id);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
+    }
+
+    /**
      * {@code GET  /recipes} : get all the recipes.
      *
      * @param pageable the pagination information.
@@ -104,16 +125,17 @@ public class RecipeResource {
                                                       UriComponentsBuilder uriBuilder,
                                                       @RequestParam(required = false, defaultValue = "false") boolean eagerload,
                                                       @RequestParam(required = false) String search,
-                                                      @RequestParam(required = false) String language) {
+                                                      @RequestParam(required = false) String language,
+                                                      @RequestParam(required = false) Long author) {
         log.debug("REST request to get a page of Recipes");
         Page<Recipe> page;
-        if (search != null) {
-            page = recipeService.findBySearchAndFilters(search, language, pageable);
-        } else if (eagerload) {
-            page = recipeService.findAllWithEagerRelationships(pageable);
+        if ((search != null && !search.isEmpty()) || (language != null && !language.isEmpty())) {
+            page = recipeService.findBySearchAndFilters(search, language, pageable, author);
         } else {
+            page = recipeService.findAllWithEagerRelationships(pageable, author);
+        } /*else {
             page = recipeService.findAll(pageable);
-        }
+        }*/
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }

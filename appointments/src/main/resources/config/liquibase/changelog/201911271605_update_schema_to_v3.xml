@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="201911271605-1" author="kp-marczynski">
+        <addColumn tableName="assigned_meal_plan">
+            <column name="assigment_time" type="datetime"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="patient_last_name" type="varchar(50)"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="patient_first_name" type="varchar(50)"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="patient_gender" type="varchar(255)"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="patient_email" type="varchar(255)"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="patient_phone" type="varchar(255)"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="patient_date_of_birth" type="date"/>
+        </addColumn>
+        <addColumn tableName="patient_card">
+            <column name="additional_patient_info" type="${clobType}"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet id="201912020058-1" author="kp-marczynski">
+        <dropNotNullConstraint tableName="patient_card" columnName="patient_id" columnDataType="bigint"/>
+    </changeSet>
+
+</databaseChangeLog>

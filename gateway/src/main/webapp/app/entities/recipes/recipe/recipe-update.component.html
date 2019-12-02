@@ -4,6 +4,7 @@
             <h2 id="jhi-recipe-heading" jhiTranslate="gatewayApp.recipesRecipe.home.createOrEditLabel">Create or edit a Recipe</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
+                <div class="card jh-card">
                 <div class="form-group" [hidden]="!editForm.get('id').value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
@@ -92,7 +93,7 @@
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.authorId" for="field_authorId" [ngbTooltip]="'gatewayApp.recipesRecipe.help.authorId' | translate">Author Id</label>
                     <input type="number" class="form-control" name="authorId" id="field_authorId"
-                           formControlName="authorId"/>
+                           formControlName="authorId" readonly/>
                     <div *ngIf="editForm.get('authorId').invalid && (editForm.get('authorId').dirty || editForm.get('authorId').touched)">
                         <small class="form-text text-danger"
                                *ngIf="editForm.get('authorId').errors.required" jhiTranslate="entity.validation.required">
@@ -105,150 +106,111 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.creationDate" for="field_creationDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.creationDate' | translate">Creation Date</label>
-                    <div class="input-group">
-                        <input id="field_creationDate" type="text" class="form-control" name="creationDate" ngbDatepicker  #creationDateDp="ngbDatepicker" formControlName="creationDate"/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="creationDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div *ngIf="editForm.get('creationDate').invalid && (editForm.get('creationDate').dirty || editForm.get('creationDate').touched)">
+                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.isFinal" for="field_isFinal" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isFinal' | translate">Is Final</label>
+                    <input type="checkbox" class="form-control" name="isFinal" id="field_isFinal"
+                           formControlName="isFinal"/>
+                    <div *ngIf="editForm.get('isFinal').invalid && (editForm.get('isFinal').dirty || editForm.get('isFinal').touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('creationDate').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.lastEditDate" for="field_lastEditDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.lastEditDate' | translate">Last Edit Date</label>
-                    <div class="input-group">
-                        <input id="field_lastEditDate" type="text" class="form-control" name="lastEditDate" ngbDatepicker  #lastEditDateDp="ngbDatepicker" formControlName="lastEditDate"/>
-                        <span class="input-group-append">
-                            <button type="button" class="btn btn-secondary" (click)="lastEditDateDp.toggle()"><fa-icon [icon]="'calendar-alt'"></fa-icon></button>
-                        </span>
-                    </div>
-                    <div *ngIf="editForm.get('lastEditDate').invalid && (editForm.get('lastEditDate').dirty || editForm.get('lastEditDate').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('lastEditDate').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.isVisible" for="field_isVisible" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isVisible' | translate">Is Visible</label>
-                    <input type="checkbox" class="form-control" name="isVisible" id="field_isVisible"
-                           formControlName="isVisible"/>
-                    <div *ngIf="editForm.get('isVisible').invalid && (editForm.get('isVisible').dirty || editForm.get('isVisible').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('isVisible').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('isFinal').errors.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.language" for="field_language" [ngbTooltip]="'gatewayApp.recipesRecipe.help.language' | translate">Language</label>
-                    <input type="text" class="form-control" name="language" id="field_language"
-                           formControlName="language"/>
-                    <div *ngIf="editForm.get('language').invalid && (editForm.get('language').dirty || editForm.get('language').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('language').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('language').errors.minlength" jhiTranslate="entity.validation.minlength" [translateValues]="{ min: 2 }">
-                        This field is required to be at least 2 characters.
-                        </small>
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('language').errors.maxlength" jhiTranslate="entity.validation.maxlength" [translateValues]="{ max: 2 }">
-                        This field cannot be longer than 2 characters.
-                        </small>
-                    </div>
+                    <select class="form-control" id="field_language" name="language"
+                            formControlName="language">
+                        <option *ngIf="!editForm.get('language').value" [ngValue]="null" selected></option>
+                        <option
+                            [ngValue]="languageOption === editForm.get('language').value ? editForm.get('language').value : languageOption"
+                            *ngFor="let languageOption of languages">{{languageOption}}</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight" for="field_totalGramsWeight" [ngbTooltip]="'gatewayApp.recipesRecipe.help.totalGramsWeight' | translate">Total Grams Weight</label>
-                    <input type="number" class="form-control" name="totalGramsWeight" id="field_totalGramsWeight"
-                           formControlName="totalGramsWeight"/>
-                    <div *ngIf="editForm.get('totalGramsWeight').invalid && (editForm.get('totalGramsWeight').dirty || editForm.get('totalGramsWeight').touched)">
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('totalGramsWeight').errors.required" jhiTranslate="entity.validation.required">
-                        This field is required.
-                        </small>
-                        <small class="form-text text-danger"
-                               *ngIf="editForm.get('totalGramsWeight').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
-                            This field should be at least 0.
-                        </small>
-                        <small class="form-text text-danger"
-                            [hidden]="!editForm.get('totalGramsWeight')?.errors?.number" jhiTranslate="entity.validation.number">
-                            This field should be a number.
-                        </small>
-                    </div>
-                </div>
-
-                <div class="form-group" formGroupName="basicNutritionData">
-                    <span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span>
-                    <table>
-                        <tr>
-                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.energy" for="field_energy" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.energy' | translate">Energy</label></td>
-                            <td><input type="text" class="form-control" name="energy" id="field_energy"
-                                       formControlName="energy"/></td>
-                            <td *ngIf="editForm.get('basicNutritionData').get('energy').invalid && (editForm.get('basicNutritionData').get('energy').dirty || editForm.get('basicNutritionData').get('energy').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('energy').errors.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('energy').errors.number" jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.protein" for="field_protein" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.protein' | translate">protein</label></td>
-                            <td><input type="text" class="form-control" name="protein" id="field_protein"
-                                       formControlName="protein"/></td>
-                            <td *ngIf="editForm.get('basicNutritionData').get('protein').invalid && (editForm.get('basicNutritionData').get('protein').dirty || editForm.get('basicNutritionData').get('protein').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('protein').errors.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('protein').errors.number" jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.fat" for="field_fat" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.fat' | translate">fat</label></td>
-                            <td><input type="text" class="form-control" name="fat" id="field_fat"
-                                       formControlName="fat"/></td>
-                            <td *ngIf="editForm.get('basicNutritionData').get('fat').invalid && (editForm.get('basicNutritionData').get('fat').dirty || editForm.get('basicNutritionData').get('fat').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('fat').errors.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('fat').errors.number" jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.carbohydrates" for="field_carbohydrates" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.carbohydrates' | translate">carbohydrates</label></td>
-                            <td><input type="text" class="form-control" name="carbohydrates" id="field_carbohydrates"
-                                       formControlName="carbohydrates"/></td>
-                            <td *ngIf="editForm.get('basicNutritionData').get('carbohydrates').invalid && (editForm.get('basicNutritionData').get('carbohydrates').dirty || editForm.get('basicNutritionData').get('carbohydrates').touched)">
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('carbohydrates').errors.required" jhiTranslate="entity.validation.required">
-                                    This field is required.
-                                </small>
-                                <small class="form-text text-danger"
-                                       *ngIf="editForm.get('basicNutritionData').get('carbohydrates').errors.number" jhiTranslate="entity.validation.number">
-                                    This field should be a number.
-                                </small>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight" for="field_totalGramsWeight" [ngbTooltip]="'gatewayApp.recipesRecipe.help.totalGramsWeight' | translate">Total Grams Weight</label>-->
+<!--                    <input type="number" class="form-control" name="totalGramsWeight" id="field_totalGramsWeight"-->
+<!--                           formControlName="totalGramsWeight"/>-->
+<!--                    <div *ngIf="editForm.get('totalGramsWeight').invalid && (editForm.get('totalGramsWeight').dirty || editForm.get('totalGramsWeight').touched)">-->
+<!--                        <small class="form-text text-danger"-->
+<!--                               *ngIf="editForm.get('totalGramsWeight').errors.required" jhiTranslate="entity.validation.required">-->
+<!--                        This field is required.-->
+<!--                        </small>-->
+<!--                        <small class="form-text text-danger"-->
+<!--                               *ngIf="editForm.get('totalGramsWeight').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">-->
+<!--                            This field should be at least 0.-->
+<!--                        </small>-->
+<!--                        <small class="form-text text-danger"-->
+<!--                            [hidden]="!editForm.get('totalGramsWeight')?.errors?.number" jhiTranslate="entity.validation.number">-->
+<!--                            This field should be a number.-->
+<!--                        </small>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--                <div class="form-group" formGroupName="basicNutritionData">-->
+<!--                    <span jhiTranslate="gatewayApp.productsProduct.basicNutritionData">Basic Nutrition Data</span>-->
+<!--                    <table>-->
+<!--                        <tr>-->
+<!--                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.energy" for="field_energy" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.energy' | translate">Energy</label></td>-->
+<!--                            <td><input type="text" class="form-control" name="energy" id="field_energy"-->
+<!--                                       formControlName="energy"/></td>-->
+<!--                            <td *ngIf="editForm.get('basicNutritionData').get('energy').invalid && (editForm.get('basicNutritionData').get('energy').dirty || editForm.get('basicNutritionData').get('energy').touched)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('energy').errors.required" jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('energy').errors.number" jhiTranslate="entity.validation.number">-->
+<!--                                    This field should be a number.-->
+<!--                                </small>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.protein" for="field_protein" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.protein' | translate">protein</label></td>-->
+<!--                            <td><input type="text" class="form-control" name="protein" id="field_protein"-->
+<!--                                       formControlName="protein"/></td>-->
+<!--                            <td *ngIf="editForm.get('basicNutritionData').get('protein').invalid && (editForm.get('basicNutritionData').get('protein').dirty || editForm.get('basicNutritionData').get('protein').touched)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('protein').errors.required" jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('protein').errors.number" jhiTranslate="entity.validation.number">-->
+<!--                                    This field should be a number.-->
+<!--                                </small>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.fat" for="field_fat" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.fat' | translate">fat</label></td>-->
+<!--                            <td><input type="text" class="form-control" name="fat" id="field_fat"-->
+<!--                                       formControlName="fat"/></td>-->
+<!--                            <td *ngIf="editForm.get('basicNutritionData').get('fat').invalid && (editForm.get('basicNutritionData').get('fat').dirty || editForm.get('basicNutritionData').get('fat').touched)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('fat').errors.required" jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('fat').errors.number" jhiTranslate="entity.validation.number">-->
+<!--                                    This field should be a number.-->
+<!--                                </small>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        <tr>-->
+<!--                            <td><label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.carbohydrates" for="field_carbohydrates" [ngbTooltip]="'gatewayApp.recipesRecipeBasicNutritionData.help.carbohydrates' | translate">carbohydrates</label></td>-->
+<!--                            <td><input type="text" class="form-control" name="carbohydrates" id="field_carbohydrates"-->
+<!--                                       formControlName="carbohydrates"/></td>-->
+<!--                            <td *ngIf="editForm.get('basicNutritionData').get('carbohydrates').invalid && (editForm.get('basicNutritionData').get('carbohydrates').dirty || editForm.get('basicNutritionData').get('carbohydrates').touched)">-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('carbohydrates').errors.required" jhiTranslate="entity.validation.required">-->
+<!--                                    This field is required.-->
+<!--                                </small>-->
+<!--                                <small class="form-text text-danger"-->
+<!--                                       *ngIf="editForm.get('basicNutritionData').get('carbohydrates').errors.number" jhiTranslate="entity.validation.number">-->
+<!--                                    This field should be a number.-->
+<!--                                </small>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                </div>-->
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe" for="field_sourceRecipe">Source Recipe</label>
                     <select class="form-control" id="field_sourceRecipe" name="sourceRecipe" formControlName="sourceRecipe">
@@ -274,6 +236,7 @@
                         <option [ngValue]="getSelected(editForm.get('mealTypes').value, mealTypeOption)" *ngFor="let mealTypeOption of mealtypes; trackBy: trackMealTypeById">{{getMealTypeTranslation(mealTypeOption)}}</option>
                     </select>
                 </div>
+                </div>
                 <div formArrayName="recipeSections" class="form-group">
                     <h1>
                         <span jhiTranslate="gatewayApp.recipesRecipe.recipeSections">Recipe sections</span>
@@ -291,6 +254,7 @@
                                 <fa-icon [icon]="'times'"></fa-icon>
                             </button>
                         </h2>
+                        <div class="card jh-card">
                         <input class="form-control" type="text" formControlName="sectionName" [placeholder]="'gatewayApp.recipesRecipeSection.sectionName' | translate"/>
                         <div class="form-group">
                             <label jhiTranslate="gatewayApp.recipesRecipeSection.productPortions">Ingredients</label>
@@ -352,10 +316,10 @@
                                 *ngFor="let preparationStep of getPreparationStepsFormArray(recipeSection).controls; let last = last; let preparationIndex = index"
                                 [formGroupName]="preparationIndex">
                                 <td>
-                                <input type="text" class="form-control"
+                                <textarea class="form-control"
                                        formControlName="stepDescription"
                                        (keyup)="updatePreparationSteps(recipeSection)"
-                                       [placeholder]="'gatewayApp.recipesPreparationStep.stepDescription' | translate"/>
+                                          [placeholder]="'gatewayApp.recipesPreparationStep.stepDescription' | translate"></textarea>
                                 </td>
                                 <td>
                                     <button type="button" class="btn btn-danger btn-sm"
@@ -367,6 +331,7 @@
                             </table>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
             <div>

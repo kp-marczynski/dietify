@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { IProduct, Product } from 'app/shared/model/products/product.model';
-import { AccountService, JhiLanguageHelper } from 'app/core';
+import { Account, AccountService, JhiLanguageHelper, UserService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { ProductService } from './product.service';
@@ -14,6 +14,7 @@ import { IProductCategory } from 'app/shared/model/products/product-category.mod
 import { IProductSubcategory } from 'app/shared/model/products/product-subcategory.model';
 import { ProductSubcategoryService } from 'app/entities/products/product-subcategory';
 import { ProductCategoryService } from 'app/entities/products/product-category';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-product',
@@ -37,6 +38,7 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   predicate: any;
   previousPage: any;
   reverse: any;
+  authorId: any;
 
   selectedCategory: IProductCategory;
   selectedSubcategory: IProductSubcategory;
@@ -47,10 +49,12 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   languages: any[];
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected productService: ProductService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
+    protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     protected router: Router,
     protected eventManager: JhiEventManager,
@@ -108,7 +112,8 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
         search: this.currentSearch.trim(),
         categoryId: this.selectedCategory ? this.selectedCategory.id : '',
         subcategoryId: this.selectedSubcategory ? this.selectedSubcategory.id : '',
-        language: this.selectedLanguage ? this.selectedLanguage : ''
+        language: this.selectedLanguage ? this.selectedLanguage : '',
+        author: this.authorId ? this.authorId : ''
       })
       .subscribe(
         (res: HttpResponse<IProduct[]>) => this.paginateProducts(res.body, res.headers),
@@ -182,10 +187,14 @@ export class ProductComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnInit() {
-    this.loadAll();
-    this.accountService.identity().then(account => {
-      this.currentAccount = account;
+    this.layoutCardService.changeMainCardContainerVisibility(false);
+    this.accountService.identity().then((account: Account) => {
+      this.userService.find(account.login).subscribe(res => {
+        this.authorId = res.body.id;
+        this.loadAll();
+      });
     });
+    this.loadAll();
     this.registerChangeInProducts();
     this.languageHelper.getAll().then(languages => {
       this.languages = languages;

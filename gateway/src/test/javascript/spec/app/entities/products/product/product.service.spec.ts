@@ -6,7 +6,7 @@ import { of } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 import { ProductService } from 'app/entities/products/product/product.service';
 import { IProduct, Product } from 'app/shared/model/products/product.model';
-
+import * as moment from 'moment';
 describe('Service Tests', () => {
   describe('Product Service', () => {
     let injector: TestBed;
@@ -14,6 +14,7 @@ describe('Service Tests', () => {
     let httpMock: HttpTestingController;
     let elemDefault: IProduct;
     let expectedResult;
+    let currentDate: moment.Moment;
     beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientTestingModule]
@@ -22,8 +23,9 @@ describe('Service Tests', () => {
       injector = getTestBed();
       service = injector.get(ProductService);
       httpMock = injector.get(HttpTestingController);
+      currentDate = moment();
 
-      elemDefault = new Product(0, 'AAAAAAA', 0, 'AAAAAAA', false, false, 'AAAAAAA');
+      elemDefault = new Product(0, 'AAAAAAA', 0, 'AAAAAAA', false, currentDate, currentDate, 'AAAAAAA');
     });
 
     describe('Service methods', () => {

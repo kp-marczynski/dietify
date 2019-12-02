@@ -2,7 +2,7 @@
   "gatewayApp": {
     "appointmentsCustomNutritionalInterviewQuestion": {
       "home": {
-        "title": "Custom Nutritional Interview Questions",
+        "title": "Custom Questions",
         "createLabel": "Create a new Custom Nutritional Interview Question",
         "createOrEditLabel": "Create or edit a Custom Nutritional Interview Question",
         "search": "Search for Custom Nutritional Interview Question",
