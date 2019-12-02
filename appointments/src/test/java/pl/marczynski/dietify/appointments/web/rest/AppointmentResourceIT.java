@@ -220,7 +220,7 @@ public class AppointmentResourceIT {
         appointmentRepository.saveAndFlush(appointment);
 
         // Get all the appointmentList
-        restAppointmentMockMvc.perform(get("/api/appointments?sort=id,desc"))
+        restAppointmentMockMvc.perform(get("/api/appointments?dietitianId=" + PatientCardResourceIT.DEFAULT_DIETITIAN_ID + "&sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(appointment.getId().intValue())))
@@ -228,7 +228,7 @@ public class AppointmentResourceIT {
             .andExpect(jsonPath("$.[*].appointmentState").value(hasItem(DEFAULT_APPOINTMENT_STATE.toString())))
             .andExpect(jsonPath("$.[*].generalAdvice").value(hasItem(DEFAULT_GENERAL_ADVICE.toString())));
     }
-    
+
     @Test
     @Transactional
     public void getAppointment() throws Exception {

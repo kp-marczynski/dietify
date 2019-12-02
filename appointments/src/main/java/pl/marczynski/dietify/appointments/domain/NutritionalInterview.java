@@ -51,7 +51,7 @@ public class NutritionalInterview implements Serializable {
     /**
      * Advice purpose summarising what patient wish to accomplish with diet
      */
-    
+
     @ApiModelProperty(value = "Advice purpose summarising what patient wish to accomplish with diet", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -133,7 +133,8 @@ public class NutritionalInterview implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<OwnedKitchenAppliance> ownedKitchenAppliances = new HashSet<>();
 
-    @OneToMany(mappedBy = "nutritionalInterview")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "nutritional_interview_id", nullable = false)
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<CustomNutritionalInterviewQuestion> customQuestions = new HashSet<>();
 

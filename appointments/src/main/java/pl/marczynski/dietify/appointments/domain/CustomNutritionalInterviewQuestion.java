@@ -36,7 +36,7 @@ public class CustomNutritionalInterviewQuestion implements Serializable {
     /**
      * Custom question extending Nutritional Interview
      */
-    
+
     @ApiModelProperty(value = "Custom question extending Nutritional Interview", required = true)
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -51,11 +51,6 @@ public class CustomNutritionalInterviewQuestion implements Serializable {
     @Type(type = "org.hibernate.type.TextType")
     @Column(name = "answer")
     private String answer;
-
-    @ManyToOne(optional = false)
-    @NotNull
-    @JsonIgnoreProperties("customQuestions")
-    private NutritionalInterview nutritionalInterview;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -90,13 +85,6 @@ public class CustomNutritionalInterviewQuestion implements Serializable {
         this.answer = answer;
     }
 
-    public NutritionalInterview getNutritionalInterview() {
-        return nutritionalInterview;
-    }
-
-    public void setNutritionalInterview(NutritionalInterview nutritionalInterview) {
-        this.nutritionalInterview = nutritionalInterview;
-    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
     @Override

@@ -39,8 +39,8 @@ public class PatientCardResourceIT {
     private static final LocalDate DEFAULT_CREATION_DATE = LocalDate.ofEpochDay(0L);
     private static final LocalDate UPDATED_CREATION_DATE = LocalDate.now(ZoneId.systemDefault());
 
-    private static final Long DEFAULT_DIETITIAN_ID = 1L;
-    private static final Long UPDATED_DIETITIAN_ID = 2L;
+    public static final Long DEFAULT_DIETITIAN_ID = 1L;
+    public static final Long UPDATED_DIETITIAN_ID = 2L;
 
     private static final Long DEFAULT_PATIENT_ID = 1L;
     private static final Long UPDATED_PATIENT_ID = 2L;
@@ -129,7 +129,6 @@ public class PatientCardResourceIT {
         List<PatientCard> patientCardList = patientCardRepository.findAll();
         assertThat(patientCardList).hasSize(databaseSizeBeforeCreate + 1);
         PatientCard testPatientCard = patientCardList.get(patientCardList.size() - 1);
-        assertThat(testPatientCard.getCreationDate()).isEqualTo(DEFAULT_CREATION_DATE);
         assertThat(testPatientCard.getDietitianId()).isEqualTo(DEFAULT_DIETITIAN_ID);
         assertThat(testPatientCard.getPatientId()).isEqualTo(DEFAULT_PATIENT_ID);
     }
@@ -153,25 +152,6 @@ public class PatientCardResourceIT {
         assertThat(patientCardList).hasSize(databaseSizeBeforeCreate);
     }
 
-
-    @Test
-    @Transactional
-    public void checkCreationDateIsRequired() throws Exception {
-        int databaseSizeBeforeTest = patientCardRepository.findAll().size();
-        // set the field null
-        patientCard.setCreationDate(null);
-
-        // Create the PatientCard, which fails.
-
-        restPatientCardMockMvc.perform(post("/api/patient-cards")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
-            .andExpect(status().isBadRequest());
-
-        List<PatientCard> patientCardList = patientCardRepository.findAll();
-        assertThat(patientCardList).hasSize(databaseSizeBeforeTest);
-    }
-
     @Test
     @Transactional
     public void checkDietitianIdIsRequired() throws Exception {
@@ -192,38 +172,19 @@ public class PatientCardResourceIT {
 
     @Test
     @Transactional
-    public void checkPatientIdIsRequired() throws Exception {
-        int databaseSizeBeforeTest = patientCardRepository.findAll().size();
-        // set the field null
-        patientCard.setPatientId(null);
-
-        // Create the PatientCard, which fails.
-
-        restPatientCardMockMvc.perform(post("/api/patient-cards")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
-            .content(TestUtil.convertObjectToJsonBytes(patientCard)))
-            .andExpect(status().isBadRequest());
-
-        List<PatientCard> patientCardList = patientCardRepository.findAll();
-        assertThat(patientCardList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     public void getAllPatientCards() throws Exception {
         // Initialize the database
         patientCardRepository.saveAndFlush(patientCard);
 
         // Get all the patientCardList
-        restPatientCardMockMvc.perform(get("/api/patient-cards?sort=id,desc"))
+        restPatientCardMockMvc.perform(get("/api/patient-cards?dietitianId=" + DEFAULT_DIETITIAN_ID + "&sort=id,desc"))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(patientCard.getId().intValue())))
-            .andExpect(jsonPath("$.[*].creationDate").value(hasItem(DEFAULT_CREATION_DATE.toString())))
             .andExpect(jsonPath("$.[*].dietitianId").value(hasItem(DEFAULT_DIETITIAN_ID.intValue())))
             .andExpect(jsonPath("$.[*].patientId").value(hasItem(DEFAULT_PATIENT_ID.intValue())));
     }
-    
+
     @Test
     @Transactional
     public void getPatientCard() throws Exception {

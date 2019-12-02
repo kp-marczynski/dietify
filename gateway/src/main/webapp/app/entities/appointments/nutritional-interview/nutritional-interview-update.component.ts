@@ -1,13 +1,14 @@
-import {Component, OnInit, Output, EventEmitter} from '@angular/core';
-import {HttpResponse, HttpErrorResponse} from '@angular/common/http';
-import {FormBuilder, Validators} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
-import {filter, map} from 'rxjs/operators';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
-import {JhiAlertService, JhiDataUtils} from 'ng-jhipster';
-import {INutritionalInterview, NutritionalInterview} from 'app/shared/model/appointments/nutritional-interview.model';
-import {NutritionalInterviewService} from './nutritional-interview.service';
+import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
+import { INutritionalInterview, NutritionalInterview } from 'app/shared/model/appointments/nutritional-interview.model';
+import { NutritionalInterviewService } from './nutritional-interview.service';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IProduct } from 'app/shared/model/products/product.model';
 
 @Component({
   selector: 'jhi-nutritional-interview-update',
@@ -34,7 +35,8 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
     likedProducts: [],
     dislikedProducts: [],
     foodAllergies: [],
-    foodIntolerances: []
+    foodIntolerances: [],
+    customQuestions: this.fb.array([])
   });
 
   constructor(
@@ -42,15 +44,15 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
     protected jhiAlertService: JhiAlertService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.isSaving = false;
-    this.activatedRoute.data.subscribe(({nutritionalInterview}) => {
+    this.activatedRoute.data.subscribe(({ nutritionalInterview }) => {
       if (nutritionalInterview) {
         this.updateForm(nutritionalInterview);
       }
+      this.getCustomQuestionsFormArray().push(this.getCustomQuestionsFormGroup());
     });
   }
 
@@ -67,7 +69,8 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
       likedProducts: nutritionalInterview.likedProducts,
       dislikedProducts: nutritionalInterview.dislikedProducts,
       foodAllergies: nutritionalInterview.foodAllergies,
-      foodIntolerances: nutritionalInterview.foodIntolerances
+      foodIntolerances: nutritionalInterview.foodIntolerances,
+      customQuestions: nutritionalInterview.customQuestions
     });
   }
 
@@ -110,6 +113,7 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const nutritionalInterview = this.createFromForm();
+    this.removeEmptyCustomQuestions(nutritionalInterview);
     this.passBack(nutritionalInterview);
   }
 
@@ -127,8 +131,45 @@ export class NutritionalInterviewUpdateComponent implements OnInit {
       likedProducts: this.editForm.get(['likedProducts']).value,
       dislikedProducts: this.editForm.get(['dislikedProducts']).value,
       foodAllergies: this.editForm.get(['foodAllergies']).value,
-      foodIntolerances: this.editForm.get(['foodIntolerances']).value
+      foodIntolerances: this.editForm.get(['foodIntolerances']).value,
+      customQuestions: this.editForm.get(['customQuestions']).value
     };
+  }
+
+  getCustomQuestionsFormArray() {
+    return this.editForm.get('customQuestions') as FormArray;
+  }
+
+  getCustomQuestionsFormGroup() {
+    return this.fb.group({
+      id: [],
+      ordinalNumber: [],
+      question: [],
+      answer: []
+    });
+  }
+
+  updateCustomQuestionsList() {
+    for (let i = this.getCustomQuestionsFormArray().length - 1; i >= 0; --i) {
+      if (
+        !this.getCustomQuestionsFormArray().controls[i].get('question').value &&
+        !this.getCustomQuestionsFormArray().controls[i].get('answer').value
+      ) {
+        this.getCustomQuestionsFormArray().removeAt(i);
+      }
+    }
+    this.getCustomQuestionsFormArray().push(this.getCustomQuestionsFormGroup());
+  }
+
+  removeCustomQuestion(index: number) {
+    this.getCustomQuestionsFormArray().removeAt(index);
+  }
+
+  private removeEmptyCustomQuestions(nutritionalInterview: INutritionalInterview) {
+    nutritionalInterview.customQuestions = nutritionalInterview.customQuestions.filter(customQuestion => customQuestion.question);
+    for (let i = 0; i < nutritionalInterview.customQuestions.length; ++i) {
+      nutritionalInterview.customQuestions[i].ordinalNumber = i + 1;
+    }
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<INutritionalInterview>>) {
