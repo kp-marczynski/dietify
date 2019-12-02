@@ -36,6 +36,6 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
 
     Page<Appointment> findAllByPatientCardDietitianId(Long dietitianId, Pageable pageable);
 
-    @Query(value = "select new pl.marczynski.dietify.appointments.domain.BmiResult(appointment.appointmentDate, appointment.bodyMeasurement.weight, appointment.bodyMeasurement.height) from Appointment appointment where appointment.patientCard.id = :patientCardId and appointment.bodyMeasurement.weight is not null and appointment.bodyMeasurement.height is not null")
+    @Query(value = "select new pl.marczynski.dietify.appointments.domain.BmiResult(appointment.appointmentDate, appointment.bodyMeasurement.weight, appointment.bodyMeasurement.height) from Appointment appointment where appointment.patientCard.id = :patientCardId and appointment.bodyMeasurement.weight is not null and appointment.bodyMeasurement.height is not null order by appointment.appointmentDate")
     List<BmiResult> calculateBMI(@Param("patientCardId")Long patientCardId);
 }
