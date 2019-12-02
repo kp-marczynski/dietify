@@ -10,6 +10,7 @@ import { Account, AccountService, UserService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { MealPlanService } from './meal-plan.service';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-meal-plan',
@@ -36,6 +37,7 @@ export class MealPlanComponent implements OnInit, OnDestroy {
   authorId: any;
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected mealPlanService: MealPlanService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -149,6 +151,7 @@ export class MealPlanComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.accountService.identity().then((account: Account) => {
       this.userService.find(account.login).subscribe(res => {
         this.authorId = res.body.id;

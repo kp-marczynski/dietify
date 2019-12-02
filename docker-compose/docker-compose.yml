@@ -83,6 +83,12 @@ services:
       file: jhipster-registry.yml
       service: jhipster-registry
 
+  mail-server:
+    image: djfarrelly/maildev
+    ports:
+        - 1080:1080
+        - 1025:25
+
 #  dietify-elasticsearch:
 #      image: 'docker.elastic.co/elasticsearch/elasticsearch:6.4.3'
 #      environment:

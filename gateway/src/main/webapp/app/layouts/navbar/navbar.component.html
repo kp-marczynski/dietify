@@ -123,6 +123,22 @@
                         </li>
                     </ul>
                 </li>
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link" routerLink="privacy-policy" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="user-secret"></fa-icon>
+                        <span jhiTranslate="global.menu.privacyPolicy">Privacy Policy</span>
+                    </span>
+                    </a>
+                </li>
+                <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+                    <a class="nav-link" routerLink="terms-of-use" (click)="collapseNavbar()">
+                    <span>
+                        <fa-icon icon="gavel"></fa-icon>
+                        <span jhiTranslate="global.menu.termsOfUse">Terms of Use</span>
+                    </span>
+                    </a>
+                </li>
             </ul>
             <jhi-footer></jhi-footer>
         </div>
