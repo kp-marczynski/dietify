@@ -1,0 +1,254 @@
+
+// <<START appointments.jh>>
+application {
+    config {
+        baseName appointments
+        packageName pl.marczynski.dietify.appointments
+
+        applicationType microservice
+        serverPort 8084
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+        prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine false
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+
+        testFrameworks [gatling, cucumber]
+    }
+    entities Appointment, BodyMeasurement, PatientCard, NutritionalInterview, AssignedMealPlan, OwnedKitchenAppliance, CustomNutritionalInterviewQuestion, CustomNutritionalInterviewQuestionTemplate, AppointmentEvaluation
+}
+
+/**
+ * State of the appointment
+ * @author Krzysztof Marczyński
+ */
+enum AppointmentState {
+    PLANNED, CANCELED, TOOK_PLACE, COMPLETED
+}
+
+/**
+ * A set of available patient physical activity state compliant with PAL levels
+ * @author Krzysztof Marczyński
+ */
+enum PhysicalActivity {
+    EXTREMELY_INACTIVE, SEDENTARY, MODERATELY_ACTIVE, VIGOROUSLY_ACTIVE, EXTREMELY_ACTIVE
+}
+
+/**
+ * A type of job
+ * @author Krzysztof Marczyński
+ */
+enum JobType {
+    SITTING, STANDING, MIXED
+}
+
+/**
+ * Satisfaction rate levels
+ * @author Krzysztof Marczyński
+ */
+enum SatisfactionRate {
+    VERY_DISSATISFIED, DISSATISFIED, NEUTRAL, SATISFIED, VERY_SATISFIED
+}
+
+/**
+ * A Patient's card
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(appointments)
+entity PatientCard {
+    /** Date when patient registered to dietitian */
+    creationDate LocalDate required
+    /** Dietitian to which patient has signed. Id of User entity retrieved from gateway service. */
+    dietitianId Long required
+    /** Patient of dietitian. Id of User entity retrieved from gateway service. */
+    patientId Long required
+}
+
+/**
+ * An appointment
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(appointments)
+entity Appointment {
+    /** Date and time of the appointment */
+    appointmentDate Instant required
+    /** Current appointment state */
+    appointmentState AppointmentState required
+    /** General advice after appointment */
+    generalAdvice TextBlob
+}
+
+/**
+ * A body measurement
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity BodyMeasurement {
+    /** Date of measurement completion */
+    completionDate LocalDate required
+    /** Patient's height. Alongside with weight it is used to calculate BMI factor */
+    height Integer required
+    /** Patient's weight. Alongside with height it is used to calculate BMI factor */
+    weight Integer required
+    /** Patient's waist measure */
+    waist Double required
+    /** Percent of fat tissue in patient's body. Norm for women: 16-20. Norm for men: 15-18 */
+    percentOfFatTissue Double min(0) max(100)
+    /** Percent of water in patient's body. Norm for women: 45-60. Norm for men: 50-65 */
+    percentOfWater Double min(0) max(100)
+    /** Mass of patient's muscle tissue in kilograms */
+    muscleMass Double
+    /** Physical mark. Norm: 5 */
+    physicalMark Double
+    /** Level of calcium in patient's bones in kilograms. Norm: ~2.4kg */
+    calciumInBones Double
+    /** Basic metabolism in kcal */
+    basicMetabolism Integer
+    /** Metabolic age in years */
+    metabolicAge Double
+    /** Level of visceral fat. Norm: 1-12 */
+    visceralFatLevel Double
+}
+
+/**
+ * A nutritional interview
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity NutritionalInterview {
+    /** Date of interview completion */
+    completionDate LocalDate required
+    /** Patient's target weight in kilograms */
+    targetWeight Integer required
+    /** Advice purpose summarising what patient wish to accomplish with diet */
+    advicePurpose TextBlob required
+    /** Patient's usual daily activity level */
+    physicalActivity PhysicalActivity required
+    /** Patient's diseases */
+    diseases TextBlob
+    /** Patient's medicines */
+    medicines TextBlob
+    /** Patient's job type */
+    jobType JobType
+    /** Food products that patient likes */
+    likedProducts TextBlob
+    /** Food products that patient dislikes */
+    dislikedProducts TextBlob
+    /** Food products that patient is allergic to */
+    foodAllergies TextBlob
+    /** Patient's food intolerances */
+    foodIntolerances TextBlob
+}
+
+/**
+ * A custom nutritional interview question
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity CustomNutritionalInterviewQuestion (cust_nutr_intr_quest) {
+    /** Ordinal number of custom question*/
+    ordinalNumber Integer min(1)
+    /** Custom question extending Nutritional Interview */
+    question TextBlob required
+    /** Answer for question */
+    answer TextBlob
+}
+
+/**
+ * A template for custom nutritional interview question
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity CustomNutritionalInterviewQuestionTemplate (cust_nutr_intr_quest_tmpl) {
+    /** Id of owner User entity retrieved from gateway service */
+    ownerId Long required
+    /** Custom question extending Nutritional Interview */
+    question TextBlob required
+    /** Language of translation as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+}
+
+/**
+ * An owned kitchen appliance
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity OwnedKitchenAppliance {
+    /** Id of KitchenAppliance entity retrieved from recipes service */
+    kitchenApplianceId Long required
+}
+
+/**
+ * An assigned meal plan
+ * @author Krzysztof Marczyński
+ */
+@microservice(appointments)
+entity AssignedMealPlan {
+    /** Id of assigned MealPlan entity retrieved from mealplans service */
+    mealPlanId Long required
+}
+
+/**
+ * Patient's appointment evaluation
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(appointments)
+entity AppointmentEvaluation {
+    /** Overall visit satisfaction */
+    overallSatisfaction SatisfactionRate required
+    /** Dietitian service satisfaction */
+    dietitianServiceSatisfaction SatisfactionRate required
+    /** Overall meal plan satisfaction */
+    mealPlanOverallSatisfaction SatisfactionRate required
+    /** Meals cost satisfaction */
+    mealCostSatisfaction SatisfactionRate required
+    /** Meals preparation time satisfaction */
+    mealPreparationTimeSatisfaction SatisfactionRate required
+    /** Meal complexity level satisfaction */
+    mealComplexityLevelSatisfaction SatisfactionRate required
+    /** Meal tastefulness satisfaction */
+    mealTastefulnessSatisfaction SatisfactionRate required
+    /** Dietary result satisfaction */
+    dietaryResultSatisfaction SatisfactionRate required
+    /** Optional comment to visit */
+    comment TextBlob
+}
+
+relationship OneToOne {
+    Appointment{bodyMeasurement}
+        to BodyMeasurement{appointment required}
+
+    Appointment{nutritionalInterview}
+        to NutritionalInterview{appointment required}
+
+    AppointmentEvaluation{appointment required}
+        to Appointment
+}
+
+relationship OneToMany {
+    PatientCard{appointments}
+        to Appointment{patientCard required}
+
+    Appointment{mealPlans}
+        to AssignedMealPlan{appointment required}
+
+    NutritionalInterview{ownedKitchenAppliances}
+        to OwnedKitchenAppliance{nutritionalInterview required}
+
+    NutritionalInterview{customQuestions}
+        to CustomNutritionalInterviewQuestion{nutritionalInterview required}
+}
+// <<END appointments.jh>>

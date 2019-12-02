@@ -1,0 +1,173 @@
+
+// <<START mealPlans.jh>>
+application {
+    config {
+        baseName mealplans
+        packageName pl.marczynski.dietify.mealplans
+
+        applicationType microservice
+        serverPort 8083
+
+        authenticationType jwt
+        buildTool gradle
+        serviceDiscoveryType eureka
+
+        databaseType sql
+        devDatabaseType h2Disk
+        prodDatabaseType postgresql
+        cacheProvider hazelcast
+        enableHibernateCache true
+        searchEngine elasticsearch
+
+        enableTranslation true
+        nativeLanguage en
+        languages [en, pl]
+
+        testFrameworks [gatling, cucumber]
+    }
+    entities MealPlan, MealDefinition, MealPlanSuitableForDiet, MealPlanUnsuitableForDiet, MealPlanDay, Meal, MealRecipe, MealProduct
+}
+
+/**
+ * A Meal plan
+ * @author Krzysztof Marczyński
+ */
+@paginate(pager)
+@microservice(mealplans)
+entity MealPlan {
+    /** Id of author of the plan */
+    authorId Long required
+    /** Creation date of the plan */
+    creationDate LocalDate required
+    /** Plan name */
+    name String minlength(1) maxlength(255)
+    /** Flag specifying if meal plan is visible in author's list of meal plans */
+    isVisible Boolean required
+    /** Flag specifying if meal plan is editable */
+    isLocked Boolean required
+    /** Language tag of a meal plan as ISO_639-1 code */
+    language String required minlength(2) maxlength(2)
+
+    /** Number of days in plan */
+    numberOfDays Integer required min(1)
+    /** Number of meals per day */
+    numberOfMealsPerDay Integer required min(1)
+    /** Amount of total energy per day in kcal */
+    totalDailyEnergy Integer required min(1)
+    /** Percent of proteins in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100 */
+    percentOfProtein Integer required min(0) max(100)
+    /** Percent of fats in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100 */
+    percentOfFat Integer required min(0) max(100)
+    /**  Percent of carbohydrates in total daily energy. Sum of percents of protein, fat and carbohydrates must not be larger than 100 */
+    percentOfCarbohydrates Integer required min(0) max(100)
+}
+
+/**
+ * A Meal Definition used for specifying basic properties of each daily meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealDefinition {
+    /** Daily ordinal number of meal */
+    ordinalNumber Integer required min(1)
+    /** Id of MealType entity retrieved from recipes service */
+    mealTypeId Long required
+    /** Usual time of meal in 24h format: HH:mm */
+    timeOfMeal String required pattern(/\d{2}:\d{2}/)
+    /** Part of daily total energy expressed in percent. Sum of all values for one MealPlan must be equal 100. */
+    percentOfEnergy Integer required min(0) max(100)
+}
+
+/**
+ * A Day in meal plan
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealPlanDay {
+    /** Ordinal number of day */
+    ordinalNumber Integer required min(1)
+}
+
+/**
+ * A Meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity Meal {
+    /** Ordinal number of meal */
+    ordinalNumber Integer required min(1)
+}
+
+/**
+ * A Recipe assigned to a meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealRecipe {
+    /** Id of Recipe entity retrieved from recipes service */
+    recipeId Long required
+    /** Amount of recipe in grams */
+    amount Integer required min(0)
+}
+
+/**
+ * A Product assigned to a meal
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealProduct {
+    /** Id of Product entity retrieved from Products service */
+    productId Long required
+    /** Id of HouseholdMeasure entity retrieved from Products service */
+    householdMeasureId Long
+    /** Amount of Product in household measure units. If household measure is null then amount is in grams. */
+    amount Double required min(0)
+}
+
+/**
+ * A tag specifying cases in which MealPlan might be positively used
+ * e.g. vegetarian should mean it is good for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealPlanSuitableForDiet {
+    /** Id of applicable DietType entity retrieved from products service */
+    dietTypeId Long required
+}
+
+/**
+ * A tag specifying cases in which MealPlan should not be used
+ * e.g. vegetarian should mean it is bad for vegetarians.
+ * @author Krzysztof Marczyński
+ */
+@microservice(mealplans)
+entity MealPlanUnsuitableForDiet {
+    /** Id of applicable DietType entity retrieved from products service */
+    dietTypeId Long required
+}
+
+relationship OneToMany {
+    MealPlan{days}
+        to MealPlanDay{mealPlan required}
+
+    MealPlan{mealDefinitions}
+        to MealDefinition{mealPlan required}
+
+    MealPlanDay{meals}
+        to Meal{mealPlanDay required}
+
+    Meal{mealRecipes}
+        to MealRecipe{meal required}
+
+    Meal{mealProducts}
+        to MealProduct{meal required}
+
+    MealPlan{suitableForDiet}
+        to MealPlanSuitableForDiet{mealPlan required}
+
+    MealPlan{unsuitableForDiet}
+        to MealPlanUnsuitableForDiet{mealPlan required}
+}
+
+search MealPlan with elasticsearch
+// <<END mealPlans.jh>>

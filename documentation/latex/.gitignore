@@ -9,3 +9,10 @@ _minted-main/
 *.synctex(busy)
 *.toc
 *.gz
+*.upa
+*.upb
+*.pyg
+*.fdb_latexmk
+*.fls
+*.lol
+__latexindent_temp.tex

@@ -1,0 +1,75 @@
+% !TeX spellcheck = pl_PL
+% http://wiki.languagetool.org/checking-la-tex-with-languagetool
+\documentclass{dyplom}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+%%
+\usepackage{lipsum}
+
+% Dane o~pracy
+\author{Krzysztof Marczyński}
+\title{Projekt~i~implementacja systemu~do~zarządzania dietą w~oparciu~o~architekturę~mikroserwisów}
+\titlen{Design~and~implementation of~diet~management~system based~on~microservice~architecture}
+\promotor{dr inż. Michał Szczepanik}
+%\konsultant{dr hab. inż. Kazimerz Kabacki}
+\wydzial{Wydział Informatyki i~Zarządzania}
+\kierunek{Informatyka}
+\krotkiestreszczenie{
+Praca przedstawia proces projektowania i~implementacji systemu do zarządzania dietą z~wykorzystaniem architektury mikroserwisów.
+Omówiona zostanie wiedza wynikająca z~analizy rozwiązań konkurencyjnych, przeglądu literatury domenowej,
+a także z~porównania stylów architektury oprogramowania.
+Zasadniczym problemem rozwiązywanym przez opracowywany produkt jest układanie jadłospisów przez dietetyka i~przydzielanie ich pacjentowi.
+}
+\slowakluczowe{
+układanie~jadłospisów
+architektura~mikroserwisów
+aplikacja~webowa}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%todo na koniec sprawdzić czy nie zostały sieroty/wdowy na końcach stron/wierszy
+%todo na koniec zastąpić regexem: " ([a-z]) " na " $1~" i~" - " na "~- "
+\begin{document}
+    \sloppy %for words not to leak from right side of container
+    \input{chapters/ch_changelog} %todo usunąć przed oddaniem
+
+    \maketitle
+    \pagenumbering{gobble}
+    \input{chapters/ch_streszczenie}
+    \cleardoublepage
+
+    \pdfbookmark{\contentsname}{toc}
+    \tableofcontents
+    \cleardoublepage
+
+    \pagenumbering{arabic}
+    \setlength{\parskip}{6pt}%
+    \input{chapters/ch_wstep}
+
+    \input{chapters/ch_stan-wiedzy}
+    \input{chapters/ch_zalozenia-projektowe}
+    \input{chapters/ch_projekt}
+    \input{chapters/ch_implementacja}
+    \input{chapters/ch_testy}
+
+%    \input{demo/instrukcja}
+%    \input{demo/demo}
+
+    \input{chapters/ch_zakonczenie}
+
+    % W~pracy pojawią się tylko prace naprawdę cytowane.
+    % \nocite{*}
+    \cleardoublepage
+    \bibliography{literatura}
+    \bibliographystyle{dyplom}
+
+    \listnormal{\listoffigures}{\listfigurename}
+    \listnormal{\listoftables}{\listtablename}
+
+    \clearpage
+%    \listof{listing}{Spis kodów źródłowych}
+    \lstlistoflistings
+
+    \input{chapters/ch_dodatki}
+
+\end{document}

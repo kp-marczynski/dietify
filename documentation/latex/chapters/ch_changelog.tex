@@ -1,0 +1,89 @@
+% !TeX spellcheck = pl_PL
+\pagenumbering{gobble}
+\addtocontents{toc}{\protect\setcounter{tocdepth}{-1}}
+\chapter*{Changelog}\label{ch:changelog}
+
+Jest to pomocniczy rozdział opisujący zmiany w~kolejnych wersjach pracy wysyłanej do promotora, żeby ułatwić współpracę z~promotorem.
+Zostanie usunięty przed ostatecznym oddaniem pracy.
+
+\subsubsection{v3}
+\begin{itemize}
+%\item Uwzględniono sugestie z~komentarzy:
+%    \begin{itemize}
+%	\end{itemize}
+\item Zmiany:
+    \begin{itemize}
+    	\item Zrezygnowałem z~wykorzystania wzorca TemporalObject, bo nie wyrobię się z~zaimplementowaniem go. Encje ProductVersion i~RecipeVersion zostały zmergowane ze swoimi rodzicami.
+		\item Poprawiłem interpunkcję w~wyliczeniach.
+		\item Uzupełniłem opis wykorzystywanych technologii
+		\item Na prośbę promotora dodałem z~powrotem screenshooty rozwiązań konkurencyjnych
+		\item Zmiana sposobu podawania źródła w~podpisach obrazków
+	\end{itemize}
+\item Nowości:
+    \begin{itemize}
+		\item implementacja~- opis architektury
+		\item implemetnacja~- opis dokumentacji
+		\item opis zakresu implementacji
+		\item zakończenie
+		\item wprowadzenie do testów
+		\item opis testów jednostkowych, integracyjnych, użyteczności
+	\end{itemize}
+%\item Podsumowanie:
+%    \begin{itemize}
+%	\end{itemize}
+\item Do zrobienia:
+    \begin{itemize}
+        \item uzupełnić testy
+        \item prezentacja aplikacji
+        \item wykorzystanie bazy usda
+	\end{itemize}
+\end{itemize}
+
+\subsubsection{v2}
+\begin{itemize}
+\item Uwzględniono sugestie z~komentarzy:
+    \begin{itemize}
+	\item poprawiłem błędy wyszczególnione błędy ortograficzne, interpunkcyjne, stylistyczne
+	\item W~kwestii rozwiązań konkurencyjnych i~pracy offline;napisałem maile do supportu wszystkich porównywanych rozwiązań z~pytaniem czy jest możliwa praca offline. Wszyscy odpisali, że nie. (oczywiście poza aliantem, który działa tylko offline)
+	\item dodałem zgodę na przetwarzanie danych osobowych w~wymaganiach funkcjonalnych i~use casach
+	\item diagramy przypadków użycia powiększyłem o~ok 30\% a~klas o~ok 10\%
+	\item dodałem reguły w~latex'ie które powinny wyeliminować większość wdów i~sierot
+	\item dodałem wersje przeglądarek/systemów w~wymaganiach niefunkcjonalnych
+	\end{itemize}
+\item Zmiany:
+    \begin{itemize}
+	\item krótkie streszczenie na stronie tytułowej
+	\item przegląd rozwiązań konkurencyjnych
+	\item uzupełniłem opis problemu we wstępie
+	\item założenia projektowe: uzupełniłem słownik
+	\item diagramy przypadków użycia przerzuciłem do sekcji z~wymaganiami funkcjonalnymi w~założeniach projektowych
+	\item poprawiłem scope wymagań funkcjonalnych
+	\item uprościłem diagramy przypadków użycia
+	\item uzupełniłem prototypy interfejsu
+	\item w~dodatku (jdl) zamiast całego opisu domeny zostawiłem tylko definicję mikroserwisów. odniesienie do dodatku będzie w~rozdziale implementacja
+	\item kategorie, ograniczenia, reguły i~diagramy klas zostały rozdzielone na sekcje dla każdej poddziedziny w~celu zwiększenia czytelności
+	\item wyrzuciłem ze scope'u mało istotne kategorie; głównie z~poddziedzin administracyjnej i~wizyt
+	\item zmiana oznaczeń kategorii/ograniczeń/reguł z~KAT/XXX na KAT/Y/XX, gdzie Y~to numer poddziedziny
+	\item drobne poprawki stylistyczne w~całej pracy
+	\end{itemize}
+\item Nowości:
+    \begin{itemize}
+	\item stan wiedzy i~technik: przegląd literatury dietetycznej, opis architektury mikroserwisów
+	\item projekt: opis podstawowej architektury systemu
+	\item projekt: projekt bazy danych~- wprowadzenie teoretyczne
+	\item implementacja: instalacja oprogramowania
+	\item podrozdział zakres implementacji, w~którym wspomniałem o~ochronie danych osobowych
+	\end{itemize}
+\item Podsumowanie:
+    \begin{itemize}
+	\item Chciałbym zamknąć już wszystko od początku pracy do końca opisu projektu (tj. do końca rozdziału 3.)
+	\end{itemize}
+\item Do zrobienia:
+    \begin{itemize}
+	\item opisać: architektura systemu, prezentacja aplikacji, dokumentacja kodu, testy, podsumowanie
+	\end{itemize}
+\end{itemize}
+
+\cleardoublepage
+\pagenumbering{gobble}
+%\thispagestyle{normal}
