@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import static org.elasticsearch.index.query.QueryBuilders.*;
@@ -43,7 +45,11 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public Recipe save(Recipe recipe) {
         log.debug("Request to save Recipe : {}", recipe);
-        Recipe result = recipeRepository.save(recipe);
+        if(recipe.getId() == null || recipe.getCreationTimestamp() == null){
+            recipe.setCreationTimestamp(Instant.now());
+        }
+        recipe.setLastEditTimestamp(Instant.now());
+        Recipe result = recipeRepository.saveAndFlush(recipe);
         recipeSearchRepository.save(result);
         return result;
     }
@@ -66,8 +72,9 @@ public class RecipeServiceImpl implements RecipeService {
      *
      * @return the list of entities.
      */
-    public Page<Recipe> findAllWithEagerRelationships(Pageable pageable) {
-        return recipeRepository.findAllWithEagerRelationships(pageable);
+    @Override
+    public Page<Recipe> findAllWithEagerRelationships(Pageable pageable, Long author) {
+        return recipeRepository.findAllWithEagerRelationships(author, pageable);
     }
 
 
@@ -111,11 +118,16 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public Page<Recipe> findBySearchAndFilters(String searchPhrase, String language, Pageable pageable) {
+    public Page<Recipe> findBySearchAndFilters(String searchPhrase, String language, Pageable pageable, Long author) {
         if (language != null) {
-            return this.recipeRepository.findByNameContainingIgnoreCaseAndLanguage(searchPhrase, language, pageable);
+            return this.recipeRepository.findByNameContainingIgnoreCaseAndLanguageAndAuthorId(searchPhrase, language, author, pageable);
         } else {
-            return this.recipeRepository.findByNameContainingIgnoreCase(searchPhrase, pageable);
+            return this.recipeRepository.findByNameContainingIgnoreCaseAndAuthorId(searchPhrase, author, pageable);
         }
+    }
+
+    @Override
+    public void changeToFinal(Long recipeId) {
+        this.recipeRepository.changeToFinal(recipeId);
     }
 }

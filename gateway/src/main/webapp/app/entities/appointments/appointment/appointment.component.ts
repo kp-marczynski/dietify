@@ -6,7 +6,7 @@ import { filter, map } from 'rxjs/operators';
 import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IAppointment } from 'app/shared/model/appointments/appointment.model';
-import { AccountService } from 'app/core';
+import { Account, AccountService, UserService } from 'app/core';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
 import { AppointmentService } from './appointment.service';
@@ -35,9 +35,11 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   standaloneView: boolean;
+  dietitianId: number;
 
   constructor(
     protected appointmentService: AppointmentService,
+    protected userService: UserService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
@@ -76,7 +78,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
             size: this.itemsPerPage,
             sort: this.sort(),
             isWaitingForConsultation: this.isWaitingForConsultation,
-            patientId: this.patientId
+            patientId: this.patientId,
+            dietitianId: this.dietitianId
           })
           .subscribe(
             (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
@@ -90,7 +93,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
           size: this.itemsPerPage,
           sort: this.sort(),
           isWaitingForConsultation: this.isWaitingForConsultation,
-          patientId: this.patientId
+          patientId: this.patientId,
+          dietitianId: this.dietitianId
         })
         .subscribe(
           (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
@@ -104,7 +108,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
             query: this.currentSearch,
             size: this.itemsPerPage,
             sort: this.sort(),
-            isWaitingForConsultation: this.isWaitingForConsultation
+            isWaitingForConsultation: this.isWaitingForConsultation,
+            dietitianId: this.dietitianId
           })
           .subscribe(
             (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
@@ -117,7 +122,8 @@ export class AppointmentComponent implements OnInit, OnDestroy {
           page: this.page - 1,
           size: this.itemsPerPage,
           sort: this.sort(),
-          isWaitingForConsultation: this.isWaitingForConsultation
+          isWaitingForConsultation: this.isWaitingForConsultation,
+          dietitianId: this.dietitianId
         })
         .subscribe(
           (res: HttpResponse<IAppointment[]>) => this.paginateAppointments(res.body, res.headers),
@@ -182,9 +188,12 @@ export class AppointmentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;
+      this.userService.find(account.login).subscribe(res => {
+        this.dietitianId = res.body.id;
+        this.loadAll();
+      });
     });
     this.registerChangeInAppointments();
   }

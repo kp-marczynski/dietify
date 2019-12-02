@@ -1,5 +1,6 @@
 package pl.marczynski.dietify.appointments.service.impl;
 
+import pl.marczynski.dietify.appointments.domain.BmiResult;
 import pl.marczynski.dietify.appointments.domain.enumeration.AppointmentState;
 import pl.marczynski.dietify.appointments.service.AppointmentService;
 import pl.marczynski.dietify.appointments.domain.Appointment;
@@ -12,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -44,14 +46,16 @@ public class AppointmentServiceImpl implements AppointmentService {
     /**
      * Get all the appointments.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override
     @Transactional(readOnly = true)
-    public Page<Appointment> findAll(Pageable pageable) {
+    public Page<Appointment> findAll(Long dietitianId, Pageable pageable) {
         log.debug("Request to get all Appointments");
-        return appointmentRepository.findAll(pageable);
+        return appointmentRepository.findAllByPatientCardDietitianId(dietitianId, pageable);
     }
 
 
@@ -82,36 +86,47 @@ public class AppointmentServiceImpl implements AppointmentService {
     /**
      * Get all the appointments waiting for consultation.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override
-    public Page<Appointment> findAllWaitingForConsultation(Pageable pageable) {
+    public Page<Appointment> findAllWaitingForConsultation(Long dietitianId, Pageable pageable) {
         log.debug("Request to get all Appointments waiting for consultation");
-        return appointmentRepository.findAllByAppointmentState(AppointmentState.TOOK_PLACE, pageable);
+        return appointmentRepository.findAllByAppointmentStateAndPatientCardDietitianId(AppointmentState.TOOK_PLACE, dietitianId, pageable);
     }
 
     /**
      * Get all the patient appointments waiting for consultation.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override
-    public Page<Appointment> findAllByPatientWaitingForConsultation(Long patientId, Pageable pageable) {
+    public Page<Appointment> findAllByPatientWaitingForConsultation(Long dietitianId, Long patientId, Pageable pageable) {
         log.debug("Request to get all patient's Appointments waiting for consultation");
-        return appointmentRepository.findAllByAppointmentStateAndPatientCardPatientId(AppointmentState.TOOK_PLACE, patientId, pageable);
+        return appointmentRepository.findAllByAppointmentStateAndPatientCardDietitianIdAndPatientCardPatientId(AppointmentState.TOOK_PLACE, dietitianId, patientId, pageable);
     }
 
     /**
      * Get all the appointments waiting for consultation.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
     @Override
-    public Page<Appointment> findAllByPatient(Long patientId, Pageable pageable) {
+    public Page<Appointment> findAllByPatient(Long dietitianId, Long patientId, Pageable pageable) {
         log.debug("Request to get all Appointments waiting for consultation");
-        return appointmentRepository.findAllByPatientCardPatientId(patientId, pageable);
+        return appointmentRepository.findAllByPatientCardDietitianIdAndPatientCardPatientId(dietitianId, patientId, pageable);
+    }
+
+    @Override
+    public List<BmiResult> calculateBMI(Long patientCardId) {
+        return appointmentRepository.calculateBMI(patientCardId);
     }
 }

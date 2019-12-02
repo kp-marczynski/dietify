@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -59,14 +58,18 @@ export class MealPlanService {
 
   protected convertDateFromClient(mealPlan: IMealPlan): IMealPlan {
     const copy: IMealPlan = Object.assign({}, mealPlan, {
-      creationDate: mealPlan.creationDate != null && mealPlan.creationDate.isValid() ? mealPlan.creationDate.format(DATE_FORMAT) : null
+      creationTimestamp:
+        mealPlan.creationTimestamp != null && mealPlan.creationTimestamp.isValid() ? mealPlan.creationTimestamp.toJSON() : null,
+      lastEditTimestamp:
+        mealPlan.lastEditTimestamp != null && mealPlan.lastEditTimestamp.isValid() ? mealPlan.lastEditTimestamp.toJSON() : null
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
+      res.body.creationTimestamp = res.body.creationTimestamp != null ? moment(res.body.creationTimestamp) : null;
+      res.body.lastEditTimestamp = res.body.lastEditTimestamp != null ? moment(res.body.lastEditTimestamp) : null;
     }
     return res;
   }
@@ -74,7 +77,8 @@ export class MealPlanService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((mealPlan: IMealPlan) => {
-        mealPlan.creationDate = mealPlan.creationDate != null ? moment(mealPlan.creationDate) : null;
+        mealPlan.creationTimestamp = mealPlan.creationTimestamp != null ? moment(mealPlan.creationTimestamp) : null;
+        mealPlan.lastEditTimestamp = mealPlan.lastEditTimestamp != null ? moment(mealPlan.lastEditTimestamp) : null;
       });
     }
     return res;

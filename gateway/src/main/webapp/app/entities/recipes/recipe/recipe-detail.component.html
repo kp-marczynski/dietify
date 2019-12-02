@@ -1,14 +1,13 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="recipe">
-            <h2><span jhiTranslate="gatewayApp.recipesRecipe.detail.title">Recipe</span> {{recipe.id}}</h2>
+            <h2><span jhiTranslate="gatewayApp.recipesRecipe.detail.title">Recipe</span> - {{recipe.name}}</h2>
             <hr>
             <jhi-alert-error></jhi-alert-error>
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="gatewayApp.recipesRecipe.name" [ngbTooltip]="'gatewayApp.recipesRecipe.help.name' | translate">Name</span></dt>
-                <dd>
-                    <span>{{recipe.name}}</span>
-                </dd>
+                <div class="card jh-card">
+                <div class="row">
+                    <div class="col-md-6">
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.preparationTimeMinutes" [ngbTooltip]="'gatewayApp.recipesRecipe.help.preparationTimeMinutes' | translate">Preparation Time Minutes</span></dt>
                 <dd>
                     <span>{{recipe.preparationTimeMinutes}}</span>
@@ -30,37 +29,54 @@
                 <dd>
                     <span>{{recipe.authorId}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.recipesRecipe.creationDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.creationDate' | translate">Creation Date</span></dt>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.creationTimestamp" [ngbTooltip]="'gatewayApp.recipesRecipe.help.creationTimestamp' | translate">Creation Date</span></dt>
                 <dd>
-                    <span>{{recipe.creationDate}}</span>
+                    <span>{{recipe.creationTimestamp}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.recipesRecipe.lastEditDate" [ngbTooltip]="'gatewayApp.recipesRecipe.help.lastEditDate' | translate">Last Edit Date</span></dt>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.lastEditTimestamp" [ngbTooltip]="'gatewayApp.recipesRecipe.help.lastEditTimestamp' | translate">Last Edit Date</span></dt>
                 <dd>
-                    <span>{{recipe.lastEditDate}}</span>
+                    <span>{{recipe.lastEditTimestamp}}</span>
                 </dd>
-                <dt><span jhiTranslate="gatewayApp.recipesRecipe.isVisible" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isVisible' | translate">Is Visible</span></dt>
+                <dt><span jhiTranslate="gatewayApp.recipesRecipe.isFinal" [ngbTooltip]="'gatewayApp.recipesRecipe.help.isFinal' | translate">Is Visible</span></dt>
                 <dd>
-                    <span>{{recipe.isVisible}}</span>
+                    <span>{{recipe.isFinal}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.language" [ngbTooltip]="'gatewayApp.recipesRecipe.help.language' | translate">Language</span></dt>
                 <dd>
                     <span>{{recipe.language}}</span>
                 </dd>
+                        <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
+                        <dd>
+                            <div *ngIf="recipe.sourceRecipe">
+                                <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.name}}</a>
+                            </div>
+                        </dd>
+                </div>
+                <div class="col-md-6">
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.totalGramsWeight" [ngbTooltip]="'gatewayApp.recipesRecipe.help.totalGramsWeight' | translate">Total Grams Weight</span></dt>
                 <dd>
                     <span>{{recipe.totalGramsWeight}}</span>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.basicNutritionData">Basic Nutrition Data</span></dt>
                 <dd>
-                    <div *ngIf="recipe.basicNutritionData">
-                        <a [routerLink]="['/recipe-basic-nutrition-data', recipe.basicNutritionData?.id, 'view']">{{recipe.basicNutritionData?.id}}</a>
-                    </div>
-                </dd>
-                <dt><span jhiTranslate="gatewayApp.recipesRecipe.sourceRecipe">Source Recipe</span></dt>
-                <dd>
-                    <div *ngIf="recipe.sourceRecipe">
-                        <a [routerLink]="['/recipe', recipe.sourceRecipe?.id, 'view']">{{recipe.sourceRecipe?.name}}</a>
-                    </div>
+                    <table>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.energy">Energy</th>
+                            <td>{{recipe.basicNutritionData.energy}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.fat">Fat</th>
+                            <td>{{recipe.basicNutritionData.fat}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.protein">Protein</th>
+                            <td>{{recipe.basicNutritionData.protein}}</td>
+                        </tr>
+                        <tr>
+                            <th jhiTranslate="gatewayApp.recipesRecipeBasicNutritionData.carbohydrates">Carbohydrates</th>
+                            <td>{{recipe.basicNutritionData.carbohydrates}}</td>
+                        </tr>
+                    </table>
                 </dd>
                 <dt><span jhiTranslate="gatewayApp.recipesRecipe.kitchenAppliances">Kitchen Appliances</span></dt>
                 <dd>
@@ -80,15 +96,37 @@
                         <a [routerLink]="['/meal-type', mealTypes?.id, 'view' ]">{{mealTypes.name}}</a>{{last ? '' : ', '}}
                     </span>
                 </dd>
+                </div>
+                </div>
+                </div>
             </dl>
-
+            <div *ngFor="let section of recipe.recipeSections">
+                <hr>
+                <h3><span jhiTranslate="gatewayApp.recipesRecipeSection.detail.title">Section</span> {{section.sectionName}}</h3>
+                <div class="card jh-card">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h3 jhiTranslate="gatewayApp.recipesRecipeSection.productPortions">Ingredients</h3>
+                        <ul>
+                            <li *ngFor="let productPortion of section.productPortions">{{productPortion.amount}}x {{getHouseholdMeasure(productPortion)}} - <a [routerLink]="['/product', productPortion.productId, 'view' ]">{{products[productPortion.productId]?.description}}</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <h3 jhiTranslate="gatewayApp.recipesRecipeSection.preparationSteps">Preparation Steps</h3>
+                        <ol>
+                            <li *ngFor="let preparationStep of section.preparationSteps">{{preparationStep.stepDescription}}</li>
+                        </ol>
+                    </div>
+                </div>
+                </div>
+            </div>
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
                 <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
+            <button type="button" [disabled]="recipe.isFinal"
                     [routerLink]="['/recipe', recipe.id, 'edit']"
                     class="btn btn-primary">
                 <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>

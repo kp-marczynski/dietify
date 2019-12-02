@@ -1,6 +1,9 @@
 package pl.marczynski.dietify.mealplans.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
+import pl.marczynski.dietify.mealplans.domain.Meal;
 import pl.marczynski.dietify.mealplans.domain.MealPlan;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -22,4 +25,10 @@ public interface MealPlanRepository extends JpaRepository<MealPlan, Long> {
         " left join fetch mealPlan.days" +
         " where mealPlan.id =:id")
     Optional<MealPlan> findOneWithEagerRelationships(@Param("id") Long id);
+
+    Page<MealPlan> findAllByAuthorId(Long authorId, Pageable pageable);
+
+    @Modifying
+    @Query(value = "update MealPlan mealPlan set mealPlan.isFinal = true where mealPlan.id = :mealPlanId")
+    void changeToFinal(@Param("mealPlanId") Long mealPlanId);
 }

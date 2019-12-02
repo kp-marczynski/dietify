@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -7,10 +7,11 @@ import { filter, map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { JhiAlertService, JhiDataUtils } from 'ng-jhipster';
-import { IAppointment, Appointment } from 'app/shared/model/appointments/appointment.model';
+import { Appointment, AppointmentState, IAppointment } from 'app/shared/model/appointments/appointment.model';
 import { AppointmentService } from './appointment.service';
 import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
 import { PatientCardService } from 'app/entities/appointments/patient-card';
+import { AccountService, UserService } from 'app/core';
 
 @Component({
   selector: 'jhi-appointment-update',
@@ -20,11 +21,12 @@ export class AppointmentUpdateComponent implements OnInit {
   isSaving: boolean;
 
   patientcards: IPatientCard[];
+  dietitianId: number;
 
   editForm = this.fb.group({
     id: [],
     appointmentDate: [null, [Validators.required]],
-    appointmentState: [null, [Validators.required]],
+    appointmentState: ['PLANNED'],
     generalAdvice: [],
     bodyMeasurement: [],
     nutritionalInterview: [],
@@ -32,6 +34,8 @@ export class AppointmentUpdateComponent implements OnInit {
   });
 
   constructor(
+    protected accountService: AccountService,
+    protected userService: UserService,
     protected dataUtils: JhiDataUtils,
     protected jhiAlertService: JhiAlertService,
     protected appointmentService: AppointmentService,
@@ -41,17 +45,22 @@ export class AppointmentUpdateComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.accountService.identity().then(account => {
+      this.userService.find(account.login).subscribe(userRes => {
+        this.dietitianId = userRes.body.id;
+        this.patientCardService
+          .query({ dietitianId: this.dietitianId })
+          .pipe(
+            filter((mayBeOk: HttpResponse<IPatientCard[]>) => mayBeOk.ok),
+            map((response: HttpResponse<IPatientCard[]>) => response.body)
+          )
+          .subscribe((res: IPatientCard[]) => (this.patientcards = res), (res: HttpErrorResponse) => this.onError(res.message));
+      });
+    });
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ appointment }) => {
       this.updateForm(appointment);
     });
-    this.patientCardService
-      .query()
-      .pipe(
-        filter((mayBeOk: HttpResponse<IPatientCard[]>) => mayBeOk.ok),
-        map((response: HttpResponse<IPatientCard[]>) => response.body)
-      )
-      .subscribe((res: IPatientCard[]) => (this.patientcards = res), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
   updateForm(appointment: IAppointment) {
@@ -105,6 +114,9 @@ export class AppointmentUpdateComponent implements OnInit {
   save() {
     this.isSaving = true;
     const appointment = this.createFromForm();
+    if (!appointment.appointmentState) {
+      appointment.appointmentState = AppointmentState.PLANNED;
+    }
     if (appointment.id !== undefined) {
       this.subscribeToSaveResponse(this.appointmentService.update(appointment));
     } else {

@@ -23,17 +23,19 @@ public interface ProductService {
     /**
      * Get all the products.
      *
+     *
+     * @param author
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<Product> findAll(Pageable pageable);
+    Page<Product> findAll(Long author, Pageable pageable);
 
     /**
      * Get all the products with eager load of many-to-many relationships.
      *
      * @return the list of entities.
      */
-    Page<Product> findAllWithEagerRelationships(Pageable pageable);
+    Page<Product> findAllWithEagerRelationships(Long author, Pageable pageable);
 
     /**
      * Get the "id" product.
@@ -66,5 +68,7 @@ public interface ProductService {
      * @param searchPhrase phrase to search for in product description
      * @return the list of entities
      */
-    public Page<Product> findBySearchAndFilters(String searchPhrase, String language, Long categoryId, Long subcategoryId, Pageable pageable);
+    public Page<Product> findBySearchAndFilters(String searchPhrase, String language, Long categoryId, Long subcategoryId, Long author, Pageable pageable);
+
+    void changeToFinal(Long productId);
 }

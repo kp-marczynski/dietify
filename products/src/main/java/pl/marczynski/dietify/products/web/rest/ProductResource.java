@@ -90,6 +90,27 @@ public class ProductResource {
     }
 
     /**
+     * {@code PUT  /products/:id} : Change product to final
+     *
+     * @param id the product to update.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated product,
+     * or with status {@code 400 (Bad Request)} if the product is not valid,
+     * or with status {@code 500 (Internal Server Error)} if the product couldn't be updated.
+     * @throws URISyntaxException if the Location URI syntax is incorrect.
+     */
+    @PutMapping("/products/{id}")
+    public ResponseEntity<Void> changeToFinal(@PathVariable Long id) throws URISyntaxException {
+        log.debug("REST request to change product to final: {}", id);
+        if (id == null) {
+            throw new BadRequestAlertException("Invalid id", ENTITY_NAME, "idnull");
+        }
+        productService.changeToFinal(id);
+        return ResponseEntity.ok()
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, id.toString()))
+            .build();
+    }
+
+    /**
      * {@code GET  /products} : get all the products.
      *
      * @param pageable the pagination information.
@@ -106,15 +127,16 @@ public class ProductResource {
                                                         @RequestParam(required = false) String search,
                                                         @RequestParam(required = false) Long categoryId,
                                                         @RequestParam(required = false) Long subcategoryId,
-                                                        @RequestParam(required = false) String language) {
+                                                        @RequestParam(required = false) String language,
+                                                        @RequestParam(required = false) Long author) {
         log.debug("REST request to get a page of Products");
         Page<Product> page;
         if (language != null && !language.isEmpty()) {
-            page = productService.findBySearchAndFilters(search, language, categoryId, subcategoryId, pageable);
+            page = productService.findBySearchAndFilters(search, language, categoryId, subcategoryId, author, pageable);
         } else if (eagerload) {
-            page = productService.findAllWithEagerRelationships(pageable);
+            page = productService.findAllWithEagerRelationships(author, pageable);
         } else {
-            page = productService.findAll(pageable);
+            page = productService.findAll(author, pageable);
         }
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(uriBuilder.queryParams(queryParams), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());

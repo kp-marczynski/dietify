@@ -15,6 +15,7 @@ import {
   faBan,
   faTimes,
   faArrowLeft,
+  faArrowRight,
   faSave,
   faPlus,
   faPencilAlt,
@@ -43,11 +44,15 @@ import {
   faReceipt,
   faUserShield,
   faBarcode,
-  faUsers
+  faUsers,
+  faArrowCircleUp,
+  faArrowCircleDown
 } from '@fortawesome/free-solid-svg-icons';
 
 // Adds the SVG icon to the library so you can use it in your page
 library.add(faUser);
+library.add(faArrowCircleUp);
+library.add(faArrowCircleDown);
 library.add(faSort);
 library.add(faSortUp);
 library.add(faSortDown);
@@ -56,6 +61,7 @@ library.add(faEye);
 library.add(faBan);
 library.add(faTimes);
 library.add(faArrowLeft);
+library.add(faArrowRight);
 library.add(faSave);
 library.add(faPlus);
 library.add(faPencilAlt);

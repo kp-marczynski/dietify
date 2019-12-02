@@ -8,9 +8,11 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared';
 import { IPatientCard } from 'app/shared/model/appointments/patient-card.model';
+import { IBmiResult } from 'app/shared/model/appointments/bmi-result.model';
 
 type EntityResponseType = HttpResponse<IPatientCard>;
 type EntityArrayResponseType = HttpResponse<IPatientCard[]>;
+type BmiResponseType = HttpResponse<IBmiResult[]>;
 
 @Injectable({ providedIn: 'root' })
 export class PatientCardService {
@@ -39,6 +41,10 @@ export class PatientCardService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  getBmiResults(id: number): Observable<BmiResponseType> {
+    return this.http.get<IBmiResult[]>(`${this.resourceUrl}/${id}/bmi`, { observe: 'response' });
+  }
+
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
@@ -60,7 +66,11 @@ export class PatientCardService {
   protected convertDateFromClient(patientCard: IPatientCard): IPatientCard {
     const copy: IPatientCard = Object.assign({}, patientCard, {
       creationDate:
-        patientCard.creationDate != null && patientCard.creationDate.isValid() ? patientCard.creationDate.format(DATE_FORMAT) : null
+        patientCard.creationDate != null && patientCard.creationDate.isValid() ? patientCard.creationDate.format(DATE_FORMAT) : null,
+      patientDateOfBirth:
+        patientCard.patientDateOfBirth != null && patientCard.patientDateOfBirth.isValid()
+          ? patientCard.patientDateOfBirth.format(DATE_FORMAT)
+          : null
     });
     return copy;
   }
@@ -68,6 +78,7 @@ export class PatientCardService {
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.creationDate = res.body.creationDate != null ? moment(res.body.creationDate) : null;
+      res.body.patientDateOfBirth = res.body.patientDateOfBirth != null ? moment(res.body.patientDateOfBirth) : null;
     }
     return res;
   }
@@ -76,6 +87,7 @@ export class PatientCardService {
     if (res.body) {
       res.body.forEach((patientCard: IPatientCard) => {
         patientCard.creationDate = patientCard.creationDate != null ? moment(patientCard.creationDate) : null;
+        patientCard.patientDateOfBirth = patientCard.patientDateOfBirth != null ? moment(patientCard.patientDateOfBirth) : null;
       });
     }
     return res;

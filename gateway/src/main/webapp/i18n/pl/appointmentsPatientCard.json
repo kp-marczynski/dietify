@@ -21,6 +21,13 @@
       "appointments": "Wizyty",
       "bmi": "BMI",
       "details": "Szczegóły pacjenta",
+      "patientLastName": "Nazwisko pacjenta",
+      "patientFirstName": "Imię pacjenta",
+      "patientGender": "Płeć pacjenta",
+      "patientEmail": "Email pacjenta",
+      "patientPhone": "Numer telefonu pacjenta",
+      "patientDateOfBirth": "Data urodzenia pacjenta",
+      "additionalPatientInfo": "Dodatkowe informacje dotyczące pacjenta",
       "help": {
         "creationDate": "Data kiedy pacjent po raz pierwszy zarejestrował się do dietetyka",
         "dietitianId": "Dietetyk do którego pacjent się zapisał. Id użytkownika pobierane z serwisu gateway.",

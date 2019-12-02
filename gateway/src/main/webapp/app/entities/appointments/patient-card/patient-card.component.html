@@ -25,20 +25,20 @@
         </div>
     </div>
     <br/>
-    <div class="alert alert-warning" *ngIf="patientCards?.length === 0">
-        <span jhiTranslate="gatewayApp.appointmentsPatientCard.home.notFound">No patientCards found</span>
-    </div>
     <div class="row">
         <div class="col-lg-4 col-lg-offset-2">
             <div class="card jh-card">
                 <h3 jhiTranslate="gatewayApp.appointmentsPatientCard.detail.allPatients">All patients</h3>
+                <div class="alert alert-warning" *ngIf="patientCards?.length === 0">
+                    <span jhiTranslate="gatewayApp.appointmentsPatientCard.home.notFound">No patientCards found</span>
+                </div>
                 <div class="table-responsive" *ngIf="patientCards?.length > 0">
                     <table class="table table-striped">
                         <thead>
                         <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="dietitianId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.dietitianId">Dietitian Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--                            <th jhiSortBy="creationDate"><span jhiTranslate="gatewayApp.appointmentsPatientCard.creationDate">Creation Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--                            <th jhiSortBy="dietitianId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.dietitianId">Dietitian Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
                             <th jhiSortBy="patientId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId">Patient Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th></th>
                         </tr>
@@ -46,9 +46,9 @@
                         <tbody>
                         <tr *ngFor="let patientCard of patientCards ;trackBy: trackId">
                             <td><a [routerLink]="['/patient-card', patientCard.id, 'view' ]">{{patientCard.id}}</a></td>
-                            <td>{{patientCard.creationDate | date:'mediumDate'}}</td>
-                            <td>{{patientCard.dietitianId}}</td>
-                            <td>{{patientCard.patientId}}</td>
+<!--                            <td>{{patientCard.creationDate | date:'mediumDate'}}</td>-->
+<!--                            <td>{{patientCard.dietitianId}}</td>-->
+                            <td>{{patientCard.patientLastName && patientCard.patientFirstName ? patientCard.patientLastName + ' ' + patientCard.patientFirstName : patientCard.patientId}}</td>
                             <td class="text-right">
                                 <div class="btn-group">
                                     <button type="submit"

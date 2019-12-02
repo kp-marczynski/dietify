@@ -76,6 +76,7 @@ export class MealUpdateComponent implements OnInit {
       const mealProductsFormGroup = this.getMealProductsFormGroup();
       mealProductsFormGroup.patchValue({ productId: receivedEntry.id, product: receivedEntry });
       this.getMealProductsFormArray().push(mealProductsFormGroup);
+      this.findProduct(mealProductsFormGroup);
     });
   }
 
@@ -97,5 +98,14 @@ export class MealUpdateComponent implements OnInit {
 
   removeRecipeFromMeal(index: number) {
     this.getMealRecipesFormArray().removeAt(index);
+  }
+
+  findProduct(ingredient: FormGroup): void {
+    this.productService
+      .find(ingredient.get('productId').value)
+      .subscribe(
+        (res: HttpResponse<IProduct>) => ingredient.patchValue({ product: res.body }),
+        (res: HttpErrorResponse) => ingredient.patchValue({ product: null })
+      );
   }
 }

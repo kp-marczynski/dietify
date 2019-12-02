@@ -7,10 +7,13 @@ import { IMealPlanUnsuitableForDiet } from 'app/shared/model/mealplans/meal-plan
 export interface IMealPlan {
   id?: number;
   authorId?: number;
-  creationDate?: Moment;
+  // creationDate?: Moment;
   name?: string;
-  isVisible?: boolean;
-  isLocked?: boolean;
+  // isVisible?: boolean;
+  // isLocked?: boolean;
+  isFinal?: boolean;
+  creationTimestamp?: Moment;
+  lastEditTimestamp?: Moment;
   language?: string;
   numberOfDays?: number;
   numberOfMealsPerDay?: number;
@@ -28,10 +31,13 @@ export class MealPlan implements IMealPlan {
   constructor(
     public id?: number,
     public authorId?: number,
-    public creationDate?: Moment,
+    // public creationDate?: Moment,
     public name?: string,
-    public isVisible?: boolean,
-    public isLocked?: boolean,
+    // public isVisible?: boolean,
+    // public isLocked?: boolean,
+    public isFinal?: boolean,
+    public creationTimestamp?: Moment,
+    public lastEditTimestamp?: Moment,
     public language?: string,
     public numberOfDays?: number,
     public numberOfMealsPerDay?: number,
@@ -44,7 +50,8 @@ export class MealPlan implements IMealPlan {
     public suitableForDiets?: IMealPlanSuitableForDiet[],
     public unsuitableForDiets?: IMealPlanUnsuitableForDiet[]
   ) {
-    this.isVisible = this.isVisible || false;
-    this.isLocked = this.isLocked || false;
+    // this.isVisible = this.isVisible || false;
+    // this.isLocked = this.isLocked || false;
+    this.isFinal = this.isFinal || false;
   }
 }

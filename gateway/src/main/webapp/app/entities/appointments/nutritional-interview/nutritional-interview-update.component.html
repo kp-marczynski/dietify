@@ -3,7 +3,8 @@
             <li [ngClass]="{'active': currentTabIndex >= 0}" (click)="goToSection(0)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.basic">Basic info</li>
             <li [ngClass]="{'active': currentTabIndex >= 1}" (click)="goToSection(1)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.health">Health</li>
             <li [ngClass]="{'active': currentTabIndex >= 2}" (click)="goToSection(2)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.eatingHabits">Eating habits</li>
-            <li [ngClass]="{'active': currentTabIndex >= 3}" (click)="goToSection(3)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.summary">Summary</li>
+            <li [ngClass]="{'active': currentTabIndex >= 3}" (click)="goToSection(3)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.customQuestions">Custom Questions</li>
+            <li [ngClass]="{'active': currentTabIndex >= 4}" (click)="goToSection(4)" jhiTranslate="gatewayApp.appointmentsNutritionalInterview.section.summary">Summary</li>
         </ul>
     </div>
 <div class="row justify-content-center">
@@ -117,15 +118,52 @@
                               formControlName="foodIntolerances"></textarea>
                 </div>
             </div>
-            <div *ngIf="currentTabIndex == 3">
+                <div *ngIf="currentTabIndex == 3">
+                <div class="form-group">
+                    <label jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.home.title">Custom Questions</label>
+                    <table formArrayName="customQuestions" class="form-group">
+                        <tr>
+                            <th jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.question"></th>
+                            <th jhiTranslate="gatewayApp.appointmentsCustomNutritionalInterviewQuestion.answer"></th>
+                        </tr>
+                        <tr *ngFor="let customQuestion of getCustomQuestionsFormArray().controls; let i = index" [formGroupName]="i">
+                            <td>
+                                <input type="text" class="form-control" name="customQuestion_question{{i}}" id="customQuestion_question{{i}}"
+                                       formControlName="question"
+                                       (keyup)="updateCustomQuestionsList()"
+                                       [placeholder]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestion.question' | translate"/>
+                            </td>
+                            <td><input type="text" class="form-control" name="customQuestion_answer{{i}}" id="customQuestion_answer{{i}}"
+                                       formControlName="answer"
+                                       (keyup)="updateCustomQuestionsList()"
+                                       [placeholder]="'gatewayApp.appointmentsCustomNutritionalInterviewQuestion.answer' | translate" />
+                            </td>
+                            <td>
+                                <button type="button" *ngIf="getCustomQuestionsFormArray().controls.length - 1 !== i"
+                                        (click)="removeCustomQuestion(i)"
+                                        class="btn btn-danger btn-sm">
+                                    <fa-icon [icon]="'times'"></fa-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="currentTabIndex == 4">
                 <jhi-nutritional-interview-detail
                     [nutritionalInterview]="createFromForm()"></jhi-nutritional-interview-detail>
             </div>
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+<!--                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">-->
+<!--                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>-->
+<!--                </button>-->
+                <button *ngIf="currentTabIndex > 0" type="button" id="back" class="btn btn-info"  (click)="goToSection(currentTabIndex - 1)">
+                    <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span>Previous</span>
                 </button>
-                <button type="button" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" (click)="save()">
+                <button *ngIf="currentTabIndex < 4" type="button" id="next" class="btn btn-info"  (click)="goToSection(currentTabIndex + 1)">
+                    <fa-icon [icon]="'arrow-right'"></fa-icon>&nbsp;<span>Next</span>
+                </button>
+                <button *ngIf="currentTabIndex == 4" type="button" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary" (click)="save()">
                     <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>

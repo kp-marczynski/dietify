@@ -1,7 +1,6 @@
 @import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 
-
 .progressbar-container {
   position: relative;
   z-index: 1;
@@ -17,7 +16,7 @@
 
 .progressbar li {
   float: left;
-  width: 25%;
+  width: 20%;
   position: relative;
   text-align: center;
   list-style-type: none;
@@ -40,9 +39,9 @@
 }
 
 .progressbar li.active:before {
-  border-color: #18BC9C;
-  background: #18BC9C;
-  color: white
+  border-color: #18bc9c;
+  background: #18bc9c;
+  color: white;
 }
 
 .progressbar li:after {
@@ -57,7 +56,7 @@
 }
 
 .progressbar li.active:after {
-  background: #18BC9C;
+  background: #18bc9c;
 }
 
 .progressbar li:first-child:after {

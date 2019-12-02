@@ -20,6 +20,7 @@
             </button>
         </span>
     </h3>
+    <hr>
 <!--    <jhi-alert></jhi-alert>-->
 <!--    <div class="row">-->
 <!--        <div class="col-sm-12">-->
@@ -46,6 +47,7 @@
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="appointmentDate"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentDate">Appointment Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="appointment.patientId"><span jhiTranslate="gatewayApp.appointmentsPatientCard.patientId">Patient Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
             <th jhiSortBy="appointmentState"><span jhiTranslate="gatewayApp.appointmentsAppointment.appointmentState">Appointment State</span> <fa-icon [icon]="'sort'"></fa-icon></th>
 <!--            <th jhiSortBy="generalAdvice"><span jhiTranslate="gatewayApp.appointmentsAppointment.generalAdvice">General Advice</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
 <!--            <th jhiSortBy="bodyMeasurement.id"><span jhiTranslate="gatewayApp.appointmentsAppointment.bodyMeasurement">Body Measurement</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
@@ -58,6 +60,7 @@
             <tr *ngFor="let appointment of appointments ;trackBy: trackId">
                 <td><a [routerLink]="['/appointment', appointment.id, 'view' ]">{{appointment.id}}</a></td>
                 <td>{{appointment.appointmentDate | date:'medium'}}</td>
+                <td>{{appointment.patientCard.patientLastName && appointment.patientCard.patientFirstName ? appointment.patientCard.patientLastName + ' ' + appointment.patientCard.patientFirstName : appointment.patientCard.patientId}}</td>
                 <td jhiTranslate="{{'gatewayApp.AppointmentState.' + appointment.appointmentState}}">{{appointment.appointmentState}}</td>
 <!--                <td>{{appointment.generalAdvice}}</td>-->
 <!--                <td>-->

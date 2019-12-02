@@ -9,6 +9,7 @@ import { NutritionDefinitionService } from 'app/entities/products/nutrition-defi
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { filter, map } from 'rxjs/operators';
 import { JhiAlertService, JhiLanguageService } from 'ng-jhipster';
+import { MainLayoutCardService } from 'app/layouts/main/main-layout-card.service';
 
 @Component({
   selector: 'jhi-product-detail',
@@ -24,6 +25,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   viewInitiated = false;
 
   constructor(
+    protected layoutCardService: MainLayoutCardService,
     protected activatedRoute: ActivatedRoute,
     protected jhiAlertService: JhiAlertService,
     private languageService: JhiLanguageService,
@@ -32,6 +34,7 @@ export class ProductDetailComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
+    this.layoutCardService.changeMainCardContainerVisibility(false);
     this.activatedRoute.data.subscribe(({ product }) => {
       this.product = product;
 

@@ -8,7 +8,7 @@ import javax.validation.constraints.*;
 
 import org.springframework.data.elasticsearch.annotations.FieldType;
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,13 +37,26 @@ public class MealPlan implements Serializable {
     @Column(name = "author_id", nullable = false)
     private Long authorId;
 
+//    /**
+//     * Creation date of the plan
+//     */
+//    @ApiModelProperty(value = "Creation date of the plan", required = true)
+//    @Column(name = "creation_date", nullable = false)
+//    private Instant creationDate;
+
     /**
-     * Creation date of the plan
+     * Timestamp of creation
      */
-    @NotNull
-    @ApiModelProperty(value = "Creation date of the plan", required = true)
-    @Column(name = "creation_date", nullable = false)
-    private LocalDate creationDate;
+    @ApiModelProperty(value = "Timestamp of creation")
+    @Column(name = "creation_timestamp")
+    private Instant creationTimestamp;
+
+    /**
+     * Timestamp of last edit
+     */
+    @ApiModelProperty(value = "Timestamp of last edit")
+    @Column(name = "last_edit_timestamp")
+    private Instant lastEditTimestamp;
 
     /**
      * Plan name
@@ -53,21 +66,21 @@ public class MealPlan implements Serializable {
     @Column(name = "name", length = 255)
     private String name;
 
-    /**
-     * Flag specifying if meal plan is visible in author's list of meal plans
-     */
-    @NotNull
-    @ApiModelProperty(value = "Flag specifying if meal plan is visible in author's list of meal plans", required = true)
-    @Column(name = "is_visible", nullable = false)
-    private Boolean isVisible;
-
-    /**
-     * Flag specifying if meal plan is editable
-     */
-    @NotNull
-    @ApiModelProperty(value = "Flag specifying if meal plan is editable", required = true)
-    @Column(name = "is_locked", nullable = false)
-    private Boolean isLocked;
+//    /**
+//     * Flag specifying if meal plan is visible in author's list of meal plans
+//     */
+//    @NotNull
+//    @ApiModelProperty(value = "Flag specifying if meal plan is visible in author's list of meal plans", required = true)
+//    @Column(name = "is_visible", nullable = false)
+//    private Boolean isVisible;
+//
+//    /**
+//     * Flag specifying if meal plan is editable
+//     */
+//    @NotNull
+//    @ApiModelProperty(value = "Flag specifying if meal plan is editable", required = true)
+//    @Column(name = "is_locked", nullable = false)
+//    private Boolean isLocked;
 
     /**
      * Language tag of a meal plan as ISO_639-1 code
@@ -155,6 +168,14 @@ public class MealPlan implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<MealPlanUnsuitableForDiet> unsuitableForDiets = new HashSet<>();
 
+    /**
+     * Flag specifying if recipe is final or editable
+     */
+    @NotNull
+    @ApiModelProperty(value = "Flag specifying if product is final or editable", required = true)
+    @Column(name = "is_final", nullable = false)
+    private Boolean isFinal;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
         return id;
@@ -172,12 +193,28 @@ public class MealPlan implements Serializable {
         this.authorId = authorId;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+//    public Instant getCreationDate() {
+//        return creationDate;
+//    }
+//
+//    public void setCreationDate(Instant creationDate) {
+//        this.creationDate = creationDate;
+//    }
+
+    public Instant getCreationTimestamp() {
+        return creationTimestamp;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationTimestamp(Instant creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
+    public Instant getLastEditTimestamp() {
+        return lastEditTimestamp;
+    }
+
+    public void setLastEditTimestamp(Instant lastEditTimestamp) {
+        this.lastEditTimestamp = lastEditTimestamp;
     }
 
     public String getName() {
@@ -188,21 +225,21 @@ public class MealPlan implements Serializable {
         this.name = name;
     }
 
-    public Boolean isIsVisible() {
-        return isVisible;
-    }
-
-    public void setIsVisible(Boolean isVisible) {
-        this.isVisible = isVisible;
-    }
-
-    public Boolean isIsLocked() {
-        return isLocked;
-    }
-
-    public void setIsLocked(Boolean isLocked) {
-        this.isLocked = isLocked;
-    }
+//    public Boolean isIsVisible() {
+//        return isVisible;
+//    }
+//
+//    public void setIsVisible(Boolean isVisible) {
+//        this.isVisible = isVisible;
+//    }
+//
+//    public Boolean isIsLocked() {
+//        return isLocked;
+//    }
+//
+//    public void setIsLocked(Boolean isLocked) {
+//        this.isLocked = isLocked;
+//    }
 
     public String getLanguage() {
         return language;
@@ -260,6 +297,14 @@ public class MealPlan implements Serializable {
         this.percentOfCarbohydrates = percentOfCarbohydrates;
     }
 
+    public Boolean isIsFinal() {
+        return isFinal;
+    }
+
+    public void setIsFinal(Boolean isFinal) {
+        this.isFinal = isFinal;
+    }
+
     public Set<MealPlanDay> getDays() {
         return days;
     }
@@ -314,10 +359,10 @@ public class MealPlan implements Serializable {
         return "MealPlan{" +
             "id=" + getId() +
             ", authorId=" + getAuthorId() +
-            ", creationDate='" + getCreationDate() + "'" +
+//            ", creationDate='" + getCreationDate() + "'" +
             ", name='" + getName() + "'" +
-            ", isVisible='" + isIsVisible() + "'" +
-            ", isLocked='" + isIsLocked() + "'" +
+//            ", isVisible='" + isIsVisible() + "'" +
+//            ", isLocked='" + isIsLocked() + "'" +
             ", language='" + getLanguage() + "'" +
             ", numberOfDays=" + getNumberOfDays() +
             ", numberOfMealsPerDay=" + getNumberOfMealsPerDay() +

@@ -1,10 +1,12 @@
 package pl.marczynski.dietify.appointments.service;
 
+import pl.marczynski.dietify.appointments.domain.BmiResult;
 import pl.marczynski.dietify.appointments.domain.PatientCard;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -20,13 +22,16 @@ public interface PatientCardService {
      */
     PatientCard save(PatientCard patientCard);
 
+    List<BmiResult> getBmiResults(Long patientCardId);
     /**
      * Get all the patientCards.
      *
+     *
+     * @param dietitianId
      * @param pageable the pagination information.
      * @return the list of entities.
      */
-    Page<PatientCard> findAll(Pageable pageable);
+    Page<PatientCard> findAll(Long dietitianId, Pageable pageable);
 
 
     /**
