@@ -23,6 +23,7 @@
       "mealPlans": "Meal Plans",
       "patientCard": "Patient Card",
       "details": "Appointment details",
+      "send": "Send to Patient!",
       "help": {
         "appointmentDate": "Date and time of the appointment",
         "appointmentState": "Current appointment state",

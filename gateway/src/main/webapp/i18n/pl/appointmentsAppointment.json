@@ -23,6 +23,7 @@
       "mealPlans": "Jadłospisy",
       "patientCard": "Karta pacjenta",
       "details": "Szczegóły wizyty",
+      "send": "Wyślij do pacjenta!",
       "help": {
         "appointmentDate": "Data i godzina wizyty",
         "appointmentState": "Stan wizyty",
