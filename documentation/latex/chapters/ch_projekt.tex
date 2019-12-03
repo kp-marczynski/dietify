@@ -215,14 +215,15 @@ Cechy takie może zapewnić relacyjna baza danych dzięki mechanizmowi transakcj
 Jednakże w~przypadku architektury mikroserwisów, w~której każdy serwis korzysta z~własnego schematu bazy danych, spójność będzie gwarantowana jedynie w~obrębie jednego serwisu,
 gdyż więzy integralności nie będą definiowane pomiędzy danymi znajdującymi się w~bazach różnych serwisów.
 Aby rozwiązać ten problem, dla danych definiowanych przez użytkownika końcowego (dietetyka), do których odniesienia będą przechowywane w~serwisie, który nie jest ich właścicielem,
-dodana zostanie flaga blokująca możliwość usuwania i~edycji obiektu używanego przez inny serwis, która będzie aktywowana w~momencie, w~którym zerwis nie będący właścicielem danych zaczyna z~nich korzystać.
+dodana zostanie flaga blokująca możliwość usuwania i~edycji obiektu używanego przez inny serwis, która będzie aktywowana w~momencie, w~którym serwis nie będący właścicielem danych zaczyna z~nich korzystać.
 
 \par
 W dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
 w ramach którego dla każdej rozważanej poddziedziny zdefiniowane zostaną kategorie (obiekty) oraz związane z~nimi reguły funkcjonowania i~ograniczenia dziedzinowe\cite{book:bazury},
 które następnie zostaną podsumowane w~formie modelu informacyjnego wyrażonego za pomocą diagramu klas języka UML.
 
-\newpage %todo sprawdzić czy to jest na pewno potrzebne
+\pagebreak %todo sprawdzić czy to jest na pewno potrzebne
+
 \subsection{Ogólne cechy dziedziny}\label{ssubsubsec:database:domain}
 \subsubsection{Reguły funkcjonowania}\label{subsubsec:database:domain:functionalRules}
 \begin{itemize}[label={\textbf{Reguły dla}}, wide, labelwidth=!, labelindent=0pt]
@@ -255,6 +256,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 
 \image{0.75}{../uml/class_diagrams/dataTypes.png}{Diagram klas~- typy danych}{class-diagram:data-types}
 
+\pagebreak
 \subsection{Poddziedzina administracyjna}\label{subsec:database:gateway}
 
 \subsubsection{Kategorie}\label{subsubsec:database:gateway:categories}
@@ -551,10 +553,11 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 
 \subsubsection{Model informacyjny}\label{subsubsec:database:gateway:domainModel}
 
-Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla poddziedziny administracyjnej w formie diagramu klas języka UML.
+Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla poddziedziny administracyjnej w~formie diagramu klas języka UML.
 
 \image{0.75}{../uml/class_diagrams/gateway.png}{Diagram klas~- poddziedzina administracyjna}{class-diagram:gateway}
 
+\pagebreak
 \subsection{Poddziedzina produkty}\label{subsec:database:products}
 
 \subsubsection{Kategorie}\label{subsubsec:database:products:categories}
@@ -894,7 +897,7 @@ Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla 
 
 \subsubsection{Model informacyjny}\label{subsubsec:database:products:domainModel}
 
-Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla poddziedziny produkty w formie diagramu klas języka UML.
+Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla poddziedziny produkty w~formie diagramu klas języka UML.
 
 \image{0.75}{../uml/class_diagrams/products.png}{Diagram klas~- poddziedzina produkty}{class-diagram:products}
 
@@ -1238,7 +1241,7 @@ Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla
 
 \subsubsection{Model informacyjny}\label{subsubsec:database:recipes:domainModel}
 
-Na rysunku \ref{fig:class-diagram:recipes} przedstawiono model informacyjny dla poddziedziny przepisy w formie diagramu klas języka UML.
+Na rysunku \ref{fig:class-diagram:recipes} przedstawiono model informacyjny dla poddziedziny przepisy w~formie diagramu klas języka UML.
 
 \image{0.75}{../uml/class_diagrams/recipes.png}{Diagram klas~- poddziedzina przepisy}{class-diagram:recipes}
 
@@ -1456,7 +1459,7 @@ Na rysunku \ref{fig:class-diagram:recipes} przedstawiono model informacyjny dla 
 
 \subsubsection{Model informacyjny}\label{subsubsec:database:mealplans:domainModel}
 
-Na rysunku \ref{fig:class-diagram:mealplans} przedstawiono model informacyjny dla poddziedziny jadłospisy w formie diagramu klas języka UML.
+Na rysunku \ref{fig:class-diagram:mealplans} przedstawiono model informacyjny dla poddziedziny jadłospisy w~formie diagramu klas języka UML.
 
 \image{0.75}{../uml/class_diagrams/mealplans.png}{Diagram klas~- poddziedzina jadłospisy}{class-diagram:mealplans}
 
@@ -1784,7 +1787,7 @@ Na rysunku \ref{fig:class-diagram:mealplans} przedstawiono model informacyjny dl
 
 \subsubsection{Model informacyjny}\label{subsubsec:database:appointments:domainModel}
 
-Na rysunku \ref{fig:class-diagram:appointments} przedstawiono model informacyjny dla poddziedziny wizyty w formie diagramu klas języka UML.
+Na rysunku \ref{fig:class-diagram:appointments} przedstawiono model informacyjny dla poddziedziny wizyty w~formie diagramu klas języka UML.
 
 \image{0.75}{../uml/class_diagrams/appointments.png}{Diagram klas~- poddziedzina wizyty}{class-diagram:appointments}
 

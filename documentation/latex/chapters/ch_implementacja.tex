@@ -209,7 +209,7 @@ Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, ż
 
 Aby zbudować i~uruchomić projekt z~wykorzystaniem Dockera należy z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:komilacja-i-uruchomienie}.
-\todo{konfiguracja maila}
+
 \noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
     \begin{minted}{bash}
 cd gateway
@@ -258,7 +258,7 @@ Po uruchomieniu wszystkich serwisów aplikacja będzie dostępna pod adresem \te
 
 \par
 Do wysyłania maili został wykorzystany lokalny serwer mailowy uruchamiany pod adresem \textit{localhost:25}.
-Na listingu \ref{listing:maildev} przedstawiono przykładową instrukcję uruchamiania serwera MailDev, który w celach testowych przechwytuje wysyłane maila.
+Na listingu \ref{listing:maildev} przedstawiono przykładową instrukcję uruchamiania serwera MailDev, który w~celach testowych przechwytuje wysyłane maila.
 
 \noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
     \begin{minted}{bash}
@@ -271,105 +271,105 @@ maildev -s 25
 
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
 
-W niniejszej sekcji przedstawiony zostanie rezultat utworzonej aplikacji w formie zrzutów ekranu,
+W niniejszej sekcji przedstawiony zostanie rezultat utworzonej aplikacji w~formie zrzutów ekranu,
 a odpowiednie widoki zostaną odniesione do ich prototypów przygotowanych podczas projektowania interfejsu aplikacji.
 
 \par
-Na rysunku \ref{fig:interface:0home} przedstawiono widok strony głównej odpowiadający prototypowi z rysunku \ref{fig:mockup:0home}.
+Na rysunku \ref{fig:interface:0home} przedstawiono widok strony głównej odpowiadający prototypowi z~rysunku \ref{fig:mockup:0home}.
 
-\imagewide{img/interface/0home.jpg}{Widok~- todo}{interface:0home}
+\imagewide{img/interface/0home.jpg}{Widok strony domowej}{interface:0home}
 
-Na rysunku \ref{fig:interface:0mobile} przedstawiono widok układu na urządzeniu mobilnym odpowiadający prototypowi z rysunku \ref{fig:mockup:6mobile}.
+Na rysunku \ref{fig:interface:0mobile} przedstawiono widok układu na urządzeniu mobilnym odpowiadający prototypowi z~rysunku \ref{fig:mockup:6mobile}.
 
-\image{0.5}{img/interface/0mobile.jpg}{Widok~- todo}{interface:0mobile}
+\image{0.5}{img/interface/0mobile.jpg}{Widok układu strony na urządzeniu mobilnym}{interface:0mobile}
 
 \subsection{Poddziedzina administracyjna}
 
-Na rysunku \ref{fig:interface:0admin} przedstawiono widok menu administratora odpowiadający prototypowi z rysunku \ref{fig:mockup:5administration}.
+Na rysunku \ref{fig:interface:0admin} przedstawiono widok menu administratora odpowiadający prototypowi z~rysunku \ref{fig:mockup:5administration}.
 
-\imagewide{img/interface/0admin.jpg}{Widok~- todo}{interface:0admin}
+\imagewide{img/interface/0admin.jpg}{Widok menu administratora}{interface:0admin}
 
-Rysunek \ref{fig:interface:0admin2} przedstawia widok listy serwisów i ich bieżących lokalizacji pobieranych z serwisu typu discovery.
+Rysunek \ref{fig:interface:0admin2} przedstawia widok listy serwisów i~ich bieżących lokalizacji pobieranych z~serwisu typu discovery.
 
-\imagewide{img/interface/0admin2.jpg}{Widok~- todo}{interface:0admin2}
+\imagewide{img/interface/0admin2.jpg}{Widok zarejestrowanych serwisów}{interface:0admin2}
 
-Rysunek \ref{fig:interface:0admin3} przedstawia widok listy użytkowników aplikacji odpowiadający prototypowi z rysunku \ref{fig:mockup:5administration:users}
+Rysunek \ref{fig:interface:0admin3} przedstawia widok listy użytkowników aplikacji odpowiadający prototypowi z~rysunku \ref{fig:mockup:5administration:users}
 
-\imagewide{img/interface/0admin3.jpg}{Widok~- todo}{interface:0admin3}
+\imagewide{img/interface/0admin3.jpg}{Widok listy użytkowników}{interface:0admin3}
 
-Na rysunku \ref{fig:interface:0sign-in} przedstawiono widok logowania do aplikacji odpowiadający prototypowi z rysunku \ref{fig:mockup:0home_2login}.
+Na rysunku \ref{fig:interface:0sign-in} przedstawiono widok logowania do aplikacji odpowiadający prototypowi z~rysunku \ref{fig:mockup:0home_2login}.
 
-\imagewide{img/interface/0sign-in.jpg}{Widok~- todo}{interface:0sign-in}
+\imagewide{img/interface/0sign-in.jpg}{Widok logowania}{interface:0sign-in}
 
 \subsection{Poddziedzina produkty}
 
-Na rysunku \ref{fig:interface:1products2} przedstawiono widok listy produktów odpowiadający prototypowi z rysunku \ref{fig:mockup:1products}
+Na rysunku \ref{fig:interface:1products2} przedstawiono widok listy produktów odpowiadający prototypowi z~rysunku \ref{fig:mockup:1products}
 
-\imagewide{img/interface/1products2.jpg}{Widok~- todo}{interface:1products2}
+\imagewide{img/interface/1products2.jpg}{Widok listy produktów}{interface:1products2}
 
-Na rysunkach \ref{fig:interface:1products-edit}, \ref{fig:interface:1products-edit2}, \ref{fig:interface:1products-edit3} przedstawiono fragmenty widoku edycji produktu odpowiadające prototypowi z rysunku \ref{fig:mockup:1products_1new}.
+Na rysunkach \ref{fig:interface:1products-edit}, \ref{fig:interface:1products-edit2}, \ref{fig:interface:1products-edit3} przedstawiono fragmenty widoku edycji produktu odpowiadające prototypowi z~rysunku \ref{fig:mockup:1products_1new}.
 
-\imagewide{img/interface/1products-edit.png}{Widok~- todo}{interface:1products-edit}
+\imagewide{img/interface/1products-edit.png}{Widok edycji produktu}{interface:1products-edit}
 
-\imagewide{img/interface/1products-edit2.jpg}{Widok~- todo}{interface:1products-edit2}
+\imagewide{img/interface/1products-edit2.jpg}{Widok edycji produktu~- sekcja wartości odżywczych}{interface:1products-edit2}
 
-\imagewide{img/interface/1products-edit3.jpg}{Widok~- todo}{interface:1products-edit3}
+\imagewide{img/interface/1products-edit3.jpg}{Widok edycji produktu~- sekcja miar domowych}{interface:1products-edit3}
 
-Na rysunku \ref{fig:interface:1products-details} przedstawiono widok szczegółów produktu odpowiadający prototypowi z rysunku \ref{fig:mockup:1products_2details}.
+Na rysunku \ref{fig:interface:1products-details} przedstawiono widok szczegółów produktu odpowiadający prototypowi z~rysunku \ref{fig:mockup:1products_2details}.
 
-\imagewide{img/interface/1products-details.jpg}{Widok~- todo}{interface:1products-details}
+\imagewide{img/interface/1products-details.jpg}{Widok szczegółów produktu}{interface:1products-details}
 
 \subsection{Poddziedzina przepisy}
 
-Na rysunku \ref{fig:interface:2recipes} przedstawiono widok listy przepisów odpowiadający prototypowi z rysunku \ref{fig:mockup:2recipes}.
+Na rysunku \ref{fig:interface:2recipes} przedstawiono widok listy przepisów odpowiadający prototypowi z~rysunku \ref{fig:mockup:2recipes}.
 
-\imagewide{img/interface/2recipes.jpg}{Widok~- todo}{interface:2recipes}
+\imagewide{img/interface/2recipes.jpg}{Widok listy przepisów}{interface:2recipes}
 
-Na rysunkach \ref{fig:interface:2recipe-edit} i \ref{fig:interface:2recipe-edit2} przedstawiono fragmenty widoku edycji przepisu odpowiadające prototypowi z rysunku \ref{fig:mockup:2recipes_1new}.
+Na rysunkach \ref{fig:interface:2recipe-edit} i~\ref{fig:interface:2recipe-edit2} przedstawiono fragmenty widoku edycji przepisu odpowiadające prototypowi z~rysunku \ref{fig:mockup:2recipes_1new}.
 
-\imagewide{img/interface/2recipe-edit.jpg}{Widok~- todo}{interface:2recipe-edit}
+\imagewide{img/interface/2recipe-edit.jpg}{Widok edycji przepisu}{interface:2recipe-edit}
 
-\imagewide{img/interface/2recipe-edit2.jpg}{Widok~- todo}{interface:2recipe-edit2}
+\imagewide{img/interface/2recipe-edit2.jpg}{Widok edycji przepisu~- tworzenie sekcji przepisu}{interface:2recipe-edit2}
 
-Na rysunku \ref{fig:interface:2recipe-details} przedstawiono widok szczegółów przepisu odpowiadający prototypowi z rysunku \ref{fig:mockup:2recipes_2details}.
+Na rysunku \ref{fig:interface:2recipe-details} przedstawiono widok szczegółów przepisu odpowiadający prototypowi z~rysunku \ref{fig:mockup:2recipes_2details}.
 
-\imagewide{img/interface/2recipe-details.jpg}{Widok~- todo}{interface:2recipe-details}
+\imagewide{img/interface/2recipe-details.jpg}{Widok szczegółów przepisu}{interface:2recipe-details}
 
 \subsection{Poddziedzina jadłospisy}
 
-Na rysunku \ref{fig:interface:3mealplans} przedstawiono widok listy jadłospisów odpowiadający prototypowi z rysunku \ref{fig:mockup:3mealplans}.
+Na rysunku \ref{fig:interface:3mealplans} przedstawiono widok listy jadłospisów odpowiadający prototypowi z~rysunku \ref{fig:mockup:3mealplans}.
 
-\imagewide{img/interface/3mealplans.jpg}{Widok~- todo}{interface:3mealplans}
+\imagewide{img/interface/3mealplans.jpg}{Widok listy jadłospisów}{interface:3mealplans}
 
-Na rysunku \ref{interface:3mealplan-edit1} przedstawiono widok zakładki ustawień podczas edycji jadłospisu odpowiadający prototypowi z rysunku \ref{fig:mockup:3mealplans_1new_1settings}.
+Na rysunku \ref{fig:interface:3mealplan-edit1} przedstawiono widok zakładki ustawień podczas edycji jadłospisu odpowiadający prototypowi z~rysunku \ref{fig:mockup:3mealplans_1new_1settings}.
 
-\imagewide{img/interface/3mealplan-edit1.jpg}{Widok~- todo}{interface:3mealplan-edit1}
+\imagewide{img/interface/3mealplan-edit1.jpg}{Widok edycji jadłospisu~- zakładka ustawień}{interface:3mealplan-edit1}
 
-Na rysunku \ref{interface:3mealplan-edit2} przedstawiono widok zakładki kalendarza podczas edycji jadłospisu \ref{fig:mockup:3mealplans_1new_2calendar}.
+Na rysunku \ref{fig:interface:3mealplan-edit2} przedstawiono widok zakładki kalendarza podczas edycji jadłospisu \ref{fig:mockup:3mealplans_1new_2calendar}.
 
-\imagewide{img/interface/3mealplan-edit2.jpg}{Widok~- todo}{interface:3mealplan-edit2}
+\imagewide{img/interface/3mealplan-edit2.jpg}{Widok edycji jadłospisu~- zakładka kalendarza}{interface:3mealplan-edit2}
 
 %\imagewide{img/interface/3mealplan-details1.jpg}{Widok~- todo}{interface:3mealplan-details1}
 
 \subsection{Poddziedzina wizyty}
 
-Na rysunku \ref{fig:interface:4patients} przedstawiono widok listy pacjentów odpowiadający prototypowi z rysunku \ref{fig:mockup:4appointments}.
+Na rysunku \ref{fig:interface:4patients} przedstawiono widok listy pacjentów odpowiadający prototypowi z~rysunku \ref{fig:mockup:4appointments}.
 
-\imagewide{img/interface/4patients.jpg}{Widok~- todo}{interface:4patients}
+\imagewide{img/interface/4patients.jpg}{Widok listy pacjentów}{interface:4patients}
 
 %\todo{nowy pacjent}
 
-Na rysunku \ref{fig:interface:4patient-card} przedstawiono widok szczegółów karty pacjenta odpowiadający prototypowi z rysunku \ref{fig:mockup:4appointments_2patient-card-details}.
+Na rysunku \ref{fig:interface:4patient-card} przedstawiono widok szczegółów karty pacjenta odpowiadający prototypowi z~rysunku \ref{fig:mockup:4appointments_2patient-card-details}.
 
-\imagewide{img/interface/4patient-card.jpg}{Widok~- todo}{interface:4patient-card}
+\imagewide{img/interface/4patient-card.jpg}{Widok szczegółów karty pacjenta}{interface:4patient-card}
 
-Na rysunku \ref{fig:interface:4appointment-details} przedstawiono widok szczegółów wizyty odpowiadający prototypowi z rysunku \ref{fig:mockup:4appointments_4appointment-details}.
+Na rysunku \ref{fig:interface:4appointment-details} przedstawiono widok szczegółów wizyty odpowiadający prototypowi z~rysunku \ref{fig:mockup:4appointments_4appointment-details}.
 
-\imagewide{img/interface/4appointment-details.jpg}{Widok~- todo}{interface:4appointment-details}
+\imagewide{img/interface/4appointment-details.jpg}{Widok szczegółów wizyty}{interface:4appointment-details}
 
-Na rysunku \ref{fig:interface:4nutritional-interview} przedstawiono widok pierwszego kroku edycji wywiadu żywieniowego odpowiadający prototypowi z rysunku \ref{fig:mockup:4appointments_4appointment-details_1nutritional-interview1}.
+Na rysunku \ref{fig:interface:4nutritional-interview} przedstawiono widok pierwszego kroku edycji wywiadu żywieniowego odpowiadający prototypowi z~rysunku \ref{fig:mockup:4appointments_4appointment-details_1nutritional-interview1}.
 
-\imagewide{img/interface/4nutritional-interview.jpg}{Widok~- todo}{interface:4nutritional-interview}
+\imagewide{img/interface/4nutritional-interview.jpg}{Widok wywiadu żywieniowego~- zakładka "Podstawowe Informacje"}{interface:4nutritional-interview}
 
 %\todo{pomiary ciała}
 
