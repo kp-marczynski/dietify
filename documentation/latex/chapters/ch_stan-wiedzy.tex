@@ -2,15 +2,15 @@
 \chapter{Stan wiedzy i~techniki w~zakresie tematyki pracy}\label{ch:knowladge-state}
 \section{Przegląd istniejących rozwiązań konkurencyjnych}\label{sec:competitive-solutions}
 Na rynku Polskim funkcjonuje zaledwie kilka narzędzi w~kompleksowy sposób wspomagających pracę dietetyka.
-W niniejszej sekcji zostaną omówione systemy cieszące się największą popularnością oraz przedstawione zostanie zbiorcze porównanie ich najważniejszych cech.
-W przypadku większości z~porównywanych programów warunki korzystania z~usługi pozwalają na rejestrację w~systemie jedynie wykwalifikowanym dietetykom.
-Z tego względu wszystkie analizowane dane zostały zebrane z~publicznie dostępnych źródeł,
+W~niniejszej sekcji zostaną omówione systemy cieszące się największą popularnością oraz przedstawione zostanie zbiorcze porównanie ich najważniejszych cech.
+W~przypadku większości z~porównywanych programów warunki korzystania z~usługi pozwalają na rejestrację w~systemie jedynie wykwalifikowanym dietetykom.
+Z~tego względu wszystkie analizowane dane zostały zebrane z~publicznie dostępnych źródeł,
 takich jak strony odpowiednich programów, blogi internetowe oraz filmy promocyjne na platformie YouTube\cite{url:youtube}.
 Dodatkowo, żeby rozwiać wątpliwości czy dane rozwiązanie konkurencyjne umożliwia korzystanie z~kluczowych funkcjonalności bez dostępu do internetu, przeprowadzono stosowną korespondencję z~obsługą klienta poszczególnych programów.
 %\todo{sprawdzić czy korzystanie ze screenshotów z~youtube'a jest legalne}
 \begin{itemize}
     \item TiqDiet\\
-        TiqDiet\cite{url:TiqDiet} jest wygodnym w~użyciu programem, który pozwala dietetykom w~intuicyjny sposób projektować jadłospisy i~udostępniać je pacjentom.
+        TiqDiet\cite{url:TiqDiet} jest programem, który pozwala dietetykom w~intuicyjny sposób projektować jadłospisy i~udostępniać je pacjentom.
         W~celu uproszczenia pracy dietetyka, udostępnianych jest wiele szablonów jadłospisów, które łatwo można dostosować do indywidualnych potrzeb pacjenta.
         Pacjent może odbierać ułożoną dietę poprzez responsywną stronę internetową, aplikację mobilną oraz za pomocą inteligentnego zegarka.
         Aplikacje mobilne pozwalają ponadto na automatyczne przypominanie pacjentowi m.in. o~konieczności zażycia suplementu oraz o~konieczności regularnego picia wody.
@@ -52,7 +52,7 @@ Dodatkowo, żeby rozwiać wątpliwości czy dane rozwiązanie konkurencyjne umo�
 
     \item Dietico\\
         Program Dietico\cite{url:dietico} szczyci się stale powiększaną bazą przepisów i~produktów.
-        Pozwala na układanie jadłospisu za pomocą wygodnego interfejsu,
+        Pozwala na układanie jadłospisu,
         a~przejrzysty system podpowiedzi pozwala szybko wykryć powtarzające się dania oraz produkty, na które pacjent jest uczulony.
         Twórcy programu podkreślają, że ich program wyróżnia możliwość uwzględnienia w~układanej diecie posiadanego przez pacjenta wyposażenia kuchennego i~sezonowych produktów spożywczych.
         Na rysunku \ref{fig:competitive-solution:dietico} przedstawiono widok edycji tygodniowego jadłospisu wraz z~graficznymi oznaczeniami produktów, na które pacjent jest uczulony.
@@ -69,7 +69,7 @@ Dodatkowo, żeby rozwiać wątpliwości czy dane rozwiązanie konkurencyjne umo�
 
 \end{itemize}
 
-W tabeli \ref{tabela:rozwiazania-konkurencyjne-funkcjonalne} przedstawiono porównanie najważniejszych cech funkcjonalnych,
+W~tabeli \ref{tabela:rozwiazania-konkurencyjne-funkcjonalne} przedstawiono porównanie najważniejszych cech funkcjonalnych,
 a~w~tabeli \ref{tabela:rozwiazania-konkurencyjne-niefunkcjonalne} cech niefunkcjonalnych
 6 istniejących na rynku rozwiązań konkurencyjnych\cite{url:porownanie-programow-dietetycznych}.
 Warto zwrócić uwagę, że funkcjonalności takie jak możliwość wykorzystania gotowych szablonów diet, wysyłanie diety do pacjenta,
@@ -119,7 +119,7 @@ zapisywanie ich do plików oraz przypisywanie do stosownych kart pacjenta są oc
 
 \section{Przegląd literatury dietetycznej}\label{sec:domain-literature}
 
-W rozdziale \ref{sec:competitive-solutions} dokonano przeglądu rozwiązań konkurencyjnych.
+W~rozdziale \ref{sec:competitive-solutions} dokonano przeglądu rozwiązań konkurencyjnych.
 Na podstawie dokonanej analizy możliwe będzie zdefiniowanie głównych wymagań funkcjonalnych projektowanego systemu,
 jednakże konieczne jest odwołanie się do literatury dziedzinowej, żeby potwierdzić zasadność przyjętych założeń istotnych z~punktu widzenia dietetyki.
 
@@ -142,7 +142,7 @@ Organizacja Narodów Zjednoczonych do spraw Wyżywienia i~Rolnictwa (ang. Food a
 \end{itemize}
 
 \par
-Iloczyn PPM i~PAL określa stopień całkowitej przemiany materii (CPM)\cite{book:normy-zywienia-czlowieka}.
+Iloczyn PPM~i~PAL~określa stopień całkowitej przemiany materii (CPM)\cite{book:normy-zywienia-czlowieka}.
 Przy czym dla prawidłowo zaplanowanej diety, dzienna energia powinna być dostarczana w~proporcjach:
 \begin{itemize}
     \item ok 10\% z~białek,
@@ -195,8 +195,8 @@ Dane są udostępniane w~formie pliku bazy Microsoft Access. Baza zawiera:
 \par
 Na koniec należałoby rozważyć wskaźniki pozwalające ocenić wpływ diety.
 Podstawowe wyznaczane wartości to wskaźnik masy ciała (ang. Body Mass Index~- BMI), stosunek obwodu talii do obwodu bioder (ang. Waist to Hip Ratio~- WHR) oraz ilość tkanki tłuszczowej w~organizmie.
-W celu wyznaczenia ilości tkanki tłuszczowej w~organizmie przeprowadza się pomiar fałdów skórno-tłuszczowych lub stosuje się bioelektryczną metodę impedancji (ang. bioelectrical impedance analysis~- BIA).
-Metoda BIA polega na przepuszczeniu przez organizm ładunku elektrycznego o~natężeniu poniżej 1mA.
+W~celu wyznaczenia ilości tkanki tłuszczowej w~organizmie przeprowadza się pomiar fałdów skórno-tłuszczowych lub stosuje się bioelektryczną metodę impedancji (ang. bioelectrical impedance analysis~- BIA).
+Metoda BIA~polega na przepuszczeniu przez organizm ładunku elektrycznego o~natężeniu poniżej 1mA.
 Metoda ta jest nieinwazyjna i~bezpieczne jest jej stosowanie w~każdym stanie zdrowia pacjenta.
 Pozwala nie tylko na wyznaczenie ilości tkanki tłuszczowej, ale także ilości wody w~organizmie, wapnia w~kościach i~masy mięśniowej\cite{book:dietetyka-zywienie-zdrowego-i-chorego-czlowieka}.
 % typy dań, posiłków, wyposażenie kuchenne
@@ -204,16 +204,16 @@ Pozwala nie tylko na wyznaczenie ilości tkanki tłuszczowej, ale także ilości
 \section{Architektura mikroserwisów}\label{sec:usefull-technologies}
 
 Projektowanie złożonych systemów informatycznych umożliwiających bezproblemowe jednoczesne korzystanie przez miliony użytkowników jest zadaniem niebanalnym.
-W klasycznym podejściu, implementowano systemy w~architekturze monolitycznej.
+W~klasycznym podejściu, implementowano systemy w~architekturze monolitycznej.
 Aplikacja napisana w~takiej architekturze jest samowystarczalna w~kontekście jej zachowania.
 Może komunikować się z~zewnętrznymi usługami lub źródłami danych w~celu wykonania operacji,
 ale logika biznesowa potrzebna do wykonania każdej operacji jest w~całości zawarta w~obrębie aplikacji.
-W przypadku wystąpienia potrzeby skalowania horyzontalnego takiej aplikacji,
+W~przypadku wystąpienia potrzeby skalowania horyzontalnego takiej aplikacji,
 konieczne jest powielanie całej aplikacji na każdym z~serwerów\cite{url:microsoft-web-architectures}.
 
 \par
 Architektura mikroserwisów, zgodnie z~tym co sugeruje nazwa, skupia się na budowaniu aplikacji będącej zbiorem niewielkich,
-luźno powiązanych serwisów komunikujących się ze sobą na przykład za pomocą protokołu HTTP czy AMQP.
+luźno powiązanych serwisów komunikujących się ze sobą na przykład za pomocą protokołu HTTP~czy AMQP.
 Serwisy implementowane i~wdrażane są niezależnie od siebie\cite{book:dot-net-microservices}.
 Efektem projektowania niezależnych serwisów jest skalowanie tylko serwisów, które tego wymagają,
 co pozwala na optymalne wykorzystanie zasobów\cite{book:mastering-microservices-with-java9}.
@@ -235,17 +235,17 @@ a następnie przeprowadzić migrację do architektury mikroserwisów poprzez wyd
 i~późniejsze przekształcanie ich w~niezależne serwisy\cite{url:monolith-first}.
 
 \par
-W przypadku aplikacji monolitycznej łatwo jest doprowadzić do sytuacji w~której poszczególne moduły są ze sobą ściśle powiązane,
+W~przypadku aplikacji monolitycznej łatwo jest doprowadzić do sytuacji w~której poszczególne moduły są ze sobą ściśle powiązane,
 co zwykle ma bardzo negatywny wpływ na wydajność aplikacji, utrudnia wprowadzanie zmian w~kodzie i~prowadzi do występowania trudnych do wykrycia błędów w~implementacji.
 Sytuację, w~której w~aplikacji powstaje dużo przypadkowych powiązań i~zależności Vaughn Vernon określił mianem "Wielkiej Kuli Błota"\cite{book:ddd-kompendium}.
 
 \par
 Do głównych zalet zastosowania mikroserwisów należy stosowanie luźnego powiązania serwisów,
 co poniekąd wymusza, żeby zależności pomiędzy serwisami były bardziej przemyślane i~lepiej zaprojektowane.
-Z pomocą we właściwym zaprojektowaniu serwisów i~zależności między nimi przychodzą strategiczne wzorce DDD.
+Z~pomocą we właściwym zaprojektowaniu serwisów i~zależności między nimi przychodzą strategiczne wzorce DDD.
 Jednym z~takich wzorców jest dekompozycja w~oparciu o~poddziedziny\cite{book:ddd-evans}.
 Dziedzina systemu jest dzielona na poddziedziny poprzez zdefiniowanie przestrzeni problemów biznesowych w~obrębie względnie niezależnych obszarów specjalizacji.
-W przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu
+W~przypadku architektury mikroserwisów można wyznaczyć poszczególne serwisy poprzez zdefiniowanie poddziedzin systemu
 i~zaprojektowanie serwisu dla każdej z~nich\cite{book:microservices-patterns}.
 
 \thispagestyle{normal}

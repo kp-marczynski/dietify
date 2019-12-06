@@ -13,7 +13,7 @@ Według sylabusa Międzynarodowej Rady Kwalifikacji Testów Oprogramowania (ang.
 \end{itemize}
 
 \par
-W ramach niniejszej pracy opisane zostaną następujące rodzaje testów:
+W~ramach niniejszej pracy opisane zostaną następujące rodzaje testów:
 \begin{itemize}
     \item \textbf{jednostkowe}~- testujące logikę biznesową,
     \item \textbf{integracyjne}~- testujące punkty końcowe API,
@@ -22,7 +22,7 @@ W ramach niniejszej pracy opisane zostaną następujące rodzaje testów:
 
 \par
 Pierwsze dwa rodzaje testów mogą być przeprowadzane automatycznie, dlatego postanowiono wdrożyć rozwiązanie zapewniające ciągłą integrację (ang. Continuous Integration~- CI) z~wykorzystaniem platformy Gitlab CI\cite{tech:gitlab-pipelines}.
-Dzięki temu w~momencie zwracania kodu do repozytorium automatycznie wykonywany jest zdefiniowany proces CI (ang. pipeline), zawierający następujące etapy:
+Dzięki temu w~momencie zwracania kodu do repozytorium automatycznie wykonywany jest zdefiniowany proces CI~(ang. pipeline), zawierający następujące etapy:
 \begin{itemize}
     \item \textbf{build}~- kompilacja kodu,
     \item \textbf{unit tests}~- wykonanie testów jednostkowych,
@@ -31,7 +31,7 @@ Dzięki temu w~momencie zwracania kodu do repozytorium automatycznie wykonywany 
 \end{itemize}
 
 \par
-Rezultat wykonania procesu ciągłej integracji na platformie Gitlab CI został przedstawiony na rysunku \ref{fig:gitlab-pipeline}.
+Rezultat wykonania procesu ciągłej integracji na platformie Gitlab CI~został przedstawiony na rysunku \ref{fig:gitlab-pipeline}.
 
 \imagewide[\cite{tech:gitlab-pipelines-dietify}]{img/pipeline.png}{Gitlab Pipeline}{gitlab-pipeline}
 
@@ -43,12 +43,12 @@ ułatwiają wprowadzanie zmian w~kodzie i~pozwalają szybko wykryć zaistniałe 
 \par
 Przedmiotem testów jednostkowych jest logika akcji biznesowych przeprowadzanych w~obrębie warstwy serwisów.
 Należy jednak zauważyć, że wątpliwą wartość przynosi testowanie funkcji,
-których jedyną odpowiedzialnością jest przekierowanie żądania z~warstwy punktów końcowych API do warstwy repozytoriów.
+których jedyną odpowiedzialnością jest przekierowanie żądania z~warstwy punktów końcowych API~do warstwy repozytoriów.
 
 \par
 Testy jednostkowe, jak nazwa wskazuje, powinny testować jednostkę taką jak funkcja i~powinny daną jednostkę testować w~izolacji od zależności zewnętrznych\cite{book:testy-jednostkowe}.
 Aby osiągnąć taką izolację, zastosowano platformę Mockito dzięki czemu możliwe jest tworzenie makiet dla zależności zewnętrznych i~definiowanie rezultatów obcowania z~nimi.
-W rezultacie osiągnięta może być ścisła kontrola nad przepływem informacji w~obrębie testowanej jednostki.
+W~rezultacie osiągnięta może być ścisła kontrola nad przepływem informacji w~obrębie testowanej jednostki.
 
 \par
 Na listingu \ref{listing:unit-test} przedstawiony został przykładowy test jednostkowy.
@@ -95,12 +95,12 @@ public class ExampleUnitTest {
 
 \section{Testy integracyjne}
 
-W przeciwieństwie do testów jednostkowych testy integracyjne nie są wykonywane w~całkowitej izolacji\cite{book:testy-jednostkowe}.
-Testowaniu podlegają punkty końcowe API z~wykorzystaniem rzeczywistego połączenia z~bazą danych.
+W~przeciwieństwie do testów jednostkowych testy integracyjne nie są wykonywane w~całkowitej izolacji\cite{book:testy-jednostkowe}.
+Testowaniu podlegają punkty końcowe API~z~wykorzystaniem rzeczywistego połączenia z~bazą danych.
 Na potrzeby testów tworzona jest instancja osadzonej bazy danych H2\cite{tech:h2-db} oraz inicjalizowany jest kontekst aplikacji Spring Boot.
 
 \par
-Celem przeprowadzania tego typu testów jest sprawdzenie czy punkty końcowe API w~poprawny sposób obsługują przychodzące żądania
+Celem przeprowadzania tego typu testów jest sprawdzenie czy punkty końcowe API~w~poprawny sposób obsługują przychodzące żądania
 z uwzględnieniem przeprowadzenia akcji biznesowych w~warstwie serwisów i~perzystencji w~warstwie repozytoriów.
 
 \par
@@ -150,10 +150,10 @@ public class ExampleIntegrationTest {
 
 Oprogramowanie zwykle nie jest tworzone, żeby istniało w~próżni.
 Należy więc zbadać w~jakim stopniu aplikacja może być używana przez rzeczywistych użytkowników.
-W tym celu przeprowadzane są testy użyteczności\cite{book:testowanie-i-jakosc-oprogramowania}.
+W~tym celu przeprowadzane są testy użyteczności\cite{book:testowanie-i-jakosc-oprogramowania}.
 
 \par
-W ramach realizacji tej grupy testów, 9 potencjalnych użytkowników (tj. osoby studiujące dietetykę lub zajmujące się profesjonalnie dietetyką)
+W~ramach realizacji tej grupy testów, 9 potencjalnych użytkowników (tj. osoby studiujące dietetykę lub zajmujące się profesjonalnie dietetyką)
 zostało poproszonych o~zasymulowanie przeprowadzania kompleksowej wizyty pacjenta
 i wyrażenie opinii o~używalności systemu poprzez odpowiedź na pytania ustandaryzowanego formularza Skali Używalności Systemu (ang. System Usability Scale~- SUS)\cite{url:sus}.
 
@@ -173,7 +173,7 @@ Badania przeprowadzono za pomocą odpowiednio przygotowanego formularza Google\c
 \imagewide{img/sus_results.png}{Rezultaty badania SUS}{sus-results}
 
 Punktowa wartość wyników wahała się od 65 pkt do 82,5 pkt, a~średni uzyskany wynik wyniósł 73,6 pkt.
-Według skali przyjmowanej w~SUS jest to wynik ponadprzeciętny.
+Według skali przyjmowanej w~SUS~jest to wynik ponadprzeciętny.
 Osoby badane wyraziły się dość pozytywnie o~stworzonym systemie.
 Przede wszystkim podkreślano, że jest łatwy w~użyciu, a~różne funkcje systemu są łatwo dostępne.
 Jednakże warto zwrócić uwagę, że większość osób nie czuła się zbyt pewnie podczas korzystania z~systemu,

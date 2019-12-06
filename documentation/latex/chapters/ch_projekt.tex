@@ -23,13 +23,13 @@ opracowano prototypy kluczowych widoków interfejsu użytkownika.
 \par
 Zanim przedstawione zostaną prototypy dla poddziedzin warto wpierw omówić szablon widoku, który będzie stosowany w~obrębie całej witryny.
 Na rysunku \ref{fig:mockup:0home} przedstawiona została strona startowa witryny.
-U góry strony znajduje się belka zawierająca hasło przewodnie danego widoku.
+U~góry strony znajduje się belka zawierająca hasło przewodnie danego widoku.
 Po lewej stronie umieszczony został panel nawigacyjny, u~góry którego widnieje logo i~nazwa systemu.
 Na rzecz projektu roboczo przyjęto jako logo rysunek sztućców, a~"Dietify" jako nazwę projektowanego systemu.
 Poniżej są odnośniki do strony startowej oraz do głównych widoków związanych z~każdą z~poddziedzin.
 Na dole panelu nawigacyjnego znajdują się łącza do zmiany języka, ustawień użytkownika oraz, jeśli zalogowany użytkownik ma uprawnienia administratora, do widoku administracyjnego.
-W głównej części widoku widoczna jest właściwa treść bieżącej strony.
-W przypadku omawianej strony startowej jest to wiadomość powitalna oraz obrazek związany z~dietetyką.
+W~głównej części widoku widoczna jest właściwa treść bieżącej strony.
+W~przypadku omawianej strony startowej jest to wiadomość powitalna oraz obrazek związany z~dietetyką.
 
 \imagewide{../mockup/0home.png}{Prototyp interfejsu~- strona startowa}{mockup:0home}
 
@@ -54,14 +54,14 @@ Warto zauważyć, że podczas rejestracji użytkownik wyraża zgodę na przetwar
 \imagewide{../mockup/0home_2login.png}{Prototyp interfejsu~- logowanie do systemu}{mockup:0home_2login}
 
 Widok zarządzania użytkownikami (rysunek \ref{fig:mockup:5administration:users}) jest dostępny tylko dla administratora
-Z poziomu tego widoku możliwe jest zarządzanie uprawnieniami użytkowników, zmiana statusu ich kont oraz tworzenie nowych użytkowników.
+Z~poziomu tego widoku możliwe jest zarządzanie uprawnieniami użytkowników, zmiana statusu ich kont oraz tworzenie nowych użytkowników.
 
 \imagewide{../mockup/5administration_users.png}{Prototyp interfejsu~- zarządzanie użytkownikami}{mockup:5administration:users}
 
 \subsection{Poddziedzina produkty}
 
 Na rysunku \ref{fig:mockup:1products} przedstawiono prototyp widoku listy produktów.
-Z poziomu tego widoku możliwe jest wyszukiwanie i~filtrowanie produktów, wyświetlanie szczegółów produktu oraz tworzenie nowego produktu.
+Z~poziomu tego widoku możliwe jest wyszukiwanie i~filtrowanie produktów, wyświetlanie szczegółów produktu oraz tworzenie nowego produktu.
 Do tego widoku prowadzi odnośnik "Products" z~panelu nawigacyjnego.
 
 \imagewide{../mockup/1products.png}{Prototyp interfejsu~- lista produktów}{mockup:1products}
@@ -79,7 +79,7 @@ Na uwagę zasługuje fakt, że widok edycji produktu jest tożsamy z~widokiem tw
 \subsection{Poddziedzina przepisy}
 
 Na rysunku \ref{fig:mockup:2recipes} przedstawiono prototyp widoku listy przepisów.
-Z poziomu tego widoku możliwe jest wyszukiwanie i~filtrowanie przepisów, wyświetlanie szczegółów przepisu oraz tworzenie nowego przepisu.
+Z~poziomu tego widoku możliwe jest wyszukiwanie i~filtrowanie przepisów, wyświetlanie szczegółów przepisu oraz tworzenie nowego przepisu.
 Do tego widoku prowadzi odnośnik "Recipes" z~panelu nawigacyjnego.
 
 \imagewide{../mockup/2recipes.png}{Prototyp interfejsu~- lista przepisów}{mockup:2recipes}
@@ -99,7 +99,7 @@ Po zapisaniu edytowanego przepisu zostanie wyświetlony widok szczegółów prze
 \subsection{Poddziedzina jadłospisy}
 
 Na rysunku \ref{fig:mockup:3mealplans} przedstawiono prototyp widoku listy jadłospisów.
-Z poziomu tego widoku możliwe jest wyszukiwanie i~filtrowanie jadłospisów, wyświetlanie szczegółów produktu oraz tworzenie nowego jadłospisu.
+Z~poziomu tego widoku możliwe jest wyszukiwanie i~filtrowanie jadłospisów, wyświetlanie szczegółów produktu oraz tworzenie nowego jadłospisu.
 Do tego widoku prowadzi odnośnik "Meal Plans" z~panelu nawigacyjnego.
 
 \imagewide{../mockup/3mealplans.png}{Prototyp interfejsu~- lista jadłospisów}{mockup:3mealplans}
@@ -107,7 +107,7 @@ Do tego widoku prowadzi odnośnik "Meal Plans" z~panelu nawigacyjnego.
 Podczas układania jadłospisu dietetyk musi wpierw zdefiniować podstawowe właściwości jadłospisu, co widoczne jest na prototypie widoku zakładki ustawień jadłospisu przedstawionym na rysunku \ref{fig:mockup:3mealplans_1new_1settings}.
 Po uzupełnieniu liczby dni i~liczby posiłków w~ciągu dnia, a~także definicji posiłków możliwe jest przejście do zakładki kalendarza, której prototyp widoczny jest na rysunku \ref{fig:mockup:3mealplans_1new_2calendar}.
 Kalendarz jest automatycznie dostosowywany do liczby dni i~liczby posiłków w~ciągu dnia.
-W polach odpowiadających odpowiednim posiłków w~ciągu dnia wyświetlane są produkty i~przepisy składające się na posiłek.
+W~polach odpowiadających odpowiednim posiłków w~ciągu dnia wyświetlane są produkty i~przepisy składające się na posiłek.
 Po kliknięciu w~takie pole możliwe będzie wyświetlenie bardziej szczegółowego widoku posiłku
 oraz dodawanie produktów po wyświetleniu modala zawierającego listę produktów, analogiczną jak na rysunku \ref{fig:mockup:1products}
 i dodawanie przepisów po wyświetleniu modala zawierającego listę przepisów, analogiczną jak na rysunku \ref{fig:mockup:2recipes}
@@ -142,7 +142,7 @@ Dietetyk będzie widział 3 kategorie wpisów:
     \item lista zbliżających się wizyt
     \item lista wizyt, które się odbyły, ale które nadal oczekują na konsultację (np. na komentarz dietetyka, albo na przydzielenie jadłospisu)
 \end{itemize}
-Z poziomu tego widoku możliwe jest tworzenie nowej karty pacjenta, wyszukiwanie pacjentów, wyświetlenie karty pacjenta, wyświetlenie szczegółów wizyt nadchodzących i~oczekujących na konsultacje.
+Z~poziomu tego widoku możliwe jest tworzenie nowej karty pacjenta, wyszukiwanie pacjentów, wyświetlenie karty pacjenta, wyświetlenie szczegółów wizyt nadchodzących i~oczekujących na konsultacje.
 Należy zauważyć, że dietetyk będzie widział tylko karty pacjentów, które sam prowadzi.
 Do tego widoku prowadzi odnośnik "Patients" z~panelu nawigacyjnego.
 
@@ -156,7 +156,7 @@ w którym dietetyk deklaruje się, że uzyskał od pacjenta pisemną zgodę na p
 
 Prototyp szczegółów karty pacjenta został przedstawiony na rysunku \ref{fig:mockup:4appointments_2patient-card-details}.
 Poza podstawowymi danymi pacjenta w~obrębie tego widoku wyświetlany jest wykres BMI, utworzony na podstawie pomiarów przeprowadzanych w~ramach kolejnych wizyt pacjenta.
-Z poziomu tego widoku możliwe jest edytowanie karty pacjenta, utworzenie nowej wizyty oraz przeglądanie listy wszystkich wizyt pacjenta oraz listy wizyt oczekujących na konsultację.
+Z~poziomu tego widoku możliwe jest edytowanie karty pacjenta, utworzenie nowej wizyty oraz przeglądanie listy wszystkich wizyt pacjenta oraz listy wizyt oczekujących na konsultację.
 
 \imagewide{../mockup/4appointments_2patient-card-details.png}{Prototyp interfejsu~- szczegóły karty pacjenta}{mockup:4appointments_2patient-card-details}
 
@@ -165,7 +165,7 @@ Na rysunku \ref{fig:mockup:4appointments_3new-appointment} przedstawiono prototy
 \imagewide{../mockup/4appointments_3new-appointment.png}{Prototyp interfejsu~- dodawanie nowej wizyty}{mockup:4appointments_3new-appointment}
 
 Rysunek \ref{fig:mockup:4appointments_4appointment-details} przedstawia prototyp widoku szczegółów wizyty.
-Z poziomu tego widoku możliwe jest zarządzanie przypisanymi do wizyty jadłospisami, pomiarami ciała i~wywiadem żywieniowym, a~także zmiana statusu wizyty.
+Z~poziomu tego widoku możliwe jest zarządzanie przypisanymi do wizyty jadłospisami, pomiarami ciała i~wywiadem żywieniowym, a~także zmiana statusu wizyty.
 
 \imagewide{../mockup/4appointments_4appointment-details.png}{Prototyp interfejsu~- szczegóły wizyty}{mockup:4appointments_4appointment-details}
 
@@ -218,7 +218,7 @@ Aby rozwiązać ten problem, dla danych definiowanych przez użytkownika końcow
 dodana zostanie flaga blokująca możliwość usuwania i~edycji obiektu używanego przez inny serwis, która będzie aktywowana w~momencie, w~którym serwis nie będący właścicielem danych zaczyna z~nich korzystać.
 
 \par
-W dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
+W~dalszej części niniejszego podrozdziału zostanie przeprowadzone projektowanie konceptualne,
 w ramach którego dla każdej rozważanej poddziedziny zdefiniowane zostaną kategorie (obiekty) oraz związane z~nimi reguły funkcjonowania i~ograniczenia dziedzinowe\cite{book:bazury},
 które następnie zostaną podsumowane w~formie modelu informacyjnego wyrażonego za pomocą diagramu klas języka UML.
 
@@ -242,10 +242,10 @@ które następnie zostaną podsumowane w~formie modelu informacyjnego wyrażoneg
     \begin{enumerate}[label={\textbf{OGR/0/\protect\twodigits{\arabic{enumi}}}}, wide, labelwidth=!, align=left, leftmargin=3cm]
         \item Wszystkie \textbf{id} muszą być unikalne.
         \item Wszystkie \textbf{id} są wymagane.
-        \item Wszystkie \textbf{id} są liczbami całkowitymi dodatnimi tworzonymi przez SZBD za pomocą autonumerowania.
+        \item Wszystkie \textbf{id} są liczbami całkowitymi dodatnimi tworzonymi przez SZBD~za pomocą autonumerowania.
         \item Wszystkie atrybuty \textbf{language} są wymagane.
-        \item Wszystkie \textbf{language} są ciągami znaków o~długości 2~znaków spełniającymi normę ISO 639-1.
-        \item Wszystkie \textbf{stemple czasowe} są w~formacie YYYY:MM:DD HH:MI:SS.
+        \item Wszystkie \textbf{language} są ciągami znaków o~długości 2~znaków spełniającymi normę ISO~639-1.
+        \item Wszystkie \textbf{stemple czasowe} są w~formacie YYYY:MM:DD~HH:MI:SS.
         \item Wszystkie \textbf{daty} są w~formacie YYYY:MM:DD.
         \item Ciągi znaków bez dodatkowych ograniczeń mogą zawierać dowolne znaki dopuszczalne w~systemie kodowania UTF-8.
     \end{enumerate}
@@ -276,7 +276,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
         \atr{email}\label{kat:User:email}- adres e-mail
         \atr{image}\label{kat:User:image}- zdjęcie profilowe użytkownika
         \atr{activated}\label{kat:User:activated}- flaga pokazująca czy konto użytkownika zostało aktywowane
-        \atr{language}\label{kat:User:language}- język użytkownika w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:User:language}- język użytkownika w~postaci kodu ISO~639-1
         \atr{activationKey}\label{kat:User:activationKey}- klucz wymagany podczas aktywacji konta użytkownika
         \atr{resetKey}\label{kat:User:resetKey}- klucz wymagany podczas resetowania hasła do konta użytkownika
         \atr{createdDate}\label{kat:User:createdDate}- data utworzenia konta
@@ -331,7 +331,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 %        \atr{id}\label{kat:SiteContentTranslation:id}- identyfikator
 %        \atr{title}\label{kat:SiteContentTranslation:title}- tłumaczenie tytułu
 %        \atr{description}\label{kat:SiteContentTranslation:description}- tłumaczenie opisu
-%        \atr{language}\label{kat:SiteContentTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+%        \atr{language}\label{kat:SiteContentTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
 %    \end{itemize}
 %
 %    \req{ContactInfo}\label{kat:ContactInfo} (Informacje Kontaktowe)
@@ -356,7 +356,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 %        \atr{title}\label{kat:Pricing:title}- nazwa pozycji cennika
 %        \atr{description}\label{kat:Pricing:description}- opis pozycji cennika
 %        \atr{price}\label{kat:Pricing:price}- cena
-%        \atr{currency}\label{kat:Pricing:currency}- waluta przedstawiona jako kod ISO 4217
+%        \atr{currency}\label{kat:Pricing:currency}- waluta przedstawiona jako kod ISO~4217
 %    \end{itemize}
 %
 %    \req{PricingTranslation}\label{kat:PricingTranslation} (Tłumaczenie Cennika)
@@ -368,7 +368,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 %        \atr{id}\label{kat:PricingTranslation:id}- identyfikator
 %        \atr{title}\label{kat:PricingTranslation:title}- tłumaczenie nazwy
 %        \atr{description}\label{kat:PricingTranslation:description}- tłumaczenie opisu
-%        \atr{language}\label{kat:PricingTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+%        \atr{language}\label{kat:PricingTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
 %    \end{itemize}
 \end{enumerate}
 
@@ -537,7 +537,7 @@ Na rysunku \ref{fig:class-diagram:data-types} przedstawiono definicje niestandar
 %        \item Atrybut \ref{kat:Pricing:title} jest ciągiem znaków o~długości od 1~do 255 znaków.
 %        \item Atrybut \ref{kat:Pricing:description} jest ciągiem znaków.
 %        \item Atrybut \ref{kat:Pricing:price} jest ciągiem znaków o~długości od 1~do 8~znaków.
-%        \item Atrybut \ref{kat:Pricing:currency} jest ciągiem znaków o~długości 3~znaków spełniającym normę ISO 4217.
+%        \item Atrybut \ref{kat:Pricing:currency} jest ciągiem znaków o~długości 3~znaków spełniającym normę ISO~4217.
 %        \item Jeżeli w~\ref{kat:Pricing:price} występuje znak "." to muszą po nim występować dokładnie 2~cyfry
 %    \end{enumerate}
 %
@@ -573,7 +573,7 @@ Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla 
         \atr{description}\label{kat:Product:description}- krótki opis produktu w~języku produktu
         \atr{source}\label{kat:Product:source}- źródło produktu, jeśli produkt jest importowany; preferowany format adresu URL
         \atr{isFinal}\label{kat:Product:isFinal}- flaga określająca czy produkt jest dostępny do edycji czy jest zablokowany
-        \atr{language}\label{kat:Product:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:Product:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
     \req{ProductBasicNutritionData}\label{kat:ProductBasicNutritionData} (Podstawowe Składniki Odżywcze Produktu)\\
@@ -616,7 +616,7 @@ Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla 
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:NutritionDefinitionTranslation:id}- identyfikator
         \atr{translation}\label{kat:NutritionDefinitionTranslation:translation}- przetłumaczony opis definicji wartości odżywczej
-        \atr{language}\label{kat:NutritionDefinitionTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:NutritionDefinitionTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
     \req{HouseholdMeasure}\label{kat:HouseholdMeasure} (Miara Domowa)\\
@@ -655,7 +655,7 @@ Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla 
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:ProductCategoryTranslation:id}- identyfikator
         \atr{translation}\label{kat:ProductCategoryTranslation:translation}- przetłumaczona nazwa kategorii produktu
-        \atr{language}\label{kat:ProductCategoryTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:ProductCategoryTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
     \req{DietType}\label{kat:DietType} (Typ Diety)\\
@@ -674,7 +674,7 @@ Na rysunku \ref{fig:class-diagram:gateway} przedstawiono model informacyjny dla 
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:DietTypeTranslation:id}- identyfikator
         \atr{translation}\label{kat:DietTypeTranslation:translation}- tłumaczenie nazwy typu diety
-        \atr{language}\label{kat:DietTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:DietTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
 \end{enumerate}
@@ -919,7 +919,7 @@ Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla
         \atr{image}\label{kat:Recipe:image}- opcjonalne zdjęcie dania przygotowanego na podstawie przepisu
         \atr{totalGramsWeight}\label{kat:Recipe:totalGramsWeight}- całkowita masa w~gramach dania przygotowanego z~przepisu
         \atr{isFinal}\label{kat:Recipe:isFinal}- flaga określająca czy przepis jest dostępny do edycji czy jest zablokowany
-        \atr{language}\label{kat:Recipe:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:Recipe:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
     \req{RecipeBasicNutritionData}\label{kat:RecipeBasicNutritionData} (Podstawowe Wartości Odżywcze Przepisu)\\
@@ -978,7 +978,7 @@ Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:KitchenApplianceTranslation:id}- identyfikator
         \atr{translation}\label{kat:KitchenApplianceTranslation:translation}- przetłumaczona nazwa sprzętu kuchennego
-        \atr{language}\label{kat:KitchenApplianceTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:KitchenApplianceTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
     \req{DishType}\label{kat:DishType} (Typ Dania)\\
@@ -997,7 +997,7 @@ Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:DishTypeTranslation:id}- identyfikator
         \atr{translation}\label{kat:DishTypeTranslation:translation}- przetłumaczona nazwa typu dania
-        \atr{language}\label{kat:DishTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:DishTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
     \req{MealType}\label{kat:MealType} (Typ Posiłku)\\
@@ -1016,7 +1016,7 @@ Na rysunku \ref{fig:class-diagram:products} przedstawiono model informacyjny dla
     \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
         \atr{id}\label{kat:MealTypeTranslation:id}- identyfikator
         \atr{translation}\label{kat:MealTypeTranslation:translation}- przetłumaczona nazwa typu posiłku
-        \atr{language}\label{kat:MealTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:MealTypeTranslation:language}- język tłumaczenia w~postaci kodu ISO~639-1
     \end{itemize}
 
 \end{enumerate}
@@ -1260,7 +1260,7 @@ Na rysunku \ref{fig:class-diagram:recipes} przedstawiono model informacyjny dla 
         \atr{editTimestamp}\label{kat:MealPlan:editTimestamp}- czas ostatniej edycji jadłospisu
         \atr{name}\label{kat:MealPlan:name}- nazwa jadłospisu
         \atr{isFinal}\label{kat:MealPlan:isFinal}- flaga określająca czy jadłospis jest edytowalny
-        \atr{language}\label{kat:MealPlan:language}- język tłumaczenia w~postaci kodu ISO 639-1
+        \atr{language}\label{kat:MealPlan:language}- język tłumaczenia w~postaci kodu ISO~639-1
         \atr{numberOfDays}\label{kat:MealPlan:numberOfDays}- liczba dni planu
         \atr{numberOfMealsPerDay}\label{kat:MealPlan:numberOfMealsPerDay}- liczba posiłków w~ciągu dnia
         \atr{totalDailyEnergy}\label{kat:MealPlan:totalDailyEnergy}- całkowita oczekiwana energia w~ciągu dnia w~kilokaloriach
@@ -1569,7 +1569,7 @@ Na rysunku \ref{fig:class-diagram:mealplans} przedstawiono model informacyjny dl
 %    \begin{itemize}[series=atr, wide, align=left, leftmargin=190pt]
 %        \atr{id}\label{kat:CustomNutritionalInterviewQuestionTemplate:id}- identyfikator
 %        \atr{question}\label{kat:CustomNutritionalInterviewQuestionTemplate:question}- pytanie
-%        \atr{language}\label{kat:CustomNutritionalInterviewQuestionTemplate:language}- język tłumaczenia w~postaci kodu ISO 639-1
+%        \atr{language}\label{kat:CustomNutritionalInterviewQuestionTemplate:language}- język tłumaczenia w~postaci kodu ISO~639-1
 %    \end{itemize}
 
     \req{AssignedMealPlan}\label{kat:AssignedMealPlan} (Przypisany Jadłospis)\\

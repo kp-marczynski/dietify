@@ -26,21 +26,21 @@ Wspomniane platformy cieszą się bardzo dużą popularnością, a~ich dojrzało
 
 \par
 Podczas projektu witryny internetowej kod, który jest wykonywany po stronie przeglądarki zwykle jest napisany w~technologiach HTML, CSS\cite{tech:html-css} i~JavaScript\cite{tech:javascript}.
-Jak już wspomniano zamiast języka JavaScript wykorzystano TypeScript, natomiast zamiast CSS postanowiono wykorzystać SASS\cite{tech:sass}, który rozszerza funkcjonalność CSS.
+Jak już wspomniano zamiast języka JavaScript wykorzystano TypeScript, natomiast zamiast CSS~postanowiono wykorzystać SASS\cite{tech:sass}, który rozszerza funkcjonalność CSS.
 
 \par
 System został zaprojektowany tak, żeby wykorzystać cechy relacyjnych baz danych,
 więc podczas wyboru systemu zarządzania bazą danych pod uwagę wzięto tylko relacyjne bazy danych.
 Rozważano przede wszystkim systemy PostgreSQL\cite{tech:postgresql} i~MySQL\cite{tech:mysql}.
 Z~punktu widzenia funkcjonalności potrzebnych w~implementowanej aplikacji oba systemy systemy zarządzania relacyjną bazą danych (ang. Relational Database Management System~- RDBMS) wypadają równie dobrze,
-jednakże ostatecznie wybrano PostgreSQL ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
+jednakże ostatecznie wybrano PostgreSQL~ze względu na mniej restrykcyjną licencję wykorzystania systemu nawet w~rozwiązaniach komercyjnych o~zamkniętym kodzie.
 Dodatkowo w~celu implementacji ewolucyjnego projektowania bazy danych\cite{url:evolutionary-database} postanowiono wykorzystać bibliotekę Liquibase\cite{tech:liquibase} do zarządzania zmianami schematu bazy.
 
 \par
 Do implementacji architektury mikroserwisów postanowiono wykorzystać stos technologii Netflix OSS\cite{tech:netflix-oss}.
 Jest to dojrzały, prosty do wykorzystania w~implementacji stos technologii mikroserwisowych,
 dla którego możliwa jest ścisła integracja ze Springiem poprzez wykorzystania projektu Spring Cloud Netflix\cite{tech:spring-cloud-netflix}.
-W skład tego stosu wchodzą przede wszystkim:
+W~skład tego stosu wchodzą przede wszystkim:
 \begin{itemize}
     \item Eureka\cite{tech:netflix-eureka}~- serwis typu discovery,
     \item Zuul\cite{tech:netflix-zuul}~- serwis zapewniający dynamiczne przekierowywanie żądań z~bramy aplikacji do poszczególnych mikroserwisów,
@@ -56,10 +56,10 @@ Ze względu na wykorzystanie architektury mikroserwisowej zdecydowano się na uw
 ponieważ jest to bezstanowy mechanizm, który można bezproblemowo wykorzystywać w~środowisku rozproszonym.
 
 \par
-W celu przyspieszenia rozwoju aplikacji postanowiono wykorzystać generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
-Korzystając z~autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w~oparciu o~stos technologii Netflix OSS oraz encji przypisanych do konkretnych serwisów.
+W~celu przyspieszenia rozwoju aplikacji postanowiono wykorzystać generator szkieletu aplikacji JHipster\cite{tech:jhipster}.
+Korzystając z~autorskiego języka domenowego JHipstera możliwe jest zdefiniowanie konfiguracji systemu mikroserwisowego w~oparciu o~stos technologii Netflix OSS~oraz encji przypisanych do konkretnych serwisów.
 Wykorzystaną konfigurację przedstawiono w~dodatku \ref{app:jdl} na listingu \ref{listing:short-jdl}, jednakże w~celu zwiększenia czytelności postanowiono pominąć opis encji, które zostały bezpośrednio oparte na kategoriach opisanych w~rozdziale \ref{sec:database}.
-Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, uwierzytelnianie i~autoryzację użytkowników oraz przeprowadzanie podstawowych operacji CRUD na encjach.
+Na podstawie zdefiniowanej konfiguracji wygenerowane zostały szkielety serwisów zapewniające zarządzanie infrastrukturą mikroserwisów, uwierzytelnianie i~autoryzację użytkowników oraz przeprowadzanie podstawowych operacji CRUD~na encjach.
 
 \par
 Aby zapewnić możliwie wysoką jakość oprogramowania konieczne jest przetestowanie czy kod działa w~oczekiwany sposób.
@@ -75,24 +75,24 @@ Dodatkowo postanowiono wykorzystać następujące narzędzia niezwiązane bezpo�
 
 \section{Zakres implementacji}\label{sec:implementation-scope}
 
-W wyniku analizy założeń projektowych przedstawionych w~rozdziale \ref{ch:design-assumptions} stwierdzono,
+W~wyniku analizy założeń projektowych przedstawionych w~rozdziale \ref{ch:design-assumptions} stwierdzono,
 że osiągnięcie minimalnego funkcjonalnego stanu produktu (ang. Minimum Viable Product~- MVP)
 wymaga zaimplementowania całego modelu domeny omówionego w~projekcie bazy danych w~rozdziale \ref{sec:database}.
-Natomiast w~kwestii dostępu do systemu, w~celu osiągnięcia MVP wystarczy, żeby bezpośredni dostęp mieli tylko dietetycy i~administratorzy,
+Natomiast w~kwestii dostępu do systemu, w~celu osiągnięcia MVP~wystarczy, żeby bezpośredni dostęp mieli tylko dietetycy i~administratorzy,
 a pacjenci będą otrzymywali skomponowane diety na adres mailowy, który podali dietetykowi.
 
 \par
 Ze względu na przetwarzanie wrażliwych danych osobowych, konieczne jest zawarcie w~witrynie internetowej polityki prywatności.
-Na rzecz osiągnięcia MVP w~przygotowywanej implementacji postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl\cite{url:ogicom-privacy-policy}.
+Na rzecz osiągnięcia MVP~w~przygotowywanej implementacji postanowiono wykorzystać szablon udostępniany przez firmę ogicom.pl\cite{url:ogicom-privacy-policy}.
 Jednakże należy podkreślić, że autor niniejszej pracy inżynierskiej nie posiada wykształcenia prawniczego
 i należy traktować przedstawioną politykę prywatności jedynie jako wersję roboczą,
 a przed komercyjnym wdrożeniem systemu należałoby zasięgnąć porady w~kancelarii prawnej oferującej doradztwo prawne z~zakresu przetwarzania i~ochrony danych osobowych.
 %Wykorzystany szablon przedstawiony został w~dodatku \ref{app:privacy-policy}.
 
 \par
-Aby zapewnić użytkownikom aplikacji podstawową bazę produktów spożywczych postanowiono wykorzystać bazę USDA omówioną w~rozdziale \ref{sec:domain-literature}.
+Aby zapewnić użytkownikom aplikacji podstawową bazę produktów spożywczych postanowiono wykorzystać bazę USDA~omówioną w~rozdziale \ref{sec:domain-literature}.
 Baza jest udostępniana w~formie pliku bazy Microsoft Access.
-Żeby umożliwić wykorzystanie tej bazy w~tworzonym programie, z~pomocą narzędzi dostępnych w~programie Microsoft Access przygotowano pliki w~formacie CSV dla następujących kategorii:
+Żeby umożliwić wykorzystanie tej bazy w~tworzonym programie, z~pomocą narzędzi dostępnych w~programie Microsoft Access przygotowano pliki w~formacie CSV~dla następujących kategorii:
 \begin{itemize}
     \item\ref{kat:Product},
     \item\ref{kat:ProductBasicNutritionData},
@@ -107,7 +107,7 @@ Baza jest udostępniana w~formie pliku bazy Microsoft Access.
 
 \par
 Przygotowane pliki są wczytywane do bazy za pomocą Liquibase.
-Przykładowy skrypt ładujący dane z~pliku CSV został przedstawiony na listingu \ref{listing:liquibase}.
+Przykładowy skrypt ładujący dane z~pliku CSV~został przedstawiony na listingu \ref{listing:liquibase}.
 
 \noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
     \begin{minted}{xml}
@@ -121,7 +121,7 @@ Przykładowy skrypt ładujący dane z~pliku CSV został przedstawiony na listing
   </loadData>
 </changeSet>
     \end{minted}
-    \begin{lstlisting}[caption={Skrpyt ładujący dane z~pliku CSV \source{\ownwork}}, label={listing:liquibase}]
+    \begin{lstlisting}[caption={Skrpyt ładujący dane z~pliku CSV~\source{\ownwork}}, label={listing:liquibase}]
 \end{lstlisting}
 \end{minipage}
 
@@ -135,7 +135,7 @@ Klient końcowy za pomocą przeglądarki internetowej łączy się z~systemem za
 Żądania klienta są obsługiwane przez jedną instancję serwisu Gateway, a~serwis Gateway może obsługiwać żądania wielu klientów.
 Warto zauważyć, że serwis JHipster Registry jest pojedynczym punktem awarii (ang. Single point of failure), gdyż wszystkie mikroserwisy korzystają z~pojedynczej instancji tego serwisu.
 Komunikacja z~serwerami bazodanowymi odbywa się za pomocą protokołu PostgreSQL.
-W celu uniknięcia niespójności danych przyjęto założenie, że może istnieć tylko jedna instancja bazy danych dla konkretnego serwisu.
+W~celu uniknięcia niespójności danych przyjęto założenie, że może istnieć tylko jedna instancja bazy danych dla konkretnego serwisu.
 
 \image{0.7}{../uml/deployment_diagrams/deployment.png}{Diagram rozmieszczenia}{deployment-diagram}
 
@@ -145,7 +145,7 @@ W celu uniknięcia niespójności danych przyjęto założenie, że może istnie
 
 Na rysunku \ref{fig:package-diagram-backend} przedstawiono diagram pakietów obrazujący konwencję zastosowaną we wszystkich mikroserwisach podczas implementowania kodu backendu.
 Pakiet "REST" jest odpowiedzialny za odbieranie żądań przychodzących do aplikacji i~odpowiadanie na nie.
-W celu wykonania akcji biznesowej wywoływane są funkcje z~klas pakietu "SERVICE", który agreguje całą logikę biznesową aplikacji.
+W~celu wykonania akcji biznesowej wywoływane są funkcje z~klas pakietu "SERVICE", który agreguje całą logikę biznesową aplikacji.
 Żeby ułatwić testowanie jednostkowe z~wykorzystaniem Mockito w~warstwie serwis postanowiono zaimplementować wzorzec projektowy Most\cite{book:wzorce-projektowe} i~oddzielić interfejsy serwisów od ich implementacji.
 Aby realizować niektóre akcje biznesowe konieczne jest odwołanie się do bazy danych.
 Za wszystkie operacje na bazie danych odpowiadają klasy z~pakietu "REPOSITORY".
@@ -191,7 +191,7 @@ private String description;
 \imagewide{img/example-javadoc.png}{Przykładowy fragment dokumentacji JavaDoc}{javadoc}
 
 Dodatkowo wykorzystano narzędzie Swagger\cite{tech:swagger} do automatycznego generowania dokumentacji
-punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints~- API Endpoints) na podstawie implementacji,
+punktów końcowych interfejsu programowania aplikacji (ang. Application Programming Interface Endpoints~- API~Endpoints) na podstawie implementacji,
 czego rezultat zaprezentowano na rysunku \ref{fig:swagger}.
 
 \imagewide{img/swagger-example.png}{Przykładowy fragment dokumentacji Swagger}{swagger}
@@ -200,8 +200,8 @@ czego rezultat zaprezentowano na rysunku \ref{fig:swagger}.
 \subsection{Wymagania wstępne}\label{subsec:prerequirements}
 Przed przystąpieniem do wykonywania kolejnych kroków należy się upewnić, że następujące narzędzia są zainstalowane:
 \begin{itemize}
-    \item Open JDK 11 (https://adoptopenjdk.net/?variant=openjdk11),
-    \item Node.js 10 lub nowsza wersja LTS (https://nodejs.org/en/),
+    \item Open JDK~11 (https://adoptopenjdk.net/?variant=openjdk11),
+    \item Node.js 10 lub nowsza wersja LTS~(https://nodejs.org/en/),
     \item Docker 19.03 + Docker Compose 2 (https://docs.docker.com/install/).
 \end{itemize}
 
@@ -231,7 +231,7 @@ sh docker-compose up
 \end{minipage}
 
 Alternatywnie, dla celów deweloperskich można zastosować uproszczony proces nie wykorzystujący Dockera.
-W tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z~poziomu głównego katalogu projektu
+W~tym celu należy najpierw uruchomić JHipster Registry wykonując polecenie z~poziomu głównego katalogu projektu
 wykonać polecenia przedstawione na listingu \ref{listing:service-discovery}.
 
 \noindent\hspace{.075\textwidth}\begin{minipage}{.85\textwidth}
@@ -271,7 +271,7 @@ maildev -s 25
 
 \section{Prezentacja aplikacji}\label{sec:app-presentation}
 
-W niniejszej sekcji przedstawiony zostanie rezultat utworzonej aplikacji w~formie zrzutów ekranu,
+W~niniejszej sekcji przedstawiony zostanie rezultat utworzonej aplikacji w~formie zrzutów ekranu,
 a odpowiednie widoki zostaną odniesione do ich prototypów przygotowanych podczas projektowania interfejsu aplikacji.
 
 \par
