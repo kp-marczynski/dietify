@@ -49,11 +49,11 @@
                         <thead>
                         <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
                             <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="authorId"><span jhiTranslate="gatewayApp.mealplansMealPlan.authorId">Author Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="lastEditTimestamp"><span jhiTranslate="gatewayApp.mealplansMealPlan.lastEditTimestamp">Last Edit Timestamp</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--                            <th jhiSortBy="authorId"><span jhiTranslate="gatewayApp.mealplansMealPlan.authorId">Author Id</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--                            <th jhiSortBy="lastEditTimestamp"><span jhiTranslate="gatewayApp.mealplansMealPlan.lastEditTimestamp">Last Edit Timestamp</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
                             <th jhiSortBy="name"><span jhiTranslate="gatewayApp.mealplansMealPlan.name">Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="isFinal"><span jhiTranslate="gatewayApp.mealplansMealPlan.isFinal">Is Final</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                            <th jhiSortBy="language"><span jhiTranslate="gatewayApp.mealplansMealPlan.language">Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+<!--                            <th jhiSortBy="isFinal"><span jhiTranslate="gatewayApp.mealplansMealPlan.isFinal">Is Final</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
+<!--                            <th jhiSortBy="language"><span jhiTranslate="gatewayApp.mealplansMealPlan.language">Language</span> <fa-icon [icon]="'sort'"></fa-icon></th>-->
                             <th jhiSortBy="numberOfDays"><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfDays">Number Of Days</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="numberOfMealsPerDay"><span jhiTranslate="gatewayApp.mealplansMealPlan.numberOfMealsPerDay">Number Of Meals Per Day</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                             <th jhiSortBy="totalDailyEnergy"><span jhiTranslate="gatewayApp.mealplansMealPlan.totalDailyEnergy">Total Daily Energy</span> <fa-icon [icon]="'sort'"></fa-icon></th>
@@ -66,11 +66,11 @@
                         <tbody>
                         <tr *ngFor="let mealPlan of mealPlans ;trackBy: trackId">
                             <td><a [routerLink]="['/meal-plan', mealPlan.id, 'view' ]">{{mealPlan.id}}</a></td>
-                            <td>{{mealPlan.authorId}}</td>
-                            <td>{{mealPlan.lastEditTimestamp | date:'mediumDate'}}</td>
+<!--                            <td>{{mealPlan.authorId}}</td>-->
+<!--                            <td>{{mealPlan.lastEditTimestamp | date:'mediumDate'}}</td>-->
                             <td>{{mealPlan.name}}</td>
-                            <td>{{mealPlan.isFinal}}</td>
-                            <td>{{mealPlan.language}}</td>
+<!--                            <td>{{mealPlan.isFinal}}</td>-->
+<!--                            <td>{{mealPlan.language}}</td>-->
                             <td>{{mealPlan.numberOfDays}}</td>
                             <td>{{mealPlan.numberOfMealsPerDay}}</td>
                             <td>{{mealPlan.totalDailyEnergy}}</td>

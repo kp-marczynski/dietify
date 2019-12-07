@@ -20,6 +20,8 @@ import { GatewayEntityModule } from './entities/entity.module';
 import * as moment from 'moment';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent, ActiveMenuDirective, ErrorComponent } from './layouts';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsOfUseComponent } from './terms-of-use/terms-of-use.component';
 
 @NgModule({
   imports: [
@@ -40,7 +42,16 @@ import { JhiMainComponent, NavbarComponent, FooterComponent, PageRibbonComponent
     GatewayEntityModule,
     GatewayAppRoutingModule
   ],
-  declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    JhiMainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    PrivacyPolicyComponent,
+    TermsOfUseComponent
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
