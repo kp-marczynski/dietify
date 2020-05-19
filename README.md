@@ -51,11 +51,15 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
 <img src="documentation/uml/use_case_diagrams/users.png" width="300"/>
 
 ### Wymagania funkcjonalne
-<img src="documentation/uml/use_case_diagrams/gateway.png" width="300"/>
-<img src="documentation/uml/use_case_diagrams/products.png" width="300"/>
-<img src="documentation/uml/use_case_diagrams/recipes.png" width="300"/>
-<img src="documentation/uml/use_case_diagrams/mealplans.png" width="300"/>
-<img src="documentation/uml/use_case_diagrams/appointments.png" width="300"/>
+<img src="documentation/uml/use_case_diagrams/gateway.png" width="600"/>
+<img src="documentation/uml/use_case_diagrams/products.png" width="600"/>
+<img src="documentation/uml/use_case_diagrams/recipes.png" width="600"/>
+<img src="documentation/uml/use_case_diagrams/mealplans.png" width="600"/>
+<img src="documentation/uml/use_case_diagrams/appointments.png" width="600"/>
+
+## Prototyp interfejsu
+<img src="documentation/uml/mockup/0home.png" width="600"/>
+<img src="documentation/uml/mockup/6mobile.png" width="600"/>
 
 [node.js]: https://nodejs.org/
 [jdk11]: https://openjdk.java.net/projects/jdk/11/
