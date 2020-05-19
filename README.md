@@ -48,7 +48,7 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
     
 ## Założenia projektowe
 ### Użytkownicy systemu
-![Użytkownicy](documentation/uml/use_case_diagrams/users.png =250x)
+![Użytkownicy](documentation/uml/use_case_diagrams/users.png | width=250)
 
 [node.js]: https://nodejs.org/
 [jdk11]: https://openjdk.java.net/projects/jdk/11/
