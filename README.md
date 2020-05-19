@@ -58,8 +58,8 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
 <img src="documentation/uml/use_case_diagrams/appointments.png" width="600"/>
 
 ## Prototyp interfejsu
-<img src="documentation/uml/mockup/0home.png" width="600"/>
-<img src="documentation/uml/mockup/6mobile.png" width="600"/>
+<img src="documentation/mockup/0home.png" width="600"/>
+<img src="documentation/mockup/6mobile.png" width="600"/>
 
 [node.js]: https://nodejs.org/
 [jdk11]: https://openjdk.java.net/projects/jdk/11/
