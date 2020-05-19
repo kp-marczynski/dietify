@@ -11,20 +11,27 @@ OSS dla architektury mikroserwisów. Opracowane rozwiązanie może zostać wykor
 przez dietetyków w celu przeprowadzania kompleksowej obsługi wizyty pacjenta z położeniem
 szczególnego nacisku na układanie jadłospisów i udostępnianie go pacjentom.
 
-## Wymagania wstępne
+## Demo
+Demo działania aplikacji zostało umieszczone w serwisie youtube https://www.youtube.com/watch?v=wWUMbjSz5Z8
+
+## Praca inżynierska
+Skompilowaną treść pracy można znaleźć [tutaj](documentation/latex/Marczynski_Krzysztof_praca_inzynierska.pdf).
+
+## Korzystanie z kodu
+### Wymagania wstępne
 
 -   [Node.js][]
 -   [jdk11][]
 
-## Instalacja
-### Z Dockerem
+### Instalacja
+#### Z Dockerem
 Uruchom skrypt: 
     
     sh docker-compose/build-and-run-docker.sh
     
 Następnie przejdź do adresu [http://localhost:8080](http://localhost:8080) w przeglądarce.
 
-### Bez Dockera
+#### Bez Dockera
 Najpierw uruchom service discovery: 
 
     sh service-discovery/start-registry.sh
@@ -41,7 +48,7 @@ Następnie przejdź do adresu [http://localhost:8080](http://localhost:8080) w p
 
 Następnie przejdź do adresu [http://localhost:9000](http://localhost:9000) w przeglądarce.
 
-## Budowanie wersji produkcyjnej
+### Budowanie wersji produkcyjnej
 Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wykonaj w katalogu głównym aplikacji:
     
     ./gradlew -Pprod clean bootJar
