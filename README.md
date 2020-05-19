@@ -60,10 +60,13 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
 ## Architektura systemu
 ### Ogólna architektura
 <img src="documentation/latex/img/podstawowa-architektura.png" width="600"/>
+
 ### Diagram rozmieszczenia
 <img src="documentation/uml/deployment_diagrams/deployment.png" width="600"/>
+
 ### Architektura backendu
 <img src="documentation/uml/package_diagrams/backend.png" width="600"/>
+
 ### Architektura frontendu
 <img src="documentation/latex/img/angular-architecture.png" width="600"/>
 
