@@ -57,17 +57,25 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
 <img src="documentation/uml/use_case_diagrams/mealplans.png" width="600"/>
 <img src="documentation/uml/use_case_diagrams/appointments.png" width="600"/>
 
-### Architektura systemu
-#### Ogólna architektura
+## Architektura systemu
+### Ogólna architektura
 <img src="documentation/latex/img/podstawowa-architektura.png" width="600"/>
-#### Diagram rozmieszczenia
+### Diagram rozmieszczenia
 <img src="documentation/uml/deployment_diagrams/deployment.png" width="600"/>
-#### Architektura backendu
+### Architektura backendu
 <img src="documentation/uml/package_diagrams/backend.png" width="600"/>
-#### Architektura frontendu
+### Architektura frontendu
 <img src="documentation/latex/img/angular-architecture.png" width="600"/>
 
-### Prototyp interfejsu
+## Projekt bazy danych
+<img src="documentation/uml/class_diagrams/dataTypes.png" width="300"/>
+<img src="documentation/uml/class_diagrams/gateway.png" width="600"/>
+<img src="documentation/uml/class_diagrams/products.png" width="600"/>
+<img src="documentation/uml/class_diagrams/recipes.png" width="600"/>
+<img src="documentation/uml/class_diagrams/mealplans.png" width="600"/>
+<img src="documentation/uml/class_diagrams/appointments.png" width="600"/>
+
+## Prototyp interfejsu
 <img src="documentation/mockup/0home.png" width="600"/>
 <img src="documentation/mockup/6mobile.png" width="300"/>
 <img src="documentation/mockup/1products.png" width="600"/>
