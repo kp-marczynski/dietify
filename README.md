@@ -59,7 +59,11 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
 
 ## Prototyp interfejsu
 <img src="documentation/mockup/0home.png" width="600"/>
-<img src="documentation/mockup/6mobile.png" width="600"/>
+<img src="documentation/mockup/6mobile.png" width="300"/>
+<img src="documentation/mockup/1products.png" width="600"/>
+<img src="documentation/mockup/1products_1new.png" width="600"/>
+<img src="documentation/mockup/3mealplans_1new_2calendar.png" width="600"/>
+<img src="documentation/mockup/4appointments_2patient_card_details.png" width="600"/>
 
 [node.js]: https://nodejs.org/
 [jdk11]: https://openjdk.java.net/projects/jdk/11/
