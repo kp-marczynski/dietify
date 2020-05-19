@@ -1,39 +1,54 @@
 # Dietify
+Celem pracy było opracowanie systemu do zarzadzania dieta w architekturze
+mikroserwisów. Aby osiagnac ten cel przeprowadzono analize istniejacych rozwiazan
+konkurencyjnych, przedstawiono niezbedna wiedze domenowa oraz porównano popularne
+style architektury aplikacji. Na podstawie zgromadzonej wiedzy wyszczególniono niezbedne
+załozenia projektowe, zaprojektowano interfejs oraz zdefiniowano kategorie danych wraz
+z regułami i ograniczeniami ich dotyczacymi. Nastepnie przedstawiono opis implementacji
+powstałej na podstawie opracowanego projektu. W implementacji kluczowa role odegrały
+jezyki Java i TypeScript, platforma deweloperska JHipster oraz stos technologii Netflix
+OSS dla architektury mikroserwisów. Opracowane rozwiazanie moze zostac wykorzystane
+przez dietetyków w celu przeprowadzania kompleksowej obsługi wizyty pacjenta z połozeniem
+szczególnego nacisku na układanie jadłospisów i udostepnianie go pacjentom.
 
-## Prerequisites
+## Wymagania wstępne
 
 -   [Node.js][]
 -   [jdk11][]
 
-## How to run?
-### With Docker
-Simply run: 
+## Instalacja
+### Z Dockerem
+Uruchom skrypt: 
     
     sh docker-compose/build-and-run-docker.sh
     
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+Następnie przejdź do adresu [http://localhost:8080](http://localhost:8080) w przeglądarce.
 
-### Without Docker
-First start eureka service discovery: 
+### Bez Dockera
+Najpierw uruchom service discovery: 
 
     sh service-discovery/start-registry.sh
     
-For each app { gateway, products, recipes, mealplans, appointments } run in app root directory: 
+Następnie dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wykonaj w katalogu głównym aplikacji: 
     
     ./gradlew 
 
-Then navigate to [http://localhost:8080](http://localhost:8080) in your browser.
+Następnie przejdź do adresu [http://localhost:8080](http://localhost:8080) w przeglądarce.
 
-For live frontend reload run in gateway app root directory: 
+Żeby skorzystać z wykrywania zmian i automatycznego odświeżania frontendu aplikacji wykonaj poniższe polecania w katalogu głównym serwisu gateway:
     
     npm install && npm start
 
-Then navigate to [http://localhost:9000](http://localhost:9000) in your browser.
+Następnie przejdź do adresu [http://localhost:9000](http://localhost:9000) w przeglądarce.
 
-## Building for production
-For each app { gateway, products, recipes, mealplans, appointments } run in app root directory:
+## Budowanie wersji produkcyjnej
+Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wykonaj w katalogu głównym aplikacji:
     
     ./gradlew -Pprod clean bootJar
+    
+## Założenia projektowe
+### Użytkownicy systemu
+![Użytkownicy](documentation/uml/use_case_diagrams/users.png)
 
 [node.js]: https://nodejs.org/
 [jdk11]: https://openjdk.java.net/projects/jdk/11/
