@@ -1,15 +1,15 @@
 # Dietify
-Celem pracy było opracowanie systemu do zarzadzania dieta w architekturze
-mikroserwisów. Aby osiagnac ten cel przeprowadzono analize istniejacych rozwiazan
-konkurencyjnych, przedstawiono niezbedna wiedze domenowa oraz porównano popularne
-style architektury aplikacji. Na podstawie zgromadzonej wiedzy wyszczególniono niezbedne
-załozenia projektowe, zaprojektowano interfejs oraz zdefiniowano kategorie danych wraz
-z regułami i ograniczeniami ich dotyczacymi. Nastepnie przedstawiono opis implementacji
-powstałej na podstawie opracowanego projektu. W implementacji kluczowa role odegrały
-jezyki Java i TypeScript, platforma deweloperska JHipster oraz stos technologii Netflix
-OSS dla architektury mikroserwisów. Opracowane rozwiazanie moze zostac wykorzystane
-przez dietetyków w celu przeprowadzania kompleksowej obsługi wizyty pacjenta z połozeniem
-szczególnego nacisku na układanie jadłospisów i udostepnianie go pacjentom.
+Celem pracy było opracowanie systemu do zarządzania dietą w architekturze
+mikroserwisów. Aby osiągnąć ten cel przeprowadzono analizę istniejących rozwiązań
+konkurencyjnych, przedstawiono niezbędną wiedzę domenową oraz porównano popularne
+style architektury aplikacji. Na podstawie zgromadzonej wiedzy wyszczególniono niezbędne
+założenia projektowe, zaprojektowano interfejs oraz zdefiniowano kategorie danych wraz
+z regułami i ograniczeniami ich dotyczącymi. Następnie przedstawiono opis implementacji
+powstałej na podstawie opracowanego projektu. W implementacji kluczową rolę odegrały
+języki Java i TypeScript, platforma deweloperska JHipster oraz stos technologii Netflix
+OSS dla architektury mikroserwisów. Opracowane rozwiązanie może zostać wykorzystane
+przez dietetyków w celu przeprowadzania kompleksowej obsługi wizyty pacjenta z położeniem
+szczególnego nacisku na układanie jadłospisów i udostępnianie go pacjentom.
 
 ## Wymagania wstępne
 
@@ -45,8 +45,25 @@ Następnie przejdź do adresu [http://localhost:9000](http://localhost:9000) w p
 Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wykonaj w katalogu głównym aplikacji:
     
     ./gradlew -Pprod clean bootJar
-    
+
 ## Założenia projektowe
+### Dekompozycja problemu w oparciu o poddziedziny
+Na podstawie wywiadu z dietetykiem, analizy rozwiązań konkurencyjnych oraz opierając
+się na wzorcu dekompozycji problemu w oparciu o poddziedziny
+dla omawianej aplikacji wspomagania zarządzania dietą można wyszczególnić następujące
+poddziedziny:
+* poddziedzina administracyjna - służąca jako brama aplikacji, pozwalająca na
+zarządzanie użytkownikami i administrowanie aplikacją,
+* poddziedzina produkty - skupiająca się na zarządzaniu produktami spożywczymi, ich
+wartościami odżywczymi i miarami domowymi,
+* poddziedzina przepisy - pozwalająca na zarządzanie przepisami, w tym przypisywanie
+do przepisów produktów,
+* poddziedzina jadłospisy - pozwalająca na zarządzanie jadłospisami, w tym przypisywanie
+do jadłospisów produktów i przepisów,
+* poddziedzina wizyty - skupiająca się na całościowym zarządzaniu wizytami pacjenta
+w obrębie karty pacjenta, a w szczególności przypisywaniem do wizyty jadłospisów,
+przeprowadzaniem wywiadu żywieniowego oraz zbieraniem pomiarów ciała pacjenta.
+
 ### Użytkownicy systemu
 <img src="documentation/uml/use_case_diagrams/users.png" width="300"/>
 
