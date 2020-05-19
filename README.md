@@ -48,7 +48,14 @@ Dla każdej aplikacji { gateway, products, recipes, mealplans, appointments } wy
     
 ## Założenia projektowe
 ### Użytkownicy systemu
-<img alt="Użytkownicy" src="documentation/uml/use_case_diagrams/users.png" width="250"/>
+<img src="documentation/uml/use_case_diagrams/users.png" width="300"/>
+
+### Wymagania funkcjonalne
+<img src="documentation/uml/use_case_diagrams/gateway.png" width="300"/>
+<img src="documentation/uml/use_case_diagrams/products.png" width="300"/>
+<img src="documentation/uml/use_case_diagrams/recipes.png" width="300"/>
+<img src="documentation/uml/use_case_diagrams/mealplans.png" width="300"/>
+<img src="documentation/uml/use_case_diagrams/appointments.png" width="300"/>
 
 [node.js]: https://nodejs.org/
 [jdk11]: https://openjdk.java.net/projects/jdk/11/
